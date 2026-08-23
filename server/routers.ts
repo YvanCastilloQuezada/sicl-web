@@ -10,7 +10,7 @@ import { siclCorePort } from "./siclCorePort";
 import { createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
-const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional() });
+const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
 const versionInput = z.object({ projectId: z.string().min(1), expectedVersion: z.number().int().positive() });
 
 function fail(message: string): never { throw new TRPCError({ code: "BAD_REQUEST", message }); }
@@ -50,18 +50,25 @@ export const appRouter = router({
       const project = await ownedProject(ctx.user.id, input.projectId);
       const canonical = await fetchCanonicalSnapshot(project.projectId);
       if (canonical && "not_found" in canonical) throw new TRPCError({ code: "NOT_FOUND", message: canonical.detail ?? "SICL project not found" });
-      return { ...project, snapshot: canonical ? canonical.snapshot : siclCorePort.parseSnapshot(project.snapshot) };
+      if (!canonical) return { ...project, snapshot: siclCorePort.parseSnapshot(project.snapshot) };
+      const localContext = siclCorePort.parseSnapshot(project.snapshot);
+      const parsedCanonical = siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot));
+      const snapshot = { ...parsedCanonical, spatialScope: parsedCanonical.spatialScope ?? localContext.spatialScope, temporalScope: parsedCanonical.temporalScope ?? localContext.temporalScope };
+      return { ...project, snapshot };
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
       requireCanonicalCoreOrExplicitLocal();
       const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
       if (hasCoreUrl()) {
-        const canonical = await createCoreProject(projectId, input.name);
-        await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, version: canonical.observed_version, snapshot: JSON.stringify(canonical.snapshot), status: "ACTIVE" });
+        const canonical = await createCoreProject(projectId, input.name, { spatialScope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporalScope: { horizon: input.temporalHorizon } });
+        const snapshot = { ...canonical.snapshot, spatial_scope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporal_scope: { horizon: input.temporalHorizon } };
+        await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, version: canonical.observed_version, snapshot: JSON.stringify(snapshot), status: "ACTIVE" });
         return { projectId, version: canonical.observed_version };
       }
       const snapshot = siclCorePort.emptySnapshot();
-      snapshot.events.push(event(ctx.user.id, "PROJECT_CREATED", projectId, { name: input.name }));
+      snapshot.spatialScope = { scale: input.spatialScale, id: projectId, name: input.location || input.name };
+      snapshot.temporalScope = { horizon: input.temporalHorizon };
+      snapshot.events.push(event(ctx.user.id, "PROJECT_CREATED", projectId, { name: input.name, spatialScale: input.spatialScale, temporalHorizon: input.temporalHorizon }));
       await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, status: "DRAFT", version: 1, snapshot: JSON.stringify(snapshot) });
       return { projectId, version: 1 };
     }),

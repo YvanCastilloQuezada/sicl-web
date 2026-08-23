@@ -45,12 +45,24 @@ describe("tRPC to SICL Core delegation", () => {
   });
 });
 
-  it.each([401, 409, 422])("preserves core adapter error %s", async (status) => {
+  it.each([
+    [401, "invalid service authentication"],
+    [409, "expected project version 1, got 2"],
+    [422, "authority context is invalid"],
+  ])("preserves core adapter error %s and detail", async (status, detail) => {
     process.env.SICL_CORE_URL = "https://core.example.test";
     process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status })));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: `UPSTREAM_${status}`, detail }), { status, headers: { "content-type": "application/json" } })));
     const caller = appRouter.createCaller(ctx);
-    await expect(caller.projects.recommendationCreate({ projectId: "SICL-1", expectedVersion: 1, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "BINARY", reason: "Explicit analytical basis", source: "ANALYTICAL" })).rejects.toThrow(String(status));
+    await expect(caller.projects.recommendationCreate({ projectId: "SICL-1", expectedVersion: 1, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "BINARY", reason: "Explicit analytical basis", source: "ANALYTICAL" })).rejects.toThrow(`${status}: ${detail}`);
+  });
+
+  it("preserves a Python authority rejection at the human decision boundary", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: "AUTHORITY_CONTEXT_INVALID", detail: "authority basis is not sufficient" }), { status: 422, headers: { "content-type": "application/json" } })));
+    const caller = appRouter.createCaller(ctx);
+    await expect(caller.projects.decisionRecord({ projectId: "SICL-1", expectedVersion: 1, decisionId: "DEC-1", selectedAlternativeId: "ALT-A", actorId: "actor-7", authorityBasis: "UNVERIFIED", confirmationId: "CONF-2", rationale: "Explicit human decision" })).rejects.toThrow("422: authority basis is not sufficient");
   });
 
 

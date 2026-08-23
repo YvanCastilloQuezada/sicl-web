@@ -56,3 +56,29 @@ describe("canonical comparison collections", () => {
     expect(snapshot.multiComparisons.map((item) => item.id)).toEqual(["MCMP-1"]);
   });
 });
+
+describe("hierarchical SICL scopes", () => {
+  it("normalizes spatial scale and temporal horizon without changing analytical collections", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ spatial_scope: { scale: "CITY", id: "CITY-TRUJILLO", name: "Trujillo" }, temporal_scope: { horizon: "2040", scenario: "compact-growth" }, alternatives: { "ALT-A": { alternative_id: "ALT-A", name: "Scheme A" } } }));
+    expect(snapshot.spatialScope).toEqual({ scale: "CITY", id: "CITY-TRUJILLO", name: "Trujillo" });
+    expect(snapshot.temporalScope).toEqual({ horizon: "2040", scenario: "compact-growth" });
+    expect(snapshot.alternatives).toHaveLength(1);
+  });
+
+  it("normalizes scopes nested inside the canonical CoreProject", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ project: { spatial_scope: { scale: "MACROREGION", id: "MR-01", name: "Andes" }, temporal_scope: { horizon: "2030" } }, alternatives: { "ALT-A": { alternative_id: "ALT-A", name: "Scheme A" } } }));
+    expect(snapshot.spatialScope).toMatchObject({ scale: "MACROREGION", id: "MR-01" });
+    expect(snapshot.temporalScope).toEqual({ horizon: "2030" });
+    expect(snapshot.alternatives).toHaveLength(1);
+  });
+
+  it("keeps historical snapshots valid when scopes are absent or invalid", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ objectives: [], spatial_scope: { scale: "UNKNOWN", id: "x", name: "x" }, temporal_scope: { horizon: "2099" } }));
+    expect(snapshot.spatialScope).toBeUndefined();
+    expect(snapshot.temporalScope).toBeUndefined();
+    expect(snapshot.objectives).toEqual([]);
+  });
+});

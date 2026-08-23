@@ -1,3 +1,5 @@
+import { normalizeSpatialScope, normalizeTemporalScope, type SpatialScope, type TemporalScope } from "@shared/siclScopes";
+
 export type SiclStatus = "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED";
 export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives" | "recommendations";
 
@@ -46,6 +48,8 @@ export type SiclSnapshot = {
   humanReviews: SiclRecord[];
   decisions: SiclRecord[];
   events: SiclEvent[];
+  spatialScope?: SpatialScope;
+  temporalScope?: TemporalScope;
 };
 
 export const emptySnapshot = (): SiclSnapshot => ({
@@ -70,11 +74,15 @@ export function parseSnapshot(raw: string): SiclSnapshot {
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const snapshot = emptySnapshot();
     const source = (parsed.core && typeof parsed.core === "object" ? parsed.core : parsed) as Record<string, unknown>;
+    const project = source.project && typeof source.project === "object" ? source.project as Record<string, unknown> : {};
+    const metadata = { ...source, ...project };
     const aliases: Record<keyof SiclSnapshot, string[]> = {
-      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"],
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
     };
-    for (const key of Object.keys(snapshot) as (keyof SiclSnapshot)[]) {
-      const values = aliases[key].flatMap((alias) => collection(source[alias]));
+    for (const key of Object.keys(aliases) as (keyof SiclSnapshot)[]) {
+      if (key === "spatialScope") { const scope = aliases[key].map((alias) => normalizeSpatialScope(metadata[alias])).find(Boolean); if (scope) snapshot.spatialScope = scope; continue; }
+      if (key === "temporalScope") { const scope = aliases[key].map((alias) => normalizeTemporalScope(metadata[alias])).find(Boolean); if (scope) snapshot.temporalScope = scope; continue; }
+      const values = aliases[key].flatMap((alias) => collection(metadata[alias]));
       if (values.length) snapshot[key] = values as never;
     }
     return snapshot;
@@ -119,6 +127,8 @@ export function analysisView(snapshot: SiclSnapshot) {
     evaluations: snapshot.evaluations,
     comparisons: snapshot.comparisons,
     recommendations: snapshot.recommendations,
+    spatialScope: snapshot.spatialScope,
+    temporalScope: snapshot.temporalScope,
     finding: snapshot.alternatives.length > 1 ? "MULTI_ALTERNATIVE_ANALYSIS_AVAILABLE" : "INSUFFICIENT_DATA",
   };
 }

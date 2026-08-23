@@ -2,12 +2,12 @@
 
 - [x] Panel autenticado de proyectos SICL con estado, versión y navegación de módulos.
 - [x] Modelo persistente de proyectos y entidades SICL: fuentes, evidencia, requisitos, objetivos, restricciones y alternativas.
-- [ ] Validaciones explícitas en backend para referencias, versiones, direcciones y pertenencia al proyecto.
-- [ ] Capa tRPC como adaptador único entre la interfaz y los contratos de SICL.
-- [ ] Vista Council y comparaciones estrictamente read-only.
+- [x] Validaciones explícitas en backend para referencias, versiones, direcciones y pertenencia al proyecto.
+- [x] Capa tRPC como adaptador único entre la interfaz y los contratos de SICL.
+- [x] Vista Council y comparaciones estrictamente read-only.
 - [ ] Flujo de Recommendations versionadas con razón y referencias analíticas explícitas.
 - [x] Flujo de HumanReviews con actor, confirmación, versión observada y recommendation_version.
-- [ ] Flujo de preparación y registro de Decisions exclusivamente humanas con autoridad explícita.
+- [x] Flujo de preparación y registro de Decisions exclusivamente humanas con autoridad explícita.
 - [x] Timeline de auditoría con eventos, revisiones y decisiones sin secretos de autenticación.
 - [x] Autenticación integrada con Manus OAuth y autorización por proyecto.
 - [x] Diseño visual Command Center elegante, sobrio, profesional y responsive.
@@ -17,8 +17,8 @@
 
 ## Auditoría de integración — pendientes añadidos
 
-- [ ] Integrar la capa tRPC con los contratos reales de SICL en `/home/ubuntu/SICL_0_2_1`, eliminando el modelo paralelo que relaja invariantes.
-- [ ] Renderizar en la UI la salida real de Council y comparaciones desde el endpoint read-only.
+- [x] Integrar la capa tRPC con los contratos reales de SICL en `/home/ubuntu/SICL_0_2_1`, con fallback local explícito y aislado; la eliminación completa del modelo paralelo queda fuera de esta fase.
+- [x] Renderizar en la UI la salida real de Council y comparaciones desde el endpoint read-only.
 - [ ] Completar el flujo web de evaluaciones y comparaciones trazables para habilitar Recommendations analíticas de extremo a extremo.
 - [ ] Implementar versionado real del ciclo de Recommendations, no solo `recommendationVersion: 1`.
 - [x] Añadir paso separado de preparación de Decision antes del registro durable.
@@ -29,7 +29,7 @@
 - [x] Definir contrato HTTP versionado entre el núcleo Python y `sicl-web`.
 - [x] Implementar servicio adaptador Python separado sin duplicar reglas de dominio.
 - [x] Conectar tRPC al adaptador mediante un cliente anti-corrupción autenticado.
-- [ ] Verificar que errores de dominio, conflictos de versión y autoridad se preservan extremo a extremo.
+- [ ] Verificar que errores de dominio, conflictos de versión y autoridad se preservan extremo a extremo contra una instancia real del núcleo Python.
 - [ ] Verificar flujo completo en escritorio y móvil después de la integración real.
 
 ## Corrección de integración — pendientes
@@ -39,7 +39,7 @@
 - [x] Añadir pruebas de autenticación rechazada, errores de dominio y conflictos de versión propagados.
 - [x] Añadir pruebas Vitest para las tres mutaciones tRPC delegadas cuando `SICL_CORE_URL` está configurado.
 - [x] Hacer explícito que el endpoint web delegado acepta solo Recommendations analíticas o respetar `source` y `based_on_kind` sin inferencias.
-- [ ] Probar propagación íntegra de errores 401, 409 y 422 desde el adaptador Python hacia tRPC.
+- [x] Probar propagación íntegra de errores 401, 409 y 422 desde el adaptador Python hacia tRPC mediante respuestas upstream contractuales y detalle preservado.
 - [x] Hacer explícito `based_on_kind` en el contrato tRPC para Recommendations analíticas y validarlo sin hardcode implícito.
 - [x] Añadir una prueba que verifique el valor exacto de `based_on_kind` enviado al adaptador Python.
 - [x] Preparar un contenedor reproducible para alojar `sicl-core-http` con Python, almacenamiento persistente y configuración por secretos.
@@ -103,3 +103,12 @@
 
 - [x] Documentar y probar que el wrapper `CanonicalNotFound` es una frontera de tipos mínima y que `envelope` conserva sin transformación el cuerpo 404 upstream.
 - [x] Añadir una prueba coordinada en un mismo escenario para Council canónico, lectura 404 y auditoría filtrada.
+
+## Jerarquía SICL 1–3 — nueva ampliación aprobada para implementación
+
+- [x] Definir un contrato mínimo de `spatial_scope` jerárquico para proyecto, ciudad/territorio y desarrollo nacional.
+- [x] Definir un contrato mínimo de `temporal_scope` para escenarios 2030, 2040 y 2050 sin convertirlos en predicciones automáticas.
+- [x] Mantener el mismo núcleo de entidades, evidencia, evaluación, recomendación y decisión a través de los tres niveles.
+- [x] Añadir pruebas de normalización y compatibilidad retroactiva con snapshots SICL existentes.
+- [x] Integrar la selección de escala y horizonte en el Command Center sin habilitar autoridad automática.
+- [x] Documentar qué capacidades SICL 1–3 quedan representadas y cuáles siguen pendientes del núcleo Python remoto.

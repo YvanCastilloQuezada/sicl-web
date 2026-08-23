@@ -55,3 +55,14 @@ describe("SiclCoreHttpError", () => {
     const result = await fetchCanonicalSnapshot("SICL-404");
     expect(result).toMatchObject({ not_found: true, status: 404, error: "PROJECT_NOT_FOUND", detail: "No canonical project exists", envelope });
   });
+
+  it("sends hierarchical scopes to canonical project creation", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.2", project_id: "SICL-SCOPE", observed_version: 1, snapshot: { project: {} } }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchSpy);
+    const { createCoreProject } = await import("./coreHttpClient");
+    await createCoreProject("SICL-SCOPE", "Territorial scenario", { spatialScope: { scale: "COUNTRY", id: "PE", name: "Peru" }, temporalScope: { horizon: "2050", scenario: "resilient-growth" } });
+    const request = fetchSpy.mock.calls[0]?.[1] as RequestInit;
+    expect(JSON.parse(String(request.body))).toMatchObject({ spatial_scope: { scale: "COUNTRY", id: "PE", name: "Peru" }, temporal_scope: { horizon: "2050", scenario: "resilient-growth" } });
+  });

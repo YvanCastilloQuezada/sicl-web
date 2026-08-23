@@ -1,3 +1,4 @@
-# Verificación visual — 2026-08-23
 
-Se capturaron `/#council` y `/#audit` en escritorio (1280x720) y móvil (390x844). La navegación de módulos funciona visualmente y el diseño responsive mantiene la cuadrícula de módulos y el estado vacío de creación de proyecto sin desbordamiento visible. La sesión de verificación no tenía un proyecto seleccionado, por lo que no fue posible inspeccionar datos canónicos poblados en Council/Audit; esa validación requiere autenticación y un proyecto existente o el Cloud Computer con el núcleo Python disponible.
+## Ampliación de scopes
+
+Se verificó el formulario de creación en 1280x720 y 390x844. Los selectores `Spatial scope` y `Temporal horizon` son visibles, legibles y no desbordan en móvil. El texto comunica que el alcance contextualiza el análisis y que el horizonte no es un pronóstico automático. La comprobación sigue limitada al estado inicial sin proyecto poblado, porque la sesión no tiene Cloud Computer ni núcleo remoto configurado.

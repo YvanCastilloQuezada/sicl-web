@@ -6,11 +6,15 @@
 
 ## Version
 
-The first contract version is `sicl-core-http/0.1`. Every response includes `contract_version`, `project_id`, and `observed_version` where a project snapshot is involved.
+The current contract version is `sicl-core-http/0.2`. Every response includes `contract_version`, `project_id`, and `observed_version` where a project snapshot is involved. Version 0.2 adds optional `spatial_scope` and `temporal_scope` fields to `POST /v1/projects`; clients that omit them remain valid.
 
 ## Authentication boundary
 
 The web server authenticates the browser session. The adapter service receives a service-to-service credential only through server-side configuration. Browser cookies, OAuth tokens, JWTs and raw identity assertions never cross into the domain payload.
+
+## Project scope
+
+`spatial_scope` contains `scale`, `id`, `name` and an optional `parent_id`. Supported scales are `PROJECT`, `SECTOR`, `DISTRICT`, `CITY`, `METROPOLITAN_AREA`, `REGION`, `MACROREGION` and `COUNTRY`. `temporal_scope` contains a `horizon` of `PRESENT`, `2030`, `2040` or `2050` and an optional `scenario`. These fields frame the evidence and analysis; they do not create forecasts, winners or authority.
 
 ## Read operations
 
