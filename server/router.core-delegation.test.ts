@@ -51,6 +51,6 @@ describe("production core boundary", () => {
     process.env.NODE_ENV = "production";
     delete process.env.SICL_CORE_URL;
     const caller = appRouter.createCaller(ctx);
-    await expect(caller.projects.list()).rejects.toThrow("SICL_CORE_URL is required in production");
+    await expect(caller.projects.list()).rejects.toThrow("SICL_CORE_URL is required");
   });
 });

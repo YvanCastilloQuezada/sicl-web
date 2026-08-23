@@ -17,12 +17,17 @@ function fail(message: string): never { throw new TRPCError({ code: "BAD_REQUEST
 function event(actorId: number, type: string, entityId: string, data: Record<string, unknown>) {
   return { id: crypto.randomUUID(), type, entityId, actorId, createdAt: new Date().toISOString(), data };
 }
-function requireCoreInProduction() {
-  if (process.env.NODE_ENV === "production" && !hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "SICL_CORE_URL is required in production" });
+function localCoreEnabled() {
+  return process.env.NODE_ENV !== "production" && process.env.SICL_ALLOW_LOCAL_CORE === "true";
 }
 
+function requireCanonicalCoreOrExplicitLocal() {
+  if (!hasCoreUrl() && !localCoreEnabled()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "SICL_CORE_URL is required; set SICL_ALLOW_LOCAL_CORE=true only for explicit local development" });
+}
+
+
 async function ownedProject(ownerId: number, projectId: string) {
-  requireCoreInProduction();
+  requireCanonicalCoreOrExplicitLocal();
   const project = await getSiclProject(ownerId, projectId);
   if (!project) throw new TRPCError({ code: "NOT_FOUND", message: "SICL project not found" });
   return project;
@@ -40,14 +45,14 @@ export const appRouter = router({
     logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),
   }),
   projects: router({
-    list: protectedProcedure.query(({ ctx }) => { requireCoreInProduction(); return listSiclProjects(ctx.user.id); }),
+    list: protectedProcedure.query(({ ctx }) => { requireCanonicalCoreOrExplicitLocal(); return listSiclProjects(ctx.user.id); }),
     get: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       const canonical = await fetchCanonicalSnapshot(project.projectId);
       return { ...project, snapshot: canonical ? canonical.snapshot : siclCorePort.parseSnapshot(project.snapshot) };
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
-      requireCoreInProduction();
+      requireCanonicalCoreOrExplicitLocal();
       const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
       if (hasCoreUrl()) {
         const canonical = await createCoreProject(projectId, input.name);

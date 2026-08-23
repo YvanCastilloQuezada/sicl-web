@@ -65,3 +65,4 @@
 - [ ] Verificar que `core.sqlite` persiste fuera del contenedor tras reinicio del servicio.
 - [x] Preparar runbook corregido de alojamiento con nombres reales de variables, secuencia segura de UFW y HTTPS, y registro server-side de `SICL_CORE_URL`.
 - [x] Hacer que el router falle cerrado en producción si falta `SICL_CORE_URL`, con prueba Vitest explícita.
+- [x] Convertir el fallback TypeScript en modo local explícito mediante `SICL_ALLOW_LOCAL_CORE=true`; producción no lo habilita automáticamente.
