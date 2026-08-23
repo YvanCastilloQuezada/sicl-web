@@ -1,28 +1,112 @@
+import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
+import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
+import { siclCorePort } from "./siclCorePort";
+import { createCoreRecommendation, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+
+const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
+const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional() });
+const versionInput = z.object({ projectId: z.string().min(1), expectedVersion: z.number().int().positive() });
+
+function fail(message: string): never { throw new TRPCError({ code: "BAD_REQUEST", message }); }
+function event(actorId: number, type: string, entityId: string, data: Record<string, unknown>) {
+  return { id: crypto.randomUUID(), type, entityId, actorId, createdAt: new Date().toISOString(), data };
+}
+async function ownedProject(ownerId: number, projectId: string) {
+  const project = await getSiclProject(ownerId, projectId);
+  if (!project) throw new TRPCError({ code: "NOT_FOUND", message: "SICL project not found" });
+  return project;
+}
+async function saveNext(ownerId: number, projectId: string, expectedVersion: number, snapshot: SiclSnapshot, status?: "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED") {
+  const updated = await updateSiclProject(ownerId, projectId, expectedVersion, JSON.stringify(snapshot), status);
+  if (!updated) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
+  return { version: expectedVersion + 1, snapshot };
+}
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
-    logout: publicProcedure.mutation(({ ctx }) => {
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+    logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),
+  }),
+  projects: router({
+    list: protectedProcedure.query(({ ctx }) => listSiclProjects(ctx.user.id)),
+    get: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const canonical = await fetchCanonicalSnapshot(project.projectId);
+      return { ...project, snapshot: canonical ? canonical.snapshot : siclCorePort.parseSnapshot(project.snapshot) };
+    }),
+    create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
+      const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+      const snapshot = siclCorePort.emptySnapshot();
+      snapshot.events.push(event(ctx.user.id, "PROJECT_CREATED", projectId, { name: input.name }));
+      await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, status: "DRAFT", version: 1, snapshot: JSON.stringify(snapshot) });
+      return { projectId, version: 1 };
+    }),
+    addRecord: protectedProcedure.input(versionInput.extend({ kind: z.enum(recordKinds), record: z.record(z.string(), z.unknown()) })).mutation(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const record = input.record as SiclRecord;
+      const next = siclCorePort.appendRecord(snapshot, input.kind as RecordKind, record, event(ctx.user.id, "SICL_RECORD_ADDED", record.id, { kind: input.kind, observedVersion: input.expectedVersion }));
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+    }),
+    council: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const canonical = await fetchCanonicalSnapshot(project.projectId);
+      const snapshot = canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.parseSnapshot(project.snapshot);
+      return { projectId: project.projectId, version: canonical?.observed_version ?? project.version, ...siclCorePort.analysisView(snapshot) };
+    }),
+    recommendationCreate: protectedProcedure.input(versionInput.extend({ recommendationId: z.string().min(1), alternativeId: z.string().min(1), reason: z.string().trim().min(10), basedOn: z.string().min(1), basedOnKind: z.enum(["BINARY", "MULTI_CRITERIA", "COUNCIL_FINDING", "COUNCIL_ASSESSMENT", "COLLECTIVE_AGGREGATE"]), source: z.literal("ANALYTICAL") })).mutation(async ({ ctx, input }) => {
+      if (hasCoreUrl()) return createCoreRecommendation(input.projectId, { recommendation_id: input.recommendationId, alternative_id: input.alternativeId, based_on: input.basedOn, based_on_kind: input.basedOnKind, reason: input.reason, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      if (!snapshot.alternatives.some((item) => item.id === input.alternativeId)) fail("Recommendation alternativeId does not exist");
+      if (input.source === "ANALYTICAL" && !snapshot.comparisons.some((item) => item.id === input.basedOn)) fail("Analytical recommendation requires an existing comparison");
+      const recommendation = { id: input.recommendationId, alternativeId: input.alternativeId, reason: input.reason, basedOn: input.basedOn, basedOnKind: input.basedOnKind, source: input.source, recommendationVersion: 1 };
+      const next = siclCorePort.appendRecord(snapshot, "recommendations", recommendation, event(ctx.user.id, "RECOMMENDATION_CREATED", recommendation.id, { observedVersion: input.expectedVersion, recommendationVersion: 1 }));
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+    }),
+    reviewRecord: protectedProcedure.input(versionInput.extend({ reviewId: z.string().min(1), recommendationId: z.string().min(1), actorId: z.string().min(1), confirmationId: z.string().min(1), reason: z.string().trim().min(10), recommendationVersion: z.number().int().positive(), status: z.enum(["ACCEPTED", "MODIFIED", "REJECTED"]), authorityBasis: z.string().min(1).default("HUMAN_REVIEW") })).mutation(async ({ ctx, input }) => {
+      if (hasCoreUrl()) return recordCoreHumanReview(input.projectId, { review_id: input.reviewId, recommendation_id: input.recommendationId, actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId, status: input.status, reason: input.reason, observed_project_version: input.expectedVersion, recommendation_version: input.recommendationVersion, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const recommendation = snapshot.recommendations.find((item) => item.id === input.recommendationId);
+      if (!recommendation || Number(recommendation.recommendationVersion) !== input.recommendationVersion) fail("HumanReview recommendation version mismatch");
+      const review = { id: input.reviewId, recommendationId: input.recommendationId, actorId: input.actorId, confirmationId: input.confirmationId, reason: input.reason, status: input.status, observedVersion: input.expectedVersion, recommendationVersion: input.recommendationVersion };
+      const next = siclCorePort.appendHumanReview(snapshot, review, event(ctx.user.id, "HUMAN_REVIEW_RECORDED", review.id, { observedVersion: input.expectedVersion, recommendationVersion: input.recommendationVersion }));
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+    }),
+    decisionPrepare: protectedProcedure.input(versionInput.extend({ selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).query(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before preparing" });
+      if (!snapshot.alternatives.some((item) => item.id === input.selectedAlternativeId)) fail("Decision selectedAlternativeId does not exist");
+      return { ready: true, writeRequired: true, decisionType: "HUMAN", observedVersion: input.expectedVersion, actorId: input.actorId, authorityBasis: input.authorityBasis, confirmationId: input.confirmationId, rationale: input.rationale, selectedAlternativeId: input.selectedAlternativeId };
+    }),
+    decisionRecord: protectedProcedure.input(versionInput.extend({ decisionId: z.string().min(1), selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).mutation(async ({ ctx, input }) => {
+      if (hasCoreUrl()) return recordCoreDecision(input.projectId, { decision_id: input.decisionId, selected_alternative_id: input.selectedAlternativeId, decision_maker: input.actorId, rationale: input.rationale, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID(), authority_context: { actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId } });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      if (!snapshot.alternatives.some((item) => item.id === input.selectedAlternativeId)) fail("Decision selectedAlternativeId does not exist");
+      const decision = { id: input.decisionId, selectedAlternativeId: input.selectedAlternativeId, actorId: input.actorId, authorityBasis: input.authorityBasis, confirmationId: input.confirmationId, rationale: input.rationale, observedVersion: input.expectedVersion, decisionType: "HUMAN" };
+      const next = siclCorePort.appendHumanDecision(snapshot, decision, event(ctx.user.id, "HUMAN_DECISION_RECORDED", decision.id, { observedVersion: input.expectedVersion, actorId: input.actorId, authorityBasis: input.authorityBasis }));
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "DECIDED");
+    }),
+    audit: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      return { projectId: project.projectId, version: project.version, events: snapshot.events, humanReviews: snapshot.humanReviews, decisions: snapshot.decisions };
     }),
   }),
-
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
 });
 
 export type AppRouter = typeof appRouter;

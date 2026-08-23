@@ -1,33 +1,147 @@
+import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { trpc } from "@/lib/trpc";
+import { cn } from "@/lib/utils";
+import { Activity, ArrowRight, BookOpen, CheckCircle2, FileText, GitBranch, LayoutDashboard, Plus, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
+const modules = [
+  { id: "overview", label: "Project", icon: LayoutDashboard },
+  { id: "context", label: "Context / Site", icon: Waypoints },
+  { id: "problem", label: "Objectives & Constraints", icon: Target },
+  { id: "alternatives", label: "Alternatives & Evaluation", icon: GitBranch },
+  { id: "council", label: "Council / Recommendation", icon: Scale },
+  { id: "audit", label: "Decision & Audit", icon: ShieldCheck },
+] as const;
+
+type ModuleId = typeof modules[number]["id"];
+
+type ProjectSnapshot = {
+  sources: unknown[]; evidence: unknown[]; requirements: unknown[]; objectives: unknown[]; constraints: unknown[]; alternatives: unknown[]; evaluations: unknown[]; comparisons: unknown[]; recommendations: unknown[]; humanReviews: unknown[]; decisions: unknown[]; events: unknown[];
+};
+
 export default function Home() {
-  // The useAuth hook provides authentication state.
-  // To implement login/logout, call logout(), or start login from an event
-  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
-  // startLogin() during render (no href={startLogin()}) — it mints a one-time
-  // nonce cookie and must run only at the moment of navigation.
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const { user, loading } = useAuth();
+  if (loading) return <div className="min-h-screen bg-[#f4f1ea]" />;
+  if (!user) return <SignIn />;
+  return <AuthenticatedHome />;
+}
 
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+function AuthenticatedHome() {
+  const [module, setModule] = useState<ModuleId>(() => (window.location.hash.replace("#", "") as ModuleId) || "overview");
+  const [selectedProjectId, setSelectedProjectId] = useState<string>();
+  const [newProjectName, setNewProjectName] = useState("");
+  const [newProjectLocation, setNewProjectLocation] = useState("");
+  const projects = trpc.projects.list.useQuery();
+  const selected = trpc.projects.get.useQuery({ projectId: selectedProjectId ?? "" }, { enabled: Boolean(selectedProjectId) });
+  const utils = trpc.useUtils();
+  const createProject = trpc.projects.create.useMutation({ onSuccess: (result) => { toast.success("Project created"); setSelectedProjectId(result.projectId); setNewProjectName(""); setNewProjectLocation(""); utils.projects.list.invalidate(); }, onError: (error) => toast.error(error.message) });
+  const addRecord = trpc.projects.addRecord.useMutation({ onSuccess: () => { toast.success("Record added"); selected.refetch(); }, onError: (error) => toast.error(error.message) });
+  const createRecommendation = trpc.projects.recommendationCreate.useMutation({ onSuccess: () => { toast.success("Recommendation recorded"); selected.refetch(); }, onError: (error) => toast.error(error.message) });
+  const recordReview = trpc.projects.reviewRecord.useMutation({ onSuccess: () => { toast.success("HumanReview recorded"); selected.refetch(); }, onError: (error) => toast.error(error.message) });
+  const recordDecision = trpc.projects.decisionRecord.useMutation({ onSuccess: () => { toast.success("Human decision recorded"); selected.refetch(); }, onError: (error) => toast.error(error.message) });
+  const snapshot = selected.data?.snapshot as ProjectSnapshot | undefined;
+  const counts = useMemo(() => snapshot ? Object.fromEntries(Object.entries(snapshot).map(([key, value]) => [key, Array.isArray(value) ? value.length : 0])) : {}, [snapshot]);
+
+  const currentProjectId = selectedProjectId ?? projects.data?.[0]?.projectId;
+  const council = trpc.projects.council.useQuery({ projectId: currentProjectId ?? "" }, { enabled: Boolean(currentProjectId) });
+  useEffect(() => {
+    if (!selectedProjectId && projects.data?.[0]?.projectId) setSelectedProjectId(projects.data[0].projectId);
+  }, [selectedProjectId, projects.data]);
+  useEffect(() => {
+    const syncModule = () => {
+      const next = window.location.hash.replace("#", "") as ModuleId;
+      if (modules.some((item) => item.id === next)) setModule(next);
+    };
+    window.addEventListener("hashchange", syncModule);
+    return () => window.removeEventListener("hashchange", syncModule);
+  }, []);
+
+  const addSimpleRecord = (kind: "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives", record: Record<string, unknown>) => {
+    if (!currentProjectId || !selected.data) return toast.error("Select a project first");
+    addRecord.mutate({ projectId: currentProjectId, expectedVersion: selected.data.version, kind, record });
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
+    <div className="min-h-screen bg-[#f4f1ea] text-[#1d2925]">
+        <header className="border-b border-[#d7d8cf] bg-[#f4f1ea]/95 px-6 py-5 backdrop-blur md:px-10">
+          <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-5">
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#60766b]"><span className="h-2 w-2 rounded-full bg-[#d07b4a]" /> Spatial Intelligence Command Language</div>
+              <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">Command Center</h1>
+              <p className="mt-1 text-sm text-[#718078]">Evidence-led project decisions, with human authority preserved at the boundary.</p>
+            </div>
+            <div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SICL 0.4.x core</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div>
+          </div>
+        </header>
+        <div className="mx-auto grid max-w-[1500px] grid-cols-1 md:grid-cols-[240px_1fr]">
+          <aside className="border-b border-[#d7d8cf] bg-[#e9ede5] p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
+            <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-[#6a7d72]">Project modules</span><BookOpen className="h-4 w-4 text-[#8b9a90]" /></div>
+            <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
+              {modules.map((item) => { const Icon = item.icon; return <button key={item.id} onClick={() => { setModule(item.id); window.history.replaceState(null, "", `/#${item.id}`); }} className={cn("flex items-center gap-3 border px-3 py-3 text-left text-sm transition-colors", module === item.id ? "border-[#385348] bg-[#385348] text-white" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}><Icon className="h-4 w-4" /><span>{item.label}</span></button>; })}
+            </nav>
+            <div className="mt-8 border-t border-[#cbd2c9] pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7a8c82]">Integrity rule</p><p className="mt-2 text-xs leading-5 text-[#65756c]">Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority.</p></div>
+          </aside>
+          <main className="p-5 md:p-10">
+            {!currentProjectId ? <EmptyProjects name={newProjectName} location={newProjectLocation} setName={setNewProjectName} setLocation={setNewProjectLocation} onCreate={() => createProject.mutate({ name: newProjectName, location: newProjectLocation })} loading={createProject.isPending} /> : <>
+              <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Active workspace</p><div className="mt-2 flex flex-wrap items-center gap-3"><select value={currentProjectId} onChange={(event) => setSelectedProjectId(event.target.value)} className="border-0 border-b-2 border-[#385348] bg-transparent px-0 pb-1 pr-8 font-serif text-3xl outline-none"><option value="" disabled>Select project</option>{projects.data?.map((project) => <option key={project.projectId} value={project.projectId}>{project.name}</option>)}</select>{selected.data && <Badge className="bg-[#dce6dc] text-[#385348] hover:bg-[#dce6dc]">{selected.data.status}</Badge>}</div><p className="mt-2 text-sm text-[#718078]">{selected.data?.location || "Location not yet defined"} · Version {selected.data?.version ?? "—"}</p></div><Button onClick={() => { setNewProjectName(""); setNewProjectLocation(""); }} variant="outline" className="w-fit border-[#b9c4bd] bg-transparent"><Plus className="mr-2 h-4 w-4" /> New project</Button></div>
+              {module === "overview" && <Overview snapshot={snapshot} counts={counts} onCreateProject={() => setModule("context")} />}
+              {module === "context" && <ContextModule counts={counts} onSubmit={addSimpleRecord} />}
+              {module === "problem" && <><ProblemModule counts={counts} onSubmit={addSimpleRecord} /><ConstraintModule onSubmit={addSimpleRecord} /></>}
+              {module === "alternatives" && <RecordModule title="Alternatives & Evaluation" eyebrow="Options" description="Keep candidate options explicit and comparable." kind="alternatives" count={counts.alternatives ?? 0} fields={[{ key: "id", label: "Alternative ID", placeholder: "ALT-A" }, { key: "name", label: "Alternative name", placeholder: "Courtyard scheme" }, { key: "description", label: "Description", placeholder: "What is materially different?" }]} onSubmit={addSimpleRecord} />}
+              {module === "council" && <CouncilModule snapshot={snapshot} counts={counts} council={council.data} />}
+              {module === "audit" && <><AuditModule snapshot={snapshot} counts={counts} /><WorkflowModule projectId={currentProjectId} version={selected.data?.version ?? 1} snapshot={snapshot} createRecommendation={createRecommendation} recordReview={recordReview} recordDecision={recordDecision} /></>}
+            </>}
+          </main>
+        </div>
+      </div>
   );
 }
+
+function SignIn() { return <div className="flex min-h-screen items-center justify-center bg-[#f4f1ea] p-6"><div className="max-w-md border border-[#cbd2c9] bg-[#fbfaf6] p-10 text-center"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">SICL Command Center</p><h1 className="mt-4 font-serif text-4xl">Sign in to preserve the record.</h1><p className="mt-4 text-sm leading-6 text-[#718078]">Authentication identifies the actor. It does not grant decision authority.</p><Button onClick={() => startLogin()} className="mt-7 bg-[#385348] hover:bg-[#294038]">Sign in</Button></div></div>; }
+
+function EmptyProjects({ name, location, setName, setLocation, onCreate, loading }: { name: string; location: string; setName: (value: string) => void; setLocation: (value: string) => void; onCreate: () => void; loading: boolean }) { return <div className="mx-auto max-w-2xl border border-[#cbd2c9] bg-[#fbfaf6] p-8 md:p-12"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Start with a real project</p><h2 className="mt-3 font-serif text-4xl tracking-[-0.04em]">Create your SICL workspace</h2><p className="mt-3 max-w-xl text-sm leading-6 text-[#66776d]">Create the project container first. Every subsequent record will be versioned, validated and visible in the audit trail.</p><div className="mt-8 grid gap-4"><div><Label>Project name</Label><Input value={name} onChange={(event) => setName(event.target.value)} placeholder="Multifunctional building near UPAO" className="mt-2 border-[#cbd2c9] bg-white" /></div><div><Label>Location</Label><Input value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Trujillo, Peru" className="mt-2 border-[#cbd2c9] bg-white" /></div><Button onClick={onCreate} disabled={!name.trim() || loading} className="mt-2 w-fit bg-[#385348] hover:bg-[#294038]"><Plus className="mr-2 h-4 w-4" /> Create project</Button></div></div>; }
+
+function Overview({ snapshot, counts, onCreateProject }: { snapshot?: ProjectSnapshot; counts: Record<string, number>; onCreateProject: () => void }) { const items = [{ label: "Sources & evidence", value: (counts.sources ?? 0) + (counts.evidence ?? 0), icon: FileText }, { label: "Objectives", value: counts.objectives ?? 0, icon: Target }, { label: "Alternatives", value: counts.alternatives ?? 0, icon: GitBranch }, { label: "Recommendations", value: counts.recommendations ?? 0, icon: Scale }, { label: "Human reviews", value: counts.humanReviews ?? 0, icon: CheckCircle2 }, { label: "Decisions", value: counts.decisions ?? 0, icon: ShieldCheck }]; return <div><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{items.map(({ label, value, icon: Icon }) => <Card key={label} className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardContent className="flex items-center justify-between p-5"><div><p className="text-sm text-[#718078]">{label}</p><p className="mt-2 font-serif text-4xl">{value}</p></div><Icon className="h-5 w-5 text-[#d07b4a]" /></CardContent></Card>)}</div><Card className="mt-6 border-[#385348] bg-[#385348] text-white shadow-none"><CardContent className="flex flex-col justify-between gap-6 p-7 md:flex-row md:items-center"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d8ad8e]">Next action</p><h2 className="mt-2 font-serif text-2xl">Build the evidence base before analysis.</h2><p className="mt-2 max-w-xl text-sm leading-6 text-[#d9e0d8]">SICL does not infer missing facts. Register sources, evidence and requirements explicitly, then move toward comparison.</p></div><Button onClick={onCreateProject} className="w-fit bg-[#f4f1ea] text-[#385348] hover:bg-white">Open foundation <ArrowRight className="ml-2 h-4 w-4" /></Button></CardContent></Card></div>; }
+
+function RecordModule({ title, eyebrow, description, kind, count, fields, onSubmit }: { title: string; eyebrow: string; description: string; kind: "sources" | "alternatives"; count: number; fields: { key: string; label: string; placeholder: string }[]; onSubmit: (kind: "sources" | "alternatives", record: Record<string, unknown>) => void }) { const [values, setValues] = useState<Record<string, string>>({}); return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">{eyebrow} · {count} records</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">{title}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">{description}</p><Card className="mt-8 max-w-2xl border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Add explicit record</CardTitle></CardHeader><CardContent className="grid gap-4">{fields.map((field) => <div key={field.key}><Label>{field.label}</Label>{field.key === "description" ? <Textarea value={values[field.key] ?? ""} onChange={(event) => setValues({ ...values, [field.key]: event.target.value })} placeholder={field.placeholder} className="mt-2 border-[#cbd2c9] bg-white" /> : <Input value={values[field.key] ?? ""} onChange={(event) => setValues({ ...values, [field.key]: event.target.value })} placeholder={field.placeholder} className="mt-2 border-[#cbd2c9] bg-white" />}</div>)}<Button className="w-fit bg-[#385348] hover:bg-[#294038]" onClick={() => { onSubmit(kind, values); setValues({}); }}><Plus className="mr-2 h-4 w-4" /> Add record</Button></CardContent></Card></section>; }
+
+function ProblemModule({ counts, onSubmit }: { counts: Record<string, number>; onSubmit: (kind: "objectives", record: Record<string, unknown>) => void }) { const [name, setName] = useState(""); const [requirementId, setRequirementId] = useState(""); const [direction, setDirection] = useState<"MINIMIZE" | "MAXIMIZE">("MAXIMIZE"); return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Problem definition</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Objectives & Constraints</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">Direction is mandatory. An objective without direction cannot produce a winner or automatic recommendation.</p><div className="mt-8 grid gap-5 lg:grid-cols-2"><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Objective</CardTitle></CardHeader><CardContent className="grid gap-4"><div><Label>Name</Label><Input value={name} onChange={(event) => setName(event.target.value)} placeholder="Maximize daylight" className="mt-2 bg-white" /></div><div><Label>Requirement ID</Label><Input value={requirementId} onChange={(event) => setRequirementId(event.target.value)} placeholder="REQ-001" className="mt-2 bg-white" /></div><div><Label>Direction</Label><select value={direction} onChange={(event) => setDirection(event.target.value as "MINIMIZE" | "MAXIMIZE")} className="mt-2 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="MAXIMIZE">MAXIMIZE</option><option value="MINIMIZE">MINIMIZE</option></select></div><Button className="w-fit bg-[#385348] hover:bg-[#294038]" onClick={() => onSubmit("objectives", { id: `OBJ-${Date.now()}`, name, requirementId, direction })}>Add objective</Button></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Current counts</CardTitle></CardHeader><CardContent className="grid grid-cols-2 gap-4">{[["Objectives", counts.objectives], ["Constraints", counts.constraints], ["Requirements", counts.requirements], ["Evidence", counts.evidence]].map(([label, value]) => <div key={String(label)} className="border-t border-[#d4d8d0] pt-3"><p className="text-sm text-[#718078]">{label}</p><p className="mt-1 font-serif text-3xl">{value ?? 0}</p></div>)}</CardContent></Card></div></section>; }
+
+function CouncilModule({ snapshot, counts, council }: { snapshot?: ProjectSnapshot; counts: Record<string, number>; council?: { readOnly: boolean; finding: string; comparisons: unknown[] } }) { return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Read-only analytical layer</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Council</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">Council consumes the project foundation. It does not write recommendations, reviews or decisions from this view.</p><div className="mt-8 grid gap-5 lg:grid-cols-[1.2fr_.8fr]"><Card className="border-[#385348] bg-[#385348] text-white shadow-none"><CardContent className="p-7"><div className="flex items-center justify-between"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#d8ad8e]">Analytical status</span><Badge className="bg-[#536f60] text-white hover:bg-[#536f60]">READ ONLY</Badge></div><h3 className="mt-6 font-serif text-3xl">{(counts.alternatives ?? 0) > 1 ? "Analysis available" : "Insufficient data"}</h3><p className="mt-3 text-sm leading-6 text-[#d9e0d8]">{council?.finding === "MULTI_ALTERNATIVE_ANALYSIS_AVAILABLE" ? "Multiple alternatives are registered and can be compared when evaluations exist." : "Register at least two alternatives and explicit evaluations before comparison."}</p></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Analytical objects</CardTitle></CardHeader><CardContent className="space-y-3 text-sm">{[["Evaluations", counts.evaluations], ["Comparisons", counts.comparisons], ["Recommendations", counts.recommendations]].map(([label, value]) => <div key={String(label)} className="flex justify-between border-b border-[#e2e4de] pb-3"><span className="text-[#718078]">{label}</span><strong>{value ?? 0}</strong></div>)}<p className="pt-2 text-xs leading-5 text-[#718078]">{council?.readOnly ? "Endpoint confirmed read-only. Recommendations are visible for traceability, but they are not authority acts." : "Council endpoint unavailable."}</p></CardContent></Card></div></section>; }
+
+function AuditModule({ snapshot, counts }: { snapshot?: ProjectSnapshot; counts: Record<string, number> }) { const events = (snapshot?.events ?? []).slice().reverse() as Array<{ id?: string; type?: string; actorId?: number; createdAt?: string }>; return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Traceability</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Decision & Audit</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">Events, HumanReviews and Decisions are presented as separate records. Authentication secrets are never included.</p><div className="mt-8 grid gap-5 lg:grid-cols-[.8fr_1.2fr]"><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Human boundary</CardTitle></CardHeader><CardContent className="space-y-4 text-sm"><div><p className="text-[#718078]">Human reviews</p><p className="font-serif text-3xl">{counts.humanReviews ?? 0}</p></div><div><p className="text-[#718078]">Decisions</p><p className="font-serif text-3xl">{counts.decisions ?? 0}</p></div><Badge variant="outline" className="border-[#d07b4a] text-[#a95e35]">Authority required</Badge></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Event timeline</CardTitle></CardHeader><CardContent>{events.length === 0 ? <p className="text-sm text-[#718078]">No events yet. Project creation will appear here.</p> : <div className="space-y-4">{events.map((item) => <div key={item.id} className="flex gap-3 border-l-2 border-[#d07b4a] pl-4"><div><p className="text-sm font-medium">{item.type}</p><p className="mt-1 text-xs text-[#718078]">{item.createdAt ? new Date(item.createdAt).toLocaleString() : "—"} · actor {item.actorId ?? "—"}</p></div></div>)}</div>}</CardContent></Card></div></section>; }
+
+
+function ContextModule({ counts, onSubmit }: { counts: Record<string, number>; onSubmit: (kind: "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives", record: Record<string, unknown>) => void }) {
+  const [sourceId, setSourceId] = useState("");
+  const [sourceName, setSourceName] = useState("");
+  const [requirementId, setRequirementId] = useState("");
+  const [requirementName, setRequirementName] = useState("");
+  const [statement, setStatement] = useState("");
+  const [evidenceSourceId, setEvidenceSourceId] = useState("");
+  return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Foundation · {counts.sources ?? 0} sources · {counts.evidence ?? 0} evidence</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Context / Site</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">Build the record from declared sources, requirements and observations. Missing references are rejected rather than inferred.</p><div className="mt-8 grid gap-5 lg:grid-cols-3"><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Source</CardTitle></CardHeader><CardContent className="grid gap-3"><Input value={sourceId} onChange={(e) => setSourceId(e.target.value)} placeholder="SRC-001" className="bg-white" /><Input value={sourceName} onChange={(e) => setSourceName(e.target.value)} placeholder="Municipal regulation" className="bg-white" /><Button onClick={() => { onSubmit("sources", { id: sourceId, name: sourceName }); setSourceId(""); setSourceName(""); }} className="bg-[#385348] hover:bg-[#294038]">Add source</Button></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Requirement</CardTitle></CardHeader><CardContent className="grid gap-3"><Input value={requirementId} onChange={(e) => setRequirementId(e.target.value)} placeholder="REQ-001" className="bg-white" /><Input value={requirementName} onChange={(e) => setRequirementName(e.target.value)} placeholder="Natural light access" className="bg-white" /><Button onClick={() => { onSubmit("requirements", { id: requirementId, name: requirementName }); setRequirementId(""); setRequirementName(""); }} className="bg-[#385348] hover:bg-[#294038]">Add requirement</Button></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Evidence</CardTitle></CardHeader><CardContent className="grid gap-3"><Input value={evidenceSourceId} onChange={(e) => setEvidenceSourceId(e.target.value)} placeholder="Source ID" className="bg-white" /><Textarea value={statement} onChange={(e) => setStatement(e.target.value)} placeholder="Observed statement" className="bg-white" /><Button onClick={() => { onSubmit("evidence", { id: `EVD-${Date.now()}`, sourceId: evidenceSourceId, statement }); setStatement(""); }} className="bg-[#385348] hover:bg-[#294038]">Add evidence</Button></CardContent></Card></div></section>;
+}
+
+
+type WorkflowMutation = { mutate: (input: any) => void; isPending?: boolean };
+function WorkflowModule({ projectId, version, snapshot, createRecommendation, recordReview, recordDecision }: { projectId: string; version: number; snapshot?: ProjectSnapshot; createRecommendation: WorkflowMutation; recordReview: WorkflowMutation; recordDecision: WorkflowMutation }) {
+  const [rec, setRec] = useState<Record<string, string>>({ id: "REC-001", alternativeId: "", basedOn: "", basedOnKind: "BINARY", reason: "" });
+  const [review, setReview] = useState<Record<string, string>>({ id: "REV-001", recommendationId: "", actorId: "", confirmationId: "", reason: "" });
+  const [decision, setDecision] = useState<Record<string, string>>({ id: "DEC-001", selectedAlternativeId: "", actorId: "", authorityBasis: "PRODUCT_OWNER", confirmationId: "", rationale: "" });
+  const alternatives = snapshot?.alternatives as Array<{ id: string }> | undefined;
+  const recommendations = snapshot?.recommendations as Array<{ id: string; recommendationVersion?: number }> | undefined;
+  return <section className="mt-8"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Human authority workflow</p><h3 className="mt-2 font-serif text-3xl">Recommendation → HumanReview → Decision</h3><p className="mt-2 text-sm leading-6 text-[#718078]">Each action observes version {version}. The browser cannot bypass the backend contract.</p><div className="mt-6 grid gap-5 xl:grid-cols-3"><WorkflowCard title="Recommendation" subtitle="Analytical proposal" fields={[{ key: "id", label: "ID" }, { key: "alternativeId", label: "Alternative ID" }, { key: "basedOn", label: "Comparison ID" }, { key: "basedOnKind", label: "Comparison kind" }, { key: "reason", label: "Reason" }]} values={rec} setValues={setRec} onSubmit={() => createRecommendation.mutate({ projectId, expectedVersion: version, recommendationId: rec.id, alternativeId: rec.alternativeId, basedOn: rec.basedOn, basedOnKind: rec.basedOnKind, reason: rec.reason, source: "ANALYTICAL" })} button="Create recommendation" /><WorkflowCard title="HumanReview" subtitle="Explicit human position" fields={[{ key: "id", label: "Review ID" }, { key: "recommendationId", label: "Recommendation ID" }, { key: "actorId", label: "Actor" }, { key: "confirmationId", label: "Confirmation" }, { key: "reason", label: "Reason" }]} values={review} setValues={setReview} onSubmit={() => recordReview.mutate({ projectId, expectedVersion: version, reviewId: review.id, recommendationId: review.recommendationId, actorId: review.actorId, confirmationId: review.confirmationId, reason: review.reason, recommendationVersion: recommendations?.find((item) => item.id === review.recommendationId)?.recommendationVersion ?? 1, status: "ACCEPTED" })} button="Record review" /><WorkflowCard title="Decision" subtitle="Human authority required" fields={[{ key: "id", label: "Decision ID" }, { key: "selectedAlternativeId", label: "Selected alternative" }, { key: "actorId", label: "Actor" }, { key: "authorityBasis", label: "Authority basis" }, { key: "confirmationId", label: "Confirmation" }, { key: "rationale", label: "Rationale" }]} values={decision} setValues={setDecision} onSubmit={() => recordDecision.mutate({ projectId, expectedVersion: version, decisionId: decision.id, selectedAlternativeId: decision.selectedAlternativeId, actorId: decision.actorId, authorityBasis: decision.authorityBasis, confirmationId: decision.confirmationId, rationale: decision.rationale })} button="Record human decision" /></div><p className="mt-4 text-xs text-[#718078]">Available alternatives: {alternatives?.map((item) => item.id).join(", ") || "none"} · Recommendation versions are checked server-side.</p></section>;
+}
+
+function WorkflowCard({ title, subtitle, fields, values, setValues, onSubmit, button }: { title: string; subtitle: string; fields: { key: string; label: string }[]; values: Record<string, string>; setValues: (values: Record<string, string>) => void; onSubmit: () => void; button: string }) { return <Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">{title}</CardTitle><p className="text-xs text-[#718078]">{subtitle}</p></CardHeader><CardContent className="grid gap-3">{fields.map((field) => <div key={field.key}><Label>{field.label}</Label><Input value={values[field.key] ?? ""} onChange={(event) => setValues({ ...values, [field.key]: event.target.value })} className="mt-1 bg-white" /></div>)}<Button onClick={onSubmit} className="mt-2 bg-[#385348] hover:bg-[#294038]">{button}</Button></CardContent></Card>; }
+
+
+function ConstraintModule({ onSubmit }: { onSubmit: (kind: "constraints", record: Record<string, unknown>) => void }) { const [name, setName] = useState(""); const [metric, setMetric] = useState(""); const [threshold, setThreshold] = useState(""); return <Card className="mt-5 max-w-3xl border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Hard constraint</CardTitle><p className="text-xs text-[#718078]">A constraint is explicit; SICL will not assume its direction or threshold.</p></CardHeader><CardContent className="grid gap-3 md:grid-cols-4"><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Maximum height" className="bg-white" /><Input value={metric} onChange={(e) => setMetric(e.target.value)} placeholder="height_m" className="bg-white" /><select className="h-10 border border-[#cbd2c9] bg-white px-3 text-sm"><option>&lt;=</option><option>&lt;</option><option>=</option></select><Input value={threshold} onChange={(e) => setThreshold(e.target.value)} placeholder="24" type="number" className="bg-white" /><Button className="w-fit bg-[#385348] hover:bg-[#294038] md:col-span-4" onClick={() => { onSubmit("constraints", { id: `CON-${Date.now()}`, name, metric, operator: "<=", threshold: Number(threshold) }); setName(""); setMetric(""); setThreshold(""); }}>Add constraint</Button></CardContent></Card>; }
