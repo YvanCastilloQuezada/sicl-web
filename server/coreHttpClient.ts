@@ -32,6 +32,10 @@ export async function fetchCanonicalSnapshot(projectId: string): Promise<Canonic
   return response.json() as Promise<CanonicalCoreSnapshot>;
 }
 
+export async function createCoreProject(projectId: string, name: string) {
+  return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ project_id: projectId, name }) });
+}
+
 export async function createCoreRecommendation(projectId: string, payload: Record<string, unknown>) {
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/recommendations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
 }

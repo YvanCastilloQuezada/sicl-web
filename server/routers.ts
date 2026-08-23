@@ -7,7 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
-import { createCoreRecommendation, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCoreProject, createCoreRecommendation, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional() });
@@ -43,6 +43,11 @@ export const appRouter = router({
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
       const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+      if (hasCoreUrl()) {
+        const canonical = await createCoreProject(projectId, input.name);
+        await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, version: canonical.observed_version, snapshot: JSON.stringify(canonical.snapshot), status: "ACTIVE" });
+        return { projectId, version: canonical.observed_version };
+      }
       const snapshot = siclCorePort.emptySnapshot();
       snapshot.events.push(event(ctx.user.id, "PROJECT_CREATED", projectId, { name: input.name }));
       await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, status: "DRAFT", version: 1, snapshot: JSON.stringify(snapshot) });

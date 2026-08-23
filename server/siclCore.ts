@@ -52,12 +52,23 @@ export const emptySnapshot = (): SiclSnapshot => ({
   evaluations: [], comparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
 });
 
+function collection(value: unknown): SiclRecord[] {
+  if (Array.isArray(value)) return value as SiclRecord[];
+  if (!value || typeof value !== "object") return [];
+  return Object.entries(value as Record<string, Record<string, unknown>>).map(([key, item]) => ({ id: String(item.id ?? item.project_id ?? item.source_id ?? item.requirement_id ?? item.objective_id ?? item.constraint_id ?? item.alternative_id ?? item.evaluation_id ?? item.comparison_id ?? item.recommendation_id ?? item.decision_id ?? key), ...item }));
+}
+
 export function parseSnapshot(raw: string): SiclSnapshot {
   try {
-    const parsed = JSON.parse(raw) as Partial<SiclSnapshot>;
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
     const snapshot = emptySnapshot();
+    const source = (parsed.core && typeof parsed.core === "object" ? parsed.core : parsed) as Record<string, unknown>;
+    const aliases: Record<keyof SiclSnapshot, string[]> = {
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"],
+    };
     for (const key of Object.keys(snapshot) as (keyof SiclSnapshot)[]) {
-      if (Array.isArray(parsed[key])) snapshot[key] = parsed[key] as never;
+      const values = aliases[key].flatMap((alias) => collection(source[alias]));
+      if (values.length) snapshot[key] = values as never;
     }
     return snapshot;
   } catch {

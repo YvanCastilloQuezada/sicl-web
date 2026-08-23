@@ -21,7 +21,7 @@
 - [ ] Renderizar en la UI la salida real de Council y comparaciones desde el endpoint read-only.
 - [ ] Completar el flujo web de evaluaciones y comparaciones trazables para habilitar Recommendations analíticas de extremo a extremo.
 - [ ] Implementar versionado real del ciclo de Recommendations, no solo `recommendationVersion: 1`.
-- [ ] Añadir paso separado de preparación de Decision antes del registro durable.
+- [x] Añadir paso separado de preparación de Decision antes del registro durable.
 - [ ] Ejecutar y documentar el flujo completo en navegador en escritorio y móvil.
 
 ## Integración aprobada con núcleo Python
