@@ -7,7 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
-import { createCoreProject, createCoreRecommendation, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional() });
@@ -17,7 +17,12 @@ function fail(message: string): never { throw new TRPCError({ code: "BAD_REQUEST
 function event(actorId: number, type: string, entityId: string, data: Record<string, unknown>) {
   return { id: crypto.randomUUID(), type, entityId, actorId, createdAt: new Date().toISOString(), data };
 }
+function requireCoreInProduction() {
+  if (process.env.NODE_ENV === "production" && !hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "SICL_CORE_URL is required in production" });
+}
+
 async function ownedProject(ownerId: number, projectId: string) {
+  requireCoreInProduction();
   const project = await getSiclProject(ownerId, projectId);
   if (!project) throw new TRPCError({ code: "NOT_FOUND", message: "SICL project not found" });
   return project;
@@ -35,13 +40,14 @@ export const appRouter = router({
     logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),
   }),
   projects: router({
-    list: protectedProcedure.query(({ ctx }) => listSiclProjects(ctx.user.id)),
+    list: protectedProcedure.query(({ ctx }) => { requireCoreInProduction(); return listSiclProjects(ctx.user.id); }),
     get: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       const canonical = await fetchCanonicalSnapshot(project.projectId);
       return { ...project, snapshot: canonical ? canonical.snapshot : siclCorePort.parseSnapshot(project.snapshot) };
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
+      requireCoreInProduction();
       const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
       if (hasCoreUrl()) {
         const canonical = await createCoreProject(projectId, input.name);
@@ -63,6 +69,8 @@ export const appRouter = router({
     }),
     council: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
+      const council = await fetchCanonicalCouncil(project.projectId);
+      if (council) return council;
       const canonical = await fetchCanonicalSnapshot(project.projectId);
       const snapshot = canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.parseSnapshot(project.snapshot);
       return { projectId: project.projectId, version: canonical?.observed_version ?? project.version, ...siclCorePort.analysisView(snapshot) };

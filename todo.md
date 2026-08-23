@@ -42,3 +42,26 @@
 - [ ] Probar propagación íntegra de errores 401, 409 y 422 desde el adaptador Python hacia tRPC.
 - [x] Hacer explícito `based_on_kind` en el contrato tRPC para Recommendations analíticas y validarlo sin hardcode implícito.
 - [x] Añadir una prueba que verifique el valor exacto de `based_on_kind` enviado al adaptador Python.
+- [x] Preparar un contenedor reproducible para alojar `sicl-core-http` con Python, almacenamiento persistente y configuración por secretos.
+
+## Alojamiento Manus del núcleo Python
+
+- [x] Determinar la ruta de alojamiento Manus compatible con un servicio Python persistente.
+- [x] Preparar configuración de contenedor, persistencia SQLite y secretos server-to-server.
+- [ ] Definir el registro de `SICL_CORE_URL` después del alojamiento real.
+- [x] Validar readiness del servicio sin ejecutar un despliegue irreversible.
+
+## Despliegue aprobado en Cloud Computer Manus
+
+- [ ] Confirmar que el Cloud Computer está creado y adjunto a la sesión.
+- [x] Preparar Dockerfile y contexto reproducible para `sicl-core-http`.
+- [ ] Configurar `/data/sicl/` como almacenamiento persistente de SQLite.
+- [ ] Configurar UFW para exponer únicamente SSH y HTTPS.
+- [ ] Crear unidad systemd con reinicio automático del servicio.
+- [ ] Configurar HTTPS y obtener la URL real del servicio.
+- [ ] Registrar `SICL_CORE_URL` en el entorno server-side de `sicl-web`.
+- [ ] Ejecutar verificación end-to-end de snapshots, Council y flujos humanos.
+- [ ] Adjuntar el Cloud Computer Manus y ejecutar la instalación real de `/data/sicl/`.
+- [ ] Verificar que `core.sqlite` persiste fuera del contenedor tras reinicio del servicio.
+- [x] Preparar runbook corregido de alojamiento con nombres reales de variables, secuencia segura de UFW y HTTPS, y registro server-side de `SICL_CORE_URL`.
+- [x] Hacer que el router falle cerrado en producción si falta `SICL_CORE_URL`, con prueba Vitest explícita.

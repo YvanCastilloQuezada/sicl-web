@@ -42,3 +42,15 @@ describe("tRPC to SICL Core delegation", () => {
     const caller = appRouter.createCaller(ctx);
     await expect(caller.projects.recommendationCreate({ projectId: "SICL-1", expectedVersion: 1, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "BINARY", reason: "Explicit analytical basis", source: "ANALYTICAL" })).rejects.toThrow(String(status));
   });
+
+
+describe("production core boundary", () => {
+  afterEach(() => { delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; process.env.NODE_ENV = "test"; vi.unstubAllGlobals(); });
+
+  it("fails closed when production has no canonical core URL", async () => {
+    process.env.NODE_ENV = "production";
+    delete process.env.SICL_CORE_URL;
+    const caller = appRouter.createCaller(ctx);
+    await expect(caller.projects.list()).rejects.toThrow("SICL_CORE_URL is required in production");
+  });
+});

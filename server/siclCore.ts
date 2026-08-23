@@ -55,7 +55,13 @@ export const emptySnapshot = (): SiclSnapshot => ({
 function collection(value: unknown): SiclRecord[] {
   if (Array.isArray(value)) return value as SiclRecord[];
   if (!value || typeof value !== "object") return [];
-  return Object.entries(value as Record<string, Record<string, unknown>>).map(([key, item]) => ({ id: String(item.id ?? item.project_id ?? item.source_id ?? item.requirement_id ?? item.objective_id ?? item.constraint_id ?? item.alternative_id ?? item.evaluation_id ?? item.comparison_id ?? item.recommendation_id ?? item.decision_id ?? key), ...item }));
+  return Object.entries(value as Record<string, Record<string, unknown>>).map(([key, item]) => {
+    const normalized: Record<string, unknown> = { ...item };
+    const aliases: Record<string, string> = { project_id: "projectId", source_id: "sourceId", evidence_id: "id", requirement_id: "requirementId", objective_id: "objectiveId", constraint_id: "constraintId", alternative_id: "alternativeId", evaluation_id: "evaluationId", comparison_id: "comparisonId", recommendation_id: "recommendationId", decision_id: "decisionId", review_id: "id", event_id: "id", event_type: "type", entity_id: "entityId", actor_id: "actorId", confirmation_id: "confirmationId", authority_basis: "authorityBasis", observed_project_version: "observedVersion", recommendation_version: "recommendationVersion", based_on: "basedOn", based_on_kind: "basedOnKind", entity_version: "recommendationVersion", decision_maker: "actorId", selected_alternative_id: "selectedAlternativeId" };
+    for (const [from, to] of Object.entries(aliases)) if (item[from] !== undefined && normalized[to] === undefined) normalized[to] = item[from];
+    const id = String(item.id ?? item.event_id ?? item.project_id ?? item.source_id ?? item.evidence_id ?? item.requirement_id ?? item.objective_id ?? item.constraint_id ?? item.alternative_id ?? item.evaluation_id ?? item.comparison_id ?? item.recommendation_id ?? item.decision_id ?? item.review_id ?? key);
+    return { id, ...normalized } as SiclRecord;
+  });
 }
 
 export function parseSnapshot(raw: string): SiclSnapshot {

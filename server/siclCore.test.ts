@@ -39,3 +39,10 @@ describe("SICL web domain adapter", () => {
     expect(decided.decisions).toHaveLength(1);
   });
 });
+
+  it("normalizes canonical Python collections and preserves explicit versions", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ recommendations: { "REC-1": { recommendation_id: "REC-1", based_on_kind: "MULTI_CRITERIA", entity_version: 3 } }, events: { "EV-1": { event_id: "EV-1", event_type: "RECOMMENDATION_RECORDED", entity_id: "REC-1" } } }));
+    expect(snapshot.recommendations[0]).toMatchObject({ id: "REC-1", recommendationId: "REC-1", basedOnKind: "MULTI_CRITERIA", recommendationVersion: 3 });
+    expect(snapshot.events[0]).toMatchObject({ id: "EV-1", type: "RECOMMENDATION_RECORDED", entityId: "REC-1" });
+  });
