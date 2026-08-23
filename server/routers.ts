@@ -49,6 +49,7 @@ export const appRouter = router({
     get: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       const canonical = await fetchCanonicalSnapshot(project.projectId);
+      if (canonical && "not_found" in canonical) throw new TRPCError({ code: "NOT_FOUND", message: canonical.detail ?? "SICL project not found" });
       return { ...project, snapshot: canonical ? canonical.snapshot : siclCorePort.parseSnapshot(project.snapshot) };
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
@@ -75,10 +76,13 @@ export const appRouter = router({
     council: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       const council = await fetchCanonicalCouncil(project.projectId);
+      if (council && "not_found" in council) throw new TRPCError({ code: "NOT_FOUND", message: council.detail ?? "SICL project not found" });
       if (council) return council;
       const canonical = await fetchCanonicalSnapshot(project.projectId);
-      const snapshot = canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.parseSnapshot(project.snapshot);
-      return { projectId: project.projectId, version: canonical?.observed_version ?? project.version, ...siclCorePort.analysisView(snapshot) };
+      if (canonical && "not_found" in canonical) throw new TRPCError({ code: "NOT_FOUND", message: canonical.detail ?? "SICL project not found" });
+      const snapshot = canonical && "snapshot" in canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.parseSnapshot(project.snapshot);
+      const version = canonical && "observed_version" in canonical ? canonical.observed_version : project.version;
+      return { projectId: project.projectId, version, ...siclCorePort.analysisView(snapshot) };
     }),
     recommendationCreate: protectedProcedure.input(versionInput.extend({ recommendationId: z.string().min(1), alternativeId: z.string().min(1), reason: z.string().trim().min(10), basedOn: z.string().min(1), basedOnKind: z.enum(["BINARY", "MULTI_CRITERIA", "COUNCIL_FINDING", "COUNCIL_ASSESSMENT", "COLLECTIVE_AGGREGATE"]), source: z.literal("ANALYTICAL") })).mutation(async ({ ctx, input }) => {
       if (hasCoreUrl()) return createCoreRecommendation(input.projectId, { recommendation_id: input.recommendationId, alternative_id: input.alternativeId, based_on: input.basedOn, based_on_kind: input.basedOnKind, reason: input.reason, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });

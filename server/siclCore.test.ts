@@ -46,3 +46,13 @@ describe("SICL web domain adapter", () => {
     expect(snapshot.recommendations[0]).toMatchObject({ id: "REC-1", recommendationId: "REC-1", basedOnKind: "MULTI_CRITERIA", recommendationVersion: 3 });
     expect(snapshot.events[0]).toMatchObject({ id: "EV-1", type: "RECOMMENDATION_RECORDED", entityId: "REC-1" });
   });
+
+
+describe("canonical comparison collections", () => {
+  it("does not merge comparisons and multi-comparisons", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ comparisons: { "CMP-1": { comparison_id: "CMP-1" } }, multi_comparisons: { "MCMP-1": { comparison_id: "MCMP-1" } } }));
+    expect(snapshot.comparisons.map((item) => item.id)).toEqual(["CMP-1"]);
+    expect(snapshot.multiComparisons.map((item) => item.id)).toEqual(["MCMP-1"]);
+  });
+});

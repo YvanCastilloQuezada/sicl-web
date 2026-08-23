@@ -28,3 +28,30 @@ describe("coreHttpClient", () => {
     await expect(fetchCanonicalSnapshot("SICL-1")).rejects.toThrow("503");
   });
 });
+
+
+describe("SiclCoreHttpError", () => {
+  afterEach(() => {
+    delete process.env.SICL_CORE_URL;
+    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllGlobals();
+  });
+
+  it("preserves upstream status and safe error envelope", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: "CONCURRENCY_CONFLICT", detail: "expected project version 1, got 2" }), { status: 409, headers: { "content-type": "application/json" } })));
+    const { createCoreRecommendation } = await import("./coreHttpClient");
+    await expect(createCoreRecommendation("SICL-1", { recommendation_id: "REC-1" })).rejects.toMatchObject({ status: 409, errorCode: "CONCURRENCY_CONFLICT", message: expect.stringContaining("expected project version") });
+  });
+});
+
+
+  it("preserves the upstream 404 envelope for canonical reads", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const envelope = { error: "PROJECT_NOT_FOUND", detail: "No canonical project exists", trace_id: "trace-404" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify(envelope), { status: 404, headers: { "content-type": "application/json" } })));
+    const result = await fetchCanonicalSnapshot("SICL-404");
+    expect(result).toMatchObject({ not_found: true, status: 404, error: "PROJECT_NOT_FOUND", detail: "No canonical project exists", envelope });
+  });

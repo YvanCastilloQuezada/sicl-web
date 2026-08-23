@@ -41,6 +41,7 @@ export type SiclSnapshot = {
   alternatives: SiclRecord[];
   evaluations: SiclRecord[];
   comparisons: SiclRecord[];
+  multiComparisons: SiclRecord[];
   recommendations: SiclRecord[];
   humanReviews: SiclRecord[];
   decisions: SiclRecord[];
@@ -49,7 +50,7 @@ export type SiclSnapshot = {
 
 export const emptySnapshot = (): SiclSnapshot => ({
   sources: [], evidence: [], requirements: [], objectives: [], constraints: [], alternatives: [],
-  evaluations: [], comparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
+  evaluations: [], comparisons: [], multiComparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
 });
 
 function collection(value: unknown): SiclRecord[] {
@@ -70,7 +71,7 @@ export function parseSnapshot(raw: string): SiclSnapshot {
     const snapshot = emptySnapshot();
     const source = (parsed.core && typeof parsed.core === "object" ? parsed.core : parsed) as Record<string, unknown>;
     const aliases: Record<keyof SiclSnapshot, string[]> = {
-      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"],
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"],
     };
     for (const key of Object.keys(snapshot) as (keyof SiclSnapshot)[]) {
       const values = aliases[key].flatMap((alias) => collection(source[alias]));

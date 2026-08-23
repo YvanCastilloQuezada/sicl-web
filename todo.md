@@ -66,3 +66,40 @@
 - [x] Preparar runbook corregido de alojamiento con nombres reales de variables, secuencia segura de UFW y HTTPS, y registro server-side de `SICL_CORE_URL`.
 - [x] Hacer que el router falle cerrado en producción si falta `SICL_CORE_URL`, con prueba Vitest explícita.
 - [x] Convertir el fallback TypeScript en modo local explícito mediante `SICL_ALLOW_LOCAL_CORE=true`; producción no lo habilita automáticamente.
+
+## Auditoría de fidelidad UI–núcleo
+
+- [x] Hacer que el cliente HTTP preserve cuerpo y código de error del adaptador, incluyendo 401/404/409/422.
+- [x] Ampliar el contrato Council web con comparaciones, multi-comparaciones, tradeoffs, recomendaciones y diagnóstico canónicos.
+- [x] Evitar que `multi_comparisons` se fusione silenciosamente con `comparisons` en el modo local explícito.
+- [x] Eliminar fallback implícito de `recommendationVersion` a 1 en la interfaz.
+- [x] Conectar la preparación explícita de Decision en el flujo visual antes del registro.
+- [x] Renderizar en la UI la salida Council canónica y los eventos/auditoría completos.
+- [x] Renderizar en la UI los campos canónicos completos de eventos: event_type, entity_type, entity_id, project_id, timestamp y datos seguros relevantes.
+- [x] Mostrar registros completos y trazables de HumanReviews y Decisions en la vista de auditoría.
+- [x] Añadir una prueba de adaptación que confirme Council y auditoría íntegros sin exponer secretos.
+- [x] Definir y probar el tratamiento contractual del 404 en lecturas canónicas, sin descartar silenciosamente su envelope.
+- [x] Añadir regresión dirigida que confirme separación entre `comparisons` y `multiComparisons`.
+- [x] Renderizar detalles canónicos completos de comparaciones, multi-comparaciones, tradeoffs y recommendations.
+- [x] Mostrar timestamps, versiones y authority basis seguro en HumanReviews y Decisions.
+- [x] Añadir prueba de adaptación conjunta de Council canónico y auditoría filtrada.
+
+## Hardening de integración — ejecución actual
+
+- [x] Preservar el envelope 404 de lecturas canónicas y traducirlo a NOT_FOUND en tRPC.
+- [x] Añadir regresión dirigida para separación entre comparisons y multiComparisons.
+- [x] Renderizar detalles canónicos completos de comparaciones, multi-comparaciones, tradeoffs y recommendations.
+- [x] Mostrar timestamps, versiones y authority basis seguro en HumanReviews y Decisions.
+- [ ] Verificar visualmente Council y Audit con datos canónicos poblados en escritorio y móvil.
+
+## Correcciones detectadas antes del checkpoint
+
+- [x] Preservar el body 404 real del adaptador en las lecturas canónicas, sin fabricar un envelope local.
+- [x] Añadir pruebas Vitest específicas de 404 para cliente HTTP y router tRPC.
+- [x] Mostrar authority basis también en HumanReviews dentro de Audit.
+- [x] Añadir cobertura integrada de Council canónico, 404 contractual y auditoría filtrada mediante pruebas de adaptación coordinadas.
+
+## Aclaración contractual del 404
+
+- [x] Documentar y probar que el wrapper `CanonicalNotFound` es una frontera de tipos mínima y que `envelope` conserva sin transformación el cuerpo 404 upstream.
+- [x] Añadir una prueba coordinada en un mismo escenario para Council canónico, lectura 404 y auditoría filtrada.
