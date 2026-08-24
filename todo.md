@@ -193,3 +193,8 @@
 - [x] Exponer Evaluation→Comparison en Alternatives & Evaluation y mantener Council read-only.
 - [x] Añadir pruebas Vitest de referencias, dirección obligatoria, estados de factibilidad (ausente e inválido) y separación de Recommendation.
 
+
+## Ajuste operativo del adaptador Python
+
+- [x] Asegurar que el Dockerfile de `sicl-core-http` ejecuta Uvicorn con `exec`, conserva `PORT` configurable y mantiene `PYTHONPATH` del núcleo; validación estática y suite Python aprobadas.
+
