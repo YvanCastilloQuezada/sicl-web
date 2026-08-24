@@ -402,3 +402,11 @@
 - [x] Clasificar discrepancias como A/B/C/D y listar intervención requerida.
 - [x] Redactar y verificar `SICL_READINESS_CHECK_v1.md`.
 - [x] Detener el ciclo y entregar el reporte de readiness.
+
+## Resolución autorizada A-001
+
+- [x] Inspeccionar la estrategia real de imagen en Dockerfile, systemd y runbook.
+- [x] Aplicar una etiqueta explícita y trazable sin introducir registro nuevo ni cambiar contratos.
+- [x] Ejecutar validaciones de sintaxis, coherencia de etiquetas, salud HTTP, compileall y diff check.
+- [x] Crear `SICL_A001_RESOLUTION.md` con evidencia y estado final.
+- [x] Entregar solo el resultado A-001 y detener el ciclo.
