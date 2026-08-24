@@ -341,3 +341,10 @@
 - [x] Generar mockups estáticos coherentes para el flujo arquitectónico.
 - [x] Revisar que las pantallas no prometan capacidades no implementadas.
 - [x] Registrar y entregar el paquete visual al Product Owner.
+
+## Mockups deterministas — ruta aprobada
+
+- [x] Crear layouts estáticos deterministas para Proyecto/Contexto, Objetivos/Condiciones, Alternativas/Evaluación y Recomendación/Decisión.
+- [x] Exportar los cuatro layouts a imágenes independientes y conservar fuentes editables.
+- [x] Verificar legibilidad, coherencia visual y etiqueta conceptual.
+- [x] Entregar el paquete visual completo actualizado.
