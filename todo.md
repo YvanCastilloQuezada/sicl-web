@@ -296,3 +296,10 @@
 - [x] Revisar estáticamente Dockerfile y contexto de despliegue sin simular la construcción remota.
 - [x] Preparar el paquete UPAO-001 sintético y el guion E2E poblado para Cloud Computer.
 - [x] Crear la tabla de criterios y evidencias del Release Candidate.
+
+## Mejoras secundarias sin Cloud Computer
+
+- [x] Crear un verificador unificado del Release Candidate que ejecute los checks locales y emita un estado agregado.
+- [x] Generar un manifiesto reproducible del Release Candidate con commits, versiones y hashes de evidencia.
+- [x] Añadir una matriz de fallos esperados del adaptador HTTP para 401, 404, 409 y 422, sin probar infraestructura remota.
+- [x] Documentar explícitamente qué resultados locales no autorizan una declaración de despliegue o validez profesional.
