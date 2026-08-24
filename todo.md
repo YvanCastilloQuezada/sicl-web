@@ -334,3 +334,10 @@
 - [x] Preparar preguntas frecuentes para arquitectos.
 - [x] Preparar plan de implementación por fases con entregables y estados.
 - [x] Verificar y entregar el paquete consolidado sin confundir mockup con funcionalidad implementada.
+
+## Mockups estáticos conceptuales de SICL
+
+- [x] Definir el conjunto inicial de pantallas y su narrativa visual.
+- [x] Generar mockups estáticos coherentes para el flujo arquitectónico.
+- [x] Revisar que las pantallas no prometan capacidades no implementadas.
+- [x] Registrar y entregar el paquete visual al Product Owner.
