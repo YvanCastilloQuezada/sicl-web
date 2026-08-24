@@ -7,6 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
+import { nextRecommendationVersion } from "./recommendationVersion";
 import { createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
@@ -102,8 +103,9 @@ export const appRouter = router({
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       if (!snapshot.alternatives.some((item) => item.id === input.alternativeId)) fail("Recommendation alternativeId does not exist");
       if (input.source === "ANALYTICAL" && !snapshot.comparisons.some((item) => item.id === input.basedOn)) fail("Analytical recommendation requires an existing comparison");
-      const recommendation = { id: input.recommendationId, alternativeId: input.alternativeId, reason: input.reason, basedOn: input.basedOn, basedOnKind: input.basedOnKind, source: input.source, recommendationVersion: 1 };
-      const next = siclCorePort.appendRecord(snapshot, "recommendations", recommendation, event(ctx.user.id, "RECOMMENDATION_CREATED", recommendation.id, { observedVersion: input.expectedVersion, recommendationVersion: 1 }));
+      const recommendationVersion = nextRecommendationVersion(snapshot.recommendations.filter((item) => item.id === input.recommendationId).map((item) => item.recommendationVersion));
+      const recommendation = { id: input.recommendationId, alternativeId: input.alternativeId, reason: input.reason, basedOn: input.basedOn, basedOnKind: input.basedOnKind, source: input.source, recommendationVersion };
+      const next = siclCorePort.appendRecord(snapshot, "recommendations", recommendation, event(ctx.user.id, "RECOMMENDATION_CREATED", recommendation.id, { observedVersion: input.expectedVersion, recommendationVersion }));
       return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
     }),
     reviewRecord: protectedProcedure.input(versionInput.extend({ reviewId: z.string().min(1), recommendationId: z.string().min(1), actorId: z.string().min(1), confirmationId: z.string().min(1), reason: z.string().trim().min(10), recommendationVersion: z.number().int().positive(), status: z.enum(["ACCEPTED", "MODIFIED", "REJECTED"]), authorityBasis: z.string().min(1).default("HUMAN_REVIEW") })).mutation(async ({ ctx, input }) => {

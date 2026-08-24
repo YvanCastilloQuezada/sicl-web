@@ -158,3 +158,7 @@
 - [x] Formalizar referencias externas y escenarios como evidencia/contexto evaluable, no como doctrina ni hechos automáticos.
 - [x] Añadir una mejora de producto distintiva que sea factible ahora y refuerce la trazabilidad del Command Center.
 - [x] Verificar pruebas, documentación y límites de la ampliación del documento 65.
+
+## Mejora de Recommendations derivada del documento 65
+
+- [x] Hacer monotónico el `recommendationVersion` en el fallback local y cubrirlo con regresión, sin cambiar el flujo de autoridad humana.
