@@ -210,3 +210,7 @@
 - [x] Confirmar que los repositorios web y core están versionados, que el Dockerfile y runbook están preparados, y que no existe `SICL_CORE_URL` ni Docker disponible en el sandbox; por tanto no se fabrica una URL ni se declara desplegado el servicio remoto.
 
 - [x] Documentar el protocolo reproducible de verificación Alternatives & Evaluation → Recommendation → Decision y sus condiciones de seguridad; la ejecución funcional poblada permanece pendiente.
+
+## Corrección UI detectada durante continuidad
+
+- [x] Separar el objetivo seleccionado para Evaluation del objetivo seleccionado para Comparison, evitando que un formulario sobrescriba silenciosamente al otro; regresión UI añadida.

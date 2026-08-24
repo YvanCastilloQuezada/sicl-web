@@ -12,6 +12,12 @@ describe("analytical UI contract", () => {
     expect(homeSource).toContain("provenance");
   });
 
+  it("keeps Evaluation and Comparison objective selections independent", () => {
+    expect(homeSource).toContain("comparisonObjectiveId");
+    expect(homeSource).toContain("setComparisonObjectiveId");
+    expect(homeSource).toContain("objectiveId: comparisonObjectiveId");
+  });
+
   it("keeps the analytical module from creating authority acts", () => {
     const moduleSource = homeSource.slice(homeSource.indexOf("function EvaluationComparisonModule"));
     expect(moduleSource).not.toContain("decisionRecord");
