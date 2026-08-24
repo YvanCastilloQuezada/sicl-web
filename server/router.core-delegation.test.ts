@@ -130,3 +130,49 @@ describe("local recommendation reference semantics", () => {
     await expect(appRouter.createCaller(ctx).projects.recommendationCreate({ projectId: "SICL-LOCAL", expectedVersion: 1, recommendationId: "REC-2", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "MULTI_CRITERIA", reason: "Explicit multicriteria analytical basis", source: "ANALYTICAL" })).rejects.toThrow("existing comparison of the declared kind");
   });
 });
+
+
+describe("local analytical workflow integration", () => {
+  beforeEach(() => { delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; process.env.NODE_ENV = "test"; process.env.SICL_ALLOW_LOCAL_CORE = "true"; });
+  afterEach(() => { delete process.env.SICL_ALLOW_LOCAL_CORE; delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; vi.restoreAllMocks(); });
+
+  it("creates Evaluation and Comparison before an analytical Recommendation", async () => {
+    let currentProject: any = {
+      projectId: "SICL-FLOW",
+      ownerId: 7,
+      name: "Integrated analytical flow",
+      location: "Test",
+      version: 1,
+      status: "DRAFT",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      snapshot: JSON.stringify({
+        requirements: [{ id: "REQ-1", name: "Access" }],
+        objectives: [{ id: "OBJ-1", name: "Daylight", requirementId: "REQ-1", direction: "MAXIMIZE" }],
+        alternatives: [{ id: "ALT-A", name: "Scheme A" }, { id: "ALT-B", name: "Scheme B" }],
+        evaluations: [], comparisons: [], multiComparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
+      }),
+    };
+    vi.spyOn(db, "getSiclProject").mockImplementation(async () => currentProject);
+    vi.spyOn(db, "updateSiclProject").mockImplementation(async (_ownerId, _projectId, expectedVersion, snapshot, status) => {
+      if (currentProject.version !== expectedVersion) return undefined;
+      currentProject = { ...currentProject, version: expectedVersion + 1, snapshot, status: status ?? currentProject.status };
+      return currentProject;
+    });
+    const caller = appRouter.createCaller(ctx);
+
+    const evaluationA = await caller.projects.addRecord({ projectId: "SICL-FLOW", expectedVersion: 1, kind: "evaluations", record: { id: "EVAL-A", name: "Evaluation A", alternativeId: "ALT-A", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 650, unit: "lux", method: "site_measurement", inputs: [{ sensor_id: "S-07" }], provenance: ["SRC-001", "EVD-004"] } });
+    expect(evaluationA.version).toBe(2);
+    const evaluationB = await caller.projects.addRecord({ projectId: "SICL-FLOW", expectedVersion: 2, kind: "evaluations", record: { id: "EVAL-B", name: "Evaluation B", alternativeId: "ALT-B", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 540, unit: "lux", method: "site_measurement", inputs: [{ sensor_id: "S-08" }], provenance: ["SRC-001", "EVD-005"] } });
+    expect(evaluationB.version).toBe(3);
+    const comparison = await caller.projects.addRecord({ projectId: "SICL-FLOW", expectedVersion: 3, kind: "comparisons", record: { id: "CMP-1", name: "Daylight comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE", feasibilityStatus: "FEASIBLE" } });
+    expect(comparison.version).toBe(4);
+    const recommendation = await caller.projects.recommendationCreate({ projectId: "SICL-FLOW", expectedVersion: 4, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "BINARY", reason: "Explicit analytical basis from the declared comparison", source: "ANALYTICAL" });
+    expect(recommendation.version).toBe(5);
+    const snapshot = recommendation.snapshot as any;
+    expect(snapshot.evaluations.map((item: any) => item.id)).toEqual(["EVAL-A", "EVAL-B"]);
+    expect(snapshot.comparisons[0]).toMatchObject({ id: "CMP-1", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE", feasibilityStatus: "FEASIBLE" });
+    expect(snapshot.recommendations[0]).toMatchObject({ id: "REC-1", basedOn: "CMP-1", basedOnKind: "BINARY", recommendationVersion: 1 });
+    expect(snapshot.decisions).toHaveLength(0);
+  });
+});

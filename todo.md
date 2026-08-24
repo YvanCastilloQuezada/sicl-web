@@ -5,7 +5,7 @@
 - [x] Validaciones explícitas en backend para referencias, versiones, direcciones y pertenencia al proyecto.
 - [x] Capa tRPC como adaptador único entre la interfaz y los contratos de SICL.
 - [x] Vista Council y comparaciones estrictamente read-only.
-- [ ] Flujo de Recommendations versionadas con razón y referencias analíticas explícitas.
+- [x] Flujo de Recommendations versionadas con razón y referencias analíticas explícitas.
 - [x] Flujo de HumanReviews con actor, confirmación, versión observada y recommendation_version.
 - [x] Flujo de preparación y registro de Decisions exclusivamente humanas con autoridad explícita.
 - [x] Timeline de auditoría con eventos, revisiones y decisiones sin secretos de autenticación.
@@ -19,8 +19,8 @@
 
 - [x] Integrar la capa tRPC con los contratos reales de SICL en `/home/ubuntu/SICL_0_2_1`, con fallback local explícito y aislado; la eliminación completa del modelo paralelo queda fuera de esta fase.
 - [x] Renderizar en la UI la salida real de Council y comparaciones desde el endpoint read-only.
-- [ ] Completar el flujo web de evaluaciones y comparaciones trazables para habilitar Recommendations analíticas de extremo a extremo.
-- [ ] Implementar versionado real del ciclo de Recommendations, no solo `recommendationVersion: 1`.
+- [x] Completar el flujo web de evaluaciones y comparaciones trazables para habilitar Recommendations analíticas de extremo a extremo.
+- [x] Implementar versionado real del ciclo de Recommendations, no solo `recommendationVersion: 1`.
 - [x] Añadir paso separado de preparación de Decision antes del registro durable.
 - [ ] Ejecutar y documentar el flujo completo en navegador en escritorio y móvil.
 
@@ -198,3 +198,9 @@
 
 - [x] Asegurar que el Dockerfile de `sicl-core-http` ejecuta Uvicorn con `exec`, conserva `PORT` configurable y mantiene `PYTHONPATH` del núcleo; validación estática y suite Python aprobadas.
 
+
+## Huecos detectados en la auditoría de continuidad
+
+- [x] Añadir una prueba integrada local que cree Evaluation y Comparison y luego ejecute `recommendationCreate` sobre esa referencia, verificando trazabilidad y versión.
+- [x] Verificar el versionado de Recommendations en el núcleo Python/adaptador HTTP canónico: se confirmó `Recommendation.entity_version` + `Project.entity_version`, pero no existe versionado monotónico de ciclos; la semántica nueva queda explícitamente pendiente de decisión contractual.
+- [ ] Ejecutar y documentar una verificación funcional de navegador del flujo Alternatives & Evaluation → Recommendation en escritorio y móvil cuando exista un proyecto de prueba poblado.
