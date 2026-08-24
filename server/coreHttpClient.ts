@@ -14,8 +14,12 @@ export type OperationsResearchMethod = {
   method: string;
   required_inputs: string[];
   required_units: string[];
+  required_constraints: string[];
   required_assumptions: string[];
+  required_provenance: string[];
   output_fields: string[];
+  feasibility_states: string[];
+  sensitivity_outputs: string[];
   version: string;
 };
 

@@ -148,3 +148,13 @@
 
 - [x] Ejecutar `fetchOperationsResearchMethods()` desde el cliente web contra el adaptador Python vivo sin mock de `fetch`.
 - [x] Guardar evidencia reproducible de la prueba Node web↔Python y cerrar el pendiente solo con esa evidencia.
+
+## Aportes del documento 65 — ampliación de producto y arquitectura
+
+- [x] Comparar el documento 65 con el estado actual y separar visión, decisión arquitectónica y capacidades implementables.
+- [x] Formalizar los roles Product Owner, Chief Architect y Implementation Engineer sin crear una jerarquía ficticia de autoridad dentro del software.
+- [x] Convertir el flujo propuesta → contrato → autorización → implementación → pruebas → auditoría → release en un artefacto trazable del proyecto.
+- [x] Preservar la visión de Spatial Entity multiescala sin reemplazar Project prematuramente ni romper SICL 1–3.
+- [x] Formalizar referencias externas y escenarios como evidencia/contexto evaluable, no como doctrina ni hechos automáticos.
+- [x] Añadir una mejora de producto distintiva que sea factible ahora y refuerce la trazabilidad del Command Center.
+- [x] Verificar pruebas, documentación y límites de la ampliación del documento 65.
