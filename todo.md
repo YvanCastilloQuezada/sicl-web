@@ -255,3 +255,7 @@
 - [x] Exponer y escribir `Preference` mediante el adaptador HTTP autenticado, tRPC y fallback web.
 - [x] Añadir pruebas de contrato, persistencia, referencias, auditoría, seguridad e interoperabilidad; TypeScript y 60 pruebas web, suite Python y prueba HTTP canónica aprobadas.
 - [x] Actualizar el Coordination Record del Ciclo 01 con estado IMPLEMENTADO Y VALIDADO LOCALMENTE tras la evidencia; E2E remoto permanece pendiente.
+
+## Hardening final de Preference
+
+- [x] Exigir que el replay idempotente de `Preference` coincida en proyecto, entidad, evento y payload completo; añadir regresión de conflicto.
