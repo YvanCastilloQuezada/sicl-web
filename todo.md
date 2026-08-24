@@ -442,3 +442,13 @@
 - [x] Mantener explícito que BLOQUEADO POR CONTRATO no significa FUERA DE SICL.
 - [x] Verificar que la consolidación no autoriza infraestructura, E2E ni ampliación contractual.
 - [x] Entregar la versión constitucional consolidada y detenerse para la siguiente revisión arquitectónica.
+
+## Revisión arquitectónica documental posterior a B-001 autorizada
+- [x] Contrastar Constitución, Core Contract, HTTP, implementación, pruebas, roadmap/RFC y E2E.
+- [x] Elaborar diagnóstico de arquitectura documental: separaciones correctas y mezclas.
+- [x] Construir matriz Constitución → Core → HTTP → Web → Implementación → Test → E2E.
+- [x] Identificar inconsistencias documentales con severidad, capa correcta y recomendación.
+- [x] Proponer estructura documental de SICL 0.6 y relación entre artefactos.
+- [x] Proponer la estructura de `SICL_MASTER_SPEC_v2` sin redactar todavía v2 completa.
+- [x] Verificar que no se modifique código, contrato, infraestructura ni se declare E2E.
+- [x] Entregar únicamente el diagnóstico y las propuestas documentales; esperar nueva autorización.
