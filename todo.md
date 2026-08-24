@@ -275,3 +275,15 @@
 - [x] Revisar runbook y pruebas de estados remotos del frontend; Decision Conditions falla cerrado con SICL_CORE_URL hasta disponer de endpoint canónico.
 
 - [x] Mostrar la lista read-only de Decision Conditions registradas en Alternatives & Evaluation para cerrar el ciclo de captura y revisión.
+
+- [x] Definir contrato y alcance de un simulador de proyectos sintéticos como harness externo de validación, separado del Core y sin recomendaciones automáticas ni datos presentados como reales.
+
+## Simulador de Proyectos — Fase A aprobada
+
+- [x] Definir contrato externo del harness y su separación respecto del Core canónico.
+- [x] Implementar modelo versionado de casos sintéticos y semilla determinista.
+- [x] Añadir dos fixtures iniciales SICL 1, marcados explícitamente como sintéticos.
+- [x] Implementar runner externo contra SQLite temporal sin persistir datos en producción.
+- [x] Validar invariantes de trazabilidad, referencias, estados y autoridad humana.
+- [x] Generar reporte y evidencia reproducible del simulador.
+- [x] Documentar límites de Fase A y actualizar la hoja de ruta SICL 1–3.
