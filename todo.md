@@ -310,3 +310,11 @@
 - [x] Contrastar estados declarados con código, pruebas, documentación y commits.
 - [x] Redactar un único documento de auditoría consolidada con estados y límites.
 - [x] Verificar la auditoría, marcarla en todo.md y entregarla al Product Owner.
+
+## Avance porcentual y cronograma ejecutivo
+
+- [x] Calcular el porcentaje de tareas completadas y explicar sus limitaciones.
+- [x] Construir una métrica ponderada por fases para no sobreestimar el avance.
+- [x] Clasificar pendientes por dependencia, prioridad y criterio de salida.
+- [x] Redactar un cronograma ejecutivo de despliegue y validación E2E.
+- [x] Verificar y entregar el documento de avance y hoja de ruta.
