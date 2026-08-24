@@ -303,3 +303,10 @@
 - [x] Generar un manifiesto reproducible del Release Candidate con commits, versiones y hashes de evidencia.
 - [x] Añadir una matriz de fallos esperados del adaptador HTTP para 401, 404, 409 y 422, sin probar infraestructura remota.
 - [x] Documentar explícitamente qué resultados locales no autorizan una declaración de despliegue o validez profesional.
+
+## Auditoría consolidada del proyecto
+
+- [x] Inventariar avances de SICL por tema y localizar sus evidencias.
+- [x] Contrastar estados declarados con código, pruebas, documentación y commits.
+- [x] Redactar un único documento de auditoría consolidada con estados y límites.
+- [x] Verificar la auditoría, marcarla en todo.md y entregarla al Product Owner.
