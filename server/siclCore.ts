@@ -1,7 +1,7 @@
 import { normalizeSpatialScope, normalizeTemporalScope, type SpatialScope, type TemporalScope } from "@shared/siclScopes";
 
 export type SiclStatus = "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED";
-export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons" | "recommendations";
+export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "preferences" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons" | "recommendations";
 
 export type SiclRecord = {
   id: string;
@@ -32,6 +32,9 @@ export type SiclRecord = {
   reason?: string;
   authorityBasis?: string;
   rationale?: string;
+  justification?: string;
+  preferenceStrength?: "SOFT" | "STRONG";
+  scope?: string;
   decisionType?: "HUMAN" | string;
 };
 
@@ -50,6 +53,7 @@ export type SiclSnapshot = {
   requirements: SiclRecord[];
   objectives: SiclRecord[];
   constraints: SiclRecord[];
+  preferences: SiclRecord[];
   alternatives: SiclRecord[];
   evaluations: SiclRecord[];
   comparisons: SiclRecord[];
@@ -63,7 +67,7 @@ export type SiclSnapshot = {
 };
 
 export const emptySnapshot = (): SiclSnapshot => ({
-  sources: [], evidence: [], requirements: [], objectives: [], constraints: [], alternatives: [],
+  sources: [], evidence: [], requirements: [], objectives: [], constraints: [], preferences: [], alternatives: [],
   evaluations: [], comparisons: [], multiComparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
 });
 
@@ -87,7 +91,7 @@ export function parseSnapshot(raw: string): SiclSnapshot {
     const project = source.project && typeof source.project === "object" ? source.project as Record<string, unknown> : {};
     const metadata = { ...source, ...project };
     const aliases: Record<keyof SiclSnapshot, string[]> = {
-      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], preferences: ["preferences"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
     };
     for (const key of Object.keys(aliases) as (keyof SiclSnapshot)[]) {
       if (key === "spatialScope") { const scope = aliases[key].map((alias) => normalizeSpatialScope(metadata[alias])).find(Boolean); if (scope) snapshot.spatialScope = scope; continue; }
@@ -113,6 +117,10 @@ export function validateRecord(kind: RecordKind, record: SiclRecord, snapshot: S
   }
   if (kind === "constraints" && (!record.metric?.trim() || typeof record.threshold !== "number")) {
     throw new Error("Constraint requires metric and numeric threshold");
+  }
+  if (kind === "preferences") {
+    if (!record.justification?.trim()) throw new Error("Preference requires justification");
+    if (record.preferenceStrength !== undefined && !["SOFT", "STRONG"].includes(record.preferenceStrength)) throw new Error("Preference strength is invalid");
   }
   if (kind === "evaluations") {
     if (!record.objectiveId?.trim() || !snapshot.objectives.some((objective) => objective.id === record.objectiveId)) throw new Error("Evaluation objectiveId does not exist");

@@ -25,4 +25,23 @@ describe("analytical UI contract", () => {
     expect(moduleSource).not.toContain("recommendationCreate");
     expect(moduleSource).toContain("No missing direction defaults to MINIMIZE");
   });
+
+  it("exposes Preferences as a distinct semantic record", () => {
+    expect(homeSource).toContain("PreferenceModule");
+    expect(homeSource).toContain("preferenceStrength");
+    expect(homeSource).toContain("Preference requires a name and justification");
+    expect(homeSource).toContain("not silently promoted to a requirement or hard constraint");
+  });
+
+  it("exposes a contextual spatial representation without geographic inference", () => {
+    expect(homeSource).toContain("SpatialContextPanel");
+    expect(homeSource).toContain("Declared frame · not georeferenced");
+    expect(homeSource).toContain("does not infer coordinates");
+  });
+
+  it("exports a filtered traceability report without authority claims", () => {
+    expect(homeSource).toContain("ReportExportButton");
+    expect(homeSource).toContain("safeAuditData(snapshot ?? {})");
+    expect(homeSource).toContain("not a professional certification or automatic decision");
+  });
 });

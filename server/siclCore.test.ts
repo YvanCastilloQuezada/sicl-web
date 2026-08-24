@@ -121,3 +121,19 @@ describe("explicit analytical records", () => {
     expect(multi.recommendations).toHaveLength(0);
   });
 });
+
+
+describe("explicit preferences", () => {
+  it("requires a justification and preserves preference semantics", () => {
+    const snapshot = emptySnapshot();
+    expect(() => appendRecord(snapshot, "preferences", { id: "PREF-1", name: "Public access" }, actorEvent("PREFERENCE", "PREF-1", 1))).toThrow("justification");
+    const next = appendRecord(snapshot, "preferences", { id: "PREF-1", name: "Public access", preferenceStrength: "SOFT", scope: "PROJECT", justification: "Supports the intended public program" }, actorEvent("PREFERENCE", "PREF-1", 1));
+    expect(next.preferences[0]).toMatchObject({ id: "PREF-1", preferenceStrength: "SOFT", scope: "PROJECT" });
+    expect(next.constraints).toHaveLength(0);
+    expect(next.events).toHaveLength(1);
+  });
+
+  it("rejects an unrecognized preference strength", () => {
+    expect(() => appendRecord(emptySnapshot(), "preferences", { id: "PREF-2", name: "Daylight", preferenceStrength: "MANDATORY" as never, justification: "Supports user comfort" }, actorEvent("PREFERENCE", "PREF-2", 1))).toThrow("Preference strength is invalid");
+  });
+});
