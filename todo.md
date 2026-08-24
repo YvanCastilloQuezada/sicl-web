@@ -452,3 +452,14 @@
 - [x] Proponer la estructura de `SICL_MASTER_SPEC_v2` sin redactar todavía v2 completa.
 - [x] Verificar que no se modifique código, contrato, infraestructura ni se declare E2E.
 - [x] Entregar únicamente el diagnóstico y las propuestas documentales; esperar nueva autorización.
+
+## A-002 — Auditoría ejecutable y freeze de SICL 0.6 autorizados
+- [x] Auditar cruzadamente documentos, Core Python, SQLite, tRPC, Web, HTTP v0.3, pruebas, simuladores y adaptadores.
+- [x] Construir una matriz maestra única de verdad con estados, evidencia, dependencias y bloqueos.
+- [x] Registrar discrepancias especificadas/no implementadas, implementadas/no especificadas, parciales, verificadas, expuestas, bloqueadas, preparadas y fuera de alcance.
+- [x] Proponer `SICL_0_6_FREEZE` con alcance, estado, faltantes y prohibiciones.
+- [x] Ordenar backlog P0/P1/P2/FUTURE con criterios de aceptación y evidencia requerida.
+- [x] Identificar tests faltantes para VERIFIED y E2E VERIFIED sin escribirlos.
+- [x] Definir Release Gate READY → RELEASE CANDIDATE → E2E VERIFIED.
+- [x] Verificar que A-002 no modifique código, contratos, infraestructura ni Master Spec v2.
+- [x] Entregar únicamente la auditoría A-002 y marcar A-002 COMPLETE — AWAITING PRODUCT OWNER.
