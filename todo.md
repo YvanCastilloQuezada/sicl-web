@@ -410,3 +410,11 @@
 - [x] Ejecutar validaciones de sintaxis, coherencia de etiquetas, salud HTTP, compileall y diff check.
 - [x] Crear `SICL_A001_RESOLUTION.md` con evidencia y estado final.
 - [x] Entregar solo el resultado A-001 y detener el ciclo.
+
+## Matriz operacional de aceptación SICL 0.6
+
+- [x] Verificar checkout 2ef49aba2136, higiene Git y referencias únicas de `release-0.6`.
+- [x] Mapear entidades, operaciones, endpoints, eventos, versiones, snapshots, pruebas y autoridad.
+- [x] Marcar etapas no demostrables como BLOQUEADO POR CONTRATO sin inventar soluciones.
+- [x] Redactar `SICL_0_6_ACCEPTANCE_MATRIX_v1.md` como matriz ejecutable del futuro E2E.
+- [x] Verificar la matriz y entregar únicamente hechos, discrepancias nuevas, intervención requerida y próxima acción.
