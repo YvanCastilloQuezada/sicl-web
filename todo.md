@@ -287,3 +287,12 @@
 - [x] Validar invariantes de trazabilidad, referencias, estados y autoridad humana.
 - [x] Generar reporte y evidencia reproducible del simulador.
 - [x] Documentar límites de Fase A y actualizar la hoja de ruta SICL 1–3.
+
+## Release Candidate local — tareas aprobadas
+
+- [x] Endurecer el simulador validando que todos los nombres de expected_invariants tengan checks ejecutados.
+- [x] Completar una matriz reproducible de verificación de la Fase A.
+- [x] Preparar una prueba HTTP local completa contra el adaptador Python temporal.
+- [x] Revisar estáticamente Dockerfile y contexto de despliegue sin simular la construcción remota.
+- [x] Preparar el paquete UPAO-001 sintético y el guion E2E poblado para Cloud Computer.
+- [x] Crear la tabla de criterios y evidencias del Release Candidate.
