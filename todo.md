@@ -418,3 +418,19 @@
 - [x] Marcar etapas no demostrables como BLOQUEADO POR CONTRATO sin inventar soluciones.
 - [x] Redactar `SICL_0_6_ACCEPTANCE_MATRIX_v1.md` como matriz ejecutable del futuro E2E.
 - [x] Verificar la matriz y entregar únicamente hechos, discrepancias nuevas, intervención requerida y próxima acción.
+
+## Fase constitucional B-001 — SICL 0.6
+- [ ] Contrastar Master Spec, State Audit, Acceptance Matrix, Core Contract y HTTP v0.3.
+- [ ] Registrar Fact/Assumption como decisión conceptual APROBADA.
+- [ ] Analizar Audit/Report sin resolver la decisión.
+- [ ] Analizar Decision Conditions y mantenerla read-only.
+- [ ] Delimitar el alcance constitucional exacto de SICL 0.6 y la brecha BLOQUEADO POR CONTRATO.
+- [ ] Redactar y verificar `SICL_CONSTITUTIONAL_REVIEW_0.6.md`.
+- [ ] Entregar el documento y detener la fase hasta clasificación del Product Owner.
+
+## Revisión constitucional B-001
+- [x] Contrastar Master Spec, State Audit, Acceptance Matrix, Core Contract y HTTP v0.3.
+- [x] Analizar Fact/Assumption, Audit/Report, Decision Conditions y alcance 0.6 sin resolver decisiones pendientes.
+- [x] Redactar `SICL_CONSTITUTIONAL_REVIEW_0.6.md` con estados y preguntas cerradas.
+- [x] Verificar que no autoriza implementación ni amplía el alcance.
+- [x] Entregar el documento y detener la fase constitucional.
