@@ -185,3 +185,11 @@
 
 - [x] Probar `recommendationCreate` en modo local aceptando una referencia `MULTI_CRITERIA` existente en `multiComparisons`.
 - [x] Probar que `recommendationCreate` rechaza una referencia cruzada y conserva el mensaje contractual.
+
+## Incremento analítico local controlado
+
+- [x] Añadir captura explícita de Evaluation con alternativa, criterio, valor, unidad, método, inputs y provenance; sin cálculo automático ni autoridad.
+- [x] Añadir captura explícita de Comparison con referencia a evaluations, objective y dirección; exigir dirección y estado de factibilidad; el estado es obligatorio y validado.
+- [x] Exponer Evaluation→Comparison en Alternatives & Evaluation y mantener Council read-only.
+- [x] Añadir pruebas Vitest de referencias, dirección obligatoria, estados de factibilidad (ausente e inválido) y separación de Recommendation.
+

@@ -1,7 +1,7 @@
 import { normalizeSpatialScope, normalizeTemporalScope, type SpatialScope, type TemporalScope } from "@shared/siclScopes";
 
 export type SiclStatus = "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED";
-export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives" | "recommendations";
+export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons" | "recommendations";
 
 export type SiclRecord = {
   id: string;
@@ -13,7 +13,17 @@ export type SiclRecord = {
   metric?: string;
   operator?: string;
   threshold?: number;
-  description?: string;
+  alternativeId?: string;
+  objectiveId?: string;
+  criterion?: string;
+  value?: number;
+  unit?: string;
+  method?: string;
+  inputs?: Array<Record<string, string | number | boolean>>;
+  provenance?: string[];
+  evaluationIds?: string[];
+  comparisonKind?: "BINARY" | "MULTI_CRITERIA";
+  feasibilityStatus?: "UNKNOWN" | "FEASIBLE" | "INFEASIBLE" | "INSUFFICIENT_DATA";
   data?: Record<string, string | number | boolean>;
   actorId?: string | number;
   confirmationId?: string;
@@ -62,7 +72,7 @@ function collection(value: unknown): SiclRecord[] {
   if (!value || typeof value !== "object") return [];
   return Object.entries(value as Record<string, Record<string, unknown>>).map(([key, item]) => {
     const normalized: Record<string, unknown> = { ...item };
-    const aliases: Record<string, string> = { project_id: "projectId", source_id: "sourceId", evidence_id: "id", requirement_id: "requirementId", objective_id: "objectiveId", constraint_id: "constraintId", alternative_id: "alternativeId", evaluation_id: "evaluationId", comparison_id: "comparisonId", recommendation_id: "recommendationId", decision_id: "decisionId", review_id: "id", event_id: "id", event_type: "type", entity_id: "entityId", actor_id: "actorId", confirmation_id: "confirmationId", authority_basis: "authorityBasis", observed_project_version: "observedVersion", recommendation_version: "recommendationVersion", based_on: "basedOn", based_on_kind: "basedOnKind", entity_version: "recommendationVersion", decision_maker: "actorId", selected_alternative_id: "selectedAlternativeId" };
+    const aliases: Record<string, string> = { project_id: "projectId", source_id: "sourceId", evidence_id: "id", requirement_id: "requirementId", objective_id: "objectiveId", constraint_id: "constraintId", alternative_id: "alternativeId", evaluation_id: "evaluationId", comparison_id: "comparisonId", recommendation_id: "recommendationId", decision_id: "decisionId", review_id: "id", event_id: "id", event_type: "type", entity_id: "entityId", actor_id: "actorId", confirmation_id: "confirmationId", authority_basis: "authorityBasis", observed_project_version: "observedVersion", recommendation_version: "recommendationVersion", based_on: "basedOn", based_on_kind: "basedOnKind", entity_version: "recommendationVersion", decision_maker: "actorId", selected_alternative_id: "selectedAlternativeId", evaluation_ids: "evaluationIds", comparison_kind: "comparisonKind", feasibility_status: "feasibilityStatus" };
     for (const [from, to] of Object.entries(aliases)) if (item[from] !== undefined && normalized[to] === undefined) normalized[to] = item[from];
     const id = String(item.id ?? item.event_id ?? item.project_id ?? item.source_id ?? item.evidence_id ?? item.requirement_id ?? item.objective_id ?? item.constraint_id ?? item.alternative_id ?? item.evaluation_id ?? item.comparison_id ?? item.recommendation_id ?? item.decision_id ?? item.review_id ?? key);
     return { id, ...normalized } as SiclRecord;
@@ -103,6 +113,26 @@ export function validateRecord(kind: RecordKind, record: SiclRecord, snapshot: S
   }
   if (kind === "constraints" && (!record.metric?.trim() || typeof record.threshold !== "number")) {
     throw new Error("Constraint requires metric and numeric threshold");
+  }
+  if (kind === "evaluations") {
+    if (!record.objectiveId?.trim() || !snapshot.objectives.some((objective) => objective.id === record.objectiveId)) throw new Error("Evaluation objectiveId does not exist");
+    if (!record.alternativeId?.trim() || !snapshot.alternatives.some((alternative) => alternative.id === record.alternativeId)) throw new Error("Evaluation alternativeId does not exist");
+    if (!record.criterion?.trim() || typeof record.value !== "number" || !Number.isFinite(record.value) || !record.unit?.trim() || !record.method?.trim()) throw new Error("Evaluation requires criterion, numeric value, unit and method");
+    if (!Array.isArray(record.inputs) || record.inputs.length === 0) throw new Error("Evaluation requires explicit inputs");
+    if (!Array.isArray(record.provenance) || record.provenance.length === 0 || record.provenance.some((item) => typeof item !== "string" || !item.trim())) throw new Error("Evaluation requires explicit provenance");
+    if (record.feasibilityStatus === undefined) record.feasibilityStatus = "UNKNOWN";
+  }
+  if (kind === "comparisons" || kind === "multiComparisons") {
+    if (!record.objectiveId?.trim() || !snapshot.objectives.some((objective) => objective.id === record.objectiveId)) throw new Error("Comparison objectiveId does not exist");
+    if (!record.direction) throw new Error("Comparison direction must be explicit");
+    if (!Array.isArray(record.evaluationIds) || record.evaluationIds.length < 2 || new Set(record.evaluationIds).size !== record.evaluationIds.length) throw new Error("Comparison requires at least two distinct evaluationIds");
+    const evaluations = record.evaluationIds.map((id) => snapshot.evaluations.find((item) => item.id === id));
+    if (evaluations.some((item) => !item)) throw new Error("Comparison evaluationId does not exist");
+    if (evaluations.some((item) => item?.objectiveId !== record.objectiveId)) throw new Error("Comparison evaluations must use the declared objective");
+    const expectedKind = kind === "multiComparisons" ? "MULTI_CRITERIA" : "BINARY";
+    if (record.comparisonKind !== expectedKind) throw new Error(`Comparison comparisonKind must be ${expectedKind}`);
+    if (record.feasibilityStatus === undefined) throw new Error("Comparison feasibilityStatus must be explicit");
+    if (!["UNKNOWN", "FEASIBLE", "INFEASIBLE", "INSUFFICIENT_DATA"].includes(record.feasibilityStatus)) throw new Error("Comparison feasibilityStatus is invalid");
   }
   if (kind === "evidence" && !snapshot.sources.some((source) => source.id === record.sourceId)) {
     throw new Error("Evidence sourceId does not exist");

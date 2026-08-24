@@ -26,6 +26,7 @@ const modules = [
 ] as const;
 
 type ModuleId = typeof modules[number]["id"];
+type WritableRecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons";
 
 type ProjectSnapshot = {
   sources: unknown[]; evidence: unknown[]; requirements: unknown[]; objectives: unknown[]; constraints: unknown[]; alternatives: unknown[]; evaluations: unknown[]; comparisons: unknown[]; multiComparisons?: unknown[]; recommendations: unknown[]; humanReviews: unknown[]; decisions: unknown[]; events: unknown[]; spatialScope?: { scale: SpatialScale; id: string; name: string; parentId?: string }; temporalScope?: { horizon: TemporalHorizon; scenario?: string };
@@ -71,7 +72,7 @@ function AuthenticatedHome() {
     return () => window.removeEventListener("hashchange", syncModule);
   }, []);
 
-  const addSimpleRecord = (kind: "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "alternatives", record: Record<string, unknown>) => {
+  const addSimpleRecord = (kind: WritableRecordKind, record: Record<string, unknown>) => {
     if (!currentProjectId || !selected.data) return toast.error("Select a project first");
     addRecord.mutate({ projectId: currentProjectId, expectedVersion: selected.data.version, kind, record });
   };
@@ -103,7 +104,7 @@ function AuthenticatedHome() {
               {module === "overview" && <Overview snapshot={snapshot} counts={counts} onCreateProject={() => setModule("context")} />}
               {module === "context" && <ContextModule counts={counts} onSubmit={addSimpleRecord} />}
               {module === "problem" && <><ProblemModule counts={counts} onSubmit={addSimpleRecord} /><ConstraintModule onSubmit={addSimpleRecord} /></>}
-              {module === "alternatives" && <RecordModule title="Alternatives & Evaluation" eyebrow="Options" description="Keep candidate options explicit and comparable." kind="alternatives" count={counts.alternatives ?? 0} fields={[{ key: "id", label: "Alternative ID", placeholder: "ALT-A" }, { key: "name", label: "Alternative name", placeholder: "Courtyard scheme" }, { key: "description", label: "Description", placeholder: "What is materially different?" }]} onSubmit={addSimpleRecord} />}
+              {module === "alternatives" && <EvaluationComparisonModule snapshot={snapshot} counts={counts} onSubmit={addSimpleRecord} />}
               {module === "council" && <CouncilModule snapshot={snapshot} counts={counts} council={council.data} operationsResearch={operationsResearchMethods.data} />}
               {module === "audit" && <><AuditModule snapshot={snapshot} counts={counts} /><WorkflowModule projectId={currentProjectId} version={selected.data?.version ?? 1} snapshot={snapshot} createRecommendation={createRecommendation} recordReview={recordReview} recordDecision={recordDecision} /></>}
               {module === "governance" && <GovernanceModule />}
@@ -178,3 +179,39 @@ function WorkflowCard({ title, subtitle, fields, values, setValues, onSubmit, bu
 
 
 function ConstraintModule({ onSubmit }: { onSubmit: (kind: "constraints", record: Record<string, unknown>) => void }) { const [name, setName] = useState(""); const [metric, setMetric] = useState(""); const [threshold, setThreshold] = useState(""); return <Card className="mt-5 max-w-3xl border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Hard constraint</CardTitle><p className="text-xs text-[#718078]">A constraint is explicit; SICL will not assume its direction or threshold.</p></CardHeader><CardContent className="grid gap-3 md:grid-cols-4"><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Maximum height" className="bg-white" /><Input value={metric} onChange={(e) => setMetric(e.target.value)} placeholder="height_m" className="bg-white" /><select className="h-10 border border-[#cbd2c9] bg-white px-3 text-sm"><option>&lt;=</option><option>&lt;</option><option>=</option></select><Input value={threshold} onChange={(e) => setThreshold(e.target.value)} placeholder="24" type="number" className="bg-white" /><Button className="w-fit bg-[#385348] hover:bg-[#294038] md:col-span-4" onClick={() => { onSubmit("constraints", { id: `CON-${Date.now()}`, name, metric, operator: "<=", threshold: Number(threshold) }); setName(""); setMetric(""); setThreshold(""); }}>Add constraint</Button></CardContent></Card>; }
+
+
+function EvaluationComparisonModule({ snapshot, counts, onSubmit }: { snapshot?: ProjectSnapshot; counts: Record<string, number>; onSubmit: (kind: WritableRecordKind, record: Record<string, unknown>) => void }) {
+  const [alternativeId, setAlternativeId] = useState("");
+  const [objectiveId, setObjectiveId] = useState("");
+  const [criterion, setCriterion] = useState("");
+  const [value, setValue] = useState("");
+  const [unit, setUnit] = useState("");
+  const [method, setMethod] = useState("");
+  const [inputKey, setInputKey] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [provenance, setProvenance] = useState("");
+  const [comparisonKind, setComparisonKind] = useState<"BINARY" | "MULTI_CRITERIA">("BINARY");
+  const [evaluationIds, setEvaluationIds] = useState("");
+  const [direction, setDirection] = useState<"MINIMIZE" | "MAXIMIZE">("MAXIMIZE");
+  const [feasibilityStatus, setFeasibilityStatus] = useState<"UNKNOWN" | "FEASIBLE" | "INFEASIBLE" | "INSUFFICIENT_DATA">("UNKNOWN");
+  const alternatives = (snapshot?.alternatives ?? []) as Array<{ id: string; name?: string }>;
+  const objectives = (snapshot?.objectives ?? []) as Array<{ id: string; name?: string; direction?: string }>;
+  const evaluations = (snapshot?.evaluations ?? []) as Array<Record<string, unknown>>;
+  const comparisons = (snapshot?.comparisons ?? []) as Array<Record<string, unknown>>;
+  const multiComparisons = (snapshot?.multiComparisons ?? []) as Array<Record<string, unknown>>;
+  const resetEvaluation = () => { setAlternativeId(""); setObjectiveId(""); setCriterion(""); setValue(""); setUnit(""); setMethod(""); setInputKey(""); setInputValue(""); setProvenance(""); };
+  const submitEvaluation = () => {
+    if (!alternativeId || !objectiveId || !criterion.trim() || !value.trim() || !unit.trim() || !method.trim() || !inputKey.trim() || !inputValue.trim() || !provenance.trim()) return toast.error("Evaluation requires alternative, objective, value, method, inputs and provenance");
+    onSubmit("evaluations", { id: `EVAL-${Date.now()}`, name: `Evaluation ${Date.now()}`, alternativeId, objectiveId, criterion, value: Number(value), unit, method, inputs: [{ [inputKey.trim()]: inputValue.trim() }], provenance: provenance.split(",").map((item) => item.trim()).filter(Boolean), feasibilityStatus: "UNKNOWN" });
+    resetEvaluation();
+  };
+  const submitComparison = () => {
+    const ids = evaluationIds.split(",").map((item) => item.trim()).filter(Boolean);
+    if (!objectiveId || ids.length < 2 || !direction) return toast.error("Comparison requires an objective, direction and at least two evaluation IDs");
+    onSubmit(comparisonKind === "MULTI_CRITERIA" ? "multiComparisons" : "comparisons", { id: `CMP-${Date.now()}`, name: `Comparison ${Date.now()}`, objectiveId, direction, evaluationIds: ids, comparisonKind, feasibilityStatus });
+    setEvaluationIds("");
+  };
+  return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Analytical records · {(counts.evaluations ?? 0) + comparisons.length + multiComparisons.length}</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Alternatives & Evaluation</h2><p className="mt-2 max-w-3xl text-sm leading-6 text-[#718078]">Record what was evaluated and how alternatives were compared. SICL stores the analytical basis; it does not calculate a winner or convert this record into authority.</p><div className="mt-8 grid gap-5 xl:grid-cols-2"><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Evaluation</CardTitle><p className="text-xs text-[#718078]">One explicit observation for one alternative and one objective.</p></CardHeader><CardContent className="grid gap-3"><div><Label>Alternative</Label><select value={alternativeId} onChange={(event) => setAlternativeId(event.target.value)} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="">Select alternative</option>{alternatives.map((item) => <option key={item.id} value={item.id}>{item.id} · {item.name ?? "Unnamed"}</option>)}</select></div><div><Label>Objective</Label><select value={objectiveId} onChange={(event) => setObjectiveId(event.target.value)} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="">Select objective</option>{objectives.map((item) => <option key={item.id} value={item.id}>{item.id} · {item.name ?? "Unnamed"}</option>)}</select></div><div className="grid gap-3 sm:grid-cols-2"><div><Label>Criterion</Label><Input value={criterion} onChange={(event) => setCriterion(event.target.value)} placeholder="daylight_lux" className="mt-1 bg-white" /></div><div><Label>Value</Label><Input value={value} onChange={(event) => setValue(event.target.value)} placeholder="650" type="number" className="mt-1 bg-white" /></div></div><div className="grid gap-3 sm:grid-cols-2"><div><Label>Unit</Label><Input value={unit} onChange={(event) => setUnit(event.target.value)} placeholder="lux" className="mt-1 bg-white" /></div><div><Label>Method</Label><Input value={method} onChange={(event) => setMethod(event.target.value)} placeholder="site_measurement" className="mt-1 bg-white" /></div></div><div className="grid gap-3 sm:grid-cols-2"><div><Label>Input key</Label><Input value={inputKey} onChange={(event) => setInputKey(event.target.value)} placeholder="sensor_id" className="mt-1 bg-white" /></div><div><Label>Input value</Label><Input value={inputValue} onChange={(event) => setInputValue(event.target.value)} placeholder="S-07" className="mt-1 bg-white" /></div></div><div><Label>Provenance (comma-separated)</Label><Input value={provenance} onChange={(event) => setProvenance(event.target.value)} placeholder="SRC-001, EVD-004" className="mt-1 bg-white" /></div><Button onClick={submitEvaluation} className="mt-2 w-fit bg-[#385348] hover:bg-[#294038]">Record evaluation</Button></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Comparison</CardTitle><p className="text-xs text-[#718078]">A declared analytical artifact. It is not a computed recommendation.</p></CardHeader><CardContent className="grid gap-3"><div><Label>Objective</Label><select value={objectiveId} onChange={(event) => setObjectiveId(event.target.value)} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="">Select objective</option>{objectives.map((item) => <option key={item.id} value={item.id}>{item.id} · {item.name ?? "Unnamed"}</option>)}</select></div><div><Label>Comparison kind</Label><select value={comparisonKind} onChange={(event) => setComparisonKind(event.target.value as "BINARY" | "MULTI_CRITERIA")} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="BINARY">BINARY · pairwise / declared comparison</option><option value="MULTI_CRITERIA">MULTI_CRITERIA · multiple-criterion artifact</option></select></div><div><Label>Evaluation IDs (comma-separated, minimum two)</Label><Input value={evaluationIds} onChange={(event) => setEvaluationIds(event.target.value)} placeholder="EVAL-1, EVAL-2" className="mt-1 bg-white" /></div><div className="grid gap-3 sm:grid-cols-2"><div><Label>Direction</Label><select value={direction} onChange={(event) => setDirection(event.target.value as "MINIMIZE" | "MAXIMIZE")} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="MAXIMIZE">MAXIMIZE</option><option value="MINIMIZE">MINIMIZE</option></select></div><div><Label>Feasibility status</Label><select value={feasibilityStatus} onChange={(event) => setFeasibilityStatus(event.target.value as typeof feasibilityStatus)} className="mt-1 h-10 w-full border border-[#cbd2c9] bg-white px-3 text-sm"><option value="UNKNOWN">UNKNOWN</option><option value="FEASIBLE">FEASIBLE</option><option value="INFEASIBLE">INFEASIBLE</option><option value="INSUFFICIENT_DATA">INSUFFICIENT_DATA</option></select></div></div><Button onClick={submitComparison} className="mt-2 w-fit bg-[#385348] hover:bg-[#294038]">Record comparison</Button><p className="text-xs leading-5 text-[#718078]">The selected direction is stored explicitly. No missing direction defaults to MINIMIZE, and no alternative is selected automatically.</p></CardContent></Card></div><div className="mt-5 grid gap-5 lg:grid-cols-3"><CanonicalRecordList title={`Evaluations · ${evaluations.length}`} items={evaluations} /><CanonicalRecordList title={`Comparisons · ${comparisons.length}`} items={comparisons} /><CanonicalRecordList title={`Multi-comparisons · ${multiComparisons.length}`} items={multiComparisons} /></div></section>;
+}
+

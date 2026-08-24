@@ -82,3 +82,42 @@ describe("hierarchical SICL scopes", () => {
     expect(snapshot.objectives).toEqual([]);
   });
 });
+
+
+describe("explicit analytical records", () => {
+  const analyticalSnapshot = () => {
+    const snapshot = emptySnapshot();
+    snapshot.requirements.push({ id: "REQ-1", name: "Access" });
+    snapshot.objectives.push({ id: "OBJ-1", name: "Daylight", requirementId: "REQ-1", direction: "MAXIMIZE" });
+    snapshot.alternatives.push({ id: "ALT-A", name: "Scheme A" }, { id: "ALT-B", name: "Scheme B" });
+    return snapshot;
+  };
+
+  it("requires explicit Evaluation references, method, inputs and provenance", () => {
+    const snapshot = analyticalSnapshot();
+    const evaluation = { id: "EVAL-A", name: "Evaluation A", alternativeId: "ALT-A", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 650, unit: "lux", method: "site_measurement", inputs: [{ sensor_id: "S-07" }], provenance: ["SRC-001", "EVD-004"] };
+    const next = appendRecord(snapshot, "evaluations", evaluation, actorEvent("EVALUATION", evaluation.id, 1));
+    expect(next.evaluations[0]).toMatchObject({ id: "EVAL-A", feasibilityStatus: "UNKNOWN" });
+    expect(next.decisions).toHaveLength(0);
+    expect(next.recommendations).toHaveLength(0);
+  });
+
+  it("rejects a Comparison without explicit direction or valid evaluation references", () => {
+    const snapshot = analyticalSnapshot();
+    snapshot.evaluations.push({ id: "EVAL-A", name: "Evaluation A", alternativeId: "ALT-A", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 650, unit: "lux", method: "site_measurement" }, { id: "EVAL-B", name: "Evaluation B", alternativeId: "ALT-B", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 540, unit: "lux", method: "site_measurement" });
+    expect(() => appendRecord(snapshot, "comparisons", { id: "CMP-1", name: "Comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "missing"], direction: "MAXIMIZE", feasibilityStatus: "UNKNOWN" }, actorEvent("COMPARISON", "CMP-1", 1))).toThrow("evaluationId does not exist");
+    expect(() => appendRecord(snapshot, "comparisons", { id: "CMP-2", name: "Comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "EVAL-B"] }, actorEvent("COMPARISON", "CMP-2", 1))).toThrow("direction must be explicit");
+    expect(() => appendRecord(snapshot, "comparisons", { id: "CMP-3", name: "Comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE" }, actorEvent("COMPARISON", "CMP-3", 1))).toThrow("feasibilityStatus must be explicit");
+    expect(() => appendRecord(snapshot, "comparisons", { id: "CMP-4", name: "Comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE", feasibilityStatus: "INVALID" as never }, actorEvent("COMPARISON", "CMP-4", 1))).toThrow("feasibilityStatus is invalid");
+  });
+
+  it("keeps binary and multi-criteria comparisons separate and explicit", () => {
+    const snapshot = analyticalSnapshot();
+    snapshot.evaluations.push({ id: "EVAL-A", name: "Evaluation A", alternativeId: "ALT-A", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 650, unit: "lux", method: "site_measurement" }, { id: "EVAL-B", name: "Evaluation B", alternativeId: "ALT-B", objectiveId: "OBJ-1", criterion: "daylight_lux", value: 540, unit: "lux", method: "site_measurement" });
+    const binary = appendRecord(snapshot, "comparisons", { id: "CMP-1", name: "Binary comparison", objectiveId: "OBJ-1", comparisonKind: "BINARY", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE", feasibilityStatus: "INSUFFICIENT_DATA" }, actorEvent("COMPARISON", "CMP-1", 1));
+    const multi = appendRecord(binary, "multiComparisons", { id: "MCMP-1", name: "Multi comparison", objectiveId: "OBJ-1", comparisonKind: "MULTI_CRITERIA", evaluationIds: ["EVAL-A", "EVAL-B"], direction: "MAXIMIZE", feasibilityStatus: "UNKNOWN" }, actorEvent("MULTI_COMPARISON", "MCMP-1", 1));
+    expect(multi.comparisons.map((item) => item.id)).toEqual(["CMP-1"]);
+    expect(multi.multiComparisons.map((item) => item.id)).toEqual(["MCMP-1"]);
+    expect(multi.recommendations).toHaveLength(0);
+  });
+});
