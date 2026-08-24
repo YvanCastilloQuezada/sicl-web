@@ -224,3 +224,7 @@
 ## Revisión conceptual del documento 68
 
 - [x] Redactar y entregar documento externo con apreciaciones, desacuerdos, mejoras y recomendaciones de implementación para SICL 0.6; no modificar código.
+
+## Protocolo de colaboración humana entre modelos
+
+- [x] Documentar y adoptar el protocolo por el cual el usuario intermedia entre ChatGPT y Manus, con decisiones, validaciones y aprobaciones humanas explícitas.
