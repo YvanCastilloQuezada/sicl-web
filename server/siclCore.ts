@@ -1,7 +1,7 @@
 import { normalizeSpatialScope, normalizeTemporalScope, type SpatialScope, type TemporalScope } from "@shared/siclScopes";
 
 export type SiclStatus = "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED";
-export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "preferences" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons" | "recommendations";
+export type RecordKind = "sources" | "evidence" | "requirements" | "objectives" | "constraints" | "preferences" | "alternatives" | "evaluations" | "comparisons" | "multiComparisons" | "decisionConditions" | "recommendations";
 
 export type SiclRecord = {
   id: string;
@@ -24,6 +24,8 @@ export type SiclRecord = {
   evaluationIds?: string[];
   comparisonKind?: "BINARY" | "MULTI_CRITERIA";
   feasibilityStatus?: "UNKNOWN" | "FEASIBLE" | "INFEASIBLE" | "INSUFFICIENT_DATA";
+  conditionStatus?: "DECLARED" | "UNTESTED" | "CONFLICT";
+  rationale?: string;
   data?: Record<string, string | number | boolean>;
   actorId?: string | number;
   confirmationId?: string;
@@ -31,7 +33,6 @@ export type SiclRecord = {
   recommendationVersion?: string | number;
   reason?: string;
   authorityBasis?: string;
-  rationale?: string;
   justification?: string;
   preferenceStrength?: "SOFT" | "STRONG";
   scope?: string;
@@ -58,6 +59,7 @@ export type SiclSnapshot = {
   evaluations: SiclRecord[];
   comparisons: SiclRecord[];
   multiComparisons: SiclRecord[];
+  decisionConditions: SiclRecord[];
   recommendations: SiclRecord[];
   humanReviews: SiclRecord[];
   decisions: SiclRecord[];
@@ -68,7 +70,7 @@ export type SiclSnapshot = {
 
 export const emptySnapshot = (): SiclSnapshot => ({
   sources: [], evidence: [], requirements: [], objectives: [], constraints: [], preferences: [], alternatives: [],
-  evaluations: [], comparisons: [], multiComparisons: [], recommendations: [], humanReviews: [], decisions: [], events: [],
+  evaluations: [], comparisons: [], multiComparisons: [], decisionConditions: [], recommendations: [], humanReviews: [], decisions: [], events: [],
 });
 
 function collection(value: unknown): SiclRecord[] {
@@ -76,7 +78,7 @@ function collection(value: unknown): SiclRecord[] {
   if (!value || typeof value !== "object") return [];
   return Object.entries(value as Record<string, Record<string, unknown>>).map(([key, item]) => {
     const normalized: Record<string, unknown> = { ...item };
-    const aliases: Record<string, string> = { project_id: "projectId", source_id: "sourceId", evidence_id: "id", requirement_id: "requirementId", objective_id: "objectiveId", constraint_id: "constraintId", alternative_id: "alternativeId", evaluation_id: "evaluationId", comparison_id: "comparisonId", recommendation_id: "recommendationId", decision_id: "decisionId", review_id: "id", event_id: "id", event_type: "type", entity_id: "entityId", actor_id: "actorId", confirmation_id: "confirmationId", authority_basis: "authorityBasis", observed_project_version: "observedVersion", recommendation_version: "recommendationVersion", based_on: "basedOn", based_on_kind: "basedOnKind", entity_version: "recommendationVersion", decision_maker: "actorId", selected_alternative_id: "selectedAlternativeId", evaluation_ids: "evaluationIds", comparison_kind: "comparisonKind", feasibility_status: "feasibilityStatus", preference_id: "preferenceId", strength: "preferenceStrength", scope_type: "scopeType", scope_id: "scopeId", valid_from: "validFrom", valid_until: "validUntil" };
+    const aliases: Record<string, string> = { project_id: "projectId", source_id: "sourceId", evidence_id: "id", requirement_id: "requirementId", objective_id: "objectiveId", constraint_id: "constraintId", alternative_id: "alternativeId", evaluation_id: "evaluationId", comparison_id: "comparisonId", recommendation_id: "recommendationId", decision_id: "decisionId", review_id: "id", event_id: "id", event_type: "type", entity_id: "entityId", actor_id: "actorId", confirmation_id: "confirmationId", authority_basis: "authorityBasis", observed_project_version: "observedVersion", recommendation_version: "recommendationVersion", based_on: "basedOn", based_on_kind: "basedOnKind", entity_version: "recommendationVersion", decision_maker: "actorId", selected_alternative_id: "selectedAlternativeId", evaluation_ids: "evaluationIds", comparison_kind: "comparisonKind", feasibility_status: "feasibilityStatus", condition_status: "conditionStatus", preference_id: "preferenceId", strength: "preferenceStrength", scope_type: "scopeType", scope_id: "scopeId", valid_from: "validFrom", valid_until: "validUntil" };
     for (const [from, to] of Object.entries(aliases)) if (item[from] !== undefined && normalized[to] === undefined) normalized[to] = item[from];
     const id = String(item.id ?? item.event_id ?? item.project_id ?? item.source_id ?? item.evidence_id ?? item.requirement_id ?? item.objective_id ?? item.constraint_id ?? item.alternative_id ?? item.evaluation_id ?? item.comparison_id ?? item.recommendation_id ?? item.decision_id ?? item.review_id ?? key);
     return { id, ...normalized } as SiclRecord;
@@ -91,7 +93,7 @@ export function parseSnapshot(raw: string): SiclSnapshot {
     const project = source.project && typeof source.project === "object" ? source.project as Record<string, unknown> : {};
     const metadata = { ...source, ...project };
     const aliases: Record<keyof SiclSnapshot, string[]> = {
-      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], preferences: ["preferences"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], preferences: ["preferences"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], decisionConditions: ["decisionConditions", "decision_conditions"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
     };
     for (const key of Object.keys(aliases) as (keyof SiclSnapshot)[]) {
       if (key === "spatialScope") { const scope = aliases[key].map((alias) => normalizeSpatialScope(metadata[alias])).find(Boolean); if (scope) snapshot.spatialScope = scope; continue; }
@@ -130,6 +132,14 @@ export function validateRecord(kind: RecordKind, record: SiclRecord, snapshot: S
     if (!Array.isArray(record.provenance) || record.provenance.length === 0 || record.provenance.some((item) => typeof item !== "string" || !item.trim())) throw new Error("Evaluation requires explicit provenance");
     if (record.feasibilityStatus === undefined) record.feasibilityStatus = "UNKNOWN";
   }
+  if (kind === "decisionConditions") {
+    if (!record.alternativeId?.trim() || !snapshot.alternatives.some((alternative) => alternative.id === record.alternativeId)) throw new Error("DecisionCondition alternativeId does not exist");
+    if (!record.objectiveId?.trim() || !snapshot.objectives.some((objective) => objective.id === record.objectiveId)) throw new Error("DecisionCondition objectiveId does not exist");
+    if (!record.criterion?.trim() || !record.operator?.trim() || typeof record.threshold !== "number" || !Number.isFinite(record.threshold) || !record.unit?.trim()) throw new Error("DecisionCondition requires criterion, operator, numeric threshold and unit");
+    if (!record.rationale?.trim()) throw new Error("DecisionCondition requires rationale");
+    if (!Array.isArray(record.provenance) || record.provenance.length === 0 || record.provenance.some((item) => typeof item !== "string" || !item.trim())) throw new Error("DecisionCondition requires explicit provenance");
+    if (record.conditionStatus !== undefined && !["DECLARED", "UNTESTED", "CONFLICT"].includes(record.conditionStatus)) throw new Error("DecisionCondition status is invalid");
+  }
   if (kind === "comparisons" || kind === "multiComparisons") {
     if (!record.objectiveId?.trim() || !snapshot.objectives.some((objective) => objective.id === record.objectiveId)) throw new Error("Comparison objectiveId does not exist");
     if (!record.direction) throw new Error("Comparison direction must be explicit");
@@ -165,6 +175,7 @@ export function analysisView(snapshot: SiclSnapshot) {
     alternatives: snapshot.alternatives,
     evaluations: snapshot.evaluations,
     comparisons: snapshot.comparisons,
+    decisionConditions: snapshot.decisionConditions,
     recommendations: snapshot.recommendations,
     spatialScope: snapshot.spatialScope,
     temporalScope: snapshot.temporalScope,

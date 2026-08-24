@@ -157,3 +157,27 @@ describe("preference snapshot compatibility", () => {
     expect(snapshot.preferences[0]).toMatchObject({ id: "PREF-1", name: "Public access" });
   });
 });
+
+
+describe("decision conditions", () => {
+  it("stores an explicit boundary without selecting an alternative", () => {
+    const snapshot = emptySnapshot();
+    snapshot.objectives.push({ id: "OBJ-DC", name: "Cost", direction: "MINIMIZE" });
+    snapshot.alternatives.push({ id: "ALT-DC", name: "Scheme" });
+    const next = appendRecord(snapshot, "decisionConditions", { id: "COND-1", name: "Cost boundary", alternativeId: "ALT-DC", objectiveId: "OBJ-DC", criterion: "annual_cost", operator: "<=", threshold: 100000, unit: "USD/year", rationale: "Declared affordability boundary", provenance: ["SRC-DC-1"], conditionStatus: "DECLARED" }, actorEvent("DECISION_CONDITION", "COND-1", 1));
+    expect(next.decisionConditions[0]).toMatchObject({ alternativeId: "ALT-DC", threshold: 100000, conditionStatus: "DECLARED" });
+    expect(next.recommendations).toHaveLength(0);
+    expect(next.decisions).toHaveLength(0);
+  });
+
+  it("rejects missing references, rationale, provenance and invalid status", () => {
+    const snapshot = emptySnapshot();
+    snapshot.objectives.push({ id: "OBJ-DC", name: "Cost" });
+    snapshot.alternatives.push({ id: "ALT-DC", name: "Scheme" });
+    const base = { id: "COND-2", name: "Cost boundary", alternativeId: "ALT-DC", objectiveId: "OBJ-DC", criterion: "annual_cost", operator: "<=", threshold: 100000, unit: "USD/year", rationale: "Declared boundary", provenance: ["SRC-DC-1"], conditionStatus: "DECLARED" as const };
+    expect(() => appendRecord(snapshot, "decisionConditions", { ...base, alternativeId: "MISSING" }, actorEvent("DECISION_CONDITION", "COND-2", 1))).toThrow("alternativeId does not exist");
+    expect(() => appendRecord(snapshot, "decisionConditions", { ...base, rationale: "" }, actorEvent("DECISION_CONDITION", "COND-3", 1))).toThrow("requires rationale");
+    expect(() => appendRecord(snapshot, "decisionConditions", { ...base, provenance: [] }, actorEvent("DECISION_CONDITION", "COND-4", 1))).toThrow("requires explicit provenance");
+    expect(() => appendRecord(snapshot, "decisionConditions", { ...base, conditionStatus: "PREDICTED" as never }, actorEvent("DECISION_CONDITION", "COND-5", 1))).toThrow("status is invalid");
+  });
+});

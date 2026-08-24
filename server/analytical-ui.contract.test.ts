@@ -26,6 +26,16 @@ describe("analytical UI contract", () => {
     expect(moduleSource).toContain("No missing direction defaults to MINIMIZE");
   });
 
+  it("exposes Decision Conditions as a distinct declarative record", () => {
+    expect(homeSource).toContain("DecisionConditionsModule");
+    expect(homeSource).toContain('onSubmit("decisionConditions"');
+    expect(homeSource).toContain("conditionStatus");
+    expect(homeSource).toContain("not a prediction or automatic decision");
+    const conditionSource = homeSource.slice(homeSource.indexOf("function DecisionConditionsModule"));
+    expect(conditionSource).not.toContain("recommendationCreate");
+    expect(conditionSource).not.toContain("decisionRecord");
+  });
+
   it("exposes Preferences as a distinct semantic record", () => {
     expect(homeSource).toContain("PreferenceModule");
     expect(homeSource).toContain("preferenceStrength");

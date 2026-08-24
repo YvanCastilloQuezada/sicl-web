@@ -176,3 +176,15 @@ describe("local analytical workflow integration", () => {
     expect(snapshot.decisions).toHaveLength(0);
   });
 });
+
+
+describe("decision condition canonical boundary", () => {
+  afterEach(() => { delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; process.env.NODE_ENV = "test"; process.env.SICL_ALLOW_LOCAL_CORE = "true"; vi.restoreAllMocks(); });
+
+  it("fails closed instead of writing a local condition when a remote core is configured", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.spyOn(db, "getSiclProject").mockResolvedValue({ projectId: "SICL-DC", ownerId: 7, name: "Decision conditions", location: "Test", version: 1, snapshot: JSON.stringify({ alternatives: [{ id: "ALT-DC", name: "Scheme" }], objectives: [{ id: "OBJ-DC", name: "Cost" }], decisionConditions: [], events: [] }), status: "DRAFT", createdAt: new Date(), updatedAt: new Date() } as any);
+    await expect(appRouter.createCaller(ctx).projects.addRecord({ projectId: "SICL-DC", expectedVersion: 1, kind: "decisionConditions", record: { id: "COND-1", name: "Cost boundary", alternativeId: "ALT-DC", objectiveId: "OBJ-DC", criterion: "annual_cost", operator: "<=", threshold: 100000, unit: "USD/year", rationale: "Declared boundary", provenance: ["SRC-1"], conditionStatus: "DECLARED" } })).rejects.toThrow("require a canonical endpoint");
+  });
+});

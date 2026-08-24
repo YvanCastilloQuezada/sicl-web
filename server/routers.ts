@@ -10,7 +10,7 @@ import { siclCorePort } from "./siclCorePort";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
-const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons"] as const;
+const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
 const versionInput = z.object({ projectId: z.string().min(1), expectedVersion: z.number().int().positive() });
 
@@ -82,6 +82,7 @@ export const appRouter = router({
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
       const record = input.record as SiclRecord;
       const rawRecord = input.record as Record<string, unknown>;
+      if (hasCoreUrl() && input.kind === "decisionConditions") fail("Decision Conditions require a canonical endpoint; local authoring is disabled when SICL_CORE_URL is configured");
       if (hasCoreUrl() && input.kind === "preferences") {
         const requiredText = (key: string) => { const value = rawRecord[key]; if (typeof value !== "string" || !value.trim()) fail(`Preference ${key} is required`); return value; };
         const scopeType = typeof rawRecord.scopeType === "string" ? rawRecord.scopeType : "PROJECT";

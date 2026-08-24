@@ -234,7 +234,7 @@
 - [x] Formalizar el Product Acceptance Contract separado del Core Contract.
 - [x] Auditar cada etapa del vertical slice contra la implementación actual.
 - [x] Implementar únicamente las brechas locales necesarias para el vertical slice aprobado: Preferences explícitas, representación espacial contextual y reporte JSON filtrado.
-- [x] Ejecutar pruebas de integridad y verificación visual del vertical slice: TypeScript, 57 pruebas web y viewport de escritorio/móvil.
+- [x] Ejecutar pruebas de integridad y verificación visual del vertical slice: TypeScript, 64 pruebas web y viewport de escritorio/móvil.
 
 ## Decisión pendiente de contrato canónico
 
@@ -265,3 +265,11 @@
 - [x] Verificar el manejo server-side de `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` sin exponer secretos.
 - [x] Verificar que UPAO-001 esté disponible como caso de prueba reproducible sin poblar datos ficticios en producción.
 - [x] Documentar el resultado y mantener bloqueados HTTPS, persistencia externa y E2E remoto.
+
+## Trabajo local priorizado sin Cloud Computer
+
+- [x] Diseñar Decision Conditions como estructura read-only, trazable y no predictiva.
+- [x] Integrar Decision Conditions en el contrato local y la vista de análisis sin crear autoridad automática; cuando `SICL_CORE_URL` existe, la escritura local falla cerrado hasta disponer de endpoint canónico.
+- [x] Preparar guía ejecutable de usuario para Product 0.6.
+- [x] Preparar fixture sintético UPAO-001 reutilizable sin datos persistentes ni afirmaciones profesionales.
+- [x] Revisar runbook y pruebas de estados remotos del frontend; Decision Conditions falla cerrado con SICL_CORE_URL hasta disponer de endpoint canónico.
