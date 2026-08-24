@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import * as db from "./db";
@@ -91,3 +91,42 @@ describe("production core boundary", () => {
     const result = await caller.projects.operationsResearchMethods();
     expect(result).toMatchObject({ read_only: true, methods: [{ method: "MCDA_WEIGHTED_SUM", required_constraints: ["weights_sum_to_one"], required_provenance: ["source_id", "source_timestamp", "source_version"], feasibility_states: ["COMPARISON", "INSUFFICIENT_DATA", "UNKNOWN"], sensitivity_outputs: ["method", "parameters", "limitations"] }] });
   });
+
+describe("local recommendation reference semantics", () => {
+  beforeEach(() => { delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; process.env.NODE_ENV = "test"; });
+  afterEach(() => { delete process.env.SICL_ALLOW_LOCAL_CORE; delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; vi.restoreAllMocks(); });
+
+  const project = {
+    projectId: "SICL-LOCAL",
+    ownerId: 7,
+    name: "Local semantics",
+    location: "Test",
+    version: 1,
+    status: "DRAFT" as const,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    snapshot: JSON.stringify({
+      alternatives: [{ id: "ALT-A", name: "Option A" }],
+      comparisons: [{ id: "CMP-1" }],
+      multiComparisons: [{ id: "MCMP-1" }],
+      recommendations: [],
+      humanReviews: [],
+      decisions: [],
+      events: [],
+    }),
+  };
+
+  it("accepts MULTI_CRITERIA when the reference exists in multiComparisons", async () => {
+    process.env.SICL_ALLOW_LOCAL_CORE = "true";
+    vi.spyOn(db, "getSiclProject").mockResolvedValue(project as any);
+    vi.spyOn(db, "updateSiclProject").mockResolvedValue(project as any);
+    const result = await appRouter.createCaller(ctx).projects.recommendationCreate({ projectId: "SICL-LOCAL", expectedVersion: 1, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "MCMP-1", basedOnKind: "MULTI_CRITERIA", reason: "Explicit multicriteria analytical basis", source: "ANALYTICAL" });
+    expect(result.version).toBe(2);
+  });
+
+  it("rejects a cross-collection reference with the declared-kind error", async () => {
+    process.env.SICL_ALLOW_LOCAL_CORE = "true";
+    vi.spyOn(db, "getSiclProject").mockResolvedValue(project as any);
+    await expect(appRouter.createCaller(ctx).projects.recommendationCreate({ projectId: "SICL-LOCAL", expectedVersion: 1, recommendationId: "REC-2", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "MULTI_CRITERIA", reason: "Explicit multicriteria analytical basis", source: "ANALYTICAL" })).rejects.toThrow("existing comparison of the declared kind");
+  });
+});

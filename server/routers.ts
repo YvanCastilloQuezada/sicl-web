@@ -7,7 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
-import { nextRecommendationVersion } from "./recommendationVersion";
+import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "alternatives"] as const;
@@ -102,9 +102,9 @@ export const appRouter = router({
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       if (!snapshot.alternatives.some((item) => item.id === input.alternativeId)) fail("Recommendation alternativeId does not exist");
-      if (input.source === "ANALYTICAL" && !snapshot.comparisons.some((item) => item.id === input.basedOn)) fail("Analytical recommendation requires an existing comparison");
+      if (input.source === "ANALYTICAL") { const comparisonCollection = comparisonCollectionForRecommendation(input.basedOnKind, snapshot); if (!comparisonCollection.some((item) => item.id === input.basedOn)) fail("Analytical recommendation requires an existing comparison of the declared kind"); }
       const recommendationVersion = nextRecommendationVersion(snapshot.recommendations.filter((item) => item.id === input.recommendationId).map((item) => item.recommendationVersion));
-      const recommendation = { id: input.recommendationId, alternativeId: input.alternativeId, reason: input.reason, basedOn: input.basedOn, basedOnKind: input.basedOnKind, source: input.source, recommendationVersion };
+      const recommendation = { id: input.recommendationId, name: `Recommendation ${input.recommendationId}`, alternativeId: input.alternativeId, reason: input.reason, basedOn: input.basedOn, basedOnKind: input.basedOnKind, source: input.source, recommendationVersion };
       const next = siclCorePort.appendRecord(snapshot, "recommendations", recommendation, event(ctx.user.id, "RECOMMENDATION_CREATED", recommendation.id, { observedVersion: input.expectedVersion, recommendationVersion }));
       return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
     }),

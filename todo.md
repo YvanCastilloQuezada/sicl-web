@@ -175,3 +175,13 @@
 - [x] Definir un contrato local tipado para Capability Gate Ledger con etapas, roles y referencias, separado de Home.tsx.
 - [x] Consumir ese contrato desde GovernanceModule en lugar de hardcodear las etapas dentro del componente.
 - [x] Añadir pruebas Vitest del orden secuencial, roles esperados y ausencia de acciones de autoridad en la vista.
+
+## Corrección semántica de Recommendations
+
+- [x] Validar `basedOnKind` contra `comparisons` o `multiComparisons` de forma explícita en el fallback local.
+- [x] Añadir regresión para aceptar una referencia MULTI_CRITERIA válida y rechazar una referencia cruzada.
+
+## Regresión de Recommendations en router local
+
+- [x] Probar `recommendationCreate` en modo local aceptando una referencia `MULTI_CRITERIA` existente en `multiComparisons`.
+- [x] Probar que `recommendationCreate` rechaza una referencia cruzada y conserva el mensaje contractual.
