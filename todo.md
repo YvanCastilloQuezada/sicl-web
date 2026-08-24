@@ -395,3 +395,10 @@
 - [x] Documentar pruebas, evidencias, criterios PASS/FAIL y prohibiciones.
 - [x] Verificar que no contiene valores inventados ni cambios de contrato.
 - [x] Entregar `SICL_REMOTE_EXECUTION_PACKAGE_v1.md` y detener el ciclo.
+
+## Readiness Check final
+- [x] Verificar archivos, contratos, endpoints y configuración local.
+- [x] Verificar pruebas y flujo preparado sin declarar E2E remoto.
+- [x] Clasificar discrepancias como A/B/C/D y listar intervención requerida.
+- [x] Redactar y verificar `SICL_READINESS_CHECK_v1.md`.
+- [x] Detener el ciclo y entregar el reporte de readiness.
