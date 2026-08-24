@@ -83,3 +83,17 @@ it("fetches the read-only operations research catalog without exposing service c
   expect(JSON.stringify(result)).not.toContain("service-token-test");
   expect(fetchSpy).toHaveBeenCalledWith("https://core.example.test/v1/operations-research/methods", { method: "GET", headers: { accept: "application/json", authorization: "Bearer service-token-test" } });
 });
+
+
+it("writes canonical preferences with explicit scope and provenance", async () => {
+  process.env.SICL_CORE_URL = "https://core.example.test";
+  process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+  const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.3", project_id: "SICL-PREF", observed_version: 2, preference: { preference_id: "PREF-1" } }), { status: 200, headers: { "content-type": "application/json" } }));
+  vi.stubGlobal("fetch", fetchSpy);
+  const { createCorePreference } = await import("./coreHttpClient");
+  await createCorePreference("SICL-PREF", { preference_id: "PREF-1", name: "Regional identity", justification: "Declared", domain: "AESTHETIC", strength: "STRONG", scope_type: "PROJECT", scope_id: "SICL-PREF", provenance: ["brief-1"], expected_project_version: 1, event_id: "evt-1" });
+  const request = fetchSpy.mock.calls[0]?.[1] as RequestInit;
+  expect(fetchSpy.mock.calls[0]?.[0]).toBe("https://core.example.test/v1/projects/SICL-PREF/preferences");
+  expect(JSON.parse(String(request.body))).toMatchObject({ preference_id: "PREF-1", scope_type: "PROJECT", scope_id: "SICL-PREF", provenance: ["brief-1"], expected_project_version: 1 });
+  expect(request.headers).toMatchObject({ authorization: "Bearer service-token-test", "content-type": "application/json" });
+});

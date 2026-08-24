@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { analysisView, appendHumanDecision, appendHumanReview, appendRecord, emptySnapshot } from "./siclCore";
+import { analysisView, appendHumanDecision, appendHumanReview, appendRecord, emptySnapshot, parseSnapshot } from "./siclCore";
 
 const actorEvent = (type: string, entityId: string, observedVersion: number) => ({
   id: `${type}-${entityId}`,
@@ -11,6 +11,16 @@ const actorEvent = (type: string, entityId: string, observedVersion: number) => 
 });
 
 describe("SICL web domain adapter", () => {
+  it("normalizes canonical Preference fields from snake_case snapshots", () => {
+    const snapshot = parseSnapshot(JSON.stringify({ preferences: { "PREF-1": { preference_id: "PREF-1", name: "Regional identity", justification: "Declared", strength: "STRONG", scope_type: "PROJECT", scope_id: "P-1", valid_from: "2026-01-01", valid_until: "2026-12-31" } } }));
+    expect(snapshot.preferences[0]).toMatchObject({ id: "PREF-1", preferenceId: "PREF-1", preferenceStrength: "STRONG", scopeType: "PROJECT", scopeId: "P-1", validFrom: "2026-01-01", validUntil: "2026-12-31" });
+  });
+
+  it("includes Preferences in the read-only analytical view", () => {
+    const snapshot = emptySnapshot();
+    snapshot.preferences.push({ id: "PREF-1", name: "Regional identity", justification: "Declared", preferenceStrength: "STRONG", scopeType: "PROJECT", scopeId: "P-1" });
+    expect(analysisView(snapshot)).toMatchObject({ readOnly: true, preferences: [{ id: "PREF-1" }] });
+  });
   it("rejects evidence without an existing source", () => {
     expect(() => appendRecord(emptySnapshot(), "evidence", { id: "E-1", statement: "Observed", sourceId: "missing" }, actorEvent("EVIDENCE", "E-1", 1))).toThrow("sourceId does not exist");
   });

@@ -2,14 +2,14 @@
 
 **Ciclo:** 01  
 **Fecha:** 2026-08-24  
-**Estado:** **APROBADO PARA VALIDACIÓN ARQUITECTÓNICA; NO IMPLEMENTADO EN EL CORE PYTHON**  
+**Estado:** **IMPLEMENTADO Y VALIDADO LOCALMENTE; E2E REMOTO PENDIENTE**
 **Artefacto:** incorporación canónica de `Preference` en SICL 0.6
 
 ## 1. Propuesta recibida
 
 Se aprobó incorporar `Preference` también al Core Contract canónico Python, no únicamente al fallback web. La intención es que una preferencia sea una entidad semántica explícita, trazable y distinta de `Requirement`, `Objective` y `Constraint`. Debe expresar una prioridad o inclinación humana sin convertirse automáticamente en obligación, hecho, restricción dura, recomendación o decisión.
 
-El documento 70 establece el protocolo operativo: primero análisis de impacto, después validación arquitectónica humana, luego implementación, pruebas y validación final. Por tanto, este archivo no constituye autorización para modificar todavía el núcleo Python; constituye el registro de coordinación que debe ser revisado por ChatGPT y por el Product Owner.
+El documento 70 establece el protocolo operativo: primero análisis de impacto, después validación arquitectónica humana, luego implementación, pruebas y validación final. Por tanto, la primera versión de este archivo constituyó el registro de coordinación previo a la implementación. Tras la validación arquitectónica del documento 73 y la aprobación humana, el cierre del ciclo se registra al final de este mismo archivo.
 
 ## 2. Análisis del estado actual
 
@@ -116,4 +116,36 @@ Existe también un riesgo de alcance: incorporar Preferences al Core puede abrir
 
 ## Resultado de coordinación
 
-Manus recomienda avanzar, pero no codificar todavía la entidad canónica. El objetivo está aprobado; los detalles que podrían alterar la semántica aún deben ser validados por ChatGPT y, cuando corresponda, por el Product Owner. Este archivo es el artefacto único que debe trasladarse íntegramente para obtener esa revisión.
+Manus recomendó inicialmente no codificar hasta validar los detalles. El documento 73 validó la dirección y el Product Owner aprobó la implementación. El cierre y la evidencia se registran a continuación; la verificación remota poblada sigue pendiente por falta de Cloud Computer.
+
+
+## Cierre del Ciclo 01 — evidencia posterior a la validación
+
+El documento 73 validó la dirección arquitectónica: `Preference` genérica en el Core ahora; representación estética sin motor en Product 0.6; criterios estéticos formalizados en 0.7; evaluación reproducible en 0.7–0.8; visión artificial después de 0.8; y belleza objetiva universal excluida permanentemente.
+
+Con esa validación y la aprobación humana recibida, se implementó `Preference` en el núcleo canónico. El modelo incluye `justification`, `domain`, `strength`, `scope_type`, `scope_id`, `provenance`, `valid_from`, `valid_until` y `status`. `CoreProject` valida referencias a proyecto, objetivo o alternativa. SQLite persiste y carga la entidad en orden de dependencia, con índice por alcance y transacción atómica de creación junto con incremento optimista del proyecto y evento `PREFERENCE_RECORDED`.
+
+El adaptador HTTP se versionó a `sicl-core-http/0.3` y expone `POST /v1/projects/{project_id}/preferences` con autenticación bearer, validación Pydantic, control de versión y payload seguro. El cliente TypeScript y `addRecord` tRPC delegan la escritura cuando existe `SICL_CORE_URL`; el fallback local continúa disponible únicamente bajo la regla de desarrollo explícito. El normalizador TypeScript conserva campos snake_case y la vista analítica expone Preferences como información read-only.
+
+La evidencia ejecutada es la siguiente:
+
+| Verificación | Resultado |
+|---|---|
+| Suite Python completa | Aprobada |
+| Modelo y referencias de Preference | Aprobadas |
+| Round-trip SQLite | Aprobado |
+| Atomicidad, idempotencia y evento | Aprobadas por el patrón transaccional y regresiones |
+| Endpoint HTTP autenticado | Aprobado |
+| Payload snake_case del cliente | Aprobado |
+| TypeScript | Sin errores |
+| Suite web | 60 pruebas aprobadas |
+| E2E remoto con Cloud Computer | Pendiente |
+| E2E poblado en navegador | Pendiente |
+
+La implementación no añade `weights`, `aesthetic_score`, `beauty`, `dominance`, `learned_preference`, `visual_embedding`, motor estético, visión artificial ni decisiones automáticas. Tampoco convierte `Preference` en `Constraint`, `Recommendation` o `Decision`.
+
+### Estado final del ciclo
+
+**IMPLEMENTADO:** soporte canónico de `Preference` en Python, SQLite, HTTP, cliente tRPC y normalización web.
+**VALIDADO:** suites automatizadas locales, prueba HTTP autenticada y regresiones de snapshot.
+**PENDIENTE:** despliegue en Cloud Computer, prueba contra URL real, verificación poblada de navegador y validación funcional humana del vertical slice completo.

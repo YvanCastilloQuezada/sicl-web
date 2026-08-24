@@ -238,7 +238,7 @@
 
 ## Decisión pendiente de contrato canónico
 
-- [ ] Decidir si `Preference` se incorpora al Core Contract Python, SQLite, revisión y adaptador HTTP; no implementarlo parcialmente porque el adaptador remoto no tiene escritura genérica de registros.
+- [x] Decidir e incorporar `Preference` al Core Contract Python, SQLite, revisión y adaptador HTTP; la incorporación quedó completa y coordinada, no parcial.
 
 ## SICL Implementation Coordination Record — Ciclo 01
 
@@ -247,3 +247,11 @@
 ## Revisión conceptual — estética y calidad arquitectónica
 
 - [x] Redactar y entregar comentarios e ideas sobre los documentos 71 y 72; mantener bloqueada la programación estética hasta nueva validación arquitectónica.
+
+## Ciclo 01 aprobado — Preference canónica
+
+- [x] Incorporar `Preference` al Core Contract Python con justificación, domain, provenance, vigencia y estado explícitos.
+- [x] Persistir `Preference` en SQLite y cargarla en `CoreProject` sin romper snapshots existentes.
+- [x] Exponer y escribir `Preference` mediante el adaptador HTTP autenticado, tRPC y fallback web.
+- [x] Añadir pruebas de contrato, persistencia, referencias, auditoría, seguridad e interoperabilidad; TypeScript y 60 pruebas web, suite Python y prueba HTTP canónica aprobadas.
+- [x] Actualizar el Coordination Record del Ciclo 01 con estado IMPLEMENTADO Y VALIDADO LOCALMENTE tras la evidencia; E2E remoto permanece pendiente.

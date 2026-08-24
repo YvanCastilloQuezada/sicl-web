@@ -113,6 +113,10 @@ export async function createCoreProject(projectId: string, name: string, scopes?
   return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ project_id: projectId, name, ...(scopes?.spatialScope ? { spatial_scope: { scale: scopes.spatialScope.scale, id: scopes.spatialScope.id, name: scopes.spatialScope.name, ...(scopes.spatialScope.parentId ? { parent_id: scopes.spatialScope.parentId } : {}) } } : {}), ...(scopes?.temporalScope ? { temporal_scope: scopes.temporalScope } : {}) }) });
 }
 
+export async function createCorePreference(projectId: string, payload: Record<string, unknown>) {
+  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/preferences`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+}
+
 export async function createCoreRecommendation(projectId: string, payload: Record<string, unknown>) {
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/recommendations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
 }

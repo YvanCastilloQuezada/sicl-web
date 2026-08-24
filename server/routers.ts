@@ -8,7 +8,7 @@ import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject 
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
-import { createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -80,8 +80,16 @@ export const appRouter = router({
     addRecord: protectedProcedure.input(versionInput.extend({ kind: z.enum(recordKinds), record: z.record(z.string(), z.unknown()) })).mutation(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
-      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       const record = input.record as SiclRecord;
+      const rawRecord = input.record as Record<string, unknown>;
+      if (hasCoreUrl() && input.kind === "preferences") {
+        const requiredText = (key: string) => { const value = rawRecord[key]; if (typeof value !== "string" || !value.trim()) fail(`Preference ${key} is required`); return value; };
+        const scopeType = typeof rawRecord.scopeType === "string" ? rawRecord.scopeType : "PROJECT";
+        const strength = typeof rawRecord.strength === "string" ? rawRecord.strength : "SOFT";
+        const status = typeof rawRecord.status === "string" ? rawRecord.status : "ACTIVE";
+        return createCorePreference(input.projectId, { preference_id: requiredText("id"), name: requiredText("name"), justification: requiredText("justification"), domain: typeof rawRecord.domain === "string" && rawRecord.domain.trim() ? rawRecord.domain : "GENERAL", strength, scope_type: scopeType, scope_id: requiredText("scopeId"), provenance: Array.isArray(rawRecord.provenance) ? rawRecord.provenance : [], valid_from: typeof rawRecord.validFrom === "string" ? rawRecord.validFrom : null, valid_until: typeof rawRecord.validUntil === "string" ? rawRecord.validUntil : null, status, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
+      }
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       const next = siclCorePort.appendRecord(snapshot, input.kind as RecordKind, record, event(ctx.user.id, "SICL_RECORD_ADDED", record.id, { kind: input.kind, observedVersion: input.expectedVersion }));
       return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
     }),
