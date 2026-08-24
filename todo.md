@@ -318,3 +318,10 @@
 - [x] Clasificar pendientes por dependencia, prioridad y criterio de salida.
 - [x] Redactar un cronograma ejecutivo de despliegue y validación E2E.
 - [x] Verificar y entregar el documento de avance y hoja de ruta.
+
+## Guía funcional SICL 1–3 para arquitectos
+
+- [x] Definir el núcleo funcional común y las diferencias entre SICL 1, SICL 2 y SICL 3.
+- [x] Explicar cada funcionalidad con entradas, proceso, resultado y límite de autoridad.
+- [x] Redactar ejemplos sencillos y el flujo completo de trabajo arquitectónico.
+- [x] Verificar la guía contra la implementación real y entregar el documento.
