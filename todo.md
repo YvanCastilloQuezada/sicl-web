@@ -387,3 +387,11 @@
 - [x] Intentar la cadena E2E completa y demostrar éxito o bloqueo real.
 - [x] Redactar `SICL_NEXT_CYCLE_REPORT_v1.md` con evidencia, discrepancias y decisiones requeridas.
 - [x] Verificar y entregar el reporte único del ciclo.
+
+## Paquete de ejecución remota SICL
+
+- [x] Separar bloqueo técnico y bloqueo constitucional en el paquete remoto.
+- [x] Documentar precondiciones, variables, archivos y orden exacto de despliegue.
+- [x] Documentar pruebas, evidencias, criterios PASS/FAIL y prohibiciones.
+- [x] Verificar que no contiene valores inventados ni cambios de contrato.
+- [x] Entregar `SICL_REMOTE_EXECUTION_PACKAGE_v1.md` y detener el ciclo.
