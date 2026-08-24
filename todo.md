@@ -325,3 +325,12 @@
 - [x] Explicar cada funcionalidad con entradas, proceso, resultado y límite de autoridad.
 - [x] Redactar ejemplos sencillos y el flujo completo de trabajo arquitectónico.
 - [x] Verificar la guía contra la implementación real y entregar el documento.
+
+## Paquete de comprensión SICL para arquitectos
+
+- [x] Preparar diccionario visual y mocking esquemático del flujo Command Center.
+- [x] Preparar matriz de decisiones, roles y límites de autoridad.
+- [x] Preparar diccionario de datos de entrada y procedencia.
+- [x] Preparar preguntas frecuentes para arquitectos.
+- [x] Preparar plan de implementación por fases con entregables y estados.
+- [x] Verificar y entregar el paquete consolidado sin confundir mockup con funcionalidad implementada.
