@@ -372,3 +372,10 @@
 - [x] Precisar estados de Preference integrado y Decision Conditions read-only/futura escritura canónica.
 - [x] Añadir una declaración de congelación de expansión conceptual y no implementar estética.
 - [x] Verificar consistencia final del Master Spec revisado y entregar una nota de cambios.
+
+## Auditoría técnica del estado real SICL contra Master Spec v1
+- [x] Inventariar código, documentación, pruebas y evidencias del estado real.
+- [x] Auditar cada entidad y la frontera Core–motores–representación.
+- [x] Ejecutar pruebas necesarias y registrar discrepancias sin corregirlas.
+- [x] Redactar `SICL_STATE_AUDIT_v1.md` con estados, riesgos y decisiones requeridas.
+- [x] Verificar la auditoría, registrar pendientes y entregar el artefacto.
