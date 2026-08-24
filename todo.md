@@ -348,3 +348,11 @@
 - [x] Exportar los cuatro layouts a imágenes independientes y conservar fuentes editables.
 - [x] Verificar legibilidad, coherencia visual y etiqueta conceptual.
 - [x] Entregar el paquete visual completo actualizado.
+
+## Documentos Word para arquitectos
+
+- [x] Convertir la Guía funcional SICL 1–3 a DOCX profesional.
+- [x] Convertir el Paquete de comprensión SICL para arquitectos a DOCX profesional.
+- [x] Convertir la Hoja de ruta ejecutiva SICL 0.6 a DOCX profesional.
+- [x] Convertir la Auditoría consolidada SICL 0.6 a DOCX profesional.
+- [x] Verificar contenido, tablas, legibilidad y notas de estado de los cuatro DOCX.
