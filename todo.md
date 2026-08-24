@@ -273,3 +273,5 @@
 - [x] Preparar guía ejecutable de usuario para Product 0.6.
 - [x] Preparar fixture sintético UPAO-001 reutilizable sin datos persistentes ni afirmaciones profesionales.
 - [x] Revisar runbook y pruebas de estados remotos del frontend; Decision Conditions falla cerrado con SICL_CORE_URL hasta disponer de endpoint canónico.
+
+- [x] Mostrar la lista read-only de Decision Conditions registradas en Alternatives & Evaluation para cerrar el ciclo de captura y revisión.
