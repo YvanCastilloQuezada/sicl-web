@@ -10,6 +10,21 @@ import type { SpatialScope, TemporalScope } from "@shared/siclScopes";
 export type CanonicalNotFound = { not_found: true; project_id: string; status: 404; error: string; detail?: string; envelope: Record<string, unknown> };
 
 type CoreWriteResponse = { contract_version: string; project_id: string; observed_version: number; [key: string]: unknown };
+export type OperationsResearchMethod = {
+  method: string;
+  required_inputs: string[];
+  required_units: string[];
+  required_assumptions: string[];
+  output_fields: string[];
+  version: string;
+};
+
+export type OperationsResearchCatalog = {
+  contract_version: string;
+  read_only: boolean;
+  methods: OperationsResearchMethod[];
+};
+
 export type CanonicalCouncil = {
   contract_version: string;
   project_id: string;
@@ -64,6 +79,12 @@ async function coreRequest<T>(path: string, init: RequestInit): Promise<T> {
   const response = await fetch(`${base}${path}`, { ...init, headers: { ...serviceHeaders(), ...(init.headers ?? {}) } });
   if (!response.ok) throw await errorFromResponse(response);
   return response.json() as Promise<T>;
+}
+
+export async function fetchOperationsResearchMethods(): Promise<OperationsResearchCatalog | undefined> {
+  const base = coreUrl();
+  if (!base) return undefined;
+  return coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
 }
 
 export async function fetchCanonicalCouncil(projectId: string): Promise<CanonicalCouncil | CanonicalNotFound | undefined> {

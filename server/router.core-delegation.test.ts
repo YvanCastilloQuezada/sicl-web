@@ -77,3 +77,17 @@ describe("production core boundary", () => {
   });
 });
 
+
+
+  it("exposes the canonical operations research catalog as read-only", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      contract_version: "sicl-core-http/0.2",
+      read_only: true,
+      methods: [{ method: "MCDA_WEIGHTED_SUM", required_constraints: ["weights_sum_to_one"], required_provenance: ["source_id", "source_timestamp", "source_version"], feasibility_states: ["COMPARISON", "INSUFFICIENT_DATA", "UNKNOWN"], sensitivity_outputs: ["method", "parameters", "limitations"] }],
+    }), { status: 200, headers: { "content-type": "application/json" } })));
+    const caller = appRouter.createCaller(ctx);
+    const result = await caller.projects.operationsResearchMethods();
+    expect(result).toMatchObject({ read_only: true, methods: [{ method: "MCDA_WEIGHTED_SUM", required_constraints: ["weights_sum_to_one"], required_provenance: ["source_id", "source_timestamp", "source_version"], feasibility_states: ["COMPARISON", "INSUFFICIENT_DATA", "UNKNOWN"], sensitivity_outputs: ["method", "parameters", "limitations"] }] });
+  });

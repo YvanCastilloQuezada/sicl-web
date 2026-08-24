@@ -66,3 +66,20 @@ describe("SiclCoreHttpError", () => {
     const request = fetchSpy.mock.calls[0]?.[1] as RequestInit;
     expect(JSON.parse(String(request.body))).toMatchObject({ spatial_scope: { scale: "COUNTRY", id: "PE", name: "Peru" }, temporal_scope: { horizon: "2050", scenario: "resilient-growth" } });
   });
+
+
+it("fetches the read-only operations research catalog without exposing service credentials", async () => {
+  process.env.SICL_CORE_URL = "https://core.example.test";
+  process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+  const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    contract_version: "sicl-core-http/0.2",
+    read_only: true,
+    methods: [{ method: "TRANSPORTATION_LP", required_inputs: ["supply"], required_units: ["flow_unit"], required_constraints: ["supply_capacity"], required_assumptions: ["known_supply_and_demand"], required_provenance: ["source_id", "source_timestamp", "source_version"], output_fields: ["status", "flows"], feasibility_states: ["OPTIMAL", "INFEASIBLE", "INSUFFICIENT_DATA", "UNKNOWN"], sensitivity_outputs: ["method", "parameters", "limitations"], version: "0.1" }],
+  }), { status: 200, headers: { "content-type": "application/json" } }));
+  vi.stubGlobal("fetch", fetchSpy);
+  const { fetchOperationsResearchMethods } = await import("./coreHttpClient");
+  const result = await fetchOperationsResearchMethods();
+  expect(result).toMatchObject({ read_only: true, methods: [{ method: "TRANSPORTATION_LP", required_constraints: ["supply_capacity"], required_provenance: ["source_id", "source_timestamp", "source_version"], feasibility_states: ["OPTIMAL", "INFEASIBLE", "INSUFFICIENT_DATA", "UNKNOWN"], sensitivity_outputs: ["method", "parameters", "limitations"] }] });
+  expect(JSON.stringify(result)).not.toContain("service-token-test");
+  expect(fetchSpy).toHaveBeenCalledWith("https://core.example.test/v1/operations-research/methods", { method: "GET", headers: { accept: "application/json", authorization: "Bearer service-token-test" } });
+});

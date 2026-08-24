@@ -119,3 +119,32 @@
 - [x] Evaluar su compatibilidad con SICL, especialmente separación entre análisis, ejecución y autoridad humana.
 - [x] Clasificar qué partes son factibles ahora, cuáles requieren diseño adicional y cuáles deben rechazarse o corregirse.
 - [x] Entregar opinión y recomendaciones sin modificar código ni infraestructura.
+
+## Investigación de Operaciones — decisión arquitectónica basada en documentos 63 y 64
+
+- [x] Comparar los documentos 63 y 64 y separar visión, capacidades factibles, prototipos y afirmaciones no demostradas.
+- [x] Definir IO como capa analítica extensible de SICL, no como autoridad ni selector automático de decisiones.
+- [x] Establecer contratos para métodos IO con entradas, unidades, restricciones, supuestos, factibilidad, salida, sensibilidad y procedencia.
+- [x] Diseñar la hoja de ruta por etapas para transporte, asignación, colas, inventarios, CPM/PERT, simulación y MCDA.
+- [x] Implementar solo el incremento IO que sea determinista, trazable y compatible con el Core Contract actual.
+- [x] Verificar pruebas, documentación y límites de los métodos IO implementados.
+
+## Correcciones de contrato IO antes del checkpoint
+
+- [x] Documentar explícitamente la comparación entre documentos 63 y 64: visión, factibilidad, prototipos y afirmaciones no demostradas.
+- [x] Uniformar el catálogo IO con restricciones, procedencia, estado de factibilidad y sensibilidad por método, y cubrirlo con regresiones.
+
+## Cobertura adicional del catálogo IO
+
+- [x] Verificar en Python restricciones, procedencia, estados de factibilidad y sensibilidad para cada método IO.
+- [x] Verificar por HTTP/web que el endpoint read-only expone esos campos sin transformación; el adaptador Python real quedó cubierto y el cliente web conserva el contrato.
+
+## Verificación del endpoint IO real
+
+- [x] Probar el endpoint Python real `/v1/operations-research/methods` con los campos contractuales completos.
+- [x] Verificar la integración web contra una respuesta real del adaptador IO, además del mock del cliente.
+
+## Prueba web real contra adaptador IO
+
+- [x] Ejecutar `fetchOperationsResearchMethods()` desde el cliente web contra el adaptador Python vivo sin mock de `fetch`.
+- [x] Guardar evidencia reproducible de la prueba Node web↔Python y cerrar el pendiente solo con esa evidencia.

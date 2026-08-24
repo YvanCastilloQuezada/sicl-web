@@ -1,0 +1,1 @@
+{"source":"coreHttpClient.fetchOperationsResearchMethods","contract_version":"sicl-core-http/0.2","read_only":true,"method":"TRANSPORTATION_LP","fields_verified":["required_constraints","required_provenance","feasibility_states","sensitivity_outputs"]}
