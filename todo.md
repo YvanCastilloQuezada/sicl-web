@@ -204,3 +204,7 @@
 - [x] Añadir una prueba integrada local que cree Evaluation y Comparison y luego ejecute `recommendationCreate` sobre esa referencia, verificando trazabilidad y versión.
 - [x] Verificar el versionado de Recommendations en el núcleo Python/adaptador HTTP canónico: se confirmó `Recommendation.entity_version` + `Project.entity_version`, pero no existe versionado monotónico de ciclos; la semántica nueva queda explícitamente pendiente de decisión contractual.
 - [ ] Ejecutar y documentar una verificación funcional de navegador del flujo Alternatives & Evaluation → Recommendation en escritorio y móvil cuando exista un proyecto de prueba poblado.
+
+## Readiness de despliegue — auditoría de continuidad
+
+- [x] Confirmar que los repositorios web y core están versionados, que el Dockerfile y runbook están preparados, y que no existe `SICL_CORE_URL` ni Docker disponible en el sandbox; por tanto no se fabrica una URL ni se declara desplegado el servicio remoto.
