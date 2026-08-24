@@ -434,3 +434,11 @@
 - [x] Redactar `SICL_CONSTITUTIONAL_REVIEW_0.6.md` con estados y preguntas cerradas.
 - [x] Verificar que no autoriza implementación ni amplía el alcance.
 - [x] Entregar el documento y detener la fase constitucional.
+
+## Consolidación constitucional B-001 autorizada por Product Owner
+- [x] Registrar las decisiones aprobadas sobre Fact/Assumption, Audit/Report, Decision Conditions y alcance de SICL 0.6.
+- [x] Consolidar B-001 en `SICL_MASTER_SPEC_v1.md` sin modificar código, entidades, endpoints, SQLite, eventos ni Core Contract.
+- [x] Diferenciar Constitución, Core Contract, superficie HTTP, implementación local, estado E2E, roadmap/RFC y capacidades bloqueadas por contrato.
+- [x] Mantener explícito que BLOQUEADO POR CONTRATO no significa FUERA DE SICL.
+- [x] Verificar que la consolidación no autoriza infraestructura, E2E ni ampliación contractual.
+- [x] Entregar la versión constitucional consolidada y detenerse para la siguiente revisión arquitectónica.
