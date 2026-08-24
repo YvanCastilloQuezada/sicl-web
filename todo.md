@@ -214,3 +214,5 @@
 ## Corrección UI detectada durante continuidad
 
 - [x] Separar el objetivo seleccionado para Evaluation del objetivo seleccionado para Comparison, evitando que un formulario sobrescriba silenciosamente al otro; regresión UI añadida.
+
+- [x] Revalidar visualmente el Command Center en viewport móvil de 375×812 tras la corrección de Evaluation/Comparison; no se observan desbordamientos en la navegación inicial.
