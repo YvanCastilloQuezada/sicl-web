@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { safeAuditData } from "@shared/audit";
 import { SPATIAL_SCALES, TEMPORAL_HORIZONS, type SpatialScale, type TemporalHorizon } from "@shared/siclScopes";
+import { SICL_65_CAPABILITY_GATES } from "@shared/siclGovernance";
 import { cn } from "@/lib/utils";
 import { Activity, ArrowRight, BookOpen, CheckCircle2, FileText, GitBranch, LayoutDashboard, Plus, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -21,6 +22,7 @@ const modules = [
   { id: "alternatives", label: "Alternatives & Evaluation", icon: GitBranch },
   { id: "council", label: "Council / Recommendation", icon: Scale },
   { id: "audit", label: "Decision & Audit", icon: ShieldCheck },
+  { id: "governance", label: "Build Governance", icon: FileText },
 ] as const;
 
 type ModuleId = typeof modules[number]["id"];
@@ -104,11 +106,16 @@ function AuthenticatedHome() {
               {module === "alternatives" && <RecordModule title="Alternatives & Evaluation" eyebrow="Options" description="Keep candidate options explicit and comparable." kind="alternatives" count={counts.alternatives ?? 0} fields={[{ key: "id", label: "Alternative ID", placeholder: "ALT-A" }, { key: "name", label: "Alternative name", placeholder: "Courtyard scheme" }, { key: "description", label: "Description", placeholder: "What is materially different?" }]} onSubmit={addSimpleRecord} />}
               {module === "council" && <CouncilModule snapshot={snapshot} counts={counts} council={council.data} operationsResearch={operationsResearchMethods.data} />}
               {module === "audit" && <><AuditModule snapshot={snapshot} counts={counts} /><WorkflowModule projectId={currentProjectId} version={selected.data?.version ?? 1} snapshot={snapshot} createRecommendation={createRecommendation} recordReview={recordReview} recordDecision={recordDecision} /></>}
+              {module === "governance" && <GovernanceModule />}
             </>}
           </main>
         </div>
       </div>
   );
+}
+
+export function GovernanceModule() {
+  return <section><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">Capability Gate Ledger</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.04em]">Build governance</h2><p className="mt-2 max-w-3xl text-sm leading-6 text-[#718078]">A read-only record of how SICL capabilities become releasable. This ledger governs construction quality; it does not approve projects, select alternatives or create human Decisions.</p><Card className="mt-8 border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Capability: SICL 1–3 + Operations Research foundation</CardTitle><p className="text-xs text-[#718078]">Current implementation is documented and test-backed; gates are not advanced from this interface.</p></CardHeader><CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">{SICL_65_CAPABILITY_GATES.map(({ stage, label, owner, reference }, index) => <div key={stage} className="border-t-2 border-[#385348] pt-3"><div className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#385348]" /><span className="text-xs font-bold tracking-[0.12em] text-[#385348]">{String(index + 1).padStart(2, "0")} · {stage}</span></div><p className="mt-2 text-sm font-medium">{label}</p><p className="mt-1 text-xs leading-5 text-[#718078]">{owner.replaceAll("_", " ")}</p><p className="mt-1 text-[11px] text-[#8a978e]">{reference}</p></div>)}</CardContent></Card><div className="mt-5 grid gap-5 lg:grid-cols-2"><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Role boundary</CardTitle></CardHeader><CardContent className="space-y-3 text-sm"><p><strong>Product Owner</strong> defines vision, priorities and release authority.</p><p><strong>Chief Architect</strong> protects semantics, contracts, invariants and auditability.</p><p><strong>Implementation Engineer</strong> writes code, tests, integrations and evidence.</p></CardContent></Card><Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Non-authority guarantee</CardTitle></CardHeader><CardContent><p className="text-sm leading-6 text-[#718078]">The ledger cannot publish a project decision, change an alternative, create a Recommendation or bypass HumanReview. Domain authority remains explicit and human.</p><Badge variant="outline" className="mt-4 border-[#d07b4a] text-[#a95e35]">PROCESS CONTROL · NOT DECISION AUTHORITY</Badge></CardContent></Card></div></section>;
 }
 
 function SignIn() { return <div className="flex min-h-screen items-center justify-center bg-[#f4f1ea] p-6"><div className="max-w-md border border-[#cbd2c9] bg-[#fbfaf6] p-10 text-center"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">SICL Command Center</p><h1 className="mt-4 font-serif text-4xl">Sign in to preserve the record.</h1><p className="mt-4 text-sm leading-6 text-[#718078]">Authentication identifies the actor. It does not grant decision authority.</p><Button onClick={() => startLogin()} className="mt-7 bg-[#385348] hover:bg-[#294038]">Sign in</Button></div></div>; }

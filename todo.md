@@ -162,3 +162,16 @@
 ## Mejora de Recommendations derivada del documento 65
 
 - [x] Hacer monotónico el `recommendationVersion` en el fallback local y cubrirlo con regresión, sin cambiar el flujo de autoridad humana.
+
+## Capability Gate Ledger visible en Command Center
+
+- [x] Definir el snapshot read-only local del Capability Gate Ledger con etapas, referencias y roles.
+- [x] Integrar un módulo de gobernanza visible sin permitir avanzar gates desde la interfaz.
+- [x] Añadir pruebas Vitest para lectura, orden secuencial y separación de autoridad.
+- [x] Verificar visualmente el módulo en escritorio y móvil.
+
+## Corrección del Ledger tras revisión de implementación
+
+- [x] Definir un contrato local tipado para Capability Gate Ledger con etapas, roles y referencias, separado de Home.tsx.
+- [x] Consumir ese contrato desde GovernanceModule en lugar de hardcodear las etapas dentro del componente.
+- [x] Añadir pruebas Vitest del orden secuencial, roles esperados y ausencia de acciones de autoridad en la vista.
