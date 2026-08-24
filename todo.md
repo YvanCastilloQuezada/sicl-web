@@ -259,3 +259,9 @@
 ## Hardening final de Preference
 
 - [x] Exigir que el replay idempotente de `Preference` coincida en proyecto, entidad, evento y payload completo; añadir regresión de conflicto.
+
+## Readiness local previo al despliegue
+
+- [x] Verificar el manejo server-side de `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` sin exponer secretos.
+- [x] Verificar que UPAO-001 esté disponible como caso de prueba reproducible sin poblar datos ficticios en producción.
+- [x] Documentar el resultado y mantener bloqueados HTTPS, persistencia externa y E2E remoto.
