@@ -234,4 +234,4 @@
 - [x] Formalizar el Product Acceptance Contract separado del Core Contract.
 - [x] Auditar cada etapa del vertical slice contra la implementación actual.
 - [x] Implementar únicamente las brechas locales necesarias para el vertical slice aprobado: Preferences explícitas, representación espacial contextual y reporte JSON filtrado.
-- [x] Ejecutar pruebas de integridad y verificación visual del vertical slice: TypeScript, 56 pruebas web y viewport de escritorio/móvil.
+- [x] Ejecutar pruebas de integridad y verificación visual del vertical slice: TypeScript, 57 pruebas web y viewport de escritorio/móvil.

@@ -137,3 +137,13 @@ describe("explicit preferences", () => {
     expect(() => appendRecord(emptySnapshot(), "preferences", { id: "PREF-2", name: "Daylight", preferenceStrength: "MANDATORY" as never, justification: "Supports user comfort" }, actorEvent("PREFERENCE", "PREF-2", 1))).toThrow("Preference strength is invalid");
   });
 });
+
+
+describe("preference snapshot compatibility", () => {
+  it("preserves preferences from a canonical collection", async () => {
+    const { parseSnapshot } = await import("./siclCore");
+    const snapshot = parseSnapshot(JSON.stringify({ preferences: { "PREF-1": { id: "PREF-1", name: "Public access", justification: "Supports the program", preference_strength: "SOFT" } } }));
+    expect(snapshot.preferences).toHaveLength(1);
+    expect(snapshot.preferences[0]).toMatchObject({ id: "PREF-1", name: "Public access" });
+  });
+});
