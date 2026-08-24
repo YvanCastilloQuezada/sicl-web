@@ -356,3 +356,11 @@
 - [x] Convertir la Hoja de ruta ejecutiva SICL 0.6 a DOCX profesional.
 - [x] Convertir la Auditoría consolidada SICL 0.6 a DOCX profesional.
 - [x] Verificar contenido, tablas, legibilidad y notas de estado de los cuatro DOCX.
+
+## SICL Master Specification v1
+
+- [x] Inventariar las fuentes normativas, técnicas y de evidencia para el documento maestro.
+- [x] Consolidar visión, Core Contract, roadmap, RFC, aceptación y decisiones pendientes.
+- [x] Integrar la capacidad futura de estética con límites explícitos.
+- [x] Verificar coherencia, estados y referencias del documento maestro.
+- [x] Entregar `SICL_MASTER_SPEC_v1.md` como artefacto único para revisión integral.
