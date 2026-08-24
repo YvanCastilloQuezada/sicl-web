@@ -220,3 +220,7 @@
 ## Revisión conceptual del documento 67
 
 - [x] Redactar y entregar documento independiente con apreciaciones, desacuerdos, mejoras y ruta de implementación hacia SICL 0.6; no modificar código como parte de esta revisión.
+
+## Revisión conceptual del documento 68
+
+- [x] Redactar y entregar documento externo con apreciaciones, desacuerdos, mejoras y recomendaciones de implementación para SICL 0.6; no modificar código.
