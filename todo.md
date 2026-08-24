@@ -235,3 +235,11 @@
 - [x] Auditar cada etapa del vertical slice contra la implementación actual.
 - [x] Implementar únicamente las brechas locales necesarias para el vertical slice aprobado: Preferences explícitas, representación espacial contextual y reporte JSON filtrado.
 - [x] Ejecutar pruebas de integridad y verificación visual del vertical slice: TypeScript, 57 pruebas web y viewport de escritorio/móvil.
+
+## Decisión pendiente de contrato canónico
+
+- [ ] Decidir si `Preference` se incorpora al Core Contract Python, SQLite, revisión y adaptador HTTP; no implementarlo parcialmente porque el adaptador remoto no tiene escritura genérica de registros.
+
+## SICL Implementation Coordination Record — Ciclo 01
+
+- [x] Preparar un único archivo de coordinación para la incorporación canónica de `Preference`, con análisis de impacto, elementos excluidos, riesgos y decisiones pendientes; no modificar el Core Python hasta validación arquitectónica.
