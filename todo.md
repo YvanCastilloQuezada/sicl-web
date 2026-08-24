@@ -364,3 +364,11 @@
 - [x] Integrar la capacidad futura de estética con límites explícitos.
 - [x] Verificar coherencia, estados y referencias del documento maestro.
 - [x] Entregar `SICL_MASTER_SPEC_v1.md` como artefacto único para revisión integral.
+
+## Revisión independiente del Master Spec v1
+
+- [x] Contrastar la crítica sobre aprendizaje institucional, Preference y Decision Conditions con el documento actual.
+- [x] Sustituir lenguaje ambiguo de aprendizaje autónomo por conocimiento o memoria institucional versionada.
+- [x] Precisar estados de Preference integrado y Decision Conditions read-only/futura escritura canónica.
+- [x] Añadir una declaración de congelación de expansión conceptual y no implementar estética.
+- [x] Verificar consistencia final del Master Spec revisado y entregar una nota de cambios.
