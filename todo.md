@@ -379,3 +379,11 @@
 - [x] Ejecutar pruebas necesarias y registrar discrepancias sin corregirlas.
 - [x] Redactar `SICL_STATE_AUDIT_v1.md` con estados, riesgos y decisiones requeridas.
 - [x] Verificar la auditoría, registrar pendientes y entregar el artefacto.
+
+## Ciclo de integración y aceptación operativa
+
+- [x] Construir matriz de bloqueadores A/B/C/D contra SICL_STATE_AUDIT_v1.
+- [x] Ejecutar y probar únicamente correcciones de clase A, sin cambiar contratos.
+- [x] Intentar la cadena E2E completa y demostrar éxito o bloqueo real.
+- [x] Redactar `SICL_NEXT_CYCLE_REPORT_v1.md` con evidencia, discrepancias y decisiones requeridas.
+- [x] Verificar y entregar el reporte único del ciclo.
