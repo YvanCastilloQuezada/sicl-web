@@ -23,6 +23,15 @@ function upaoSnapshot() {
   });
 }
 
+function hasFixtureData(project: Pick<SiclProject, "snapshot">) {
+  try {
+    const value = JSON.parse(project.snapshot) as { sources?: unknown[]; objectives?: unknown[]; alternatives?: unknown[] };
+    return Boolean(value.sources?.length && value.objectives?.length && value.alternatives?.length);
+  } catch {
+    return false;
+  }
+}
+
 async function seedUpao(ownerId: number): Promise<SiclProject> {
   const now = new Date();
   const project = { id: 0, ownerId, projectId: "UPAO-001", name: "UPAO-001 · Plaza Center", location: "Trujillo · 2000 m² · FAR 5.0", status: "ACTIVE" as const, version: 1, snapshot: upaoSnapshot(), createdAt: now, updatedAt: now } as SiclProject;
@@ -68,6 +77,12 @@ export async function listSiclProjects(ownerId: number): Promise<SiclProject[]> 
   if (!db) { const all = Array.from(memoryProjects.values()); if (!all.some((p) => p.ownerId === ownerId)) await seedUpao(ownerId); return Array.from(memoryProjects.values()).filter((p) => p.ownerId === ownerId); }
   const rows = await db.select().from(siclProjects).where(eq(siclProjects.ownerId, ownerId)).orderBy(desc(siclProjects.updatedAt));
   if (!rows.length) return [await seedUpao(ownerId)];
+  const fixture = rows.find((row) => row.projectId === "UPAO-001");
+  if (fixture && !hasFixtureData(fixture)) {
+    const seeded = await seedUpao(ownerId);
+    await db.update(siclProjects).set({ name: seeded.name, location: seeded.location, status: seeded.status, version: seeded.version, snapshot: seeded.snapshot }).where(and(eq(siclProjects.ownerId, ownerId), eq(siclProjects.projectId, "UPAO-001")));
+    return rows.map((row) => row.projectId === "UPAO-001" ? seeded : row);
+  }
   return rows;
 }
 
@@ -75,6 +90,11 @@ export async function getSiclProject(ownerId: number, projectId: string): Promis
   const db = await getDb();
   if (!db) { const existing = memoryProjects.get(`${ownerId}:${projectId}`); return existing ?? (projectId === "UPAO-001" ? seedUpao(ownerId) : undefined); }
   const result = await db.select().from(siclProjects).where(and(eq(siclProjects.ownerId, ownerId), eq(siclProjects.projectId, projectId))).limit(1);
+  if (result[0] && projectId === "UPAO-001" && !hasFixtureData(result[0])) {
+    const seeded = await seedUpao(ownerId);
+    await db.update(siclProjects).set({ name: seeded.name, location: seeded.location, status: seeded.status, version: seeded.version, snapshot: seeded.snapshot }).where(and(eq(siclProjects.ownerId, ownerId), eq(siclProjects.projectId, projectId)));
+    return seeded;
+  }
   return result[0] ?? (projectId === "UPAO-001" ? seedUpao(ownerId) : undefined);
 }
 
