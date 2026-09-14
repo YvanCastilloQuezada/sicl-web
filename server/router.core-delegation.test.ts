@@ -66,14 +66,36 @@ describe("tRPC to SICL Core delegation", () => {
   });
 
 
-describe("production core boundary", () => {
-  afterEach(() => { delete process.env.SICL_CORE_URL; delete process.env.SICL_CORE_SERVICE_TOKEN; process.env.NODE_ENV = "test"; vi.unstubAllGlobals(); });
+describe("core environment boundary", () => {
+  afterEach(() => {
+    delete process.env.SICL_CORE_URL;
+    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    delete process.env.SICL_ALLOW_LOCAL_CORE;
+    process.env.NODE_ENV = "test";
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
 
   it("fails closed when production has no canonical core URL", async () => {
     process.env.NODE_ENV = "production";
     delete process.env.SICL_CORE_URL;
+    process.env.SICL_ALLOW_LOCAL_CORE = "true";
     const caller = appRouter.createCaller(ctx);
     await expect(caller.projects.list()).rejects.toThrow("SICL_CORE_URL is required");
+  });
+
+  it("allows the explicit local fallback during development", async () => {
+    process.env.NODE_ENV = "development";
+    process.env.SICL_ALLOW_LOCAL_CORE = "true";
+    vi.spyOn(db, "listSiclProjects").mockResolvedValue([]);
+    const result = await appRouter.createCaller(ctx).projects.list();
+    expect(result).toEqual([]);
+  });
+
+  it("still fails closed in development when the local flag is absent", async () => {
+    process.env.NODE_ENV = "development";
+    delete process.env.SICL_ALLOW_LOCAL_CORE;
+    await expect(appRouter.createCaller(ctx).projects.list()).rejects.toThrow("SICL_CORE_URL is required");
   });
 });
 

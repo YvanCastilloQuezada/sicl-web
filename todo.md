@@ -463,3 +463,9 @@
 - [x] Definir Release Gate READY → RELEASE CANDIDATE → E2E VERIFIED.
 - [x] Verificar que A-002 no modifique código, contratos, infraestructura ni Master Spec v2.
 - [x] Entregar únicamente la auditoría A-002 y marcar A-002 COMPLETE — AWAITING PRODUCT OWNER.
+
+## Bug de preview — SICL_CORE_URL ausente
+- [x] Corregir el error de preview `/` cuando no existe `SICL_CORE_URL`, manteniendo fallo cerrado en producción.
+- [x] Revisar la detección de entorno y el uso de `SICL_ALLOW_LOCAL_CORE` en router, env y scripts de desarrollo.
+- [x] Añadir o actualizar una prueba Vitest que cubra preview/local explícito y producción sin URL.
+- [x] Verificar la página en preview y guardar checkpoint reproducible.
