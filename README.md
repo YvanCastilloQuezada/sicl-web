@@ -39,7 +39,7 @@ Defina `VITE_API_URL` en el entorno de build o despliegue:
 VITE_API_URL=https://<sicl-core-host>
 ```
 
-No se deben guardar tokens o claves en variables `VITE_*`, porque las variables Vite pueden llegar al navegador. Los secretos de servicio permanecen server-side.
+En GitHub Actions, configure este valor como **Repository variable** llamada `VITE_API_URL` (`Settings → Secrets and variables → Actions → Variables`). No es un secreto: una URL usada por el navegador termina siendo visible en el bundle. No coloque tokens o claves en variables `VITE_*`; los secretos de servicio deben permanecer server-side y utilizar GitHub Actions Secrets solo en jobs que no los incorporen al bundle.
 
 El Core debe permitir el origen real del frontend mediante `SICL_CORS_ORIGINS`.
 
