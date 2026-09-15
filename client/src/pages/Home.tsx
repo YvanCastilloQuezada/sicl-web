@@ -13,7 +13,7 @@ import { SICL_65_CAPABILITY_GATES } from "@shared/siclGovernance";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/ThemeContext";
 import { siclClient, type CoreProject } from "@/api/sicl-client";
-import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Moon, Plus, Scale, ShieldCheck, Sun, Target, Waypoints } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Monitor, Moon, Plus, Scale, ShieldCheck, Sun, Target, Waypoints } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -42,7 +42,7 @@ export default function Home() {
 }
 
 function AuthenticatedHome() {
-  const { theme, toggleTheme } = useTheme();
+  const { preference, setThemePreference } = useTheme();
   const [module, setModule] = useState<ModuleId>(() => (window.location.hash.replace("#", "") as ModuleId) || "overview");
   const [selectedProjectId, setSelectedProjectId] = useState<string>();
   const [newProjectName, setNewProjectName] = useState("");
@@ -112,14 +112,14 @@ function AuthenticatedHome() {
               <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">Command Center</h1>
               <p className="mt-1 text-sm text-[#718078]">Evidence-led project decisions, with human authority preserved at the boundary.</p>
             </div>
-            <div className="flex items-center gap-3"><button type="button" onClick={toggleTheme} aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"} aria-pressed={theme === "dark"} className="inline-flex items-center gap-2 border border-[#b9c4bd] bg-[#fbfaf6] px-3 py-2 text-xs font-medium text-[#385348] transition-colors hover:bg-[#e9ede5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]"><span aria-hidden="true">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}</span><span>{theme === "dark" ? "Modo claro" : "Modo oscuro"}</span></button><div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SICL 0.4.x core</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div></div>
+            <div className="flex items-center gap-3"><div role="group" aria-label="Preferencia de tema" className="flex items-center border border-[#b9c4bd] bg-[#fbfaf6] p-1 text-xs text-[#385348]"><button type="button" onClick={() => setThemePreference("system")} aria-pressed={preference === "system"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "system" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Monitor className="h-3.5 w-3.5" /><span className="hidden sm:inline">Sistema</span></button><button type="button" onClick={() => setThemePreference("light")} aria-pressed={preference === "light"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "light" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Sun className="h-3.5 w-3.5" /><span className="hidden sm:inline">Claro</span></button><button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "dark" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">Oscuro</span></button></div><div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SICL 0.4.x core</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div></div>
           </div>
         </header>
         <div className="mx-auto grid max-w-[1500px] grid-cols-1 md:grid-cols-[240px_1fr]">
           <aside className="border-b border-[#d7d8cf] bg-[#e9ede5] p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
             <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-[#6a7d72]">Project modules</span><BookOpen className="h-4 w-4 text-[#8b9a90]" /></div>
             <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-              {modules.map((item) => { const Icon = item.icon; return <button key={item.id} onClick={() => { window.location.hash = item.id; }} className={cn("flex items-center gap-3 border px-3 py-3 text-left text-sm transition-colors", module === item.id ? "border-[#385348] bg-[#385348] text-white" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}><Icon className="h-4 w-4" /><span>{item.label}</span></button>; })}
+              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-[#385348] bg-[#385348] font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-[#385348]")} /><span>{item.label}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">Activo</span>}</button>; })}
             </nav>
             <div className="mt-8 border-t border-[#cbd2c9] pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7a8c82]">Integrity rule</p><p className="mt-2 text-xs leading-5 text-[#65756c]">Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority.</p></div>
           </aside>
