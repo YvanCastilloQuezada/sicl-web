@@ -15,6 +15,19 @@ describe("siclClient REST bridge", () => {
     expect(fetchMock).toHaveBeenCalledWith("http://localhost:8000/projects", expect.objectContaining({ method: "POST" }));
   });
 
+  it("lists projects so the workspace can load an existing Railway project", async () => {
+    vi.stubEnv("VITE_API_URL", "https://web-production-a93fa.up.railway.app");
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      status: "OK",
+      code: "OK",
+      message: "ok",
+      data: { projects: [{ project_id: "TEST-E2E-001", name: "SICL Railway Smoke Test", stage: "DRAFT", version: 2 }] },
+    }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(siclClient.listProjects()).resolves.toMatchObject([{ project_id: "TEST-E2E-001" }]);
+    expect(fetchMock).toHaveBeenCalledWith("https://web-production-a93fa.up.railway.app/projects", expect.anything());
+  });
+
   it("executes a command and reads the refreshed project", async () => {
     vi.stubEnv("VITE_API_URL", "http://localhost:8000");
     const fetchMock = vi.fn()
