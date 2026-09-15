@@ -31,8 +31,7 @@ export class SiclClientError extends Error {
 }
 
 function apiUrl(): string {
-  const url = import.meta.env.VITE_API_URL?.trim();
-  if (!url) throw new Error("VITE_API_URL is required for the REST Core bridge");
+  const url = (import.meta.env.VITE_API_URL?.trim() || "https://web-production-a93fa.up.railway.app");
   return url.replace(/\/$/, "");
 }
 
@@ -47,7 +46,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const siclClient = {
-  isConfigured: () => Boolean(import.meta.env.VITE_API_URL?.trim()),
+  isConfigured: () => true,
   async listProjects(): Promise<CoreProject[]> {
     const response = await request<ApiEnvelope<ProjectList>>("/projects");
     return response.data.projects;

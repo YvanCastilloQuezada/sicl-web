@@ -78,6 +78,23 @@ function AuthenticatedHome() {
     window.addEventListener("hashchange", syncModule);
     return () => window.removeEventListener("hashchange", syncModule);
   }, []);
+  useEffect(() => {
+    if (!siclClient.isConfigured() || restProject) return;
+    let cancelled = false;
+    void siclClient.listProjects().then(async (available) => {
+      if (cancelled || available.length === 0) return;
+      const preferred = available.find((item) => item.project_id === "TEST-E2E-001") ?? available[0];
+      setRestProjectId(preferred.project_id);
+      const loaded = await siclClient.getProject(preferred.project_id);
+      if (!cancelled) {
+        setRestProject(loaded);
+        setRestMessage("Proyecto cargado desde Railway");
+      }
+    }).catch((error) => {
+      if (!cancelled) setRestMessage(error instanceof Error ? error.message : "No se pudo cargar el proyecto de Railway");
+    });
+    return () => { cancelled = true; };
+  }, [restProject]);
 
   const addSimpleRecord = (kind: WritableRecordKind, record: Record<string, unknown>) => {
     if (!currentProjectId || !selected.data) return toast.error("Select a project first");
