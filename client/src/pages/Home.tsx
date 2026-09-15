@@ -11,8 +11,9 @@ import { safeAuditData } from "@shared/audit";
 import { SPATIAL_SCALES, TEMPORAL_HORIZONS, type SpatialScale, type TemporalHorizon } from "@shared/siclScopes";
 import { SICL_65_CAPABILITY_GATES } from "@shared/siclGovernance";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 import { siclClient, type CoreProject } from "@/api/sicl-client";
-import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Plus, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Moon, Plus, Scale, ShieldCheck, Sun, Target, Waypoints } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -41,6 +42,7 @@ export default function Home() {
 }
 
 function AuthenticatedHome() {
+  const { theme, toggleTheme } = useTheme();
   const [module, setModule] = useState<ModuleId>(() => (window.location.hash.replace("#", "") as ModuleId) || "overview");
   const [selectedProjectId, setSelectedProjectId] = useState<string>();
   const [newProjectName, setNewProjectName] = useState("");
@@ -110,7 +112,7 @@ function AuthenticatedHome() {
               <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">Command Center</h1>
               <p className="mt-1 text-sm text-[#718078]">Evidence-led project decisions, with human authority preserved at the boundary.</p>
             </div>
-            <div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SICL 0.4.x core</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div>
+            <div className="flex items-center gap-3"><button type="button" onClick={toggleTheme} aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"} aria-pressed={theme === "dark"} className="inline-flex items-center gap-2 border border-[#b9c4bd] bg-[#fbfaf6] px-3 py-2 text-xs font-medium text-[#385348] transition-colors hover:bg-[#e9ede5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]"><span aria-hidden="true">{theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}</span><span>{theme === "dark" ? "Modo claro" : "Modo oscuro"}</span></button><div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SICL 0.4.x core</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div></div>
           </div>
         </header>
         <div className="mx-auto grid max-w-[1500px] grid-cols-1 md:grid-cols-[240px_1fr]">

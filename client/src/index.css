@@ -23,8 +23,32 @@
   --radius: 0.15rem;
 }
 
+.dark {
+  --background: #17221e;
+  --foreground: #edf2ec;
+  --card: #21302a;
+  --card-foreground: #edf2ec;
+  --popover: #21302a;
+  --popover-foreground: #edf2ec;
+  --primary: #a9c7b5;
+  --primary-foreground: #17221e;
+  --secondary: #2a3a32;
+  --secondary-foreground: #edf2ec;
+  --muted: #2a3a32;
+  --muted-foreground: #b4c2b9;
+  --accent: #e0a078;
+  --accent-foreground: #17221e;
+  --border: #425249;
+  --input: #425249;
+  --ring: #a9c7b5;
+}
+
 * { border-color: var(--border); }
 html { background: var(--background); }
-body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; transition: background-color 180ms ease, color 180ms ease; }
+.dark [class*="bg-[#f4f1ea]"], .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#e9ede5]"], .dark [class*="bg-[#eef1eb]"] { background-color: var(--card) !important; }
+.dark [class*="text-[#1d2925]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#385348]"], .dark [class*="text-[#718078]"], .dark [class*="text-[#66776d]"] { color: var(--foreground) !important; }
+.dark [class*="border-[#d7d8cf]"], .dark [class*="border-[#d4d8d0]"], .dark [class*="border-[#cbd2c9]"], .dark [class*="border-[#b9c4bd]"] { border-color: var(--border) !important; }
+.dark input, .dark textarea, .dark select { background-color: #21302a !important; color: var(--foreground); }
 .font-serif { font-family: 'Fraunces', Georgia, serif; }
 button, input, textarea, select { font: inherit; }
