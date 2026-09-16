@@ -1,6 +1,6 @@
 # RFC-015 — Frontend v2 funcional de SiMS-DeI / SICL
 
-**Estado:** FASE A IMPLEMENTED — Evidence, Source, Evaluation y Comparison
+**Estado:** FASE A IMPLEMENTED — Evidence, Source, Evaluation y Comparison; layout alineado con Home
 
 **Criterio rector:** funcionalidad mínima, no estética.
 
@@ -18,7 +18,7 @@
 
 RFC-015 define el contrato funcional para que una persona pueda operar desde el navegador las entidades del Core SiMS-DeI 2.1. El objetivo es cubrir crear, listar y ver detalles de las entidades, usando datos del Core real y la superficie HTTP `/v1/...` existente.
 
-El frontend v2 debe priorizar **mínimo esfuerzo y máxima funcionalidad**. Cada página puede ser una tabla simple con un formulario básico y una vista de detalle. No se busca un producto visual definitivo.
+El frontend v2 debe priorizar **mínimo esfuerzo y máxima funcionalidad**. Cada página puede ser una tabla simple con un formulario básico y una vista de detalle. No se busca un producto visual definitivo. Las páginas de Fase A reutilizan ahora un shell compartido con el mismo header, sidebar, paleta, tipografía y spacing del Command Center de Home.
 
 Esta orden solo autoriza documentación. No autoriza React, CSS, componentes, endpoints, entidades, cambios de contrato, despliegue ni migración de datos.
 
