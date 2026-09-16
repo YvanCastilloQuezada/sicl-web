@@ -182,5 +182,31 @@
     "project_required": "请输入项目 ID。",
     "back": "返回项目",
     "project_id": "项目 ID"
+  },
+  "guided": {
+    "eyebrow": "路径 A · 引导模式",
+    "title": "您的决策路径",
+    "subtitle": "按步骤推进。系统负责提出和记录，人类保留决策权。",
+    "progress": "已完成 {{completed}} / {{total}} 步",
+    "human_authority": "保留人类权威",
+    "expert_mode": "切换到专家模式",
+    "expert_active": "专家模式已启用 · 引导已收起",
+    "return_to_guided": "返回引导模式",
+    "next_label": "下一步",
+    "open_step": "打开步骤",
+    "steps": {
+      "project": "项目",
+      "project_description": "定义工作空间及其范围。",
+      "preference": "偏好",
+      "preference_description": "记录人类参与者的价值和优先事项。",
+      "recommendation": "建议",
+      "recommendation_description": "查看分析建议；它还不是决定。",
+      "review": "人工审查",
+      "review_description": "记录授权人员的明确审查。",
+      "decision": "决定",
+      "decision_description": "只有完成有效人工审查后才能记录。",
+      "audit": "审计",
+      "audit_description": "查看项目可追溯的事件序列。"
+    }
   }
 }

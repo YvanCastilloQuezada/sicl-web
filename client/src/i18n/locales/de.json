@@ -182,5 +182,31 @@
     "project_required": "Projekt-ID eingeben.",
     "back": "Zurück zum Projekt",
     "project_id": "Projekt-ID"
+  },
+  "guided": {
+    "eyebrow": "PFAD A · GEFÜHRTER MODUS",
+    "title": "Ihr Entscheidungsweg",
+    "subtitle": "Gehen Sie Schritt für Schritt vor. Das System schlägt vor und protokolliert; die Entscheidungsgewalt bleibt menschlich.",
+    "progress": "{{completed}} von {{total}} Schritten abgeschlossen",
+    "human_authority": "Menschliche Autorität bewahrt",
+    "expert_mode": "Expertenmodus aktivieren",
+    "expert_active": "Expertenmodus aktiv · Führung minimiert",
+    "return_to_guided": "Zum geführten Modus",
+    "next_label": "NÄCHSTER SCHRITT",
+    "open_step": "Schritt öffnen",
+    "steps": {
+      "project": "Projekt",
+      "project_description": "Arbeitsbereich und Umfang definieren.",
+      "preference": "Präferenz",
+      "preference_description": "Werte oder Prioritäten des menschlichen Akteurs erfassen.",
+      "recommendation": "Empfehlung",
+      "recommendation_description": "Analytischen Vorschlag prüfen; noch keine Entscheidung.",
+      "review": "Menschliche Prüfung",
+      "review_description": "Explizite Prüfung einer autorisierten Person erfassen.",
+      "decision": "Entscheidung",
+      "decision_description": "Erst nach gültiger menschlicher Prüfung erfassbar.",
+      "audit": "Audit",
+      "audit_description": "Nachvollziehbare Ereignisse des Projekts prüfen."
+    }
   }
 }

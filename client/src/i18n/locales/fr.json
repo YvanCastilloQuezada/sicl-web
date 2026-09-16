@@ -182,5 +182,31 @@
     "project_required": "Indiquez un ID de projet.",
     "back": "Retour au projet",
     "project_id": "ID du projet"
+  },
+  "guided": {
+    "eyebrow": "PARCOURS A · MODE GUIDÉ",
+    "title": "Votre parcours de décision",
+    "subtitle": "Avancez étape par étape. Le système propose et enregistre ; l’autorité reste humaine.",
+    "progress": "{{completed}} étapes sur {{total}} terminées",
+    "human_authority": "Autorité humaine préservée",
+    "expert_mode": "Passer au mode expert",
+    "expert_active": "Mode expert actif · guide réduit",
+    "return_to_guided": "Revenir au mode guidé",
+    "next_label": "PROCHAINE ÉTAPE",
+    "open_step": "Ouvrir l’étape",
+    "steps": {
+      "project": "Projet",
+      "project_description": "Définissez l’espace de travail et son périmètre.",
+      "preference": "Préférence",
+      "preference_description": "Enregistrez ce que l’acteur humain privilégie.",
+      "recommendation": "Recommandation",
+      "recommendation_description": "Consultez une proposition analytique ; ce n’est pas encore une décision.",
+      "review": "Revue humaine",
+      "review_description": "Enregistrez la revue explicite d’une personne autorisée.",
+      "decision": "Décision",
+      "decision_description": "Ne peut être enregistrée qu’après une revue humaine valide.",
+      "audit": "Audit",
+      "audit_description": "Consultez la séquence traçable des événements."
+    }
   }
 }

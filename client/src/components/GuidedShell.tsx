@@ -1,0 +1,79 @@
+import { ArrowRight, CheckCircle2, Compass, LockKeyhole, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+
+export const GUIDED_MODE_KEY = "sims-dei-experience-mode";
+export type ExperienceMode = "guided" | "expert";
+
+export type GuidedCounts = {
+  project: boolean;
+  preference: number;
+  recommendation: number;
+  humanReview: number;
+  decision: number;
+  audit: number;
+};
+
+type Step = {
+  id: keyof GuidedCounts;
+  label: string;
+  description: string;
+  entity: string;
+};
+
+export function readExperienceMode(): ExperienceMode {
+  try {
+    return localStorage.getItem(GUIDED_MODE_KEY) === "expert" ? "expert" : "guided";
+  } catch {
+    return "guided";
+  }
+}
+
+export function humanizeSiclError(message: string): string {
+  const value = message.toLowerCase();
+  if (value.includes("missing_required_argument")) return "Falta un dato obligatorio. Revisa los campos marcados antes de continuar.";
+  if (value.includes("project_required")) return "Selecciona o crea un proyecto antes de ejecutar esta acción.";
+  if (value.includes("command_not_found")) return "No reconocimos ese comando. Usa una sugerencia o abre la ayuda de comandos.";
+  if (value.includes("command_must_start_with_slash")) return "El comando debe comenzar con /.";
+  if (value.includes("humanreview") || value.includes("human_review")) return "Esta decisión requiere una revisión humana registrada previamente.";
+  if (value.includes("unauthorized") || value.includes("forbidden")) return "Tu sesión no tiene autoridad para realizar esta acción.";
+  return message || "No se pudo completar la acción. Revisa los datos e inténtalo de nuevo.";
+}
+
+export default function GuidedShell({ counts, onNavigate }: { counts: GuidedCounts; onNavigate: (step: string) => void }) {
+  const { t } = useTranslation();
+  const [mode, setMode] = useState<ExperienceMode>(readExperienceMode);
+  const steps = useMemo<Step[]>(() => [
+    { id: "project", label: t("guided.steps.project"), description: t("guided.steps.project_description"), entity: "Project" },
+    { id: "preference", label: t("guided.steps.preference"), description: t("guided.steps.preference_description"), entity: "Preference" },
+    { id: "recommendation", label: t("guided.steps.recommendation"), description: t("guided.steps.recommendation_description"), entity: "Recommendation" },
+    { id: "humanReview", label: t("guided.steps.review"), description: t("guided.steps.review_description"), entity: "HumanReview" },
+    { id: "decision", label: t("guided.steps.decision"), description: t("guided.steps.decision_description"), entity: "Decision" },
+    { id: "audit", label: t("guided.steps.audit"), description: t("guided.steps.audit_description"), entity: "Audit" },
+  ], [t]);
+  const completed = (step: Step) => Boolean(counts[step.id]);
+  const next = steps.find((step) => !completed(step)) ?? steps[steps.length - 1];
+  const completedCount = steps.filter(completed).length;
+
+  const changeMode = (nextMode: ExperienceMode) => {
+    setMode(nextMode);
+    localStorage.setItem(GUIDED_MODE_KEY, nextMode);
+  };
+
+  if (mode === "expert") {
+    return <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border border-[#cbd2c9] bg-[#eef1eb] px-4 py-3 text-sm"><span className="flex items-center gap-2 text-[#385348]"><LockKeyhole className="h-4 w-4" /> {t("guided.expert_active")}</span><Button type="button" variant="outline" size="sm" onClick={() => changeMode("guided")} className="border-[#385348] text-[#385348]">{t("guided.return_to_guided")}</Button></div>;
+  }
+
+  return <section aria-label={t("guided.title")} className="mb-8 space-y-4">
+    <div className="flex flex-wrap items-end justify-between gap-4">
+      <div><div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]"><Compass className="h-4 w-4" /> {t("guided.eyebrow")}</div><h2 className="mt-2 font-serif text-3xl tracking-[-0.04em]">{t("guided.title")}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#718078]">{t("guided.subtitle")}</p></div>
+      <Button type="button" variant="outline" size="sm" onClick={() => changeMode("expert")} className="border-[#385348] text-[#385348]">{t("guided.expert_mode")}</Button>
+    </div>
+    <Card className="border-[#385348] bg-[#fbfaf6] shadow-none"><CardHeader className="pb-3"><div className="flex flex-wrap items-center justify-between gap-3"><CardTitle className="flex items-center gap-2 font-serif text-xl"><Sparkles className="h-5 w-5 text-[#d07b4a]" /> {t("guided.progress", { completed: completedCount, total: steps.length })}</CardTitle><Badge className="bg-[#dce6dc] text-[#385348] hover:bg-[#dce6dc]">{t("guided.human_authority")}</Badge></div><div className="h-2 overflow-hidden rounded-full bg-[#e9ede5]"><div className="h-full rounded-full bg-[#385348] transition-all" style={{ width: `${(completedCount / steps.length) * 100}%` }} /></div></CardHeader><CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{steps.map((step, index) => <button type="button" key={step.id} onClick={() => onNavigate(step.id)} className={cn("group rounded border p-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", completed(step) ? "border-[#b9c4bd] bg-[#eef1eb]" : step.id === next.id ? "border-[#d07b4a] bg-[#fbe5d6]" : "border-[#d7d8cf] bg-white hover:border-[#b9c4bd]")}><div className="flex items-start justify-between gap-3"><div className="flex items-center gap-2"><span className="text-xs font-bold text-[#718078]">{String(index + 1).padStart(2, "0")}</span>{completed(step) ? <CheckCircle2 className="h-4 w-4 text-[#385348]" /> : <span className="h-4 w-4 rounded-full border-2 border-[#b9c4bd]" />}</div><span className="text-[10px] font-semibold uppercase tracking-wide text-[#718078]">{step.entity}</span></div><p className="mt-3 text-sm font-semibold text-[#1d2925]">{step.label}</p><p className="mt-1 text-xs leading-5 text-[#718078]">{step.description}</p></button>)}</CardContent></Card>
+    <div className="flex flex-col justify-between gap-4 border-l-4 border-[#d07b4a] bg-[#385348] p-5 text-white md:flex-row md:items-center"><div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f4d5bf]">{t("guided.next_label")}</p><p className="mt-1 font-serif text-xl">{next.label}</p><p className="mt-1 text-sm text-[#d9e0d8]">{next.description}</p></div><Button type="button" onClick={() => onNavigate(next.id)} className="w-fit bg-[#f4f1ea] text-[#385348] hover:bg-white">{t("guided.open_step")} <ArrowRight className="ml-2 h-4 w-4" /></Button></div>
+  </section>;
+}

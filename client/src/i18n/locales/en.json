@@ -182,5 +182,31 @@
     "project_required": "Enter a project ID.",
     "back": "Back to project",
     "project_id": "Project ID"
+  },
+  "guided": {
+    "eyebrow": "PATH A · GUIDED MODE",
+    "title": "Your decision path",
+    "subtitle": "Move step by step. The system proposes and records; decision authority remains human.",
+    "progress": "{{completed}} of {{total}} steps completed",
+    "human_authority": "Human authority preserved",
+    "expert_mode": "Switch to expert mode",
+    "expert_active": "Expert mode active · guidance is minimized",
+    "return_to_guided": "Return to guided mode",
+    "next_label": "NEXT STEP",
+    "open_step": "Open step",
+    "steps": {
+      "project": "Project",
+      "project_description": "Define the workspace and its scope.",
+      "preference": "Preference",
+      "preference_description": "Record what the human actor values or prioritizes.",
+      "recommendation": "Recommendation",
+      "recommendation_description": "Review an analytical proposal; it is not a decision yet.",
+      "review": "Human review",
+      "review_description": "Record an explicit review by an authorized person.",
+      "decision": "Decision",
+      "decision_description": "Can only be recorded after a valid human review.",
+      "audit": "Audit",
+      "audit_description": "Review the traceable sequence of project events."
+    }
   }
 }

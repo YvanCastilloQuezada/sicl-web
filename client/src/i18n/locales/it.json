@@ -182,5 +182,31 @@
     "project_required": "Inserisci un ID progetto.",
     "back": "Torna al progetto",
     "project_id": "ID progetto"
+  },
+  "guided": {
+    "eyebrow": "PERCORSO A · MODALITÀ GUIDATA",
+    "title": "Il tuo percorso decisionale",
+    "subtitle": "Procedi passo dopo passo. Il sistema propone e registra; l’autorità resta umana.",
+    "progress": "{{completed}} di {{total}} passi completati",
+    "human_authority": "Autorità umana preservata",
+    "expert_mode": "Passa alla modalità esperto",
+    "expert_active": "Modalità esperto attiva · guida ridotta",
+    "return_to_guided": "Torna alla modalità guidata",
+    "next_label": "PROSSIMO PASSO",
+    "open_step": "Apri passo",
+    "steps": {
+      "project": "Progetto",
+      "project_description": "Definisci lo spazio di lavoro e il suo ambito.",
+      "preference": "Preferenza",
+      "preference_description": "Registra ciò che l’attore umano valorizza.",
+      "recommendation": "Raccomandazione",
+      "recommendation_description": "Consulta una proposta analitica; non è ancora una decisione.",
+      "review": "Revisione umana",
+      "review_description": "Registra la valutazione di una persona autorizzata.",
+      "decision": "Decisione",
+      "decision_description": "Può essere registrata solo dopo una revisione umana.",
+      "audit": "Audit",
+      "audit_description": "Consulta la sequenza tracciabile degli eventi."
+    }
   }
 }

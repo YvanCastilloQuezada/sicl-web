@@ -182,5 +182,31 @@
     "project_required": "Indica un ID de proyecto.",
     "back": "Volver al proyecto",
     "project_id": "ID del proyecto"
+  },
+  "guided": {
+    "eyebrow": "CAMINO A · MODO GUIADO",
+    "title": "Tu ruta de decisión",
+    "subtitle": "Avanza paso a paso. El sistema propone y registra; la autoridad de decisión permanece en el humano.",
+    "progress": "{{completed}} de {{total}} pasos completados",
+    "human_authority": "Autoridad humana preservada",
+    "expert_mode": "Cambiar a modo experto",
+    "expert_active": "Modo experto activo · la guía está minimizada",
+    "return_to_guided": "Volver al modo guiado",
+    "next_label": "SIGUIENTE PASO",
+    "open_step": "Abrir paso",
+    "steps": {
+      "project": "Proyecto",
+      "project_description": "Define el espacio de trabajo y su alcance.",
+      "preference": "Preferencia",
+      "preference_description": "Registra qué valora o prioriza el actor humano.",
+      "recommendation": "Recomendación",
+      "recommendation_description": "Consulta una propuesta analítica; todavía no es una decisión.",
+      "review": "Revisión humana",
+      "review_description": "Registra la evaluación explícita de una persona autorizada.",
+      "decision": "Decisión",
+      "decision_description": "Solo puede registrarse después de una revisión humana válida.",
+      "audit": "Auditoría",
+      "audit_description": "Consulta la secuencia trazable de eventos del proyecto."
+    }
   }
 }
