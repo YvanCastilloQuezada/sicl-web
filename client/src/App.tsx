@@ -10,15 +10,21 @@ import Home from "./pages/Home";
 import EvidencePage from "./pages/EvidencePage";
 import EvaluationsPage from "./pages/EvaluationsPage";
 import ComparisonsPage from "./pages/ComparisonsPage";
+import HelpPage from "./pages/HelpPage";
+import HelpArticlePage from "./pages/HelpArticlePage";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/evidence"}>{() => <DashboardLayout><EvidencePage /></DashboardLayout>}</Route>
-      <Route path={"/evaluations"}>{() => <DashboardLayout><EvaluationsPage /></DashboardLayout>}</Route>
-      <Route path={"/comparisons"}>{() => <DashboardLayout><ComparisonsPage /></DashboardLayout>}</Route>
+      <Route path={"/evidence"} component={EvidencePage} />
+      <Route path={"/evaluations"} component={EvaluationsPage} />
+      <Route path={"/comparisons"} component={ComparisonsPage} />
+      <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
+      <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
+      <Route path={"/help/operations"}>{() => <DashboardLayout><HelpArticlePage manualId="operations" /></DashboardLayout>}</Route>
+      <Route path={"/help/commands"}>{() => <DashboardLayout><HelpArticlePage manualId="commands" /></DashboardLayout>}</Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
