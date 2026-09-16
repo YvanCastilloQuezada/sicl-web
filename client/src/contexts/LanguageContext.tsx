@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import i18n, { I18N_STORAGE_KEY } from "@/i18n";
 
 export const supportedLanguages = [
   { code: "es", label: "Español", nativeLabel: "Español" },
@@ -12,22 +13,17 @@ export const supportedLanguages = [
 ] as const;
 
 export type LanguageCode = (typeof supportedLanguages)[number]["code"];
-
-type LanguageContextValue = {
-  language: LanguageCode;
-  setLanguage: (language: LanguageCode) => void;
-  languages: typeof supportedLanguages;
-};
-
-const STORAGE_KEY = "sims-dei-language";
+type LanguageContextValue = { language: LanguageCode; setLanguage: (language: LanguageCode) => void; languages: typeof supportedLanguages };
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
+
+function normalizeLanguage(value: string | undefined | null): LanguageCode {
+  const code = value?.toLowerCase().split("-")[0];
+  return supportedLanguages.some((item) => item.code === code) ? (code as LanguageCode) : "es";
+}
 
 function detectLanguage(): LanguageCode {
   if (typeof window === "undefined") return "es";
-  const stored = localStorage.getItem(STORAGE_KEY) as LanguageCode | null;
-  if (stored && supportedLanguages.some((item) => item.code === stored)) return stored;
-  const browserLanguage = navigator.language.toLowerCase().split("-")[0] as LanguageCode;
-  return supportedLanguages.some((item) => item.code === browserLanguage) ? browserLanguage : "es";
+  return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY) || navigator.language);
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
@@ -35,17 +31,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = language;
-    localStorage.setItem(STORAGE_KEY, language);
+    localStorage.setItem(I18N_STORAGE_KEY, language);
+    void i18n.changeLanguage(language);
   }, [language]);
 
-  const value = useMemo(
-    () => ({
-      language,
-      setLanguage: (next: LanguageCode) => setLanguageState(next),
-      languages: supportedLanguages,
-    }),
-    [language],
-  );
+  const value = useMemo(() => ({
+    language,
+    setLanguage: (next: LanguageCode) => setLanguageState(next),
+    languages: supportedLanguages,
+  }), [language]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
@@ -57,8 +51,4 @@ export function useLanguage() {
 }
 
 export type { LanguageContextValue };
-
 export default LanguageContext;
-
-// The selector is intentionally independent from the translation catalog so the
-// language preference can be introduced before the complete UI copy is localized.
