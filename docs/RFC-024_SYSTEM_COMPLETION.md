@@ -1,6 +1,6 @@
 # RFC-024 — SiMS-DeI System Completion
 
-**Estado:** DRAFT — PENDING PRODUCT OWNER APPROVAL  
+**Estado:** IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED
 **Tipo:** Integración final, operación y cierre de release  
 **Fecha:** 16 de septiembre de 2026  
 **Autor:** Manus AI  
@@ -200,21 +200,46 @@ El criterio de cierre será una cadena verificable desde la entrada del usuario 
 
 ## 16. Firma y estado
 
-**Estado actual:** `DRAFT — PENDING PRODUCT OWNER APPROVAL`  
+**Estado actual:** `IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED`
 **Implementación:** fase operativa inicial implementada; E2E remoto pendiente  
 **Cambios de código autorizados:** fase inicial autorizada explícitamente por el Product Owner  
 **Despliegue autorizado por este documento:** ninguno  
-**Revisión requerida:** Product Owner / arquitecto
+**Revisión requerida:** Product Owner / arquitecto para desbloquear el E2E remoto
 
 ## 17. Registro de implementación inicial
 
-La primera fase ejecutable de RFC-024 se implementó en `sicl-web` sin configurar todavía un Core remoto real. Esta fase añade controles operativos seguros y no declara el E2E remoto como completado.
+La primera fase ejecutable de RFC-024 se implementó en `sicl-web` sin configurar todavía un Core remoto real. Esta fase añade controles operativos seguros y valida el Camino A localmente con mocks; no declara el E2E remoto como completado.
 
 Se añadieron un health check server-side de solo lectura sobre `/v1/scales`, identificadores de correlación mediante `x-correlation-id`, un timeout de quince segundos para solicitudes del proxy y clasificación explícita de `CORE_UNAVAILABLE`, `CORE_UNAUTHORIZED`, `CORE_TIMEOUT` y `CORE_HTTP_ERROR`.
 
 También se añadieron pruebas unitarias para configuración ausente, autenticación ausente, errores HTTP, health check autenticado y timeout del proxy. El checkpoint WebDev de esta fase es `e5725781`.
 
-La verificación local produjo `124/124` tests PASS, typecheck PASS, build PASS y `git diff --check` PASS. El estado operativo continúa siendo `BLOCKED_INFRASTRUCTURE` para el E2E porque faltan `SICL_CORE_URL`, `SICL_CORE_SERVICE_TOKEN`, un Core remoto vigente y una prueba de persistencia después de reinicio.
+La verificación local produjo `126/126` tests PASS, incluyendo la simulación completa del Camino A, typecheck PASS, build PASS y `git diff --check` PASS. El estado operativo remoto continúa siendo `BLOCKED_INFRASTRUCTURE` porque faltan `SICL_CORE_URL`, un Core remoto vigente y una prueba de persistencia después de reinicio. El token existente no se considera suficiente sin un destino HTTPS válido.
+
+## 18. Configuración para desbloquear el Core remoto
+
+El Core debe desplegarse primero como un servicio HTTPS vigente. El origen debe servir el contrato `/v1/...` y debe conservar la persistencia requerida por el entorno. La URL no debe apuntar al frontend, a un preview temporal ni al hostname Railway obsoleto que devolvía `404 Application not found`.
+
+En el entorno server-side de WebDev deben configurarse exactamente estas variables protegidas:
+
+```text
+SICL_CORE_URL=https://<host-https-real-del-core>
+SICL_CORE_SERVICE_TOKEN=<token-de-servicio-del-core>
+```
+
+No deben crearse `VITE_SICL_CORE_URL`, `VITE_SICL_CORE_SERVICE_TOKEN` ni valores equivalentes en `client/src`, archivos `.env` versionados o variables públicas del navegador. El token debe tener mínimo privilegio, estar limitado al servicio y poder rotarse sin modificar el bundle.
+
+Después de configurar las variables, el procedimiento de verificación es:
+
+```bash
+curl -i "$SICL_CORE_URL/openapi.json"
+curl -i -H "Authorization: Bearer $SICL_CORE_SERVICE_TOKEN" "$SICL_CORE_URL/v1/scales"
+curl -i "https://<dominio-del-frontend>/api/core/health"
+```
+
+Los resultados esperados son un `200` para `openapi.json`, un envelope v1 válido para `/v1/scales` y un `200` del health check del proxy. Después debe ejecutarse el Camino A remoto con un proyecto sintético, comprobarse el rechazo de Decision sin HumanReview, reiniciarse el Core y repetirse la lectura de snapshot e historial.
+
+Si `SICL_CORE_URL` falta, el health check debe devolver `503 CORE_UNAVAILABLE`. Si el token falta o es inválido, debe devolver un estado de autenticación. Ninguno de esos casos debe convertirse en un PASS falso.
 
 ## References
 
@@ -278,6 +303,6 @@ Mientras RFC-024 permanezca en estado `DRAFT`, no se crearán nuevas entidades, 
 
 **Manus AI:** redacción inicial.  
 **Product Owner / arquitecto:** aprobación pendiente.  
-**Estado:** `DRAFT — PENDING PRODUCT OWNER APPROVAL`.
+**Estado:** `IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED`.
 
 **Fin de RFC-024 — SiMS-DeI System Completion.**

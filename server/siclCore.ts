@@ -33,10 +33,12 @@ export type SiclRecord = {
   recommendationVersion?: string | number;
   reason?: string;
   authorityBasis?: string;
+  selectedAlternativeId?: string;
   justification?: string;
   preferenceStrength?: "SOFT" | "STRONG";
   scope?: string;
   decisionType?: "HUMAN" | string;
+  status?: string;
 };
 
 export type SiclEvent = {
@@ -198,6 +200,8 @@ export function appendHumanDecision(snapshot: SiclSnapshot, decision: SiclRecord
   }
   if (decision.decisionType !== "HUMAN") throw new Error("decisionType must be HUMAN");
   if (Number(decision.observedVersion) !== Number(event.data.observedVersion)) throw new Error("Decision version mismatch");
+  const approvedReview = snapshot.humanReviews.find((review) => review.actorId === decision.actorId && ["ACCEPTED", "APPROVED"].includes(String(review.status ?? "").toUpperCase()));
+  if (!approvedReview) throw new Error("Decision requires an approved HumanReview by the same actor");
   if (snapshot.decisions.some((item) => item.id === decision.id)) throw new Error("Decision id already exists");
   return { ...snapshot, decisions: [...snapshot.decisions, decision], events: [...snapshot.events, event] };
 }
