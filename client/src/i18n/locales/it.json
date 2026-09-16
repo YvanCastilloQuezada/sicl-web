@@ -153,7 +153,8 @@
     "failed": "Errore: {{message}}",
     "history_empty": "Nessuna cronologia",
     "history_count": "{{count}} comandi recenti",
-    "project_required": "Inserisci un ID progetto per eseguire il comando"
+    "project_required": "Inserisci un ID progetto per eseguire il comando",
+    "alias_pending_review": "L’alias è stato revisionato, ma non è ancora abilitato all’esecuzione."
   },
   "visualization": {
     "pareto": {

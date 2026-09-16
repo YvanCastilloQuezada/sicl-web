@@ -153,7 +153,8 @@
     "failed": "Fehler: {{message}}",
     "history_empty": "Kein Verlauf",
     "history_count": "{{count}} aktuelle Befehle",
-    "project_required": "Projekt-ID zum Ausführen des Befehls eingeben"
+    "project_required": "Projekt-ID zum Ausführen des Befehls eingeben",
+    "alias_pending_review": "Der Alias wurde geprüft, ist aber noch nicht zur Ausführung aktiviert."
   },
   "visualization": {
     "pareto": {

@@ -6,64 +6,510 @@
     "version": "2.2.0",
     "expected_command_count": 67
   },
-  "supported_locales": ["es", "en", "pt", "it", "fr", "de", "ru", "zh"],
+  "supported_locales": [
+    "es",
+    "en",
+    "pt",
+    "it",
+    "fr",
+    "de",
+    "ru",
+    "zh"
+  ],
   "activation_policy": "NO_ACTIVE_ALIASES_UNTIL_PO_APPROVAL",
   "argument_policy": "CANONICAL_VALUES",
   "entries": [
-    {"locale":"es","alias":"/PROYECTO CREAR","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Propuesta inicial; requiere revisión lingüística."},
-    {"locale":"es","alias":"/PROYECTO ABRIR","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Propuesta inicial; requiere revisión lingüística."},
-    {"locale":"es","alias":"/PROYECTO MOSTRAR","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Propuesta inicial; requiere revisión lingüística."},
-    {"locale":"es","alias":"/PROYECTO LISTAR","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Propuesta inicial; requiere revisión lingüística."},
-    {"locale":"es","alias":"/ESTADO","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Revisar interacción futura con comandos de estado de entidades."},
-    {"locale":"es","alias":"/HISTORIAL","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Propuesta inicial; requiere revisión lingüística."},
-
-    {"locale":"en","alias":"/PROJECT CREATE","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-    {"locale":"en","alias":"/PROJECT OPEN","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-    {"locale":"en","alias":"/PROJECT SHOW","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-    {"locale":"en","alias":"/PROJECT LIST","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-    {"locale":"en","alias":"/STATUS","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-    {"locale":"en","alias":"/HISTORY","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Forma canónica; se registra para uniformidad del índice."},
-
-    {"locale":"pt","alias":"/PROJETO CRIAR","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; requer revisão linguística."},
-    {"locale":"pt","alias":"/PROJETO ABRIR","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; requer revisão linguística."},
-    {"locale":"pt","alias":"/PROJETO MOSTRAR","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; requer revisão linguística."},
-    {"locale":"pt","alias":"/PROJETO LISTAR","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; requer revisão linguística."},
-    {"locale":"pt","alias":"/STATUS","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Verificar se STATUS permanece como empréstimo técnico."},
-    {"locale":"pt","alias":"/HISTÓRICO","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; requer revisão linguística."},
-
-    {"locale":"it","alias":"/PROGETTO CREARE","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-    {"locale":"it","alias":"/PROGETTO APRIRE","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-    {"locale":"it","alias":"/PROGETTO MOSTRARE","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-    {"locale":"it","alias":"/PROGETTO ELENCARE","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-    {"locale":"it","alias":"/STATO","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-    {"locale":"it","alias":"/CRONOLOGIA","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Proposta inicial; richiede revisione linguistica."},
-
-    {"locale":"fr","alias":"/PROJET CRÉER","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Proposition à confirmer par un réviseur francophone."},
-    {"locale":"fr","alias":"/PROJET OUVRIR","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Proposition à confirmer par un réviseur francophone."},
-    {"locale":"fr","alias":"/PROJET AFFICHER","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Proposition à confirmer par un réviseur francophone."},
-    {"locale":"fr","alias":"/PROJET LISTER","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Proposition à confirmer par un réviseur francophone."},
-    {"locale":"fr","alias":"/ÉTAT","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vérifier les interactions avec les statuts spécialisés."},
-    {"locale":"fr","alias":"/HISTORIQUE","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Proposition à confirmer par un réviseur francophone."},
-
-    {"locale":"de","alias":"/PROJEKT ERSTELLEN","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vorschlag zur Prüfung durch einen deutschsprachigen Reviewer."},
-    {"locale":"de","alias":"/PROJEKT ÖFFNEN","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vorschlag zur Prüfung durch einen deutschsprachigen Reviewer."},
-    {"locale":"de","alias":"/PROJEKT ANZEIGEN","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vorschlag zur Prüfung durch einen deutschsprachigen Reviewer."},
-    {"locale":"de","alias":"/PROJEKT AUFLISTEN","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vorschlag zur Prüfung durch einen deutschsprachigen Reviewer."},
-    {"locale":"de","alias":"/STATUS","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Prüfen, ob STATUS als technisches Lehnwort beibehalten wird."},
-    {"locale":"de","alias":"/VERLAUF","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"PENDING_NATIVE_REVIEW","reviewer":null,"notes":"Vorschlag zur Prüfung durch einen deutschsprachigen Reviewer."},
-
-    {"locale":"ru","alias":"/ПРОЕКТ СОЗДАТЬ","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-    {"locale":"ru","alias":"/ПРОЕКТ ОТКРЫТЬ","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-    {"locale":"ru","alias":"/ПРОЕКТ ПОКАЗАТЬ","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-    {"locale":"ru","alias":"/ПРОЕКТ СПИСОК","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-    {"locale":"ru","alias":"/СТАТУС","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-    {"locale":"ru","alias":"/ИСТОРИЯ","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"Предварительное предложение; требуется языковая проверка."},
-
-    {"locale":"zh","alias":"/项目 创建","canonical":"/PROJECT CREATE","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"},
-    {"locale":"zh","alias":"/项目 打开","canonical":"/PROJECT OPEN","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"},
-    {"locale":"zh","alias":"/项目 显示","canonical":"/PROJECT SHOW","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"},
-    {"locale":"zh","alias":"/项目 列表","canonical":"/PROJECT LIST","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"},
-    {"locale":"zh","alias":"/状态","canonical":"/STATUS","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"},
-    {"locale":"zh","alias":"/历史","canonical":"/HISTORY","status":"PROPOSED","preferred":true,"review_status":"UNREVIEWED","reviewer":null,"notes":"初始提案；需要语言审查。"}
-  ]
+    {
+      "locale": "es",
+      "alias": "/PROYECTO CREAR",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Propuesta inicial; requiere revisión lingüística."
+    },
+    {
+      "locale": "es",
+      "alias": "/PROYECTO ABRIR",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Propuesta inicial; requiere revisión lingüística."
+    },
+    {
+      "locale": "es",
+      "alias": "/PROYECTO MOSTRAR",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Propuesta inicial; requiere revisión lingüística."
+    },
+    {
+      "locale": "es",
+      "alias": "/PROYECTO LISTAR",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Propuesta inicial; requiere revisión lingüística."
+    },
+    {
+      "locale": "es",
+      "alias": "/ESTADO",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Revisar interacción futura con comandos de estado de entidades."
+    },
+    {
+      "locale": "es",
+      "alias": "/HISTORIAL",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Propuesta inicial; requiere revisión lingüística."
+    },
+    {
+      "locale": "en",
+      "alias": "/PROJECT CREATE",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "en",
+      "alias": "/PROJECT OPEN",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "en",
+      "alias": "/PROJECT SHOW",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "en",
+      "alias": "/PROJECT LIST",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "en",
+      "alias": "/STATUS",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "en",
+      "alias": "/HISTORY",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Forma canónica; se registra para uniformidad del índice."
+    },
+    {
+      "locale": "pt",
+      "alias": "/PROJETO CRIAR",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; requer revisão linguística."
+    },
+    {
+      "locale": "pt",
+      "alias": "/PROJETO ABRIR",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; requer revisão linguística."
+    },
+    {
+      "locale": "pt",
+      "alias": "/PROJETO MOSTRAR",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; requer revisão linguística."
+    },
+    {
+      "locale": "pt",
+      "alias": "/PROJETO LISTAR",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; requer revisão linguística."
+    },
+    {
+      "locale": "pt",
+      "alias": "/STATUS",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Verificar se STATUS permanece como empréstimo técnico."
+    },
+    {
+      "locale": "pt",
+      "alias": "/HISTÓRICO",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; requer revisão linguística."
+    },
+    {
+      "locale": "it",
+      "alias": "/PROGETTO CREARE",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "it",
+      "alias": "/PROGETTO APRIRE",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "it",
+      "alias": "/PROGETTO MOSTRARE",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "it",
+      "alias": "/PROGETTO ELENCARE",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "it",
+      "alias": "/STATO",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "it",
+      "alias": "/CRONOLOGIA",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Proposta inicial; richiede revisione linguistica."
+    },
+    {
+      "locale": "fr",
+      "alias": "/PROJET CRÉER",
+      "canonical": "/PROJECT CREATE",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "fr",
+      "alias": "/PROJET OUVRIR",
+      "canonical": "/PROJECT OPEN",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "fr",
+      "alias": "/PROJET AFFICHER",
+      "canonical": "/PROJECT SHOW",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "fr",
+      "alias": "/PROJET LISTER",
+      "canonical": "/PROJECT LIST",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "fr",
+      "alias": "/ÉTAT",
+      "canonical": "/STATUS",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "fr",
+      "alias": "/HISTORIQUE",
+      "canonical": "/HISTORY",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_FR",
+      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+    },
+    {
+      "locale": "de",
+      "alias": "/PROJEKT ERSTELLEN",
+      "canonical": "/PROJECT CREATE",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "de",
+      "alias": "/PROJEKT ÖFFNEN",
+      "canonical": "/PROJECT OPEN",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "de",
+      "alias": "/PROJEKT ANZEIGEN",
+      "canonical": "/PROJECT SHOW",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "de",
+      "alias": "/PROJEKT AUFLISTEN",
+      "canonical": "/PROJECT LIST",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "de",
+      "alias": "/STATUS",
+      "canonical": "/STATUS",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "de",
+      "alias": "/VERLAUF",
+      "canonical": "/HISTORY",
+      "status": "REVIEWED",
+      "preferred": true,
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_DE",
+      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+    },
+    {
+      "locale": "ru",
+      "alias": "/ПРОЕКТ СОЗДАТЬ",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "ru",
+      "alias": "/ПРОЕКТ ОТКРЫТЬ",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "ru",
+      "alias": "/ПРОЕКТ ПОКАЗАТЬ",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "ru",
+      "alias": "/ПРОЕКТ СПИСОК",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "ru",
+      "alias": "/СТАТУС",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "ru",
+      "alias": "/ИСТОРИЯ",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "Предварительное предложение; требуется языковая проверка."
+    },
+    {
+      "locale": "zh",
+      "alias": "/项目 创建",
+      "canonical": "/PROJECT CREATE",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    },
+    {
+      "locale": "zh",
+      "alias": "/项目 打开",
+      "canonical": "/PROJECT OPEN",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    },
+    {
+      "locale": "zh",
+      "alias": "/项目 显示",
+      "canonical": "/PROJECT SHOW",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    },
+    {
+      "locale": "zh",
+      "alias": "/项目 列表",
+      "canonical": "/PROJECT LIST",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    },
+    {
+      "locale": "zh",
+      "alias": "/状态",
+      "canonical": "/STATUS",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    },
+    {
+      "locale": "zh",
+      "alias": "/历史",
+      "canonical": "/HISTORY",
+      "status": "PROPOSED",
+      "preferred": true,
+      "review_status": "UNREVIEWED",
+      "reviewer": null,
+      "notes": "初始提案；需要语言审查。"
+    }
+  ],
+  "review_metadata": {
+    "mode": "SIMULATED",
+    "reviewed_locales": [
+      "fr",
+      "de"
+    ],
+    "reviewed_entry_count": 12,
+    "approved_for_alias_resolution": true,
+    "approved_for_production_execution": false,
+    "human_review_required_before_active": true,
+    "reviewed_at": "2026-09-16"
+  }
 }

@@ -2,10 +2,31 @@ import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as Reac
 import { CheckCircle2, ChevronDown, Command, History, Loader2, Search, Terminal, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import catalog from "@/content/commands-catalog.json";
+import aliasRegistry from "@/content/command-aliases.json";
+import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+type LocalizedAlias = {
+  locale: string;
+  alias: string;
+  canonical: string;
+  status: "PROPOSED" | "REVIEWED" | "ACTIVE" | "DEPRECATED" | "REJECTED";
+  preferred: boolean;
+  review_status: string;
+  reviewer: string | null;
+};
+
+type AliasRegistry = {
+  entries: LocalizedAlias[];
+  supported_locales: string[];
+  review_metadata?: {
+    mode?: string;
+    approved_for_production_execution?: boolean;
+  };
+};
 
 type CatalogCommand = {
   name: string;
@@ -26,6 +47,32 @@ export type CommandContext = {
 export const COMMAND_HISTORY_KEY = "sims-dei-command-history";
 const MAX_HISTORY = 100;
 const commands = catalog as CatalogCommand[];
+const aliases = aliasRegistry as AliasRegistry;
+const REVIEWED_ALIAS_STATUSES = new Set(["REVIEWED", "ACTIVE", "DEPRECATED"]);
+
+function activeLocale(): string {
+  const locale = i18n.language?.split("-")[0] ?? "en";
+  return aliases.supported_locales.includes(locale) ? locale : "en";
+}
+
+function localizedAliases(locale: string): LocalizedAlias[] {
+  return aliases.entries.filter((entry) => entry.locale === locale && REVIEWED_ALIAS_STATUSES.has(entry.status));
+}
+
+export function normalizeLocalizedCommand(input: string, locale = activeLocale()): { canonical: string; aliasUsed: boolean; aliasStatus: string } | null {
+  const value = input.trim();
+  const upper = value.toUpperCase();
+  const localeAliases = localizedAliases(locale);
+  const match = localeAliases
+    .filter((entry) => upper === entry.alias.toUpperCase() || upper.startsWith(`${entry.alias.toUpperCase()} `))
+    .sort((a, b) => b.alias.length - a.alias.length)[0];
+  if (match) {
+    if (match.status !== "ACTIVE") return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
+    return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
+  }
+  const canonical = commands.find((item) => upper === item.name || upper.startsWith(`${item.name} `));
+  return canonical ? { canonical: value, aliasUsed: false, aliasStatus: "CANONICAL" } : null;
+}
 
 function readHistory(): string[] {
   try {
@@ -40,14 +87,27 @@ function writeHistory(items: string[]) {
   localStorage.setItem(COMMAND_HISTORY_KEY, JSON.stringify(items.slice(0, MAX_HISTORY)));
 }
 
-export function commandSuggestions(input: string, context: CommandContext = {}): string[] {
+export function commandSuggestions(input: string, context: CommandContext = {}, locale = activeLocale()): string[] {
   const value = input.trim();
-  if (!value) return commands.slice(0, 12).map((item) => item.name);
+  const visibleAliases = localizedAliases(locale);
+  if (!value) return [...visibleAliases.slice(0, 8).map((item) => item.alias), ...commands.slice(0, 4).map((item) => item.name)];
   const upper = value.toUpperCase();
   if (value.startsWith("/") && !value.includes(" ")) {
-    return commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name).slice(0, 12);
+    const localized = visibleAliases.filter((item) => item.alias.toUpperCase().startsWith(upper)).map((item) => item.alias);
+    const canonical = commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name);
+    return [...localized, ...canonical].slice(0, 12);
   }
   const tokens = value.split(/\s+/);
+  const localized = visibleAliases.find((item) => item.alias.toUpperCase() === tokens.slice(0, item.alias.split(" ").length).join(" ").toUpperCase());
+  if (localized) {
+    const command = commands.find((item) => item.name === localized.canonical);
+    if (!command) return [];
+    const argIndex = tokens.length - localized.alias.split(" ").length;
+    const arg = command.arguments[argIndex];
+    if (arg?.values) return arg.values;
+    if (arg) return [`<${arg.name}>`];
+    return [];
+  }
   const command = commands.find((item) => item.name === tokens.slice(0, item.name.split(" ").length).join(" ").toUpperCase());
   if (!command) return commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name).slice(0, 12);
   const argIndex = tokens.length - command.name.split(" ").length;
@@ -83,11 +143,13 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const [status, setStatus] = useState<{ type: "success" | "error" | "loading"; message: string } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const locale = activeLocale();
+
   const suggestions = useMemo(() => {
-    const typed = commandSuggestions(input, context);
+    const typed = commandSuggestions(input, context, locale);
     if (!input.trim()) return history.slice(0, 8);
     return typed.filter((item) => item.toLowerCase().includes(input.trim().toLowerCase()) || item.startsWith("<"));
-  }, [context, history, input]);
+  }, [context, history, input, locale]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -118,7 +180,12 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
 
   const execute = async () => {
     const command = input.trim();
-    const validation = validateCommand(command);
+    const normalized = normalizeLocalizedCommand(command, locale);
+    const validation = normalized ? validateCommand(normalized.canonical) : validateCommand(command);
+    if (normalized?.aliasUsed && normalized.aliasStatus !== "ACTIVE") {
+      setStatus({ type: "error", message: t("command_bar.alias_pending_review") });
+      return;
+    }
     if (validation) {
       setStatus({ type: "error", message: t("command_bar.invalid_syntax", { error: validation }) });
       return;
@@ -133,7 +200,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     writeHistory(nextHistory);
     setStatus({ type: "loading", message: t("command_bar.executing") });
     try {
-      await siclClient.executeCanonicalCommand(projectId.trim(), command);
+      await siclClient.executeCanonicalCommand(projectId.trim(), normalized?.canonical ?? command);
       setStatus({ type: "success", message: t("command_bar.executed") });
       onExecuted?.();
     } catch (error) {

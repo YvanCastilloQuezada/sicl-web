@@ -153,7 +153,8 @@
     "failed": "Erro: {{message}}",
     "history_empty": "Sem histórico",
     "history_count": "{{count}} comandos recentes",
-    "project_required": "Informe um ID de projeto para executar o comando"
+    "project_required": "Informe um ID de projeto para executar o comando",
+    "alias_pending_review": "O alias foi revisado, mas ainda não está habilitado para execução."
   },
   "visualization": {
     "pareto": {

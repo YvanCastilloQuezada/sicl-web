@@ -153,7 +153,8 @@
     "failed": "错误：{{message}}",
     "history_empty": "没有历史记录",
     "history_count": "最近 {{count}} 条命令",
-    "project_required": "请输入项目 ID 以执行命令"
+    "project_required": "请输入项目 ID 以执行命令",
+    "alias_pending_review": "该别名已完成审查，但尚未启用执行。"
   },
   "visualization": {
     "pareto": {
