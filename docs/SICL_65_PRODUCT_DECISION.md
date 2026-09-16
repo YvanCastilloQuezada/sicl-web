@@ -29,3 +29,46 @@ SICL tampoco presentará prototipos, cifras ilustrativas, predicciones o resulta
 ## Ruta priorizada
 
 La prioridad inmediata es cerrar el navegador con un proyecto real pequeño y mantener el núcleo estable. En paralelo, el ledger de capacidades protege la evolución hacia Spatial Intelligence. Después podrán entrar Site Intelligence, GIS, BIM y solvers IO individuales, cada uno con su propio contrato y evidencia. La escala nacional es una capacidad futura habilitada por la abstracción espacial, no una promesa de producción actual.
+
+
+## PO-016 — RFC-023 Core Connectivity and Deployment Contract
+
+**Decisión:** APROBADO.
+
+**Fecha:** 16 de septiembre de 2026.
+
+**Alcance autorizado:**
+
+- Proxy same-origin `/api/core/*`.
+- Configuración obligatoria de `SICL_CORE_URL` sin valor por defecto.
+- Uso exclusivo server-side de `SICL_CORE_SERVICE_TOKEN`.
+- Comprobación de salud autenticada y read-only.
+- Mensajes diferenciados para `CORE_UNAVAILABLE`, `CORE_HTTP_ERROR`, `CORE_UNAUTHORIZED`, `CORE_TIMEOUT` y `CORE_CONTRACT_ERROR`.
+- Observabilidad con correlation ID, método, ruta lógica, status, latencia y código de error, sin token ni cuerpos sensibles.
+
+**Condiciones constitucionales:**
+
+- No modifica el Core.
+- No modifica el Core Contract.
+- No crea endpoints nuevos en el Core.
+- No añade fallback silencioso.
+- No expone el token al navegador ni al bundle de Vite.
+- Mantiene `Recommendation ≠ Decision` y `Conectividad ≠ Autoridad`.
+- Mantiene fail-closed cuando el Core es obligatorio.
+
+**Implementación y estado:**
+
+- Corrección de transporte: aplicada en `sicl-web` mediante el commit `6156a310`.
+- Aprobación formal documentada en `sicl-web` mediante el commit `357e59d1`.
+- Implementación formal ampliada: autorizada, pero pendiente de despliegue real del Core.
+- `SICL_CORE_URL`: pendiente; no existe todavía una URL de producción vigente.
+- `SICL_CORE_SERVICE_TOKEN`: pendiente; no se ha emitido ni configurado.
+- E2E Camino A: bloqueado por infraestructura.
+
+**Estado:** CERRADA — 16 de septiembre de 2026, como decisión de aprobación; el cierre operativo de RFC-023 queda condicionado al despliegue del Core y a la verificación E2E.
+
+> Esta decisión no autoriza inventar una URL, emitir credenciales, reactivar el hostname Railway obsoleto ni declarar el E2E como verificado.
+
+## Estado documental relacionado
+
+RFC-023 permanece aprobado y autorizado para implementación. La propuesta de alias localizados de RFC-019 (`RFC-019_LOCALIZED_SICL_COMMAND_ALIASES.md`) es un documento distinto y conserva su propio estado de propuesta; no se modifica por PO-016.
