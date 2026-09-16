@@ -1,0 +1,11 @@
+import { useEffect, useState } from "react";
+import { apiErrorMessage, siclClient, type Comparison, type ComparisonInput } from "@/api/sicl-client";
+import ComparisonForm from "@/components/ComparisonForm";
+const projectFromUrl = () => new URLSearchParams(window.location.search).get("project") || "TEST-API-001";
+export default function ComparisonsPage() {
+  const [projectId, setProjectId] = useState(projectFromUrl); const [items, setItems] = useState<Comparison[]>([]); const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false);
+  const refresh = async () => { try { setItems(await siclClient.listComparisons(projectId)); setError(""); } catch (err) { setError(apiErrorMessage(err)); } };
+  useEffect(() => { void refresh(); }, [projectId]);
+  const submit = async (input: ComparisonInput) => { setBusy(true); setError(""); try { await siclClient.createComparison(projectId, input); setMessage("Comparison creada"); await refresh(); } catch (err) { setError(apiErrorMessage(err)); } finally { setBusy(false); } };
+  return <section className="space-y-6"><header><p className="text-xs uppercase tracking-widest text-muted-foreground">Core v1 /v1</p><h1 className="text-3xl font-semibold">Comparisons</h1><p className="text-sm text-muted-foreground">Comparaciones de alternativas y objetivos; no registran una Decision.</p></header><label>Project ID<input value={projectId} onChange={(e) => setProjectId(e.target.value)} /></label>{message && <p role="status" className="border border-green-300 bg-green-50 p-3 text-sm">{message}</p>}{error && <p role="alert" className="border border-red-300 bg-red-50 p-3 text-sm">{error}</p>}<ComparisonForm busy={busy} onSubmit={submit} /><div className="overflow-x-auto border"><table><thead><tr><th>comparison_id</th><th>alternatives</th><th>objectives</th><th>created_at</th></tr></thead><tbody>{items.map((item, index) => <tr key={String(item.comparison_id ?? index)}><td>{String(item.comparison_id ?? "—")}</td><td>{(item.alternative_ids ?? item.alternatives ?? []).join(", ")}</td><td>{(item.objectives ?? []).join(", ") || "—"}</td><td>{String(item.created_at ?? "—")}</td></tr>)}{items.length === 0 && <tr><td colSpan={4}>No Comparisons registradas.</td></tr>}</tbody></table></div></section>;
+}

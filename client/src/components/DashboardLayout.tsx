@@ -32,6 +32,9 @@ const menuItems = [
   { icon: Waypoints, label: "Context / Site", path: "/#context" },
   { icon: Target, label: "Objectives", path: "/#problem" },
   { icon: GitBranch, label: "Alternatives", path: "/#alternatives" },
+  { icon: FileText, label: "Evidence", path: "/evidence" },
+  { icon: Activity, label: "Evaluations", path: "/evaluations" },
+  { icon: Scale, label: "Comparisons", path: "/comparisons" },
   { icon: Scale, label: "Council", path: "/#council" },
   { icon: ShieldCheck, label: "Decision & Audit", path: "/#audit" },
 ];
