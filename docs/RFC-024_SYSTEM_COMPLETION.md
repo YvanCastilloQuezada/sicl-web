@@ -201,10 +201,20 @@ El criterio de cierre será una cadena verificable desde la entrada del usuario 
 ## 16. Firma y estado
 
 **Estado actual:** `DRAFT — PENDING PRODUCT OWNER APPROVAL`  
-**Implementación:** no iniciada  
-**Cambios de código autorizados:** ninguno  
+**Implementación:** fase operativa inicial implementada; E2E remoto pendiente  
+**Cambios de código autorizados:** fase inicial autorizada explícitamente por el Product Owner  
 **Despliegue autorizado por este documento:** ninguno  
 **Revisión requerida:** Product Owner / arquitecto
+
+## 17. Registro de implementación inicial
+
+La primera fase ejecutable de RFC-024 se implementó en `sicl-web` sin configurar todavía un Core remoto real. Esta fase añade controles operativos seguros y no declara el E2E remoto como completado.
+
+Se añadieron un health check server-side de solo lectura sobre `/v1/scales`, identificadores de correlación mediante `x-correlation-id`, un timeout de quince segundos para solicitudes del proxy y clasificación explícita de `CORE_UNAVAILABLE`, `CORE_UNAUTHORIZED`, `CORE_TIMEOUT` y `CORE_HTTP_ERROR`.
+
+También se añadieron pruebas unitarias para configuración ausente, autenticación ausente, errores HTTP, health check autenticado y timeout del proxy. El checkpoint WebDev de esta fase es `e5725781`.
+
+La verificación local produjo `124/124` tests PASS, typecheck PASS, build PASS y `git diff --check` PASS. El estado operativo continúa siendo `BLOCKED_INFRASTRUCTURE` para el E2E porque faltan `SICL_CORE_URL`, `SICL_CORE_SERVICE_TOKEN`, un Core remoto vigente y una prueba de persistencia después de reinicio.
 
 ## References
 
@@ -256,9 +266,9 @@ Cualquier cambio de alcance debe registrarse en el proceso definido por RFC-018.
 - [ ] Se actualiza el informe de cierre.
 - [ ] Se crea el release tag con aprobación final.
 
-## Apéndice H — Declaración de no implementación
+## Apéndice H — Límite de implementación pendiente
 
-Mientras RFC-024 permanezca en estado `DRAFT`, no se crearán endpoints, entidades, migraciones, credenciales ni automatizaciones nuevas bajo este identificador.
+Mientras RFC-024 permanezca en estado `DRAFT`, no se crearán nuevas entidades, migraciones, credenciales ni automatizaciones de producción bajo este identificador. La fase operativa inicial registrada en la sección 17 se limita al proxy, health check, observabilidad mínima y pruebas.
 
 ## Apéndice I — Registro inicial
 
