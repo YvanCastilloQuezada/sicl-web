@@ -208,5 +208,31 @@
       "audit": "Audit",
       "audit_description": "Nachvollziehbare Ereignisse des Projekts prüfen."
     }
+  },
+  "epistemic": {
+    "legend_title": "Datensätze lesen",
+    "fact": "FAKT",
+    "fact_description": "Durch Quelle oder Beleg gestützte Daten.",
+    "assumption": "ANNAHME",
+    "assumption_description": "Für die Analyse verwendete Hypothese; kein bestätigter Fakt.",
+    "preference": "PRÄFERENZ",
+    "preference_description": "Von einem menschlichen Akteur ausgedrücktes Kriterium."
+  },
+  "demo": {
+    "title": "Demo-Projekt erkunden",
+    "description": "Testen Sie den Ablauf mit synthetischen Daten. Der Core und reale Entscheidungen bleiben unverändert.",
+    "synthetic": "SYNTHETISCHE DATEN",
+    "explore": "Demo erkunden",
+    "hide": "Demo ausblenden",
+    "fact": "Die Fassade erhält nachmittägliche Sonneneinstrahlung.",
+    "assumption": "Außenverschattung senkt die thermische Last.",
+    "preference": "Energieeinsparung vor Anfangskosten priorisieren."
+  },
+  "builder": {
+    "title": "SICL-Befehl erstellen",
+    "description": "Füllen Sie ein Formular aus und lernen Sie den erzeugten kanonischen Befehl.",
+    "command_type": "Befehlstyp",
+    "preview": "Vorschau des kanonischen Befehls",
+    "copy": "Befehl kopieren"
   }
 }

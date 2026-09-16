@@ -208,5 +208,31 @@
       "audit": "Auditoria",
       "audit_description": "Consulte os eventos rastreáveis do projeto."
     }
+  },
+  "epistemic": {
+    "legend_title": "Como ler os registros",
+    "fact": "FATO",
+    "fact_description": "Dado apoiado por fonte ou evidência.",
+    "assumption": "PRESSUPOSTO",
+    "assumption_description": "Hipótese usada na análise; não é fato confirmado.",
+    "preference": "PREFERÊNCIA",
+    "preference_description": "Critério expresso por um ator humano."
+  },
+  "demo": {
+    "title": "Explorar projeto de demonstração",
+    "description": "Teste o fluxo com dados sintéticos. Não altera o Core nem representa uma decisão real.",
+    "synthetic": "DADOS SINTÉTICOS",
+    "explore": "Explorar demo",
+    "hide": "Ocultar demo",
+    "fact": "A fachada recebe radiação solar à tarde.",
+    "assumption": "O sombreamento externo reduzirá a carga térmica.",
+    "preference": "Priorizar economia de energia sobre custo inicial."
+  },
+  "builder": {
+    "title": "Construir comando SICL",
+    "description": "Preencha um formulário e aprenda o comando canônico gerado.",
+    "command_type": "Tipo de comando",
+    "preview": "Prévia do comando canônico",
+    "copy": "Copiar comando"
   }
 }

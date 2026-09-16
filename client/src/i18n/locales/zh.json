@@ -208,5 +208,31 @@
       "audit": "审计",
       "audit_description": "查看项目可追溯的事件序列。"
     }
+  },
+  "epistemic": {
+    "legend_title": "如何阅读记录",
+    "fact": "事实",
+    "fact_description": "由来源或证据支持的数据。",
+    "assumption": "假设",
+    "assumption_description": "用于分析的假设，不是已确认的事实。",
+    "preference": "偏好",
+    "preference_description": "人类参与者表达的标准。"
+  },
+  "demo": {
+    "title": "探索演示项目",
+    "description": "使用合成数据体验流程。不修改核心，也不代表真实决定。",
+    "synthetic": "合成数据",
+    "explore": "探索演示",
+    "hide": "隐藏演示",
+    "fact": "立面在下午接收太阳辐射。",
+    "assumption": "外部遮阳会降低热负荷。",
+    "preference": "优先考虑节能而不是初始成本。"
+  },
+  "builder": {
+    "title": "构建 SICL 命令",
+    "description": "填写表单并学习生成的规范命令。",
+    "command_type": "命令类型",
+    "preview": "规范命令预览",
+    "copy": "复制命令"
   }
 }

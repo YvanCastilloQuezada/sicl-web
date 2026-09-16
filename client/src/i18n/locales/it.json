@@ -208,5 +208,31 @@
       "audit": "Audit",
       "audit_description": "Consulta la sequenza tracciabile degli eventi."
     }
+  },
+  "epistemic": {
+    "legend_title": "Come leggere i record",
+    "fact": "FATTO",
+    "fact_description": "Dato supportato da fonte o evidenza.",
+    "assumption": "ASSUNZIONE",
+    "assumption_description": "Ipotesi usata per l’analisi; non è un fatto confermato.",
+    "preference": "PREFERENZA",
+    "preference_description": "Criterio espresso da un attore umano."
+  },
+  "demo": {
+    "title": "Esplora progetto demo",
+    "description": "Prova il flusso con dati sintetici. Non modifica il Core né rappresenta una decisione reale.",
+    "synthetic": "DATI SINTETICI",
+    "explore": "Esplora demo",
+    "hide": "Nascondi demo",
+    "fact": "La facciata riceve radiazione solare pomeridiana.",
+    "assumption": "L’ombreggiamento esterno ridurrà il carico termico.",
+    "preference": "Dare priorità al risparmio energetico rispetto al costo iniziale."
+  },
+  "builder": {
+    "title": "Costruisci un comando SICL",
+    "description": "Compila un modulo e impara il comando canonico generato.",
+    "command_type": "Tipo di comando",
+    "preview": "Anteprima del comando canonico",
+    "copy": "Copia comando"
   }
 }

@@ -208,5 +208,31 @@
       "audit": "Audit",
       "audit_description": "Consultez la séquence traçable des événements."
     }
+  },
+  "epistemic": {
+    "legend_title": "Lire les enregistrements",
+    "fact": "FAIT",
+    "fact_description": "Donnée étayée par une source ou une preuve.",
+    "assumption": "HYPOTHÈSE",
+    "assumption_description": "Hypothèse utilisée pour analyser ; ce n’est pas un fait confirmé.",
+    "preference": "PRÉFÉRENCE",
+    "preference_description": "Critère exprimé par un acteur humain."
+  },
+  "demo": {
+    "title": "Explorer le projet de démonstration",
+    "description": "Testez le parcours avec des données synthétiques. Aucun changement du Core ni décision réelle.",
+    "synthetic": "DONNÉES SYNTHÉTIQUES",
+    "explore": "Explorer la démo",
+    "hide": "Masquer la démo",
+    "fact": "La façade reçoit le rayonnement solaire de l’après-midi.",
+    "assumption": "Le brise-soleil extérieur réduira la charge thermique.",
+    "preference": "Privilégier les économies d’énergie au coût initial."
+  },
+  "builder": {
+    "title": "Construire une commande SICL",
+    "description": "Remplissez un formulaire et apprenez la commande canonique générée.",
+    "command_type": "Type de commande",
+    "preview": "Aperçu de la commande canonique",
+    "copy": "Copier la commande"
   }
 }

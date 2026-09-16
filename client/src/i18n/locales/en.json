@@ -208,5 +208,31 @@
       "audit": "Audit",
       "audit_description": "Review the traceable sequence of project events."
     }
+  },
+  "epistemic": {
+    "legend_title": "How to read records",
+    "fact": "FACT",
+    "fact_description": "Data supported by a source or evidence.",
+    "assumption": "ASSUMPTION",
+    "assumption_description": "A hypothesis used for analysis; not a confirmed fact.",
+    "preference": "PREFERENCE",
+    "preference_description": "A criterion expressed by a human actor."
+  },
+  "demo": {
+    "title": "Explore demo project",
+    "description": "Try the flow with synthetic data. It does not change the Core or represent a real decision.",
+    "synthetic": "SYNTHETIC DATA",
+    "explore": "Explore demo",
+    "hide": "Hide demo",
+    "fact": "The facade receives afternoon solar radiation.",
+    "assumption": "External shading will reduce thermal load.",
+    "preference": "Prioritize energy savings over initial cost."
+  },
+  "builder": {
+    "title": "Build a SICL command",
+    "description": "Complete a form and learn the canonical command it generates.",
+    "command_type": "Command type",
+    "preview": "Canonical command preview",
+    "copy": "Copy command"
   }
 }
