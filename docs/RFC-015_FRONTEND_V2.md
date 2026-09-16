@@ -270,3 +270,20 @@ Los nuevos accesos de navegación son Evidence, Evaluations y Comparisons. La fa
 - CO-003 — Frontend v2 funcional, no definitivo.
 
 **FIN DEL RFC-015 — FUNCTIONAL DEFINITION ONLY**
+
+
+## 13. Estilos de tema de Fase A
+
+`PhaseAPageLayout` es el shell visual compartido por Evidence, Evaluations y Comparisons. Sus superficies usan los tokens semánticos del sistema (`bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary` y `text-primary-foreground`) en lugar de estilos nativos del navegador o colores fijos incompatibles con el modo oscuro.
+
+Los formularios nuevos deben:
+
+1. Mantener el contenedor `form` como tarjeta (`bg-card`, `border-border`, padding y sombra discreta).
+2. Aplicar a cada `label` texto visible y peso medio.
+3. Usar en `input`, `select` y `textarea` `bg-background`, `border-input`, `text-foreground`, `placeholder:text-muted-foreground` y un anillo de foco `ring-ring`.
+4. Usar botones de acción con `bg-primary` y `text-primary-foreground`, sin depender de los estilos HTML por defecto.
+5. Mantener tablas con `border-border`, encabezados `text-muted-foreground` y celdas legibles.
+
+La paleta clara conserva el fondo `#f4f1ea`, tarjetas `#fbfaf6`, texto `#1d2925`, primario `#385348` y acento `#d07b4a` definidos por Home. El modo oscuro resuelve los mismos tokens mediante las variables de `.dark`: fondo `#17221e`, tarjetas `#21302a`, texto `#edf2ec`, bordes `#425249` y acento `#e0a078`. Esta estrategia mantiene contraste y coherencia sin duplicar lógica de negocio ni crear un tema paralelo.
+
+Las pruebas de `phase-a-theme.test.tsx` renderizan las tres páginas en ambos temas y verifican que el layout aplica las clases semánticas y que los campos permanecen presentes y accesibles.
