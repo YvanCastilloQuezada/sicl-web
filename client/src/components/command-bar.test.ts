@@ -58,7 +58,7 @@ describe("CommandBar", () => {
     const input = commandInput();
     fireEvent.change(input, { target: { value: "/OBJ" } });
     fireEvent.keyDown(input, { key: "Tab" });
-    expect((input as HTMLInputElement).value).toBe("/OBJECTIVE SET");
+    expect((input as HTMLInputElement).value).toBe("/OBJETIVO ESTABLECER");
   });
 
   it("rejects invalid syntax without making a request", () => {
