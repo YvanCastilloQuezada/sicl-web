@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
+import { useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import DashboardLayout from "./components/DashboardLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -15,6 +16,19 @@ import HelpArticlePage from "./pages/HelpArticlePage";
 import CommandBar from "./components/CommandBar";
 import MultiobjectivePage from "./pages/MultiobjectivePage";
 
+function AuditRoute() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (window.location.hash !== "#audit") {
+      window.history.replaceState(null, "", "/audit#audit");
+    }
+    setReady(true);
+  }, []);
+
+  return ready ? <Home /> : null;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -24,6 +38,7 @@ function Router() {
       <Route path={"/evaluations"} component={EvaluationsPage} />
       <Route path={"/comparisons"} component={ComparisonsPage} />
       <Route path={"/multiobjective"}>{() => <DashboardLayout><MultiobjectivePage /></DashboardLayout>}</Route>
+      <Route path={"/audit"}>{() => <AuditRoute />}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
       <Route path={"/help/operations"}>{() => <DashboardLayout><HelpArticlePage manualId="operations" /></DashboardLayout>}</Route>
