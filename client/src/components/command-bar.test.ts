@@ -4,6 +4,7 @@ import React from "react";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CommandBar, { COMMAND_HISTORY_KEY, COMMAND_LANGUAGE_KEY, commandSuggestions, normalizeLocalizedCommand, validateCommand } from "./CommandBar";
+import { GUIDED_MODE_KEY } from "./GuidedShell";
 
 const commandInput = () => screen.getByLabelText(/Comando SICL|SICL command/);
 const projectInput = () => screen.getByLabelText(/Proyecto|Project/);
@@ -144,5 +145,25 @@ describe("CommandBar", () => {
     expect(click).toHaveBeenCalledOnce();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:test");
     click.mockRestore();
+  });
+
+  it("shows command descriptions, required arguments and interactive examples", () => {
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    fireEvent.change(commandInput(), { target: { value: "/PROJECT CREATE" } });
+    expect(screen.getByText(/Crea un espacio de trabajo|Creates a workspace/)).toBeTruthy();
+    expect(screen.getByText(/project_id · required/)).toBeTruthy();
+    const example = screen.getByRole("button", { name: /PROJECT CREATE DEMO-001/ });
+    fireEvent.click(example);
+    expect((commandInput() as HTMLInputElement).value).toContain("/PROJECT CREATE DEMO-001");
+  });
+
+  it("persists the beginner or expert experience mode from settings", () => {
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    fireEvent.click(screen.getByRole("button", { name: /Configuración|Settings/ }));
+    const select = screen.getByLabelText(/Modo de experiencia|Experience mode/);
+    fireEvent.change(select, { target: { value: "expert" } });
+    expect(localStorage.getItem(GUIDED_MODE_KEY)).toBe("expert");
   });
 });

@@ -72,7 +72,36 @@
       "github": "Ver no GitHub"
     },
     "back": "Voltar ao índice",
-    "tocHint": "Escolha outro manual ou use os títulos como guia."
+    "tocHint": "Escolha outro manual ou use os títulos como guia.",
+    "tasks": {
+      "title": "Task-based help",
+      "subtitle": "Start with what you want to do. Each task explains the purpose and takes you to the right place.",
+      "open": "Open task",
+      "first_project": {
+        "title": "Create my first project",
+        "description": "Define a project and its scope without losing traceability."
+      },
+      "preference": {
+        "title": "Record a preference",
+        "description": "Express the human criterion that should guide analysis."
+      },
+      "recommendation": {
+        "title": "Understand a recommendation",
+        "description": "Read a system proposal without confusing it with a decision."
+      },
+      "human_review": {
+        "title": "Review as a human",
+        "description": "Record explicit review before deciding."
+      },
+      "decision": {
+        "title": "Record a decision",
+        "description": "Check authority and human review before recording."
+      },
+      "command": {
+        "title": "Learn SICL commands",
+        "description": "Use Command Bar examples, arguments and preview."
+      }
+    }
   },
   "workspace": {
     "eyebrow": "ESPAÇO DE TRABALHO REST CANÔNICO",
@@ -165,7 +194,13 @@
     "canonical_command": "Comando canônico em inglês",
     "language_saved": "Preferência de idioma salva",
     "alias_search_shortcut": "Abrir busca de aliases",
-    "export_aliases_csv": "Exportar aliases CSV"
+    "export_aliases_csv": "Exportar aliases CSV",
+    "arguments": "Arguments",
+    "no_arguments": "No arguments",
+    "example": "Interactive example",
+    "experience_mode": "Experience mode",
+    "beginner_mode": "Beginner / guided",
+    "expert_mode": "Expert"
   },
   "visualization": {
     "pareto": {

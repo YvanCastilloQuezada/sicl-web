@@ -72,7 +72,36 @@
       "github": "Ver en GitHub"
     },
     "back": "Volver al índice",
-    "tocHint": "Selecciona otro manual o usa los encabezados como guía."
+    "tocHint": "Selecciona otro manual o usa los encabezados como guía.",
+    "tasks": {
+      "title": "Ayuda por tareas",
+      "subtitle": "Empieza por lo que quieres hacer. Cada tarea explica el propósito y te lleva al lugar correcto.",
+      "open": "Abrir tarea",
+      "first_project": {
+        "title": "Crear mi primer proyecto",
+        "description": "Define un proyecto y su alcance sin perder la trazabilidad."
+      },
+      "preference": {
+        "title": "Registrar una preferencia",
+        "description": "Expresa qué criterio humano debe orientar el análisis."
+      },
+      "recommendation": {
+        "title": "Entender una recomendación",
+        "description": "Lee una propuesta del sistema sin confundirla con una decisión."
+      },
+      "human_review": {
+        "title": "Revisar como humano",
+        "description": "Registra la revisión explícita antes de decidir."
+      },
+      "decision": {
+        "title": "Registrar una decisión",
+        "description": "Comprueba autoridad y revisión humana antes de registrar."
+      },
+      "command": {
+        "title": "Aprender comandos SICL",
+        "description": "Usa la Command Bar con ejemplos, argumentos y vista previa."
+      }
+    }
   },
   "workspace": {
     "eyebrow": "ESPACIO DE TRABAJO REST CANÓNICO",
@@ -165,7 +194,13 @@
     "canonical_command": "Comando canónico en inglés",
     "language_saved": "Preferencia de idioma guardada",
     "alias_search_shortcut": "Abrir búsqueda de alias",
-    "export_aliases_csv": "Exportar alias CSV"
+    "export_aliases_csv": "Exportar alias CSV",
+    "arguments": "Argumentos",
+    "no_arguments": "Sin argumentos",
+    "example": "Ejemplo interactivo",
+    "experience_mode": "Modo de experiencia",
+    "beginner_mode": "Principiante / guiado",
+    "expert_mode": "Experto"
   },
   "visualization": {
     "pareto": {
