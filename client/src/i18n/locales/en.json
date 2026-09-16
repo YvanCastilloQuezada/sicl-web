@@ -249,7 +249,11 @@
       "decision_description": "Can only be recorded after a valid human review.",
       "audit": "Audit",
       "audit_description": "Review the traceable sequence of project events."
-    }
+    },
+    "mode_expert_saved": "Expert mode enabled",
+    "mode_guided_saved": "Beginner mode enabled",
+    "module_map_title": "System map:",
+    "module_map_description": "Path A summarizes six decision steps; these modules provide context, analysis, council and governance."
   },
   "epistemic": {
     "legend_title": "How to read records",

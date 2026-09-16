@@ -249,7 +249,11 @@
       "decision_description": "Può essere registrata solo dopo una revisione umana.",
       "audit": "Audit",
       "audit_description": "Consulta la sequenza tracciabile degli eventi."
-    }
+    },
+    "mode_expert_saved": "Modalità esperto attivata",
+    "mode_guided_saved": "Modalità principiante attivata",
+    "module_map_title": "Mappa del sistema:",
+    "module_map_description": "Il Percorso A riassume sei passaggi decisionali; questi moduli forniscono contesto, analisi, consiglio e governance."
   },
   "epistemic": {
     "legend_title": "Come leggere i record",

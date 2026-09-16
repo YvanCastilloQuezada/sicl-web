@@ -249,7 +249,11 @@
       "decision_description": "Solo puede registrarse después de una revisión humana válida.",
       "audit": "Auditoría",
       "audit_description": "Consulta la secuencia trazable de eventos del proyecto."
-    }
+    },
+    "mode_expert_saved": "Modo experto activado",
+    "mode_guided_saved": "Modo principiante activado",
+    "module_map_title": "Mapa del sistema:",
+    "module_map_description": "Camino A resume seis pasos de decisión; estos módulos aportan contexto, análisis, consejo y gobernanza."
   },
   "epistemic": {
     "legend_title": "Cómo leer los registros",

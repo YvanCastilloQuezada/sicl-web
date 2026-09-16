@@ -249,7 +249,11 @@
       "decision_description": "Erst nach gültiger menschlicher Prüfung erfassbar.",
       "audit": "Audit",
       "audit_description": "Nachvollziehbare Ereignisse des Projekts prüfen."
-    }
+    },
+    "mode_expert_saved": "Expertenmodus aktiviert",
+    "mode_guided_saved": "Anfängermodus aktiviert",
+    "module_map_title": "Systemübersicht:",
+    "module_map_description": "Pfad A fasst sechs Entscheidungsschritte zusammen; diese Module liefern Kontext, Analyse, Beratung und Governance."
   },
   "epistemic": {
     "legend_title": "Datensätze lesen",

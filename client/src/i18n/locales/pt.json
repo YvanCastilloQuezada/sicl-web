@@ -249,7 +249,11 @@
       "decision_description": "Só pode ser registrada após revisão humana.",
       "audit": "Auditoria",
       "audit_description": "Consulte os eventos rastreáveis do projeto."
-    }
+    },
+    "mode_expert_saved": "Modo especialista ativado",
+    "mode_guided_saved": "Modo iniciante ativado",
+    "module_map_title": "Mapa do sistema:",
+    "module_map_description": "O Caminho A resume seis passos de decisão; estes módulos fornecem contexto, análise, conselho e governança."
   },
   "epistemic": {
     "legend_title": "Como ler os registros",

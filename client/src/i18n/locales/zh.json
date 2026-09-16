@@ -249,7 +249,11 @@
       "decision_description": "只有完成有效人工审查后才能记录。",
       "audit": "审计",
       "audit_description": "查看项目可追溯的事件序列。"
-    }
+    },
+    "mode_expert_saved": "专家模式已启用",
+    "mode_guided_saved": "初学者模式已启用",
+    "module_map_title": "系统地图：",
+    "module_map_description": "路径 A 总结六个决策步骤；这些模块提供背景、分析、咨询和治理。"
   },
   "epistemic": {
     "legend_title": "如何阅读记录",

@@ -249,7 +249,11 @@
       "decision_description": "Ne peut être enregistrée qu’après une revue humaine valide.",
       "audit": "Audit",
       "audit_description": "Consultez la séquence traçable des événements."
-    }
+    },
+    "mode_expert_saved": "Mode expert activé",
+    "mode_guided_saved": "Mode débutant activé",
+    "module_map_title": "Carte du système :",
+    "module_map_description": "Le parcours A résume six étapes de décision ; ces modules apportent contexte, analyse, conseil et gouvernance."
   },
   "epistemic": {
     "legend_title": "Lire les enregistrements",
