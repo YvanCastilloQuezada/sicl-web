@@ -16,6 +16,8 @@ coverage/
 .env
 .env.*
 !.env.example
+.sicl-core.env
+*.sicl-core.env
 *.pem
 *.key
 *.crt
