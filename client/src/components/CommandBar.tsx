@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { CheckCircle2, ChevronDown, Command, History, Loader2, Search, Terminal, XCircle } from "lucide-react";
+import { CheckCircle2, ChevronDown, Command, History, Loader2, Search, Settings2, Terminal, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import catalog from "@/content/commands-catalog.json";
 import aliasRegistry from "@/content/command-aliases.json";
@@ -45,11 +45,23 @@ export type CommandContext = {
 };
 
 export const COMMAND_HISTORY_KEY = "sims-dei-command-history";
+export const COMMAND_LANGUAGE_KEY = "sims-dei-command-language";
 const MAX_HISTORY = 100;
+const LANGUAGE_OPTIONS = [
+  ["es", "Español"], ["en", "English"], ["pt", "Português"], ["it", "Italiano"],
+  ["fr", "Français"], ["de", "Deutsch"], ["ru", "Русский"], ["zh", "中文"],
+] as const;
 const commands = catalog as CatalogCommand[];
 const aliases = aliasRegistry as AliasRegistry;
+function readPreferredLocale(): string | null {
+  try {
+    const value = localStorage.getItem(COMMAND_LANGUAGE_KEY);
+    return value && aliases.supported_locales.includes(value) ? value : null;
+  } catch { return null; }
+}
+
 function activeLocale(): string {
-  const locale = i18n.language?.split("-")[0] ?? "en";
+  const locale = readPreferredLocale() ?? i18n.language?.split("-")[0] ?? "en";
   return aliases.supported_locales.includes(locale) ? locale : "en";
 }
 
@@ -140,9 +152,23 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const [selected, setSelected] = useState(0);
   const [status, setStatus] = useState<{ type: "success" | "error" | "loading"; message: string } | null>(null);
   const [pendingCanonical, setPendingCanonical] = useState<string | null>(null);
+  const [aliasSearch, setAliasSearch] = useState("");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [preferredLocale, setPreferredLocale] = useState(() => readPreferredLocale() ?? activeLocale());
+  const [languageSaved, setLanguageSaved] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const locale = activeLocale();
+
+  useEffect(() => {
+    const preferred = readPreferredLocale();
+    if (preferred) void i18n.changeLanguage(preferred);
+  }, []);
+
+  const aliasResults = useMemo(() => {
+    const query = aliasSearch.trim().toLocaleLowerCase();
+    return localizedAliases(locale).filter((entry) => !query || entry.alias.toLocaleLowerCase().includes(query) || entry.canonical.toLocaleLowerCase().includes(query));
+  }, [aliasSearch, locale]);
 
   const suggestions = useMemo(() => {
     const typed = commandSuggestions(input, context, locale);
@@ -176,6 +202,15 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     setHistoryIndex(-1);
     setStatus(null);
     setPendingCanonical(null);
+    setAliasSearch("");
+    setSettingsOpen(false);
+  };
+
+  const savePreferredLanguage = () => {
+    localStorage.setItem(COMMAND_LANGUAGE_KEY, preferredLocale);
+    void i18n.changeLanguage(preferredLocale);
+    setLanguageSaved(true);
+    window.setTimeout(() => setLanguageSaved(false), 1800);
   };
 
   const executeCanonicalQuick = async () => {
@@ -256,9 +291,11 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     {!open && <button type="button" onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#f2c300] px-4 py-3 text-sm font-semibold text-[#1d2925] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-[#d4a017] hover:text-[#fbfaf6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8bc34a]" aria-label={t("command_bar.open_button")}><Command className="h-4 w-4" /> <span className="hidden sm:inline">SICL</span><kbd className="hidden rounded bg-white/15 px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd></button>}
     {open && <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl px-3 pb-3 sm:px-6" role="dialog" aria-label={t("command_bar.title")}>
       <div className="overflow-hidden rounded-lg border-2 border-[#f2c300] bg-[#fbfaf6] shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
-        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")}</p></div><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
-        <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div></div>
-        {suggestions.length > 0 && <div className="max-h-48 overflow-y-auto border-b border-[#e2e4de] p-2">{suggestions.map((suggestion, index) => { const aliasEntry = aliases.entries.find((entry) => entry.locale === locale && entry.alias === suggestion); const isActive = aliasEntry?.status === "ACTIVE"; const isProposed = aliasEntry?.status === "PROPOSED"; return <button type="button" key={`${suggestion}-${index}`} onClick={() => setInput(suggestion.startsWith("/") ? suggestion : `${input.trim()} ${suggestion}`.trim())} className={cn("flex w-full items-center justify-between rounded px-3 py-2 text-left font-mono text-xs", index === selected ? "bg-[#f2c300] font-bold text-[#1d2925]" : "text-[#1d2925] hover:bg-[#e9ede5] hover:text-[#385348]")}><span>{suggestion}</span><span className="flex items-center gap-2 text-[10px] uppercase tracking-wide">{isActive && <span className="rounded bg-[#385348] px-1.5 py-0.5 text-[#fbfaf6]">{t("command_bar.alias_active")}</span>}{isProposed && <span className="rounded border border-[#d07b4a] bg-[#fbe5d6] px-1.5 py-0.5 text-[#a94524]">{t("command_bar.alias_proposed")}</span>}{index === selected && <span>Tab</span>}</span></button>; })}</div>}
+        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")}</p></div><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
+        <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div><div className="relative sm:col-span-2"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input aria-label={t("command_bar.search_aliases")} value={aliasSearch} onChange={(event) => setAliasSearch(event.target.value)} placeholder={t("command_bar.search_aliases")} className="border border-[#d7d8cf] bg-[#fbfaf6] pl-9 text-xs text-[#1d2925]" /></div></div>
+        {settingsOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="flex flex-wrap items-center gap-2"><label htmlFor="command-language" className="text-xs font-semibold text-[#385348]">{t("command_bar.language_preference")}</label><select id="command-language" aria-label={t("command_bar.language_preference")} value={preferredLocale} onChange={(event) => setPreferredLocale(event.target.value)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]">{LANGUAGE_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><Button type="button" size="sm" onClick={savePreferredLanguage} className="h-7 bg-[#385348] px-2 text-xs text-[#fbfaf6]">{t("command_bar.save_language")}</Button>{languageSaved && <span className="text-xs text-[#385348]">{t("command_bar.language_saved")}</span>}</div></div>}
+        {aliasSearch && <div className="max-h-36 overflow-y-auto border-b border-[#e2e4de] bg-[#fbfaf6] p-2">{aliasResults.slice(0, 24).map((entry) => <div key={`${entry.locale}-${entry.alias}`} title={entry.canonical} className="flex items-center justify-between rounded px-3 py-1.5 font-mono text-xs text-[#1d2925] hover:bg-[#e9ede5]"><span title={entry.canonical}>{entry.alias}</span><span className="text-[10px] text-[#718078]">{entry.canonical}</span></div>)}</div>}
+        {suggestions.length > 0 && <div className="max-h-48 overflow-y-auto border-b border-[#e2e4de] p-2">{suggestions.map((suggestion, index) => { const aliasEntry = aliases.entries.find((entry) => entry.locale === locale && entry.alias === suggestion); const isActive = aliasEntry?.status === "ACTIVE"; const isProposed = aliasEntry?.status === "PROPOSED"; return <button type="button" key={`${suggestion}-${index}`} onClick={() => setInput(suggestion.startsWith("/") ? suggestion : `${input.trim()} ${suggestion}`.trim())} className={cn("flex w-full items-center justify-between rounded px-3 py-2 text-left font-mono text-xs", index === selected ? "bg-[#f2c300] font-bold text-[#1d2925]" : "text-[#1d2925] hover:bg-[#e9ede5] hover:text-[#385348]")}><span title={aliases.entries.find((entry) => entry.locale === locale && entry.alias === suggestion)?.canonical}>{suggestion}</span><span className="flex items-center gap-2 text-[10px] uppercase tracking-wide">{isActive && <span className="rounded bg-[#385348] px-1.5 py-0.5 text-[#fbfaf6]">{t("command_bar.alias_active")}</span>}{isProposed && <span className="rounded border border-[#d07b4a] bg-[#fbe5d6] px-1.5 py-0.5 text-[#a94524]">{t("command_bar.alias_proposed")}</span>}{index === selected && <span>Tab</span>}</span></button>; })}</div>}
         {input.trim() && !suggestions.length && <p className="border-b border-[#e2e4de] px-4 py-3 text-xs text-[#718078]">{t("command_bar.no_results")}</p>}
         <div className="flex items-center justify-between gap-3 px-4 py-3 text-xs"><span className="flex items-center gap-2 text-[#718078]"><History className="h-3.5 w-3.5" /> {history.length ? t("command_bar.history_count", { count: history.length }) : t("command_bar.history_empty")}</span>{status && <span className={cn("flex items-center gap-2", status.type === "error" ? "border-l-[3px] border-[#d07b4a] bg-[#fbe5d6] px-2 font-medium text-[#a94524]" : status.type === "success" ? "border-l-[3px] border-[#385348] bg-[#dce6dc] px-2 text-[#385348]" : "bg-[#e9ede5] px-2 text-[#52645a]")}>{status.type === "loading" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : status.type === "success" ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{status.message}{pendingCanonical && <Button type="button" size="sm" variant="outline" className="h-6 border-[#385348] bg-[#fbfaf6] px-2 text-[10px] text-[#385348]" onClick={() => void executeCanonicalQuick()}>{t("command_bar.use_canonical")}</Button>}</span>}</div>
       </div>

@@ -157,7 +157,13 @@
     "alias_pending_review": "The alias is reviewed but not enabled for execution yet.",
     "alias_active": "Active",
     "alias_proposed": "Proposed",
-    "use_canonical": "Use canonical command"
+    "use_canonical": "Use canonical command",
+    "settings": "Settings",
+    "language_preference": "Default command language",
+    "save_language": "Save language",
+    "search_aliases": "Search aliases by language",
+    "canonical_command": "Canonical command in English",
+    "language_saved": "Language preference saved"
   },
   "visualization": {
     "pareto": {

@@ -157,7 +157,13 @@
     "alias_pending_review": "Der Alias wurde geprüft, ist aber noch nicht zur Ausführung aktiviert.",
     "alias_active": "Aktiv",
     "alias_proposed": "Vorgeschlagen",
-    "use_canonical": "Kanonischen Befehl verwenden"
+    "use_canonical": "Kanonischen Befehl verwenden",
+    "settings": "Einstellungen",
+    "language_preference": "Standardsprache der Befehle",
+    "save_language": "Sprache speichern",
+    "search_aliases": "Aliase nach Sprache suchen",
+    "canonical_command": "Kanonischer Befehl auf Englisch",
+    "language_saved": "Spracheinstellung gespeichert"
   },
   "visualization": {
     "pareto": {

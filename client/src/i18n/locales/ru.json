@@ -157,7 +157,13 @@
     "alias_pending_review": "Псевдоним проверен, но его выполнение пока не включено.",
     "alias_active": "Активен",
     "alias_proposed": "Предложен",
-    "use_canonical": "Использовать каноническую команду"
+    "use_canonical": "Использовать каноническую команду",
+    "settings": "Настройки",
+    "language_preference": "Язык команд по умолчанию",
+    "save_language": "Сохранить язык",
+    "search_aliases": "Поиск псевдонимов по языку",
+    "canonical_command": "Каноническая команда на английском",
+    "language_saved": "Настройка языка сохранена"
   },
   "visualization": {
     "pareto": {

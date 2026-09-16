@@ -3,7 +3,7 @@ import i18n from "@/i18n";
 import React from "react";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import CommandBar, { COMMAND_HISTORY_KEY, commandSuggestions, normalizeLocalizedCommand, validateCommand } from "./CommandBar";
+import CommandBar, { COMMAND_HISTORY_KEY, COMMAND_LANGUAGE_KEY, commandSuggestions, normalizeLocalizedCommand, validateCommand } from "./CommandBar";
 
 const commandInput = () => screen.getByLabelText(/Comando SICL|SICL command/);
 const projectInput = () => screen.getByLabelText(/Proyecto|Project/);
@@ -100,5 +100,26 @@ describe("CommandBar", () => {
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(screen.getByText(/Barra de comandos SICL|SICL Command Bar/)).toBeTruthy();
     expect(projectInput()).toBeTruthy();
+  });
+
+  it("filters localized aliases and exposes their English canonical command", () => {
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    const search = screen.getByLabelText(/Buscar alias por idioma|Search aliases by language/);
+    fireEvent.change(search, { target: { value: "PROYECTO" } });
+    const result = screen.getByText("/PROYECTO CREAR");
+    expect(result).toBeTruthy();
+    expect(result.getAttribute("title")).toBe("/PROJECT CREATE");
+  });
+
+  it("persists the preferred command language from the settings panel", () => {
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    fireEvent.click(screen.getByRole("button", { name: /Configuración|Settings/ }));
+    const select = screen.getByLabelText(/Idioma predeterminado de comandos|Default command language/);
+    fireEvent.change(select, { target: { value: "fr" } });
+    fireEvent.click(screen.getByRole("button", { name: /Guardar idioma|Save language/ }));
+    expect(localStorage.getItem(COMMAND_LANGUAGE_KEY)).toBe("fr");
+    expect(screen.getByText(/Preferencia de idioma guardada|Language preference saved|Préférence de langue enregistrée/)).toBeTruthy();
   });
 });

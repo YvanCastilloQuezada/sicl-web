@@ -157,7 +157,13 @@
     "alias_pending_review": "该别名已完成审查，但尚未启用执行。",
     "alias_active": "已启用",
     "alias_proposed": "提议中",
-    "use_canonical": "使用规范命令"
+    "use_canonical": "使用规范命令",
+    "settings": "设置",
+    "language_preference": "命令默认语言",
+    "save_language": "保存语言",
+    "search_aliases": "按语言搜索别名",
+    "canonical_command": "英文规范命令",
+    "language_saved": "语言偏好已保存"
   },
   "visualization": {
     "pareto": {

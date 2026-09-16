@@ -157,7 +157,13 @@
     "alias_pending_review": "El alias está revisado, pero aún no está habilitado para ejecución.",
     "alias_active": "Activo",
     "alias_proposed": "Propuesto",
-    "use_canonical": "Usar comando canónico"
+    "use_canonical": "Usar comando canónico",
+    "settings": "Configuración",
+    "language_preference": "Idioma predeterminado de comandos",
+    "save_language": "Guardar idioma",
+    "search_aliases": "Buscar alias por idioma",
+    "canonical_command": "Comando canónico en inglés",
+    "language_saved": "Preferencia de idioma guardada"
   },
   "visualization": {
     "pareto": {
