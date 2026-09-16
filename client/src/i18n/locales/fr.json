@@ -1,1 +1,158 @@
-{"header":{"title":"SiMS-DeI Command Center","subtitle":"SiMS-DeI · SICL","tagline":"Décisions de projet fondées sur les preuves, avec l'autorité humaine préservée à la frontière.","version":"SiMS-DeI 2.2"},"nav":{"project":"Projet","context":"Contexte / Site","objectives":"Objectifs et contraintes","alternatives":"Alternatives et évaluation","evidence":"Preuves","evaluations":"Évaluations","comparisons":"Comparaisons","council":"Conseil / Recommandation","decision":"Décision et audit","governance":"Gouvernance de la construction"},"common":{"create":"Créer","cancel":"Annuler","save":"Enregistrer","delete":"Supprimer","edit":"Modifier","detail":"Détail","loading":"Chargement…","error":"Erreur","success":"Succès","evidence":"Preuve","source":"Source","evaluation":"Évaluation","comparison":"Comparaison","project":"Projet","recorded":"enregistré","failed":"Échec","integrity_rule":"Règle d’intégrité"},"state":{"unknown":"INCONNU","conflicting":"CONFLICTUEL","insufficient":"INSUFFISANT","observed":"OBSERVÉ"},"theme":{"system":"Système","light":"Clair","dark":"Sombre"},"language":{"label":"Langue"},"help":{"button":"Aide","title":"Centre d’aide","subtitle":"Manuels opérationnels et référence canonique pour SiMS-DeI.","user":{"title":"Manuel utilisateur","description":"Concepts, flux principaux et règles constitutionnelles."},"operations":{"title":"Manuel opérationnel","description":"Tâches pas à pas pour utiliser le Core."},"commands":{"title":"Référence des commandes","description":"Syntaxe CLI alignée sur src/sicl/cli.py."},"action":{"view":"Voir ici","pdf":"Télécharger le PDF","github":"Voir sur GitHub"},"back":"Retour à l’index","tocHint":"Choisissez un autre manuel ou utilisez les titres comme guide."},"workspace":{"eyebrow":"ESPACE DE TRAVAIL REST CANONIQUE","title":"SiMS-DeI Core v2.2","description":"Le projet, le résultat de la commande et le tableau de bord sont lus depuis le Core FastAPI. Aucun jeton navigateur n’est utilisé.","bridge_title":"Pont REST de SiMS-DeI Core v2.2","bridge_description":"L’API REST est la source canonique de cet espace. Les modules tRPC restent disponibles uniquement lorsque le pont n’est pas configuré.","configured":"CONFIGURÉ","vite_required":"VITE_API_URL REQUIS","project_id":"ID du projet","project_name":"Nom du projet","create_via_rest":"Créer via REST","command":"Commande","run_refresh":"Exécuter et actualiser","fetch_failed":"Échec de récupération","no_project":"Aucun projet REST chargé.","project_created":"Projet créé dans le Core","command_applied":"Commande appliquée et projet actualisé depuis le Core","dashboard_refreshed":"Tableau de bord actualisé depuis le Core","traceable":"Espace traçable","source_truth":"Source de vérité","refresh_core":"Actualiser le Core"},"phase_a":{"create_evidence":"Créer une preuve","evidence_id":"ID de preuve","statement":"Énoncé","evidence_type":"Type de preuve","source_id":"ID de source","captured_at":"Capturé le","method_version":"Version de méthode","evidence_url":"URL de preuve","state":"État","create_source":"Créer une source","source_type":"Type de source","title":"Titre","url":"URL","create_evaluation":"Créer une évaluation","create_comparison":"Créer une comparaison","alternative":"Alternative","objective":"Objectif","value":"Valeur","unit":"Unité","confidence":"Confiance","source":"Source","alternatives":"Alternatives","objectives":"Objectifs","project_id":"ID du projet","filter_alternative":"Filtrer l’alternative","filter_objective":"Filtrer l’objectif","no_evidence":"Aucune preuve enregistrée.","no_sources":"Aucune source enregistrée.","no_evaluations":"Aucune évaluation enregistrée.","no_comparisons":"Aucune comparaison enregistrée.","selected_detail":"Détail sélectionné","core_data":"Données du Core réel ; la provenance reste visible.","values_confidence":"Valeurs et confiance sans transformer une évaluation en décision.","comparisons_note":"Comparaisons d’alternatives et d’objectifs ; elles n’enregistrent pas une Decision.","created":"Créé","saving":"Enregistrement…","saved":"Enregistré","minimum_two":"minimum 2, séparées par des virgules","optional_comma":"facultatif, séparées par des virgules"}}
+{
+  "header": {
+    "title": "SiMS-DeI Command Center",
+    "subtitle": "SiMS-DeI · SICL",
+    "tagline": "Décisions de projet fondées sur les preuves, avec l'autorité humaine préservée à la frontière.",
+    "version": "SiMS-DeI 2.2"
+  },
+  "nav": {
+    "project": "Projet",
+    "context": "Contexte / Site",
+    "objectives": "Objectifs et contraintes",
+    "alternatives": "Alternatives et évaluation",
+    "evidence": "Preuves",
+    "evaluations": "Évaluations",
+    "comparisons": "Comparaisons",
+    "council": "Conseil / Recommandation",
+    "decision": "Décision et audit",
+    "governance": "Gouvernance de la construction"
+  },
+  "common": {
+    "create": "Créer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "detail": "Détail",
+    "loading": "Chargement…",
+    "error": "Erreur",
+    "success": "Succès",
+    "evidence": "Preuve",
+    "source": "Source",
+    "evaluation": "Évaluation",
+    "comparison": "Comparaison",
+    "project": "Projet",
+    "recorded": "enregistré",
+    "failed": "Échec",
+    "integrity_rule": "Règle d’intégrité"
+  },
+  "state": {
+    "unknown": "INCONNU",
+    "conflicting": "CONFLICTUEL",
+    "insufficient": "INSUFFISANT",
+    "observed": "OBSERVÉ"
+  },
+  "theme": {
+    "system": "Système",
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "language": {
+    "label": "Langue"
+  },
+  "help": {
+    "button": "Aide",
+    "title": "Centre d’aide",
+    "subtitle": "Manuels opérationnels et référence canonique pour SiMS-DeI.",
+    "user": {
+      "title": "Manuel utilisateur",
+      "description": "Concepts, flux principaux et règles constitutionnelles."
+    },
+    "operations": {
+      "title": "Manuel opérationnel",
+      "description": "Tâches pas à pas pour utiliser le Core."
+    },
+    "commands": {
+      "title": "Référence des commandes",
+      "description": "Syntaxe CLI alignée sur src/sicl/cli.py."
+    },
+    "action": {
+      "view": "Voir ici",
+      "pdf": "Télécharger le PDF",
+      "github": "Voir sur GitHub"
+    },
+    "back": "Retour à l’index",
+    "tocHint": "Choisissez un autre manuel ou utilisez les titres comme guide."
+  },
+  "workspace": {
+    "eyebrow": "ESPACE DE TRAVAIL REST CANONIQUE",
+    "title": "SiMS-DeI Core v2.2",
+    "description": "Le projet, le résultat de la commande et le tableau de bord sont lus depuis le Core FastAPI. Aucun jeton navigateur n’est utilisé.",
+    "bridge_title": "Pont REST de SiMS-DeI Core v2.2",
+    "bridge_description": "L’API REST est la source canonique de cet espace. Les modules tRPC restent disponibles uniquement lorsque le pont n’est pas configuré.",
+    "configured": "CONFIGURÉ",
+    "vite_required": "VITE_API_URL REQUIS",
+    "project_id": "ID du projet",
+    "project_name": "Nom du projet",
+    "create_via_rest": "Créer via REST",
+    "command": "Commande",
+    "run_refresh": "Exécuter et actualiser",
+    "fetch_failed": "Échec de récupération",
+    "no_project": "Aucun projet REST chargé.",
+    "project_created": "Projet créé dans le Core",
+    "command_applied": "Commande appliquée et projet actualisé depuis le Core",
+    "dashboard_refreshed": "Tableau de bord actualisé depuis le Core",
+    "traceable": "Espace traçable",
+    "source_truth": "Source de vérité",
+    "refresh_core": "Actualiser le Core"
+  },
+  "phase_a": {
+    "create_evidence": "Créer une preuve",
+    "evidence_id": "ID de preuve",
+    "statement": "Énoncé",
+    "evidence_type": "Type de preuve",
+    "source_id": "ID de source",
+    "captured_at": "Capturé le",
+    "method_version": "Version de méthode",
+    "evidence_url": "URL de preuve",
+    "state": "État",
+    "create_source": "Créer une source",
+    "source_type": "Type de source",
+    "title": "Titre",
+    "url": "URL",
+    "create_evaluation": "Créer une évaluation",
+    "create_comparison": "Créer une comparaison",
+    "alternative": "Alternative",
+    "objective": "Objectif",
+    "value": "Valeur",
+    "unit": "Unité",
+    "confidence": "Confiance",
+    "source": "Source",
+    "alternatives": "Alternatives",
+    "objectives": "Objectifs",
+    "project_id": "ID du projet",
+    "filter_alternative": "Filtrer l’alternative",
+    "filter_objective": "Filtrer l’objectif",
+    "no_evidence": "Aucune preuve enregistrée.",
+    "no_sources": "Aucune source enregistrée.",
+    "no_evaluations": "Aucune évaluation enregistrée.",
+    "no_comparisons": "Aucune comparaison enregistrée.",
+    "selected_detail": "Détail sélectionné",
+    "core_data": "Données du Core réel ; la provenance reste visible.",
+    "values_confidence": "Valeurs et confiance sans transformer une évaluation en décision.",
+    "comparisons_note": "Comparaisons d’alternatives et d’objectifs ; elles n’enregistrent pas une Decision.",
+    "created": "Créé",
+    "saving": "Enregistrement…",
+    "saved": "Enregistré",
+    "minimum_two": "minimum 2, séparées par des virgules",
+    "optional_comma": "facultatif, séparées par des virgules"
+  },
+  "command_bar": {
+    "title": "Barre de commandes SICL",
+    "hint": "Ctrl+K / Cmd+K pour ouvrir · Entrée exécute · Échap ferme",
+    "placeholder": "Saisissez une commande SICL...",
+    "input": "Commande SICL",
+    "project_id": "Projet",
+    "project_id_placeholder": "ID du projet",
+    "open_button": "Ouvrir la barre de commandes SICL",
+    "close": "Fermer la barre de commandes",
+    "no_results": "Aucune suggestion",
+    "invalid_syntax": "Syntaxe invalide : {{error}}",
+    "executing": "Exécution...",
+    "executed": "Commande exécutée",
+    "failed": "Erreur : {{message}}",
+    "history_empty": "Aucun historique",
+    "history_count": "{{count}} commandes récentes",
+    "project_required": "Saisissez un ID de projet pour exécuter la commande"
+  }
+}

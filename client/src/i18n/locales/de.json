@@ -1,1 +1,158 @@
-{"header":{"title":"SiMS-DeI Command Center","subtitle":"SiMS-DeI · SICL","tagline":"Evidenzbasierte Projektentscheidungen mit gewahrter menschlicher Autorität an der Grenze.","version":"SiMS-DeI 2.2"},"nav":{"project":"Projekt","context":"Kontext / Standort","objectives":"Ziele und Einschränkungen","alternatives":"Alternativen und Bewertung","evidence":"Nachweise","evaluations":"Bewertungen","comparisons":"Vergleiche","council":"Rat / Empfehlung","decision":"Entscheidung und Audit","governance":"Bau-Governance"},"common":{"create":"Erstellen","cancel":"Abbrechen","save":"Speichern","delete":"Löschen","edit":"Bearbeiten","detail":"Detail","loading":"Laden…","error":"Fehler","success":"Erfolg","evidence":"Evidenz","source":"Quelle","evaluation":"Bewertung","comparison":"Vergleich","project":"Projekt","recorded":"registriert","failed":"Fehlgeschlagen","integrity_rule":"Integritätsregel"},"state":{"unknown":"UNBEKANNT","conflicting":"WIDERSPRÜCHLICH","insufficient":"UNZUREICHEND","observed":"BEOBACHTET"},"theme":{"system":"System","light":"Hell","dark":"Dunkel"},"language":{"label":"Sprache"},"help":{"button":"Hilfe","title":"Hilfezentrum","subtitle":"Betriebshandbücher und kanonische Referenz für SiMS-DeI.","user":{"title":"Benutzerhandbuch","description":"Konzepte, Hauptabläufe und Verfassungsregeln."},"operations":{"title":"Betriebshandbuch","description":"Schrittweise Aufgaben für den Core."},"commands":{"title":"Befehlsreferenz","description":"CLI-Syntax gemäß src/sicl/cli.py."},"action":{"view":"Hier ansehen","pdf":"PDF herunterladen","github":"Auf GitHub ansehen"},"back":"Zurück zum Index","tocHint":"Wählen Sie ein anderes Handbuch oder nutzen Sie Überschriften."},"workspace":{"eyebrow":"KANONISCHER REST-ARBEITSBEREICH","title":"SiMS-DeI Core v2.2","description":"Projekt, Befehlsergebnis und Dashboard werden aus dem FastAPI-Core gelesen. Es wird kein Browser-Token verwendet.","bridge_title":"SiMS-DeI Core v2.2 REST-Brücke","bridge_description":"Die REST-API ist die kanonische Quelle dieses Arbeitsbereichs. Vorhandene tRPC-Module sind nur verfügbar, wenn die Brücke nicht konfiguriert ist.","configured":"KONFIGURIERT","vite_required":"VITE_API_URL ERFORDERLICH","project_id":"Projekt-ID","project_name":"Projektname","create_via_rest":"Über REST erstellen","command":"Befehl","run_refresh":"Ausführen und aktualisieren","fetch_failed":"Abruf fehlgeschlagen","no_project":"Noch kein REST-Projekt geladen.","project_created":"Projekt im Core erstellt","command_applied":"Befehl angewendet und Projekt aus dem Core aktualisiert","dashboard_refreshed":"Dashboard aus dem Core aktualisiert","traceable":"Nachvollziehbarer Arbeitsbereich","source_truth":"Wahrheitsquelle","refresh_core":"Core aktualisieren"},"phase_a":{"create_evidence":"Evidenz erstellen","evidence_id":"Evidenz-ID","statement":"Aussage","evidence_type":"Evidenztyp","source_id":"Quellen-ID","captured_at":"Erfasst am","method_version":"Methodenversion","evidence_url":"Evidenz-URL","state":"Status","create_source":"Quelle erstellen","source_type":"Quellentyp","title":"Titel","url":"URL","create_evaluation":"Bewertung erstellen","create_comparison":"Vergleich erstellen","alternative":"Alternative","objective":"Ziel","value":"Wert","unit":"Einheit","confidence":"Vertrauen","source":"Quelle","alternatives":"Alternativen","objectives":"Ziele","project_id":"Projekt-ID","filter_alternative":"Alternative filtern","filter_objective":"Ziel filtern","no_evidence":"Keine Evidenz registriert.","no_sources":"Keine Quellen registriert.","no_evaluations":"Keine Bewertungen registriert.","no_comparisons":"Keine Vergleiche registriert.","selected_detail":"Ausgewählte Details","core_data":"Daten aus dem echten Core; die Herkunft bleibt sichtbar.","values_confidence":"Werte und Vertrauen, ohne eine Bewertung in eine Entscheidung umzuwandeln.","comparisons_note":"Vergleiche von Alternativen und Zielen; sie registrieren keine Decision.","created":"Erstellt","saving":"Speichern…","saved":"Gespeichert","minimum_two":"mindestens 2, kommagetrennt","optional_comma":"optional, kommagetrennt"}}
+{
+  "header": {
+    "title": "SiMS-DeI Command Center",
+    "subtitle": "SiMS-DeI · SICL",
+    "tagline": "Evidenzbasierte Projektentscheidungen mit gewahrter menschlicher Autorität an der Grenze.",
+    "version": "SiMS-DeI 2.2"
+  },
+  "nav": {
+    "project": "Projekt",
+    "context": "Kontext / Standort",
+    "objectives": "Ziele und Einschränkungen",
+    "alternatives": "Alternativen und Bewertung",
+    "evidence": "Nachweise",
+    "evaluations": "Bewertungen",
+    "comparisons": "Vergleiche",
+    "council": "Rat / Empfehlung",
+    "decision": "Entscheidung und Audit",
+    "governance": "Bau-Governance"
+  },
+  "common": {
+    "create": "Erstellen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "detail": "Detail",
+    "loading": "Laden…",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "evidence": "Evidenz",
+    "source": "Quelle",
+    "evaluation": "Bewertung",
+    "comparison": "Vergleich",
+    "project": "Projekt",
+    "recorded": "registriert",
+    "failed": "Fehlgeschlagen",
+    "integrity_rule": "Integritätsregel"
+  },
+  "state": {
+    "unknown": "UNBEKANNT",
+    "conflicting": "WIDERSPRÜCHLICH",
+    "insufficient": "UNZUREICHEND",
+    "observed": "BEOBACHTET"
+  },
+  "theme": {
+    "system": "System",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "language": {
+    "label": "Sprache"
+  },
+  "help": {
+    "button": "Hilfe",
+    "title": "Hilfezentrum",
+    "subtitle": "Betriebshandbücher und kanonische Referenz für SiMS-DeI.",
+    "user": {
+      "title": "Benutzerhandbuch",
+      "description": "Konzepte, Hauptabläufe und Verfassungsregeln."
+    },
+    "operations": {
+      "title": "Betriebshandbuch",
+      "description": "Schrittweise Aufgaben für den Core."
+    },
+    "commands": {
+      "title": "Befehlsreferenz",
+      "description": "CLI-Syntax gemäß src/sicl/cli.py."
+    },
+    "action": {
+      "view": "Hier ansehen",
+      "pdf": "PDF herunterladen",
+      "github": "Auf GitHub ansehen"
+    },
+    "back": "Zurück zum Index",
+    "tocHint": "Wählen Sie ein anderes Handbuch oder nutzen Sie Überschriften."
+  },
+  "workspace": {
+    "eyebrow": "KANONISCHER REST-ARBEITSBEREICH",
+    "title": "SiMS-DeI Core v2.2",
+    "description": "Projekt, Befehlsergebnis und Dashboard werden aus dem FastAPI-Core gelesen. Es wird kein Browser-Token verwendet.",
+    "bridge_title": "SiMS-DeI Core v2.2 REST-Brücke",
+    "bridge_description": "Die REST-API ist die kanonische Quelle dieses Arbeitsbereichs. Vorhandene tRPC-Module sind nur verfügbar, wenn die Brücke nicht konfiguriert ist.",
+    "configured": "KONFIGURIERT",
+    "vite_required": "VITE_API_URL ERFORDERLICH",
+    "project_id": "Projekt-ID",
+    "project_name": "Projektname",
+    "create_via_rest": "Über REST erstellen",
+    "command": "Befehl",
+    "run_refresh": "Ausführen und aktualisieren",
+    "fetch_failed": "Abruf fehlgeschlagen",
+    "no_project": "Noch kein REST-Projekt geladen.",
+    "project_created": "Projekt im Core erstellt",
+    "command_applied": "Befehl angewendet und Projekt aus dem Core aktualisiert",
+    "dashboard_refreshed": "Dashboard aus dem Core aktualisiert",
+    "traceable": "Nachvollziehbarer Arbeitsbereich",
+    "source_truth": "Wahrheitsquelle",
+    "refresh_core": "Core aktualisieren"
+  },
+  "phase_a": {
+    "create_evidence": "Evidenz erstellen",
+    "evidence_id": "Evidenz-ID",
+    "statement": "Aussage",
+    "evidence_type": "Evidenztyp",
+    "source_id": "Quellen-ID",
+    "captured_at": "Erfasst am",
+    "method_version": "Methodenversion",
+    "evidence_url": "Evidenz-URL",
+    "state": "Status",
+    "create_source": "Quelle erstellen",
+    "source_type": "Quellentyp",
+    "title": "Titel",
+    "url": "URL",
+    "create_evaluation": "Bewertung erstellen",
+    "create_comparison": "Vergleich erstellen",
+    "alternative": "Alternative",
+    "objective": "Ziel",
+    "value": "Wert",
+    "unit": "Einheit",
+    "confidence": "Vertrauen",
+    "source": "Quelle",
+    "alternatives": "Alternativen",
+    "objectives": "Ziele",
+    "project_id": "Projekt-ID",
+    "filter_alternative": "Alternative filtern",
+    "filter_objective": "Ziel filtern",
+    "no_evidence": "Keine Evidenz registriert.",
+    "no_sources": "Keine Quellen registriert.",
+    "no_evaluations": "Keine Bewertungen registriert.",
+    "no_comparisons": "Keine Vergleiche registriert.",
+    "selected_detail": "Ausgewählte Details",
+    "core_data": "Daten aus dem echten Core; die Herkunft bleibt sichtbar.",
+    "values_confidence": "Werte und Vertrauen, ohne eine Bewertung in eine Entscheidung umzuwandeln.",
+    "comparisons_note": "Vergleiche von Alternativen und Zielen; sie registrieren keine Decision.",
+    "created": "Erstellt",
+    "saving": "Speichern…",
+    "saved": "Gespeichert",
+    "minimum_two": "mindestens 2, kommagetrennt",
+    "optional_comma": "optional, kommagetrennt"
+  },
+  "command_bar": {
+    "title": "SICL-Befehlsleiste",
+    "hint": "Strg+K / Cmd+K öffnen · Enter ausführen · Esc schließen",
+    "placeholder": "SICL-Befehl eingeben...",
+    "input": "SICL-Befehl",
+    "project_id": "Projekt",
+    "project_id_placeholder": "Projekt-ID",
+    "open_button": "SICL-Befehlsleiste öffnen",
+    "close": "Befehlsleiste schließen",
+    "no_results": "Keine Vorschläge",
+    "invalid_syntax": "Ungültige Syntax: {{error}}",
+    "executing": "Wird ausgeführt...",
+    "executed": "Befehl ausgeführt",
+    "failed": "Fehler: {{message}}",
+    "history_empty": "Kein Verlauf",
+    "history_count": "{{count}} aktuelle Befehle",
+    "project_required": "Projekt-ID zum Ausführen des Befehls eingeben"
+  }
+}

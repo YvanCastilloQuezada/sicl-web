@@ -1,0 +1,1142 @@
+[
+  {
+    "name": "/PROJECT CREATE",
+    "category": "project",
+    "syntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
+    "arguments": [
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "spatial_scope",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "temporal_scope",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
+    "errors": []
+  },
+  {
+    "name": "/PROJECT OPEN",
+    "category": "project",
+    "syntax": "/PROJECT OPEN <project_id>",
+    "arguments": [
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/PROJECT OPEN <project_id>",
+    "errors": []
+  },
+  {
+    "name": "/PROJECT SET SCOPE",
+    "category": "project",
+    "syntax": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]",
+    "arguments": [
+      {
+        "name": "spatial_scope",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "temporal_scope",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]",
+    "errors": []
+  },
+  {
+    "name": "/PROJECT IMPORT OBJECTIVE",
+    "category": "project",
+    "syntax": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>",
+    "arguments": [
+      {
+        "name": "source_project_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "objective_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>",
+    "errors": []
+  },
+  {
+    "name": "/PROJECT SHOW",
+    "category": "project",
+    "syntax": "/PROJECT SHOW",
+    "arguments": [],
+    "example": "/PROJECT SHOW",
+    "errors": []
+  },
+  {
+    "name": "/PROJECT LIST",
+    "category": "project",
+    "syntax": "/PROJECT LIST",
+    "arguments": [],
+    "example": "/PROJECT LIST",
+    "errors": []
+  },
+  {
+    "name": "/STAGE SET",
+    "category": "stage",
+    "syntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
+    "arguments": [
+      {
+        "name": "DRAFT|ACTIVE|CLOSED",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
+    "errors": []
+  },
+  {
+    "name": "/OBJECTIVE SET",
+    "category": "objective",
+    "syntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
+    "arguments": [
+      {
+        "name": "key",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "MAXIMIZE|MINIMIZE",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
+    "errors": []
+  },
+  {
+    "name": "/CONSTRAINT SET",
+    "category": "constraint",
+    "syntax": "/CONSTRAINT SET <key> <operator> <value> [unit]",
+    "arguments": [
+      {
+        "name": "key",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "operator",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "unit",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/CONSTRAINT SET <key> <operator> <value> [unit]",
+    "errors": []
+  },
+  {
+    "name": "/ROLE ADD",
+    "category": "role",
+    "syntax": "/ROLE ADD <name> [actor]",
+    "arguments": [
+      {
+        "name": "name",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "actor",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/ROLE ADD <name> [actor]",
+    "errors": []
+  },
+  {
+    "name": "/ACTOR ADD",
+    "category": "actor",
+    "syntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+    "arguments": [
+      {
+        "name": "id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "role",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "authority",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "interests_json constraints_json",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+    "errors": []
+  },
+  {
+    "name": "/ACTOR LIST",
+    "category": "actor",
+    "syntax": "/ACTOR LIST",
+    "arguments": [],
+    "example": "/ACTOR LIST",
+    "errors": []
+  },
+  {
+    "name": "/ACTOR SHOW",
+    "category": "actor",
+    "syntax": "/ACTOR SHOW <actor_id>",
+    "arguments": [
+      {
+        "name": "actor_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/ACTOR SHOW <actor_id>",
+    "errors": []
+  },
+  {
+    "name": "/POSITION ADD",
+    "category": "position",
+    "syntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+    "arguments": [
+      {
+        "name": "actor_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "subject_type",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "subject_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "stance",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "statement",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+    "errors": []
+  },
+  {
+    "name": "/POSITION LIST",
+    "category": "position",
+    "syntax": "/POSITION LIST [actor_id] [subject_id]",
+    "arguments": [
+      {
+        "name": "actor_id",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "subject_id",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/POSITION LIST [actor_id] [subject_id]",
+    "errors": []
+  },
+  {
+    "name": "/CYCLE CREATE",
+    "category": "cycle",
+    "syntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
+    "arguments": [
+      {
+        "name": "cycle_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "horizon",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "start_date",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "end_date",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
+    "errors": []
+  },
+  {
+    "name": "/CYCLE LIST",
+    "category": "cycle",
+    "syntax": "/CYCLE LIST",
+    "arguments": [],
+    "example": "/CYCLE LIST",
+    "errors": []
+  },
+  {
+    "name": "/CYCLE SHOW",
+    "category": "cycle",
+    "syntax": "/CYCLE SHOW <cycle_id>",
+    "arguments": [
+      {
+        "name": "cycle_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/CYCLE SHOW <cycle_id>",
+    "errors": []
+  },
+  {
+    "name": "/SCENARIO CREATE",
+    "category": "scenario",
+    "syntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
+    "arguments": [
+      {
+        "name": "branch_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "cycle_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
+    "errors": []
+  },
+  {
+    "name": "/SCENARIO LIST",
+    "category": "scenario",
+    "syntax": "/SCENARIO LIST",
+    "arguments": [],
+    "example": "/SCENARIO LIST",
+    "errors": []
+  },
+  {
+    "name": "/SCENARIO SELECT",
+    "category": "scenario",
+    "syntax": "/SCENARIO SELECT <branch_id>",
+    "arguments": [
+      {
+        "name": "branch_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCENARIO SELECT <branch_id>",
+    "errors": []
+  },
+  {
+    "name": "/FACT SET",
+    "category": "fact",
+    "syntax": "/FACT SET <statement> <source>",
+    "arguments": [
+      {
+        "name": "statement",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "source",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/FACT SET <statement> <source>",
+    "errors": []
+  },
+  {
+    "name": "/ASSUMPTION SET",
+    "category": "assumption",
+    "syntax": "/ASSUMPTION SET <statement> <basis>",
+    "arguments": [
+      {
+        "name": "statement",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "basis",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/ASSUMPTION SET <statement> <basis>",
+    "errors": []
+  },
+  {
+    "name": "/EVIDENCE ADD",
+    "category": "evidence",
+    "syntax": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]",
+    "arguments": [
+      {
+        "name": "evidence_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "statement",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "type",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "source_id",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "url",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]",
+    "errors": []
+  },
+  {
+    "name": "/EVIDENCE LIST",
+    "category": "evidence",
+    "syntax": "/EVIDENCE LIST",
+    "arguments": [],
+    "example": "/EVIDENCE LIST",
+    "errors": []
+  },
+  {
+    "name": "/EVIDENCE SHOW",
+    "category": "evidence",
+    "syntax": "/EVIDENCE SHOW <evidence_id>",
+    "arguments": [
+      {
+        "name": "evidence_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/EVIDENCE SHOW <evidence_id>",
+    "errors": []
+  },
+  {
+    "name": "/HUMAN REVIEW",
+    "category": "human",
+    "syntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
+    "arguments": [
+      {
+        "name": "actor",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "timestamp_utc",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "review",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "reason",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "authority",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
+    "errors": []
+  },
+  {
+    "name": "/SITE INTELLIGENCE",
+    "category": "site",
+    "syntax": "/SITE INTELLIGENCE <location>",
+    "arguments": [
+      {
+        "name": "location",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SITE INTELLIGENCE <location>",
+    "errors": []
+  },
+  {
+    "name": "/AGENT RUN",
+    "category": "agent",
+    "syntax": "/AGENT RUN <agent_type> <alternative_id>",
+    "arguments": [
+      {
+        "name": "agent_type",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "alternative_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/AGENT RUN <agent_type> <alternative_id>",
+    "errors": []
+  },
+  {
+    "name": "/DEBATE",
+    "category": "debate",
+    "syntax": "/DEBATE <alternative_id>",
+    "arguments": [
+      {
+        "name": "alternative_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/DEBATE <alternative_id>",
+    "errors": []
+  },
+  {
+    "name": "/GENERATE DESIGN",
+    "category": "generate",
+    "syntax": "/GENERATE DESIGN <method> <parameters_json>",
+    "arguments": [
+      {
+        "name": "method",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "parameters_json",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/GENERATE DESIGN <method> <parameters_json>",
+    "errors": []
+  },
+  {
+    "name": "/GENERATE LIST",
+    "category": "generate",
+    "syntax": "/GENERATE LIST",
+    "arguments": [],
+    "example": "/GENERATE LIST",
+    "errors": []
+  },
+  {
+    "name": "/GENERATE SHOW",
+    "category": "generate",
+    "syntax": "/GENERATE SHOW <generation_id>",
+    "arguments": [
+      {
+        "name": "generation_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/GENERATE SHOW <generation_id>",
+    "errors": []
+  },
+  {
+    "name": "/GENERATE METHODS",
+    "category": "generate",
+    "syntax": "/GENERATE METHODS",
+    "arguments": [],
+    "example": "/GENERATE METHODS",
+    "errors": []
+  },
+  {
+    "name": "/ALTERNATIVE PROMOTE",
+    "category": "alternative",
+    "syntax": "/ALTERNATIVE PROMOTE <alternative_id>",
+    "arguments": [
+      {
+        "name": "alternative_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/ALTERNATIVE PROMOTE <alternative_id>",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY LIST",
+    "category": "memory",
+    "syntax": "/MEMORY LIST",
+    "arguments": [],
+    "example": "/MEMORY LIST",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY SHOW",
+    "category": "memory",
+    "syntax": "/MEMORY SHOW <memory_id>",
+    "arguments": [
+      {
+        "name": "memory_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/MEMORY SHOW <memory_id>",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY EXTRACT",
+    "category": "memory",
+    "syntax": "/MEMORY EXTRACT <type> <title> <content>",
+    "arguments": [
+      {
+        "name": "type",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "content",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/MEMORY EXTRACT <type> <title> <content>",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY REVOKE",
+    "category": "memory",
+    "syntax": "/MEMORY REVOKE <memory_id>",
+    "arguments": [
+      {
+        "name": "memory_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/MEMORY REVOKE <memory_id>",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY APPLY",
+    "category": "memory",
+    "syntax": "/MEMORY APPLY <memory_id>",
+    "arguments": [
+      {
+        "name": "memory_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/MEMORY APPLY <memory_id>",
+    "errors": []
+  },
+  {
+    "name": "/MEMORY TYPES",
+    "category": "memory",
+    "syntax": "/MEMORY TYPES",
+    "arguments": [],
+    "example": "/MEMORY TYPES",
+    "errors": []
+  },
+  {
+    "name": "/GENERATE",
+    "category": "generate",
+    "syntax": "/GENERATE <method> <objective_keys_csv>",
+    "arguments": [
+      {
+        "name": "method",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "objective_keys_csv",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/GENERATE <method> <objective_keys_csv>",
+    "errors": []
+  },
+  {
+    "name": "/PARETO",
+    "category": "pareto",
+    "syntax": "/PARETO <objective_1> <objective_2>",
+    "arguments": [
+      {
+        "name": "objective_1",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "objective_2",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/PARETO <objective_1> <objective_2>",
+    "errors": []
+  },
+  {
+    "name": "/TRADEOFF_MATRIX",
+    "category": "tradeoff_matrix",
+    "syntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
+    "arguments": [
+      {
+        "name": "objective_1",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "objective_2",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
+    "errors": []
+  },
+  {
+    "name": "/MULTIOBJECTIVE",
+    "category": "multiobjective",
+    "syntax": "/MULTIOBJECTIVE",
+    "arguments": [],
+    "example": "/MULTIOBJECTIVE",
+    "errors": []
+  },
+  {
+    "name": "/SCALE PARENT",
+    "category": "scale",
+    "syntax": "/SCALE PARENT <project_id>",
+    "arguments": [
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCALE PARENT <project_id>",
+    "errors": []
+  },
+  {
+    "name": "/SCALE CHILDREN",
+    "category": "scale",
+    "syntax": "/SCALE CHILDREN <project_id>",
+    "arguments": [
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCALE CHILDREN <project_id>",
+    "errors": []
+  },
+  {
+    "name": "/SCALE RELATE",
+    "category": "scale",
+    "syntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
+    "arguments": [
+      {
+        "name": "parent_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "child_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "relation_type",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
+    "errors": []
+  },
+  {
+    "name": "/SCALE RELATIONS",
+    "category": "scale",
+    "syntax": "/SCALE RELATIONS <project_id>",
+    "arguments": [
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SCALE RELATIONS <project_id>",
+    "errors": []
+  },
+  {
+    "name": "/PLANNING ADD",
+    "category": "planning",
+    "syntax": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]",
+    "arguments": [
+      {
+        "name": "id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "type",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "jurisdiction",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "url",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]",
+    "errors": []
+  },
+  {
+    "name": "/PLANNING LIST",
+    "category": "planning",
+    "syntax": "/PLANNING LIST",
+    "arguments": [],
+    "example": "/PLANNING LIST",
+    "errors": []
+  },
+  {
+    "name": "/PLANNING SHOW",
+    "category": "planning",
+    "syntax": "/PLANNING SHOW <instrument_id>",
+    "arguments": [
+      {
+        "name": "instrument_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/PLANNING SHOW <instrument_id>",
+    "errors": []
+  },
+  {
+    "name": "/PLANNING TYPES",
+    "category": "planning",
+    "syntax": "/PLANNING TYPES",
+    "arguments": [],
+    "example": "/PLANNING TYPES",
+    "errors": []
+  },
+  {
+    "name": "/REGULATION ADD",
+    "category": "regulation",
+    "syntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
+    "arguments": [
+      {
+        "name": "id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "code",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "jurisdiction",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "source_url",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
+    "errors": []
+  },
+  {
+    "name": "/REGULATION LIST",
+    "category": "regulation",
+    "syntax": "/REGULATION LIST",
+    "arguments": [],
+    "example": "/REGULATION LIST",
+    "errors": []
+  },
+  {
+    "name": "/REGULATION SHOW",
+    "category": "regulation",
+    "syntax": "/REGULATION SHOW <regulation_id>",
+    "arguments": [
+      {
+        "name": "regulation_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/REGULATION SHOW <regulation_id>",
+    "errors": []
+  },
+  {
+    "name": "/REGULATION STATUS",
+    "category": "regulation",
+    "syntax": "/REGULATION STATUS <regulation_id> <status>",
+    "arguments": [
+      {
+        "name": "regulation_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "status",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/REGULATION STATUS <regulation_id> <status>",
+    "errors": []
+  },
+  {
+    "name": "/INTERPRET ADD",
+    "category": "interpret",
+    "syntax": "/INTERPRET ADD <id> <regulation_id> <article> <text>",
+    "arguments": [
+      {
+        "name": "id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "regulation_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "article",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "text",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/INTERPRET ADD <id> <regulation_id> <article> <text>",
+    "errors": []
+  },
+  {
+    "name": "/INTERPRET LIST",
+    "category": "interpret",
+    "syntax": "/INTERPRET LIST [regulation_id]",
+    "arguments": [
+      {
+        "name": "regulation_id",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "example": "/INTERPRET LIST [regulation_id]",
+    "errors": []
+  },
+  {
+    "name": "/INTERPRET REVIEW",
+    "category": "interpret",
+    "syntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
+    "arguments": [
+      {
+        "name": "interpretation_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "actor",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "authority",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
+    "errors": []
+  },
+  {
+    "name": "/SNAPSHOT CREATE",
+    "category": "snapshot",
+    "syntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
+    "arguments": [
+      {
+        "name": "snapshot_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "project_id",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "cut_date",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
+    "errors": []
+  },
+  {
+    "name": "/SNAPSHOT LIST",
+    "category": "snapshot",
+    "syntax": "/SNAPSHOT LIST",
+    "arguments": [],
+    "example": "/SNAPSHOT LIST",
+    "errors": []
+  },
+  {
+    "name": "/SNAPSHOT FREEZE",
+    "category": "snapshot",
+    "syntax": "/SNAPSHOT FREEZE <snapshot_id>",
+    "arguments": [
+      {
+        "name": "snapshot_id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/SNAPSHOT FREEZE <snapshot_id>",
+    "errors": []
+  },
+  {
+    "name": "/DECISION RECORD",
+    "category": "decision",
+    "syntax": "/DECISION RECORD <statement> <actor> <authority>",
+    "arguments": [
+      {
+        "name": "statement",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "actor",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "authority",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "example": "/DECISION RECORD <statement> <actor> <authority>",
+    "errors": []
+  },
+  {
+    "name": "/STATUS",
+    "category": "status",
+    "syntax": "/STATUS",
+    "arguments": [],
+    "example": "/STATUS",
+    "errors": []
+  },
+  {
+    "name": "/HISTORY",
+    "category": "history",
+    "syntax": "/HISTORY",
+    "arguments": [],
+    "example": "/HISTORY",
+    "errors": []
+  },
+  {
+    "name": "/EXIT",
+    "category": "exit",
+    "syntax": "/EXIT",
+    "arguments": [],
+    "example": "/EXIT",
+    "errors": []
+  }
+]

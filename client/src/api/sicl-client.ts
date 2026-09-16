@@ -165,6 +165,13 @@ export const siclClient = {
     const response = await request<ApiEnvelope<CommandData>>("/commands", { method: "POST", body: JSON.stringify({ command, actor }) });
     return response.data;
   },
+  async executeCanonicalCommand(projectId: string, command: string, actor = "frontend-user"): Promise<CommandData> {
+    const data = await v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/commands`, {
+      method: "POST",
+      body: JSON.stringify({ command, actor }),
+    });
+    return data;
+  },
   async getHistory(projectId: string): Promise<CommandData> {
     await this.getProject(projectId);
     return this.executeCommand(projectId, "/HISTORY");
