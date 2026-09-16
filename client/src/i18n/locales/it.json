@@ -101,6 +101,13 @@
         "title": "Learn SICL commands",
         "description": "Use Command Bar examples, arguments and preview."
       }
+    },
+    "search": {
+      "title": "Search help",
+      "description": "Search by command name, syntax or category.",
+      "label": "Search guides and commands",
+      "placeholder": "Example: PROJECT CREATE or evidence",
+      "empty": "No guides or commands matched that text."
     }
   },
   "workspace": {

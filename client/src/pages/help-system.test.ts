@@ -1,8 +1,8 @@
 /** @vitest-environment jsdom */
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { I18nextProvider } from "react-i18next";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { Router } from "wouter";
 import i18n from "@/i18n";
 import HelpButton from "@/components/HelpButton";
@@ -15,6 +15,8 @@ const renderWithProviders = (node: React.ReactNode) => render(
     React.createElement(Router, { hook: () => ["/", () => undefined] as const }, node),
   ),
 );
+
+afterEach(() => cleanup());
 
 describe("help system", () => {
   it("renders the HelpButton and opens a dropdown with three manuals", async () => {
@@ -35,6 +37,15 @@ describe("help system", () => {
     expect(screen.getByRole("heading", { name: "Help Center" })).toBeTruthy();
     expect(screen.getAllByRole("link", { name: "View here" })).toHaveLength(3);
     MANUALS.forEach((manual) => expect(manual.path).toMatch(/^\/help\//));
+  });
+
+  it("searches the command catalog from the task-oriented help center", async () => {
+    await i18n.changeLanguage("es");
+    renderWithProviders(React.createElement(HelpPage));
+    const search = screen.getByRole("textbox", { name: "Buscar guías y comandos" });
+    fireEvent.change(search, { target: { value: "PROJECT CREATE" } });
+    expect(screen.getByText("/PROJECT CREATE")).toBeTruthy();
+    expect(screen.getByText(/<project_id>/)).toBeTruthy();
   });
 
   it("renders Markdown content for a manual article", async () => {

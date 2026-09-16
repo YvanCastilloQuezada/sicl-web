@@ -101,6 +101,13 @@
         "title": "Aprender comandos SICL",
         "description": "Usa la Command Bar con ejemplos, argumentos y vista previa."
       }
+    },
+    "search": {
+      "title": "Buscar en la ayuda",
+      "description": "Busca por nombre, sintaxis o categoría de comando.",
+      "label": "Buscar guías y comandos",
+      "placeholder": "Ejemplo: PROJECT CREATE o evidencia",
+      "empty": "No encontramos guías ni comandos con ese texto."
     }
   },
   "workspace": {

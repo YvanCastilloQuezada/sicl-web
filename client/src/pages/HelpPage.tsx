@@ -1,11 +1,19 @@
-import { ArrowRight, Download, ExternalLink, FileText, ListChecks } from "lucide-react";
-import React from "react";
+import { ArrowRight, Download, ExternalLink, FileText, ListChecks, Search } from "lucide-react";
+import React, { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { MANUALS } from "@/config/manuals";
+import catalog from "@/content/commands-catalog.json";
+import { Input } from "@/components/ui/input";
 
 export default function HelpPage() {
   const { t } = useTranslation();
+  const [query, setQuery] = useState("");
+  const results = useMemo(() => {
+    const value = query.trim().toLowerCase();
+    if (!value) return [];
+    return (catalog as { name: string; syntax: string; category: string }[]).filter((item) => `${item.name} ${item.syntax} ${item.category}`.toLowerCase().includes(value)).slice(0, 8);
+  }, [query]);
   return (
     <section className="mx-auto w-full max-w-5xl">
       <div className="mb-8 border-b border-[#d7d8cf] pb-6">
@@ -30,6 +38,12 @@ export default function HelpPage() {
             </div>
           </div>
         </div>
+      </section>
+      <section className="mb-8 border border-[#d4d8d0] bg-[#fbfaf6] p-5" aria-labelledby="help-search-title">
+        <div className="flex items-center gap-2"><Search className="h-4 w-4 text-[#d07b4a]" /><h2 id="help-search-title" className="font-serif text-2xl text-[#385348]">{t("help.search.title")}</h2></div>
+        <p className="mt-2 text-sm text-[#718078]">{t("help.search.description")}</p>
+        <div className="relative mt-4"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input aria-label={t("help.search.label")} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t("help.search.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 text-[#1d2925] placeholder:text-[#52645a]" /></div>
+        {query && <div className="mt-3 space-y-2">{results.length ? results.map((item) => <Link key={item.name} href="/help/commands" className="block border-l-4 border-[#d07b4a] bg-[#fffaf5] p-3 transition-colors hover:bg-[#fbe5d6]"><p className="font-mono text-sm font-semibold text-[#385348]">{item.name}</p><p className="mt-1 text-xs text-[#718078]">{item.syntax}</p></Link>) : <p className="text-sm text-[#718078]">{t("help.search.empty")}</p>}</div>}
       </section>
       <div className="grid gap-4 md:grid-cols-3">
         {MANUALS.map((manual) => (
