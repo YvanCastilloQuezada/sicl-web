@@ -16,12 +16,15 @@ import { siclClient, type CoreProject } from "@/api/sicl-client";
 import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Monitor, Moon, Plus, Scale, ShieldCheck, Sun, Target, Waypoints } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-
-const modules = [
+type ModuleNavigation = { id: string; label: string; icon: typeof LayoutDashboard; externalPath?: string };
+const modules: ModuleNavigation[] = [
   { id: "overview", label: "Project", icon: LayoutDashboard },
   { id: "context", label: "Context / Site", icon: Waypoints },
   { id: "problem", label: "Objectives & Constraints", icon: Target },
   { id: "alternatives", label: "Alternatives & Evaluation", icon: GitBranch },
+  { id: "evidence", label: "Evidence", icon: FileText, externalPath: "/evidence" },
+  { id: "evaluations", label: "Evaluations", icon: Activity, externalPath: "/evaluations" },
+  { id: "comparisons", label: "Comparisons", icon: Scale, externalPath: "/comparisons" },
   { id: "council", label: "Council / Recommendation", icon: Scale },
   { id: "audit", label: "Decision & Audit", icon: ShieldCheck },
   { id: "governance", label: "Build Governance", icon: FileText },
@@ -119,7 +122,7 @@ function AuthenticatedHome() {
           <aside className="border-b border-[#d7d8cf] bg-[#e9ede5] p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
             <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-[#6a7d72]">Project modules</span><BookOpen className="h-4 w-4 text-[#8b9a90]" /></div>
             <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-[#385348] bg-[#385348] font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-[#385348]")} /><span>{item.label}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">Activo</span>}</button>; })}
+              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { if (item.externalPath) { window.location.assign(`${item.externalPath}?project=${encodeURIComponent(restProjectId)}`); return; } window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-[#385348] bg-[#385348] font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-[#385348]")} /><span>{item.label}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">Activo</span>}</button>; })}
             </nav>
             <div className="mt-8 border-t border-[#cbd2c9] pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7a8c82]">Integrity rule</p><p className="mt-2 text-xs leading-5 text-[#65756c]">Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority.</p></div>
           </aside>
