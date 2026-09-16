@@ -8,7 +8,7 @@ import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject 
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
-import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -97,7 +97,7 @@ export const appRouter = router({
     council: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
       const council = await fetchCanonicalCouncil(project.projectId);
-      if (council && "not_found" in council) throw new TRPCError({ code: "NOT_FOUND", message: council.detail ?? "SICL project not found" });
+      if (council && "not_found" in council) throw new TRPCError({ code: "NOT_FOUND", message: typeof council.detail === "string" ? council.detail : "SICL project not found" });
       if (council) return council;
       const canonical = await fetchCanonicalSnapshot(project.projectId);
       if (canonical && "not_found" in canonical) throw new TRPCError({ code: "NOT_FOUND", message: canonical.detail ?? "SICL project not found" });
@@ -147,6 +147,15 @@ export const appRouter = router({
     }),
     audit: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
+      if (hasCoreUrl()) {
+        const history = await fetchCanonicalHistory(project.projectId);
+        if (history && "not_found" in history) throw new TRPCError({ code: "NOT_FOUND", message: history.detail ?? "SICL project not found" });
+        if (history) {
+          const canonical = await fetchCanonicalSnapshot(project.projectId);
+          const snapshot = canonical && "snapshot" in canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.emptySnapshot();
+          return { projectId: project.projectId, version: history.observed_version, events: history.events, humanReviews: snapshot.humanReviews, decisions: snapshot.decisions };
+        }
+      }
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       return { projectId: project.projectId, version: project.version, events: snapshot.events, humanReviews: snapshot.humanReviews, decisions: snapshot.decisions };
     }),
