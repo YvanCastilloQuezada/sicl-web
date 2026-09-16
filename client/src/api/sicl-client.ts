@@ -103,6 +103,27 @@ export type ComparisonInput = {
   objectives?: string[];
 };
 
+export type ProjectVariable = {
+  variable_id: string;
+  project_id: string;
+  normalized_key: string;
+  variable_type: "OBJECTIVE" | "CONSTRAINT" | "PARAMETER";
+  value: unknown;
+  actor_id: string;
+  authority: string;
+  unit?: string | null;
+  spatial_scope?: string;
+};
+
+export type FeasibilityResult = {
+  alternative_id: string;
+  state: "FEASIBLE" | "INFEASIBLE" | "UNKNOWN" | "INSUFFICIENT_DATA";
+  failed_constraint_ids: string[];
+  unknown_constraint_ids: string[];
+  insufficient_constraint_ids: string[];
+  checks: Array<Record<string, unknown>>;
+};
+
 export type ParetoRequest = {
   alternative_ids?: string[];
   objective_ids?: string[];
@@ -231,5 +252,20 @@ export const siclClient = {
   async createComparison(projectId: string, input: ComparisonInput): Promise<Comparison> {
     const data = await v1Request<{ comparison: Comparison }>(`/v1/projects/${encodeURIComponent(projectId)}/comparisons`, { method: "POST", body: JSON.stringify(input) });
     return data.comparison;
+  },
+  async listVariables(projectId: string): Promise<ProjectVariable[]> {
+    const data = await v1Request<{ variables: ProjectVariable[] }>(`/v1/projects/${encodeURIComponent(projectId)}/variables`);
+    return data.variables ?? [];
+  },
+  async createVariable(projectId: string, input: Omit<ProjectVariable, "project_id">): Promise<ProjectVariable> {
+    const data = await v1Request<{ variable: ProjectVariable }>(`/v1/projects/${encodeURIComponent(projectId)}/variables`, { method: "POST", body: JSON.stringify(input) });
+    return data.variable;
+  },
+  async checkFeasibility(projectId: string, alternativeId: string, values: Record<string, unknown>): Promise<FeasibilityResult> {
+    const data = await v1Request<{ feasibility: FeasibilityResult }>(`/v1/projects/${encodeURIComponent(projectId)}/feasibility`, { method: "POST", body: JSON.stringify({ alternative_id: alternativeId, values }) });
+    return data.feasibility;
+  },
+  async feasiblePareto(projectId: string, paretoFront: string[]): Promise<{ pareto_front: string[]; feasible_pareto_front: string[] }> {
+    return v1Request<{ pareto_front: string[]; feasible_pareto_front: string[] }>(`/v1/projects/${encodeURIComponent(projectId)}/multiobjective/feasible-pareto`, { method: "POST", body: JSON.stringify({ pareto_front: paretoFront }) });
   },
 };
