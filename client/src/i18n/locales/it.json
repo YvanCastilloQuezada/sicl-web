@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "Suggerimenti di comandi"
+      "suggestions": "Suggerimenti di comandi",
+      "recent": "Ricerche recenti"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "Esamina raccomandazioni e pareri analitici.",
       "decision": "Registra HumanReview, Decision e Audit.",
       "governance": "Consulta i controlli di governance del processo."
+    },
+    "tour": {
+      "title": "Tour iniziale",
+      "map": "Seleziona un modulo nella mappa per raggiungere la sezione e consultarne lo stato.",
+      "command_bar": "Apri la barra SICL con Ctrl+K per cercare comandi, vedere esempi ed eseguirli con controllo umano.",
+      "next_step": "Usa “Passo successivo” per seguire il Percorso A senza saltare la revisione umana.",
+      "next": "Avanti",
+      "finish": "Fine",
+      "skip": "Salta"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "Attivo",
+      "available": "Disponibile"
+    },
+    "module_status": {
+      "project": "Stato: {{status}}",
+      "context": "Stato: {{status}}",
+      "objectives": "Stato: {{status}}",
+      "alternatives": "Stato: {{status}}",
+      "evidence": "Stato: {{status}}",
+      "evaluations": "Stato: {{status}}",
+      "comparisons": "Stato: {{status}}",
+      "council": "Stato: {{status}}",
+      "decision": "Stato: {{status}}",
+      "governance": "Stato: {{status}}"
     }
   },
   "epistemic": {

@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "Befehlsvorschläge"
+      "suggestions": "Befehlsvorschläge",
+      "recent": "Letzte Suchen"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "Prüfen Sie Empfehlungen und analytische Beratung.",
       "decision": "Erfassen Sie HumanReview, Decision und Audit.",
       "governance": "Prüfen Sie die Governance-Kontrollen des Prozesses."
+    },
+    "tour": {
+      "title": "Einführungstour",
+      "map": "Wählen Sie ein Modul in der Karte, um direkt zum Abschnitt und seinem aktuellen Status zu gelangen.",
+      "command_bar": "Öffnen Sie die SICL-Leiste mit Ctrl+K, um Befehle zu suchen, Beispiele zu sehen und sie unter menschlicher Kontrolle auszuführen.",
+      "next_step": "Mit „Nächster Schritt“ folgen Sie Pfad A, ohne die menschliche Prüfung zu überspringen.",
+      "next": "Weiter",
+      "finish": "Fertig",
+      "skip": "Überspringen"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "Aktiv",
+      "available": "Verfügbar"
+    },
+    "module_status": {
+      "project": "Status: {{status}}",
+      "context": "Status: {{status}}",
+      "objectives": "Status: {{status}}",
+      "alternatives": "Status: {{status}}",
+      "evidence": "Status: {{status}}",
+      "evaluations": "Status: {{status}}",
+      "comparisons": "Status: {{status}}",
+      "council": "Status: {{status}}",
+      "decision": "Status: {{status}}",
+      "governance": "Status: {{status}}"
     }
   },
   "epistemic": {

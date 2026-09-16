@@ -85,3 +85,14 @@ La búsqueda es de solo lectura y no ejecuta comandos ni modifica el Core. Los r
 ## Modo principiante y tooltips
 
 El modo principiante conserva el mapa y muestra tooltips breves en los módulos complementarios. El modo experto minimiza la guía y permite trabajar directamente con las superficies operativas. La preferencia se guarda en `localStorage` con la clave `sims-dei-experience-mode`. El cambio de modo muestra una notificación visual y utiliza una transición breve, respetando la accesibilidad del foco.
+
+
+## Previews de estado y recorrido inicial
+
+En modo principiante, cada módulo del mapa muestra un preview al pasar el cursor o recibir foco. El preview resume su función y distingue el módulo activo de los módulos disponibles. Al hacer clic, el enlace navega a la sección correspondiente.
+
+El recorrido inicial aparece una vez en tres pasos. Primero explica el mapa, después la Command Bar y finalmente el uso del siguiente paso del Camino A. El usuario puede avanzar, terminar u omitir el recorrido. El estado se guarda localmente y puede restablecerse borrando `sims-dei-guided-tour`.
+
+## Resaltado e historial de búsquedas
+
+Las coincidencias del Help Center se resaltan visualmente en el nombre y la sintaxis del comando. Al pulsar `Enter`, la búsqueda se guarda en un historial local de hasta seis elementos bajo `sims-dei-help-search-history`. Seleccionar una búsqueda reciente la reutiliza sin modificar el catálogo ni ejecutar un comando.

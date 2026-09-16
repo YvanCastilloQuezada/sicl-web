@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "命令建议"
+      "suggestions": "命令建议",
+      "recent": "最近搜索"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "查看建议和分析委员会结果。",
       "decision": "记录 HumanReview、Decision 和 Audit。",
       "governance": "查看流程治理控制。"
+    },
+    "tour": {
+      "title": "新手引导",
+      "map": "选择地图中的模块，直接进入对应部分并查看当前状态。",
+      "command_bar": "使用 Ctrl+K 打开 SICL 命令栏，搜索命令、查看示例，并在人工控制下执行。",
+      "next_step": "使用“下一步”完成路径 A，不要跳过人工审查。",
+      "next": "下一步",
+      "finish": "完成",
+      "skip": "跳过"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "活跃",
+      "available": "可用"
+    },
+    "module_status": {
+      "project": "状态：{{status}}",
+      "context": "状态：{{status}}",
+      "objectives": "状态：{{status}}",
+      "alternatives": "状态：{{status}}",
+      "evidence": "状态：{{status}}",
+      "evaluations": "状态：{{status}}",
+      "comparisons": "状态：{{status}}",
+      "council": "状态：{{status}}",
+      "decision": "状态：{{status}}",
+      "governance": "状态：{{status}}"
     }
   },
   "epistemic": {

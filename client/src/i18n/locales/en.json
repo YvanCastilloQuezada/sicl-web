@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "Command suggestions"
+      "suggestions": "Command suggestions",
+      "recent": "Recent searches"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "Review recommendations and analytical council output.",
       "decision": "Record HumanReview, Decision, and Audit.",
       "governance": "Review process governance controls."
+    },
+    "tour": {
+      "title": "Getting started tour",
+      "map": "Select a module in the map to navigate to its section and review its current status.",
+      "command_bar": "Open the SICL bar with Ctrl+K to search commands, view examples, and execute them with human control.",
+      "next_step": "Use “Next step” to move through Path A without skipping human review.",
+      "next": "Next",
+      "finish": "Finish",
+      "skip": "Skip"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "Active",
+      "available": "Available"
+    },
+    "module_status": {
+      "project": "Status: {{status}}",
+      "context": "Status: {{status}}",
+      "objectives": "Status: {{status}}",
+      "alternatives": "Status: {{status}}",
+      "evidence": "Status: {{status}}",
+      "evaluations": "Status: {{status}}",
+      "comparisons": "Status: {{status}}",
+      "council": "Status: {{status}}",
+      "decision": "Status: {{status}}",
+      "governance": "Status: {{status}}"
     }
   },
   "epistemic": {

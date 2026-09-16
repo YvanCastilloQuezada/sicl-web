@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "Подсказки команд"
+      "suggestions": "Подсказки команд",
+      "recent": "Недавние поиски"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "Просматривайте рекомендации и аналитические выводы совета.",
       "decision": "Фиксируйте HumanReview, Decision и Audit.",
       "governance": "Просматривайте контрольные механизмы управления процессом."
+    },
+    "tour": {
+      "title": "Вводный тур",
+      "map": "Выберите модуль на карте, чтобы перейти к его разделу и посмотреть текущий статус.",
+      "command_bar": "Откройте панель SICL сочетанием Ctrl+K, чтобы искать команды, видеть примеры и выполнять их под контролем человека.",
+      "next_step": "Используйте «Следующий шаг», чтобы пройти путь A и не пропустить проверку человеком.",
+      "next": "Далее",
+      "finish": "Завершить",
+      "skip": "Пропустить"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "Активен",
+      "available": "Доступен"
+    },
+    "module_status": {
+      "project": "Статус: {{status}}",
+      "context": "Статус: {{status}}",
+      "objectives": "Статус: {{status}}",
+      "alternatives": "Статус: {{status}}",
+      "evidence": "Статус: {{status}}",
+      "evaluations": "Статус: {{status}}",
+      "comparisons": "Статус: {{status}}",
+      "council": "Статус: {{status}}",
+      "decision": "Статус: {{status}}",
+      "governance": "Статус: {{status}}"
     }
   },
   "epistemic": {

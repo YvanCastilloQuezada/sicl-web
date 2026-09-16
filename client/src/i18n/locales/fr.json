@@ -108,7 +108,8 @@
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
       "empty": "No guides or commands matched that text.",
-      "suggestions": "Suggestions de commandes"
+      "suggestions": "Suggestions de commandes",
+      "recent": "Recherches récentes"
     }
   },
   "workspace": {
@@ -266,6 +267,41 @@
       "council": "Examinez les recommandations et l’avis analytique.",
       "decision": "Enregistrez HumanReview, Decision et Audit.",
       "governance": "Consultez les contrôles de gouvernance du processus."
+    },
+    "tour": {
+      "title": "Parcours de découverte",
+      "map": "Sélectionnez un module de la carte pour accéder à sa section et voir son état actuel.",
+      "command_bar": "Ouvrez la barre SICL avec Ctrl+K pour chercher des commandes, voir des exemples et les exécuter sous contrôle humain.",
+      "next_step": "Utilisez « Étape suivante » pour suivre le parcours A sans ignorer la revue humaine.",
+      "next": "Suivant",
+      "finish": "Terminer",
+      "skip": "Passer"
+    },
+    "status": {
+      "project": "Disponible",
+      "context": "Disponible",
+      "objectives": "Disponible",
+      "alternatives": "Disponible",
+      "evidence": "Disponible",
+      "evaluations": "Disponible",
+      "comparisons": "Disponible",
+      "council": "Disponible",
+      "decision": "Disponible",
+      "governance": "Disponible",
+      "active": "Actif",
+      "available": "Disponible"
+    },
+    "module_status": {
+      "project": "État : {{status}}",
+      "context": "État : {{status}}",
+      "objectives": "État : {{status}}",
+      "alternatives": "État : {{status}}",
+      "evidence": "État : {{status}}",
+      "evaluations": "État : {{status}}",
+      "comparisons": "État : {{status}}",
+      "council": "État : {{status}}",
+      "decision": "État : {{status}}",
+      "governance": "État : {{status}}"
     }
   },
   "epistemic": {

@@ -38,4 +38,12 @@ describe("GuidedShell", () => {
     expect(humanizeSiclError("PROJECT_REQUIRED")).toContain("proyecto");
     expect(humanizeSiclError("HUMAN_REVIEW_REQUIRED")).toContain("revisión humana");
   });
+
+  it("renders the ten interactive modules with status previews and the onboarding tour", () => {
+    renderShell();
+    expect(screen.getByRole("link", { name: /Contexto \/ Sitio:/ })).toBeTruthy();
+    expect(screen.getByRole("tooltip")).toBeTruthy();
+    expect(screen.getByRole("dialog", { name: "Recorrido inicial" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Siguiente" })).toBeTruthy();
+  });
 });
