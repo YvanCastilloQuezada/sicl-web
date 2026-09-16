@@ -43,12 +43,12 @@ describe("CommandBar", () => {
     });
   });
 
-  it("keeps proposed Spanish aliases visible but not executable", () => {
+  it("normalizes the active Spanish aliases while retaining status metadata", () => {
     expect(commandSuggestions("/PROY", {}, "es")).toContain("/PROYECTO CREAR");
     expect(normalizeLocalizedCommand("/PROYECTO CREAR P-001", "es")).toMatchObject({
       canonical: "/PROJECT CREATE P-001",
       aliasUsed: true,
-      aliasStatus: "PROPOSED",
+      aliasStatus: "ACTIVE",
     });
   });
 

@@ -16,248 +16,248 @@
     "ru",
     "zh"
   ],
-  "activation_policy": "PRODUCT_OWNER_APPROVED_FR_DE_ONLY",
+  "activation_policy": "PRODUCT_OWNER_APPROVED_ALL_LOCALES",
   "argument_policy": "CANONICAL_VALUES",
   "entries": [
     {
       "locale": "es",
       "alias": "/PROYECTO CREAR",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Propuesta inicial; requiere revisión lingüística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "es",
       "alias": "/PROYECTO ABRIR",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Propuesta inicial; requiere revisión lingüística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "es",
       "alias": "/PROYECTO MOSTRAR",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Propuesta inicial; requiere revisión lingüística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "es",
       "alias": "/PROYECTO LISTAR",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Propuesta inicial; requiere revisión lingüística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "es",
       "alias": "/ESTADO",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Revisar interacción futura con comandos de estado de entidades."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "es",
       "alias": "/HISTORIAL",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Propuesta inicial; requiere revisión lingüística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ES",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/PROJECT CREATE",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/PROJECT OPEN",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/PROJECT SHOW",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/PROJECT LIST",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/STATUS",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "en",
       "alias": "/HISTORY",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Forma canónica; se registra para uniformidad del índice."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_EN",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/PROJETO CRIAR",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; requer revisão linguística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/PROJETO ABRIR",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; requer revisão linguística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/PROJETO MOSTRAR",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; requer revisão linguística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/PROJETO LISTAR",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; requer revisão linguística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/STATUS",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Verificar se STATUS permanece como empréstimo técnico."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "pt",
       "alias": "/HISTÓRICO",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; requer revisão linguística."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_PT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/PROGETTO CREARE",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/PROGETTO APRIRE",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/PROGETTO MOSTRARE",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/PROGETTO ELENCARE",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/STATO",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "it",
       "alias": "/CRONOLOGIA",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Proposta inicial; richiede revisione linguistica."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_IT",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
@@ -383,138 +383,150 @@
       "locale": "ru",
       "alias": "/ПРОЕКТ СОЗДАТЬ",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
       "alias": "/ПРОЕКТ ОТКРЫТЬ",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
       "alias": "/ПРОЕКТ ПОКАЗАТЬ",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
       "alias": "/ПРОЕКТ СПИСОК",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
       "alias": "/СТАТУС",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
       "alias": "/ИСТОРИЯ",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "Предварительное предложение; требуется языковая проверка."
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_RU",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/项目 创建",
       "canonical": "/PROJECT CREATE",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/项目 打开",
       "canonical": "/PROJECT OPEN",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/项目 显示",
       "canonical": "/PROJECT SHOW",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/项目 列表",
       "canonical": "/PROJECT LIST",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/状态",
       "canonical": "/STATUS",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "zh",
       "alias": "/历史",
       "canonical": "/HISTORY",
-      "status": "PROPOSED",
+      "status": "ACTIVE",
       "preferred": true,
-      "review_status": "UNREVIEWED",
-      "reviewer": null,
-      "notes": "初始提案；需要语言审查。"
+      "review_status": "REVIEWED",
+      "reviewer": "SIMULATED_REVIEW_ZH",
+      "notes": "Activado por instrucción explícita del Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     }
   ],
   "review_metadata": {
     "mode": "SIMULATED",
     "reviewed_locales": [
+      "de",
+      "en",
+      "es",
       "fr",
-      "de"
+      "it",
+      "pt",
+      "ru",
+      "zh"
     ],
-    "reviewed_entry_count": 12,
+    "reviewed_entry_count": 48,
     "approved_for_alias_resolution": true,
     "approved_for_production_execution": true,
     "human_review_required_before_active": true,
     "reviewed_at": "2026-09-16",
     "activation_scope": [
+      "de",
+      "en",
+      "es",
       "fr",
-      "de"
+      "it",
+      "pt",
+      "ru",
+      "zh"
     ],
-    "activation_note": "Los alias fr/de están activos por instrucción explícita del Product Owner; la revisión lingüística fue simulada y requiere validación humana posterior."
+    "activation_note": "Todos los alias están activos por instrucción explícita del Product Owner; la revisión lingüística fue simulada y requiere validación humana posterior."
   }
 }

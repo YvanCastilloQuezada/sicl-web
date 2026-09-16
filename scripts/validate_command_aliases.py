@@ -59,6 +59,7 @@ def validate(registry_path: Path, catalog_path: Path) -> list[str]:
     allowed_policies = {
         "NO_ACTIVE_ALIASES_UNTIL_PO_APPROVAL",
         "PRODUCT_OWNER_APPROVED_FR_DE_ONLY",
+        "PRODUCT_OWNER_APPROVED_ALL_LOCALES",
     }
     if activation_policy not in allowed_policies:
         errors.append("activation_policy is not recognized")
@@ -138,6 +139,10 @@ def validate(registry_path: Path, catalog_path: Path) -> list[str]:
             errors.append(f"limited activation must contain only fr/de, found {sorted(active_locales)}")
         if len(active_entries) > 12:
             errors.append("limited activation cannot exceed 12 active aliases")
+    if activation_policy == "PRODUCT_OWNER_APPROVED_ALL_LOCALES":
+        active_locales = {entry.get("locale") for entry in entries if entry.get("status") == "ACTIVE"}
+        if active_locales != SUPPORTED_LOCALES:
+            errors.append(f"all-locale activation must contain {sorted(SUPPORTED_LOCALES)}, found {sorted(active_locales)}")
     return errors
 
 
