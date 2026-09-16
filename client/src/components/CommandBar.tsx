@@ -1,0 +1,183 @@
+import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { CheckCircle2, ChevronDown, Command, History, Loader2, Search, Terminal, XCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import catalog from "@/content/commands-catalog.json";
+import { apiErrorMessage, siclClient } from "@/api/sicl-client";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+type CatalogCommand = {
+  name: string;
+  category: string;
+  syntax: string;
+  arguments: { name: string; required: boolean; type: string; values?: string[] }[];
+  example: string;
+  errors: string[];
+};
+
+export type CommandContext = {
+  objectives?: string[];
+  alternatives?: string[];
+  actors?: string[];
+  projectId?: string;
+};
+
+export const COMMAND_HISTORY_KEY = "sims-dei-command-history";
+const MAX_HISTORY = 100;
+const commands = catalog as CatalogCommand[];
+
+function readHistory(): string[] {
+  try {
+    const value = JSON.parse(localStorage.getItem(COMMAND_HISTORY_KEY) ?? "[]");
+    return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeHistory(items: string[]) {
+  localStorage.setItem(COMMAND_HISTORY_KEY, JSON.stringify(items.slice(0, MAX_HISTORY)));
+}
+
+export function commandSuggestions(input: string, context: CommandContext = {}): string[] {
+  const value = input.trim();
+  if (!value) return commands.slice(0, 12).map((item) => item.name);
+  const upper = value.toUpperCase();
+  if (value.startsWith("/") && !value.includes(" ")) {
+    return commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name).slice(0, 12);
+  }
+  const tokens = value.split(/\s+/);
+  const command = commands.find((item) => item.name === tokens.slice(0, item.name.split(" ").length).join(" ").toUpperCase());
+  if (!command) return commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name).slice(0, 12);
+  const argIndex = tokens.length - command.name.split(" ").length;
+  const arg = command.arguments[argIndex];
+  if (command.name === "/OBJECTIVE SET" && argIndex === 0) return context.objectives ?? [];
+  if ((command.name === "/ALTERNATIVE SET" || command.name === "/ALTERNATIVE CREATE") && argIndex === 0) return context.alternatives ?? [];
+  if (command.name === "/ACTOR SHOW" && argIndex === 0) return context.actors ?? [];
+  if (arg?.values) return arg.values;
+  if (arg) return [`<${arg.name}>`];
+  return [];
+}
+
+export function validateCommand(input: string): string | null {
+  const value = input.trim();
+  if (!value.startsWith("/")) return "COMMAND_MUST_START_WITH_SLASH";
+  const upper = value.toUpperCase();
+  const command = commands.find((item) => upper === item.name || upper.startsWith(`${item.name} `));
+  if (!command) return "COMMAND_NOT_FOUND";
+  const args = value.split(/\s+/).slice(command.name.split(" ").length);
+  const required = command.arguments.filter((arg) => arg.required).length;
+  if (args.length < required) return "MISSING_REQUIRED_ARGUMENT";
+  return null;
+}
+
+export default function CommandBar({ context = {}, onExecuted }: { context?: CommandContext; onExecuted?: () => void }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [projectId, setProjectId] = useState(() => context.projectId ?? localStorage.getItem("sims-dei-project-id") ?? "");
+  const [history, setHistory] = useState<string[]>(readHistory);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [selected, setSelected] = useState(0);
+  const [status, setStatus] = useState<{ type: "success" | "error" | "loading"; message: string } | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const suggestions = useMemo(() => {
+    const typed = commandSuggestions(input, context);
+    if (!input.trim()) return history.slice(0, 8);
+    return typed.filter((item) => item.toLowerCase().includes(input.trim().toLowerCase()) || item.startsWith("<"));
+  }, [context, history, input]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setOpen(true);
+        setStatus(null);
+        window.setTimeout(() => inputRef.current?.focus(), 0);
+      }
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
+        setOpen(false);
+        setStatus(null);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  useEffect(() => setSelected(0), [input]);
+
+  const close = () => {
+    setOpen(false);
+    setInput("");
+    setHistoryIndex(-1);
+    setStatus(null);
+  };
+
+  const execute = async () => {
+    const command = input.trim();
+    const validation = validateCommand(command);
+    if (validation) {
+      setStatus({ type: "error", message: t("command_bar.invalid_syntax", { error: validation }) });
+      return;
+    }
+    if (!projectId.trim()) {
+      setStatus({ type: "error", message: t("command_bar.project_required") });
+      return;
+    }
+    localStorage.setItem("sims-dei-project-id", projectId.trim());
+    const nextHistory = [command, ...history.filter((item) => item !== command)].slice(0, MAX_HISTORY);
+    setHistory(nextHistory);
+    writeHistory(nextHistory);
+    setStatus({ type: "loading", message: t("command_bar.executing") });
+    try {
+      await siclClient.executeCanonicalCommand(projectId.trim(), command);
+      setStatus({ type: "success", message: t("command_bar.executed") });
+      onExecuted?.();
+    } catch (error) {
+      setStatus({ type: "error", message: t("command_bar.failed", { message: apiErrorMessage(error) }) });
+    }
+  };
+
+  const handleKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (suggestions.length) setSelected((value) => Math.min(value + 1, suggestions.length - 1));
+      return;
+    }
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (!input.trim() && history.length) {
+        const next = Math.min(historyIndex + 1, history.length - 1);
+        setHistoryIndex(next);
+        setInput(history[next]);
+      } else if (suggestions.length) setSelected((value) => Math.max(value - 1, 0));
+      return;
+    }
+    if (event.key === "Tab" && suggestions[selected]) {
+      event.preventDefault();
+      const value = suggestions[selected];
+      setInput(value.startsWith("/") ? value : `${input.trim()} ${value}`.trim());
+      return;
+    }
+    if (event.key === "Enter") {
+      event.preventDefault();
+      void execute();
+    }
+  };
+
+  return <>
+    {!open && <button type="button" onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#385348] px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-[#294038] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d07b4a]" aria-label={t("command_bar.open_button")}><Command className="h-4 w-4" /> <span className="hidden sm:inline">SICL</span><kbd className="hidden rounded bg-white/15 px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd></button>}
+    {open && <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl px-3 pb-3 sm:px-6" role="dialog" aria-label={t("command_bar.title")}>
+      <div className="overflow-hidden rounded-t-xl border border-[#385348] bg-[#fbfaf6] shadow-2xl">
+        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#d07b4a]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")}</p></div><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
+        <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="bg-white text-xs" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="bg-white pl-9 font-mono text-sm" /></div></div>
+        {suggestions.length > 0 && <div className="max-h-48 overflow-y-auto border-b border-[#e2e4de] p-2">{suggestions.map((suggestion, index) => <button type="button" key={`${suggestion}-${index}`} onClick={() => setInput(suggestion.startsWith("/") ? suggestion : `${input.trim()} ${suggestion}`.trim())} className={cn("flex w-full items-center justify-between rounded px-3 py-2 text-left font-mono text-xs", index === selected ? "bg-[#e9ede5] text-[#385348]" : "text-[#718078] hover:bg-[#f1f3ee]")}><span>{suggestion}</span>{index === selected && <span className="text-[10px] uppercase">Tab</span>}</button>)}</div>}
+        {input.trim() && !suggestions.length && <p className="border-b border-[#e2e4de] px-4 py-3 text-xs text-[#718078]">{t("command_bar.no_results")}</p>}
+        <div className="flex items-center justify-between gap-3 px-4 py-3 text-xs"><span className="flex items-center gap-2 text-[#718078]"><History className="h-3.5 w-3.5" /> {history.length ? t("command_bar.history_count", { count: history.length }) : t("command_bar.history_empty")}</span>{status && <span className={cn("flex items-center gap-1", status.type === "error" ? "text-[#a95e35]" : status.type === "success" ? "text-[#385348]" : "text-[#718078]")}>{status.type === "loading" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : status.type === "success" ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{status.message}</span>}</div>
+      </div>
+    </div>}
+  </>;
+}

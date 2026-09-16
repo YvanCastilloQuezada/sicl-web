@@ -12,6 +12,7 @@ import EvaluationsPage from "./pages/EvaluationsPage";
 import ComparisonsPage from "./pages/ComparisonsPage";
 import HelpPage from "./pages/HelpPage";
 import HelpArticlePage from "./pages/HelpArticlePage";
+import CommandBar from "./components/CommandBar";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -47,6 +48,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
+            <CommandBar />
             <Router />
           </TooltipProvider>
         </LanguageProvider>

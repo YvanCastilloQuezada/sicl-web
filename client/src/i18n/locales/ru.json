@@ -1,1 +1,158 @@
-{"header":{"title":"SiMS-DeI Command Center","subtitle":"SiMS-DeI · SICL","tagline":"Решения по проекту на основе фактов с сохранением полномочий человека на границе системы.","version":"SiMS-DeI 2.2"},"nav":{"project":"Проект","context":"Контекст / Участок","objectives":"Цели и ограничения","alternatives":"Альтернативы и оценка","evidence":"Доказательства","evaluations":"Оценки","comparisons":"Сравнения","council":"Совет / Рекомендация","decision":"Решение и аудит","governance":"Управление строительством"},"common":{"create":"Создать","cancel":"Отмена","save":"Сохранить","delete":"Удалить","edit":"Изменить","detail":"Детали","loading":"Загрузка…","error":"Ошибка","success":"Успешно","evidence":"Свидетельство","source":"Источник","evaluation":"Оценка","comparison":"Сравнение","project":"Проект","recorded":"зарегистрировано","failed":"Ошибка","integrity_rule":"Правило целостности"},"state":{"unknown":"НЕИЗВЕСТНО","conflicting":"ПРОТИВОРЕЧИВО","insufficient":"НЕДОСТАТОЧНО","observed":"НАБЛЮДАЕМОЕ"},"theme":{"system":"Системная","light":"Светлая","dark":"Тёмная"},"language":{"label":"Язык"},"help":{"button":"Помощь","title":"Центр помощи","subtitle":"Операционные руководства и каноническая справка SiMS-DeI.","user":{"title":"Руководство пользователя","description":"Концепции, основные процессы и конституционные правила."},"operations":{"title":"Операционное руководство","description":"Пошаговые задачи для работы с Core."},"commands":{"title":"Справочник команд","description":"Синтаксис CLI в соответствии с src/sicl/cli.py."},"action":{"view":"Открыть здесь","pdf":"Скачать PDF","github":"Открыть на GitHub"},"back":"Назад к индексу","tocHint":"Выберите другое руководство или используйте заголовки."},"workspace":{"eyebrow":"КАНОНИЧЕСКОЕ REST-РАБОЧЕЕ ПРОСТРАНСТВО","title":"SiMS-DeI Core v2.2","description":"Проект, результат команды и панель ниже читаются из FastAPI Core. Токен браузера не используется.","bridge_title":"REST-мост SiMS-DeI Core v2.2","bridge_description":"REST API является каноническим источником этого пространства. Существующие модули tRPC доступны только когда мост не настроен.","configured":"НАСТРОЕНО","vite_required":"ТРЕБУЕТСЯ VITE_API_URL","project_id":"ID проекта","project_name":"Название проекта","create_via_rest":"Создать через REST","command":"Команда","run_refresh":"Выполнить и обновить","fetch_failed":"Не удалось получить данные","no_project":"REST-проект ещё не загружен.","project_created":"Проект создан в Core","command_applied":"Команда применена, проект обновлён из Core","dashboard_refreshed":"Панель обновлена из Core","traceable":"Трассируемое пространство","source_truth":"Источник истины","refresh_core":"Обновить Core"},"phase_a":{"create_evidence":"Создать свидетельство","evidence_id":"ID свидетельства","statement":"Утверждение","evidence_type":"Тип свидетельства","source_id":"ID источника","captured_at":"Дата фиксации","method_version":"Версия метода","evidence_url":"URL свидетельства","state":"Состояние","create_source":"Создать источник","source_type":"Тип источника","title":"Название","url":"URL","create_evaluation":"Создать оценку","create_comparison":"Создать сравнение","alternative":"Альтернатива","objective":"Цель","value":"Значение","unit":"Единица","confidence":"Уверенность","source":"Источник","alternatives":"Альтернативы","objectives":"Цели","project_id":"ID проекта","filter_alternative":"Фильтр альтернативы","filter_objective":"Фильтр цели","no_evidence":"Свидетельства не зарегистрированы.","no_sources":"Источники не зарегистрированы.","no_evaluations":"Оценки не зарегистрированы.","no_comparisons":"Сравнения не зарегистрированы.","selected_detail":"Выбранные сведения","core_data":"Данные из реального Core; происхождение видно.","values_confidence":"Значения и уверенность без превращения оценки в решение.","comparisons_note":"Сравнения альтернатив и целей; Decision не регистрируется.","created":"Создано","saving":"Сохранение…","saved":"Сохранено","minimum_two":"минимум 2, через запятую","optional_comma":"необязательно, через запятую"}}
+{
+  "header": {
+    "title": "SiMS-DeI Command Center",
+    "subtitle": "SiMS-DeI · SICL",
+    "tagline": "Решения по проекту на основе фактов с сохранением полномочий человека на границе системы.",
+    "version": "SiMS-DeI 2.2"
+  },
+  "nav": {
+    "project": "Проект",
+    "context": "Контекст / Участок",
+    "objectives": "Цели и ограничения",
+    "alternatives": "Альтернативы и оценка",
+    "evidence": "Доказательства",
+    "evaluations": "Оценки",
+    "comparisons": "Сравнения",
+    "council": "Совет / Рекомендация",
+    "decision": "Решение и аудит",
+    "governance": "Управление строительством"
+  },
+  "common": {
+    "create": "Создать",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Изменить",
+    "detail": "Детали",
+    "loading": "Загрузка…",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "evidence": "Свидетельство",
+    "source": "Источник",
+    "evaluation": "Оценка",
+    "comparison": "Сравнение",
+    "project": "Проект",
+    "recorded": "зарегистрировано",
+    "failed": "Ошибка",
+    "integrity_rule": "Правило целостности"
+  },
+  "state": {
+    "unknown": "НЕИЗВЕСТНО",
+    "conflicting": "ПРОТИВОРЕЧИВО",
+    "insufficient": "НЕДОСТАТОЧНО",
+    "observed": "НАБЛЮДАЕМОЕ"
+  },
+  "theme": {
+    "system": "Системная",
+    "light": "Светлая",
+    "dark": "Тёмная"
+  },
+  "language": {
+    "label": "Язык"
+  },
+  "help": {
+    "button": "Помощь",
+    "title": "Центр помощи",
+    "subtitle": "Операционные руководства и каноническая справка SiMS-DeI.",
+    "user": {
+      "title": "Руководство пользователя",
+      "description": "Концепции, основные процессы и конституционные правила."
+    },
+    "operations": {
+      "title": "Операционное руководство",
+      "description": "Пошаговые задачи для работы с Core."
+    },
+    "commands": {
+      "title": "Справочник команд",
+      "description": "Синтаксис CLI в соответствии с src/sicl/cli.py."
+    },
+    "action": {
+      "view": "Открыть здесь",
+      "pdf": "Скачать PDF",
+      "github": "Открыть на GitHub"
+    },
+    "back": "Назад к индексу",
+    "tocHint": "Выберите другое руководство или используйте заголовки."
+  },
+  "workspace": {
+    "eyebrow": "КАНОНИЧЕСКОЕ REST-РАБОЧЕЕ ПРОСТРАНСТВО",
+    "title": "SiMS-DeI Core v2.2",
+    "description": "Проект, результат команды и панель ниже читаются из FastAPI Core. Токен браузера не используется.",
+    "bridge_title": "REST-мост SiMS-DeI Core v2.2",
+    "bridge_description": "REST API является каноническим источником этого пространства. Существующие модули tRPC доступны только когда мост не настроен.",
+    "configured": "НАСТРОЕНО",
+    "vite_required": "ТРЕБУЕТСЯ VITE_API_URL",
+    "project_id": "ID проекта",
+    "project_name": "Название проекта",
+    "create_via_rest": "Создать через REST",
+    "command": "Команда",
+    "run_refresh": "Выполнить и обновить",
+    "fetch_failed": "Не удалось получить данные",
+    "no_project": "REST-проект ещё не загружен.",
+    "project_created": "Проект создан в Core",
+    "command_applied": "Команда применена, проект обновлён из Core",
+    "dashboard_refreshed": "Панель обновлена из Core",
+    "traceable": "Трассируемое пространство",
+    "source_truth": "Источник истины",
+    "refresh_core": "Обновить Core"
+  },
+  "phase_a": {
+    "create_evidence": "Создать свидетельство",
+    "evidence_id": "ID свидетельства",
+    "statement": "Утверждение",
+    "evidence_type": "Тип свидетельства",
+    "source_id": "ID источника",
+    "captured_at": "Дата фиксации",
+    "method_version": "Версия метода",
+    "evidence_url": "URL свидетельства",
+    "state": "Состояние",
+    "create_source": "Создать источник",
+    "source_type": "Тип источника",
+    "title": "Название",
+    "url": "URL",
+    "create_evaluation": "Создать оценку",
+    "create_comparison": "Создать сравнение",
+    "alternative": "Альтернатива",
+    "objective": "Цель",
+    "value": "Значение",
+    "unit": "Единица",
+    "confidence": "Уверенность",
+    "source": "Источник",
+    "alternatives": "Альтернативы",
+    "objectives": "Цели",
+    "project_id": "ID проекта",
+    "filter_alternative": "Фильтр альтернативы",
+    "filter_objective": "Фильтр цели",
+    "no_evidence": "Свидетельства не зарегистрированы.",
+    "no_sources": "Источники не зарегистрированы.",
+    "no_evaluations": "Оценки не зарегистрированы.",
+    "no_comparisons": "Сравнения не зарегистрированы.",
+    "selected_detail": "Выбранные сведения",
+    "core_data": "Данные из реального Core; происхождение видно.",
+    "values_confidence": "Значения и уверенность без превращения оценки в решение.",
+    "comparisons_note": "Сравнения альтернатив и целей; Decision не регистрируется.",
+    "created": "Создано",
+    "saving": "Сохранение…",
+    "saved": "Сохранено",
+    "minimum_two": "минимум 2, через запятую",
+    "optional_comma": "необязательно, через запятую"
+  },
+  "command_bar": {
+    "title": "Панель команд SICL",
+    "hint": "Ctrl+K / Cmd+K открыть · Enter выполнить · Esc закрыть",
+    "placeholder": "Введите команду SICL...",
+    "input": "Команда SICL",
+    "project_id": "Проект",
+    "project_id_placeholder": "ID проекта",
+    "open_button": "Открыть панель команд SICL",
+    "close": "Закрыть панель команд",
+    "no_results": "Нет подсказок",
+    "invalid_syntax": "Неверный синтаксис: {{error}}",
+    "executing": "Выполнение...",
+    "executed": "Команда выполнена",
+    "failed": "Ошибка: {{message}}",
+    "history_empty": "История пуста",
+    "history_count": "{{count}} последних команд",
+    "project_required": "Укажите ID проекта для выполнения команды"
+  }
+}
