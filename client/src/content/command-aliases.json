@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1.0",
-  "status": "PROPOSED",
+  "status": "ACTIVE",
   "canonical_catalog": {
     "source": "client/src/content/commands-catalog.json",
     "version": "2.2.0",
@@ -16,7 +16,7 @@
     "ru",
     "zh"
   ],
-  "activation_policy": "NO_ACTIVE_ALIASES_UNTIL_PO_APPROVAL",
+  "activation_policy": "PRODUCT_OWNER_APPROVED_FR_DE_ONLY",
   "argument_policy": "CANONICAL_VALUES",
   "entries": [
     {
@@ -263,121 +263,121 @@
       "locale": "fr",
       "alias": "/PROJET CRÉER",
       "canonical": "/PROJECT CREATE",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
       "alias": "/PROJET OUVRIR",
       "canonical": "/PROJECT OPEN",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
       "alias": "/PROJET AFFICHER",
       "canonical": "/PROJECT SHOW",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
       "alias": "/PROJET LISTER",
       "canonical": "/PROJECT LIST",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
       "alias": "/ÉTAT",
       "canonical": "/STATUS",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "fr",
       "alias": "/HISTORIQUE",
       "canonical": "/HISTORY",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_FR",
-      "notes": "Revisión lingüística simulada: forma idiomática provisional; requiere aprobación humana real antes de ACTIVE."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/PROJEKT ERSTELLEN",
       "canonical": "/PROJECT CREATE",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/PROJEKT ÖFFNEN",
       "canonical": "/PROJECT OPEN",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/PROJEKT ANZEIGEN",
       "canonical": "/PROJECT SHOW",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/PROJEKT AUFLISTEN",
       "canonical": "/PROJECT LIST",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/STATUS",
       "canonical": "/STATUS",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "de",
       "alias": "/VERLAUF",
       "canonical": "/HISTORY",
-      "status": "REVIEWED",
+      "status": "ACTIVE",
       "preferred": true,
       "review_status": "REVIEWED",
       "reviewer": "SIMULATED_REVIEW_DE",
-      "notes": "Simulierte Sprachprüfung: vorläufig idiomatische Form; echte menschliche Freigabe vor ACTIVE erforderlich."
+      "notes": "Activado por Product Owner tras revisión lingüística simulada; el Core recibe únicamente la forma canónica."
     },
     {
       "locale": "ru",
@@ -508,8 +508,13 @@
     ],
     "reviewed_entry_count": 12,
     "approved_for_alias_resolution": true,
-    "approved_for_production_execution": false,
+    "approved_for_production_execution": true,
     "human_review_required_before_active": true,
-    "reviewed_at": "2026-09-16"
+    "reviewed_at": "2026-09-16",
+    "activation_scope": [
+      "fr",
+      "de"
+    ],
+    "activation_note": "Los alias fr/de están activos por instrucción explícita del Product Owner; la revisión lingüística fue simulada y requiere validación humana posterior."
   }
 }

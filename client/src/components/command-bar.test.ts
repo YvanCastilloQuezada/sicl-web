@@ -3,7 +3,7 @@ import i18n from "@/i18n";
 import React from "react";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import CommandBar, { COMMAND_HISTORY_KEY, commandSuggestions, validateCommand } from "./CommandBar";
+import CommandBar, { COMMAND_HISTORY_KEY, commandSuggestions, normalizeLocalizedCommand, validateCommand } from "./CommandBar";
 
 const commandInput = () => screen.getByLabelText(/Comando SICL|SICL command/);
 const projectInput = () => screen.getByLabelText(/Proyecto|Project/);
@@ -28,6 +28,28 @@ describe("CommandBar", () => {
   it("suggests command names and context values", () => {
     expect(commandSuggestions("/OBJ")).toContain("/OBJECTIVE SET");
     expect(commandSuggestions("/OBJECTIVE SET", { objectives: ["CLIMATE"] })).toEqual(["CLIMATE"]);
+  });
+
+  it("normalizes active French and German aliases to canonical commands", () => {
+    expect(normalizeLocalizedCommand("/PROJET CRÉER P-001", "fr")).toMatchObject({
+      canonical: "/PROJECT CREATE P-001",
+      aliasUsed: true,
+      aliasStatus: "ACTIVE",
+    });
+    expect(normalizeLocalizedCommand("/PROJEKT ERSTELLEN P-001", "de")).toMatchObject({
+      canonical: "/PROJECT CREATE P-001",
+      aliasUsed: true,
+      aliasStatus: "ACTIVE",
+    });
+  });
+
+  it("keeps proposed Spanish aliases visible but not executable", () => {
+    expect(commandSuggestions("/PROY", {}, "es")).toContain("/PROYECTO CREAR");
+    expect(normalizeLocalizedCommand("/PROYECTO CREAR P-001", "es")).toMatchObject({
+      canonical: "/PROJECT CREATE P-001",
+      aliasUsed: true,
+      aliasStatus: "PROPOSED",
+    });
   });
 
   it("supports Tab completion", () => {

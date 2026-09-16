@@ -154,7 +154,10 @@
     "history_empty": "Sem histórico",
     "history_count": "{{count}} comandos recentes",
     "project_required": "Informe um ID de projeto para executar o comando",
-    "alias_pending_review": "O alias foi revisado, mas ainda não está habilitado para execução."
+    "alias_pending_review": "O alias foi revisado, mas ainda não está habilitado para execução.",
+    "alias_active": "Ativo",
+    "alias_proposed": "Proposto",
+    "use_canonical": "Usar comando canônico"
   },
   "visualization": {
     "pareto": {

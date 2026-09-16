@@ -154,7 +154,10 @@
     "history_empty": "Aucun historique",
     "history_count": "{{count}} commandes récentes",
     "project_required": "Saisissez un ID de projet pour exécuter la commande",
-    "alias_pending_review": "L’alias a été révisé, mais son exécution n’est pas encore activée."
+    "alias_pending_review": "L’alias a été révisé, mais son exécution n’est pas encore activée.",
+    "alias_active": "Actif",
+    "alias_proposed": "Proposé",
+    "use_canonical": "Utiliser la commande canonique"
   },
   "visualization": {
     "pareto": {

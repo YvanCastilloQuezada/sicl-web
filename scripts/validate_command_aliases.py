@@ -55,8 +55,13 @@ def validate(registry_path: Path, catalog_path: Path) -> list[str]:
         errors.append(f"supported_locales must equal {sorted(SUPPORTED_LOCALES)}")
     if registry.get("status") not in {"PROPOSED", "REVIEWED", "ACTIVE"}:
         errors.append("registry status must be PROPOSED, REVIEWED, or ACTIVE")
-    if registry.get("activation_policy") != "NO_ACTIVE_ALIASES_UNTIL_PO_APPROVAL":
-        errors.append("activation_policy must keep aliases disabled until Product Owner approval")
+    activation_policy = registry.get("activation_policy")
+    allowed_policies = {
+        "NO_ACTIVE_ALIASES_UNTIL_PO_APPROVAL",
+        "PRODUCT_OWNER_APPROVED_FR_DE_ONLY",
+    }
+    if activation_policy not in allowed_policies:
+        errors.append("activation_policy is not recognized")
 
     entries = registry.get("entries")
     if not isinstance(entries, list) or not entries:
@@ -126,6 +131,13 @@ def validate(registry_path: Path, catalog_path: Path) -> list[str]:
 
     if active_count and registry.get("status") != "ACTIVE":
         errors.append("active aliases exist but registry status is not ACTIVE")
+    if activation_policy == "PRODUCT_OWNER_APPROVED_FR_DE_ONLY":
+        active_entries = [entry for entry in entries if entry.get("status") == "ACTIVE"]
+        active_locales = {entry.get("locale") for entry in active_entries}
+        if active_locales != {"fr", "de"}:
+            errors.append(f"limited activation must contain only fr/de, found {sorted(active_locales)}")
+        if len(active_entries) > 12:
+            errors.append("limited activation cannot exceed 12 active aliases")
     return errors
 
 
@@ -149,7 +161,9 @@ def main() -> int:
     print(f"- entries: {len(registry['entries'])}")
     print(f"- locales: {', '.join(registry['supported_locales'])}")
     print(f"- status: {registry['status']}")
-    print("- active aliases: 0 or fewer; activation remains blocked by policy")
+    active = sum(1 for entry in registry["entries"] if entry.get("status") == "ACTIVE")
+    print(f"- active aliases: {active}")
+    print(f"- activation policy: {registry.get('activation_policy')}")
     return 0
 
 

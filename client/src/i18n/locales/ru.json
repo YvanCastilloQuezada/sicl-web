@@ -154,7 +154,10 @@
     "history_empty": "История пуста",
     "history_count": "{{count}} последних команд",
     "project_required": "Укажите ID проекта для выполнения команды",
-    "alias_pending_review": "Псевдоним проверен, но его выполнение пока не включено."
+    "alias_pending_review": "Псевдоним проверен, но его выполнение пока не включено.",
+    "alias_active": "Активен",
+    "alias_proposed": "Предложен",
+    "use_canonical": "Использовать каноническую команду"
   },
   "visualization": {
     "pareto": {
