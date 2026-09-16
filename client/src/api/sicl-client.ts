@@ -138,8 +138,7 @@ export class SiclClientError extends Error {
 }
 
 function apiUrl(): string {
-  const url = import.meta.env.VITE_API_URL?.trim() || "https://web-production-a93fa.up.railway.app";
-  return url.replace(/\/$/, "");
+  return "/api/core";
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {

@@ -8,6 +8,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { proxyCoreRequest } from "../coreHttpClient";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -36,6 +37,20 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  app.use("/api/core", async (req, res) => {
+    try {
+      const path = req.originalUrl.slice("/api/core".length) || "/";
+      const result = await proxyCoreRequest(path, {
+        method: req.method,
+        headers: req.headers["content-type"] ? { "content-type": String(req.headers["content-type"]) } : undefined,
+        body: ["GET", "HEAD"].includes(req.method) ? undefined : JSON.stringify(req.body),
+      });
+      res.status(result.status).type(result.contentType).send(result.body);
+    } catch (error) {
+      const message = error instanceof Error && error.message === "SICL_CORE_URL is required" ? "Core no configurado. Contacta al administrador." : error instanceof Error ? error.message : "Core remoto no disponible";
+      res.status(503).json({ status: "error", code: "CORE_UNAVAILABLE", message });
+    }
+  });
   // tRPC API
   app.use(
     "/api/trpc",

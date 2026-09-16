@@ -17,6 +17,17 @@ export class SiclCoreHttpError extends Error {
   }
 }
 
+export async function proxyCoreRequest(path: string, init: RequestInit = {}) {
+  const base = coreUrl();
+  if (!base) throw new Error("SICL_CORE_URL is required");
+  const response = await fetch(`${base}${path}`, {
+    ...init,
+    headers: { ...serviceHeaders(), ...(init.headers ?? {}) },
+  });
+  const body = await response.text();
+  return { status: response.status, contentType: response.headers.get("content-type") ?? "application/json", body };
+}
+
 export function hasCoreUrl(): boolean { return Boolean(coreUrl()); }
 function coreUrl(): string | undefined { const value = process.env.SICL_CORE_URL?.trim(); return value ? value.replace(/\/$/, "") : undefined; }
 function serviceHeaders() { const token = process.env.SICL_CORE_SERVICE_TOKEN?.trim(); if (!token) throw new Error("SICL_CORE_SERVICE_TOKEN is required"); return { accept: "application/json", authorization: `Bearer ${token}` }; }
