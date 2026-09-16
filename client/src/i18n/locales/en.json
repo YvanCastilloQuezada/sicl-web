@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "Command suggestions"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Expert mode enabled",
     "mode_guided_saved": "Beginner mode enabled",
     "module_map_title": "System map:",
-    "module_map_description": "Path A summarizes six decision steps; these modules provide context, analysis, council and governance."
+    "module_map_description": "Path A summarizes six decision steps; these modules provide context, analysis, council and governance.",
+    "module_tooltips": {
+      "project": "Define the project and its scope.",
+      "context": "Record spatial context and site observations.",
+      "objectives": "Declare verifiable objectives and constraints.",
+      "alternatives": "Create and evaluate design alternatives.",
+      "evidence": "Organize evidence and its sources.",
+      "evaluations": "Review analytical evaluations.",
+      "comparisons": "Compare alternatives and trade-offs.",
+      "council": "Review recommendations and analytical council output.",
+      "decision": "Record HumanReview, Decision, and Audit.",
+      "governance": "Review process governance controls."
+    }
   },
   "epistemic": {
     "legend_title": "How to read records",

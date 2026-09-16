@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "Suggestions de commandes"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Mode expert activé",
     "mode_guided_saved": "Mode débutant activé",
     "module_map_title": "Carte du système :",
-    "module_map_description": "Le parcours A résume six étapes de décision ; ces modules apportent contexte, analyse, conseil et gouvernance."
+    "module_map_description": "Le parcours A résume six étapes de décision ; ces modules apportent contexte, analyse, conseil et gouvernance.",
+    "module_tooltips": {
+      "project": "Définissez le projet et son périmètre.",
+      "context": "Enregistrez le contexte spatial et les observations du site.",
+      "objectives": "Déclarez des objectifs et contraintes vérifiables.",
+      "alternatives": "Créez et évaluez des alternatives de conception.",
+      "evidence": "Organisez les preuves et leurs sources.",
+      "evaluations": "Consultez les évaluations analytiques.",
+      "comparisons": "Comparez les alternatives et les compromis.",
+      "council": "Examinez les recommandations et l’avis analytique.",
+      "decision": "Enregistrez HumanReview, Decision et Audit.",
+      "governance": "Consultez les contrôles de gouvernance du processus."
+    }
   },
   "epistemic": {
     "legend_title": "Lire les enregistrements",

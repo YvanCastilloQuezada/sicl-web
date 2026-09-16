@@ -912,3 +912,12 @@ Los horizontes temporales son `proyecto`, `corto_plazo`, `mediano_plazo`, `largo
 [8]: docs/RFC-018_RFC_PROCESS.md "RFC-018 RFC Process"
 
 **Firma documental.** Este manual fue redactado como una perspectiva operativa independiente sobre el código y los contratos del baseline indicado. No sustituye el Core Contract ni la aprobación del Product Owner.
+
+
+## 13. Coherencia de la navegación y ayuda interactiva
+
+El Camino A es el flujo mínimo de seis pasos: `Project → Preference → Recommendation → HumanReview → Decision → Audit`. El mapa inicial muestra diez módulos operativos porque incorpora las superficies complementarias `Context / Site`, `Objectives & Constraints`, `Alternatives & Evaluation`, `Evidence`, `Evaluations`, `Comparisons`, `Council / Recommendation` y `Build Governance`. `Decision & Audit` agrupa los dos últimos pasos del Camino A para facilitar la operación.
+
+Cada módulo del mapa es navegable y expone un tooltip en modo principiante. El mapa enlaza a la raíz del proyecto, a las secciones de contexto, objetivos, alternativas, consejo, auditoría y gobernanza, y a las páginas de evidencia, evaluaciones y comparaciones.
+
+El centro de ayuda ofrece búsqueda sobre los 67 comandos del catálogo. Mientras se escribe, muestra sugerencias de autocompletado. Seleccionar una sugerencia filtra la referencia sin ejecutar ningún comando. Si el catálogo del Core cambia, debe regenerarse y verificarse junto con este manual.

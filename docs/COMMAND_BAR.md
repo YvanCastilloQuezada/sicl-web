@@ -40,3 +40,16 @@ El namespace `command_bar` está disponible en español, inglés, portugués, it
 ## Límites
 
 La barra no modifica el Core, no altera formularios existentes de Fase A y no sustituye la revisión humana requerida por las invariantes constitucionales. Un comando como `/DECISION RECORD` sigue sujeto a los requisitos de actor, autoridad y revisión definidos por el Core.
+
+
+## Ayuda contextual y ejemplos
+
+La barra muestra una ficha educativa para el comando identificado. La ficha incluye una descripción funcional, los argumentos obligatorios y opcionales y un ejemplo interactivo. Al seleccionar el ejemplo, este se copia al campo de entrada para que el usuario pueda editarlo antes de ejecutar. La ficha se construye desde el catálogo canónico y no inventa argumentos del Core.
+
+## Preferencia de experiencia
+
+La configuración de la barra permite elegir entre `guided` (principiante/guiado) y `expert` (experto). La elección se persiste con la clave `sims-dei-experience-mode` y se comparte con el Guided Shell. El cambio solamente modifica la densidad de ayuda de la interfaz; no cambia permisos, autoridad humana ni el contrato HTTP.
+
+## Búsqueda de ayuda
+
+El Help Center ofrece autocompletado en tiempo real sobre nombres, sintaxis y categorías del mismo catálogo de comandos. Una sugerencia seleccionada abre la referencia de comandos y deja visible la sintaxis encontrada. Esta búsqueda es informativa y no ejecuta comandos.

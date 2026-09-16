@@ -68,3 +68,20 @@ The Help button has an accessible label and exposes its expanded state. Keyboard
 ## Known limitations
 
 The frontend does not fetch documentation at runtime. A new Core manual requires synchronization and a frontend build. The current PDF utility provides standard Markdown pagination; it does not provide a custom cover-page template or a generated table-of-contents page independent of the Markdown headings. The Commands Reference currently tracks the dedicated documentation branch where that reference was published.
+
+
+## Mapa interactivo de módulos
+
+La página inicial muestra un mapa interactivo de los diez módulos operativos del frontend: **Project**, **Context / Site**, **Objectives & Constraints**, **Alternatives & Evaluation**, **Evidence**, **Evaluations**, **Comparisons**, **Council / Recommendation**, **Decision & Audit** y **Build Governance**. Cada módulo es un enlace navegable hacia su ruta o sección correspondiente. En modo principiante, el atributo de ayuda de cada módulo explica su función dentro del flujo.
+
+El mapa no reemplaza el Camino A. El Camino A es el recorrido mínimo de seis pasos: `Project → Preference → Recommendation → HumanReview → Decision → Audit`. Los otros módulos aportan contexto, objetivos, alternativas, evidencia, análisis, comparación, consejo y gobernanza. `Preference` forma parte del flujo guiado aunque se opere dentro del espacio de proyecto; `Decision & Audit` agrupa dos resultados relacionados para facilitar la navegación.
+
+## Búsqueda y autocompletado
+
+El centro de ayuda incluye una búsqueda en tiempo real sobre el catálogo canónico de 67 comandos. La búsqueda examina el nombre, la sintaxis y la categoría de cada comando. Mientras el usuario escribe se muestran sugerencias de autocompletado; al seleccionar una sugerencia, el texto se coloca en el campo y se muestran la sintaxis completa y el enlace a la referencia de comandos.
+
+La búsqueda es de solo lectura y no ejecuta comandos ni modifica el Core. Los resultados se generan desde `client/src/content/commands-catalog.json`, que debe permanecer alineado con la salida `/HELP` del Core.
+
+## Modo principiante y tooltips
+
+El modo principiante conserva el mapa y muestra tooltips breves en los módulos complementarios. El modo experto minimiza la guía y permite trabajar directamente con las superficies operativas. La preferencia se guarda en `localStorage` con la clave `sims-dei-experience-mode`. El cambio de modo muestra una notificación visual y utiliza una transición breve, respetando la accesibilidad del foco.

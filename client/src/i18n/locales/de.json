@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "Befehlsvorschläge"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Expertenmodus aktiviert",
     "mode_guided_saved": "Anfängermodus aktiviert",
     "module_map_title": "Systemübersicht:",
-    "module_map_description": "Pfad A fasst sechs Entscheidungsschritte zusammen; diese Module liefern Kontext, Analyse, Beratung und Governance."
+    "module_map_description": "Pfad A fasst sechs Entscheidungsschritte zusammen; diese Module liefern Kontext, Analyse, Beratung und Governance.",
+    "module_tooltips": {
+      "project": "Definieren Sie das Projekt und seinen Umfang.",
+      "context": "Erfassen Sie räumlichen Kontext und Standortbeobachtungen.",
+      "objectives": "Legen Sie überprüfbare Ziele und Einschränkungen fest.",
+      "alternatives": "Erstellen und bewerten Sie Entwurfsalternativen.",
+      "evidence": "Ordnen Sie Nachweise und ihre Quellen.",
+      "evaluations": "Prüfen Sie analytische Bewertungen.",
+      "comparisons": "Vergleichen Sie Alternativen und Zielkonflikte.",
+      "council": "Prüfen Sie Empfehlungen und analytische Beratung.",
+      "decision": "Erfassen Sie HumanReview, Decision und Audit.",
+      "governance": "Prüfen Sie die Governance-Kontrollen des Prozesses."
+    }
   },
   "epistemic": {
     "legend_title": "Datensätze lesen",

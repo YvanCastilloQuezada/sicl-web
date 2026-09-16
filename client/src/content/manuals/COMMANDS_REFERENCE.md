@@ -1537,3 +1537,10 @@ Source y Council están documentados como HTTP-only. `/REPORT`, `/TRADEOFFS` y `
 
 **Invariante constitucional:** una Recommendation, simulación, evaluación, comparación o salida de agente nunca crea una Decision automáticamente. La Decision requiere HumanReview y autoridad humana explícitas.
 
+
+
+## 15. Ayuda contextual y navegación del frontend
+
+La Command Bar muestra para cada comando del catálogo una descripción, sus argumentos requeridos y opcionales y un ejemplo interactivo que puede cargarse en el campo de entrada. El centro de ayuda ofrece autocompletado en tiempo real por nombre, sintaxis y categoría, y enlaza cada resultado con esta referencia. Estas ayudas no ejecutan comandos.
+
+La interfaz distingue el Camino A mínimo de seis pasos (`Project → Preference → Recommendation → HumanReview → Decision → Audit`) del mapa completo de diez módulos. Los módulos complementarios organizan contexto, objetivos, alternativas, evidencia, evaluaciones, comparaciones, consejo y gobernanza. El modo principiante añade tooltips a esos módulos; el modo experto reduce la ayuda visual. Ningún modo altera la sintaxis formal, la autoridad humana ni las validaciones del Core.

@@ -107,7 +107,8 @@
       "description": "Busca por nombre, sintaxis o categoría de comando.",
       "label": "Buscar guías y comandos",
       "placeholder": "Ejemplo: PROJECT CREATE o evidencia",
-      "empty": "No encontramos guías ni comandos con ese texto."
+      "empty": "No encontramos guías ni comandos con ese texto.",
+      "suggestions": "Sugerencias de comandos"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Modo experto activado",
     "mode_guided_saved": "Modo principiante activado",
     "module_map_title": "Mapa del sistema:",
-    "module_map_description": "Camino A resume seis pasos de decisión; estos módulos aportan contexto, análisis, consejo y gobernanza."
+    "module_map_description": "Camino A resume seis pasos de decisión; estos módulos aportan contexto, análisis, consejo y gobernanza.",
+    "module_tooltips": {
+      "project": "Define el proyecto y su alcance.",
+      "context": "Registra el contexto espacial y las observaciones del sitio.",
+      "objectives": "Declara objetivos y restricciones verificables.",
+      "alternatives": "Crea y evalúa alternativas de diseño.",
+      "evidence": "Organiza la evidencia y sus fuentes.",
+      "evaluations": "Consulta evaluaciones analíticas.",
+      "comparisons": "Compara alternativas y trade-offs.",
+      "council": "Revisa recomendaciones y el consejo analítico.",
+      "decision": "Registra HumanReview, Decision y Audit.",
+      "governance": "Consulta los controles de gobernanza del proceso."
+    }
   },
   "epistemic": {
     "legend_title": "Cómo leer los registros",

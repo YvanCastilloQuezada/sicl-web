@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "Подсказки команд"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Режим эксперта включён",
     "mode_guided_saved": "Режим новичка включён",
     "module_map_title": "Карта системы:",
-    "module_map_description": "Путь A объединяет шесть шагов решения; эти модули добавляют контекст, анализ, совет и управление."
+    "module_map_description": "Путь A объединяет шесть шагов решения; эти модули добавляют контекст, анализ, совет и управление.",
+    "module_tooltips": {
+      "project": "Определите проект и его границы.",
+      "context": "Зафиксируйте пространственный контекст и наблюдения участка.",
+      "objectives": "Задайте проверяемые цели и ограничения.",
+      "alternatives": "Создавайте и оценивайте варианты проектирования.",
+      "evidence": "Организуйте свидетельства и их источники.",
+      "evaluations": "Просматривайте аналитические оценки.",
+      "comparisons": "Сравнивайте варианты и компромиссы.",
+      "council": "Просматривайте рекомендации и аналитические выводы совета.",
+      "decision": "Фиксируйте HumanReview, Decision и Audit.",
+      "governance": "Просматривайте контрольные механизмы управления процессом."
+    }
   },
   "epistemic": {
     "legend_title": "Как читать записи",

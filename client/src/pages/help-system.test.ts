@@ -48,6 +48,14 @@ describe("help system", () => {
     expect(screen.getByText(/<project_id>/)).toBeTruthy();
   });
 
+  it("offers live command autocomplete suggestions", async () => {
+    await i18n.changeLanguage("en");
+    renderWithProviders(React.createElement(HelpPage));
+    const search = screen.getByRole("textbox", { name: "Search guides and commands" });
+    fireEvent.change(search, { target: { value: "/PROJ" } });
+    expect(screen.getByRole("button", { name: "/PROJECT CREATE" })).toBeTruthy();
+  });
+
   it("renders Markdown content for a manual article", async () => {
     await i18n.changeLanguage("es");
     renderWithProviders(React.createElement(HelpArticlePage, { manualId: "user" }));

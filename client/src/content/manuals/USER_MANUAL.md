@@ -717,3 +717,20 @@ Cualquier persona que necesite comprender el sistema, pero las operaciones decis
 [13]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-014_USER_COPILOT.md "RFC-014 User Copilot"
 [14]: https://github.com/YvanCastilloQuezada/sicl-web/blob/main/docs/RFC-015_FRONTEND_V2.md "RFC-015 Frontend v2"
 [15]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-002_EVIDENCE_HTTP.md#source-http "RFC-016 Source HTTP"
+
+
+## 16. Navegación del Command Center
+
+La página inicial distingue entre el **Camino A** y el mapa completo de módulos. El Camino A contiene seis pasos mínimos: `Project`, `Preference`, `Recommendation`, `HumanReview`, `Decision` y `Audit`. El menú operativo contiene diez módulos: `Project`, `Context / Site`, `Objectives & Constraints`, `Alternatives & Evaluation`, `Evidence`, `Evaluations`, `Comparisons`, `Council / Recommendation`, `Decision & Audit` y `Build Governance`.
+
+Los diez módulos no representan diez decisiones adicionales. Los módulos complementarios organizan contexto, objetivos, alternativas, evidencia, análisis, comparación, consejo y gobernanza. El mapa de la página inicial es interactivo: seleccione un módulo para ir a su ruta o sección. En modo principiante, mantenga el cursor sobre un módulo para ver su función dentro del proyecto.
+
+## 17. Aprender comandos sin memorizar la sintaxis
+
+Abra la Command Bar con `Ctrl+K` o `Cmd+K`. Escriba un comando para ver su descripción, argumentos obligatorios y opcionales y un ejemplo interactivo. Al seleccionar el ejemplo puede editarlo antes de ejecutarlo.
+
+En `/help`, la búsqueda del centro de ayuda ofrece sugerencias mientras escribe. Las sugerencias proceden del catálogo real de 67 comandos y muestran la sintaxis que corresponde a la referencia. La búsqueda y el mapa son ayudas de navegación; no ejecutan operaciones ni sustituyen la revisión humana.
+
+## 18. Modos de experiencia
+
+El modo **Principiante / Guiado** muestra el mapa, la ruta siguiente y tooltips de los módulos complementarios. El modo **Experto** reduce estas ayudas para trabajar con mayor densidad operativa. El selector está disponible en la configuración de la Command Bar. La preferencia se conserva localmente y no cambia permisos ni reglas del Core.

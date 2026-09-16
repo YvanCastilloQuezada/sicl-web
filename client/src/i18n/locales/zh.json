@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "命令建议"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "专家模式已启用",
     "mode_guided_saved": "初学者模式已启用",
     "module_map_title": "系统地图：",
-    "module_map_description": "路径 A 总结六个决策步骤；这些模块提供背景、分析、咨询和治理。"
+    "module_map_description": "路径 A 总结六个决策步骤；这些模块提供背景、分析、咨询和治理。",
+    "module_tooltips": {
+      "project": "定义项目及其范围。",
+      "context": "记录空间背景和场地观察。",
+      "objectives": "声明可验证的目标和约束。",
+      "alternatives": "创建并评估设计方案。",
+      "evidence": "整理证据及其来源。",
+      "evaluations": "查看分析评估结果。",
+      "comparisons": "比较方案及其权衡。",
+      "council": "查看建议和分析委员会结果。",
+      "decision": "记录 HumanReview、Decision 和 Audit。",
+      "governance": "查看流程治理控制。"
+    }
   },
   "epistemic": {
     "legend_title": "如何阅读记录",

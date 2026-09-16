@@ -107,7 +107,8 @@
       "description": "Search by command name, syntax or category.",
       "label": "Search guides and commands",
       "placeholder": "Example: PROJECT CREATE or evidence",
-      "empty": "No guides or commands matched that text."
+      "empty": "No guides or commands matched that text.",
+      "suggestions": "Suggerimenti di comandi"
     }
   },
   "workspace": {
@@ -253,7 +254,19 @@
     "mode_expert_saved": "Modalità esperto attivata",
     "mode_guided_saved": "Modalità principiante attivata",
     "module_map_title": "Mappa del sistema:",
-    "module_map_description": "Il Percorso A riassume sei passaggi decisionali; questi moduli forniscono contesto, analisi, consiglio e governance."
+    "module_map_description": "Il Percorso A riassume sei passaggi decisionali; questi moduli forniscono contesto, analisi, consiglio e governance.",
+    "module_tooltips": {
+      "project": "Definisci il progetto e il suo ambito.",
+      "context": "Registra il contesto spaziale e le osservazioni del sito.",
+      "objectives": "Dichiara obiettivi e vincoli verificabili.",
+      "alternatives": "Crea e valuta alternative di progetto.",
+      "evidence": "Organizza le evidenze e le relative fonti.",
+      "evaluations": "Consulta le valutazioni analitiche.",
+      "comparisons": "Confronta alternative e trade-off.",
+      "council": "Esamina raccomandazioni e pareri analitici.",
+      "decision": "Registra HumanReview, Decision e Audit.",
+      "governance": "Consulta i controlli di governance del processo."
+    }
   },
   "epistemic": {
     "legend_title": "Come leggere i record",
