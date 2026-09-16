@@ -15,7 +15,7 @@ El documento 70 establece el protocolo operativo: primero análisis de impacto, 
 
 ### Qué existe
 
-En `sicl-web` ya existe una implementación local de `Preference` en el snapshot TypeScript, el router de registros y el Command Center. El formulario exige nombre y justificación, permite declarar fuerza `SOFT` o `STRONG` y muestra que la preferencia no se promueve silenciosamente a requisito o restricción. También existen pruebas de dominio, normalización de snapshots y contrato de UI.
+En `sims-dei-web` ya existe una implementación local de `Preference` en el snapshot TypeScript, el router de registros y el Command Center. El formulario exige nombre y justificación, permite declarar fuerza `SOFT` o `STRONG` y muestra que la preferencia no se promueve silenciosamente a requisito o restricción. También existen pruebas de dominio, normalización de snapshots y contrato de UI.
 
 El proyecto web ya dispone de Evaluation, Comparison, Recommendation, HumanReview, Decision, Audit, scopes espaciales/temporales, Council read-only y exportación JSON filtrada. La capa web falla cerrado en producción si falta `SICL_CORE_URL` y el fallback local solo se habilita explícitamente en desarrollo.
 
@@ -69,9 +69,9 @@ Tampoco debe crearse un endpoint HTTP genérico de escritura solo para evitar di
 | `src/sicl/core_contract/sqlite.py` | Crear tabla, guardar, cargar y mapear referencias. | Propuesto |
 | `src/sicl/core_contract/review.py` | Decidir si los resúmenes cuentan preferencias y cómo. | Pendiente de validación |
 | `http_adapter/sicl_core_http.py` | Exponer preferencias en snapshot y definir escritura si corresponde. | Pendiente de validación |
-| `sicl-web/server/coreHttpClient.ts` | Añadir cliente solo después de fijar el endpoint. | Pendiente |
-| `sicl-web/server/routers.ts` | Delegar `preferences` al Core cuando exista URL; conservar fail-closed. | Pendiente |
-| `sicl-web/server/siclCore.ts` | Mantener compatibilidad del fallback y alinear invariantes con el Core. | Parcialmente implementado |
+| `sims-dei-web/server/coreHttpClient.ts` | Añadir cliente solo después de fijar el endpoint. | Pendiente |
+| `sims-dei-web/server/routers.ts` | Delegar `preferences` al Core cuando exista URL; conservar fail-closed. | Pendiente |
+| `sims-dei-web/server/siclCore.ts` | Mantener compatibilidad del fallback y alinear invariantes con el Core. | Parcialmente implementado |
 | Tests Python | Modelo, referencias, round-trip, eventos, rollback y compatibilidad. | Pendiente |
 | Tests web | Delegación, normalización, errores y separación de autoridad. | Parcialmente implementado |
 | Documentación | Runbook, contrato HTTP, migración y evidencia de ciclo. | Pendiente |

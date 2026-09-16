@@ -1,4 +1,4 @@
-# Verificación funcional pendiente — SICL Command Center
+# Verificación funcional pendiente — SiMS-DeI Command Center
 
 ## Estado actual
 

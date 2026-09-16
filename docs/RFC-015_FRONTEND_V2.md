@@ -8,7 +8,7 @@
 
 **Lenguaje formal:** SICL — Spatial Intelligence Command Language.
 
-**Base:** `sicl-web@main@76550a6e`.
+**Base:** `sims-dei-web@main@76550a6e`.
 
 **Rama documental:** `docs/rfc-015-frontend-v2`.
 
@@ -40,7 +40,7 @@ El frontend v1 tiene Command Center, autenticación, layout de dashboard, navega
 
 Sus módulos visibles principales son Project, Context, Objectives, Alternatives, Council, Decision & Audit y Governance. También conserva los flujos existentes y las pruebas Vitest del repositorio.
 
-La limitación principal es de cobertura de interfaz: el Core 2.1 tiene entidades que todavía no tienen página funcional en `sicl-web`. La brecha se resolverá por fases, sin presentar mocks como datos reales.
+La limitación principal es de cobertura de interfaz: el Core 2.1 tiene entidades que todavía no tienen página funcional en `sims-dei-web`. La brecha se resolverá por fases, sin presentar mocks como datos reales.
 
 ## 4. Entidades operables por Frontend v2
 

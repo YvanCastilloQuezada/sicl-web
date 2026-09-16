@@ -1,6 +1,6 @@
-# SICL Command Center
+# SiMS-DeI Command Center
 
-SICL Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos espaciales: contexto, evidencia, objetivos, restricciones, alternativas, evaluaciones, recomendaciones, revisión humana y decisión.
+SiMS-DeI Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos espaciales: contexto, evidencia, objetivos, restricciones, alternativas, evaluaciones, recomendaciones, revisión humana y decisión.
 
 ## Estado actual
 
@@ -19,7 +19,7 @@ SICL Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos e
 ## Instalación local
 
 ```bash
-cd sicl-web
+cd sims-dei-web
 pnpm install
 ```
 
