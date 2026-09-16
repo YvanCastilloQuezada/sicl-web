@@ -17,15 +17,39 @@ export class SiclCoreHttpError extends Error {
   }
 }
 
+export type CoreOperationalStatus = "CORE_UNAVAILABLE" | "CORE_UNAUTHORIZED" | "CORE_TIMEOUT" | "CORE_HTTP_ERROR" | "CORE_CONTRACT_ERROR" | "CORE_OK";
+
+export function classifyCoreError(error: unknown): CoreOperationalStatus {
+  if (error instanceof Error && error.message === "SICL_CORE_URL is required") return "CORE_UNAVAILABLE";
+  if (error instanceof Error && error.message === "SICL_CORE_SERVICE_TOKEN is required") return "CORE_UNAUTHORIZED";
+  if (error instanceof Error && error.name === "AbortError") return "CORE_TIMEOUT";
+  if (error instanceof SiclCoreHttpError) return error.status === 401 || error.status === 403 ? "CORE_UNAUTHORIZED" : "CORE_HTTP_ERROR";
+  return "CORE_UNAVAILABLE";
+}
+
+export async function checkCoreHealth(): Promise<{ status: "ok"; observed_version?: number; contract_version?: string }> {
+  const result = await coreRequest<{ status?: string; observed_version?: number; contract_version?: string }>("/v1/scales", { method: "GET" });
+  if (!result || typeof result !== "object") throw new Error("Core health response is not a valid envelope");
+  return { status: "ok", observed_version: result.observed_version, contract_version: result.contract_version };
+}
+
 export async function proxyCoreRequest(path: string, init: RequestInit = {}) {
   const base = coreUrl();
   if (!base) throw new Error("SICL_CORE_URL is required");
-  const response = await fetch(`${base}${path}`, {
+  const response = await fetchWithTimeout(`${base}${path}`, {
     ...init,
     headers: { ...serviceHeaders(), ...(init.headers ?? {}) },
   });
   const body = await response.text();
   return { status: response.status, contentType: response.headers.get("content-type") ?? "application/json", body };
+}
+
+const CORE_TIMEOUT_MS = 15_000;
+async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), CORE_TIMEOUT_MS);
+  try { return await fetch(input, { ...init, signal: init.signal ?? controller.signal }); }
+  finally { clearTimeout(timeout); }
 }
 
 export function hasCoreUrl(): boolean { return Boolean(coreUrl()); }

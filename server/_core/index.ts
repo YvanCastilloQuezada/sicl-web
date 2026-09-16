@@ -2,13 +2,14 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import { randomUUID } from "crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-import { proxyCoreRequest } from "../coreHttpClient";
+import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHttpClient";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -37,7 +38,21 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  app.get("/api/core/health", async (_req, res) => {
+    const correlationId = randomUUID();
+    res.setHeader("x-correlation-id", correlationId);
+    try {
+      const health = await checkCoreHealth();
+      res.status(200).json({ ...health, correlation_id: correlationId });
+    } catch (error) {
+      const code = classifyCoreError(error);
+      const message = error instanceof Error && error.message === "SICL_CORE_URL is required" ? "Core no configurado. Contacta al administrador." : "Core remoto no disponible";
+      res.status(code === "CORE_UNAUTHORIZED" ? 502 : 503).json({ status: "error", code, message, correlation_id: correlationId });
+    }
+  });
   app.use("/api/core", async (req, res) => {
+    const correlationId = randomUUID();
+    res.setHeader("x-correlation-id", correlationId);
     try {
       const path = req.originalUrl.slice("/api/core".length) || "/";
       const result = await proxyCoreRequest(path, {
@@ -47,8 +62,9 @@ async function startServer() {
       });
       res.status(result.status).type(result.contentType).send(result.body);
     } catch (error) {
-      const message = error instanceof Error && error.message === "SICL_CORE_URL is required" ? "Core no configurado. Contacta al administrador." : error instanceof Error ? error.message : "Core remoto no disponible";
-      res.status(503).json({ status: "error", code: "CORE_UNAVAILABLE", message });
+      const code = classifyCoreError(error);
+      const message = error instanceof Error && error.message === "SICL_CORE_URL is required" ? "Core no configurado. Contacta al administrador." : error instanceof Error && error.message === "SICL_CORE_SERVICE_TOKEN is required" ? "Core no autenticado. Contacta al administrador." : error instanceof Error && error.name === "AbortError" ? "Core remoto no respondió a tiempo." : "Core remoto no disponible";
+      res.status(code === "CORE_UNAUTHORIZED" ? 502 : 503).json({ status: "error", code, message, correlation_id: correlationId });
     }
   });
   // tRPC API
