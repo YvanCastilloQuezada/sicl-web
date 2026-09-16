@@ -154,5 +154,21 @@
     "history_empty": "Aucun historique",
     "history_count": "{{count}} commandes récentes",
     "project_required": "Saisissez un ID de projet pour exécuter la commande"
+  },
+  "visualization": {
+    "pareto": {
+      "title": "Front de Pareto",
+      "description": "Comparez les alternatives selon des objectifs explicites sans transformer une évaluation en décision.",
+      "empty": "Aucune donnée Pareto",
+      "calculate": "Calculer un nouveau Pareto"
+    },
+    "timeline": {
+      "title": "Chronologie des événements",
+      "description": "Séquence temporelle des événements append-only du projet.",
+      "empty": "Aucun événement"
+    },
+    "project_required": "Indiquez un ID de projet.",
+    "back": "Retour au projet",
+    "project_id": "ID du projet"
   }
 }

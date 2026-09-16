@@ -103,6 +103,12 @@ export type ComparisonInput = {
   objectives?: string[];
 };
 
+export type ParetoRequest = {
+  alternative_ids?: string[];
+  objective_ids?: string[];
+  objectives?: string[];
+};
+
 export class SiclClientError extends Error {
   constructor(public readonly status: number, public readonly body: unknown) {
     super(`SICL Core API returned ${status}`);
@@ -175,6 +181,12 @@ export const siclClient = {
   async getHistory(projectId: string): Promise<CommandData> {
     await this.getProject(projectId);
     return this.executeCommand(projectId, "/HISTORY");
+  },
+  async getCanonicalHistory(projectId: string): Promise<CommandData> {
+    return v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/history`);
+  },
+  async calculatePareto(projectId: string, input: ParetoRequest): Promise<CommandData> {
+    return v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/multiobjective/pareto`, { method: "POST", body: JSON.stringify(input) });
   },
   async listEvidence(projectId: string): Promise<Evidence[]> {
     const data = await v1Request<{ evidence: Evidence[] }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);

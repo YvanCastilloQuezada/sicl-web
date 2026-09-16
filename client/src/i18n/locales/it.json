@@ -154,5 +154,21 @@
     "history_empty": "Nessuna cronologia",
     "history_count": "{{count}} comandi recenti",
     "project_required": "Inserisci un ID progetto per eseguire il comando"
+  },
+  "visualization": {
+    "pareto": {
+      "title": "Fronte di Pareto",
+      "description": "Confronta le alternative rispetto a obiettivi espliciti senza trasformare una valutazione in decisione.",
+      "empty": "Nessun dato Pareto",
+      "calculate": "Calcola nuovo Pareto"
+    },
+    "timeline": {
+      "title": "Timeline degli eventi",
+      "description": "Sequenza temporale degli eventi append-only del progetto.",
+      "empty": "Nessun evento"
+    },
+    "project_required": "Inserisci un ID progetto.",
+    "back": "Torna al progetto",
+    "project_id": "ID progetto"
   }
 }

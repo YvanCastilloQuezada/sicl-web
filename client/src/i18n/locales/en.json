@@ -154,5 +154,21 @@
     "history_empty": "No history",
     "history_count": "{{count}} recent commands",
     "project_required": "Enter a project ID to execute the command"
+  },
+  "visualization": {
+    "pareto": {
+      "title": "Pareto Front",
+      "description": "Compare alternatives against explicit objectives without turning an evaluation into a decision.",
+      "empty": "No Pareto data",
+      "calculate": "Calculate new Pareto"
+    },
+    "timeline": {
+      "title": "Event timeline",
+      "description": "Temporal sequence of append-only project events.",
+      "empty": "No events"
+    },
+    "project_required": "Enter a project ID.",
+    "back": "Back to project",
+    "project_id": "Project ID"
   }
 }

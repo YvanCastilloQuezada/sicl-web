@@ -154,5 +154,21 @@
     "history_empty": "没有历史记录",
     "history_count": "最近 {{count}} 条命令",
     "project_required": "请输入项目 ID 以执行命令"
+  },
+  "visualization": {
+    "pareto": {
+      "title": "帕累托前沿",
+      "description": "根据明确目标比较方案，不将评估转换为决策。",
+      "empty": "暂无帕累托数据",
+      "calculate": "计算新的帕累托"
+    },
+    "timeline": {
+      "title": "事件时间线",
+      "description": "项目追加写入事件的时间序列。",
+      "empty": "暂无事件"
+    },
+    "project_required": "请输入项目 ID。",
+    "back": "返回项目",
+    "project_id": "项目 ID"
   }
 }
