@@ -323,7 +323,11 @@
       "actorRoles": "Роли участников",
       "simulationMethods": "Методы моделирования",
       "generationMethods": "Методы генерации",
-      "commandFamilies": "Семейства команд"
+      "commandFamilies": "Семейства команд",
+      "stages": "Этапы",
+      "recommendationStates": "Состояния рекомендации",
+      "reviewStates": "Состояния проверки человеком",
+      "decisionStates": "Состояния решения"
     }
   },
   "epistemic": {

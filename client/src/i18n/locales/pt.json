@@ -323,7 +323,11 @@
       "actorRoles": "Papéis de atores",
       "simulationMethods": "Métodos de simulação",
       "generationMethods": "Métodos de geração",
-      "commandFamilies": "Famílias de comandos"
+      "commandFamilies": "Famílias de comandos",
+      "stages": "Etapas",
+      "recommendationStates": "Estados de recomendação",
+      "reviewStates": "Estados de revisão humana",
+      "decisionStates": "Estados de decisão"
     }
   },
   "epistemic": {

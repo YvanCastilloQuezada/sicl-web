@@ -323,7 +323,11 @@
       "actorRoles": "参与者角色",
       "simulationMethods": "模拟方法",
       "generationMethods": "生成方法",
-      "commandFamilies": "命令族"
+      "commandFamilies": "命令族",
+      "stages": "阶段",
+      "recommendationStates": "建议状态",
+      "reviewStates": "人工审查状态",
+      "decisionStates": "决策状态"
     }
   },
   "epistemic": {

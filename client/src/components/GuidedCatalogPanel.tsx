@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { GUIDED_CATALOGS, type GuidedCatalogKey } from "@/content/guided-catalogs";
 import { toast } from "sonner";
 
-const CATALOG_KEYS: GuidedCatalogKey[] = ["spatialScopes", "temporalScopes", "epistemicStates", "variableTypes", "feasibilityStates", "evidenceTypes", "authorityLevels", "actorRoles", "simulationMethods", "generationMethods", "commandFamilies"];
+const CATALOG_KEYS: GuidedCatalogKey[] = ["spatialScopes", "temporalScopes", "stages", "epistemicStates", "variableTypes", "feasibilityStates", "evidenceTypes", "authorityLevels", "actorRoles", "recommendationStates", "reviewStates", "decisionStates", "simulationMethods", "generationMethods", "commandFamilies"];
 
 export default function GuidedCatalogPanel() {
   const { t } = useTranslation();
