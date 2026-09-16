@@ -20,6 +20,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
+import LanguageSelector from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/useMobile";
 import { Activity, FileText, GitBranch, LayoutDashboard, LogOut, PanelLeft, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -180,6 +181,9 @@ function DashboardLayoutContent({
                   </span>
                 </div>
               ) : null}
+            </div>
+            <div className="px-2 pt-2 group-data-[collapsible=icon]:hidden">
+              <LanguageSelector />
             </div>
           </SidebarHeader>
 
