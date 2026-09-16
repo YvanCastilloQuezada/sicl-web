@@ -92,7 +92,7 @@ También se requiere cobertura de tests para URL por defecto, ausencia de config
 
 ## 11. Bloqueo actual
 
-La corrección mínima de transporte está preparada, pero la validación remota permanece bloqueada porque el hostname Railway conocido responde `404 Application not found` y no existe todavía un `SICL_CORE_URL` vigente configurado en el proyecto WebDev. No se debe declarar E2E operativo hasta resolver esa configuración. RFC-023 no se implementa ni se publica como aprobado en esta etapa.
+La corrección mínima de transporte está integrada en `main@74bf4aed`, pero la validación remota permanece bloqueada porque el hostname Railway conocido responde `404 Application not found` y no existe todavía un `SICL_CORE_URL` vigente configurado en el proyecto WebDev. No se debe declarar E2E operativo hasta resolver esa configuración. La integración de transporte está implementada; la configuración productiva y el E2E remoto permanecen pendientes.
 
 ## 12. Plan de trabajo autorizado
 
@@ -164,7 +164,7 @@ Este documento registra la aprobación formal. La implementación inicial de tra
 
 ## Apéndice M — Firma del baseline
 
-Baseline de frontend: checkpoint `ddbafdea`. Baseline de Core: `faff4f8e9ce416fa1f9523b4396b85fdd9b342f8`.
+Baseline de frontend: `main@74bf4aed554555866aa58096f31b5444e47b8796`. Baseline de Core: `main@6b0bad78e1213d783c006ad13c54dd9a42c68a20`.
 
 ## Apéndice N — Conclusión
 
@@ -205,3 +205,8 @@ Se ha corregido el diseño de transporte para que la conexión sea server-side y
 ## Apéndice W — Cierre documental
 
 La propuesta queda lista para revisión del Product Owner y para la ejecución de la configuración de entorno cuando se disponga del endpoint canónico.
+
+
+## Apéndice Q — Estado RFC-022/RFC-024
+
+RFC-022 está integrado en `sicl-web/main` y sus verificaciones locales están verdes. RFC-023 está aprobado y su transporte same-origin está integrado; la configuración del Core real sigue pendiente. RFC-024 no existe como rama, documento ni implementación en los repositorios seleccionados y no se fusiona ni se etiqueta como implementado.

@@ -1,8 +1,8 @@
 # Informe final de cierre — SiMS-DeI / SICL
 
-**Fecha:** 16 de septiembre de 2026  
-**Repositorio:** `YvanCastilloQuezada/sicl-web`  
-**Rama:** `main`  
+**Fecha:** 16 de septiembre de 2026
+**Repositorio:** `YvanCastilloQuezada/sicl-web`
+**Rama:** `main`
 **Commit de cierre:** `4d62f9a91979ba35ca21edff15669bf57e61c2bb`
 
 ## 1. Conclusión ejecutiva
@@ -90,3 +90,8 @@ El único bloqueo no resuelto es externo al código: la publicación del dominio
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-web "Repositorio GitHub de sims-dei-web"
 [2]: manus-webdev://4d62f9a9 "Checkpoint WebDev de cierre"
+
+
+## Estado posterior: RFC-022, RFC-023 y RFC-024
+
+RFC-022 y RFC-023 están integrados en `sicl-web/main`; RFC-024 no está definido ni implementado. La suite frontend verificada en este baseline es `120/120` tests pasando, con typecheck y build correctos. El despliegue WebDev no implica que el E2E remoto esté operativo mientras falten `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`.
