@@ -13,6 +13,7 @@ import ComparisonsPage from "./pages/ComparisonsPage";
 import HelpPage from "./pages/HelpPage";
 import HelpArticlePage from "./pages/HelpArticlePage";
 import CommandBar from "./components/CommandBar";
+import MultiobjectivePage from "./pages/MultiobjectivePage";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/evidence"} component={EvidencePage} />
       <Route path={"/evaluations"} component={EvaluationsPage} />
       <Route path={"/comparisons"} component={ComparisonsPage} />
+      <Route path={"/multiobjective"}>{() => <DashboardLayout><MultiobjectivePage /></DashboardLayout>}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
       <Route path={"/help/operations"}>{() => <DashboardLayout><HelpArticlePage manualId="operations" /></DashboardLayout>}</Route>

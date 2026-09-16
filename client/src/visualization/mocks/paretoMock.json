@@ -1,0 +1,1 @@
+{"pareto_front":["ALT-1","ALT-3"],"dominated":["ALT-2"],"incomplete":["ALT-4"],"objectives":["ENERGY_SAVINGS","CONSTRUCTION_COST"],"alternatives":[{"id":"ALT-1","ENERGY_SAVINGS":85,"CONSTRUCTION_COST":450},{"id":"ALT-2","ENERGY_SAVINGS":60,"CONSTRUCTION_COST":700},{"id":"ALT-3","ENERGY_SAVINGS":90,"CONSTRUCTION_COST":480},{"id":"ALT-4"}]}
