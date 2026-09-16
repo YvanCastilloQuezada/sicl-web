@@ -1,10 +1,23 @@
+/** @vitest-environment jsdom */
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { siclClient } from "./sicl-client";
 
 describe("siclClient REST bridge", () => {
   afterEach(() => {
+    window.localStorage.removeItem("sims-dei.mock-core");
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();
+  });
+
+  it("uses explicit mock data without making network requests", async () => {
+    window.localStorage.setItem("sims-dei.mock-core", "true");
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const projects = await siclClient.listProjects();
+    expect(projects[0]).toMatchObject({ project_id: "MOCK-SIMS-DEI-001" });
+    await expect(siclClient.getProject("MOCK-SIMS-DEI-001")).resolves.toMatchObject({ stage: "OPEN" });
+    await siclClient.executeCommand("MOCK-SIMS-DEI-001", "/HISTORY");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("creates a project through POST /projects", async () => {

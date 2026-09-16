@@ -27,7 +27,7 @@ type V1Envelope<T> = ApiEnvelope<T> & {
 };
 
 type ProjectList = { projects: CoreProject[] };
-type CommandData = Record<string, unknown>;
+export type CommandData = Record<string, unknown>;
 
 export type Evidence = {
   evidence_id: string;
@@ -137,6 +137,10 @@ export class SiclClientError extends Error {
   }
 }
 
+export function isMockCoreEnabled(): boolean {
+  return typeof window !== "undefined" && window.localStorage.getItem("sims-dei.mock-core") === "true";
+}
+
 function apiUrl(): string {
   return "/api/core";
 }
@@ -175,19 +179,36 @@ export function apiErrorMessage(error: unknown): string {
 
 export const siclClient = {
   isConfigured: () => true,
+  isMock: isMockCoreEnabled,
   async listProjects(): Promise<CoreProject[]> {
+    if (isMockCoreEnabled()) {
+      const { mockListProjects } = await import("./mock-core");
+      return mockListProjects();
+    }
     const response = await request<ApiEnvelope<ProjectList>>("/projects");
     return response.data.projects;
   },
   async createProject(data: { project_id: string; name: string; actor?: string }): Promise<CoreProject> {
+    if (isMockCoreEnabled()) {
+      const { mockCreateProject } = await import("./mock-core");
+      return mockCreateProject(data);
+    }
     const response = await request<ApiEnvelope<CoreProject>>("/projects", { method: "POST", body: JSON.stringify(data) });
     return response.data;
   },
   async getProject(projectId: string): Promise<CoreProject> {
+    if (isMockCoreEnabled()) {
+      const { mockGetProject } = await import("./mock-core");
+      return mockGetProject(projectId);
+    }
     const response = await request<ApiEnvelope<CoreProject>>(`/projects/${encodeURIComponent(projectId)}`);
     return response.data;
   },
   async executeCommand(projectId: string, command: string, actor = "frontend-user"): Promise<CommandData> {
+    if (isMockCoreEnabled()) {
+      const { mockExecuteCommand } = await import("./mock-core");
+      return mockExecuteCommand(command);
+    }
     const response = await request<ApiEnvelope<CommandData>>("/commands", { method: "POST", body: JSON.stringify({ command, actor }) });
     return response.data;
   },
