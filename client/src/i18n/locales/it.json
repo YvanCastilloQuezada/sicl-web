@@ -302,6 +302,28 @@
       "council": "Stato: {{status}}",
       "decision": "Stato: {{status}}",
       "governance": "Stato: {{status}}"
+    },
+    "catalog_title": "Cataloghi guidati",
+    "catalog_show": "Mostra cataloghi",
+    "catalog_hide": "Nascondi cataloghi",
+    "catalog_description": "Esplora le opzioni canoniche SICL prima di compilare un modulo.",
+    "catalog_select": "Seleziona catalogo",
+    "catalog_filter": "Filtra opzioni…",
+    "catalog_copy": "Copia opzione",
+    "catalog_copied": "Opzione copiata: {{value}}",
+    "catalog_empty": "Nessuna opzione corrispondente.",
+    "catalogs": {
+      "spatialScopes": "Scale spaziali",
+      "temporalScopes": "Orizzonti temporali",
+      "epistemicStates": "Stati epistemici",
+      "variableTypes": "Tipi di variabile",
+      "feasibilityStates": "Stati di fattibilità",
+      "evidenceTypes": "Tipi di evidenza",
+      "authorityLevels": "Livelli di autorità",
+      "actorRoles": "Ruoli degli attori",
+      "simulationMethods": "Metodi di simulazione",
+      "generationMethods": "Metodi di generazione",
+      "commandFamilies": "Famiglie di comandi"
     }
   },
   "epistemic": {

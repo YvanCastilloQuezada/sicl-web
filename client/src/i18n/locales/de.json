@@ -302,6 +302,28 @@
       "council": "Status: {{status}}",
       "decision": "Status: {{status}}",
       "governance": "Status: {{status}}"
+    },
+    "catalog_title": "Geführte Kataloge",
+    "catalog_show": "Kataloge anzeigen",
+    "catalog_hide": "Kataloge ausblenden",
+    "catalog_description": "Prüfen Sie kanonische SICL-Optionen vor dem Ausfüllen eines Formulars.",
+    "catalog_select": "Katalog auswählen",
+    "catalog_filter": "Optionen filtern…",
+    "catalog_copy": "Option kopieren",
+    "catalog_copied": "Option kopiert: {{value}}",
+    "catalog_empty": "Keine passenden Optionen.",
+    "catalogs": {
+      "spatialScopes": "Räumliche Maßstäbe",
+      "temporalScopes": "Zeithorizonte",
+      "epistemicStates": "Epistemische Zustände",
+      "variableTypes": "Variablentypen",
+      "feasibilityStates": "Machbarkeitsstatus",
+      "evidenceTypes": "Evidenztypen",
+      "authorityLevels": "Befugnisstufen",
+      "actorRoles": "Akteursrollen",
+      "simulationMethods": "Simulationsmethoden",
+      "generationMethods": "Generierungsmethoden",
+      "commandFamilies": "Befehlsfamilien"
     }
   },
   "epistemic": {

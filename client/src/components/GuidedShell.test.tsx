@@ -46,4 +46,13 @@ describe("GuidedShell", () => {
     expect(screen.getByRole("dialog", { name: "Recorrido inicial" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Siguiente" })).toBeTruthy();
   });
+
+  it("opens and filters the canonical RFC-022 catalogs", () => {
+    renderShell();
+    fireEvent.click(screen.getByRole("button", { name: "Mostrar catálogos" }));
+    expect(screen.getByRole("combobox", { name: "Seleccionar catálogo" })).toBeTruthy();
+    const filter = screen.getByPlaceholderText("Filtrar opciones…");
+    fireEvent.change(filter, { target: { value: "EDIFICACION" } });
+    expect(screen.getByRole("button", { name: /EDIFICACION/ })).toBeTruthy();
+  });
 });

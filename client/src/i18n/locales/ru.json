@@ -302,6 +302,28 @@
       "council": "Статус: {{status}}",
       "decision": "Статус: {{status}}",
       "governance": "Статус: {{status}}"
+    },
+    "catalog_title": "Управляемые каталоги",
+    "catalog_show": "Показать каталоги",
+    "catalog_hide": "Скрыть каталоги",
+    "catalog_description": "Изучите канонические варианты SICL перед заполнением формы.",
+    "catalog_select": "Выберите каталог",
+    "catalog_filter": "Фильтр вариантов…",
+    "catalog_copy": "Копировать вариант",
+    "catalog_copied": "Вариант скопирован: {{value}}",
+    "catalog_empty": "Совпадений нет.",
+    "catalogs": {
+      "spatialScopes": "Пространственные масштабы",
+      "temporalScopes": "Временные горизонты",
+      "epistemicStates": "Эпистемические состояния",
+      "variableTypes": "Типы переменных",
+      "feasibilityStates": "Состояния реализуемости",
+      "evidenceTypes": "Типы доказательств",
+      "authorityLevels": "Уровни полномочий",
+      "actorRoles": "Роли участников",
+      "simulationMethods": "Методы моделирования",
+      "generationMethods": "Методы генерации",
+      "commandFamilies": "Семейства команд"
     }
   },
   "epistemic": {

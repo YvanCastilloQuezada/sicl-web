@@ -302,6 +302,28 @@
       "council": "状态：{{status}}",
       "decision": "状态：{{status}}",
       "governance": "状态：{{status}}"
+    },
+    "catalog_title": "引导目录",
+    "catalog_show": "显示目录",
+    "catalog_hide": "隐藏目录",
+    "catalog_description": "填写表单前先查看 SICL 的规范选项。",
+    "catalog_select": "选择目录",
+    "catalog_filter": "筛选选项…",
+    "catalog_copy": "复制选项",
+    "catalog_copied": "已复制：{{value}}",
+    "catalog_empty": "没有匹配选项。",
+    "catalogs": {
+      "spatialScopes": "空间尺度",
+      "temporalScopes": "时间范围",
+      "epistemicStates": "认识状态",
+      "variableTypes": "变量类型",
+      "feasibilityStates": "可行性状态",
+      "evidenceTypes": "证据类型",
+      "authorityLevels": "权限级别",
+      "actorRoles": "参与者角色",
+      "simulationMethods": "模拟方法",
+      "generationMethods": "生成方法",
+      "commandFamilies": "命令族"
     }
   },
   "epistemic": {
