@@ -1,9 +1,12 @@
 # RFC-023 — Core Connectivity and Deployment Contract
 
-**Estado:** DRAFT — pendiente de revisión y aprobación del Product Owner  
-**Tipo:** Infraestructura, integración y observabilidad  
-**Fecha:** 16 de septiembre de 2026  
+**Estado:** APPROVED — AUTHORIZED FOR IMPLEMENTATION
+**Tipo:** Infraestructura, integración y observabilidad
+**Fecha:** 16 de septiembre de 2026
 **Dependencias:** RFC-017, RFC-018, RFC-019, RFC-020, RFC-021 y RFC-022
+
+**Aprobación:** Product Owner / arquitecto
+**Fecha de aprobación:** 16 de septiembre de 2026
 
 ## 1. Problema
 
@@ -30,9 +33,7 @@ La siguiente corrección mínima fue autorizada independientemente de la aprobac
 3. El proxy conserva el status HTTP y el cuerpo JSON del Core para que la UI pueda presentar el error real.
 4. La ausencia de `SICL_CORE_URL` produce `503 CORE_UNAVAILABLE` con el mensaje `Core no configurado. Contacta al administrador.`; no se usa un fallback local silencioso.
 
-Estos cambios son una corrección de transporte autorizada. **No constituyen la implementación formal de RFC-023**, que permanece en estado `DRAFT`.
-
-Esta implementación es una corrección de conectividad y no constituye todavía la aprobación formal de RFC-023.
+Estos cambios constituyen la primera implementación autorizada de RFC-023. La configuración del endpoint real, las pruebas contra producción y la observabilidad ampliada permanecen pendientes porque el Core todavía no está desplegado.
 
 ## 5. Configuración requerida
 
@@ -93,15 +94,15 @@ También se requiere cobertura de tests para URL por defecto, ausencia de config
 
 La corrección mínima de transporte está preparada, pero la validación remota permanece bloqueada porque el hostname Railway conocido responde `404 Application not found` y no existe todavía un `SICL_CORE_URL` vigente configurado en el proyecto WebDev. No se debe declarar E2E operativo hasta resolver esa configuración. RFC-023 no se implementa ni se publica como aprobado en esta etapa.
 
-## 12. Plan de trabajo
+## 12. Plan de trabajo autorizado
 
 La Fase A consiste en confirmar el servicio real y registrar `SICL_CORE_URL` server-side. La Fase B consiste en verificar el proxy y las rutas `/v1`. La Fase C consiste en ejecutar Camino A completo. La Fase D consiste en añadir health checks y observabilidad sin introducir cambios ontológicos.
 
-## 13. Firma
+## 13. Firma y decisión del Product Owner
 
-**Autor:** Manus AI  
-**Revisión:** pendiente del Product Owner  
-**Estado:** propuesta técnica no aprobada para cambios adicionales
+**Autor:** Manus AI
+**Revisión:** aprobada por el Product Owner / arquitecto el 16 de septiembre de 2026
+**Estado:** `APPROVED — AUTHORIZED FOR IMPLEMENTATION`
 
 ## References
 
@@ -137,9 +138,9 @@ La prueba de no regresión debe verificar que el cliente usa `/api/core` cuando 
 
 El resultado operativo esperado es: navegador → `/api/core` same-origin → Core HTTPS v2. El navegador nunca conoce ni transporta el token de servicio. Si el Core falla, la interfaz informa un bloqueo verificable en vez de simular un resultado local.
 
-## Apéndice H — Decisión pendiente
+## Apéndice H — Decisión registrada
 
-El Product Owner debe confirmar el proveedor y hostname canónico del Core remoto antes de cerrar RFC-023. Mientras esa decisión no exista, la implementación permanece en estado `DRAFT / PARTIAL IMPLEMENTATION`.
+RFC-023 fue aprobado formalmente por el Product Owner el 16 de septiembre de 2026. La aprobación autoriza la implementación del contrato de conectividad, pero no inventa ni configura una URL o token inexistentes. El hostname canónico y el token se incorporarán cuando el Core sea desplegado en producción.
 
 ## Apéndice I — Registro de cambios
 
@@ -159,7 +160,7 @@ La disponibilidad del Core es una condición operativa. No es una autorización.
 
 ## Apéndice L — Estado de revisión
 
-Este documento queda preparado para revisión técnica. No se ha fusionado a `main` ni se ha marcado como `APPROVED`.
+Este documento registra la aprobación formal. La implementación inicial de transporte está en `main`; la configuración de producción y la prueba E2E quedan pendientes del despliegue del Core.
 
 ## Apéndice M — Firma del baseline
 
@@ -177,9 +178,9 @@ Con la URL HTTPS vigente disponible, se debe actualizar `SICL_CORE_URL`, ejecuta
 
 Este RFC no autoriza compra, cambio de dominio, cambio de permisos, rotación de credenciales ni publicación externa adicional. Esas acciones requieren sus respectivos permisos y procedimientos.
 
-## Apéndice Q — Estado final de esta propuesta
+## Apéndice Q — Estado actual de RFC-023
 
-**RFC-023:** planificado, con implementación inicial de transporte segura, pendiente de configuración del endpoint remoto y aprobación formal.
+**RFC-023:** aprobado y autorizado para implementación, con transporte server-side inicial aplicado; pendiente de configuración del endpoint remoto y verificación E2E de producción.
 
 ## Apéndice R — Reproducibilidad
 
