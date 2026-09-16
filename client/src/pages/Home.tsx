@@ -13,22 +13,23 @@ import { SICL_65_CAPABILITY_GATES } from "@shared/siclGovernance";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/ThemeContext";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 import { siclClient, type CoreProject } from "@/api/sicl-client";
 import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBranch, LayoutDashboard, Monitor, Moon, Plus, Scale, ShieldCheck, Sun, Target, Waypoints } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 type ModuleNavigation = { id: string; label: string; icon: typeof LayoutDashboard; externalPath?: string };
 const modules: ModuleNavigation[] = [
-  { id: "overview", label: "Project", icon: LayoutDashboard },
-  { id: "context", label: "Context / Site", icon: Waypoints },
-  { id: "problem", label: "Objectives & Constraints", icon: Target },
-  { id: "alternatives", label: "Alternatives & Evaluation", icon: GitBranch },
-  { id: "evidence", label: "Evidence", icon: FileText, externalPath: "/evidence" },
-  { id: "evaluations", label: "Evaluations", icon: Activity, externalPath: "/evaluations" },
-  { id: "comparisons", label: "Comparisons", icon: Scale, externalPath: "/comparisons" },
-  { id: "council", label: "Council / Recommendation", icon: Scale },
-  { id: "audit", label: "Decision & Audit", icon: ShieldCheck },
-  { id: "governance", label: "Build Governance", icon: FileText },
+  { id: "overview", label: "nav.project", icon: LayoutDashboard },
+  { id: "context", label: "nav.context", icon: Waypoints },
+  { id: "problem", label: "nav.objectives", icon: Target },
+  { id: "alternatives", label: "nav.alternatives", icon: GitBranch },
+  { id: "evidence", label: "nav.evidence", icon: FileText, externalPath: "/evidence" },
+  { id: "evaluations", label: "nav.evaluations", icon: Activity, externalPath: "/evaluations" },
+  { id: "comparisons", label: "nav.comparisons", icon: Scale, externalPath: "/comparisons" },
+  { id: "council", label: "nav.council", icon: Scale },
+  { id: "audit", label: "nav.decision", icon: ShieldCheck },
+  { id: "governance", label: "nav.governance", icon: FileText },
 ] as const;
 
 type ModuleId = typeof modules[number]["id"];
@@ -47,6 +48,7 @@ export default function Home() {
 
 function AuthenticatedHome() {
   const { preference, setThemePreference } = useTheme();
+  const { t } = useTranslation();
   const [module, setModule] = useState<ModuleId>(() => (window.location.hash.replace("#", "") as ModuleId) || "overview");
   const [selectedProjectId, setSelectedProjectId] = useState<string>();
   const [newProjectName, setNewProjectName] = useState("");
@@ -112,18 +114,18 @@ function AuthenticatedHome() {
         <header className="border-b border-[#d7d8cf] bg-[#f4f1ea]/95 px-6 py-5 backdrop-blur md:px-10">
           <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-5">
             <div>
-              <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#60766b]"><span className="h-2 w-2 rounded-full bg-[#d07b4a]" /> SiMS-DeI · SICL</div>
-              <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">SiMS-DeI Command Center</h1>
-              <p className="mt-1 text-sm text-[#718078]">Evidence-led project decisions, with human authority preserved at the boundary.</p>
+              <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#60766b]"><span className="h-2 w-2 rounded-full bg-[#d07b4a]" /> {t("header.subtitle")}</div>
+              <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1>
+              <p className="mt-1 text-sm text-[#718078]">{t("header.tagline")}</p>
             </div>
-            <div className="flex items-center gap-3"><LanguageSelector /><div role="group" aria-label="Preferencia de tema" className="flex items-center border border-[#b9c4bd] bg-[#fbfaf6] p-1 text-xs text-[#385348]"><button type="button" onClick={() => setThemePreference("system")} aria-pressed={preference === "system"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "system" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Monitor className="h-3.5 w-3.5" /><span className="hidden sm:inline">Sistema</span></button><button type="button" onClick={() => setThemePreference("light")} aria-pressed={preference === "light"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "light" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Sun className="h-3.5 w-3.5" /><span className="hidden sm:inline">Claro</span></button><button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "dark" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">Oscuro</span></button></div><div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">SiMS-DeI 2.2</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div></div>
+            <div className="flex items-center gap-3"><LanguageSelector /><div role="group" aria-label={t("theme.system")} className="flex items-center border border-[#b9c4bd] bg-[#fbfaf6] p-1 text-xs text-[#385348]"><button type="button" onClick={() => setThemePreference("system")} aria-pressed={preference === "system"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "system" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Monitor className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.system")}</span></button><button type="button" onClick={() => setThemePreference("light")} aria-pressed={preference === "light"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "light" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Sun className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.light")}</span></button><button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", preference === "dark" ? "bg-[#385348] text-white" : "hover:bg-[#e9ede5]")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.dark")}</span></button></div><div className="hidden items-center gap-3 md:flex"><Badge variant="outline" className="border-[#b9c4bd] bg-[#eef1eb] text-[#385348]">{t("header.version")}</Badge><div className="flex items-center gap-2 text-xs text-[#718078]"><Activity className="h-4 w-4" /> Traceable workspace</div></div></div>
           </div>
         </header>
         <div className="mx-auto grid max-w-[1500px] grid-cols-1 md:grid-cols-[240px_1fr]">
           <aside className="border-b border-[#d7d8cf] bg-[#e9ede5] p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
             <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-[#6a7d72]">Project modules</span><BookOpen className="h-4 w-4 text-[#8b9a90]" /></div>
             <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { if (item.externalPath) { window.location.assign(`${item.externalPath}?project=${encodeURIComponent(restProjectId)}`); return; } window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-[#385348] bg-[#385348] font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-[#385348]")} /><span>{item.label}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">Activo</span>}</button>; })}
+              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { if (item.externalPath) { window.location.assign(`${item.externalPath}?project=${encodeURIComponent(restProjectId)}`); return; } window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-[#385348] bg-[#385348] font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-[#52645a] hover:border-[#b9c4bd] hover:bg-[#f4f1ea]")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-[#385348]")} /><span>{t(item.label)}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">Activo</span>}</button>; })}
             </nav>
             <div className="mt-8 border-t border-[#cbd2c9] pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7a8c82]">Integrity rule</p><p className="mt-2 text-xs leading-5 text-[#65756c]">Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority.</p></div>
           </aside>
