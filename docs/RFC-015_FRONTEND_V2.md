@@ -1,6 +1,6 @@
 # RFC-015 — Frontend v2 funcional de SiMS-DeI / SICL
 
-**Estado:** DEFINITION ONLY — NO IMPLEMENTATION
+**Estado:** FASE A IMPLEMENTED — Evidence, Source, Evaluation y Comparison
 
 **Criterio rector:** funcionalidad mínima, no estética.
 
@@ -251,7 +251,17 @@ El Frontend v2 funcional será aceptable cuando:
 - La interfaz sea simple, incluso si es visualmente fea.
 - Es feo pero funcional: la apariencia no puede bloquear la operación del Core.
 
-## 12. Referencias
+## 12. Fase A implementada
+
+La Fase A añade páginas operativas para `/evidence`, `/evaluations` y `/comparisons`. Las páginas consumen el cliente REST tipado y la superficie canónica `/v1` del Core; no usan datos simulados en producción.
+
+Evidence y Source se muestran en tablas separadas, con formularios de creación y detalle seleccionado. Evaluations permite crear, listar y filtrar por alternative u objective. Comparisons permite crear una comparación con al menos dos alternativas y listar sus resultados.
+
+El componente `KnowledgeState` hace visibles `UNKNOWN`, `CONFLICTING`, `INSUFFICIENT` y `OBSERVED` con texto y color semántico. Los errores HTTP se muestran explícitamente: 400 como datos inválidos, 404 como no encontrado, 409 como conflicto y 422 como datos incompletos.
+
+Los nuevos accesos de navegación son Evidence, Evaluations y Comparisons. La fase no altera entidades del Core, no añade endpoints y no modifica el backend tRPC existente.
+
+## 13. Referencias
 
 - RFC-001 a RFC-014.
 - SiMS-DeI 2.0 — Master Architecture.
