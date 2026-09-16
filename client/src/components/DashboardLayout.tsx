@@ -25,19 +25,20 @@ import { useIsMobile } from "@/hooks/useMobile";
 import { Activity, FileText, GitBranch, LayoutDashboard, LogOut, PanelLeft, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Project", path: "/" },
-  { icon: Waypoints, label: "Context / Site", path: "/#context" },
-  { icon: Target, label: "Objectives", path: "/#problem" },
-  { icon: GitBranch, label: "Alternatives", path: "/#alternatives" },
-  { icon: FileText, label: "Evidence", path: "/evidence" },
-  { icon: Activity, label: "Evaluations", path: "/evaluations" },
-  { icon: Scale, label: "Comparisons", path: "/comparisons" },
-  { icon: Scale, label: "Council", path: "/#council" },
-  { icon: ShieldCheck, label: "Decision & Audit", path: "/#audit" },
+  { icon: LayoutDashboard, label: "nav.project", path: "/" },
+  { icon: Waypoints, label: "nav.context", path: "/#context" },
+  { icon: Target, label: "nav.objectives", path: "/#problem" },
+  { icon: GitBranch, label: "nav.alternatives", path: "/#alternatives" },
+  { icon: FileText, label: "nav.evidence", path: "/evidence" },
+  { icon: Activity, label: "nav.evaluations", path: "/evaluations" },
+  { icon: Scale, label: "nav.comparisons", path: "/comparisons" },
+  { icon: Scale, label: "nav.council", path: "/#council" },
+  { icon: ShieldCheck, label: "nav.decision", path: "/#audit" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -113,6 +114,7 @@ function DashboardLayoutContent({
   setSidebarWidth,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -196,13 +198,13 @@ function DashboardLayoutContent({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setLocation(item.path)}
-                      tooltip={item.label}
+                      tooltip={t(item.label)}
                       className={`h-10 transition-all font-normal`}
                     >
                       <item.icon
                         className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
                       />
-                      <span>{item.label}</span>
+                      <span>{t(item.label)}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -259,7 +261,7 @@ function DashboardLayoutContent({
               <div className="flex items-center gap-3">
                 <div className="flex flex-col gap-1">
                   <span className="tracking-tight text-foreground">
-                    {activeMenuItem?.label ?? "Menu"}
+                    {activeMenuItem ? t(activeMenuItem.label) : t("nav.project")}
                   </span>
                 </div>
               </div>
