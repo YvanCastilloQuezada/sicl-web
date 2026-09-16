@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PhaseAPageLayout from "@/components/PhaseAPageLayout";
 import { apiErrorMessage, siclClient, type Comparison, type ComparisonInput } from "@/api/sicl-client";
 import ComparisonForm from "@/components/ComparisonForm";
 const projectFromUrl = () => new URLSearchParams(window.location.search).get("project") || "TEST-API-001";
 export default function ComparisonsPage() {
+  const { t } = useTranslation();
   const [projectId, setProjectId] = useState(projectFromUrl); const [items, setItems] = useState<Comparison[]>([]); const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false);
   const refresh = async () => { try { setItems(await siclClient.listComparisons(projectId)); setError(""); } catch (err) { setError(apiErrorMessage(err)); } };
   useEffect(() => { void refresh(); }, [projectId]);

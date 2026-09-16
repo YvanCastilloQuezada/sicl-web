@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PhaseAPageLayout from "@/components/PhaseAPageLayout";
 import { apiErrorMessage, siclClient, type Evidence, type EvidenceInput, type Source, type SourceInput } from "@/api/sicl-client";
 import EvidenceForm from "@/components/EvidenceForm";
@@ -7,6 +8,7 @@ import KnowledgeState from "@/components/KnowledgeState";
 const projectFromUrl = () => new URLSearchParams(window.location.search).get("project") || "TEST-API-001";
 const cell = (value: unknown) => String(value ?? "—");
 export default function EvidencePage() {
+  const { t } = useTranslation();
   const [projectId, setProjectId] = useState(projectFromUrl); const [evidence, setEvidence] = useState<Evidence[]>([]); const [sources, setSources] = useState<Source[]>([]); const [selected, setSelected] = useState<Evidence | Source>(); const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false);
   const refresh = async () => { setError(""); try { const [nextEvidence, nextSources] = await Promise.all([siclClient.listEvidence(projectId), siclClient.listSources(projectId)]); setEvidence(nextEvidence); setSources(nextSources); } catch (err) { setError(apiErrorMessage(err)); } };
   useEffect(() => { void refresh(); }, [projectId]);

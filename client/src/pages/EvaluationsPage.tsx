@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PhaseAPageLayout from "@/components/PhaseAPageLayout";
 import { apiErrorMessage, siclClient, type Evaluation, type EvaluationInput } from "@/api/sicl-client";
 import EvaluationForm from "@/components/EvaluationForm";
 const projectFromUrl = () => new URLSearchParams(window.location.search).get("project") || "TEST-API-001";
 export default function EvaluationsPage() {
+  const { t } = useTranslation();
   const [projectId, setProjectId] = useState(projectFromUrl); const [items, setItems] = useState<Evaluation[]>([]); const [alternative, setAlternative] = useState(""); const [objective, setObjective] = useState(""); const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false);
   const refresh = async () => { try { setItems(await siclClient.listEvaluations(projectId, { alternative: alternative || undefined, objective: objective || undefined })); setError(""); } catch (err) { setError(apiErrorMessage(err)); } };
   useEffect(() => { void refresh(); }, [projectId, alternative, objective]);
