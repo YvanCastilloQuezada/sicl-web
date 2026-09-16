@@ -163,7 +163,9 @@
     "save_language": "Enregistrer la langue",
     "search_aliases": "Rechercher des alias par langue",
     "canonical_command": "Commande canonique en anglais",
-    "language_saved": "Préférence de langue enregistrée"
+    "language_saved": "Préférence de langue enregistrée",
+    "alias_search_shortcut": "Ouvrir la recherche d’alias",
+    "export_aliases_csv": "Exporter les alias CSV"
   },
   "visualization": {
     "pareto": {

@@ -163,7 +163,9 @@
     "save_language": "保存语言",
     "search_aliases": "按语言搜索别名",
     "canonical_command": "英文规范命令",
-    "language_saved": "语言偏好已保存"
+    "language_saved": "语言偏好已保存",
+    "alias_search_shortcut": "打开别名搜索",
+    "export_aliases_csv": "导出别名 CSV"
   },
   "visualization": {
     "pareto": {

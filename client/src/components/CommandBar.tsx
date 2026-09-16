@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { CheckCircle2, ChevronDown, Command, History, Loader2, Search, Settings2, Terminal, XCircle } from "lucide-react";
+import { CheckCircle2, ChevronDown, Command, Download, History, Loader2, Search, Settings2, Terminal, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import catalog from "@/content/commands-catalog.json";
 import aliasRegistry from "@/content/command-aliases.json";
@@ -157,6 +157,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const [preferredLocale, setPreferredLocale] = useState(() => readPreferredLocale() ?? activeLocale());
   const [languageSaved, setLanguageSaved] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const aliasSearchRef = useRef<HTMLInputElement>(null);
 
   const locale = activeLocale();
 
@@ -178,6 +179,13 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === "l") {
+        event.preventDefault();
+        setOpen(true);
+        setAliasSearch("");
+        window.setTimeout(() => aliasSearchRef.current?.focus(), 0);
+        return;
+      }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
         setOpen(true);
@@ -204,6 +212,21 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     setPendingCanonical(null);
     setAliasSearch("");
     setSettingsOpen(false);
+  };
+
+  const exportAliasesCsv = () => {
+    const header = ["locale", "alias", "canonical", "status"];
+    const rows = localizedAliases(locale).map((entry) => [entry.locale, entry.alias, entry.canonical, entry.status]);
+    const csvCell = (value: string) => `"${value.replaceAll('"', '""')}"`;
+    const csv = [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n") + "\r\n";
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `sicl-aliases-${locale}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
   };
 
   const savePreferredLanguage = () => {
@@ -291,8 +314,8 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     {!open && <button type="button" onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#f2c300] px-4 py-3 text-sm font-semibold text-[#1d2925] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-[#d4a017] hover:text-[#fbfaf6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8bc34a]" aria-label={t("command_bar.open_button")}><Command className="h-4 w-4" /> <span className="hidden sm:inline">SICL</span><kbd className="hidden rounded bg-white/15 px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd></button>}
     {open && <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl px-3 pb-3 sm:px-6" role="dialog" aria-label={t("command_bar.title")}>
       <div className="overflow-hidden rounded-lg border-2 border-[#f2c300] bg-[#fbfaf6] shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
-        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")}</p></div><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
-        <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div><div className="relative sm:col-span-2"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input aria-label={t("command_bar.search_aliases")} value={aliasSearch} onChange={(event) => setAliasSearch(event.target.value)} placeholder={t("command_bar.search_aliases")} className="border border-[#d7d8cf] bg-[#fbfaf6] pl-9 text-xs text-[#1d2925]" /></div></div>
+        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")} · {t("command_bar.alias_search_shortcut")} (Ctrl/Cmd+Shift+L)</p></div><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
+        <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div><div className="relative sm:col-span-2"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={aliasSearchRef} aria-label={t("command_bar.search_aliases")} value={aliasSearch} onChange={(event) => setAliasSearch(event.target.value)} placeholder={t("command_bar.search_aliases")} className="border border-[#d7d8cf] bg-[#fbfaf6] pl-9 text-xs text-[#1d2925]" /></div><Button type="button" variant="outline" size="sm" onClick={exportAliasesCsv} aria-label={t("command_bar.export_aliases_csv")} className="h-9 border-[#385348] text-xs text-[#385348]"><Download className="mr-1 h-3.5 w-3.5" />{t("command_bar.export_aliases_csv")}</Button></div>
         {settingsOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="flex flex-wrap items-center gap-2"><label htmlFor="command-language" className="text-xs font-semibold text-[#385348]">{t("command_bar.language_preference")}</label><select id="command-language" aria-label={t("command_bar.language_preference")} value={preferredLocale} onChange={(event) => setPreferredLocale(event.target.value)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]">{LANGUAGE_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><Button type="button" size="sm" onClick={savePreferredLanguage} className="h-7 bg-[#385348] px-2 text-xs text-[#fbfaf6]">{t("command_bar.save_language")}</Button>{languageSaved && <span className="text-xs text-[#385348]">{t("command_bar.language_saved")}</span>}</div></div>}
         {aliasSearch && <div className="max-h-36 overflow-y-auto border-b border-[#e2e4de] bg-[#fbfaf6] p-2">{aliasResults.slice(0, 24).map((entry) => <div key={`${entry.locale}-${entry.alias}`} title={entry.canonical} className="flex items-center justify-between rounded px-3 py-1.5 font-mono text-xs text-[#1d2925] hover:bg-[#e9ede5]"><span title={entry.canonical}>{entry.alias}</span><span className="text-[10px] text-[#718078]">{entry.canonical}</span></div>)}</div>}
         {suggestions.length > 0 && <div className="max-h-48 overflow-y-auto border-b border-[#e2e4de] p-2">{suggestions.map((suggestion, index) => { const aliasEntry = aliases.entries.find((entry) => entry.locale === locale && entry.alias === suggestion); const isActive = aliasEntry?.status === "ACTIVE"; const isProposed = aliasEntry?.status === "PROPOSED"; return <button type="button" key={`${suggestion}-${index}`} onClick={() => setInput(suggestion.startsWith("/") ? suggestion : `${input.trim()} ${suggestion}`.trim())} className={cn("flex w-full items-center justify-between rounded px-3 py-2 text-left font-mono text-xs", index === selected ? "bg-[#f2c300] font-bold text-[#1d2925]" : "text-[#1d2925] hover:bg-[#e9ede5] hover:text-[#385348]")}><span title={aliases.entries.find((entry) => entry.locale === locale && entry.alias === suggestion)?.canonical}>{suggestion}</span><span className="flex items-center gap-2 text-[10px] uppercase tracking-wide">{isActive && <span className="rounded bg-[#385348] px-1.5 py-0.5 text-[#fbfaf6]">{t("command_bar.alias_active")}</span>}{isProposed && <span className="rounded border border-[#d07b4a] bg-[#fbe5d6] px-1.5 py-0.5 text-[#a94524]">{t("command_bar.alias_proposed")}</span>}{index === selected && <span>Tab</span>}</span></button>; })}</div>}

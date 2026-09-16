@@ -163,7 +163,9 @@
     "save_language": "Сохранить язык",
     "search_aliases": "Поиск псевдонимов по языку",
     "canonical_command": "Каноническая команда на английском",
-    "language_saved": "Настройка языка сохранена"
+    "language_saved": "Настройка языка сохранена",
+    "alias_search_shortcut": "Открыть поиск псевдонимов",
+    "export_aliases_csv": "Экспортировать псевдонимы в CSV"
   },
   "visualization": {
     "pareto": {

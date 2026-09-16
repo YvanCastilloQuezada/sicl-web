@@ -163,7 +163,9 @@
     "save_language": "Sprache speichern",
     "search_aliases": "Aliase nach Sprache suchen",
     "canonical_command": "Kanonischer Befehl auf Englisch",
-    "language_saved": "Spracheinstellung gespeichert"
+    "language_saved": "Spracheinstellung gespeichert",
+    "alias_search_shortcut": "Alias-Suche öffnen",
+    "export_aliases_csv": "Aliase als CSV exportieren"
   },
   "visualization": {
     "pareto": {

@@ -122,4 +122,27 @@ describe("CommandBar", () => {
     expect(localStorage.getItem(COMMAND_LANGUAGE_KEY)).toBe("fr");
     expect(screen.getByText(/Preferencia de idioma guardada|Language preference saved|Préférence de langue enregistrée/)).toBeTruthy();
   });
+
+  it("opens and focuses alias search with Ctrl/Cmd+Shift+L", async () => {
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "l", ctrlKey: true, shiftKey: true });
+    const search = screen.getByLabelText(/Buscar alias por idioma|Search aliases by language/);
+    expect(screen.getByRole("dialog")).toBeTruthy();
+    await waitFor(() => expect(document.activeElement).toBe(search));
+  });
+
+  it("exports the selected locale aliases as CSV", () => {
+    const createObjectURL = vi.fn().mockReturnValue("blob:test");
+    const revokeObjectURL = vi.fn();
+    vi.stubGlobal("URL", { ...URL, createObjectURL, revokeObjectURL });
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
+    render(React.createElement(CommandBar));
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    fireEvent.click(screen.getByRole("button", { name: /Exportar alias CSV|Export aliases CSV/ }));
+    expect(createObjectURL).toHaveBeenCalledOnce();
+    expect(createObjectURL.mock.calls[0][0]).toBeInstanceOf(Blob);
+    expect(click).toHaveBeenCalledOnce();
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:test");
+    click.mockRestore();
+  });
 });
