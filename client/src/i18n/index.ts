@@ -17,6 +17,7 @@ void i18n
   .use(initReactI18next)
   .init({
     resources: { es: { translation: es }, en: { translation: en }, pt: { translation: pt }, it: { translation: it }, fr: { translation: fr }, de: { translation: de }, ru: { translation: ru }, zh: { translation: zh } },
+    lng: "es",
     fallbackLng: "es",
     supportedLngs: ["es", "en", "pt", "it", "fr", "de", "ru", "zh"],
     detection: { order: ["localStorage", "navigator"], caches: ["localStorage"], lookupLocalStorage: I18N_STORAGE_KEY },

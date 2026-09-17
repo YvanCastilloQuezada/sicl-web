@@ -12,6 +12,8 @@ export const supportedLanguages = [
   { code: "zh", label: "中文", nativeLabel: "中文" },
 ] as const;
 
+const LANGUAGE_CHOICE_KEY = "sims-dei-lang-user-set";
+
 export type LanguageCode = (typeof supportedLanguages)[number]["code"];
 type LanguageContextValue = { language: LanguageCode; setLanguage: (language: LanguageCode) => void; languages: typeof supportedLanguages };
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
@@ -23,7 +25,10 @@ function normalizeLanguage(value: string | undefined | null): LanguageCode {
 
 function detectLanguage(): LanguageCode {
   if (typeof window === "undefined") return "es";
-  return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY) || navigator.language);
+  // Spanish is the product default. A different language is used only after
+  // the user explicitly chooses it in the selector.
+  if (localStorage.getItem(LANGUAGE_CHOICE_KEY) !== "true") return "es";
+  return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY));
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
@@ -37,7 +42,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo(() => ({
     language,
-    setLanguage: (next: LanguageCode) => setLanguageState(next),
+    setLanguage: (next: LanguageCode) => {
+      localStorage.setItem(LANGUAGE_CHOICE_KEY, "true");
+      setLanguageState(next);
+    },
     languages: supportedLanguages,
   }), [language]);
 

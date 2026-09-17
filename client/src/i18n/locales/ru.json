@@ -3,7 +3,8 @@
     "title": "SiMS-DeI Command Center",
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Решения по проекту на основе фактов с сохранением полномочий человека на границе системы.",
-    "version": "SiMS-DeI 2.2"
+    "version": "SiMS-DeI 2.2",
+    "navigation": "Основная навигация"
   },
   "nav": {
     "project": "Проект",
@@ -15,7 +16,9 @@
     "comparisons": "Сравнения",
     "council": "Совет / Рекомендация",
     "decision": "Решение и аудит",
-    "governance": "Управление строительством"
+    "governance": "Управление строительством",
+    "multiobjective": "Многокритериальная оптимизация",
+    "help": "Помощь"
   },
   "common": {
     "create": "Создать",
