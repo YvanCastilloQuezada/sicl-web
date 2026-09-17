@@ -16,3 +16,8 @@ Documentos de primera lectura:
 - `USER_MANUAL.md`
 - `RFC-023_CORE_CONNECTIVITY_AND_DEPLOYMENT.md`
 - `PROJECT_CLOSURE_REPORT.md`
+
+
+## Auditoría RFC-015–026
+
+La matriz vigente del Core se encuentra en `sicl-core/docs/SIMS_DEI_CURRENT_ARCHITECTURE_v2.11.md`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.

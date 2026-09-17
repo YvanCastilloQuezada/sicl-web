@@ -1,6 +1,6 @@
 # RFC-022 — Frontend Guided Interface
 
-**Estado:** IMPLEMENTED ON MAIN — integrado en `main@74bf4aed`.
+**Estado:** IMPLEMENTED ON MAIN — integrado en `main@17422b2922918512dc5f93bb8371e57f0038d54a`.
 
 ## 1. Objetivo
 
@@ -62,7 +62,7 @@ La interfaz guiada no reemplaza la revisión profesional de arquitectura, la rev
 
 ## 12. Firma
 
-RFC-022 queda documentado como implementación frontend integrada en `main@74bf4aed`. Su validación de producción contra el Core remoto permanece condicionada a la configuración real de `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` definida por RFC-023.
+RFC-022 queda documentado como implementación frontend integrada en `main@17422b2922918512dc5f93bb8371e57f0038d54a`. Su validación de producción contra el Core remoto permanece condicionada a la configuración real de `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` definida por RFC-023.
 
 
 ## 13. Baseline y límites actuales

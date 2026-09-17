@@ -8,7 +8,7 @@
 
 **Lenguaje formal:** SICL — Spatial Intelligence Command Language.
 
-**Base:** `sims-dei-web@main@76550a6e`.
+**Base:** `sicl-web@main@17422b2922918512dc5f93bb8371e57f0038d54a`.
 
 **Rama documental:** `docs/rfc-015-frontend-v2`.
 
