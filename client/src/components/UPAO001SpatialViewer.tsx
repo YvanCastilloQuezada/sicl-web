@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { analyticalSolarShadows } from "../lib/analyticalSolarShadows";
 
 type Point = [number, number];
 type Geometry = { type: string; coordinates: unknown };
@@ -132,10 +133,11 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number }) {
+export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
+  const analytical = solarAzimuthDegrees !== undefined && solarElevationDegrees !== undefined ? analyticalSolarShadows(representation, solarAzimuthDegrees, solarElevationDegrees) : null;
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
-  const allPoints = geometries.flat();
+  const allPoints = [...geometries.flat(), ...(analytical?.shadows.flatMap((shadow) => shadow.polygon) ?? [])];
   const bounds = useMemo(() => boundsOverride ?? ({ minX: Math.min(...allPoints.map((point) => point[0])), maxX: Math.max(...allPoints.map((point) => point[0])), minY: Math.min(...allPoints.map((point) => point[1])), maxY: Math.max(...allPoints.map((point) => point[1])) }), [allPoints, boundsOverride]);
   const title = `SiMS-DeI ${representation.alternative_id} spatial representation`;
   const north = project([bounds.minX + (bounds.maxX - bounds.minX) * 0.12, bounds.maxY - (bounds.maxY - bounds.minY) * 0.12], bounds);
@@ -165,6 +167,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
         <desc id="spatial-description">Analytical 2D projection derived from the Core SpatialRepresentation. Synthetic educational model, not a surveyed site.</desc>
         <defs><marker id="solar-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f59e0b" /></marker></defs>
         <rect x="0" y="0" width={WIDTH} height={HEIGHT} fill="transparent" />
+        {analytical?.shadows.map((shadow) => <polygon key={`${shadow.massId}-analytical-shadow`} data-testid="analytical-shadow" points={pointsString(shadow.polygon, bounds)} fill="#475569" fillOpacity={0.28} stroke="#334155" strokeWidth={1.5} strokeDasharray="5 4" aria-label={`Analytical shadow ${shadow.massId}`} />)}
         {representation.elements.map((element) => {
           const groups = sourcePoints(element);
           const label = labelFor(element, language);
@@ -182,7 +185,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
       </svg>
     </div>
     <div className="grid gap-4 md:grid-cols-[1fr_220px]">
-      <div className="rounded-md border border-border bg-card p-4 text-card-foreground"><h3 className="font-semibold">Spatial summary</h3><ul className="mt-2 space-y-1 text-sm text-muted-foreground">{summary.map((line) => <li key={line}>{line}</li>)}</ul>{unsupported.length > 0 && <p role="status" className="mt-3 text-sm text-amber-700">Unsupported element types omitted: {unsupported.join(", ")}</p>}</div>
+      <div className="rounded-md border border-border bg-card p-4 text-card-foreground"><h3 className="font-semibold">Spatial summary</h3><ul className="mt-2 space-y-1 text-sm text-muted-foreground">{summary.map((line) => <li key={line}>{line}</li>)}</ul>{analytical && <div className="mt-3 rounded border border-slate-300 bg-slate-50 p-2 text-xs text-slate-900"><p className="font-semibold">Analytical solar shadow · L2 geometry-informed</p><p>{analytical.status === "AVAILABLE" ? `${analytical.shadows.length} mass-level shadow(s) · elevation ${solarElevationDegrees?.toFixed(1)}°` : "NO_DIRECT_SOLAR_SHADOW · SUN_BELOW_HORIZON"}</p><p className="mt-1">Graphical renderer shadows remain separate from this analytical overlay.</p></div>}{unsupported.length > 0 && <p role="status" className="mt-3 text-sm text-amber-700">Unsupported element types omitted: {unsupported.join(", ")}</p>}</div>
       <div className="rounded-md border border-border bg-card p-4 text-card-foreground"><h3 className="font-semibold">Legend</h3><ul className="mt-2 space-y-1 text-xs text-muted-foreground"><li>Boundary / footprint</li><li>Building mass</li><li>Program zone</li><li>Circulation / access</li><li>North: {representation.north_degrees.toFixed(1)}°</li></ul></div>
     </div>
   </div>;
