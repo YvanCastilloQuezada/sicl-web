@@ -616,6 +616,18 @@
     "human_authority": "Sie erkunden Alternativen. Das System entscheidet nicht für Sie.",
     "selection_note": "Die Auswahl ist nur eine UI-Auswahl; sie erzeugt keine Decision, HumanReview, Recommendation oder Genehmigung.",
     "common_site": "Die gemeinsame Standortreferenz bleibt für A/B/C erhalten.",
-    "data_on_demand": "Öffnen Sie technische Daten nur bei Bedarf."
+    "data_on_demand": "Öffnen Sie technische Daten nur bei Bedarf.",
+    "presentation_mode": "Presentation mode",
+    "presentation_lines": "Lines",
+    "presentation_lines_faces": "Lines + faces",
+    "presentation_faces": "Faces",
+    "presentation_simple_materials": "Simple materials",
+    "presentation_realistic": "Realistic (degraded)",
+    "capture_image": "Capture image",
+    "record_video": "Record video",
+    "stop_recording": "Stop recording",
+    "fullscreen": "Fullscreen",
+    "save_view": "Save current view",
+    "delete_view": "Delete view"
   }
 }

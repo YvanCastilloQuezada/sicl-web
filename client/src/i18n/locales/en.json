@@ -616,6 +616,18 @@
     "human_authority": "You are exploring alternatives. The system is not deciding for you.",
     "selection_note": "Selection is UI-only; it does not create a Decision, HumanReview, Recommendation, or approval.",
     "common_site": "Common site reference is preserved across A/B/C.",
-    "data_on_demand": "Open technical data only when needed."
+    "data_on_demand": "Open technical data only when needed.",
+    "presentation_mode": "Presentation mode",
+    "presentation_lines": "Lines",
+    "presentation_lines_faces": "Lines + faces",
+    "presentation_faces": "Faces",
+    "presentation_simple_materials": "Simple materials",
+    "presentation_realistic": "Realistic (degraded)",
+    "capture_image": "Capture image",
+    "record_video": "Record video",
+    "stop_recording": "Stop recording",
+    "fullscreen": "Fullscreen",
+    "save_view": "Save current view",
+    "delete_view": "Delete view"
   }
 }

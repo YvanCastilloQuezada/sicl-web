@@ -60,6 +60,15 @@ describe("UPAO001SpatialComparison S5", () => {
     expect(screen.queryByText("Winner")).toBeNull();
     expect(screen.queryByText("Recommended")).toBeNull();
   });
+  it("offers truthful presentation modes and keeps saved views local to the UI", () => {
+    render(view());
+    expect(screen.getByText("lines")).toBeTruthy();
+    expect(screen.getByText("realistic")).toBeTruthy();
+    fireEvent.click(screen.getByText("faces"));
+    expect(screen.getByText("faces").closest("button")?.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(screen.getByRole("button", { name: "Save current view" }));
+    expect(screen.getByText("UPAO-001-A · faces")).toBeTruthy();
+  });
   it("offers 3D mode without eagerly rendering it in 2D", () => {
     render(view());
     expect(screen.getByRole("button", { name: "3D massing" })).toBeTruthy();

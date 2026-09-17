@@ -616,6 +616,18 @@
     "human_authority": "你正在探索方案。系统不会替你做决定。",
     "selection_note": "选择仅改变界面状态；不会创建 Decision、HumanReview、Recommendation 或批准。",
     "common_site": "A/B/C 保持共同的场地参考。",
-    "data_on_demand": "需要时再打开技术数据。"
+    "data_on_demand": "需要时再打开技术数据。",
+    "presentation_mode": "Presentation mode",
+    "presentation_lines": "Lines",
+    "presentation_lines_faces": "Lines + faces",
+    "presentation_faces": "Faces",
+    "presentation_simple_materials": "Simple materials",
+    "presentation_realistic": "Realistic (degraded)",
+    "capture_image": "Capture image",
+    "record_video": "Record video",
+    "stop_recording": "Stop recording",
+    "fullscreen": "Fullscreen",
+    "save_view": "Save current view",
+    "delete_view": "Delete view"
   }
 }

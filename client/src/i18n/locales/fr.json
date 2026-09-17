@@ -616,6 +616,18 @@
     "human_authority": "Vous explorez des alternatives. Le système ne décide pas pour vous.",
     "selection_note": "La sélection est uniquement visuelle ; elle ne crée pas de Decision, HumanReview, Recommendation ou approbation.",
     "common_site": "La référence commune du site est conservée entre A/B/C.",
-    "data_on_demand": "Ouvrez les données techniques lorsque nécessaire."
+    "data_on_demand": "Ouvrez les données techniques lorsque nécessaire.",
+    "presentation_mode": "Presentation mode",
+    "presentation_lines": "Lines",
+    "presentation_lines_faces": "Lines + faces",
+    "presentation_faces": "Faces",
+    "presentation_simple_materials": "Simple materials",
+    "presentation_realistic": "Realistic (degraded)",
+    "capture_image": "Capture image",
+    "record_video": "Record video",
+    "stop_recording": "Stop recording",
+    "fullscreen": "Fullscreen",
+    "save_view": "Save current view",
+    "delete_view": "Delete view"
   }
 }

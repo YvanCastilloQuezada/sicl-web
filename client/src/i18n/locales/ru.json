@@ -616,6 +616,18 @@
     "human_authority": "Вы исследуете альтернативы. Система не принимает решение за вас.",
     "selection_note": "Выбор относится только к интерфейсу; он не создаёт Decision, HumanReview, Recommendation или утверждение.",
     "common_site": "Общая привязка к участку сохраняется для A/B/C.",
-    "data_on_demand": "Открывайте технические данные только при необходимости."
+    "data_on_demand": "Открывайте технические данные только при необходимости.",
+    "presentation_mode": "Presentation mode",
+    "presentation_lines": "Lines",
+    "presentation_lines_faces": "Lines + faces",
+    "presentation_faces": "Faces",
+    "presentation_simple_materials": "Simple materials",
+    "presentation_realistic": "Realistic (degraded)",
+    "capture_image": "Capture image",
+    "record_video": "Record video",
+    "stop_recording": "Stop recording",
+    "fullscreen": "Fullscreen",
+    "save_view": "Save current view",
+    "delete_view": "Delete view"
   }
 }
