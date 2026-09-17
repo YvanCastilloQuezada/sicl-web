@@ -65,7 +65,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="system"
+        defaultTheme="dark"
         switchable
       >
         <LanguageProvider>
