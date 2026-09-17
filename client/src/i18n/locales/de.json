@@ -556,7 +556,18 @@
       "REQUIRES_DATA": "DATEN ERFORDERLICH",
       "NOT_AVAILABLE": "NICHT VERFÜGBAR",
       "NOT_APPLICABLE": "NICHT ANWENDBAR"
-    }
+    },
+    "wind": "Meteorologischer Wind",
+    "windSpeed": "Geschwindigkeit",
+    "windDirection": "Aus",
+    "windConvention": "Meteorologische Richtung: aus",
+    "layers": {
+      "WEATHER_WIND": "Meteorologischer Wind",
+      "AIR_TEMPERATURE": "Lufttemperatur"
+    },
+    "layersTitle": "Aktive Umweltlayer",
+    "temperature": "Umgebungslufttemperatur",
+    "temperatureContext": "Umgebungskontext; kein berechnetes Temperaturfeld des Standorts"
   },
   "location": {
     "title": "Projektstandort",

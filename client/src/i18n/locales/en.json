@@ -556,7 +556,18 @@
       "REQUIRES_DATA": "REQUIRES DATA",
       "NOT_AVAILABLE": "NOT AVAILABLE",
       "NOT_APPLICABLE": "NOT APPLICABLE"
-    }
+    },
+    "wind": "Weather wind",
+    "windSpeed": "Speed",
+    "windDirection": "From",
+    "windConvention": "Meteorological direction: from",
+    "layers": {
+      "WEATHER_WIND": "Weather wind",
+      "AIR_TEMPERATURE": "Air temperature"
+    },
+    "layersTitle": "Active environmental layers",
+    "temperature": "Ambient air temperature",
+    "temperatureContext": "Ambient context; not a calculated site field"
   },
   "location": {
     "title": "Project location",

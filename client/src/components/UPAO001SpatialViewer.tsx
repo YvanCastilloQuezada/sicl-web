@@ -133,9 +133,9 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export type EnvironmentalLayerId = "SUN_POSITION" | "SOLAR_RADIATION" | "ANALYTICAL_SOLAR_SHADOW";
+export type EnvironmentalLayerId = "SUN_POSITION" | "SOLAR_RADIATION" | "ANALYTICAL_SOLAR_SHADOW" | "WEATHER_WIND" | "AIR_TEMPERATURE";
 
-export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees, activeEnvironmentalLayers = ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW"] }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number; activeEnvironmentalLayers?: EnvironmentalLayerId[] }) {
+export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees, windSpeedMetersPerSecond, windDirectionDegrees, activeEnvironmentalLayers = ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW", "WEATHER_WIND"] }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number; windSpeedMetersPerSecond?: number; windDirectionDegrees?: number; activeEnvironmentalLayers?: EnvironmentalLayerId[] }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
   const analytical = activeEnvironmentalLayers.includes("ANALYTICAL_SOLAR_SHADOW") && solarAzimuthDegrees !== undefined && solarElevationDegrees !== undefined ? analyticalSolarShadows(representation, solarAzimuthDegrees, solarElevationDegrees) : null;
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
@@ -149,6 +149,9 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
   const solar = project([bounds.minX + (bounds.maxX - bounds.minX) * 0.88, bounds.minY + (bounds.maxY - bounds.minY) * 0.12], bounds);
   const solarRadians = ((solarAzimuthDegrees ?? 0) * Math.PI) / 180;
   const solarEnd: Point = [solar[0] + Math.sin(solarRadians) * 38, solar[1] + Math.cos(solarRadians) * 38];
+  const wind = project([bounds.minX + (bounds.maxX - bounds.minX) * 0.12, bounds.minY + (bounds.maxY - bounds.minY) * 0.12], bounds);
+  const windToRadians = (((windDirectionDegrees ?? 0) + 180) * Math.PI) / 180;
+  const windEnd: Point = [wind[0] + Math.sin(windToRadians) * 52, wind[1] - Math.cos(windToRadians) * 52];
   const summary = metricsLines(metrics);
 
   useEffect(() => {
@@ -167,7 +170,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-labelledby="spatial-title spatial-description" className="min-w-[620px] w-full">
         <title id="spatial-title">{title}</title>
         <desc id="spatial-description">Analytical 2D projection derived from the Core SpatialRepresentation. Synthetic educational model, not a surveyed site.</desc>
-        <defs><marker id="solar-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f59e0b" /></marker></defs>
+        <defs><marker id="solar-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f59e0b" /></marker><marker id="wind-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0284c7" /></marker></defs>
         <rect x="0" y="0" width={WIDTH} height={HEIGHT} fill="transparent" />
         {analytical?.shadows.map((shadow) => <polygon key={`${shadow.massId}-analytical-shadow`} data-testid="analytical-shadow" points={pointsString(shadow.polygon, bounds)} fill="#475569" fillOpacity={0.28} stroke="#334155" strokeWidth={1.5} strokeDasharray="5 4" aria-label={`Analytical shadow ${shadow.massId}`} />)}
         {representation.elements.map((element) => {
@@ -182,6 +185,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
           <line x1={north[0]} y1={north[1]} x2={northEnd[0]} y2={northEnd[1]} className="stroke-[#111827] stroke-[3]" stroke="#111827" strokeWidth={3} />
           <text x={northEnd[0] + 5} y={northEnd[1] + 5} className="fill-foreground text-[14px] font-bold" fill="#111827" fontSize={14} fontWeight={700}>N</text>
         </g>
+        {activeEnvironmentalLayers.includes("WEATHER_WIND") && windSpeedMetersPerSecond !== undefined && windDirectionDegrees !== undefined && <g data-testid="wind-indicator" aria-label={`Weather wind ${windSpeedMetersPerSecond.toFixed(1)} m/s from ${windDirectionDegrees.toFixed(0)} degrees`}><line x1={wind[0]} y1={wind[1]} x2={windEnd[0]} y2={windEnd[1]} stroke="#0284c7" strokeWidth={4} markerEnd="url(#wind-arrow)" /><text x={wind[0] - 25} y={wind[1] + 24} fill="#075985" fontSize={11} fontWeight={700}>WIND {windSpeedMetersPerSecond.toFixed(1)} m/s</text></g>}
         {activeEnvironmentalLayers.includes("SUN_POSITION") && solarAzimuthDegrees !== undefined && <g data-testid="solar-indicator" aria-label={`Solar azimuth ${solarAzimuthDegrees.toFixed(1)} degrees`}><line x1={solar[0]} y1={solar[1]} x2={solarEnd[0]} y2={solarEnd[1]} stroke="#f59e0b" strokeWidth={4} markerEnd="url(#solar-arrow)" /><circle cx={solar[0]} cy={solar[1]} r={7} fill="#fbbf24" /><text x={solar[0] - 28} y={solar[1] + 24} fill="#92400e" fontSize={11} fontWeight={700}>SUN</text></g>}
         {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => { const center = project(centroid(sourcePoints(element)[0]), bounds); const offset = labelOffset(element); return <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={center[0] + offset[0]} y={center[1] + offset[1]} textAnchor="middle" className="pointer-events-none fill-foreground text-[10px] font-semibold" fill="#111827" fontSize={10} fontWeight={600} stroke="#ffffff" strokeWidth={3} strokeOpacity={0.85} paintOrder="stroke">{labelFor(element, language)}</text>; })}
       </svg>

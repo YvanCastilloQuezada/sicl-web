@@ -556,7 +556,18 @@
       "REQUIRES_DATA": "需要数据",
       "NOT_AVAILABLE": "不可用",
       "NOT_APPLICABLE": "不适用"
-    }
+    },
+    "wind": "气象风",
+    "windSpeed": "速度",
+    "windDirection": "来自",
+    "windConvention": "气象方向：来自",
+    "layers": {
+      "WEATHER_WIND": "气象风",
+      "AIR_TEMPERATURE": "空气温度"
+    },
+    "layersTitle": "活动环境图层",
+    "temperature": "环境空气温度",
+    "temperatureContext": "环境背景；不是计算得到的场地温度场"
   },
   "location": {
     "title": "项目位置",
