@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { EnvironmentalLayerId } from "./UPAO001SpatialViewer";
 
 export type SolarAnalysis = {
   example_id: string;
@@ -16,7 +17,8 @@ export type SolarAnalysis = {
 
 type CapabilityResolution = { capability_id: string; spatial_scope: string; status: "AVAILABLE" | "REQUIRES_DATA" | "NOT_AVAILABLE" | "NOT_APPLICABLE"; reason: string; required_data: string[]; missing_data: string[]; profile_version: string };
 
-type Props = { selectedAlternativeId: string | null; onAnalysisChange: (analysis: SolarAnalysis | null) => void };
+export type EnvironmentalScenarioViewState = { scenarioType: "PROXY_EDUCATIONAL"; selectedDate: string; selectedTime: string; activeLayers: EnvironmentalLayerId[]; locationName: string };
+type Props = { selectedAlternativeId: string | null; onAnalysisChange: (analysis: SolarAnalysis | null) => void; onScenarioChange?: (scenario: EnvironmentalScenarioViewState) => void };
 
 function todayLocal(): string {
   const now = new Date();
@@ -29,7 +31,7 @@ function hourNow(): string {
   return `${String(hour).padStart(2, "0")}:00`;
 }
 
-export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysisChange }: Props) {
+export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysisChange, onScenarioChange }: Props) {
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(todayLocal);
   const [selectedTime, setSelectedTime] = useState(hourNow);
@@ -37,6 +39,10 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
   const [analysis, setAnalysis] = useState<SolarAnalysis | null>(null);
   const [capability, setCapability] = useState<CapabilityResolution | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activeLayers, setActiveLayers] = useState<EnvironmentalLayerId[]>(["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW"]);
+
+  const updateScenario = (next: Partial<EnvironmentalScenarioViewState>) => onScenarioChange?.({ scenarioType: "PROXY_EDUCATIONAL", selectedDate, selectedTime, activeLayers, locationName: analysis?.location.name ?? "Trujillo, Peru", ...next });
+  useEffect(() => { updateScenario({}); }, [selectedDate, selectedTime, activeLayers, analysis?.location.name]);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +52,7 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
         const response = await fetch(`/api/core/v1/examples/UPAO-001/environmental-analysis?selected_date=${encodeURIComponent(selectedDate)}&selected_time=${encodeURIComponent(selectedTime)}`, { headers: { accept: "application/json" } });
         const body = await response.json();
         if (!response.ok) throw new Error(body?.error?.message ?? body?.message ?? t("solar.sourceUnavailable"));
-        if (!cancelled) { setAnalysis(body.data); onAnalysisChange(body.data); }
+        if (!cancelled) { setAnalysis(body.data); onAnalysisChange(body.data); updateScenario({ locationName: body.data.location.name }); }
       } catch (cause) {
         if (!cancelled) { setAnalysis(null); onAnalysisChange(null); setError(cause instanceof Error ? cause.message : t("solar.sourceUnavailable")); }
       }
@@ -85,18 +91,20 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
   const elevation = selected?.derived_metrics.solar_elevation_degrees ?? 0;
   const arrow = 100 + Math.sin((azimuth * Math.PI) / 180) * 70;
   const arrowY = 100 - Math.cos((azimuth * Math.PI) / 180) * 70;
+  const toggleLayer = (layer: EnvironmentalLayerId) => setActiveLayers((current) => { const next = current.includes(layer) ? current.filter((item) => item !== layer) : [...current, layer]; updateScenario({ activeLayers: next }); return next; });
 
   return <section className="mb-6 rounded-lg border border-amber-400/50 bg-card p-4 text-card-foreground" aria-label={t("solar.title")}>
     <div className="flex flex-wrap items-start justify-between gap-4">
       <div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-600">{t("solar.layer")}</p><h2 className="mt-1 text-lg font-semibold">{t("solar.title")}</h2><p className="mt-1 max-w-3xl text-sm text-muted-foreground">{t("solar.description")}</p></div>
       <span className="rounded-full border border-amber-400/50 px-3 py-1 text-xs font-semibold text-amber-700">{t("solar.educational")}</span>
     </div>
+    <div className="mt-4 rounded-lg border border-border bg-muted/20 p-3"><div className="flex flex-wrap items-center gap-3"><div><p className="text-xs font-semibold uppercase tracking-wide">{t("solar.scenario", "Environmental scenario")}</p><p className="text-sm font-semibold">{t("solar.proxyEducational", "Educational / Trujillo proxy")}</p></div><span className="rounded-full border border-amber-400/50 px-2 py-1 text-xs font-semibold text-amber-700">PROXY · {analysis?.location.provenance ?? "Open-Meteo"}</span><span className="text-xs text-muted-foreground">{t("solar.overlayOnly", "Layer overlay only; no coupled physics.")}</span></div><div className="mt-3"><p className="mb-2 text-xs font-semibold uppercase tracking-wide">{t("solar.layers", "Active environmental layers")}</p><div className="flex flex-wrap gap-2">{(["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW"] as EnvironmentalLayerId[]).map((layer) => <label key={layer} className="flex items-center gap-2 rounded border border-border bg-card px-3 py-2 text-xs font-semibold"><input type="checkbox" checked={activeLayers.includes(layer)} onChange={() => toggleLayer(layer)} /> {t(`solar.layers.${layer}`, layer)}</label>)}</div></div></div>
     <div className="mt-4 grid gap-4 lg:grid-cols-[auto_1fr_auto] lg:items-center">
       <div className="flex flex-wrap items-end gap-3"><label className="grid gap-1 text-xs font-semibold"><span>{t("solar.date")}</span><input aria-label={t("solar.date")} type="date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground" /></label><label className="grid gap-1 text-xs font-semibold"><span>{t("solar.time")}</span><input aria-label={t("solar.time")} type="time" step={3600} min="06:00" max="18:00" value={selectedTime} onChange={(event) => setSelectedTime(event.target.value.slice(0, 2) + ":00")} className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground" /></label></div>
       <div className="flex flex-wrap items-center gap-2"><button type="button" onClick={() => setPlaying((value) => !value)} className="rounded border border-border px-3 py-1.5 text-sm font-semibold text-foreground">{playing ? t("solar.pause") : t("solar.play")}</button><button type="button" onClick={() => setSelectedTime((current) => `${String(Math.min(18, Number(current.slice(0, 2)) + 1)).padStart(2, "0")}:00`)} className="rounded border border-border px-3 py-1.5 text-sm font-semibold text-foreground">{t("solar.step")}</button><span className="text-sm text-muted-foreground">{selectedDate} · {selectedTime} · {analysis?.location.timezone ?? "America/Lima"}</span></div>
       <div className="flex items-center gap-3" aria-label={t("solar.direction")}><svg viewBox="0 0 200 125" className="h-24 w-40 rounded border border-border bg-slate-950" role="img" aria-label={`${t("solar.direction")}: ${azimuth.toFixed(1)}°`}><circle cx="100" cy="100" r="52" fill="none" stroke="#64748b" strokeDasharray="3 4" /><text x="100" y="18" textAnchor="middle" fill="#e2e8f0" fontSize="12">N</text><line x1="100" y1="100" x2={arrow} y2={arrowY} stroke="#fbbf24" strokeWidth="5" /><circle cx={arrow} cy={arrowY} r="6" fill="#fbbf24" /></svg><dl className="text-xs"><dt className="font-semibold">{t("solar.azimuth")}</dt><dd>{azimuth.toFixed(1)}°</dd><dt className="mt-1 font-semibold">{t("solar.elevation")}</dt><dd>{elevation.toFixed(1)}°</dd></dl></div>
     </div>
     {capability && <div className="mt-3 flex flex-wrap items-center gap-2 text-xs"><strong>{t("solar.capability")}</strong><span className="rounded-full border border-border px-2 py-1 font-semibold">{t(`solar.capabilityStates.${capability.status}`)}</span><span className="text-muted-foreground">{capability.reason}</span></div>}
-    {error ? <div role="alert" className="mt-3 rounded border border-destructive/60 bg-destructive/10 p-3 text-sm text-destructive">{t("solar.unavailable")} {error}</div> : analysis ? <div className="mt-3 grid gap-2 text-xs text-muted-foreground md:grid-cols-3"><p><strong className="text-foreground">{t("solar.environmentalReference")}</strong> {analysis.location.name}</p><p><strong className="text-foreground">{t("solar.sourceData")}</strong> Open-Meteo · {Object.entries(selected?.source_values ?? {}).map(([key, value]) => `${key}: ${value}`).join(" · ")}</p><p><strong className="text-foreground">{t("solar.disclosure")}</strong> {t("solar.proxyDisclosure")}</p></div> : null}
+    {error ? <div role="alert" className="mt-3 rounded border border-destructive/60 bg-destructive/10 p-3 text-sm text-destructive">{t("solar.unavailable")} {error}</div> : analysis ? <div className="mt-3 grid gap-2 text-xs text-muted-foreground md:grid-cols-3"><p><strong className="text-foreground">{t("solar.environmentalReference")}</strong> {analysis.location.name}</p>{activeLayers.includes("SOLAR_RADIATION") && <p><strong className="text-foreground">{t("solar.sourceData")}</strong> Open-Meteo · {Object.entries(selected?.source_values ?? {}).map(([key, value]) => `${key}: ${value}`).join(" · ")}</p>}<p><strong className="text-foreground">{t("solar.disclosure")}</strong> {t("solar.proxyDisclosure")}</p></div> : null}
   </section>;
 }

@@ -133,9 +133,11 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number }) {
+export type EnvironmentalLayerId = "SUN_POSITION" | "SOLAR_RADIATION" | "ANALYTICAL_SOLAR_SHADOW";
+
+export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees, activeEnvironmentalLayers = ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW"] }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number; activeEnvironmentalLayers?: EnvironmentalLayerId[] }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
-  const analytical = solarAzimuthDegrees !== undefined && solarElevationDegrees !== undefined ? analyticalSolarShadows(representation, solarAzimuthDegrees, solarElevationDegrees) : null;
+  const analytical = activeEnvironmentalLayers.includes("ANALYTICAL_SOLAR_SHADOW") && solarAzimuthDegrees !== undefined && solarElevationDegrees !== undefined ? analyticalSolarShadows(representation, solarAzimuthDegrees, solarElevationDegrees) : null;
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
   const allPoints = [...geometries.flat(), ...(analytical?.shadows.flatMap((shadow) => shadow.polygon) ?? [])];
   const bounds = useMemo(() => boundsOverride ?? ({ minX: Math.min(...allPoints.map((point) => point[0])), maxX: Math.max(...allPoints.map((point) => point[0])), minY: Math.min(...allPoints.map((point) => point[1])), maxY: Math.max(...allPoints.map((point) => point[1])) }), [allPoints, boundsOverride]);
@@ -180,7 +182,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
           <line x1={north[0]} y1={north[1]} x2={northEnd[0]} y2={northEnd[1]} className="stroke-[#111827] stroke-[3]" stroke="#111827" strokeWidth={3} />
           <text x={northEnd[0] + 5} y={northEnd[1] + 5} className="fill-foreground text-[14px] font-bold" fill="#111827" fontSize={14} fontWeight={700}>N</text>
         </g>
-        {solarAzimuthDegrees !== undefined && <g data-testid="solar-indicator" aria-label={`Solar azimuth ${solarAzimuthDegrees.toFixed(1)} degrees`}><line x1={solar[0]} y1={solar[1]} x2={solarEnd[0]} y2={solarEnd[1]} stroke="#f59e0b" strokeWidth={4} markerEnd="url(#solar-arrow)" /><circle cx={solar[0]} cy={solar[1]} r={7} fill="#fbbf24" /><text x={solar[0] - 28} y={solar[1] + 24} fill="#92400e" fontSize={11} fontWeight={700}>SUN</text></g>}
+        {activeEnvironmentalLayers.includes("SUN_POSITION") && solarAzimuthDegrees !== undefined && <g data-testid="solar-indicator" aria-label={`Solar azimuth ${solarAzimuthDegrees.toFixed(1)} degrees`}><line x1={solar[0]} y1={solar[1]} x2={solarEnd[0]} y2={solarEnd[1]} stroke="#f59e0b" strokeWidth={4} markerEnd="url(#solar-arrow)" /><circle cx={solar[0]} cy={solar[1]} r={7} fill="#fbbf24" /><text x={solar[0] - 28} y={solar[1] + 24} fill="#92400e" fontSize={11} fontWeight={700}>SUN</text></g>}
         {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => { const center = project(centroid(sourcePoints(element)[0]), bounds); const offset = labelOffset(element); return <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={center[0] + offset[0]} y={center[1] + offset[1]} textAnchor="middle" className="pointer-events-none fill-foreground text-[10px] font-semibold" fill="#111827" fontSize={10} fontWeight={600} stroke="#ffffff" strokeWidth={3} strokeOpacity={0.85} paintOrder="stroke">{labelFor(element, language)}</text>; })}
       </svg>
     </div>
