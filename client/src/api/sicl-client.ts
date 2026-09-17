@@ -164,6 +164,32 @@ async function v1Request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.data;
 }
 
+const CORE_READ_CACHE_TTL_MS = 15_000;
+const coreReadCache = new Map<string, { expiresAt: number; value: unknown }>();
+const coreReadInFlight = new Map<string, Promise<unknown>>();
+
+async function cachedV1Request<T>(path: string): Promise<T> {
+  const now = Date.now();
+  const cached = coreReadCache.get(path);
+  if (cached && cached.expiresAt > now) return cached.value as T;
+  const pending = coreReadInFlight.get(path);
+  if (pending) return pending as Promise<T>;
+  const requestPromise = v1Request<T>(path)
+    .then((value) => {
+      coreReadCache.set(path, { value, expiresAt: Date.now() + CORE_READ_CACHE_TTL_MS });
+      return value;
+    })
+    .finally(() => coreReadInFlight.delete(path));
+  coreReadInFlight.set(path, requestPromise);
+  return requestPromise;
+}
+
+function invalidateCoreReadCache(prefix: string) {
+  Array.from(coreReadCache.keys()).forEach((key) => {
+    if (key.startsWith(prefix)) coreReadCache.delete(key);
+  });
+}
+
 export function apiErrorMessage(error: unknown): string {
   if (!(error instanceof SiclClientError)) return error instanceof Error ? error.message : "Error de red";
   const body = error.body as { detail?: unknown; message?: string; code?: string } | null;
@@ -230,27 +256,29 @@ export const siclClient = {
     return v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/multiobjective/pareto`, { method: "POST", body: JSON.stringify(input) });
   },
   async listEvidence(projectId: string): Promise<Evidence[]> {
-    const data = await v1Request<{ evidence: Evidence[] }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
+    const data = await cachedV1Request<{ evidence: Evidence[] }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
     return data.evidence ?? [];
   },
   async getEvidence(projectId: string, evidenceId: string): Promise<Evidence> {
-    const data = await v1Request<{ evidence: Evidence }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence/${encodeURIComponent(evidenceId)}`);
+    const data = await cachedV1Request<{ evidence: Evidence }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence/${encodeURIComponent(evidenceId)}`);
     return data.evidence;
   },
   async createEvidence(projectId: string, input: EvidenceInput): Promise<Evidence> {
     const data = await v1Request<{ evidence: Evidence }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence`, { method: "POST", body: JSON.stringify(input) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
     return data.evidence;
   },
   async listSources(projectId: string): Promise<Source[]> {
-    const data = await v1Request<{ sources: Source[] }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`);
+    const data = await cachedV1Request<{ sources: Source[] }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`);
     return data?.sources ?? [];
   },
   async getSource(projectId: string, sourceId: string): Promise<Source> {
-    const data = await v1Request<{ source: Source }>(`/v1/projects/${encodeURIComponent(projectId)}/sources/${encodeURIComponent(sourceId)}`);
+    const data = await cachedV1Request<{ source: Source }>(`/v1/projects/${encodeURIComponent(projectId)}/sources/${encodeURIComponent(sourceId)}`);
     return data.source;
   },
   async createSource(projectId: string, input: SourceInput): Promise<Source> {
     const data = await v1Request<{ source: Source }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`, { method: "POST", body: JSON.stringify(input) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/sources`);
     return data.source;
   },
   async listEvaluations(projectId: string, filters?: { alternative?: string; objective?: string }): Promise<Evaluation[]> {
@@ -258,19 +286,21 @@ export const siclClient = {
     if (filters?.alternative) params.set("alternative", filters.alternative);
     if (filters?.objective) params.set("objective", filters.objective);
     const suffix = params.toString() ? `?${params.toString()}` : "";
-    const data = await v1Request<{ evaluations: Evaluation[] }>(`/v1/projects/${encodeURIComponent(projectId)}/evaluations${suffix}`);
+    const data = await cachedV1Request<{ evaluations: Evaluation[] }>(`/v1/projects/${encodeURIComponent(projectId)}/evaluations${suffix}`);
     return data?.evaluations ?? [];
   },
   async createEvaluation(projectId: string, input: EvaluationInput): Promise<Evaluation> {
     const data = await v1Request<{ evaluation: Evaluation }>(`/v1/projects/${encodeURIComponent(projectId)}/evaluations`, { method: "POST", body: JSON.stringify(input) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evaluations`);
     return data.evaluation;
   },
   async listComparisons(projectId: string): Promise<Comparison[]> {
-    const data = await v1Request<{ comparisons: Comparison[] }>(`/v1/projects/${encodeURIComponent(projectId)}/comparisons`);
+    const data = await cachedV1Request<{ comparisons: Comparison[] }>(`/v1/projects/${encodeURIComponent(projectId)}/comparisons`);
     return data?.comparisons ?? [];
   },
   async createComparison(projectId: string, input: ComparisonInput): Promise<Comparison> {
     const data = await v1Request<{ comparison: Comparison }>(`/v1/projects/${encodeURIComponent(projectId)}/comparisons`, { method: "POST", body: JSON.stringify(input) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/comparisons`);
     return data.comparison;
   },
   async listVariables(projectId: string): Promise<ProjectVariable[]> {
