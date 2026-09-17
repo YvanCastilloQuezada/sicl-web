@@ -256,7 +256,7 @@ DECISION
 
 ## 14. Proposed Decision Lock
 
-### DL-MULTISCALE-NAVIGATION-01 — DRAFT / OPEN_PENDING_PO_DECISION
+### DL-MULTISCALE-NAVIGATION-01 — CLOSED / ACTIVE
 
 1. Camera zoom does not change `SpatialScope`.
 2. `SpatialScope` does not determine geometric detail by itself.
@@ -269,6 +269,8 @@ DECISION
 9. Cross-scale consequences require explicit analytical evidence.
 10. Navigation does not create a `Decision`.
 
+The Product Owner closed this Decision Lock as active policy. The policy approves the navigation model and its invariants, but does not authorize implementation, new Core entities, relationship persistence, GIS, terrain, cross-scale propagation or additional workspaces.
+
 ## 15. Governance
 
 ```text
@@ -279,7 +281,7 @@ NEW_ENTITY_CREATED = NO
 GIS_IMPLEMENTED = NO
 TERRAIN_IMPLEMENTED = NO
 CROSS_SCALE_PROPAGATION = NO
-FFO_ACTIVATED = NO
+FF0_ACTIVATED = NO
 PUSH_EXECUTED = NO
 DEPLOYMENT_EXECUTED = NO
 ```
