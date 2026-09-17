@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import i18n, { I18N_STORAGE_KEY } from "@/i18n";
+import { detectLanguage, normalizeLanguage } from "@/contexts/LanguageContext";
 
 describe("i18n core", () => {
   beforeEach(async () => {
@@ -31,5 +32,33 @@ describe("i18n core", () => {
     await i18n.changeLanguage("xx");
     expect(i18n.language).toBe("es");
     expect(i18n.t("header.title")).toBe("SiMS-DeI Command Center");
+  });
+
+  it("normalizes browser regional language codes", () => {
+    expect(normalizeLanguage("pt-BR")).toBe("pt");
+    expect(normalizeLanguage("zh-CN")).toBe("zh");
+    expect(normalizeLanguage("xx-YY")).toBeUndefined();
+  });
+
+  it("uses the first supported browser language when no explicit choice exists", () => {
+    const storage = new Map<string, string>();
+    Object.defineProperty(globalThis, "window", { configurable: true, value: {} });
+    Object.defineProperty(globalThis, "localStorage", {
+      configurable: true,
+      value: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
+    });
+    Object.defineProperty(globalThis, "navigator", { configurable: true, value: { languages: ["xx-XX", "de-DE"], language: "xx-XX" } });
+    expect(detectLanguage()).toBe("de");
+  });
+
+  it("prioritizes an explicit saved choice over the browser language", () => {
+    const storage = new Map<string, string>([["sims-dei-lang-user-set", "true"], [I18N_STORAGE_KEY, "fr"]]);
+    Object.defineProperty(globalThis, "window", { configurable: true, value: {} });
+    Object.defineProperty(globalThis, "localStorage", {
+      configurable: true,
+      value: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
+    });
+    Object.defineProperty(globalThis, "navigator", { configurable: true, value: { languages: ["de-DE"], language: "de-DE" } });
+    expect(detectLanguage()).toBe("fr");
   });
 });
