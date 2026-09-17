@@ -486,6 +486,26 @@
     "no_catalog": "No canonical catalog available.",
     "not_defined": "Location not yet defined",
     "new_project": "New project",
-    "select_project": "Select project"
+    "select_project": "Select project",
+    "no_council": "No canonical Council finding is available.",
+    "observed_version": "Observed Core version",
+    "current_counts": "Current counts",
+    "canonical_objects": "Canonical analytical objects",
+    "read_only_endpoint": "Canonical endpoint confirmed read-only. This view cannot create authority acts.",
+    "endpoint_unavailable": "Canonical Council endpoint unavailable.",
+    "location_version": "Location not yet defined · Version",
+    "traceability_description": "Canonical events, human reviews and decisions remain separate.",
+    "project_id": "Project ID",
+    "location_undefined": "Location not yet defined",
+    "council_layer": "Read-only analytical layer",
+    "canonical_status": "Canonical analytical status",
+    "evaluations": "Evaluations",
+    "comparisons": "Comparisons",
+    "multi_comparisons": "Multi-comparisons",
+    "tradeoffs": "Trade-offs",
+    "recommendations": "Recommendations",
+    "diagnostics": "Diagnostics",
+    "inputs": "Inputs",
+    "feasibility": "Feasibility"
   }
 }
