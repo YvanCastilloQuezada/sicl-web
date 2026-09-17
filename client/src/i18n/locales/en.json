@@ -460,5 +460,32 @@
     "retry_connection": "Retry connection",
     "try_mock": "Try simulated data",
     "retry": "Retry"
+  },
+  "legacy": {
+    "context_title": "Context / Site",
+    "context_desc": "Build the record from declared sources, requirements and observations. Missing references are rejected rather than inferred.",
+    "objectives_title": "Objectives & Constraints",
+    "objectives_desc": "Direction is mandatory. An objective without direction cannot produce a winner or automatic recommendation.",
+    "alternatives_title": "Alternatives & Evaluation",
+    "council_desc": "Council consumes the project foundation. This view does not create recommendations, reviews or decisions.",
+    "audit_eyebrow": "Traceability",
+    "audit_desc": "Canonical events, human reviews and decisions remain separate.",
+    "human_boundary": "Human boundary",
+    "authority_required": "Authority required",
+    "governance_title": "Construction governance",
+    "governance_desc": "Read-only record of how SICL capabilities become ready for release.",
+    "source": "Source",
+    "requirement": "Requirement",
+    "add_source": "Add source",
+    "add_requirement": "Add requirement",
+    "add_evidence": "Add evidence",
+    "evidence": "Evidence",
+    "decision_workflow": "Human authority workflow",
+    "decision_chain": "Recommendation → HumanReview → Decision",
+    "read_only": "READ ONLY",
+    "no_catalog": "No canonical catalog available.",
+    "not_defined": "Location not yet defined",
+    "new_project": "New project",
+    "select_project": "Select project"
   }
 }

@@ -460,5 +460,32 @@
     "retry_connection": "Tentar conexão novamente",
     "try_mock": "Testar dados simulados",
     "retry": "Tentar novamente"
+  },
+  "legacy": {
+    "context_title": "Contexto / Local",
+    "context_desc": "Construa o registro com fontes, requisitos e observações declaradas. Referências ausentes são rejeitadas, não inferidas.",
+    "objectives_title": "Objetivos e restrições",
+    "objectives_desc": "A direção é obrigatória. Um objetivo sem direção não pode produzir um vencedor ou recomendação automática.",
+    "alternatives_title": "Alternativas e avaliação",
+    "council_desc": "O Conselho consome a base do projeto. Esta vista não cria recomendações, revisões ou decisões.",
+    "audit_eyebrow": "Rastreabilidade",
+    "audit_desc": "Eventos canônicos, revisões humanas e decisões permanecem separados.",
+    "human_boundary": "Limite humano",
+    "authority_required": "Autoridade necessária",
+    "governance_title": "Governança da construção",
+    "governance_desc": "Registro somente leitura de como as capacidades SICL ficam prontas para publicação.",
+    "source": "Fonte",
+    "requirement": "Requisito",
+    "add_source": "Adicionar fonte",
+    "add_requirement": "Adicionar requisito",
+    "add_evidence": "Adicionar evidência",
+    "evidence": "Evidência",
+    "decision_workflow": "Fluxo de autoridade humana",
+    "decision_chain": "Recomendação → Revisão humana → Decisão",
+    "read_only": "SOMENTE LEITURA",
+    "no_catalog": "Nenhum catálogo canônico disponível.",
+    "not_defined": "Localização ainda não definida",
+    "new_project": "Novo projeto",
+    "select_project": "Selecionar projeto"
   }
 }

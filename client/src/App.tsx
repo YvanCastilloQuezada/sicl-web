@@ -33,12 +33,21 @@ function AuditRoute() {
   return ready ? <Home /> : null;
 }
 
+function HashWorkspaceRoute() {
+  const [hash, setHash] = useState(() => window.location.hash.replace(/^#/, ""));
+  useEffect(() => { const sync = () => setHash(window.location.hash.replace(/^#/, "")); window.addEventListener("hashchange", sync); return () => window.removeEventListener("hashchange", sync); }, []);
+  if (hash === "evidence") return <EvidencePage />;
+  if (hash === "evaluations") return <EvaluationsPage />;
+  if (hash === "comparisons") return <ComparisonsPage />;
+  return <Home />;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Suspense fallback={<PageLoadingFallback />}>
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"}>{() => <HashWorkspaceRoute />}</Route>
       <Route path={"/evidence"} component={EvidencePage} />
       <Route path={"/evaluations"} component={EvaluationsPage} />
       <Route path={"/comparisons"} component={ComparisonsPage} />

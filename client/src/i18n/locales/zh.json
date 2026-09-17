@@ -460,5 +460,32 @@
     "retry_connection": "重试连接",
     "try_mock": "使用模拟数据测试",
     "retry": "重试"
+  },
+  "legacy": {
+    "context_title": "上下文 / 场地",
+    "context_desc": "使用声明的来源、要求和观察建立记录。缺失的引用会被拒绝，而不会被推断。",
+    "objectives_title": "目标与约束",
+    "objectives_desc": "方向是必需的。没有方向的目标不能产生获胜方案或自动建议。",
+    "alternatives_title": "方案与评估",
+    "council_desc": "委员会读取项目基础。本视图不创建建议、审查或决策。",
+    "audit_eyebrow": "可追溯性",
+    "audit_desc": "规范事件、人工审查和决策保持分离。",
+    "human_boundary": "人工边界",
+    "authority_required": "需要授权",
+    "governance_title": "建设治理",
+    "governance_desc": "只读记录，说明 SICL 能力如何达到发布条件。",
+    "source": "来源",
+    "requirement": "要求",
+    "add_source": "添加来源",
+    "add_requirement": "添加要求",
+    "add_evidence": "添加证据",
+    "evidence": "证据",
+    "decision_workflow": "人工授权流程",
+    "decision_chain": "建议 → 人工审查 → 决策",
+    "read_only": "只读",
+    "no_catalog": "没有可用的规范目录。",
+    "not_defined": "位置尚未定义",
+    "new_project": "新项目",
+    "select_project": "选择项目"
   }
 }

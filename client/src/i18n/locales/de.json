@@ -460,5 +460,32 @@
     "retry_connection": "Verbindung erneut versuchen",
     "try_mock": "Simulierte Daten testen",
     "retry": "Erneut versuchen"
+  },
+  "legacy": {
+    "context_title": "Kontext / Standort",
+    "context_desc": "Erstelle den Datensatz aus deklarierten Quellen, Anforderungen und Beobachtungen. Fehlende Nachweise werden abgelehnt, nicht angenommen.",
+    "objectives_title": "Ziele und Einschränkungen",
+    "objectives_desc": "Eine Richtung ist erforderlich. Ein Ziel ohne Richtung kann keinen Gewinner oder eine automatische Empfehlung erzeugen.",
+    "alternatives_title": "Alternativen und Bewertung",
+    "council_desc": "Der Rat nutzt die Projektgrundlage. Diese Ansicht erstellt keine Empfehlungen, Prüfungen oder Entscheidungen.",
+    "audit_eyebrow": "Nachvollziehbarkeit",
+    "audit_desc": "Kanonische Ereignisse, menschliche Prüfungen und Entscheidungen bleiben getrennt.",
+    "human_boundary": "Menschliche Grenze",
+    "authority_required": "Autorität erforderlich",
+    "governance_title": "Bau-Governance",
+    "governance_desc": "Nur-Lese-Protokoll, wie SICL-Fähigkeiten veröffentlichungsbereit werden.",
+    "source": "Quelle",
+    "requirement": "Anforderung",
+    "add_source": "Quelle hinzufügen",
+    "add_requirement": "Anforderung hinzufügen",
+    "add_evidence": "Nachweis hinzufügen",
+    "evidence": "Nachweis",
+    "decision_workflow": "Workflow menschlicher Autorität",
+    "decision_chain": "Empfehlung → Menschliche Prüfung → Entscheidung",
+    "read_only": "NUR LESEN",
+    "no_catalog": "Kein kanonischer Katalog verfügbar.",
+    "not_defined": "Standort noch nicht definiert",
+    "new_project": "Neues Projekt",
+    "select_project": "Projekt auswählen"
   }
 }
