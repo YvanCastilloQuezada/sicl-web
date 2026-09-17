@@ -28,6 +28,7 @@ export type SpatialRepresentation = {
 };
 export type Metrics = Record<string, number>;
 export type TransportPayload = { representations: SpatialRepresentation[]; metrics: Record<string, Metrics>; explanations: Record<string, unknown>; provenance: string; read_only: boolean };
+export type SpatialBounds = { minX: number; maxX: number; minY: number; maxY: number };
 
 const UPAO001MassingViewer3D = lazy(() => import("./UPAO001MassingViewer3D"));
 
@@ -131,11 +132,11 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export function SpatialSvgViewer({ representation, metrics, language = "es" }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string }) {
+export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
   const allPoints = geometries.flat();
-  const bounds = useMemo(() => ({ minX: Math.min(...allPoints.map((point) => point[0])), maxX: Math.max(...allPoints.map((point) => point[0])), minY: Math.min(...allPoints.map((point) => point[1])), maxY: Math.max(...allPoints.map((point) => point[1])) }), [allPoints]);
+  const bounds = useMemo(() => boundsOverride ?? ({ minX: Math.min(...allPoints.map((point) => point[0])), maxX: Math.max(...allPoints.map((point) => point[0])), minY: Math.min(...allPoints.map((point) => point[1])), maxY: Math.max(...allPoints.map((point) => point[1])) }), [allPoints, boundsOverride]);
   const title = `SiMS-DeI ${representation.alternative_id} spatial representation`;
   const north = project([bounds.minX + (bounds.maxX - bounds.minX) * 0.12, bounds.maxY - (bounds.maxY - bounds.minY) * 0.12], bounds);
   const northLength = 34;

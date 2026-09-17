@@ -16,6 +16,7 @@ const HelpArticlePage = lazy(() => import("./pages/HelpArticlePage"));
 const CommandBar = lazy(() => import("./components/CommandBar"));
 const MultiobjectivePage = lazy(() => import("./pages/MultiobjectivePage"));
 const SpatialViewerPage = lazy(() => import("./pages/SpatialViewerPage"));
+const SpatialComparisonPage = lazy(() => import("./pages/SpatialComparisonPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -54,6 +55,7 @@ function Router() {
       <Route path={"/comparisons"} component={ComparisonsPage} />
       <Route path={"/multiobjective"}>{() => <DashboardLayout><MultiobjectivePage /></DashboardLayout>}</Route>
       <Route path={"/spatial"}>{() => <DashboardLayout><SpatialViewerPage /></DashboardLayout>}</Route>
+      <Route path={"/spatial-comparison"} component={SpatialComparisonPage} />
       <Route path={"/audit"}>{() => <AuditRoute />}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
