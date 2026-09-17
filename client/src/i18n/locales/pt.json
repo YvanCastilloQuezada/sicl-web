@@ -529,5 +529,25 @@
     "command_required": "obrigatório",
     "command_optional": "opcional",
     "command_tab": "Tabulação"
+  },
+  "solar": {
+    "layer": "Camada ambiental",
+    "title": "Análise solar temporal",
+    "description": "Explore a posição solar e os dados horários de radiação para a geometria educacional A/B/C. Astronomia e meteorologia permanecem separadas.",
+    "educational": "Somente educativo",
+    "date": "Data",
+    "time": "Hora local",
+    "pause": "Pausar",
+    "play": "Reproduzir dia",
+    "step": "Próxima hora",
+    "direction": "Direção solar",
+    "azimuth": "Azimute",
+    "elevation": "Elevação",
+    "environmentalReference": "Referência ambiental:",
+    "sourceData": "Dados da fonte:",
+    "disclosure": "Aviso:",
+    "proxyDisclosure": "Trujillo é um proxy educativo; não é um local UPAO pesquisado.",
+    "sourceUnavailable": "A fonte ambiental não está disponível.",
+    "unavailable": "Análise indisponível."
   }
 }

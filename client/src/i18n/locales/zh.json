@@ -529,5 +529,25 @@
     "command_required": "必填",
     "command_optional": "可选",
     "command_tab": "制表键"
+  },
+  "solar": {
+    "layer": "环境图层",
+    "title": "时间太阳分析",
+    "description": "探索教育性 A/B/C 几何的太阳位置和小时辐射数据。天文学与气象数据保持分离。",
+    "educational": "仅供教学",
+    "date": "日期",
+    "time": "当地时间",
+    "pause": "暂停",
+    "play": "播放一天",
+    "step": "下一小时",
+    "direction": "太阳方向",
+    "azimuth": "方位角",
+    "elevation": "高度角",
+    "environmentalReference": "环境参考：",
+    "sourceData": "来源数据：",
+    "disclosure": "说明：",
+    "proxyDisclosure": "特鲁希略是教学代理位置，不是经过测量的 UPAO 场地。",
+    "sourceUnavailable": "环境数据源不可用。",
+    "unavailable": "分析不可用。"
   }
 }

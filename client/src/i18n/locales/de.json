@@ -529,5 +529,25 @@
     "command_required": "erforderlich",
     "command_optional": "optional",
     "command_tab": "Tabulator"
+  },
+  "solar": {
+    "layer": "Umweltebene",
+    "title": "Zeitliche Solaranalyse",
+    "description": "Untersuchen Sie Sonnenstand und stündliche Strahlungsdaten für die pädagogische A/B/C-Geometrie. Astronomie und Meteorologie bleiben getrennt.",
+    "educational": "Nur zu Bildungszwecken",
+    "date": "Datum",
+    "time": "Ortszeit",
+    "pause": "Pausieren",
+    "play": "Tag abspielen",
+    "step": "Nächste Stunde",
+    "direction": "Sonnenrichtung",
+    "azimuth": "Azimut",
+    "elevation": "Höhe",
+    "environmentalReference": "Umweltreferenz:",
+    "sourceData": "Quelldaten:",
+    "disclosure": "Hinweis:",
+    "proxyDisclosure": "Trujillo ist ein Bildungskontext und kein vermessener UPAO-Standort.",
+    "sourceUnavailable": "Die Umweltquelle ist nicht verfügbar.",
+    "unavailable": "Analyse nicht verfügbar."
   }
 }
