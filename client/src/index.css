@@ -49,6 +49,8 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
 .dark [class*="bg-[#f4f1ea]"], .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#e9ede5]"], .dark [class*="bg-[#eef1eb]"] { background-color: var(--card) !important; }
 .dark [class*="text-[#1d2925]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#385348]"], .dark [class*="text-[#718078]"], .dark [class*="text-[#66776d]"] { color: var(--foreground) !important; }
 .dark [class*="border-[#d7d8cf]"], .dark [class*="border-[#d4d8d0]"], .dark [class*="border-[#cbd2c9]"], .dark [class*="border-[#b9c4bd]"] { border-color: var(--border) !important; }
+.dark .bg-white, .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#fffaf5]"], .dark [class*="bg-[#f3f5ef]"] { background-color: var(--card) !important; color: var(--card-foreground) !important; }
+.dark .bg-white .text-white, .dark [class*="bg-[#fbfaf6]"] .text-white, .dark [class*="bg-[#fffaf5]"] .text-white { color: var(--card-foreground) !important; }
 .dark input, .dark textarea, .dark select { background-color: #11284a !important; color: var(--foreground); }
 .font-serif { font-family: 'Fraunces', Georgia, serif; }
 button, input, textarea, select { font: inherit; }
