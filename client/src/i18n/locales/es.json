@@ -563,11 +563,34 @@
     "windConvention": "Dirección meteorológica: desde",
     "layers": {
       "WEATHER_WIND": "Viento meteorológico",
-      "AIR_TEMPERATURE": "Temperatura del aire"
+      "AIR_TEMPERATURE": "Temperatura del aire",
+      "DIRECT_NORMAL_IRRADIANCE": "Direct normal irradiance",
+      "WIND_GUSTS": "Wind gusts",
+      "APPARENT_TEMPERATURE": "Apparent temperature",
+      "HUMIDITY": "Relative humidity",
+      "DEW_POINT": "Dew point",
+      "PRECIPITATION": "Precipitation",
+      "RAIN": "Rain",
+      "SHOWERS": "Showers",
+      "PRECIPITATION_PROBABILITY": "Precipitation probability",
+      "CLOUD_TOTAL": "Total cloud cover",
+      "CLOUD_LOW": "Low cloud cover",
+      "CLOUD_MID": "Mid cloud cover",
+      "CLOUD_HIGH": "High cloud cover",
+      "PRESSURE": "Pressure"
     },
     "layersTitle": "Capas ambientales activas",
     "temperature": "Temperatura ambiente del aire",
-    "temperatureContext": "Contexto ambiental; no es un campo de temperatura calculado del sitio"
+    "temperatureContext": "Contexto ambiental; no es un campo de temperatura calculado del sitio",
+    "families": {
+      "SOLAR": "SOLAR",
+      "WIND": "VIENTO",
+      "THERMAL_CONTEXT": "CONTEXTO TÉRMICO",
+      "HUMIDITY": "HUMEDAD",
+      "PRECIPITATION": "PRECIPITACIÓN",
+      "CLOUD": "NUBOSIDAD",
+      "ATMOSPHERIC": "ATMOSFÉRICO"
+    }
   },
   "location": {
     "title": "Ubicación del proyecto",

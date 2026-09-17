@@ -563,11 +563,34 @@
     "windConvention": "Метеорологическое направление: откуда",
     "layers": {
       "WEATHER_WIND": "Метеорологический ветер",
-      "AIR_TEMPERATURE": "Температура воздуха"
+      "AIR_TEMPERATURE": "Температура воздуха",
+      "DIRECT_NORMAL_IRRADIANCE": "Direct normal irradiance",
+      "WIND_GUSTS": "Wind gusts",
+      "APPARENT_TEMPERATURE": "Apparent temperature",
+      "HUMIDITY": "Relative humidity",
+      "DEW_POINT": "Dew point",
+      "PRECIPITATION": "Precipitation",
+      "RAIN": "Rain",
+      "SHOWERS": "Showers",
+      "PRECIPITATION_PROBABILITY": "Precipitation probability",
+      "CLOUD_TOTAL": "Total cloud cover",
+      "CLOUD_LOW": "Low cloud cover",
+      "CLOUD_MID": "Mid cloud cover",
+      "CLOUD_HIGH": "High cloud cover",
+      "PRESSURE": "Pressure"
     },
     "layersTitle": "Активные экологические слои",
     "temperature": "Температура окружающего воздуха",
-    "temperatureContext": "Контекст окружающей среды; не рассчитанное температурное поле участка"
+    "temperatureContext": "Контекст окружающей среды; не рассчитанное температурное поле участка",
+    "families": {
+      "SOLAR": "СОЛНЦЕ",
+      "WIND": "ВЕТЕР",
+      "THERMAL_CONTEXT": "ТЕПЛОВОЙ КОНТЕКСТ",
+      "HUMIDITY": "ВЛАЖНОСТЬ",
+      "PRECIPITATION": "ОСАДКИ",
+      "CLOUD": "ОБЛАЧНОСТЬ",
+      "ATMOSPHERIC": "АТМОСФЕРНЫЙ"
+    }
   },
   "location": {
     "title": "Расположение проекта",

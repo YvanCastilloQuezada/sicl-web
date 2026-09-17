@@ -563,11 +563,34 @@
     "windConvention": "气象方向：来自",
     "layers": {
       "WEATHER_WIND": "气象风",
-      "AIR_TEMPERATURE": "空气温度"
+      "AIR_TEMPERATURE": "空气温度",
+      "DIRECT_NORMAL_IRRADIANCE": "Direct normal irradiance",
+      "WIND_GUSTS": "Wind gusts",
+      "APPARENT_TEMPERATURE": "Apparent temperature",
+      "HUMIDITY": "Relative humidity",
+      "DEW_POINT": "Dew point",
+      "PRECIPITATION": "Precipitation",
+      "RAIN": "Rain",
+      "SHOWERS": "Showers",
+      "PRECIPITATION_PROBABILITY": "Precipitation probability",
+      "CLOUD_TOTAL": "Total cloud cover",
+      "CLOUD_LOW": "Low cloud cover",
+      "CLOUD_MID": "Mid cloud cover",
+      "CLOUD_HIGH": "High cloud cover",
+      "PRESSURE": "Pressure"
     },
     "layersTitle": "活动环境图层",
     "temperature": "环境空气温度",
-    "temperatureContext": "环境背景；不是计算得到的场地温度场"
+    "temperatureContext": "环境背景；不是计算得到的场地温度场",
+    "families": {
+      "SOLAR": "太阳",
+      "WIND": "风",
+      "THERMAL_CONTEXT": "热环境",
+      "HUMIDITY": "湿度",
+      "PRECIPITATION": "降水",
+      "CLOUD": "云量",
+      "ATMOSPHERIC": "大气"
+    }
   },
   "location": {
     "title": "项目位置",

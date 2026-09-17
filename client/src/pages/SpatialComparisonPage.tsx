@@ -12,7 +12,7 @@ export default function SpatialComparisonPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [solarAnalysis, setSolarAnalysis] = useState<SolarAnalysis | null>(null);
-  const [scenario, setScenario] = useState<EnvironmentalScenarioViewState>({ scenarioType: "PROXY_EDUCATIONAL", selectedDate: "", selectedTime: "", activeLayers: ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW", "WEATHER_WIND", "AIR_TEMPERATURE"], locationName: "Trujillo, Peru" });
+  const [scenario, setScenario] = useState<EnvironmentalScenarioViewState>({ scenarioType: "PROXY_EDUCATIONAL", selectedDate: "", selectedTime: "", activeLayers: ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW", ], locationName: "Trujillo, Peru" });
   const handleSolarAnalysisChange = useCallback((value: SolarAnalysis | null) => setSolarAnalysis(value), []);
   useEffect(() => {
     let active = true;

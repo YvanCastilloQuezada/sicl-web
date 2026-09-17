@@ -133,7 +133,7 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export type EnvironmentalLayerId = "SUN_POSITION" | "SOLAR_RADIATION" | "ANALYTICAL_SOLAR_SHADOW" | "WEATHER_WIND" | "AIR_TEMPERATURE";
+export type EnvironmentalLayerId = "SUN_POSITION" | "SOLAR_RADIATION" | "ANALYTICAL_SOLAR_SHADOW" | "WEATHER_WIND" | "AIR_TEMPERATURE" | "APPARENT_TEMPERATURE" | "HUMIDITY" | "DEW_POINT" | "PRECIPITATION" | "RAIN" | "SHOWERS" | "PRECIPITATION_PROBABILITY" | "CLOUD_TOTAL" | "CLOUD_LOW" | "CLOUD_MID" | "CLOUD_HIGH" | "PRESSURE" | "WIND_GUSTS" | "DIRECT_NORMAL_IRRADIANCE";
 
 export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, solarElevationDegrees, windSpeedMetersPerSecond, windDirectionDegrees, activeEnvironmentalLayers = ["SUN_POSITION", "SOLAR_RADIATION", "ANALYTICAL_SOLAR_SHADOW", "WEATHER_WIND"] }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; solarElevationDegrees?: number; windSpeedMetersPerSecond?: number; windDirectionDegrees?: number; activeEnvironmentalLayers?: EnvironmentalLayerId[] }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
