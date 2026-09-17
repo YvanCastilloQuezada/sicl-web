@@ -486,6 +486,26 @@
     "no_catalog": "Nessun catalogo canonico disponibile.",
     "not_defined": "Posizione non ancora definita",
     "new_project": "Nuovo progetto",
-    "select_project": "Seleziona progetto"
+    "select_project": "Seleziona progetto",
+    "no_council": "Nessun risultato canonico del Consiglio disponibile.",
+    "observed_version": "Versione osservata del Core",
+    "current_counts": "Conteggi attuali",
+    "canonical_objects": "Oggetti analitici canonici",
+    "read_only_endpoint": "Endpoint canonico confermato in sola lettura. Questa vista non può creare atti di autorità.",
+    "endpoint_unavailable": "Endpoint canonico del Consiglio non disponibile.",
+    "location_version": "Posizione non ancora definita · Versione",
+    "traceability_description": "Eventi canonici, revisioni umane e decisioni restano separati.",
+    "project_id": "ID progetto",
+    "location_undefined": "Posizione non ancora definita",
+    "council_layer": "Livello analitico in sola lettura",
+    "canonical_status": "Stato analitico canonico",
+    "evaluations": "Valutazioni",
+    "comparisons": "Confronti",
+    "multi_comparisons": "Confronti multipli",
+    "tradeoffs": "Compromessi",
+    "recommendations": "Raccomandazioni",
+    "diagnostics": "Diagnostica",
+    "inputs": "Input",
+    "feasibility": "Fattibilità"
   }
 }
