@@ -2,19 +2,23 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-import DashboardLayout from "./components/DashboardLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
-import Home from "./pages/Home";
-import EvidencePage from "./pages/EvidencePage";
-import EvaluationsPage from "./pages/EvaluationsPage";
-import ComparisonsPage from "./pages/ComparisonsPage";
-import HelpPage from "./pages/HelpPage";
-import HelpArticlePage from "./pages/HelpArticlePage";
-import CommandBar from "./components/CommandBar";
-import MultiobjectivePage from "./pages/MultiobjectivePage";
+const DashboardLayout = lazy(() => import("./components/DashboardLayout"));
+const Home = lazy(() => import("./pages/Home"));
+const EvidencePage = lazy(() => import("./pages/EvidencePage"));
+const EvaluationsPage = lazy(() => import("./pages/EvaluationsPage"));
+const ComparisonsPage = lazy(() => import("./pages/ComparisonsPage"));
+const HelpPage = lazy(() => import("./pages/HelpPage"));
+const HelpArticlePage = lazy(() => import("./pages/HelpArticlePage"));
+const CommandBar = lazy(() => import("./components/CommandBar"));
+const MultiobjectivePage = lazy(() => import("./pages/MultiobjectivePage"));
+
+function PageLoadingFallback() {
+  return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
+}
 
 function AuditRoute() {
   const [ready, setReady] = useState(false);
@@ -32,6 +36,7 @@ function AuditRoute() {
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
+    <Suspense fallback={<PageLoadingFallback />}>
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/evidence"} component={EvidencePage} />
@@ -47,6 +52,7 @@ function Router() {
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
+    </Suspense>
   );
 }
 
@@ -65,7 +71,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <CommandBar />
+            <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
           </TooltipProvider>
         </LanguageProvider>
