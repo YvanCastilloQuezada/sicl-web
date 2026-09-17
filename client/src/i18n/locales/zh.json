@@ -557,5 +557,24 @@
       "NOT_AVAILABLE": "不可用",
       "NOT_APPLICABLE": "不适用"
     }
+  },
+  "location": {
+    "title": "项目位置",
+    "description": "提出位置并在保存前明确确认。",
+    "longitude": "经度",
+    "latitude": "纬度",
+    "label": "标签",
+    "label_placeholder": "例如：特鲁希略，试点地块",
+    "preview": "预览位置",
+    "preview_title": "未确认的候选位置",
+    "preview_note": "请检查该点。只有人工确认后才会保存。",
+    "confirm": "确认位置",
+    "saving": "保存中…",
+    "confirmed": "位置已确认并记录在历史中。",
+    "current": "当前位置：",
+    "invalid_coordinates": "请输入有效的经度和纬度坐标。",
+    "missing_title": "缺失数据",
+    "missing_summary": "{{count}} 个变量需要数据或明确来源。",
+    "human_authority": "人工确认可保持可追溯性。"
   }
 }

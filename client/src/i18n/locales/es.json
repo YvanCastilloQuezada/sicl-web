@@ -557,5 +557,24 @@
       "NOT_AVAILABLE": "NO DISPONIBLE",
       "NOT_APPLICABLE": "NO APLICA"
     }
+  },
+  "location": {
+    "title": "Ubicación del proyecto",
+    "description": "Propón una ubicación y confirma explícitamente antes de guardarla.",
+    "longitude": "Longitud",
+    "latitude": "Latitud",
+    "label": "Etiqueta",
+    "label_placeholder": "Ej. Trujillo, parcela piloto",
+    "preview": "Previsualizar ubicación",
+    "preview_title": "Candidato sin confirmar",
+    "preview_note": "Revisa el punto. La ubicación no se guarda hasta que una autoridad humana la confirme.",
+    "confirm": "Confirmar ubicación",
+    "saving": "Guardando…",
+    "confirmed": "Ubicación confirmada y registrada en el historial.",
+    "current": "Ubicación actual:",
+    "invalid_coordinates": "Introduce coordenadas válidas en longitud y latitud.",
+    "missing_title": "Datos pendientes",
+    "missing_summary": "{{count}} variables requieren datos o una fuente explícita.",
+    "human_authority": "La confirmación humana conserva la trazabilidad."
   }
 }

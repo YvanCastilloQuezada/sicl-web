@@ -557,5 +557,24 @@
       "NOT_AVAILABLE": "NON DISPONIBILE",
       "NOT_APPLICABLE": "NON APPLICABILE"
     }
+  },
+  "location": {
+    "title": "Posizione del progetto",
+    "description": "Proponi una posizione e confermala esplicitamente prima di salvarla.",
+    "longitude": "Longitudine",
+    "latitude": "Latitudine",
+    "label": "Etichetta",
+    "label_placeholder": "Es. Trujillo, lotto pilota",
+    "preview": "Anteprima posizione",
+    "preview_title": "Candidato non confermato",
+    "preview_note": "Controlla il punto. Non viene salvato prima della conferma umana.",
+    "confirm": "Conferma posizione",
+    "saving": "Salvataggio…",
+    "confirmed": "Posizione confermata e registrata nella cronologia.",
+    "current": "Posizione attuale:",
+    "invalid_coordinates": "Inserisci coordinate valide di longitudine e latitudine.",
+    "missing_title": "Dati mancanti",
+    "missing_summary": "{{count}} variabili richiedono dati o una fonte esplicita.",
+    "human_authority": "La conferma umana preserva la tracciabilità."
   }
 }

@@ -557,5 +557,24 @@
       "NOT_AVAILABLE": "NOT AVAILABLE",
       "NOT_APPLICABLE": "NOT APPLICABLE"
     }
+  },
+  "location": {
+    "title": "Project location",
+    "description": "Propose a location and explicitly confirm it before saving.",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "label": "Label",
+    "label_placeholder": "E.g. Trujillo, pilot parcel",
+    "preview": "Preview location",
+    "preview_title": "Unconfirmed candidate",
+    "preview_note": "Review the point. It is not saved until a human authority confirms it.",
+    "confirm": "Confirm location",
+    "saving": "Saving…",
+    "confirmed": "Location confirmed and recorded in history.",
+    "current": "Current location:",
+    "invalid_coordinates": "Enter valid longitude and latitude coordinates.",
+    "missing_title": "Missing data",
+    "missing_summary": "{{count}} variables require data or an explicit source.",
+    "human_authority": "Human confirmation preserves traceability."
   }
 }

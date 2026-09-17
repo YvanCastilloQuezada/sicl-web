@@ -18,6 +18,7 @@ import ProjectWorkspace from "@/components/ProjectWorkspace";
 import GuidedShell from "@/components/GuidedShell";
 import { CommandBuilder, EpistemicLegend, SyntheticDemoCard } from "@/components/Phase1Phase2Tools";
 import FeasibilityPanel from "@/components/FeasibilityPanel";
+import LocationPicker from "@/components/LocationPicker";
 import { CoreError, CoreLoadingSkeleton, CoreUnavailable } from "@/components/CoreDataStates";
 import EventTimeline from "@/visualization/charts/EventTimeline";
 import { transformEventData } from "@/visualization/models/eventModel";
@@ -137,7 +138,7 @@ function AuthenticatedHome() {
               <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">{t("page.active_workspace")}</p><div className="mt-2 flex flex-wrap items-center gap-3"><select value={currentProjectId} onChange={(event) => setSelectedProjectId(event.target.value)} className="border-0 border-b-2 border-primary bg-transparent px-0 pb-1 pr-8 font-serif text-3xl outline-none"><option value="" disabled>{t("page.select_project")}</option>{projects.data?.map((project) => <option key={project.projectId} value={project.projectId}>{project.name}</option>)}</select>{selected.data && <Badge className="bg-[#dce6dc] text-foreground hover:bg-[#dce6dc]">{selected.data.status}</Badge>}</div><p className="mt-2 text-sm text-muted-foreground">{selected.data?.location || t("legacy.location_undefined")} · Version {selected.data?.version ?? "—"}</p></div><Button onClick={() => { setNewProjectName(""); setNewProjectLocation(""); }} variant="outline" className="w-fit border-[#b9c4bd] bg-transparent"><Plus className="mr-2 h-4 w-4" /> New project</Button></div>
               <ScopeBanner snapshot={snapshot} />
               {module === "overview" && <Overview snapshot={snapshot} counts={counts} onCreateProject={() => setModule("context")} />}
-              {module === "context" && <><ContextModule counts={counts} onSubmit={addSimpleRecord} /><SpatialContextPanel snapshot={snapshot} /></>}
+              {module === "context" && <><ContextModule counts={counts} onSubmit={addSimpleRecord} /><LocationPicker projectId={restProjectId} /><SpatialContextPanel snapshot={snapshot} /></>}
               {module === "problem" && <><ProblemModule counts={counts} onSubmit={addSimpleRecord} /><ConstraintModule onSubmit={addSimpleRecord} /><PreferenceModule onSubmit={addSimpleRecord} /></>}
               {module === "alternatives" && <><EvaluationComparisonModule snapshot={snapshot} counts={counts} onSubmit={addSimpleRecord} /><DecisionConditionsModule snapshot={snapshot} onSubmit={addSimpleRecord} /></>}
               {module === "council" && <CouncilModule snapshot={snapshot} counts={counts} council={council.data} operationsResearch={operationsResearchMethods.data} />}

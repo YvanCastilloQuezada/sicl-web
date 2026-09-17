@@ -557,5 +557,24 @@
       "NOT_AVAILABLE": "NICHT VERFÜGBAR",
       "NOT_APPLICABLE": "NICHT ANWENDBAR"
     }
+  },
+  "location": {
+    "title": "Projektstandort",
+    "description": "Schlagen Sie einen Standort vor und bestätigen Sie ihn ausdrücklich vor dem Speichern.",
+    "longitude": "Längengrad",
+    "latitude": "Breitengrad",
+    "label": "Bezeichnung",
+    "label_placeholder": "z. B. Trujillo, Pilotparzelle",
+    "preview": "Standortvorschau",
+    "preview_title": "Unbestätigter Kandidat",
+    "preview_note": "Prüfen Sie den Punkt. Er wird erst nach menschlicher Bestätigung gespeichert.",
+    "confirm": "Standort bestätigen",
+    "saving": "Speichern…",
+    "confirmed": "Standort bestätigt und im Verlauf protokolliert.",
+    "current": "Aktueller Standort:",
+    "invalid_coordinates": "Geben Sie gültige Längen- und Breitengrade ein.",
+    "missing_title": "Fehlende Daten",
+    "missing_summary": "{{count}} Variablen benötigen Daten oder eine explizite Quelle.",
+    "human_authority": "Die menschliche Bestätigung bewahrt die Nachvollziehbarkeit."
   }
 }
