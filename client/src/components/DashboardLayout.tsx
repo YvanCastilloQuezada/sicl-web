@@ -28,6 +28,7 @@ import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
+import AppHeader from "@/components/AppHeader";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "nav.project", path: "/" },
@@ -89,8 +90,10 @@ export default function DashboardLayout({
     );
   }
 
-  return (
-    <SidebarProvider
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+      <AppHeader />
+      <SidebarProvider
       style={
         {
           "--sidebar-width": `${sidebarWidth}px`,
@@ -100,8 +103,9 @@ export default function DashboardLayout({
       <DashboardLayoutContent setSidebarWidth={setSidebarWidth}>
         {children}
       </DashboardLayoutContent>
-    </SidebarProvider>
-  );
+      </SidebarProvider>
+      </div>
+    );
 }
 
 type DashboardLayoutContentProps = {
