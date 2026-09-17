@@ -210,3 +210,12 @@ La propuesta queda lista para revisión del Product Owner y para la ejecución d
 ## Apéndice Q — Estado RFC-022/RFC-024
 
 RFC-022 está integrado en `sicl-web/main` y sus verificaciones locales están verdes. RFC-023 está aprobado y su transporte same-origin está integrado; la configuración del Core real sigue pendiente. RFC-024 no existe como rama, documento ni implementación en los repositorios seleccionados y no se fusiona ni se etiqueta como implementado.
+
+
+## Estado vigente de integración con el Core
+
+La interfaz guiada, la Command Bar y el Help Center son capacidades de presentación. Las llamadas al Core pasan por el proxy server-side. Nunca se expone `SICL_CORE_SERVICE_TOKEN` en el navegador.
+
+El Core vigente incluye RFC-027 BIM/IFC, RFC-028 GIS/Catastro y RFC-029 Copiloto Ollama. El frontend puede presentar estados de `PREVIEW_ONLY`, `HUMAN_REVIEW_REQUIRED`, `CORE_UNAVAILABLE` y `CORE_UNAUTHORIZED`. La ausencia de `SICL_CORE_URL` debe mostrarse como infraestructura no configurada, no como un error ontológico.
+
+La conexión productiva requiere configurar server-side `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`. El manual de despliegue del Core define el procedimiento y la suite remota pendiente.

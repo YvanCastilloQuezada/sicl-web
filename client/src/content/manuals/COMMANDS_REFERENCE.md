@@ -47,7 +47,7 @@ Cada ficha contiene nombre, sintaxis exacta, argumentos, ejemplo, comportamiento
 **Ejemplo:**
 
 ```text
-/PROJECT SET SCOPE edificio proyecto
+/PROJECT SET SCOPE edificacion proyecto
 ```
 
 **Validación y comportamiento:** Requiere proyecto abierto; actualiza scopes y versión.
@@ -1519,7 +1519,7 @@ Usar /STATUS o /PROJECT SHOW
 
 ### Scopes espaciales
 
-`pais`, `region`, `provincia_metropoli`, `ciudad_distrito`, `barrio_sector`, `parcela_sitio`, `edificio`, `espacio`, `objeto`.
+`pais`, `macro_region`, `region`, `provincia_metropoli`, `distrito_ciudad`, `zona_barrio_sector`, `parcela_sitio`, `edificacion`, `sistema`, `espacio`, `objeto`.
 
 ### Scopes temporales
 
@@ -1539,8 +1539,12 @@ Source y Council están documentados como HTTP-only. `/REPORT`, `/TRADEOFFS` y `
 
 
 
-## 15. Ayuda contextual y navegación del frontend
+## Estado vigente de capacidades — actualización 2026-09-16
 
-La Command Bar muestra para cada comando del catálogo una descripción, sus argumentos requeridos y opcionales y un ejemplo interactivo que puede cargarse en el campo de entrada. El centro de ayuda ofrece autocompletado en tiempo real por nombre, sintaxis y categoría, y enlaza cada resultado con esta referencia. Estas ayudas no ejecutan comandos.
+> Esta sección supersede las afirmaciones históricas de este documento que indiquen que GIS, BIM o el Copiloto local están fuera de alcance. El baseline vigente incluye RFC-027, RFC-028 y RFC-029.
 
-La interfaz distingue el Camino A mínimo de seis pasos (`Project → Preference → Recommendation → HumanReview → Decision → Audit`) del mapa completo de diez módulos. Los módulos complementarios organizan contexto, objetivos, alternativas, evidencia, evaluaciones, comparaciones, consejo y gobernanza. El modo principiante añade tooltips a esos módulos; el modo experto reduce la ayuda visual. Ningún modo altera la sintaxis formal, la autoridad humana ni las validaciones del Core.
+El Core actual incluye importación IFC física de solo lectura, snapshots BIM persistentes, BIMChangeSet en modo PREVIEW, detección de conflictos BIM, contratos de exportación que exigen HumanReview, persistencia SQLite de ParcelSnapshot, catálogo GIS por jurisdicción, caducidad y ParcelBoundaryConflict, consulta OGC API Features y traducción Ollama a comandos SICL en modo PREVIEW_ONLY.
+
+Estas capacidades no otorgan autoridad automática. El Copiloto no ejecuta comandos ni crea decisiones. Los adaptadores Revit y Archicad requieren sus hosts y SDKs nativos. La exportación BIM queda pendiente de ejecución externa después de una HumanReview aprobada. Las fuentes catastrales requieren registro explícito, licencia y validación humana.
+
+La referencia operativa es [`PRODUCTION_CORE_DEPLOYMENT_MANUAL.md`](PRODUCTION_CORE_DEPLOYMENT_MANUAL.md). La suite E2E se ejecuta con `PYTHONPATH=.:src pytest -q tests/test_e2e_ollama_sicl.py -ra`.

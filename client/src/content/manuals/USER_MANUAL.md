@@ -9,7 +9,7 @@
 
 ### 1.1 Qué es SiMS-DeI
 
-SiMS-DeI es un sistema para organizar, documentar y analizar decisiones de diseño espacial en múltiples escalas. Puede trabajar con un edificio, una parcela, un barrio, una ciudad, una región o un país cuando la escala se declara de forma explícita.
+SiMS-DeI es un sistema para organizar, documentar y analizar decisiones de diseño espacial en múltiples escalas. Puede trabajar con un edificacion, una parcela, un barrio, una ciudad, una región o un país cuando la escala se declara de forma explícita.
 
 El sistema conserva el contexto del proyecto, registra fuentes y evidencia, separa hechos de supuestos, ejecuta análisis reproducibles y deja una trazabilidad de las operaciones realizadas.
 
@@ -20,6 +20,9 @@ SiMS-DeI está pensado para apoyar conversaciones profesionales. No sustituye el
 SICL es el lenguaje formal que permite operar sobre el Core de SiMS-DeI. Sus comandos representan operaciones como crear un proyecto, registrar un hecho, definir un objetivo, evaluar una alternativa o registrar una decisión humana.
 
 SICL puede utilizarse mediante el intérprete CLI o mediante la API REST canónica `/v1`. Ambas superficies deben respetar las mismas reglas del dominio.
+
+> Para la sintaxis exacta de cada comando, ver `COMMANDS_REFERENCE.md`. Esta referencia es la fuente canónica y se mantiene alineada con `src/sicl/cli.py`.
+
 
 ### 1.3 Qué hace el sistema
 
@@ -79,7 +82,7 @@ Declare una escala espacial cuando sea conocida. No deje que el sistema la infie
 /PROJECT SET SCOPE parcela_sitio proyecto
 ```
 
-Las nueve escalas disponibles son `pais`, `region`, `provincia_metropoli`, `ciudad_distrito`, `barrio_sector`, `parcela_sitio`, `edificio`, `espacio` y `objeto`.
+Las nueve escalas disponibles son `pais`, `region`, `provincia_metropoli`, `distrito_ciudad`, `zona_barrio_sector`, `parcela_sitio`, `edificacion`, `espacio` y `objeto`.
 
 ### 3.4 Definir objetivos
 
@@ -157,7 +160,9 @@ Las preferencias pueden influir en una comparación, pero no sustituyen las cons
 ### 4.7 Alternativas
 
 ```text
-/ALTERNATIVE CREATE CONVENCIONAL_A "Esquema de referencia"
+/ALTERNATIVE CREATE CONVENCIONAL_A
+/ALTERNATIVE SET CONVENCIONAL_A FLOORS 4
+/ALTERNATIVE SET CONVENCIONAL_A AREA 2000
 /ALTERNATIVE SET CONVENCIONAL_A FLOORS 6
 /ALTERNATIVE SET CONVENCIONAL_A STRUCTURE "Mampostería"
 /ALTERNATIVE LIST
@@ -221,7 +226,7 @@ Una recomendación resume una salida analítica. Debe conservar la separación r
 ### 4.13 HumanReview
 
 ```text
-/HUMAN REVIEW "Revisé las evaluaciones y el trade-off" A-DEC BOARD
+/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé las evaluaciones y el trade-off" "Validación arquitectónica" BOARD
 ```
 
 La revisión humana declara que un actor examinó el material relevante. Debe incluir actor, autoridad y una razón suficiente.
@@ -272,14 +277,14 @@ Audit se obtiene de los eventos, snapshots y resultados trazables. El historial 
 /EVIDENCE ADD <id> <statement> <type> [source_id] [url]
 /EVIDENCE LIST
 /EVIDENCE SHOW <id>
-/HUMAN REVIEW <review> <actor> <authority> [reason]
+/HUMAN REVIEW <actor> <timestamp_utc> "<review>" "<reason>" [authority]
 /DECISION RECORD <statement> <actor> <authority>
 ```
 
 ### 5.3 Alternativas y análisis
 
 ```text
-/ALTERNATIVE CREATE <name> [description]
+/ALTERNATIVE CREATE <name>
 /ALTERNATIVE SET <alternative> <key> <value>
 /ALTERNATIVE LIST
 /EVALUATE <alternative> <objective> <value> [unit] [confidence] [source]
@@ -339,6 +344,17 @@ Audit se obtiene de los eventos, snapshots y resultados trazables. El historial 
 ```
 
 Los horizontes de ciclo son `2030`, `2040`, `2050` o `CUSTOM`. La selección de escenario exige actor activo y HumanReview aprobado.
+
+
+### Sources: HTTP-only
+
+`/SOURCE ADD`, `/SOURCE LIST` y `/SOURCE SHOW` no son comandos del CLI local. Para operar Source use la API canónica:
+
+```text
+POST /v1/projects/{project_id}/sources
+GET  /v1/projects/{project_id}/sources
+GET  /v1/projects/{project_id}/sources/{source_id}
+```
 
 ## 6. Endpoints REST
 
@@ -552,10 +568,10 @@ SiMS-DeI utiliza nueve escalas espaciales:
 1. `pais` — país.
 2. `region` — región.
 3. `provincia_metropoli` — provincia o metrópoli.
-4. `ciudad_distrito` — ciudad o distrito.
-5. `barrio_sector` — barrio o sector.
+4. `distrito_ciudad` — ciudad o distrito.
+5. `zona_barrio_sector` — barrio o sector.
 6. `parcela_sitio` — parcela o sitio.
-7. `edificio` — edificio.
+7. `edificacion` — edificacion.
 8. `espacio` — espacio.
 9. `objeto` — objeto.
 
@@ -594,8 +610,12 @@ UPAO-001 es un caso sintético para demostrar el flujo completo. Puede represent
 ### Paso 4 — Crear alternativas y evaluar
 
 ```text
-/ALTERNATIVE CREATE CONVENCIONAL_A "Esquema de referencia"
-/ALTERNATIVE CREATE BIOCLIMATICA_B "Esquema bioclimático"
+/ALTERNATIVE CREATE CONVENCIONAL_A
+/ALTERNATIVE SET CONVENCIONAL_A FLOORS 4
+/ALTERNATIVE SET CONVENCIONAL_A AREA 2000
+/ALTERNATIVE CREATE BIOCLIMATICA_B
+/ALTERNATIVE SET BIOCLIMATICA_B FLOORS 4
+/ALTERNATIVE SET BIOCLIMATICA_B AREA 2000
 /EVALUATE CONVENCIONAL_A ENERGY_SAVINGS 60 PERCENT HIGH EXPERT_SYSTEM
 /EVALUATE BIOCLIMATICA_B ENERGY_SAVINGS 78 PERCENT HIGH EXPERT_SYSTEM
 /COMPARE CONVENCIONAL_A BIOCLIMATICA_B
@@ -605,7 +625,7 @@ UPAO-001 es un caso sintético para demostrar el flujo completo. Puede represent
 ### Paso 5 — Revisar y decidir
 
 ```text
-/HUMAN REVIEW "Revisé la comparación y la recomendación" A-DEC BOARD
+/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la comparación y la recomendación" "Validación arquitectónica" BOARD
 /DECISION RECORD "Seleccionar BIOCLIMATICA_B" A-DEC BOARD
 /HISTORY
 ```
@@ -719,18 +739,12 @@ Cualquier persona que necesite comprender el sistema, pero las operaciones decis
 [15]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-002_EVIDENCE_HTTP.md#source-http "RFC-016 Source HTTP"
 
 
-## 16. Navegación del Command Center
+## Estado vigente de capacidades — actualización 2026-09-16
 
-La página inicial distingue entre el **Camino A** y el mapa completo de módulos. El Camino A contiene seis pasos mínimos: `Project`, `Preference`, `Recommendation`, `HumanReview`, `Decision` y `Audit`. El menú operativo contiene diez módulos: `Project`, `Context / Site`, `Objectives & Constraints`, `Alternatives & Evaluation`, `Evidence`, `Evaluations`, `Comparisons`, `Council / Recommendation`, `Decision & Audit` y `Build Governance`.
+> Esta sección supersede las afirmaciones históricas de este documento que indiquen que GIS, BIM o el Copiloto local están fuera de alcance. El baseline vigente incluye RFC-027, RFC-028 y RFC-029.
 
-Los diez módulos no representan diez decisiones adicionales. Los módulos complementarios organizan contexto, objetivos, alternativas, evidencia, análisis, comparación, consejo y gobernanza. El mapa de la página inicial es interactivo: seleccione un módulo para ir a su ruta o sección. En modo principiante, mantenga el cursor sobre un módulo para ver su función dentro del proyecto.
+El Core actual incluye importación IFC física de solo lectura, snapshots BIM persistentes, BIMChangeSet en modo PREVIEW, detección de conflictos BIM, contratos de exportación que exigen HumanReview, persistencia SQLite de ParcelSnapshot, catálogo GIS por jurisdicción, caducidad y ParcelBoundaryConflict, consulta OGC API Features y traducción Ollama a comandos SICL en modo PREVIEW_ONLY.
 
-## 17. Aprender comandos sin memorizar la sintaxis
+Estas capacidades no otorgan autoridad automática. El Copiloto no ejecuta comandos ni crea decisiones. Los adaptadores Revit y Archicad requieren sus hosts y SDKs nativos. La exportación BIM queda pendiente de ejecución externa después de una HumanReview aprobada. Las fuentes catastrales requieren registro explícito, licencia y validación humana.
 
-Abra la Command Bar con `Ctrl+K` o `Cmd+K`. Escriba un comando para ver su descripción, argumentos obligatorios y opcionales y un ejemplo interactivo. Al seleccionar el ejemplo puede editarlo antes de ejecutarlo.
-
-En `/help`, la búsqueda del centro de ayuda ofrece sugerencias mientras escribe. Las sugerencias proceden del catálogo real de 67 comandos y muestran la sintaxis que corresponde a la referencia. La búsqueda y el mapa son ayudas de navegación; no ejecutan operaciones ni sustituyen la revisión humana.
-
-## 18. Modos de experiencia
-
-El modo **Principiante / Guiado** muestra el mapa, la ruta siguiente y tooltips de los módulos complementarios. El modo **Experto** reduce estas ayudas para trabajar con mayor densidad operativa. El selector está disponible en la configuración de la Command Bar. La preferencia se conserva localmente y no cambia permisos ni reglas del Core.
+La referencia operativa es [`PRODUCTION_CORE_DEPLOYMENT_MANUAL.md`](PRODUCTION_CORE_DEPLOYMENT_MANUAL.md). La suite E2E se ejecuta con `PYTHONPATH=.:src pytest -q tests/test_e2e_ollama_sicl.py -ra`.

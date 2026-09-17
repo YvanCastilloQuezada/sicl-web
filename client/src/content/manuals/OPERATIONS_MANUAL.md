@@ -10,6 +10,8 @@
 
 **Propósito.** Este documento explica cómo operar el Core mediante tareas concretas. Describe comandos CLI, endpoints HTTP, salidas esperadas y errores frecuentes. No concede autoridad al sistema: una recomendación sigue siendo distinta de una decisión, y una decisión requiere revisión humana, actor y autoridad.
 
+> Para la sintaxis exacta de cada comando, ver `COMMANDS_REFERENCE.md`. Esta referencia es la fuente canónica y se mantiene alineada con `src/sicl/cli.py`.
+
 ## Cómo leer este manual
 
 Cada tarea contiene cinco elementos: cuándo usarla, el comando SICL, el endpoint equivalente cuando existe, un resultado esperado y los errores que conviene revisar. Los ejemplos usan el proyecto `UPAO-001` y el actor `architect-yvan`.
@@ -138,7 +140,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/PROJECT SET SCOPE ciudad_distrito mediano_plazo
+/PROJECT SET SCOPE distrito_ciudad mediano_plazo
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands` con `command` igual al comando anterior.
@@ -213,7 +215,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/SOURCE ADD CATASTRO OFFICIAL "Catastro municipal" https://example.org/catastro
+HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{project_id}/sources` con `source_id`, `source_type`, `title` y `url` opcional.
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/sources`.
@@ -277,7 +279,10 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/ALTERNATIVE CREATE CONVENCIONAL_A "Estrategia convencional" "Mampostería y control solar" '{"FLOORS":4,"AREA":2000}'
+/ALTERNATIVE CREATE CONVENCIONAL_A
+/ALTERNATIVE SET CONVENCIONAL_A STRUCTURE "Mampostería"
+/ALTERNATIVE SET CONVENCIONAL_A FLOORS 4
+/ALTERNATIVE SET CONVENCIONAL_A AREA 2000
 ```
 
 **HTTP equivalente.** El endpoint de comandos o la ruta de generaciones cuando la alternativa procede de un generador.
@@ -345,7 +350,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/HUMAN REVIEW "Revisé la recomendación y sus condiciones" architect-yvan "Architect with project authority" APPROVED
+/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/human-reviews`.
@@ -425,7 +430,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/SIMULATE MONTE_CARLO CONVENCIONAL_A CLIMATE AREA '{"distribution":"NORMAL","mean":2000,"std_dev":100}' 1000 20260916
+/SIMULATE MONTE_CARLO ALT-001 OBJ-001 AREA '{"type":"NORMAL","parameters":{"mean":2000,"std_dev":100}}' 1000
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/simulations` con `simulation_type=MONTE_CARLO` y `method=monte_carlo_v1`.
@@ -721,8 +726,14 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **Objetivo.** Comparar opciones y observar el frente Pareto sin crear una decisión.
 
 ```text
-/ALTERNATIVE CREATE CONVENCIONAL_A "Convencional" "Mampostería" '{"FLOORS":4,"AREA":2000}'
-/ALTERNATIVE CREATE BIOCLIMATIC_A "Bioclimática" "Protección solar" '{"FLOORS":4,"AREA":2000}'
+/ALTERNATIVE CREATE CONVENCIONAL_A
+/ALTERNATIVE SET CONVENCIONAL_A STRUCTURE "Mampostería"
+/ALTERNATIVE SET CONVENCIONAL_A FLOORS 4
+/ALTERNATIVE SET CONVENCIONAL_A AREA 2000
+/ALTERNATIVE CREATE BIOCLIMATIC_A
+/ALTERNATIVE SET BIOCLIMATIC_A STRATEGY "Protección solar"
+/ALTERNATIVE SET BIOCLIMATIC_A FLOORS 4
+/ALTERNATIVE SET BIOCLIMATIC_A AREA 2000
 /EVALUATE CONVENCIONAL_A CLIMATE 72 PERCENT 0.85 USER_INPUT
 /EVALUATE BIOCLIMATIC_A CLIMATE 88 PERCENT 0.85 USER_INPUT
 /MULTIOBJECTIVE PARETO CLIMATE CONSTRUCTION_COST
@@ -737,7 +748,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 
 ```text
 /STATUS
-/HUMAN REVIEW "Revisé la recomendación y sus condiciones" architect-yvan "Architect with project authority" APPROVED
+/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
 /DECISION RECORD "Adoptar BIOCLIMATIC_A sujeto a las condiciones revisadas" architect-yvan "Architect with project authority"
 /HISTORY
 ```
@@ -749,7 +760,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **Objetivo.** Vincular una escala territorial y transferir un objetivo sin copiar autoridad.
 
 ```text
-/PROJECT CREATE CITY-001 "Distrito de referencia" ciudad_distrito mediano_plazo
+/PROJECT CREATE CITY-001 "Distrito de referencia" distrito_ciudad mediano_plazo
 /SCALE RELATE CITY-001 UPAO-001 CONTAINS "El campus pertenece al distrito"
 /PROJECT OPEN UPAO-001
 /PROJECT IMPORT OBJECTIVE CITY-001 CLIMATE
@@ -765,7 +776,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 ```text
 /PROJECT OPEN UPAO-001
 /SIMULATE METHODS
-/SIMULATE MONTE_CARLO CONVENCIONAL_A CLIMATE AREA '{"distribution":"NORMAL","mean":2000,"std_dev":100}' 1000 20260916
+/SIMULATE MONTE_CARLO ALT-001 OBJ-001 AREA '{"type":"NORMAL","parameters":{"mean":2000,"std_dev":100}}' 1000
 /SIMULATE LIST
 /SIMULATE SHOW SIM-001
 ```
@@ -876,7 +887,7 @@ Un error conserva `contract_version`, `code`, `message`, `project_id` y `data` d
 
 ## Escalas espaciales
 
-El catálogo espacial tiene nueve valores: `pais`, `region`, `provincia_metropoli`, `ciudad_distrito`, `barrio_sector`, `parcela_sitio`, `edificio`, `espacio` y `objeto`. El Core no infiere una escala desde un nombre de lugar. La escala se declara mediante el comando o el payload.
+El catálogo espacial tiene once valores: `pais`, `macro_region`, `region`, `provincia_metropoli`, `distrito_ciudad`, `zona_barrio_sector`, `parcela_sitio`, `edificacion`, `sistema`, `espacio` y `objeto`. El Core no infiere una escala desde un nombre de lugar. La escala se declara mediante el comando o el payload.
 
 Los horizontes temporales son `proyecto`, `corto_plazo`, `mediano_plazo`, `largo_plazo`, `escenario_2030`, `escenario_2040` y `escenario_2050`. El horizonte por defecto es `proyecto` cuando no se declara otro.
 
@@ -912,12 +923,3 @@ Los horizontes temporales son `proyecto`, `corto_plazo`, `mediano_plazo`, `largo
 [8]: docs/RFC-018_RFC_PROCESS.md "RFC-018 RFC Process"
 
 **Firma documental.** Este manual fue redactado como una perspectiva operativa independiente sobre el código y los contratos del baseline indicado. No sustituye el Core Contract ni la aprobación del Product Owner.
-
-
-## 13. Coherencia de la navegación y ayuda interactiva
-
-El Camino A es el flujo mínimo de seis pasos: `Project → Preference → Recommendation → HumanReview → Decision → Audit`. El mapa inicial muestra diez módulos operativos porque incorpora las superficies complementarias `Context / Site`, `Objectives & Constraints`, `Alternatives & Evaluation`, `Evidence`, `Evaluations`, `Comparisons`, `Council / Recommendation` y `Build Governance`. `Decision & Audit` agrupa los dos últimos pasos del Camino A para facilitar la operación.
-
-Cada módulo del mapa es navegable y expone un tooltip en modo principiante. El mapa enlaza a la raíz del proyecto, a las secciones de contexto, objetivos, alternativas, consejo, auditoría y gobernanza, y a las páginas de evidencia, evaluaciones y comparaciones.
-
-El centro de ayuda ofrece búsqueda sobre los 67 comandos del catálogo. Mientras se escribe, muestra sugerencias de autocompletado. Seleccionar una sugerencia filtra la referencia sin ejecutar ningún comando. Si el catálogo del Core cambia, debe regenerarse y verificarse junto con este manual.

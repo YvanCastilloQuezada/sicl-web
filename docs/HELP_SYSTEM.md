@@ -96,3 +96,17 @@ El recorrido inicial aparece una vez en tres pasos. Primero explica el mapa, des
 ## Resaltado e historial de búsquedas
 
 Las coincidencias del Help Center se resaltan visualmente en el nombre y la sintaxis del comando. Al pulsar `Enter`, la búsqueda se guarda en un historial local de hasta seis elementos bajo `sims-dei-help-search-history`. Seleccionar una búsqueda reciente la reutiliza sin modificar el catálogo ni ejecutar un comando.
+
+
+## Estado vigente de integración con el Core
+
+La interfaz guiada, la Command Bar y el Help Center son capacidades de presentación. Las llamadas al Core pasan por el proxy server-side. Nunca se expone `SICL_CORE_SERVICE_TOKEN` en el navegador.
+
+El Core vigente incluye RFC-027 BIM/IFC, RFC-028 GIS/Catastro y RFC-029 Copiloto Ollama. El frontend puede presentar estados de `PREVIEW_ONLY`, `HUMAN_REVIEW_REQUIRED`, `CORE_UNAVAILABLE` y `CORE_UNAUTHORIZED`. La ausencia de `SICL_CORE_URL` debe mostrarse como infraestructura no configurada, no como un error ontológico.
+
+La conexión productiva requiere configurar server-side `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`. El manual de despliegue del Core define el procedimiento y la suite remota pendiente.
+
+
+## Manual de primer contacto
+
+La guía `SIMS_DEI_FIRST_CONTACT_MANUAL.md` está destinada a las primeras sesiones de usuarios nuevos. Presenta el momento inicial, el Camino A, las tres reglas epistemológicas y el límite entre recomendación y decisión.
