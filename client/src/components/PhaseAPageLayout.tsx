@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useLocation } from "wouter";
 import { startLogin } from "@/const";
 import LanguageSelector from "@/components/LanguageSelector";
 import HelpButton from "@/components/HelpButton";
@@ -35,6 +36,7 @@ const fieldClass = "mt-1 w-full rounded-md border border-input bg-background px-
 
 export default function PhaseAPageLayout({ active, children }: { active: PhaseAPage; children: React.ReactNode }) {
   const { loading, user } = useAuth();
+  const [, setLocation] = useLocation();
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
 
@@ -59,7 +61,7 @@ export default function PhaseAPageLayout({ active, children }: { active: PhaseAP
         <aside className="border-b border-border bg-secondary p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
           <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">Project modules</span><BookOpen className="h-4 w-4 text-muted-foreground" /></div>
           <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-            {navigation.map((item) => { const Icon = item.icon; const isActive = item.active === active; return <button key={item.id} type="button" onClick={() => { window.location.assign(item.path); }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", isActive ? "border-primary bg-primary font-semibold text-primary-foreground shadow-[inset_4px_0_0_var(--accent),0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-secondary-foreground hover:border-border hover:bg-background")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-accent" />}<Icon className={cn("h-4 w-4", isActive ? "text-accent" : "group-hover:text-primary")} /><span>{t(item.label)}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-accent">Activo</span>}</button>; })}
+            {navigation.map((item) => { const Icon = item.icon; const isActive = item.active === active; return <button key={item.id} type="button" onClick={() => setLocation(item.path)} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", isActive ? "border-primary bg-primary font-semibold text-primary-foreground shadow-[inset_4px_0_0_var(--accent),0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-secondary-foreground hover:border-border hover:bg-background")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-accent" />}<Icon className={cn("h-4 w-4", isActive ? "text-accent" : "group-hover:text-primary")} /><span>{t(item.label)}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-accent">Activo</span>}</button>; })}
           </nav>
           <div className="mt-8 border-t border-border pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Integrity rule</p><p className="mt-2 text-xs leading-5 text-muted-foreground">Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority.</p></div>
         </aside>
