@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/ThemeContext";
 import LanguageSelector from "@/components/LanguageSelector";
 import HelpButton from "@/components/HelpButton";
-import AppHeader from "@/components/AppHeader";
+import ProjectWorkspace from "@/components/ProjectWorkspace";
 import GuidedShell from "@/components/GuidedShell";
 import { CommandBuilder, EpistemicLegend, SyntheticDemoCard } from "@/components/Phase1Phase2Tools";
 import FeasibilityPanel from "@/components/FeasibilityPanel";
@@ -130,16 +130,7 @@ function AuthenticatedHome() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-        <AppHeader />
-        <div className="mx-auto grid max-w-[1500px] grid-cols-1 md:grid-cols-[240px_1fr]">
-          <aside className="border-b border-border bg-secondary p-4 md:min-h-[calc(100vh-105px)] md:border-b-0 md:border-r md:p-5">
-            <div className="mb-6 flex items-center justify-between"><span className="text-xs font-bold uppercase tracking-[0.18em] text-[#6a7d72]">{t("page.project_modules")}</span><BookOpen className="h-4 w-4 text-[#8b9a90]" /></div>
-            <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-              {modules.map((item) => { const Icon = item.icon; const isActive = module === item.id; return <button key={item.id} type="button" onClick={() => { if (item.externalPath) { setLocation(`${item.externalPath}?project=${encodeURIComponent(restProjectId)}`); return; } window.location.hash = item.id; }} aria-current={isActive ? "page" : undefined} className={cn("group relative flex items-center gap-3 border px-3 py-3 text-left text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#385348]", isActive ? "border-primary bg-primary font-semibold text-white shadow-[inset_4px_0_0_#d07b4a,0_3px_10px_rgba(56,83,72,0.18)]" : "border-transparent text-foreground hover:border-[#b9c4bd] hover:bg-background")}>{isActive && <span aria-hidden="true" className="absolute left-0 top-2 h-7 w-1 rounded-r bg-[#d07b4a]" />}<Icon className={cn("h-4 w-4", isActive ? "text-[#f4d5bf]" : "group-hover:text-foreground")} /><span>{t(item.label)}</span>{isActive && <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#f4d5bf]">{t("guided.status.active")}</span>}</button>; })}
-            </nav>
-            <div className="mt-8 border-t border-input pt-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7a8c82]">{t("page.integrity_rule")}</p><p className="mt-2 text-xs leading-5 text-[#65756c]">{t("page.integrity_description")}</p></div>
-          </aside>
+    <ProjectWorkspace active={module as import("@/components/ProjectWorkspace").WorkspaceSection} projectId={restProjectId} onNavigate={(next) => { setModule(next as ModuleId); window.location.hash = next; }}>
           <main className="p-5 md:p-10">
             {module === "overview" && <><GuidedShell counts={{ project: Boolean(currentProjectId || restProject), preference: counts.preferences ?? 0, recommendation: counts.recommendations ?? 0, humanReview: counts.humanReviews ?? 0, decision: counts.decisions ?? 0, audit: counts.events ?? 0 }} onNavigate={(step) => { const target = step === "preference" ? "problem" : step === "recommendation" ? "council" : step === "humanReview" || step === "decision" || step === "audit" ? "audit" : "overview"; setModule(target as ModuleId); window.location.hash = target; }} /><div className="grid gap-5 lg:grid-cols-2"><SyntheticDemoCard /><EpistemicLegend /></div><div className="mt-5"><CommandBuilder onCommandChange={setRestComando} /></div>{currentProjectId && <div className="mt-5"><FeasibilityPanel projectId={currentProjectId} /></div>}</>}
             {siclClient.isConfigured() && module === "overview" ? <RestWorkspace loading={coreLoading} error={coreError} mock={mockCore} onRetry={retryCore} onEnableMock={enableMockCore} project={restProject} projectId={restProjectId} projectName={restProjectName} command={restComando} busy={restBusy} message={restMessage} setProjectId={setRestProjectId} setProjectName={setRestProjectName} setComando={setRestComando} onCreate={async () => { setRestBusy(true); try { const created = await siclClient.createProject({ project_id: restProjectId, name: restProjectName }); setRestProject(created); setRestMessage(t("workspace.project_created")); } catch (error) { setRestMessage(error instanceof Error ? error.message : t("workspace.fetch_failed")); } finally { setRestBusy(false); } }} onComando={async () => { setRestBusy(true); try { await siclClient.executeCommand(restProjectId, restComando); const refreshed = await siclClient.getProject(restProjectId); setRestProject(refreshed); setRestMessage(t("workspace.command_applied")); } catch (error) { setRestMessage(error instanceof Error ? error.message : t("workspace.fetch_failed")); } finally { setRestBusy(false); } }} onRefresh={async () => { setRestBusy(true); try { const refreshed = await siclClient.getProject(restProjectId); setRestProject(refreshed); setRestMessage(t("workspace.dashboard_refreshed")); } catch (error) { setRestMessage(error instanceof Error ? error.message : t("workspace.fetch_failed")); } finally { setRestBusy(false); } }} /> : !siclClient.isConfigured() && !currentProjectId ? <EmptyProjects name={newProjectName} location={newProjectLocation} spatialScale={newSpatialScale} temporalHorizon={newTemporalHorizon} setName={setNewProjectName} setLocation={setNewProjectLocation} setSpatialScale={setNewSpatialScale} setTemporalHorizon={setNewTemporalHorizon} onCreate={() => createProject.mutate({ name: newProjectName, location: newProjectLocation, spatialScale: newSpatialScale, temporalHorizon: newTemporalHorizon })} loading={createProject.isPending} /> : <>
@@ -154,8 +145,7 @@ function AuthenticatedHome() {
               {module === "governance" && <GovernanceModule />}
             </>}
           </main>
-        </div>
-      </div>
+    </ProjectWorkspace>
   );
 }
 
