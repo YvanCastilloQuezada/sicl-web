@@ -507,5 +507,25 @@
     "diagnostics": "Диагностика",
     "inputs": "Входные данные",
     "feasibility": "Осуществимость"
+  },
+  "gate": {
+    "evaluation_title": "Создать оценку",
+    "alternative": "Альтернатива",
+    "objective": "Цель",
+    "value": "Значение",
+    "unit": "Единица",
+    "confidence": "Уверенность",
+    "source": "Источник",
+    "sign_in_continue": "Войдите, чтобы продолжить",
+    "auth_required": "Для доступа к этой панели требуется аутентификация. Продолжите, чтобы запустить вход.",
+    "sign_in": "Войти",
+    "toggle_navigation": "Переключить навигацию",
+    "navigation": "Навигация",
+    "sign_out": "Выйти",
+    "unexpected_error": "Произошла непредвиденная ошибка.",
+    "reload_page": "Перезагрузить страницу",
+    "command_required": "обязательно",
+    "command_optional": "необязательно",
+    "command_tab": "Табуляция"
   }
 }

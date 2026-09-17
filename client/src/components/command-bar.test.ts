@@ -152,7 +152,7 @@ describe("CommandBar", () => {
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     fireEvent.change(commandInput(), { target: { value: "/PROJECT CREATE" } });
     expect(screen.getByText(/Crea un espacio de trabajo|Creates a workspace/)).toBeTruthy();
-    expect(screen.getByText(/project_id · required/)).toBeTruthy();
+    expect(screen.getByText(/project_id · (required|obligatorio|obrigatório|obligatoire|erforderlich|обязательно|必填)/)).toBeTruthy();
     const example = screen.getByRole("button", { name: /PROJECT CREATE DEMO-001/ });
     fireEvent.click(example);
     expect((commandInput() as HTMLInputElement).value).toContain("/PROJECT CREATE DEMO-001");

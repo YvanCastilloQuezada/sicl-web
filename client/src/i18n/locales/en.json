@@ -507,5 +507,25 @@
     "diagnostics": "Diagnostics",
     "inputs": "Inputs",
     "feasibility": "Feasibility"
+  },
+  "gate": {
+    "evaluation_title": "Create evaluation",
+    "alternative": "Alternative",
+    "objective": "Objective",
+    "value": "Value",
+    "unit": "Unit",
+    "confidence": "Confidence",
+    "source": "Source",
+    "sign_in_continue": "Sign in to continue",
+    "auth_required": "Access to this dashboard requires authentication. Continue to launch the login flow.",
+    "sign_in": "Sign in",
+    "toggle_navigation": "Toggle navigation",
+    "navigation": "Navigation",
+    "sign_out": "Sign out",
+    "unexpected_error": "An unexpected error occurred.",
+    "reload_page": "Reload page",
+    "command_required": "required",
+    "command_optional": "optional",
+    "command_tab": "Tab"
   }
 }
