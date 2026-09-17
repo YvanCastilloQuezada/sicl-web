@@ -98,3 +98,22 @@ export function spatialToGlb(rep: SpatialRepresentation, meta: ExportMetadata): 
   return out;
 }
 export function downloadExport(data: string | Uint8Array, filename: string, mime: string) { const blob = typeof data === "string" ? new Blob([data], { type: mime }) : new Blob([data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer], { type: mime }); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
+
+export type ExportTarget = "IFC" | "DXF" | "GLB";
+export type ExportCapabilityStatus = "AVAILABLE" | "REQUIRES_DATA" | "NOT_AVAILABLE" | "NOT_APPLICABLE";
+export type ExportCapability = { target: ExportTarget; status: ExportCapabilityStatus; reason: string; requiredData: string[]; semanticLevel: "MASSING" | "SPATIAL" | "VISUAL" | "NONE" };
+
+/** Controlled, scale-aware export policy. It gates the existing deterministic translators; it does not create geometry. */
+export function resolveExportCapabilities(representation: SpatialRepresentation, availableData: string[] = []): ExportCapability[] {
+  const scope = representation.spatial_scope;
+  const hasGeometry = representation.elements.some((e) => Array.isArray(e.geometry?.coordinates));
+  const hasMass = representation.elements.some((e) => e.element_type === "BuildingMass");
+  const buildingScopes = new Set(["edificacion"]);
+  const visualScopes = new Set(["objeto", "espacio", "sistema", "edificacion"]);
+  const cadScopes = new Set(["parcela_sitio", "edificacion"]);
+  return [
+    { target: "IFC", status: buildingScopes.has(scope) && hasGeometry && hasMass ? "AVAILABLE" : buildingScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: buildingScopes.has(scope) ? (hasMass ? "Massing-only IFC exchange at building scale." : "Building mass geometry is required.") : "IFC massing semantics are not applicable at this SpatialScope.", requiredData: buildingScopes.has(scope) ? ["BuildingMass", "height", "units"] : [], semanticLevel: buildingScopes.has(scope) ? "MASSING" : "NONE" },
+    { target: "DXF", status: cadScopes.has(scope) && hasGeometry ? "AVAILABLE" : cadScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: cadScopes.has(scope) ? "Spatial footprint/linework CAD exchange." : "Prefer a scale-appropriate GIS representation rather than architectural CAD.", requiredData: cadScopes.has(scope) ? ["geometry", "units", "orientation"] : [], semanticLevel: cadScopes.has(scope) ? "SPATIAL" : "NONE" },
+    { target: "GLB", status: visualScopes.has(scope) && hasGeometry ? "AVAILABLE" : visualScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: visualScopes.has(scope) ? "Portable spatial visualization; not BIM." : "3D visual export is not applicable without a supported spatial representation.", requiredData: visualScopes.has(scope) ? ["geometry", "units"] : [], semanticLevel: visualScopes.has(scope) ? "VISUAL" : "NONE" },
+  ];
+}
