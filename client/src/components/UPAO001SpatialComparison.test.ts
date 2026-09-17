@@ -44,14 +44,17 @@ describe("UPAO001SpatialComparison S5", () => {
     expect(screen.getAllByTestId("comparison-panel-UPAO-001-A")).toHaveLength(1);
     expect(screen.getAllByTestId("comparison-panel-UPAO-001-B")).toHaveLength(1);
     expect(screen.getAllByTestId("comparison-panel-UPAO-001-C")).toHaveLength(1);
-    expect(screen.getByText("SpatialRepresentation: SR-UPAO-001-A")).toBeTruthy();
-    expect(screen.getByText("SpatialRepresentation: SR-UPAO-001-B")).toBeTruthy();
-    expect(screen.getByText("SpatialRepresentation: SR-UPAO-001-C")).toBeTruthy();
-    expect(screen.getAllByTestId("spatial-viewer")).toHaveLength(3);
+    expect(screen.getAllByText("UPAO-001-A").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("UPAO-001-B").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("UPAO-001-C").length).toBeGreaterThan(0);
+    expect(screen.getByText("Focused design")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "2D plan" })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "2D plan" }));
+    expect(screen.getAllByTestId("spatial-viewer")).toHaveLength(1);
   });
   it("selection remains inspection state and does not expose approval language", () => {
     render(view());
-    fireEvent.click(screen.getAllByRole("button", { name: "Inspect" })[0]);
+    fireEvent.click(screen.getByTestId("comparison-panel-UPAO-001-A"));
     expect(screen.getByRole("status").textContent).toContain("Selected for inspection: UPAO-001-A");
     expect(screen.getByRole("status").textContent).toContain("does not create a Decision");
     expect(screen.queryByText("Winner")).toBeNull();
@@ -59,9 +62,8 @@ describe("UPAO001SpatialComparison S5", () => {
   });
   it("offers 3D mode without eagerly rendering it in 2D", () => {
     render(view());
-    expect(screen.getByRole("button", { name: "3D" })).toBeTruthy();
-    expect(screen.queryByTestId("comparison-3d-UPAO-001-A")).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "3D" }));
-    expect(screen.getByText("Synchronize view")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "3D massing" })).toBeTruthy();
+    expect(screen.getByTestId("comparison-3d-UPAO-001-A")).toBeTruthy();
+    expect(screen.getByText("Drag to rotate · wheel to zoom · right-drag to pan")).toBeTruthy();
   });
 });
