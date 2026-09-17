@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "以证据为基础的项目决策，并在边界处保留人的权威。",
+    "tagline": "跨越从对象到国家的空间尺度，进行设计、分析、生成、模拟和比较方案。",
     "version": "SiMS-DeI 2.2",
     "navigation": "主导航",
-    "traceable": "可追溯工作区"
+    "traceable": "可追溯工作区",
+    "identity_line2": "多尺度空间设计智能系统",
+    "identity_line3": "跨越从对象到国家的空间尺度，进行设计、分析、生成、模拟和比较方案。"
   },
   "nav": {
     "project": "项目",

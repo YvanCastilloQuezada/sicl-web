@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Evidenzbasierte Projektentscheidungen mit gewahrter menschlicher Autorität an der Grenze.",
+    "tagline": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Hauptnavigation",
-    "traceable": "Nachvollziehbarer Arbeitsbereich"
+    "traceable": "Nachvollziehbarer Arbeitsbereich",
+    "identity_line2": "Multiskalares räumliches Design-Intelligenzsystem",
+    "identity_line3": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land."
   },
   "nav": {
     "project": "Projekt",
