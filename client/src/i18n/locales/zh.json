@@ -640,6 +640,13 @@
     "purpose_simple_materials": "Architectural",
     "purpose_materials_shadows": "Presentation",
     "purpose_realistic": "Higher quality",
-    "purpose_photo_realistic": "Maximum quality"
+    "purpose_photo_realistic": "Maximum quality",
+    "export_title": "导出",
+    "export_current": "当前方案",
+    "export_ifc": "BIM · IFC",
+    "export_dxf": "CAD · DXF",
+    "export_glb": "3D · GLB",
+    "export_all": "导出 A / B / C",
+    "export_disclosure": "IFC：空间/体量 BIM 交换。DXF：CAD 空间几何。GLB：可移植的 3D 可视化模型。"
   }
 }

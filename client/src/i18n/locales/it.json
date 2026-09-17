@@ -640,6 +640,13 @@
     "purpose_simple_materials": "Architectural",
     "purpose_materials_shadows": "Presentation",
     "purpose_realistic": "Higher quality",
-    "purpose_photo_realistic": "Maximum quality"
+    "purpose_photo_realistic": "Maximum quality",
+    "export_title": "Esporta",
+    "export_current": "Alternativa corrente",
+    "export_ifc": "BIM · IFC",
+    "export_dxf": "CAD · DXF",
+    "export_glb": "3D · GLB",
+    "export_all": "Esporta A / B / C",
+    "export_disclosure": "IFC: scambio BIM spaziale/massing. DXF: geometria spaziale CAD. GLB: modello 3D visualizzabile."
   }
 }
