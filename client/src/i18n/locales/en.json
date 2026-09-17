@@ -3,7 +3,8 @@
     "title": "SiMS-DeI Command Center",
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Evidence-led project decisions, with human authority preserved at the boundary.",
-    "version": "SiMS-DeI 2.2"
+    "version": "SiMS-DeI 2.2",
+    "navigation": "Main navigation"
   },
   "nav": {
     "project": "Project",
@@ -15,7 +16,9 @@
     "comparisons": "Comparisons",
     "council": "Council / Recommendation",
     "decision": "Decision & Audit",
-    "governance": "Build Governance"
+    "governance": "Build Governance",
+    "multiobjective": "Multiobjective",
+    "help": "Help"
   },
   "common": {
     "create": "Create",

@@ -3,7 +3,8 @@
     "title": "SiMS-DeI Command Center",
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "以证据为基础的项目决策，并在边界处保留人的权威。",
-    "version": "SiMS-DeI 2.2"
+    "version": "SiMS-DeI 2.2",
+    "navigation": "主导航"
   },
   "nav": {
     "project": "项目",
@@ -15,7 +16,9 @@
     "comparisons": "比较",
     "council": "委员会 / 建议",
     "decision": "决策与审计",
-    "governance": "建设治理"
+    "governance": "建设治理",
+    "multiobjective": "多目标",
+    "help": "帮助"
   },
   "common": {
     "create": "创建",

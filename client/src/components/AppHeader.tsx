@@ -6,12 +6,23 @@ import HelpButton from "@/components/HelpButton";
 import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Link, useLocation } from "wouter";
+
+const topNavigation = [
+  { path: "/", label: "nav.project" },
+  { path: "/evidence", label: "nav.evidence" },
+  { path: "/evaluations", label: "nav.evaluations" },
+  { path: "/comparisons", label: "nav.comparisons" },
+  { path: "/multiobjective", label: "nav.multiobjective" },
+  { path: "/help", label: "nav.help" },
+] as const;
 
 export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
+  const [location] = useLocation();
   return (
-    <header className="border-b border-border bg-background/95 px-6 py-5 backdrop-blur md:px-10">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 px-6 py-4 backdrop-blur md:px-10">
       <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-5">
         <div>
           <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground"><span className="h-2 w-2 rounded-full bg-accent" /> {t("header.subtitle")}</div>
@@ -30,6 +41,12 @@ export default function AppHeader() {
           <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex"><Activity className="h-4 w-4" /> Traceable workspace</div>
         </div>
       </div>
+      <nav aria-label={t("header.navigation")} className="mx-auto mt-4 flex max-w-[1500px] gap-2 overflow-x-auto border-t border-border/70 pt-3 pb-0">
+        {topNavigation.map((item) => {
+          const active = item.path === "/" ? location === "/" : location.startsWith(item.path);
+          return <Link key={item.path} href={item.path} className={cn("shrink-0 rounded-md border px-3 py-2 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", active ? "border-primary bg-primary text-primary-foreground" : "border-transparent text-foreground hover:border-border hover:bg-secondary")}>{t(item.label)}</Link>;
+        })}
+      </nav>
     </header>
   );
 }

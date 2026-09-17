@@ -3,7 +3,8 @@
     "title": "SiMS-DeI Command Center",
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Decisões de projeto baseadas em evidências, com autoridade humana preservada no limite.",
-    "version": "SiMS-DeI 2.2"
+    "version": "SiMS-DeI 2.2",
+    "navigation": "Navegação principal"
   },
   "nav": {
     "project": "Projeto",
@@ -15,7 +16,9 @@
     "comparisons": "Comparações",
     "council": "Conselho / Recomendação",
     "decision": "Decisão e auditoria",
-    "governance": "Governança da construção"
+    "governance": "Governança da construção",
+    "multiobjective": "Multiobjetivo",
+    "help": "Ajuda"
   },
   "common": {
     "create": "Criar",
