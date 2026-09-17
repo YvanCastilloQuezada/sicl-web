@@ -529,5 +529,52 @@
     "command_required": "required",
     "command_optional": "optional",
     "command_tab": "Tab"
+  },
+  "solar": {
+    "layer": "Environmental layer",
+    "title": "Temporal solar analysis",
+    "description": "Explore solar position and hourly radiation data for the educational A/B/C geometry. Astronomy and meteorology remain separate.",
+    "educational": "Educational only",
+    "date": "Date",
+    "time": "Local time",
+    "pause": "Pause",
+    "play": "Play day",
+    "step": "Next hour",
+    "direction": "Solar direction",
+    "azimuth": "Azimuth",
+    "elevation": "Elevation",
+    "environmentalReference": "Environmental reference:",
+    "sourceData": "Source data:",
+    "disclosure": "Disclosure:",
+    "proxyDisclosure": "Trujillo is an educational proxy; it is not a surveyed UPAO site.",
+    "sourceUnavailable": "The environmental source is unavailable.",
+    "unavailable": "Analysis unavailable.",
+    "capability": "Multiscale applicability",
+    "capabilityUnavailable": "Applicability could not be resolved",
+    "capabilityStates": {
+      "AVAILABLE": "AVAILABLE",
+      "REQUIRES_DATA": "REQUIRES DATA",
+      "NOT_AVAILABLE": "NOT AVAILABLE",
+      "NOT_APPLICABLE": "NOT APPLICABLE"
+    }
+  },
+  "location": {
+    "title": "Project location",
+    "description": "Propose a location and explicitly confirm it before saving.",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "label": "Label",
+    "label_placeholder": "E.g. Trujillo, pilot parcel",
+    "preview": "Preview location",
+    "preview_title": "Unconfirmed candidate",
+    "preview_note": "Review the point. It is not saved until a human authority confirms it.",
+    "confirm": "Confirm location",
+    "saving": "Saving…",
+    "confirmed": "Location confirmed and recorded in history.",
+    "current": "Current location:",
+    "invalid_coordinates": "Enter valid longitude and latitude coordinates.",
+    "missing_title": "Missing data",
+    "missing_summary": "{{count}} variables require data or an explicit source.",
+    "human_authority": "Human confirmation preserves traceability."
   }
 }

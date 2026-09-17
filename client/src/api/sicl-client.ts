@@ -124,6 +124,28 @@ export type FeasibilityResult = {
   checks: Array<Record<string, unknown>>;
 };
 
+export type SpatialLocation = {
+  location_id: string;
+  project_id: string;
+  spatial_scope: string;
+  geometry_type: string;
+  geometry: { type: string; coordinates: number[] };
+  crs: string;
+  place_label?: string | null;
+  status: string;
+  acquisition_method: string;
+  provenance: string;
+  longitude?: number | null;
+  latitude?: number | null;
+  [key: string]: unknown;
+};
+
+export type MissingDataReport = {
+  location_present: boolean;
+  variables: Array<{ canonical_variable_id: string; state: string; source?: string | null; acquisition_paths?: string[] }>;
+  capabilities: Array<{ capability_id: string; state: string; missing_requirements?: string[] }>;
+};
+
 export type ParetoRequest = {
   alternative_ids?: string[];
   objective_ids?: string[];
@@ -317,5 +339,16 @@ export const siclClient = {
   },
   async feasiblePareto(projectId: string, paretoFront: string[]): Promise<{ pareto_front: string[]; feasible_pareto_front: string[] }> {
     return v1Request<{ pareto_front: string[]; feasible_pareto_front: string[] }>(`/v1/projects/${encodeURIComponent(projectId)}/multiobjective/feasible-pareto`, { method: "POST", body: JSON.stringify({ pareto_front: paretoFront }) });
+  },
+  async confirmLocation(projectId: string, input: { longitude: number; latitude: number; place_label?: string }): Promise<SpatialLocation> {
+    const data = await v1Request<{ location: SpatialLocation }>(`/v1/projects/${encodeURIComponent(projectId)}/locations`, { method: "POST", body: JSON.stringify({ spatial_scope: "parcela_sitio", geometry_type: "Point", geometry: { type: "Point", coordinates: [input.longitude, input.latitude] }, place_label: input.place_label, acquisition_method: "MAP_SELECTION", provenance: "USER_DECLARED", actor_id: "frontend-user", authority: "project_owner", confirm: true }) });
+    return data.location;
+  },
+  async currentLocation(projectId: string): Promise<SpatialLocation | null> {
+    const data = await cachedV1Request<{ location: SpatialLocation | null }>(`/v1/projects/${encodeURIComponent(projectId)}/locations/current`);
+    return data.location;
+  },
+  async missingData(projectId: string, spatialScope = "parcela_sitio"): Promise<MissingDataReport> {
+    return cachedV1Request<MissingDataReport>(`/v1/projects/${encodeURIComponent(projectId)}/missing-data?spatial_scope=${encodeURIComponent(spatialScope)}`);
   },
 };

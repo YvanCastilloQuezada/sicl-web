@@ -7,6 +7,8 @@ export type ParetoCoreResponse = {
   alternatives?: Array<Record<string, unknown>>;
   objectives?: string[];
   tradeoffs?: Record<string, unknown>;
+  provenance?: string[];
+  read_only?: boolean;
 };
 
 export type ParetoPoint = {
@@ -56,12 +58,13 @@ export function transformParetoData(response: ParetoCoreResponse | null | undefi
   const ids = Array.from(new Set([...Array.from(front), ...Array.from(dominated), ...Array.from(incomplete), ...alternatives.map(alternativeId).filter((id): id is string => Boolean(id))]));
   const points = ids.map((id) => {
     const item = alternatives.find((candidate) => alternativeId(candidate) === id) ?? {};
-    const status: ChartStatus = incomplete.has(id) ? "incomplete" : front.has(id) ? "front" : "dominated";
-    return { id, x: metric(item, ["ENERGY_SAVINGS", "energy_savings", "x"]), y: metric(item, ["CONSTRUCTION_COST", "construction_cost", "cost", "y"]), status };
+    const rawStatus = item.raw_pareto_status;
+    const status: ChartStatus = rawStatus === "INCOMPLETE" || incomplete.has(id) ? "incomplete" : rawStatus === "NON_DOMINATED" || front.has(id) ? "front" : "dominated";
+    return { id, x: metric(item, ["GROSS_MASSING_AREA", "gross_massing_area", "ENERGY_SAVINGS", "energy_savings", "x"]), y: metric(item, ["OPEN_SITE_AREA", "open_site_area", "CONSTRUCTION_COST", "construction_cost", "cost", "y"]), status };
   });
   return {
     points,
-    axes: { x: { label: source.objectives?.[0] ?? "ENERGY_SAVINGS", direction: "MAXIMIZE" }, y: { label: source.objectives?.[1] ?? "CONSTRUCTION_COST", direction: "MINIMIZE" } },
+    axes: { x: { label: source.objectives?.[0] ?? "ENERGY_SAVINGS", direction: "MAXIMIZE" }, y: { label: source.objectives?.[1] ?? "CONSTRUCTION_COST", direction: source.objectives?.[1] === "OPEN_SITE_AREA" ? "MAXIMIZE" : "MINIMIZE" } },
     legend: {
       front: { label: "No dominados", color: STATUS_COLORS.front },
       dominated: { label: "Dominados", color: STATUS_COLORS.dominated },

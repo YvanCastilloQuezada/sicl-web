@@ -529,5 +529,52 @@
     "command_required": "必填",
     "command_optional": "可选",
     "command_tab": "制表键"
+  },
+  "solar": {
+    "layer": "环境图层",
+    "title": "时间太阳分析",
+    "description": "探索教育性 A/B/C 几何的太阳位置和小时辐射数据。天文学与气象数据保持分离。",
+    "educational": "仅供教学",
+    "date": "日期",
+    "time": "当地时间",
+    "pause": "暂停",
+    "play": "播放一天",
+    "step": "下一小时",
+    "direction": "太阳方向",
+    "azimuth": "方位角",
+    "elevation": "高度角",
+    "environmentalReference": "环境参考：",
+    "sourceData": "来源数据：",
+    "disclosure": "说明：",
+    "proxyDisclosure": "特鲁希略是教学代理位置，不是经过测量的 UPAO 场地。",
+    "sourceUnavailable": "环境数据源不可用。",
+    "unavailable": "分析不可用。",
+    "capability": "多尺度适用性",
+    "capabilityUnavailable": "无法解析适用性",
+    "capabilityStates": {
+      "AVAILABLE": "可用",
+      "REQUIRES_DATA": "需要数据",
+      "NOT_AVAILABLE": "不可用",
+      "NOT_APPLICABLE": "不适用"
+    }
+  },
+  "location": {
+    "title": "项目位置",
+    "description": "提出位置并在保存前明确确认。",
+    "longitude": "经度",
+    "latitude": "纬度",
+    "label": "标签",
+    "label_placeholder": "例如：特鲁希略，试点地块",
+    "preview": "预览位置",
+    "preview_title": "未确认的候选位置",
+    "preview_note": "请检查该点。只有人工确认后才会保存。",
+    "confirm": "确认位置",
+    "saving": "保存中…",
+    "confirmed": "位置已确认并记录在历史中。",
+    "current": "当前位置：",
+    "invalid_coordinates": "请输入有效的经度和纬度坐标。",
+    "missing_title": "缺失数据",
+    "missing_summary": "{{count}} 个变量需要数据或明确来源。",
+    "human_authority": "人工确认可保持可追溯性。"
   }
 }

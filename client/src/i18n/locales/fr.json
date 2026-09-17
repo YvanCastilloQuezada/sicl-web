@@ -529,5 +529,52 @@
     "command_required": "obligatoire",
     "command_optional": "facultatif",
     "command_tab": "Tabulation"
+  },
+  "solar": {
+    "layer": "Couche environnementale",
+    "title": "Analyse solaire temporelle",
+    "description": "Explorez la position du soleil et les données horaires de rayonnement pour la géométrie pédagogique A/B/C. Astronomie et météorologie restent séparées.",
+    "educational": "Éducatif uniquement",
+    "date": "Date",
+    "time": "Heure locale",
+    "pause": "Pause",
+    "play": "Lire la journée",
+    "step": "Heure suivante",
+    "direction": "Direction solaire",
+    "azimuth": "Azimut",
+    "elevation": "Élévation",
+    "environmentalReference": "Référence environnementale :",
+    "sourceData": "Données source :",
+    "disclosure": "Avertissement :",
+    "proxyDisclosure": "Trujillo est un proxy pédagogique ; ce n’est pas un site UPAO relevé.",
+    "sourceUnavailable": "La source environnementale est indisponible.",
+    "unavailable": "Analyse indisponible.",
+    "capability": "Applicabilité multiscalaire",
+    "capabilityUnavailable": "Impossible de résoudre l’applicabilité",
+    "capabilityStates": {
+      "AVAILABLE": "DISPONIBLE",
+      "REQUIRES_DATA": "DONNÉES REQUISES",
+      "NOT_AVAILABLE": "NON DISPONIBLE",
+      "NOT_APPLICABLE": "NON APPLICABLE"
+    }
+  },
+  "location": {
+    "title": "Emplacement du projet",
+    "description": "Proposez un emplacement et confirmez-le explicitement avant de l’enregistrer.",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "label": "Libellé",
+    "label_placeholder": "Ex. Trujillo, parcelle pilote",
+    "preview": "Prévisualiser l’emplacement",
+    "preview_title": "Candidat non confirmé",
+    "preview_note": "Vérifiez le point. Il ne sera pas enregistré avant confirmation humaine.",
+    "confirm": "Confirmer l’emplacement",
+    "saving": "Enregistrement…",
+    "confirmed": "Emplacement confirmé et enregistré dans l’historique.",
+    "current": "Emplacement actuel :",
+    "invalid_coordinates": "Saisissez des coordonnées de longitude et latitude valides.",
+    "missing_title": "Données manquantes",
+    "missing_summary": "{{count}} variables nécessitent des données ou une source explicite.",
+    "human_authority": "La confirmation humaine préserve la traçabilité."
   }
 }

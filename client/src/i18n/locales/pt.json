@@ -529,5 +529,52 @@
     "command_required": "obrigatório",
     "command_optional": "opcional",
     "command_tab": "Tabulação"
+  },
+  "solar": {
+    "layer": "Camada ambiental",
+    "title": "Análise solar temporal",
+    "description": "Explore a posição solar e os dados horários de radiação para a geometria educacional A/B/C. Astronomia e meteorologia permanecem separadas.",
+    "educational": "Somente educativo",
+    "date": "Data",
+    "time": "Hora local",
+    "pause": "Pausar",
+    "play": "Reproduzir dia",
+    "step": "Próxima hora",
+    "direction": "Direção solar",
+    "azimuth": "Azimute",
+    "elevation": "Elevação",
+    "environmentalReference": "Referência ambiental:",
+    "sourceData": "Dados da fonte:",
+    "disclosure": "Aviso:",
+    "proxyDisclosure": "Trujillo é um proxy educativo; não é um local UPAO pesquisado.",
+    "sourceUnavailable": "A fonte ambiental não está disponível.",
+    "unavailable": "Análise indisponível.",
+    "capability": "Aplicabilidade multiescalar",
+    "capabilityUnavailable": "Não foi possível resolver a aplicabilidade",
+    "capabilityStates": {
+      "AVAILABLE": "DISPONÍVEL",
+      "REQUIRES_DATA": "REQUER DADOS",
+      "NOT_AVAILABLE": "NÃO DISPONÍVEL",
+      "NOT_APPLICABLE": "NÃO SE APLICA"
+    }
+  },
+  "location": {
+    "title": "Localização do projeto",
+    "description": "Proponha uma localização e confirme-a explicitamente antes de guardar.",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "label": "Etiqueta",
+    "label_placeholder": "Ex.: Trujillo, parcela piloto",
+    "preview": "Pré-visualizar localização",
+    "preview_title": "Candidato não confirmado",
+    "preview_note": "Revise o ponto. Não será guardado até confirmação humana.",
+    "confirm": "Confirmar localização",
+    "saving": "A guardar…",
+    "confirmed": "Localização confirmada e registada no histórico.",
+    "current": "Localização atual:",
+    "invalid_coordinates": "Introduza coordenadas válidas de longitude e latitude.",
+    "missing_title": "Dados em falta",
+    "missing_summary": "{{count}} variáveis requerem dados ou uma fonte explícita.",
+    "human_authority": "A confirmação humana preserva a rastreabilidade."
   }
 }
