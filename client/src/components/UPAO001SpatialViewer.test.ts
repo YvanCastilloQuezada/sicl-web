@@ -65,6 +65,23 @@ describe("UPAO001SpatialViewer SVG projection", () => {
     expect(label?.getAttribute("fill")).toBe("#111827");
     expect(label?.getAttribute("font-size")).toBe("10");
   });
+  it("separates coincident residential and circulation labels deterministically", () => {
+    const item = representation("UPAO-001-A", "compact");
+    const sharedGeometry = { type: "polygon", coordinates: [[[10, 14], [30, 14], [30, 18], [10, 18], [10, 14]]] };
+    item.elements.push(
+      { id: "SpatialZone:zone-residential:test", element_type: "SpatialZone", geometry: sharedGeometry, labels: { es: "residential" } },
+      { id: "SpatialZone:zone-circulation-service:test", element_type: "SpatialZone", geometry: sharedGeometry, labels: { es: "circulation/service" } },
+    );
+    render(view(item));
+    const residential = document.querySelector('[data-spatial-id="SpatialZone:zone-residential:test-label"]');
+    const circulation = document.querySelector('[data-spatial-id="SpatialZone:zone-circulation-service:test-label"]');
+    expect(residential?.getAttribute("x")).toBe(circulation?.getAttribute("x"));
+    expect(residential?.getAttribute("y")).not.toBe(circulation?.getAttribute("y"));
+    expect(residential?.getAttribute("stroke")).toBe("#ffffff");
+    expect(circulation?.getAttribute("paint-order")).toBe("stroke");
+    expect(residential?.getAttribute("data-spatial-id")).toContain("zone-residential");
+    expect(circulation?.getAttribute("data-spatial-id")).toContain("zone-circulation-service");
+  });
   it("reports unsupported types without crashing the complete SVG", () => {
     const item = representation("UPAO-001-C", "articulated");
     item.elements.push({ id: "unknown-1", element_type: "UnknownType", geometry: { type: "point", coordinates: [20, 15] } });

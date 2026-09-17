@@ -122,6 +122,13 @@ function elementPresentation(elementType: string): SvgPresentation {
   }[elementType] ?? { fill: "none", stroke: "#6b7280", strokeWidth: 2, strokeDasharray: "4 4" };
 }
 
+function labelOffset(element: SpatialElement): Point {
+  if (element.element_type !== "SpatialZone") return [0, 0];
+  if (element.id.includes("zone-circulation-service")) return [0, -14];
+  if (element.id.includes("zone-residential")) return [0, 14];
+  return [0, 0];
+}
+
 export function SpatialSvgViewer({ representation, metrics, language = "es" }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
@@ -163,7 +170,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es" }: {
           <line x1={north[0]} y1={north[1]} x2={northEnd[0]} y2={northEnd[1]} className="stroke-[#111827] stroke-[3]" stroke="#111827" strokeWidth={3} />
           <text x={northEnd[0] + 5} y={northEnd[1] + 5} className="fill-foreground text-[14px] font-bold" fill="#111827" fontSize={14} fontWeight={700}>N</text>
         </g>
-        {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={project(centroid(sourcePoints(element)[0]), bounds)[0]} y={project(centroid(sourcePoints(element)[0]), bounds)[1]} className="pointer-events-none fill-foreground text-[10px] font-semibold" fill="#111827" fontSize={10} fontWeight={600}>{labelFor(element, language)}</text>)}
+        {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => { const center = project(centroid(sourcePoints(element)[0]), bounds); const offset = labelOffset(element); return <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={center[0] + offset[0]} y={center[1] + offset[1]} textAnchor="middle" className="pointer-events-none fill-foreground text-[10px] font-semibold" fill="#111827" fontSize={10} fontWeight={600} stroke="#ffffff" strokeWidth={3} strokeOpacity={0.85} paintOrder="stroke">{labelFor(element, language)}</text>; })}
       </svg>
     </div>
     <div className="grid gap-4 md:grid-cols-[1fr_220px]">
