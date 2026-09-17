@@ -1,7 +1,7 @@
 # Handoff operativo del frontend SiMS-DeI
 
 **Repositorio:** `YvanCastilloQuezada/sicl-web`  
-**Main fusionado:** `6abca7fe913c057372821048b61aeb4ad74e2983`  
+**Main fusionado:** `c7f073cad216ec90ca52983a294294dd505ceb7e`  
 **Checkpoint WebDev:** `manus-webdev://6abca7fe`
 
 ## Propósito
