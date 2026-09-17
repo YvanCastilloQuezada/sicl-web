@@ -175,7 +175,7 @@ These profiles must not become isolated taxonomies. The current `edificacion` pr
 
 ## 11. Proposed Decision Lock
 
-### DL-MULTISCALE-VISUAL-01 — PROPOSED / OPEN_PENDING_PO_DECISION
+### DL-MULTISCALE-VISUAL-01 — CLOSED / ACTIVE
 
 1. `VISUAL_FIRST` is invariant across all `SpatialScope` values.
 2. Visual capabilities adapt to scale, semantics, available data and workflow.
@@ -188,7 +188,7 @@ These profiles must not become isolated taxonomies. The current `edificacion` pr
 9. Media is presentation, not editable spatial data.
 10. Scale changes visual semantics, not merely geometric complexity.
 
-This Decision Lock remains open because the matrix is architectural documentation and the semantics of several scales require future evidence.
+The Product Owner closed this Decision Lock as active policy. The lock governs future implementation without requiring identical tools at every scale. Scale-specific capabilities still require their own evidence, data and authorization.
 
 ## 12. Gate B result
 
@@ -201,7 +201,7 @@ SCALE_ADAPTIVE_TOOLSET = YES / ARCHITECTURE ONLY
 VISUAL_FIRST_ALL_SCALES = YES
 ARCHITECTURAL_RENDERING_UNIVERSAL = NO
 MAP_GIS_VISUALIZATION_UNIVERSAL = NO
-DL_MULTISCALE_VISUAL_01 = OPEN_PENDING_PO_DECISION
+DL_MULTISCALE_VISUAL_01 = CLOSED / ACTIVE
 NEW_UI = NO
 GIS_IMPLEMENTED = NO
 NEW_RENDERER = NO
