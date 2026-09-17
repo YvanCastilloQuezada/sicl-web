@@ -647,6 +647,24 @@
     "export_dxf": "CAD · DXF",
     "export_glb": "3D · GLB",
     "export_all": "A / B / C exportieren",
-    "export_disclosure": "IFC: räumlicher Massen-BIM-Austausch. DXF: räumliche CAD-Geometrie. GLB: tragbares 3D-Visualisierungsmodell."
+    "export_disclosure": "IFC: räumlicher Massen-BIM-Austausch. DXF: räumliche CAD-Geometrie. GLB: tragbares 3D-Visualisierungsmodell.",
+    "scope_building": "GEBÄUDE",
+    "scope_site": "PARZELLE / STANDORT",
+    "scope_semantics": "Semantischer Maßstab; der Kamerazoom ändert ihn nicht.",
+    "view_in_site": "Am Standort anzeigen",
+    "inspect_building": "Gebäude prüfen",
+    "site_reading": "Das ausgewählte Gebäude bleibt im verfügbaren Standortkontext erkennbar.",
+    "site_primary_view": "Primäre Standortansicht",
+    "site_context_title": "Parzellen- / Standortkontext",
+    "site_context_description": "Die Standortdarstellung ist ein synthetischer Bildungskontext; sie ist weder Kataster noch Vermessung noch geografische Datenquelle.",
+    "provenance": "Herkunft",
+    "terrain_status": "Geländedaten",
+    "not_available": "NICHT VERFÜGBAR",
+    "site_context_summary": "Derselbe Standortkontext; die Gebäudealternative bleibt ausgewählt.",
+    "site_area": "Standortfläche",
+    "building_placement": "Gebäudeposition",
+    "available": "VERFÜGBAR",
+    "orientation": "Ausrichtung",
+    "site_truth": "Der synthetische Parzellen-/Standortkontext wird ehrlich dargestellt; fehlende Kataster-, Gelände- und Nachbardaten bleiben fehlend."
   }
 }

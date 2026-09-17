@@ -647,6 +647,24 @@
     "export_dxf": "CAD · DXF",
     "export_glb": "3D · GLB",
     "export_all": "导出 A / B / C",
-    "export_disclosure": "IFC：空间/体量 BIM 交换。DXF：CAD 空间几何。GLB：可移植的 3D 可视化模型。"
+    "export_disclosure": "IFC：空间/体量 BIM 交换。DXF：CAD 空间几何。GLB：可移植的 3D 可视化模型。",
+    "scope_building": "建筑",
+    "scope_site": "地块 / 场地",
+    "scope_semantics": "语义尺度；相机缩放不会改变它。",
+    "view_in_site": "在场地中查看",
+    "inspect_building": "检查建筑",
+    "site_reading": "选中的建筑在现有场地环境中仍然清晰可识别。",
+    "site_primary_view": "场地主要视图",
+    "site_context_title": "地块 / 场地环境",
+    "site_context_description": "场地表示是合成的教育性环境；不是地籍、测量或地理数据。",
+    "provenance": "来源",
+    "terrain_status": "地形数据",
+    "not_available": "不可用",
+    "site_context_summary": "场地环境保持不变；建筑方案仍处于选中状态。",
+    "site_area": "场地面积",
+    "building_placement": "建筑位置",
+    "available": "可用",
+    "orientation": "朝向",
+    "site_truth": "合成的地块/场地环境被如实展示；缺少的地籍、地形和邻近数据仍保持缺失。"
   }
 }

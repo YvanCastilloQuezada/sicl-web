@@ -271,7 +271,23 @@ DECISION
 
 The Product Owner closed this Decision Lock as active policy. The policy approves the navigation model and its invariants, but does not authorize implementation, new Core entities, relationship persistence, GIS, terrain, cross-scale propagation or additional workspaces.
 
-## 15. Governance
+## 15. PARCELA_SITIO P0 closeout and freeze
+
+The first implemented cross-scale continuity slice for UPAO-001 is closed:
+
+```text
+PARCELA_SITIO_SPATIAL_PILOT_P0 = CLOSED / IMPLEMENTED
+PARCELA_SITIO_POST_P0_EXPANSION = FROZEN_PENDING_PO_ACTIVATION
+```
+
+The implemented slice covers only the reversible visual transition
+`edificacion ↔ parcela_sitio`, preserves the active A/B/C alternative, reuses
+the existing building `SpatialRepresentation`, and exposes synthetic site
+context with visible provenance. This closeout does not activate GIS, terrain,
+advanced environmental analysis, urban context, propagation, or the next
+multiscale pilot.
+
+## 16. Governance
 
 ```text
 CODE_CHANGED = NO
@@ -281,7 +297,7 @@ NEW_ENTITY_CREATED = NO
 GIS_IMPLEMENTED = NO
 TERRAIN_IMPLEMENTED = NO
 CROSS_SCALE_PROPAGATION = NO
-FF0_ACTIVATED = NO
+FFO_ACTIVATED = NO
 PUSH_EXECUTED = NO
 DEPLOYMENT_EXECUTED = NO
 ```

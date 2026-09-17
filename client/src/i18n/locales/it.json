@@ -647,6 +647,24 @@
     "export_dxf": "CAD · DXF",
     "export_glb": "3D · GLB",
     "export_all": "Esporta A / B / C",
-    "export_disclosure": "IFC: scambio BIM spaziale/massing. DXF: geometria spaziale CAD. GLB: modello 3D visualizzabile."
+    "export_disclosure": "IFC: scambio BIM spaziale/massing. DXF: geometria spaziale CAD. GLB: modello 3D visualizzabile.",
+    "scope_building": "EDIFICIO",
+    "scope_site": "LOTTO / SITO",
+    "scope_semantics": "Scala semantica; lo zoom della camera non la modifica.",
+    "view_in_site": "Vedi nel sito",
+    "inspect_building": "Ispeziona edificio",
+    "site_reading": "L’edificio selezionato resta identificabile nel contesto disponibile del sito.",
+    "site_primary_view": "Vista principale del sito",
+    "site_context_title": "Contesto lotto / sito",
+    "site_context_description": "La rappresentazione del sito è un contesto sintetico educativo; non è catastale, topografica o geografica.",
+    "provenance": "Provenienza",
+    "terrain_status": "Dati del terreno",
+    "not_available": "NON DISPONIBILE",
+    "site_context_summary": "Stesso contesto del sito; l’alternativa dell’edificio resta selezionata.",
+    "site_area": "Area del sito",
+    "building_placement": "Posizionamento edificio",
+    "available": "DISPONIBILE",
+    "orientation": "Orientamento",
+    "site_truth": "Il contesto sintetico del lotto/sito è mostrato con trasparenza; i dati catastali, del terreno e dei vicini mancanti restano mancanti."
   }
 }

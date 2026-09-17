@@ -647,6 +647,24 @@
     "export_dxf": "CAD · DXF",
     "export_glb": "3D · GLB",
     "export_all": "Exporter A / B / C",
-    "export_disclosure": "IFC : échange BIM spatial/massing. DXF : géométrie spatiale CAD. GLB : modèle 3D visualisable."
+    "export_disclosure": "IFC : échange BIM spatial/massing. DXF : géométrie spatiale CAD. GLB : modèle 3D visualisable.",
+    "scope_building": "BÂTIMENT",
+    "scope_site": "PARCELLE / SITE",
+    "scope_semantics": "Échelle sémantique ; le zoom de la caméra ne la modifie pas.",
+    "view_in_site": "Voir sur le site",
+    "inspect_building": "Inspecter le bâtiment",
+    "site_reading": "Le bâtiment sélectionné reste identifiable dans le contexte disponible du site.",
+    "site_primary_view": "Vue principale du site",
+    "site_context_title": "Contexte parcelle / site",
+    "site_context_description": "La représentation du site est un contexte synthétique éducatif ; ce n’est ni un cadastre, ni un relevé, ni une donnée géographique.",
+    "provenance": "Provenance",
+    "terrain_status": "Données de terrain",
+    "not_available": "NON DISPONIBLE",
+    "site_context_summary": "Même contexte du site ; l’alternative du bâtiment reste sélectionnée.",
+    "site_area": "Surface du site",
+    "building_placement": "Implantation du bâtiment",
+    "available": "DISPONIBLE",
+    "orientation": "Orientation",
+    "site_truth": "Le contexte synthétique de parcelle/site est présenté honnêtement ; les données cadastrales, de terrain et voisines absentes le restent."
   }
 }

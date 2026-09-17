@@ -60,6 +60,29 @@ describe("UPAO001SpatialComparison S5", () => {
     expect(screen.queryByText("Winner")).toBeNull();
     expect(screen.queryByText("Recommended")).toBeNull();
   });
+  it("transitions explicitly between building and site while preserving the focused alternative", () => {
+    render(view());
+    fireEvent.click(screen.getByTestId("comparison-panel-UPAO-001-B"));
+    expect(screen.getAllByTestId("scope-indicator")[0].textContent).toBe("EDIFICACIÓN");
+    fireEvent.click(screen.getAllByRole("button", { name: "View in site" })[0]);
+    expect(screen.getAllByTestId("scope-indicator")[0].textContent).toBe("PARCELA / SITIO");
+    expect(screen.getByText("Parcel / site context")).toBeTruthy();
+    expect(screen.getByText("UPAO-001-B · COURTYARD / VOID")).toBeTruthy();
+    fireEvent.click(screen.getByTestId("comparison-panel-UPAO-001-C"));
+    expect(screen.getAllByTestId("scope-indicator")[0].textContent).toBe("PARCELA / SITIO");
+    expect(screen.getByText("UPAO-001-C · ARTICULATED / SEPARATED MASSES")).toBeTruthy();
+    fireEvent.click(screen.getAllByRole("button", { name: "Inspect building" })[0]);
+    expect(screen.getAllByTestId("scope-indicator")[0].textContent).toBe("EDIFICACIÓN");
+    expect(screen.getByText("UPAO-001-C · ARTICULATED / SEPARATED MASSES")).toBeTruthy();
+  });
+  it("keeps site context truthful and does not claim terrain or GIS data", () => {
+    render(view());
+    fireEvent.click(screen.getAllByRole("button", { name: "View in site" })[0]);
+    expect(screen.getAllByText(/NOT AVAILABLE|NO DISPONIBLE|not_available/i).length).toBeGreaterThan(0);
+    fireEvent.click(screen.getAllByRole("button", { name: "2D plan" })[0]);
+    expect(screen.getAllByText("MODEL PROJECT / EDUCATIONAL EXAMPLE").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Synthetic analytical geometry · LOCAL_ENU · m").length).toBeGreaterThan(0);
+  });
   it("exposes shadow modes and disables photo-realistic without faking it", () => {
     render(view());
     expect(screen.getByText("faces_shadows")).toBeTruthy();
