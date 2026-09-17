@@ -18,17 +18,21 @@ export type LanguageCode = (typeof supportedLanguages)[number]["code"];
 type LanguageContextValue = { language: LanguageCode; setLanguage: (language: LanguageCode) => void; languages: typeof supportedLanguages };
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
-function normalizeLanguage(value: string | undefined | null): LanguageCode {
+export function normalizeLanguage(value: string | undefined | null): LanguageCode | undefined {
   const code = value?.toLowerCase().split("-")[0];
-  return supportedLanguages.some((item) => item.code === code) ? (code as LanguageCode) : "es";
+  return supportedLanguages.some((item) => item.code === code) ? (code as LanguageCode) : undefined;
 }
 
-function detectLanguage(): LanguageCode {
+export function detectLanguage(): LanguageCode {
   if (typeof window === "undefined") return "es";
-  // Spanish is the product default. A different language is used only after
-  // the user explicitly chooses it in the selector.
-  if (localStorage.getItem(LANGUAGE_CHOICE_KEY) !== "true") return "es";
-  return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY));
+  if (localStorage.getItem(LANGUAGE_CHOICE_KEY) === "true") {
+    return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY)) ?? "es";
+  }
+
+  const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length > 0
+    ? navigator.languages
+    : [navigator.language];
+  return browserLanguages.map(normalizeLanguage).find(Boolean) ?? "es";
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
