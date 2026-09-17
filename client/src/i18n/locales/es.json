@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Decisiones de proyecto basadas en evidencia, con autoridad humana preservada en el límite.",
+    "tagline": "Diseña, analiza, genera, simula y compara alternativas a través de las escalas espaciales, desde el objeto hasta el país.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Navegación principal",
-    "traceable": "Espacio trazable"
+    "traceable": "Espacio trazable",
+    "identity_line2": "Sistema de Inteligencia de Diseño Espacial Multiescala",
+    "identity_line3": "Diseña, analiza, genera, simula y compara alternativas a través de las escalas espaciales, desde el objeto hasta el país."
   },
   "nav": {
     "project": "Proyecto",

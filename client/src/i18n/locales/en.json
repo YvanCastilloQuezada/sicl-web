@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Evidence-led project decisions, with human authority preserved at the boundary.",
+    "tagline": "Design, analyze, generate, simulate, and compare alternatives across spatial scales, from object to country.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Main navigation",
-    "traceable": "Traceable workspace"
+    "traceable": "Traceable workspace",
+    "identity_line2": "Multiscale Spatial Design Intelligence System",
+    "identity_line3": "Design, analyze, generate, simulate, and compare alternatives across spatial scales, from object to country."
   },
   "nav": {
     "project": "Project",

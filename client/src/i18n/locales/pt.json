@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Decisões de projeto baseadas em evidências, com autoridade humana preservada no limite.",
+    "tagline": "Projeta, analisa, gera, simula e compara alternativas em diferentes escalas espaciais, do objeto ao país.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Navegação principal",
-    "traceable": "Espaço rastreável"
+    "traceable": "Espaço rastreável",
+    "identity_line2": "Sistema de Inteligência de Design Espacial Multiescalar",
+    "identity_line3": "Projeta, analisa, gera, simula e compara alternativas em diferentes escalas espaciais, do objeto ao país."
   },
   "nav": {
     "project": "Projeto",
