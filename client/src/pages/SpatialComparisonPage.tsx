@@ -31,11 +31,16 @@ export default function SpatialComparisonPage() {
       .then(([spatialBody, paretoBody]) => {
         if (!active) return;
         let derived: Record<string, unknown> | null = null;
-        try { derived = JSON.parse(window.sessionStorage.getItem("sims-dei.div-p0.exploration") ?? "null") as Record<string, unknown> | null; } catch { derived = null; }
-        const representation = derived?.representation as TransportPayload["representations"][number] | undefined;
-        const derivedId = representation?.alternative_id;
-        const metrics = derived?.metrics as { derived?: Record<string, number> } | undefined;
-        const nextPayload = representation && derivedId ? { ...spatialBody.data, representations: [...spatialBody.data.representations, representation], metrics: { ...spatialBody.data.metrics, [derivedId]: metrics?.derived ?? {} }, explanations: { ...spatialBody.data.explanations, [derivedId]: { parent_alternative_id: derived?.parent_alternative_id, changed_parameters: derived?.changed_parameters, generation_operation: derived?.generation_operation, why: "Controlled DIV-P0 transformation" } } } : spatialBody.data;
+        let bounded: Record<string, unknown> | null = null;
+        try { derived = JSON.parse(window.sessionStorage.getItem("sims-dei.div-p0.exploration") ?? "null") as Record<string, unknown> | null; bounded = JSON.parse(window.sessionStorage.getItem("sims-dei.gdi.exploration") ?? "null") as Record<string, unknown> | null; } catch { derived = null; bounded = null; }
+        const generated = [derived?.representation, ...((bounded?.candidates as Array<Record<string, unknown>> | undefined) ?? []).map((candidate) => candidate.representation)].filter(Boolean) as TransportPayload["representations"];
+        const generatedMetrics = generated.reduce<Record<string, Record<string, number>>>((acc, representation) => {
+          const candidate = ((bounded?.candidates as Array<Record<string, unknown>> | undefined) ?? []).find((item) => (item.representation as { alternative_id?: string } | undefined)?.alternative_id === representation.alternative_id);
+          acc[representation.alternative_id] = (candidate?.metrics as Record<string, number> | undefined) ?? {};
+          return acc;
+        }, {});
+        const generatedExplanations = generated.reduce<Record<string, unknown>>((acc, representation) => { acc[representation.alternative_id] = { parent_alternative_id: ((bounded?.candidates as Array<Record<string, unknown>> | undefined) ?? []).find((item) => (item.representation as { alternative_id?: string } | undefined)?.alternative_id === representation.alternative_id)?.parent_alternative_id ?? derived?.parent_alternative_id, why: "Architect-guided GDI-P1 operation", generated: true }; return acc; }, {});
+        const nextPayload = generated.length ? { ...spatialBody.data, representations: [...spatialBody.data.representations, ...generated], metrics: { ...spatialBody.data.metrics, ...generatedMetrics }, explanations: { ...spatialBody.data.explanations, ...generatedExplanations } } : spatialBody.data;
         setPayload(nextPayload); setPareto(paretoBody.data);
       })
       .catch((reason: unknown) => { if (active) setError(reason instanceof Error ? reason.message : "Spatial comparison unavailable"); })

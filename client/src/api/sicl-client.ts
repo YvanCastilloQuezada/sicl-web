@@ -371,4 +371,16 @@ export const siclClient = {
   async exploreDesignAlternative(projectId: string, baseAlternativeId: string, adoptedIntent: Record<string, unknown>, knowledge: Record<string, unknown>): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intelligence/explore`, { method: "POST", body: JSON.stringify({ base_alternative_id: baseAlternativeId, adopted_intent: adoptedIntent, knowledge }) });
   },
+  async exploreGdi(projectId: string, baseAlternativeId: string, adoptedIntent: Record<string, unknown>, knowledge: Record<string, unknown>, budget: "QUICK" | "STANDARD" | "DEEP" = "QUICK"): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/operations`, { method: "POST", body: JSON.stringify({ base_alternative_id: baseAlternativeId, adopted_intent: adoptedIntent, knowledge, budget, controls: {} }) });
+  },
+  async evolveGdi(projectId: string, candidate: Record<string, unknown>, action: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/evolve`, { method: "POST", body: JSON.stringify({ candidate, action }) });
+  },
+  async challengeGdi(projectId: string, candidate: Record<string, unknown>, knowledge: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/challenge`, { method: "POST", body: JSON.stringify({ candidate, knowledge }) });
+  },
+  async gdiMultiobjective(projectId: string, exploration: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/multiobjective`, { method: "POST", body: JSON.stringify({ exploration }) });
+  },
 };
