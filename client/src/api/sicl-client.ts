@@ -365,4 +365,10 @@ export const siclClient = {
   async confirmDesignIntent(projectId: string, interpretation: IntentInterpretation, approvedIds: string[], actor: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intents/confirm`, { method: "POST", body: JSON.stringify({ interpretation, approved_ids: approvedIds, actor }) });
   },
+  async linkDesignKnowledge(projectId: string, adoptedIntent: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intelligence/knowledge`, { method: "POST", body: JSON.stringify({ adopted_intent: adoptedIntent }) });
+  },
+  async exploreDesignAlternative(projectId: string, baseAlternativeId: string, adoptedIntent: Record<string, unknown>, knowledge: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intelligence/explore`, { method: "POST", body: JSON.stringify({ base_alternative_id: baseAlternativeId, adopted_intent: adoptedIntent, knowledge }) });
+  },
 };
