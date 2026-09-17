@@ -28,7 +28,16 @@ export default function SpatialComparisonPage() {
           paretoResponse.json() as Promise<{ data: ParetoCoreResponse }>,
         ]);
       })
-      .then(([spatialBody, paretoBody]) => { if (active) { setPayload(spatialBody.data); setPareto(paretoBody.data); } })
+      .then(([spatialBody, paretoBody]) => {
+        if (!active) return;
+        let derived: Record<string, unknown> | null = null;
+        try { derived = JSON.parse(window.sessionStorage.getItem("sims-dei.div-p0.exploration") ?? "null") as Record<string, unknown> | null; } catch { derived = null; }
+        const representation = derived?.representation as TransportPayload["representations"][number] | undefined;
+        const derivedId = representation?.alternative_id;
+        const metrics = derived?.metrics as { derived?: Record<string, number> } | undefined;
+        const nextPayload = representation && derivedId ? { ...spatialBody.data, representations: [...spatialBody.data.representations, representation], metrics: { ...spatialBody.data.metrics, [derivedId]: metrics?.derived ?? {} }, explanations: { ...spatialBody.data.explanations, [derivedId]: { parent_alternative_id: derived?.parent_alternative_id, changed_parameters: derived?.changed_parameters, generation_operation: derived?.generation_operation, why: "Controlled DIV-P0 transformation" } } } : spatialBody.data;
+        setPayload(nextPayload); setPareto(paretoBody.data);
+      })
       .catch((reason: unknown) => { if (active) setError(reason instanceof Error ? reason.message : "Spatial comparison unavailable"); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };

@@ -48,7 +48,9 @@ export default function DesignIntentPanel({ projectId, spatialScope }: { project
     if (!projectId || !adoptedPayload || !knowledge) return;
     setBusy(true);
     try {
-      setExploration(await siclClient.exploreDesignAlternative(projectId, "UPAO-001-A", adoptedPayload, knowledge));
+      const result = await siclClient.exploreDesignAlternative(projectId, "UPAO-001-A", adoptedPayload, knowledge);
+      setExploration(result);
+      window.sessionStorage.setItem("sims-dei.div-p0.exploration", JSON.stringify(result));
       toast.success(t("guided.intent.exploration_ready", { defaultValue: "Controlled alternative generated" }));
     } catch (error) { toast.error(apiErrorMessage(error)); } finally { setBusy(false); }
   };
