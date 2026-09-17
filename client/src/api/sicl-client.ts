@@ -146,6 +146,14 @@ export type MissingDataReport = {
   capabilities: Array<{ capability_id: string; state: string; missing_requirements?: string[] }>;
 };
 
+export type IntentInterpretation = {
+  raw_input: string;
+  suggestions: Array<{ intent_id: string; kind: string; statement: string; confidence: string; evidence_terms: string[]; provenance: Record<string, unknown> }>;
+  human_confirmation_required: boolean;
+  decision_created: boolean;
+  provenance: Record<string, unknown>;
+};
+
 export type ParetoRequest = {
   alternative_ids?: string[];
   objective_ids?: string[];
@@ -350,5 +358,11 @@ export const siclClient = {
   },
   async missingData(projectId: string, spatialScope = "parcela_sitio"): Promise<MissingDataReport> {
     return cachedV1Request<MissingDataReport>(`/v1/projects/${encodeURIComponent(projectId)}/missing-data?spatial_scope=${encodeURIComponent(spatialScope)}`);
+  },
+  async interpretDesignIntent(text: string, projectId?: string, spatialScope?: string): Promise<IntentInterpretation> {
+    return v1Request<IntentInterpretation>("/v1/design-intents/interpret", { method: "POST", body: JSON.stringify({ text, project_id: projectId, spatial_scope: spatialScope }) });
+  },
+  async confirmDesignIntent(projectId: string, interpretation: IntentInterpretation, approvedIds: string[], actor: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intents/confirm`, { method: "POST", body: JSON.stringify({ interpretation, approved_ids: approvedIds, actor }) });
   },
 };
