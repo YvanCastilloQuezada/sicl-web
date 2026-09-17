@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "以证据为基础的项目决策，并在边界处保留人的权威。",
     "version": "SiMS-DeI 2.2",
-    "navigation": "主导航"
+    "navigation": "主导航",
+    "traceable": "可追溯工作区"
   },
   "nav": {
     "project": "项目",
@@ -420,5 +421,44 @@
     "comparison_id": "比较 ID",
     "evaluation_id": "评估 ID",
     "tour_status": "引导流程状态"
+  },
+  "page": {
+    "evidence_title": "证据与来源",
+    "evidence_description": "真实 Core 数据；来源始终可见。",
+    "evaluations_description": "展示数值和置信度，不将评估转换为决策。",
+    "comparisons_description": "比较备选方案和目标；不会记录决策。",
+    "project_id": "项目 ID",
+    "evidence_created": "已创建证据",
+    "source_created": "已创建来源",
+    "evaluation_created": "已创建评估",
+    "comparison_created": "已创建比较",
+    "active_workspace": "当前工作区",
+    "select_project": "选择项目",
+    "location_undefined": "位置尚未定义",
+    "new_project": "新项目",
+    "project_modules": "项目模块",
+    "integrity_rule": "完整性规则",
+    "integrity_description": "委员会负责观察。建议负责描述。HumanReview 负责记录。决策需要明确授权。"
+  },
+  "core": {
+    "feasibility_title": "可行性筛选",
+    "feasibility_description": "评估硬约束和软约束，不创建建议或决策。",
+    "alternative": "备选方案",
+    "variable": "变量",
+    "value": "值",
+    "checking": "评估中…",
+    "check": "检查可行性",
+    "feasible": "已满足声明的硬约束。",
+    "infeasible": "至少违反了一项硬约束。",
+    "unknown": "缺少数据或无法评估约束。",
+    "core_unconfigured": "Core 未配置",
+    "core_not_connected": "远程空间尚未连接。",
+    "core_contact": "请联系管理员，在服务器端配置 HTTPS 地址和 Core 服务令牌。",
+    "core_deploy": "使用 HTTPS 部署 Core。",
+    "core_configure": "仅在服务器端配置 SICL_CORE_URL 和 SICL_CORE_SERVICE_TOKEN。",
+    "core_retry_steps": "点击重试以检查连接。",
+    "retry_connection": "重试连接",
+    "try_mock": "使用模拟数据测试",
+    "retry": "重试"
   }
 }

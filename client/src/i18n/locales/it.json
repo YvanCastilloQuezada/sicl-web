@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Decisioni di progetto basate sull'evidenza, con l'autorità umana preservata al confine.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Navigazione principale"
+    "navigation": "Navigazione principale",
+    "traceable": "Spazio tracciabile"
   },
   "nav": {
     "project": "Progetto",
@@ -420,5 +421,44 @@
     "comparison_id": "ID_CONFRONTO",
     "evaluation_id": "ID_VALUTAZIONE",
     "tour_status": "Stato del percorso guidato"
+  },
+  "page": {
+    "evidence_title": "Evidenze e fonti",
+    "evidence_description": "Dati del Core reale; la provenienza rimane visibile.",
+    "evaluations_description": "Valori e affidabilità senza trasformare una valutazione in decisione.",
+    "comparisons_description": "Confronti tra alternative e obiettivi; non registrano una Decisione.",
+    "project_id": "ID progetto",
+    "evidence_created": "Evidenza creata",
+    "source_created": "Fonte creata",
+    "evaluation_created": "Valutazione creata",
+    "comparison_created": "Confronto creato",
+    "active_workspace": "Spazio di lavoro attivo",
+    "select_project": "Seleziona progetto",
+    "location_undefined": "Posizione non ancora definita",
+    "new_project": "Nuovo progetto",
+    "project_modules": "Moduli del progetto",
+    "integrity_rule": "Regola di integrità",
+    "integrity_description": "Il Consiglio osserva. La Raccomandazione descrive. HumanReview registra. La Decisione richiede autorità esplicita."
+  },
+  "core": {
+    "feasibility_title": "Filtro di fattibilità",
+    "feasibility_description": "Valuta vincoli rigidi e flessibili senza creare una raccomandazione o una decisione.",
+    "alternative": "Alternativa",
+    "variable": "Variabile",
+    "value": "Valore",
+    "checking": "Valutazione…",
+    "check": "Verifica fattibilità",
+    "feasible": "I vincoli rigidi dichiarati sono rispettati.",
+    "infeasible": "È stato violato almeno un vincolo rigido.",
+    "unknown": "Mancano dati o non è stato possibile valutare un vincolo.",
+    "core_unconfigured": "Core non configurato",
+    "core_not_connected": "Lo spazio remoto non è ancora collegato.",
+    "core_contact": "Contatta l’amministratore per configurare l’URL HTTPS e il token Core sul server.",
+    "core_deploy": "Distribuisci il Core con HTTPS.",
+    "core_configure": "Configura SICL_CORE_URL e SICL_CORE_SERVICE_TOKEN solo sul server.",
+    "core_retry_steps": "Premi riprova per verificare la connessione.",
+    "retry_connection": "Riprova connessione",
+    "try_mock": "Prova dati simulati",
+    "retry": "Riprova"
   }
 }

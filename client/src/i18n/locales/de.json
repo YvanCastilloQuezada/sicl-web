@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Evidenzbasierte Projektentscheidungen mit gewahrter menschlicher Autorität an der Grenze.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Hauptnavigation"
+    "navigation": "Hauptnavigation",
+    "traceable": "Nachvollziehbarer Arbeitsbereich"
   },
   "nav": {
     "project": "Projekt",
@@ -420,5 +421,44 @@
     "comparison_id": "VERGLEICHS_ID",
     "evaluation_id": "BEWERTUNGS_ID",
     "tour_status": "Status der Führung"
+  },
+  "page": {
+    "evidence_title": "Nachweise und Quellen",
+    "evidence_description": "Daten aus dem echten Core; die Herkunft bleibt sichtbar.",
+    "evaluations_description": "Werte und Vertrauen, ohne eine Bewertung in eine Entscheidung umzuwandeln.",
+    "comparisons_description": "Vergleiche von Alternativen und Zielen; sie erfassen keine Entscheidung.",
+    "project_id": "Projekt-ID",
+    "evidence_created": "Nachweis erstellt",
+    "source_created": "Quelle erstellt",
+    "evaluation_created": "Bewertung erstellt",
+    "comparison_created": "Vergleich erstellt",
+    "active_workspace": "Aktiver Arbeitsbereich",
+    "select_project": "Projekt auswählen",
+    "location_undefined": "Ort noch nicht definiert",
+    "new_project": "Neues Projekt",
+    "project_modules": "Projektmodule",
+    "integrity_rule": "Integritätsregel",
+    "integrity_description": "Der Rat beobachtet. Die Empfehlung beschreibt. HumanReview erfasst. Die Entscheidung erfordert ausdrückliche Autorität."
+  },
+  "core": {
+    "feasibility_title": "Machbarkeitsfilter",
+    "feasibility_description": "Harte und weiche Einschränkungen bewerten, ohne Empfehlung oder Entscheidung zu erstellen.",
+    "alternative": "Alternative",
+    "variable": "Variable",
+    "value": "Wert",
+    "checking": "Wird bewertet…",
+    "check": "Machbarkeit prüfen",
+    "feasible": "Die angegebenen harten Einschränkungen werden erfüllt.",
+    "infeasible": "Mindestens eine harte Einschränkung wurde verletzt.",
+    "unknown": "Daten fehlen oder eine Einschränkung konnte nicht bewertet werden.",
+    "core_unconfigured": "Core nicht konfiguriert",
+    "core_not_connected": "Der entfernte Bereich ist noch nicht verbunden.",
+    "core_contact": "Wenden Sie sich an den Administrator, um HTTPS-URL und Core-Token serverseitig zu konfigurieren.",
+    "core_deploy": "Core mit HTTPS bereitstellen.",
+    "core_configure": "SICL_CORE_URL und SICL_CORE_SERVICE_TOKEN nur auf dem Server konfigurieren.",
+    "core_retry_steps": "Erneut versuchen, um die Verbindung zu prüfen.",
+    "retry_connection": "Verbindung erneut versuchen",
+    "try_mock": "Simulierte Daten testen",
+    "retry": "Erneut versuchen"
   }
 }

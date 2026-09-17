@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Evidence-led project decisions, with human authority preserved at the boundary.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Main navigation"
+    "navigation": "Main navigation",
+    "traceable": "Traceable workspace"
   },
   "nav": {
     "project": "Project",
@@ -420,5 +421,44 @@
     "comparison_id": "COMPARISON_ID",
     "evaluation_id": "EVALUATION_ID",
     "tour_status": "Guided tour status"
+  },
+  "page": {
+    "evidence_title": "Evidence and sources",
+    "evidence_description": "Real Core data; provenance remains visible.",
+    "evaluations_description": "Values and confidence without turning an evaluation into a decision.",
+    "comparisons_description": "Comparisons of alternatives and objectives; they do not record a Decision.",
+    "project_id": "Project ID",
+    "evidence_created": "Evidence created",
+    "source_created": "Source created",
+    "evaluation_created": "Evaluation created",
+    "comparison_created": "Comparison created",
+    "active_workspace": "Active workspace",
+    "select_project": "Select project",
+    "location_undefined": "Location not yet defined",
+    "new_project": "New project",
+    "project_modules": "Project modules",
+    "integrity_rule": "Integrity rule",
+    "integrity_description": "Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority."
+  },
+  "core": {
+    "feasibility_title": "Feasibility filter",
+    "feasibility_description": "Evaluate hard and soft constraints without creating a recommendation or decision.",
+    "alternative": "Alternative",
+    "variable": "Variable",
+    "value": "Value",
+    "checking": "Evaluating…",
+    "check": "Check feasibility",
+    "feasible": "The declared hard constraints are satisfied.",
+    "infeasible": "At least one hard constraint was violated.",
+    "unknown": "Data is missing or a constraint could not be evaluated.",
+    "core_unconfigured": "Core not configured",
+    "core_not_connected": "The remote space is not connected yet.",
+    "core_contact": "Contact the administrator to configure the HTTPS URL and server-side Core token.",
+    "core_deploy": "Deploy the Core with HTTPS.",
+    "core_configure": "Configure SICL_CORE_URL and SICL_CORE_SERVICE_TOKEN on the server only.",
+    "core_retry_steps": "Retry to check the connection.",
+    "retry_connection": "Retry connection",
+    "try_mock": "Try simulated data",
+    "retry": "Retry"
   }
 }

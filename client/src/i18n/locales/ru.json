@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Решения по проекту на основе фактов с сохранением полномочий человека на границе системы.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Основная навигация"
+    "navigation": "Основная навигация",
+    "traceable": "Трассируемое рабочее пространство"
   },
   "nav": {
     "project": "Проект",
@@ -420,5 +421,44 @@
     "comparison_id": "ID_СРАВНЕНИЯ",
     "evaluation_id": "ID_ОЦЕНКИ",
     "tour_status": "Состояние обучения"
+  },
+  "page": {
+    "evidence_title": "Доказательства и источники",
+    "evidence_description": "Данные реального Core; происхождение остаётся видимым.",
+    "evaluations_description": "Значения и уверенность без превращения оценки в решение.",
+    "comparisons_description": "Сравнение альтернатив и целей; решения здесь не фиксируются.",
+    "project_id": "ID проекта",
+    "evidence_created": "Доказательство создано",
+    "source_created": "Источник создан",
+    "evaluation_created": "Оценка создана",
+    "comparison_created": "Сравнение создано",
+    "active_workspace": "Активное рабочее пространство",
+    "select_project": "Выбрать проект",
+    "location_undefined": "Расположение ещё не задано",
+    "new_project": "Новый проект",
+    "project_modules": "Модули проекта",
+    "integrity_rule": "Правило целостности",
+    "integrity_description": "Совет наблюдает. Рекомендация описывает. HumanReview фиксирует. Решение требует явных полномочий."
+  },
+  "core": {
+    "feasibility_title": "Фильтр осуществимости",
+    "feasibility_description": "Оценка жёстких и мягких ограничений без создания рекомендации или решения.",
+    "alternative": "Альтернатива",
+    "variable": "Переменная",
+    "value": "Значение",
+    "checking": "Оценка…",
+    "check": "Проверить осуществимость",
+    "feasible": "Заявленные жёсткие ограничения соблюдены.",
+    "infeasible": "Нарушено как минимум одно жёсткое ограничение.",
+    "unknown": "Недостаточно данных или ограничение не удалось оценить.",
+    "core_unconfigured": "Core не настроен",
+    "core_not_connected": "Удалённое пространство ещё не подключено.",
+    "core_contact": "Обратитесь к администратору для настройки HTTPS-URL и серверного токена Core.",
+    "core_deploy": "Разверните Core с HTTPS.",
+    "core_configure": "Настройте SICL_CORE_URL и SICL_CORE_SERVICE_TOKEN только на сервере.",
+    "core_retry_steps": "Повторите попытку для проверки соединения.",
+    "retry_connection": "Повторить подключение",
+    "try_mock": "Проверить симулированные данные",
+    "retry": "Повторить"
   }
 }

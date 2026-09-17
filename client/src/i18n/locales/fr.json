@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Décisions de projet fondées sur les preuves, avec l'autorité humaine préservée à la frontière.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Navigation principale"
+    "navigation": "Navigation principale",
+    "traceable": "Espace traçable"
   },
   "nav": {
     "project": "Projet",
@@ -420,5 +421,44 @@
     "comparison_id": "ID_COMPARAISON",
     "evaluation_id": "ID_ÉVALUATION",
     "tour_status": "État du parcours guidé"
+  },
+  "page": {
+    "evidence_title": "Preuves et sources",
+    "evidence_description": "Données du Core réel ; la provenance reste visible.",
+    "evaluations_description": "Valeurs et confiance sans transformer une évaluation en décision.",
+    "comparisons_description": "Comparaisons des alternatives et objectifs ; elles n’enregistrent pas de Décision.",
+    "project_id": "ID du projet",
+    "evidence_created": "Preuve créée",
+    "source_created": "Source créée",
+    "evaluation_created": "Évaluation créée",
+    "comparison_created": "Comparaison créée",
+    "active_workspace": "Espace de travail actif",
+    "select_project": "Sélectionner un projet",
+    "location_undefined": "Emplacement non encore défini",
+    "new_project": "Nouveau projet",
+    "project_modules": "Modules du projet",
+    "integrity_rule": "Règle d’intégrité",
+    "integrity_description": "Le Conseil observe. La Recommandation décrit. HumanReview enregistre. La Décision exige une autorité explicite."
+  },
+  "core": {
+    "feasibility_title": "Filtre de faisabilité",
+    "feasibility_description": "Évaluez les contraintes strictes et souples sans créer de recommandation ni de décision.",
+    "alternative": "Alternative",
+    "variable": "Variable",
+    "value": "Valeur",
+    "checking": "Évaluation…",
+    "check": "Vérifier la faisabilité",
+    "feasible": "Les contraintes strictes déclarées sont respectées.",
+    "infeasible": "Au moins une contrainte stricte a été violée.",
+    "unknown": "Données manquantes ou contrainte impossible à évaluer.",
+    "core_unconfigured": "Core non configuré",
+    "core_not_connected": "L’espace distant n’est pas encore connecté.",
+    "core_contact": "Contactez l’administrateur pour configurer l’URL HTTPS et le jeton Core côté serveur.",
+    "core_deploy": "Déployez le Core avec HTTPS.",
+    "core_configure": "Configurez SICL_CORE_URL et SICL_CORE_SERVICE_TOKEN uniquement sur le serveur.",
+    "core_retry_steps": "Réessayez pour vérifier la connexion.",
+    "retry_connection": "Réessayer la connexion",
+    "try_mock": "Tester avec des données simulées",
+    "retry": "Réessayer"
   }
 }

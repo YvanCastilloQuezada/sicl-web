@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Decisiones de proyecto basadas en evidencia, con autoridad humana preservada en el límite.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Navegación principal"
+    "navigation": "Navegación principal",
+    "traceable": "Espacio trazable"
   },
   "nav": {
     "project": "Proyecto",
@@ -420,5 +421,44 @@
     "comparison_id": "ID_COMPARACIÓN",
     "evaluation_id": "ID_EVALUACIÓN",
     "tour_status": "Estado del recorrido guiado"
+  },
+  "page": {
+    "evidence_title": "Evidencia y fuentes",
+    "evidence_description": "Datos del Core real; la procedencia permanece visible.",
+    "evaluations_description": "Valores y confianza sin convertir una evaluación en decisión.",
+    "comparisons_description": "Comparaciones de alternativas y objetivos; no registran una Decision.",
+    "project_id": "ID del proyecto",
+    "evidence_created": "Evidencia creada",
+    "source_created": "Fuente creada",
+    "evaluation_created": "Evaluación creada",
+    "comparison_created": "Comparación creada",
+    "active_workspace": "Espacio de trabajo activo",
+    "select_project": "Seleccionar proyecto",
+    "location_undefined": "Ubicación aún no definida",
+    "new_project": "Nuevo proyecto",
+    "project_modules": "Módulos del proyecto",
+    "integrity_rule": "Regla de integridad",
+    "integrity_description": "El Consejo observa. La Recomendación describe. HumanReview registra. La Decision requiere autoridad explícita."
+  },
+  "core": {
+    "feasibility_title": "Filtro de factibilidad",
+    "feasibility_description": "Evalúa restricciones duras y blandas sin crear una recomendación ni una decisión.",
+    "alternative": "Alternativa",
+    "variable": "Variable",
+    "value": "Valor",
+    "checking": "Evaluando…",
+    "check": "Comprobar factibilidad",
+    "feasible": "Las restricciones duras declaradas se cumplen.",
+    "infeasible": "Al menos una restricción dura fue violada.",
+    "unknown": "Faltan datos o no se pudo evaluar una restricción.",
+    "core_unconfigured": "Core no configurado",
+    "core_not_connected": "El espacio remoto todavía no está conectado.",
+    "core_contact": "Contacta al administrador para configurar la URL HTTPS y el token del Core en el servidor.",
+    "core_deploy": "Despliega el Core con HTTPS.",
+    "core_configure": "Configura SICL_CORE_URL y SICL_CORE_SERVICE_TOKEN solo en el servidor.",
+    "core_retry_steps": "Pulsa reintentar para comprobar la conexión.",
+    "retry_connection": "Reintentar conexión",
+    "try_mock": "Probar con datos simulados",
+    "retry": "Reintentar"
   }
 }

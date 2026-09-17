@@ -27,7 +27,7 @@ export default function AppHeader() {
             <button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "dark" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.dark")}</span></button>
           </div>
           <Badge variant="outline" className="hidden border-border bg-secondary text-secondary-foreground md:inline-flex">{t("header.version")}</Badge>
-          <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex"><Activity className="h-4 w-4" /> Traceable workspace</div>
+          <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex"><Activity className="h-4 w-4" /> {t("header.traceable")}</div>
         </div>
       </div>
     </header>

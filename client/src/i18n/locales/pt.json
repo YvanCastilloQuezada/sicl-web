@@ -4,7 +4,8 @@
     "subtitle": "SiMS-DeI · SICL",
     "tagline": "Decisões de projeto baseadas em evidências, com autoridade humana preservada no limite.",
     "version": "SiMS-DeI 2.2",
-    "navigation": "Navegação principal"
+    "navigation": "Navegação principal",
+    "traceable": "Espaço rastreável"
   },
   "nav": {
     "project": "Projeto",
@@ -420,5 +421,44 @@
     "comparison_id": "ID_COMPARAÇÃO",
     "evaluation_id": "ID_AVALIAÇÃO",
     "tour_status": "Estado do percurso guiado"
+  },
+  "page": {
+    "evidence_title": "Evidências e fontes",
+    "evidence_description": "Dados do Core real; a procedência permanece visível.",
+    "evaluations_description": "Valores e confiança sem transformar uma avaliação em decisão.",
+    "comparisons_description": "Comparações de alternativas e objetivos; não registram uma Decision.",
+    "project_id": "ID do projeto",
+    "evidence_created": "Evidência criada",
+    "source_created": "Fonte criada",
+    "evaluation_created": "Avaliação criada",
+    "comparison_created": "Comparação criada",
+    "active_workspace": "Espaço de trabalho ativo",
+    "select_project": "Selecionar projeto",
+    "location_undefined": "Localização ainda não definida",
+    "new_project": "Novo projeto",
+    "project_modules": "Módulos do projeto",
+    "integrity_rule": "Regra de integridade",
+    "integrity_description": "O Conselho observa. A Recomendação descreve. A HumanReview registra. A Decision exige autoridade explícita."
+  },
+  "core": {
+    "feasibility_title": "Filtro de viabilidade",
+    "feasibility_description": "Avalie restrições rígidas e flexíveis sem criar uma recomendação ou decisão.",
+    "alternative": "Alternativa",
+    "variable": "Variável",
+    "value": "Valor",
+    "checking": "Avaliando…",
+    "check": "Verificar viabilidade",
+    "feasible": "As restrições rígidas declaradas são cumpridas.",
+    "infeasible": "Pelo menos uma restrição rígida foi violada.",
+    "unknown": "Faltam dados ou não foi possível avaliar uma restrição.",
+    "core_unconfigured": "Core não configurado",
+    "core_not_connected": "O espaço remoto ainda não está conectado.",
+    "core_contact": "Contate o administrador para configurar a URL HTTPS e o token do Core no servidor.",
+    "core_deploy": "Implante o Core com HTTPS.",
+    "core_configure": "Configure SICL_CORE_URL e SICL_CORE_SERVICE_TOKEN somente no servidor.",
+    "core_retry_steps": "Pressione tentar novamente para verificar a conexão.",
+    "retry_connection": "Tentar conexão novamente",
+    "try_mock": "Testar dados simulados",
+    "retry": "Tentar novamente"
   }
 }
