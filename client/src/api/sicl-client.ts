@@ -383,4 +383,10 @@ export const siclClient = {
   async gdiMultiobjective(projectId: string, exploration: Record<string, unknown>): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/multiobjective`, { method: "POST", body: JSON.stringify({ exploration }) });
   },
+  async spatialSynthesisProgram(projectId: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-synthesis/program`, { method: "POST", body: JSON.stringify({}) });
+  },
+  async spatialSynthesisGenerate(projectId: string, adoptedIntent: Record<string, unknown>, families?: string[]): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-synthesis/generate`, { method: "POST", body: JSON.stringify({ adopted_intent: adoptedIntent, families }) });
+  },
 };

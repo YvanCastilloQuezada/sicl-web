@@ -6,7 +6,7 @@ type Point = [number, number];
 type Geometry = { type: string; coordinates: unknown };
 export type SpatialElement = {
   id: string;
-  element_type: "SiteBoundary" | "BuildingFootprint" | "BuildingMass" | "SpatialZone" | "CirculationElement" | string;
+  element_type: "SiteBoundary" | "BuildingFootprint" | "BuildingMass" | "SpatialZone" | "SPATIAL_ZONE" | "CirculationElement" | string;
   geometry: Geometry;
   level?: number | null;
   parent_id?: string | null;
@@ -104,6 +104,7 @@ function elementClass(elementType: string): string {
     BuildingFootprint: "fill-[#f59e0b] fill-opacity-20 stroke-[#b45309]",
     BuildingMass: "fill-[#f97316] fill-opacity-45 stroke-[#9a3412]",
     SpatialZone: "fill-[#22c55e] fill-opacity-30 stroke-[#15803d]",
+    SPATIAL_ZONE: "fill-[#22c55e] fill-opacity-30 stroke-[#15803d]",
     CirculationElement: "fill-none stroke-[#7c3aed]",
   }[elementType] ?? "fill-none stroke-[#6b7280] stroke-dasharray-[4_4]";
 }
@@ -122,12 +123,13 @@ function elementPresentation(elementType: string): SvgPresentation {
     BuildingFootprint: { fill: "#f59e0b", fillOpacity: 0.2, stroke: "#b45309", strokeWidth: 2 },
     BuildingMass: { fill: "#f97316", fillOpacity: 0.45, stroke: "#9a3412", strokeWidth: 2 },
     SpatialZone: { fill: "#22c55e", fillOpacity: 0.3, stroke: "#15803d", strokeWidth: 2 },
+    SPATIAL_ZONE: { fill: "#22c55e", fillOpacity: 0.3, stroke: "#15803d", strokeWidth: 2 },
     CirculationElement: { fill: "none", stroke: "#7c3aed", strokeWidth: 3 },
   }[elementType] ?? { fill: "none", stroke: "#6b7280", strokeWidth: 2, strokeDasharray: "4 4" };
 }
 
 function labelOffset(element: SpatialElement): Point {
-  if (element.element_type !== "SpatialZone") return [0, 0];
+  if (element.element_type !== "SpatialZone" && element.element_type !== "SPATIAL_ZONE") return [0, 0];
   if (element.id.includes("zone-circulation-service")) return [0, -14];
   if (element.id.includes("zone-residential")) return [0, 14];
   return [0, 0];
@@ -155,7 +157,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
   const summary = metricsLines(metrics);
 
   useEffect(() => {
-    const unknown = representation.elements.map((element) => element.element_type).filter((type) => !("SiteBoundary BuildingFootprint BuildingMass SpatialZone CirculationElement".split(" ").includes(type)));
+    const unknown = representation.elements.map((element) => element.element_type).filter((type) => !("SiteBoundary BuildingFootprint BuildingMass SpatialZone SPATIAL_ZONE CirculationElement".split(" ").includes(type)));
     setUnsupported(Array.from(new Set(unknown)));
   }, [representation.elements]);
 
@@ -178,7 +180,7 @@ export function SpatialSvgViewer({ representation, metrics, language = "es", bou
           const label = labelFor(element, language);
           const presentation = elementPresentation(element.element_type);
           if (element.element_type === "CirculationElement") return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polyline key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[3]`} fill={presentation.fill} stroke={presentation.stroke} strokeWidth={presentation.strokeWidth} strokeDasharray={presentation.strokeDasharray} strokeLinecap="round" strokeLinejoin="round" />)}<title>{label}</title></g>;
-          if (!["SiteBoundary", "BuildingFootprint", "BuildingMass", "SpatialZone"].includes(element.element_type)) return <g key={element.id} data-spatial-id={element.id} aria-label={label}><title>{label} (unsupported visual type)</title></g>;
+          if (!["SiteBoundary", "BuildingFootprint", "BuildingMass", "SpatialZone", "SPATIAL_ZONE"].includes(element.element_type)) return <g key={element.id} data-spatial-id={element.id} aria-label={label}><title>{label} (unsupported visual type)</title></g>;
           return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polygon key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[2]`} fill={presentation.fill} fillOpacity={presentation.fillOpacity} stroke={presentation.stroke} strokeWidth={presentation.strokeWidth} strokeDasharray={presentation.strokeDasharray} strokeLinejoin="round" />)}<title>{label}</title></g>;
         })}
         <g data-testid="north-indicator" aria-label={`North ${representation.north_degrees} degrees`}>

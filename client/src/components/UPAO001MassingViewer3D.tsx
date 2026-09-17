@@ -59,7 +59,7 @@ function massRing(element: SpatialElement): Point2[] {
 
 export function deriveMasses(representation: SpatialRepresentation): DerivedMass[] {
   return representation.elements.flatMap((element) => {
-    if (element.element_type !== "BuildingMass") return [];
+    if (!(element.element_type === "BuildingMass" || element.element_type === "SpatialZone" || element.element_type === "SPATIAL_ZONE")) return [];
     const ring = massRing(element);
     const height = Number(element.metadata?.height);
     const base = Number(element.metadata?.base_elevation ?? 0);
@@ -130,7 +130,7 @@ function Scene({ representation, selectedId, onSelect, controlsRef }: { represen
   const bounds = useMemo(() => boundsFor(representation), [representation]);
   const masses = useMemo(() => deriveMasses(representation), [representation]);
   const site = representation.elements.find((element) => element.element_type === "SiteBoundary");
-  const zones = representation.elements.filter((element) => element.element_type === "SpatialZone");
+  const zones = representation.elements.filter((element) => element.element_type === "SpatialZone" || element.element_type === "SPATIAL_ZONE");
   const centerX = (bounds.minX + bounds.maxX) / 2; const centerY = (bounds.minY + bounds.maxY) / 2;
   const northRadians = (representation.north_degrees * Math.PI) / 180;
   const northOrigin: [number, number, number] = [centerX, bounds.maxZ + 0.05, -centerY];
