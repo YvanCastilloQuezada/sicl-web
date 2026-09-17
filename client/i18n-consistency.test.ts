@@ -35,4 +35,34 @@ describe("i18n consistency gate", () => {
       expect(home).not.toContain(phrase);
     }
   });
+
+  it("covers the centralized gate copy in every locale", () => {
+    const required = [
+      "gate.evaluation_title", "gate.alternative", "gate.objective", "gate.value", "gate.unit", "gate.confidence", "gate.source",
+      "gate.sign_in_continue", "gate.auth_required", "gate.sign_in", "gate.toggle_navigation", "gate.navigation", "gate.sign_out",
+      "gate.unexpected_error", "gate.reload_page", "gate.command_required", "gate.command_optional", "gate.command_tab",
+    ];
+    for (const locale of locales) {
+      const catalog = flatten(JSON.parse(fs.readFileSync(path.join(root, `${locale}.json`), "utf8")));
+      for (const key of required) expect(typeof catalog[key] === "string" && String(catalog[key]).trim(), `${locale}:${key}`).toBeTruthy();
+    }
+  });
+
+  it("keeps the audited surfaces free of the migrated visible literals", () => {
+    const files = ["components/EvaluationForm.tsx", "components/DashboardLayout.tsx", "components/ErrorBoundary.tsx", "components/CommandBar.tsx"];
+    const forbidden = ["Crear Evaluation", "An unexpected error occurred.", "Reload Page", "Sign out", "Toggle navigation", "· required", "· optional"];
+    for (const file of files) {
+      const source = fs.readFileSync(path.resolve(import.meta.dirname, "src", file), "utf8");
+      for (const phrase of forbidden) expect(source, `${file}:${phrase}`).not.toContain(phrase);
+    }
+  });
+
+  it("changes the active catalog through the complete supported-language cycle", async () => {
+    const i18n = (await import("./src/i18n")).default;
+    for (const locale of ["es", "en", "pt", "it", "fr", "de", "ru", "zh", "es"]) {
+      await i18n.changeLanguage(locale);
+      expect(i18n.language).toBe(locale);
+      expect(i18n.t("gate.evaluation_title")).not.toMatch(/^gate\./);
+    }
+  });
 });

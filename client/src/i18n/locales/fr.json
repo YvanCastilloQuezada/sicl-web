@@ -507,5 +507,25 @@
     "diagnostics": "Diagnostics",
     "inputs": "Entrées",
     "feasibility": "Faisabilité"
+  },
+  "gate": {
+    "evaluation_title": "Créer une évaluation",
+    "alternative": "Alternative",
+    "objective": "Objectif",
+    "value": "Valeur",
+    "unit": "Unité",
+    "confidence": "Confiance",
+    "source": "Source",
+    "sign_in_continue": "Connectez-vous pour continuer",
+    "auth_required": "L’accès à ce tableau de bord nécessite une authentification. Continuez pour lancer la connexion.",
+    "sign_in": "Se connecter",
+    "toggle_navigation": "Afficher ou masquer la navigation",
+    "navigation": "Navigation",
+    "sign_out": "Se déconnecter",
+    "unexpected_error": "Une erreur inattendue est survenue.",
+    "reload_page": "Recharger la page",
+    "command_required": "obligatoire",
+    "command_optional": "facultatif",
+    "command_tab": "Tabulation"
   }
 }

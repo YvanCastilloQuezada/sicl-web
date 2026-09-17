@@ -507,5 +507,25 @@
     "diagnostics": "诊断",
     "inputs": "输入",
     "feasibility": "可行性"
+  },
+  "gate": {
+    "evaluation_title": "创建评估",
+    "alternative": "备选方案",
+    "objective": "目标",
+    "value": "值",
+    "unit": "单位",
+    "confidence": "置信度",
+    "source": "来源",
+    "sign_in_continue": "登录后继续",
+    "auth_required": "访问此面板需要身份验证。继续以启动登录流程。",
+    "sign_in": "登录",
+    "toggle_navigation": "切换导航",
+    "navigation": "导航",
+    "sign_out": "退出登录",
+    "unexpected_error": "发生了意外错误。",
+    "reload_page": "重新加载页面",
+    "command_required": "必填",
+    "command_optional": "可选",
+    "command_tab": "制表键"
   }
 }

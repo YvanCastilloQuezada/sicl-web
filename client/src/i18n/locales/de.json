@@ -507,5 +507,25 @@
     "diagnostics": "Diagnosen",
     "inputs": "Eingaben",
     "feasibility": "Machbarkeit"
+  },
+  "gate": {
+    "evaluation_title": "Bewertung erstellen",
+    "alternative": "Alternative",
+    "objective": "Ziel",
+    "value": "Wert",
+    "unit": "Einheit",
+    "confidence": "Vertrauen",
+    "source": "Quelle",
+    "sign_in_continue": "Zum Fortfahren anmelden",
+    "auth_required": "Für dieses Dashboard ist eine Anmeldung erforderlich. Fahren Sie fort, um den Anmeldevorgang zu starten.",
+    "sign_in": "Anmelden",
+    "toggle_navigation": "Navigation ein- oder ausblenden",
+    "navigation": "Navigation",
+    "sign_out": "Abmelden",
+    "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten.",
+    "reload_page": "Seite neu laden",
+    "command_required": "erforderlich",
+    "command_optional": "optional",
+    "command_tab": "Tabulator"
   }
 }

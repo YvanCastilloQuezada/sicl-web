@@ -507,5 +507,25 @@
     "diagnostics": "Diagnósticos",
     "inputs": "Entradas",
     "feasibility": "Viabilidade"
+  },
+  "gate": {
+    "evaluation_title": "Criar avaliação",
+    "alternative": "Alternativa",
+    "objective": "Objetivo",
+    "value": "Valor",
+    "unit": "Unidade",
+    "confidence": "Confiança",
+    "source": "Fonte",
+    "sign_in_continue": "Inicie sessão para continuar",
+    "auth_required": "O acesso a este painel requer autenticação. Continue para iniciar o fluxo de acesso.",
+    "sign_in": "Iniciar sessão",
+    "toggle_navigation": "Alternar navegação",
+    "navigation": "Navegação",
+    "sign_out": "Sair",
+    "unexpected_error": "Ocorreu um erro inesperado.",
+    "reload_page": "Recarregar página",
+    "command_required": "obrigatório",
+    "command_optional": "opcional",
+    "command_tab": "Tabulação"
   }
 }
