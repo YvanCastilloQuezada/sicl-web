@@ -18,7 +18,8 @@
     "decision": "Решение и аудит",
     "governance": "Управление строительством",
     "multiobjective": "Многокритериальная оптимизация",
-    "help": "Помощь"
+    "help": "Помощь",
+    "navigation_modules": "Модули проекта"
   },
   "common": {
     "create": "Создать",
@@ -37,7 +38,8 @@
     "project": "Проект",
     "recorded": "зарегистрировано",
     "failed": "Ошибка",
-    "integrity_rule": "Правило целостности"
+    "integrity_rule": "Правило целостности",
+    "integrity_description": "Совет наблюдает. Рекомендация описывает. HumanReview фиксирует. Решение требует явных полномочий."
   },
   "state": {
     "unknown": "НЕИЗВЕСТНО",
@@ -145,7 +147,7 @@
     "source_id": "ID источника",
     "captured_at": "Дата фиксации",
     "method_version": "Версия метода",
-    "evidence_url": "URL свидетельства",
+    "evidence_url": "URL доказательства",
     "state": "Состояние",
     "create_source": "Создать источник",
     "source_type": "Тип источника",
@@ -176,7 +178,9 @@
     "saving": "Сохранение…",
     "saved": "Сохранено",
     "minimum_two": "минимум 2, через запятую",
-    "optional_comma": "необязательно, через запятую"
+    "optional_comma": "необязательно, через запятую",
+    "comparison_id": "ID_СРАВНЕНИЯ",
+    "evaluation_id": "ID_ОЦЕНКИ"
   },
   "command_bar": {
     "title": "Панель команд SICL",
@@ -278,7 +282,8 @@
       "next_step": "Используйте «Следующий шаг», чтобы пройти путь A и не пропустить проверку человеком.",
       "next": "Далее",
       "finish": "Завершить",
-      "skip": "Пропустить"
+      "skip": "Пропустить",
+      "status": "Состояние обучения"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Только чтение",
     "insufficient_data": "Недостаточно данных",
     "analysis_available": "Анализ доступен"
+  },
+  "ui": {
+    "alternatives_min": "Альтернативы (минимум 2, через запятую)",
+    "objectives_optional": "Цели (необязательно, через запятую)",
+    "url": "URL",
+    "comparison_id": "ID_СРАВНЕНИЯ",
+    "evaluation_id": "ID_ОЦЕНКИ",
+    "tour_status": "Состояние обучения"
   }
 }

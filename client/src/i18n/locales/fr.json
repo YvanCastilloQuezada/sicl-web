@@ -18,7 +18,8 @@
     "decision": "Décision et audit",
     "governance": "Gouvernance de la construction",
     "multiobjective": "Multiobjectif",
-    "help": "Aide"
+    "help": "Aide",
+    "navigation_modules": "Modules du projet"
   },
   "common": {
     "create": "Créer",
@@ -37,7 +38,8 @@
     "project": "Projet",
     "recorded": "enregistré",
     "failed": "Échec",
-    "integrity_rule": "Règle d’intégrité"
+    "integrity_rule": "Règle d’intégrité",
+    "integrity_description": "Le Conseil observe. La Recommandation décrit. HumanReview enregistre. La Décision exige une autorité explicite."
   },
   "state": {
     "unknown": "INCONNU",
@@ -145,7 +147,7 @@
     "source_id": "ID de source",
     "captured_at": "Capturé le",
     "method_version": "Version de méthode",
-    "evidence_url": "URL de preuve",
+    "evidence_url": "URL de la preuve",
     "state": "État",
     "create_source": "Créer une source",
     "source_type": "Type de source",
@@ -176,7 +178,9 @@
     "saving": "Enregistrement…",
     "saved": "Enregistré",
     "minimum_two": "minimum 2, séparées par des virgules",
-    "optional_comma": "facultatif, séparées par des virgules"
+    "optional_comma": "facultatif, séparées par des virgules",
+    "comparison_id": "ID_COMPARAISON",
+    "evaluation_id": "ID_ÉVALUATION"
   },
   "command_bar": {
     "title": "Barre de commandes SICL",
@@ -278,7 +282,8 @@
       "next_step": "Utilisez « Étape suivante » pour suivre le parcours A sans ignorer la revue humaine.",
       "next": "Suivant",
       "finish": "Terminer",
-      "skip": "Passer"
+      "skip": "Passer",
+      "status": "État du parcours guidé"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Lecture seule",
     "insufficient_data": "Données insuffisantes",
     "analysis_available": "Analyse disponible"
+  },
+  "ui": {
+    "alternatives_min": "Alternatives (minimum 2, séparées par des virgules)",
+    "objectives_optional": "Objectifs (facultatifs, séparés par des virgules)",
+    "url": "URL",
+    "comparison_id": "ID_COMPARAISON",
+    "evaluation_id": "ID_ÉVALUATION",
+    "tour_status": "État du parcours guidé"
   }
 }

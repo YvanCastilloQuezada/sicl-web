@@ -18,7 +18,8 @@
     "decision": "Decisão e auditoria",
     "governance": "Governança da construção",
     "multiobjective": "Multiobjetivo",
-    "help": "Ajuda"
+    "help": "Ajuda",
+    "navigation_modules": "Módulos do projeto"
   },
   "common": {
     "create": "Criar",
@@ -37,7 +38,8 @@
     "project": "Projeto",
     "recorded": "registrado",
     "failed": "Falhou",
-    "integrity_rule": "Regra de integridade"
+    "integrity_rule": "Regra de integridade",
+    "integrity_description": "O Conselho observa. A Recomendação descreve. A HumanReview registra. A Decision exige autoridade explícita."
   },
   "state": {
     "unknown": "DESCONHECIDO",
@@ -176,7 +178,9 @@
     "saving": "Salvando…",
     "saved": "Salvo",
     "minimum_two": "mínimo 2, separados por vírgula",
-    "optional_comma": "opcional, separados por vírgula"
+    "optional_comma": "opcional, separados por vírgula",
+    "comparison_id": "ID_COMPARAÇÃO",
+    "evaluation_id": "ID_AVALIAÇÃO"
   },
   "command_bar": {
     "title": "Barra de comandos SICL",
@@ -278,7 +282,8 @@
       "next_step": "Use “Próximo passo” para avançar pelo Caminho A sem ignorar a revisão humana.",
       "next": "Próximo",
       "finish": "Concluir",
-      "skip": "Pular"
+      "skip": "Pular",
+      "status": "Estado do percurso guiado"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Somente leitura",
     "insufficient_data": "Dados insuficientes",
     "analysis_available": "Análise disponível"
+  },
+  "ui": {
+    "alternatives_min": "Alternativas (mínimo 2, separadas por vírgula)",
+    "objectives_optional": "Objetivos (opcional, separados por vírgula)",
+    "url": "URL",
+    "comparison_id": "ID_COMPARAÇÃO",
+    "evaluation_id": "ID_AVALIAÇÃO",
+    "tour_status": "Estado do percurso guiado"
   }
 }

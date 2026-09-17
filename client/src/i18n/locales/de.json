@@ -18,7 +18,8 @@
     "decision": "Entscheidung und Audit",
     "governance": "Bau-Governance",
     "multiobjective": "Mehrzieloptimierung",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "navigation_modules": "Projektmodule"
   },
   "common": {
     "create": "Erstellen",
@@ -37,7 +38,8 @@
     "project": "Projekt",
     "recorded": "registriert",
     "failed": "Fehlgeschlagen",
-    "integrity_rule": "Integritätsregel"
+    "integrity_rule": "Integritätsregel",
+    "integrity_description": "Der Rat beobachtet. Die Empfehlung beschreibt. HumanReview erfasst. Die Entscheidung erfordert ausdrückliche Autorität."
   },
   "state": {
     "unknown": "UNBEKANNT",
@@ -145,7 +147,7 @@
     "source_id": "Quellen-ID",
     "captured_at": "Erfasst am",
     "method_version": "Methodenversion",
-    "evidence_url": "Evidenz-URL",
+    "evidence_url": "URL des Nachweises",
     "state": "Status",
     "create_source": "Quelle erstellen",
     "source_type": "Quellentyp",
@@ -176,7 +178,9 @@
     "saving": "Speichern…",
     "saved": "Gespeichert",
     "minimum_two": "mindestens 2, kommagetrennt",
-    "optional_comma": "optional, kommagetrennt"
+    "optional_comma": "optional, kommagetrennt",
+    "comparison_id": "VERGLEICHS_ID",
+    "evaluation_id": "BEWERTUNGS_ID"
   },
   "command_bar": {
     "title": "SICL-Befehlsleiste",
@@ -278,7 +282,8 @@
       "next_step": "Mit „Nächster Schritt“ folgen Sie Pfad A, ohne die menschliche Prüfung zu überspringen.",
       "next": "Weiter",
       "finish": "Fertig",
-      "skip": "Überspringen"
+      "skip": "Überspringen",
+      "status": "Status der Führung"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Nur Lesen",
     "insufficient_data": "Unzureichende Daten",
     "analysis_available": "Analyse verfügbar"
+  },
+  "ui": {
+    "alternatives_min": "Alternativen (mindestens 2, durch Kommas getrennt)",
+    "objectives_optional": "Ziele (optional, durch Kommas getrennt)",
+    "url": "URL",
+    "comparison_id": "VERGLEICHS_ID",
+    "evaluation_id": "BEWERTUNGS_ID",
+    "tour_status": "Status der Führung"
   }
 }

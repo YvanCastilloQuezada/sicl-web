@@ -18,7 +18,8 @@
     "decision": "Decision & Audit",
     "governance": "Build Governance",
     "multiobjective": "Multiobjective",
-    "help": "Help"
+    "help": "Help",
+    "navigation_modules": "Project modules"
   },
   "common": {
     "create": "Create",
@@ -37,7 +38,8 @@
     "project": "Project",
     "recorded": "recorded",
     "failed": "Failed",
-    "integrity_rule": "Integrity rule"
+    "integrity_rule": "Integrity rule",
+    "integrity_description": "Council observes. Recommendation describes. HumanReview records. Decision requires explicit authority."
   },
   "state": {
     "unknown": "UNKNOWN",
@@ -176,7 +178,9 @@
     "saving": "Saving…",
     "saved": "Saved",
     "minimum_two": "minimum 2, comma separated",
-    "optional_comma": "optional, comma separated"
+    "optional_comma": "optional, comma separated",
+    "comparison_id": "COMPARISON_ID",
+    "evaluation_id": "EVALUATION_ID"
   },
   "command_bar": {
     "title": "SICL Command Bar",
@@ -278,7 +282,8 @@
       "next_step": "Use “Next step” to move through Path A without skipping human review.",
       "next": "Next",
       "finish": "Finish",
-      "skip": "Skip"
+      "skip": "Skip",
+      "status": "Guided tour status"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Read only",
     "insufficient_data": "Insufficient data",
     "analysis_available": "Analysis available"
+  },
+  "ui": {
+    "alternatives_min": "Alternatives (minimum 2, comma-separated)",
+    "objectives_optional": "Objectives (optional, comma-separated)",
+    "url": "URL",
+    "comparison_id": "COMPARISON_ID",
+    "evaluation_id": "EVALUATION_ID",
+    "tour_status": "Guided tour status"
   }
 }

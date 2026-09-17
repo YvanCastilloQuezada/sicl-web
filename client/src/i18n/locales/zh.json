@@ -18,7 +18,8 @@
     "decision": "决策与审计",
     "governance": "建设治理",
     "multiobjective": "多目标",
-    "help": "帮助"
+    "help": "帮助",
+    "navigation_modules": "项目模块"
   },
   "common": {
     "create": "创建",
@@ -37,7 +38,8 @@
     "project": "项目",
     "recorded": "已记录",
     "failed": "失败",
-    "integrity_rule": "完整性规则"
+    "integrity_rule": "完整性规则",
+    "integrity_description": "委员会负责观察。建议负责描述。HumanReview 负责记录。决策需要明确授权。"
   },
   "state": {
     "unknown": "未知",
@@ -176,7 +178,9 @@
     "saving": "保存中…",
     "saved": "已保存",
     "minimum_two": "至少 2 个，用逗号分隔",
-    "optional_comma": "可选，用逗号分隔"
+    "optional_comma": "可选，用逗号分隔",
+    "comparison_id": "比较 ID",
+    "evaluation_id": "评估 ID"
   },
   "command_bar": {
     "title": "SICL 命令栏",
@@ -278,7 +282,8 @@
       "next_step": "使用“下一步”完成路径 A，不要跳过人工审查。",
       "next": "下一步",
       "finish": "完成",
-      "skip": "跳过"
+      "skip": "跳过",
+      "status": "引导流程状态"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "只读",
     "insufficient_data": "数据不足",
     "analysis_available": "分析可用"
+  },
+  "ui": {
+    "alternatives_min": "备选方案（至少 2 个，用逗号分隔）",
+    "objectives_optional": "目标（可选，用逗号分隔）",
+    "url": "URL",
+    "comparison_id": "比较 ID",
+    "evaluation_id": "评估 ID",
+    "tour_status": "引导流程状态"
   }
 }

@@ -18,7 +18,8 @@
     "decision": "Decisione e audit",
     "governance": "Governance della costruzione",
     "multiobjective": "Multiobiettivo",
-    "help": "Aiuto"
+    "help": "Aiuto",
+    "navigation_modules": "Moduli del progetto"
   },
   "common": {
     "create": "Crea",
@@ -37,7 +38,8 @@
     "project": "Progetto",
     "recorded": "registrato",
     "failed": "Fallito",
-    "integrity_rule": "Regola di integrità"
+    "integrity_rule": "Regola di integrità",
+    "integrity_description": "Il Consiglio osserva. La Raccomandazione descrive. HumanReview registra. La Decisione richiede autorità esplicita."
   },
   "state": {
     "unknown": "SCONOSCIUTO",
@@ -145,7 +147,7 @@
     "source_id": "ID fonte",
     "captured_at": "Acquisita il",
     "method_version": "Versione metodo",
-    "evidence_url": "URL evidenza",
+    "evidence_url": "URL dell’evidenza",
     "state": "Stato",
     "create_source": "Crea fonte",
     "source_type": "Tipo fonte",
@@ -176,7 +178,9 @@
     "saving": "Salvataggio…",
     "saved": "Salvato",
     "minimum_two": "minimo 2, separati da virgola",
-    "optional_comma": "opzionale, separati da virgola"
+    "optional_comma": "opzionale, separati da virgola",
+    "comparison_id": "ID_CONFRONTO",
+    "evaluation_id": "ID_VALUTAZIONE"
   },
   "command_bar": {
     "title": "Barra dei comandi SICL",
@@ -278,7 +282,8 @@
       "next_step": "Usa “Passo successivo” per seguire il Percorso A senza saltare la revisione umana.",
       "next": "Avanti",
       "finish": "Fine",
-      "skip": "Salta"
+      "skip": "Salta",
+      "status": "Stato del percorso guidato"
     },
     "status": {
       "project": "Disponible",
@@ -407,5 +412,13 @@
     "read_only": "Sola lettura",
     "insufficient_data": "Dati insufficienti",
     "analysis_available": "Analisi disponibile"
+  },
+  "ui": {
+    "alternatives_min": "Alternative (minimo 2, separate da virgole)",
+    "objectives_optional": "Obiettivi (facoltativi, separati da virgole)",
+    "url": "URL",
+    "comparison_id": "ID_CONFRONTO",
+    "evaluation_id": "ID_VALUTAZIONE",
+    "tour_status": "Stato del percorso guidato"
   }
 }
