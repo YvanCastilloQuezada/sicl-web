@@ -37,6 +37,33 @@ describe("UPAO001SpatialViewer SVG projection", () => {
     const secondPolygon = document.querySelector('[data-spatial-id="UPAO-001-B-footprint"] polygon')?.getAttribute("points");
     expect(firstPolygon).toBeTruthy(); expect(secondPolygon).toBeTruthy(); expect(firstPolygon).not.toBe(secondPolygon);
     expect(document.querySelector('[data-spatial-id="UPAO-001-A-footprint"]')).toBeNull();
+    rerender(view(representation("UPAO-001-C", "articulated")));
+    expect(document.querySelector('[data-spatial-id="UPAO-001-C-footprint"] polygon')?.getAttribute("points")).toBeTruthy();
+  });
+  it("keeps explicit SVG presentation attributes independent of Tailwind CSS", () => {
+    render(view(representation("UPAO-001-A", "compact")));
+    const expected = [
+      ["site", "#dbeafe", "#2563eb"],
+      ["footprint", "#f59e0b", "#b45309"],
+      ["mass", "#f97316", "#9a3412"],
+      ["zone", "#22c55e", "#15803d"],
+    ] as const;
+    for (const [id, fill, stroke] of expected) {
+      const polygon = document.querySelector(`[data-spatial-id="UPAO-001-A-${id}"] polygon`);
+      expect(polygon?.getAttribute("fill")).toBe(fill);
+      expect(polygon?.getAttribute("stroke")).toBe(stroke);
+      expect(polygon?.getAttribute("stroke-width")).toBe("2");
+    }
+    const circulation = document.querySelector('[data-spatial-id="UPAO-001-A-circulation"] polyline');
+    expect(circulation?.getAttribute("fill")).toBe("none");
+    expect(circulation?.getAttribute("stroke")).toBe("#7c3aed");
+    expect(circulation?.getAttribute("stroke-width")).toBe("3");
+    const north = screen.getByTestId("north-indicator").querySelector("line");
+    expect(north?.getAttribute("stroke")).toBe("#111827");
+    expect(north?.getAttribute("stroke-width")).toBe("3");
+    const label = document.querySelector('[data-spatial-id="UPAO-001-A-mass-label"]');
+    expect(label?.getAttribute("fill")).toBe("#111827");
+    expect(label?.getAttribute("font-size")).toBe("10");
   });
   it("reports unsupported types without crashing the complete SVG", () => {
     const item = representation("UPAO-001-C", "articulated");
@@ -44,5 +71,6 @@ describe("UPAO001SpatialViewer SVG projection", () => {
     render(view(item));
     expect(screen.getByRole("status").textContent).toContain("UnknownType");
     expect(screen.getByTestId("spatial-viewer")).toBeTruthy();
+    expect(document.querySelector('[data-spatial-id="unknown-1"] polygon')).toBeNull();
   });
 });

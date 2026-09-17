@@ -104,6 +104,24 @@ function elementClass(elementType: string): string {
   }[elementType] ?? "fill-none stroke-[#6b7280] stroke-dasharray-[4_4]";
 }
 
+type SvgPresentation = {
+  fill: string;
+  fillOpacity?: number;
+  stroke: string;
+  strokeWidth: number;
+  strokeDasharray?: string;
+};
+
+function elementPresentation(elementType: string): SvgPresentation {
+  return {
+    SiteBoundary: { fill: "#dbeafe", fillOpacity: 0.3, stroke: "#2563eb", strokeWidth: 2 },
+    BuildingFootprint: { fill: "#f59e0b", fillOpacity: 0.2, stroke: "#b45309", strokeWidth: 2 },
+    BuildingMass: { fill: "#f97316", fillOpacity: 0.45, stroke: "#9a3412", strokeWidth: 2 },
+    SpatialZone: { fill: "#22c55e", fillOpacity: 0.3, stroke: "#15803d", strokeWidth: 2 },
+    CirculationElement: { fill: "none", stroke: "#7c3aed", strokeWidth: 3 },
+  }[elementType] ?? { fill: "none", stroke: "#6b7280", strokeWidth: 2, strokeDasharray: "4 4" };
+}
+
 export function SpatialSvgViewer({ representation, metrics, language = "es" }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
@@ -136,15 +154,16 @@ export function SpatialSvgViewer({ representation, metrics, language = "es" }: {
         {representation.elements.map((element) => {
           const groups = sourcePoints(element);
           const label = labelFor(element, language);
-          if (element.element_type === "CirculationElement") return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polyline key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[3]`} strokeLinecap="round" strokeLinejoin="round" />)}<title>{label}</title></g>;
+          const presentation = elementPresentation(element.element_type);
+          if (element.element_type === "CirculationElement") return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polyline key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[3]`} fill={presentation.fill} stroke={presentation.stroke} strokeWidth={presentation.strokeWidth} strokeDasharray={presentation.strokeDasharray} strokeLinecap="round" strokeLinejoin="round" />)}<title>{label}</title></g>;
           if (!["SiteBoundary", "BuildingFootprint", "BuildingMass", "SpatialZone"].includes(element.element_type)) return <g key={element.id} data-spatial-id={element.id} aria-label={label}><title>{label} (unsupported visual type)</title></g>;
-          return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polygon key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[2]`} strokeLinejoin="round" />)}<title>{label}</title></g>;
+          return <g key={element.id} data-spatial-id={element.id} aria-label={label}>{groups.map((points) => <polygon key={points.map(String).join("-")} points={pointsString(points, bounds)} className={`${elementClass(element.element_type)} stroke-[2]`} fill={presentation.fill} fillOpacity={presentation.fillOpacity} stroke={presentation.stroke} strokeWidth={presentation.strokeWidth} strokeDasharray={presentation.strokeDasharray} strokeLinejoin="round" />)}<title>{label}</title></g>;
         })}
         <g data-testid="north-indicator" aria-label={`North ${representation.north_degrees} degrees`}>
-          <line x1={north[0]} y1={north[1]} x2={northEnd[0]} y2={northEnd[1]} className="stroke-[#111827] stroke-[3]" />
-          <text x={northEnd[0] + 5} y={northEnd[1] + 5} className="fill-foreground text-[14px] font-bold">N</text>
+          <line x1={north[0]} y1={north[1]} x2={northEnd[0]} y2={northEnd[1]} className="stroke-[#111827] stroke-[3]" stroke="#111827" strokeWidth={3} />
+          <text x={northEnd[0] + 5} y={northEnd[1] + 5} className="fill-foreground text-[14px] font-bold" fill="#111827" fontSize={14} fontWeight={700}>N</text>
         </g>
-        {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={project(centroid(sourcePoints(element)[0]), bounds)[0]} y={project(centroid(sourcePoints(element)[0]), bounds)[1]} className="pointer-events-none fill-foreground text-[10px] font-semibold">{labelFor(element, language)}</text>)}
+        {representation.elements.filter((element) => ["BuildingMass", "SpatialZone"].includes(element.element_type)).map((element) => <text key={`${element.id}-label`} data-spatial-id={`${element.id}-label`} x={project(centroid(sourcePoints(element)[0]), bounds)[0]} y={project(centroid(sourcePoints(element)[0]), bounds)[1]} className="pointer-events-none fill-foreground text-[10px] font-semibold" fill="#111827" fontSize={10} fontWeight={600}>{labelFor(element, language)}</text>)}
       </svg>
     </div>
     <div className="grid gap-4 md:grid-cols-[1fr_220px]">
