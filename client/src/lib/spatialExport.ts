@@ -100,20 +100,54 @@ export function spatialToGlb(rep: SpatialRepresentation, meta: ExportMetadata): 
 export function downloadExport(data: string | Uint8Array, filename: string, mime: string) { const blob = typeof data === "string" ? new Blob([data], { type: mime }) : new Blob([data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer], { type: mime }); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
 
 export type ExportTarget = "IFC" | "DXF" | "GLB";
+export type ExportFamily = "CAD" | "BIM" | "GIS" | "3D_MODEL" | "MEDIA";
 export type ExportCapabilityStatus = "AVAILABLE" | "REQUIRES_DATA" | "NOT_AVAILABLE" | "NOT_APPLICABLE";
-export type ExportCapability = { target: ExportTarget; status: ExportCapabilityStatus; reason: string; requiredData: string[]; semanticLevel: "MASSING" | "SPATIAL" | "VISUAL" | "NONE" };
+export type InteroperabilityRole = "PRIMARY" | "CO_PRIMARY" | "SUPPORTING" | "CONTEXTUAL" | "NOT_APPLICABLE";
+export type GeoreferencingRole = "OPTIONAL" | "CONTEXTUAL" | "IMPORTANT" | "ESSENTIAL";
+export type ExportCapability = {
+  family: ExportFamily;
+  target?: ExportTarget;
+  format: string;
+  status: ExportCapabilityStatus;
+  role: InteroperabilityRole;
+  reason: string;
+  requiredData: string[];
+  semanticLevel: "MASSING" | "SPATIAL" | "VISUAL" | "MEDIA" | "NONE";
+  gisInputRole: InteroperabilityRole;
+  gisContextRole: InteroperabilityRole;
+  gisExportRole: InteroperabilityRole;
+  georeferencingRole: GeoreferencingRole;
+};
 
-/** Controlled, scale-aware export policy. It gates the existing deterministic translators; it does not create geometry. */
-export function resolveExportCapabilities(representation: SpatialRepresentation, availableData: string[] = []): ExportCapability[] {
-  const scope = representation.spatial_scope;
+const SCOPES = ["objeto", "espacio", "sistema", "edificacion", "parcela_sitio", "zona_barrio_sector", "distrito_ciudad", "provincia_metropoli", "region", "macro_region", "pais"] as const;
+type Scope = typeof SCOPES[number];
+const scopeRank = (scope: string) => Math.max(0, SCOPES.indexOf(scope as Scope));
+
+/** V1.1 policy: capability state and professional role are independent dimensions. */
+export function resolveExportCapabilities(
+  representation: SpatialRepresentation,
+  availableData: string[] = [],
+  targetWorkflow = "architectural"
+): ExportCapability[] {
+  const scope = representation.spatial_scope as string;
+  const rank = scopeRank(scope);
   const hasGeometry = representation.elements.some((e) => Array.isArray(e.geometry?.coordinates));
   const hasMass = representation.elements.some((e) => e.element_type === "BuildingMass");
-  const buildingScopes = new Set(["edificacion"]);
-  const visualScopes = new Set(["objeto", "espacio", "sistema", "edificacion"]);
-  const cadScopes = new Set(["parcela_sitio", "edificacion"]);
-  return [
-    { target: "IFC", status: buildingScopes.has(scope) && hasGeometry && hasMass ? "AVAILABLE" : buildingScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: buildingScopes.has(scope) ? (hasMass ? "Massing-only IFC exchange at building scale." : "Building mass geometry is required.") : "IFC massing semantics are not applicable at this SpatialScope.", requiredData: buildingScopes.has(scope) ? ["BuildingMass", "height", "units"] : [], semanticLevel: buildingScopes.has(scope) ? "MASSING" : "NONE" },
-    { target: "DXF", status: cadScopes.has(scope) && hasGeometry ? "AVAILABLE" : cadScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: cadScopes.has(scope) ? "Spatial footprint/linework CAD exchange." : "Prefer a scale-appropriate GIS representation rather than architectural CAD.", requiredData: cadScopes.has(scope) ? ["geometry", "units", "orientation"] : [], semanticLevel: cadScopes.has(scope) ? "SPATIAL" : "NONE" },
-    { target: "GLB", status: visualScopes.has(scope) && hasGeometry ? "AVAILABLE" : visualScopes.has(scope) ? "REQUIRES_DATA" : "NOT_APPLICABLE", reason: visualScopes.has(scope) ? "Portable spatial visualization; not BIM." : "3D visual export is not applicable without a supported spatial representation.", requiredData: visualScopes.has(scope) ? ["geometry", "units"] : [], semanticLevel: visualScopes.has(scope) ? "VISUAL" : "NONE" },
-  ];
+  const has = (key: string) => availableData.includes(key);
+  const geometryState = (implemented: boolean, relevant = true): ExportCapabilityStatus => !relevant ? "NOT_APPLICABLE" : !hasGeometry && !has("geometry") ? "REQUIRES_DATA" : implemented ? "AVAILABLE" : "NOT_AVAILABLE";
+  const bimRole: InteroperabilityRole = rank <= 3 ? "PRIMARY" : rank <= 6 ? "SUPPORTING" : "CONTEXTUAL";
+  const cadRole: InteroperabilityRole = rank <= 3 ? "SUPPORTING" : rank <= 6 ? "CO_PRIMARY" : "SUPPORTING";
+  const gisRole: InteroperabilityRole = rank <= 3 ? "CONTEXTUAL" : rank <= 6 ? "CO_PRIMARY" : "PRIMARY";
+  const visualRole: InteroperabilityRole = rank <= 3 ? "PRIMARY" : rank <= 6 ? "SUPPORTING" : "CONTEXTUAL";
+  const geoRole: GeoreferencingRole = rank <= 2 ? "OPTIONAL" : rank <= 5 ? "CONTEXTUAL" : rank <= 6 ? "IMPORTANT" : "ESSENTIAL";
+  const gisState: ExportCapabilityStatus = "NOT_AVAILABLE";
+  const mediaState = geometryState(true);
+  const media: ExportCapability = { family: "MEDIA", format: "PNG/WebM", status: mediaState, role: "SUPPORTING", reason: "Presentation artifact; not editable spatial data.", requiredData: ["visual workspace"], semanticLevel: "MEDIA", gisInputRole: "NOT_APPLICABLE", gisContextRole: "NOT_APPLICABLE", gisExportRole: "NOT_APPLICABLE", georeferencingRole: geoRole };
+  const gis: ExportCapability = { family: "GIS", format: "UNSELECTED_OPEN_FORMAT", status: gisState, role: gisRole, reason: "GIS is professionally relevant at this scope, but GIS export is not implemented in V1.1.", requiredData: ["georeferenced geometry", "CRS", "provenance"], semanticLevel: "SPATIAL", gisInputRole: rank <= 3 ? "CONTEXTUAL" : "PRIMARY", gisContextRole: gisRole, gisExportRole: gisRole, georeferencingRole: geoRole };
+  const bimRelevant = SCOPES.includes(scope as Scope);
+  const bim: ExportCapability = { family: "BIM", target: "IFC", format: "IFC4", status: geometryState(scope === "edificacion" && hasMass, bimRelevant), role: bimRole, reason: scope === "edificacion" ? "Massing-only IFC exchange; never construction BIM." : "BIM may be professionally useful here, but the current IFC adapter is limited to architectural massing.", requiredData: ["geometry", "units", "placement"], semanticLevel: scope === "edificacion" ? "MASSING" : "SPATIAL", gisInputRole: "NOT_APPLICABLE", gisContextRole: "NOT_APPLICABLE", gisExportRole: "NOT_APPLICABLE", georeferencingRole: geoRole };
+  const cad: ExportCapability = { family: "CAD", target: "DXF", format: "DXF", status: geometryState(scope === "edificacion" || scope === "parcela_sitio", true), role: cadRole, reason: "CAD may support linework, footprints or survey/reference exchange; technical availability does not determine primary role.", requiredData: ["geometry", "units", "orientation"], semanticLevel: "SPATIAL", gisInputRole: "NOT_APPLICABLE", gisContextRole: "NOT_APPLICABLE", gisExportRole: "NOT_APPLICABLE", georeferencingRole: geoRole };
+  const model3d: ExportCapability = { family: "3D_MODEL", target: "GLB", format: "GLB", status: geometryState(false, SCOPES.includes(scope as Scope)), role: visualRole, reason: "3D visualization can coexist with GIS and does not imply BIM semantics.", requiredData: ["geometry", "units"], semanticLevel: "VISUAL", gisInputRole: "NOT_APPLICABLE", gisContextRole: "NOT_APPLICABLE", gisExportRole: "NOT_APPLICABLE", georeferencingRole: geoRole };
+  void targetWorkflow;
+  return [cad, bim, gis, model3d, media];
 }
