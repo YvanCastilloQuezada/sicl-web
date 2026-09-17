@@ -104,3 +104,8 @@ La interfaz guiada, la Command Bar y el Help Center son capacidades de presentac
 El Core vigente incluye RFC-027 BIM/IFC, RFC-028 GIS/Catastro y RFC-029 Copiloto Ollama. El frontend puede presentar estados de `PREVIEW_ONLY`, `HUMAN_REVIEW_REQUIRED`, `CORE_UNAVAILABLE` y `CORE_UNAUTHORIZED`. La ausencia de `SICL_CORE_URL` debe mostrarse como infraestructura no configurada, no como un error ontológico.
 
 La conexión productiva requiere configurar server-side `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`. El manual de despliegue del Core define el procedimiento y la suite remota pendiente.
+
+
+## Auditoría RFC-015–026
+
+La matriz vigente del Core se encuentra en `sicl-core/docs/SIMS_DEI_CURRENT_ARCHITECTURE_v2.11.md`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.
