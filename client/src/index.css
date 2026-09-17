@@ -54,3 +54,10 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
 .dark input, .dark textarea, .dark select { background-color: #11284a !important; color: var(--foreground); }
 .font-serif { font-family: 'Fraunces', Georgia, serif; }
 button, input, textarea, select { font: inherit; }
+
+/* Legacy Home modules use historical literal classes. Map them to the same night-blue design tokens. */
+.dark [class*="bg-[#385348]"] { background-color: var(--primary) !important; }
+.dark [class*="border-[#385348]"] { border-color: var(--primary) !important; }
+.dark [class*="text-[#385348]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#718078]"] { color: var(--foreground) !important; }
+.dark [class*="bg-[#dce6dc]"], .dark [class*="bg-[#eef1eb]"], .dark [class*="bg-[#f1f3ee]"] { background-color: var(--secondary) !important; color: var(--foreground) !important; }
+.dark [class*="text-white"] { color: var(--foreground) !important; }
