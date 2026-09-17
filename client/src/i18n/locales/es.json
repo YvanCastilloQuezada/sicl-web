@@ -548,6 +548,14 @@
     "disclosure": "Divulgación:",
     "proxyDisclosure": "Trujillo es un proxy educativo; no es un sitio UPAO medido.",
     "sourceUnavailable": "La fuente ambiental no está disponible.",
-    "unavailable": "Análisis no disponible."
+    "unavailable": "Análisis no disponible.",
+    "capability": "Aplicabilidad multiescala",
+    "capabilityUnavailable": "No se pudo resolver la aplicabilidad",
+    "capabilityStates": {
+      "AVAILABLE": "DISPONIBLE",
+      "REQUIRES_DATA": "REQUIERE DATOS",
+      "NOT_AVAILABLE": "NO DISPONIBLE",
+      "NOT_APPLICABLE": "NO APLICA"
+    }
   }
 }

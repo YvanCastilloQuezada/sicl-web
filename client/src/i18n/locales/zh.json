@@ -548,6 +548,14 @@
     "disclosure": "说明：",
     "proxyDisclosure": "特鲁希略是教学代理位置，不是经过测量的 UPAO 场地。",
     "sourceUnavailable": "环境数据源不可用。",
-    "unavailable": "分析不可用。"
+    "unavailable": "分析不可用。",
+    "capability": "多尺度适用性",
+    "capabilityUnavailable": "无法解析适用性",
+    "capabilityStates": {
+      "AVAILABLE": "可用",
+      "REQUIRES_DATA": "需要数据",
+      "NOT_AVAILABLE": "不可用",
+      "NOT_APPLICABLE": "不适用"
+    }
   }
 }

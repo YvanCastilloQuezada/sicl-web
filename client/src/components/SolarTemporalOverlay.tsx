@@ -14,6 +14,8 @@ export type SolarAnalysis = {
   decision_created: boolean;
 };
 
+type CapabilityResolution = { capability_id: string; spatial_scope: string; status: "AVAILABLE" | "REQUIRES_DATA" | "NOT_AVAILABLE" | "NOT_APPLICABLE"; reason: string; required_data: string[]; missing_data: string[]; profile_version: string };
+
 type Props = { selectedAlternativeId: string | null; onAnalysisChange: (analysis: SolarAnalysis | null) => void };
 
 function todayLocal(): string {
@@ -33,6 +35,7 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
   const [selectedTime, setSelectedTime] = useState(hourNow);
   const [playing, setPlaying] = useState(false);
   const [analysis, setAnalysis] = useState<SolarAnalysis | null>(null);
+  const [capability, setCapability] = useState<CapabilityResolution | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,6 +54,19 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
     void load();
     return () => { cancelled = true; };
   }, [selectedDate, selectedTime, onAnalysisChange, t]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/core/v1/examples/UPAO-001/capabilities/SOLAR_TEMPORAL_ANALYSIS?spatial_scope=edificacion", { headers: { accept: "application/json" } })
+      .then(async (response) => {
+        const body = await response.json();
+        if (!response.ok) throw new Error(body?.detail?.message ?? body?.message ?? t("solar.capabilityUnavailable"));
+        return body.data as CapabilityResolution;
+      })
+      .then((value) => { if (!cancelled) setCapability(value); })
+      .catch(() => { if (!cancelled) setCapability(null); });
+    return () => { cancelled = true; };
+  }, [t]);
 
   useEffect(() => {
     if (!playing) return;
@@ -80,6 +96,7 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
       <div className="flex flex-wrap items-center gap-2"><button type="button" onClick={() => setPlaying((value) => !value)} className="rounded border border-border px-3 py-1.5 text-sm font-semibold text-foreground">{playing ? t("solar.pause") : t("solar.play")}</button><button type="button" onClick={() => setSelectedTime((current) => `${String(Math.min(18, Number(current.slice(0, 2)) + 1)).padStart(2, "0")}:00`)} className="rounded border border-border px-3 py-1.5 text-sm font-semibold text-foreground">{t("solar.step")}</button><span className="text-sm text-muted-foreground">{selectedDate} · {selectedTime} · {analysis?.location.timezone ?? "America/Lima"}</span></div>
       <div className="flex items-center gap-3" aria-label={t("solar.direction")}><svg viewBox="0 0 200 125" className="h-24 w-40 rounded border border-border bg-slate-950" role="img" aria-label={`${t("solar.direction")}: ${azimuth.toFixed(1)}°`}><circle cx="100" cy="100" r="52" fill="none" stroke="#64748b" strokeDasharray="3 4" /><text x="100" y="18" textAnchor="middle" fill="#e2e8f0" fontSize="12">N</text><line x1="100" y1="100" x2={arrow} y2={arrowY} stroke="#fbbf24" strokeWidth="5" /><circle cx={arrow} cy={arrowY} r="6" fill="#fbbf24" /></svg><dl className="text-xs"><dt className="font-semibold">{t("solar.azimuth")}</dt><dd>{azimuth.toFixed(1)}°</dd><dt className="mt-1 font-semibold">{t("solar.elevation")}</dt><dd>{elevation.toFixed(1)}°</dd></dl></div>
     </div>
+    {capability && <div className="mt-3 flex flex-wrap items-center gap-2 text-xs"><strong>{t("solar.capability")}</strong><span className="rounded-full border border-border px-2 py-1 font-semibold">{t(`solar.capabilityStates.${capability.status}`)}</span><span className="text-muted-foreground">{capability.reason}</span></div>}
     {error ? <div role="alert" className="mt-3 rounded border border-destructive/60 bg-destructive/10 p-3 text-sm text-destructive">{t("solar.unavailable")} {error}</div> : analysis ? <div className="mt-3 grid gap-2 text-xs text-muted-foreground md:grid-cols-3"><p><strong className="text-foreground">{t("solar.environmentalReference")}</strong> {analysis.location.name}</p><p><strong className="text-foreground">{t("solar.sourceData")}</strong> Open-Meteo · {Object.entries(selected?.source_values ?? {}).map(([key, value]) => `${key}: ${value}`).join(" · ")}</p><p><strong className="text-foreground">{t("solar.disclosure")}</strong> {t("solar.proxyDisclosure")}</p></div> : null}
   </section>;
 }

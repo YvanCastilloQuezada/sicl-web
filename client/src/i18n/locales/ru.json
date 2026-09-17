@@ -548,6 +548,14 @@
     "disclosure": "Примечание:",
     "proxyDisclosure": "Трухильо — учебный ориентир, а не обследованный участок UPAO.",
     "sourceUnavailable": "Экологический источник недоступен.",
-    "unavailable": "Анализ недоступен."
+    "unavailable": "Анализ недоступен.",
+    "capability": "Масштабная применимость",
+    "capabilityUnavailable": "Не удалось определить применимость",
+    "capabilityStates": {
+      "AVAILABLE": "ДОСТУПНО",
+      "REQUIRES_DATA": "ТРЕБУЮТСЯ ДАННЫЕ",
+      "NOT_AVAILABLE": "НЕДОСТУПНО",
+      "NOT_APPLICABLE": "НЕ ПРИМЕНИМО"
+    }
   }
 }

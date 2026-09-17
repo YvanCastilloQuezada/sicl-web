@@ -548,6 +548,14 @@
     "disclosure": "Hinweis:",
     "proxyDisclosure": "Trujillo ist ein Bildungskontext und kein vermessener UPAO-Standort.",
     "sourceUnavailable": "Die Umweltquelle ist nicht verfügbar.",
-    "unavailable": "Analyse nicht verfügbar."
+    "unavailable": "Analyse nicht verfügbar.",
+    "capability": "Multiskalige Anwendbarkeit",
+    "capabilityUnavailable": "Anwendbarkeit konnte nicht ermittelt werden",
+    "capabilityStates": {
+      "AVAILABLE": "VERFÜGBAR",
+      "REQUIRES_DATA": "DATEN ERFORDERLICH",
+      "NOT_AVAILABLE": "NICHT VERFÜGBAR",
+      "NOT_APPLICABLE": "NICHT ANWENDBAR"
+    }
   }
 }
