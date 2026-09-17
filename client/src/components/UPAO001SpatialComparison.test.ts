@@ -60,6 +60,15 @@ describe("UPAO001SpatialComparison S5", () => {
     expect(screen.queryByText("Winner")).toBeNull();
     expect(screen.queryByText("Recommended")).toBeNull();
   });
+  it("exposes shadow modes and disables photo-realistic without faking it", () => {
+    render(view());
+    expect(screen.getByText("faces_shadows")).toBeTruthy();
+    expect(screen.getByText("materials_shadows")).toBeTruthy();
+    const photoButton = screen.getByText("photo_realistic").closest("button");
+    expect(photoButton?.hasAttribute("disabled")).toBe(true);
+    fireEvent.click(screen.getByText("faces_shadows"));
+    expect(screen.getByText("faces_shadows").closest("button")?.getAttribute("aria-pressed")).toBe("true");
+  });
   it("offers truthful presentation modes and keeps saved views local to the UI", () => {
     render(view());
     expect(screen.getByText("lines")).toBeTruthy();

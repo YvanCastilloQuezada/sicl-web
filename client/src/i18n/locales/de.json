@@ -628,6 +628,18 @@
     "stop_recording": "Stop recording",
     "fullscreen": "Fullscreen",
     "save_view": "Save current view",
-    "delete_view": "Delete view"
+    "delete_view": "Delete view",
+    "presentation_faces_shadows": "Faces + shadows",
+    "presentation_materials_shadows": "Materials + shadows",
+    "presentation_photo_realistic": "Photo-realistic",
+    "reset_view": "Reset view",
+    "purpose_lines": "Structure",
+    "purpose_lines_faces": "Technical",
+    "purpose_faces": "Volumes",
+    "purpose_faces_shadows": "Depth",
+    "purpose_simple_materials": "Architectural",
+    "purpose_materials_shadows": "Presentation",
+    "purpose_realistic": "Higher quality",
+    "purpose_photo_realistic": "Maximum quality"
   }
 }
