@@ -42,4 +42,28 @@ describe("A16 traceable architectural critic", () => {
     expect(result.tradeoffs[0]).toContain("no measurable target");
     expect(result.tradeoffs[0]).not.toContain("%");
   });
+  it("derives area relation from A15 actual geometry and P1 target without quality claims", () => {
+    const result = critiqueArchitecturalDesign({
+      reading: reading({ observedSpaceGeometry: [{ spaceId: "BEDROOM-01", programItemId: "BEDROOM", spatialElementId: "SZ-ARCH-001", spatialZoneId: "SZ-ARCH-001", geometryType: "polygon", hasBoundedGeometry: true, boundaryStatus: "EXPLICIT_BOUNDARY", actualArea: 12, coordinateSystem: "LOCAL_ENU", units: "m", provenance: ["A15"], epistemicStatus: "OBSERVED", realizationStatus: "GEOMETRICALLY_REALIZED" }] }),
+      spaceSemantics: { spaces: [{ spaceId: "BEDROOM-01", programItemId: "BEDROOM", instanceIndex: 1, name: "Bedroom 1", spaceType: "bedroom", targetArea: 10, boundaryStatus: "EXPLICIT_BOUNDARY", relationshipRequirements: [], observedRelationships: [], assignmentStatus: "PROPOSED", provenance: ["P1"], epistemicStatus: "SPATIAL_REPRESENTATION", realizationStatus: "GEOMETRICALLY_REALIZED", unknowns: [] }] } as any,
+    });
+    const area = result.findings.find((item) => item.dimension === "AREA_RELATION");
+    expect(area?.observation).toContain("relation = ABOVE_TARGET");
+    expect(area?.kind).toBe("TENSION");
+    expect(`${area?.observation} ${area?.interpretation} ${area?.implication}`).not.toMatch(/(?:^|\s)(?:too large|optimal|compliant)(?:\.|\s|$)/i);
+    expect(result.geometryDimensions.find((item) => item.dimension === "AREA_RELATION")?.evidenceSufficiency).toBe("SUFFICIENT");
+  });
+  it("preserves semantic-only space and required relationship as UNKNOWN", () => {
+    const result = critiqueArchitecturalDesign({ reading: reading(), spaceSemantics: { spaces: [{ spaceId: "BATH-01", programItemId: "BATH", instanceIndex: 1, name: "Bath 1", spaceType: "bathroom", boundaryStatus: "NO_BOUNDARY_YET", relationshipRequirements: [{ target: "BEDROOM-01", relation: "REQUIRED_ADJACENCY" }], observedRelationships: [], assignmentStatus: "UNASSIGNED", provenance: ["P1"], epistemicStatus: "A11_DERIVED", realizationStatus: "SEMANTIC_SPACE", unknowns: ["ACTUAL_AREA"] }] } as any });
+    expect(result.findings.find((item) => item.id === "a16-gcr-semantic-only-BATH-01")?.kind).toBe("UNKNOWN");
+    expect(result.findings.find((item) => item.id === "a16-gcr-relationship-unknown-BATH-01")?.kind).toBe("UNKNOWN");
+    expect(result.findings.find((item) => item.id === "a16-gcr-relationship-unknown-BATH-01")?.implication).toContain("unknown");
+  });
+  it("reports post-massing validity as review-required and never maps space critique to massing execution", () => {
+    const result = critiqueArchitecturalDesign({ reading: reading({ observedSpaceGeometry: [{ spaceId: "BEDROOM-01", programItemId: "BEDROOM", spatialElementId: "SZ-ARCH-001", spatialZoneId: "SZ-ARCH-001", geometryType: "polygon", hasBoundedGeometry: true, boundaryStatus: "EXPLICIT_BOUNDARY", actualArea: 12, coordinateSystem: "LOCAL_ENU", units: "m", provenance: ["A15"], epistemicStatus: "OBSERVED", realizationStatus: "GEOMETRICALLY_REALIZED" }] }), postMassingChanged: true });
+    const dependency = result.findings.find((item) => item.dimension === "DEPENDENCY_POST_MUTATION_VALIDITY");
+    expect(dependency?.kind).toBe("UNRESOLVED");
+    expect(dependency?.observation).toContain("later massing change");
+    expect(result.hypotheses.every((hypothesis) => hypothesis.noExecution && hypothesis.candidateCapability !== "SET_GAP")).toBe(true);
+  });
 });
