@@ -477,6 +477,9 @@ export const siclClient = {
   async gdiMultiobjective(projectId: string, exploration: Record<string, unknown>): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/multiobjective`, { method: "POST", body: JSON.stringify({ exploration }) });
   },
+  async spatialOperationCapabilities(projectId: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/spatial-operations/capabilities`);
+  },
   async spatialSynthesisProgram(projectId: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-synthesis/program`, { method: "POST", body: JSON.stringify({}) });
   },
