@@ -1,8 +1,9 @@
 import { buildHousePresentation, type EpistemicVisualState, type PresentationViewModel } from "./architecturalPresentation";
 import { generateVerifiedResidentialPlan, type ResidentialPlan } from "./residentialConstructivePlan";
 import { buildA29ReadModel, type A29ReadModel } from "./a29BoundaryConnectivity";
+import { summarizeA30OpeningAudit } from "./a30ArchitecturalOpenings";
 
-export type VisualOverlay = { id: string; type: "DAYLIGHT_PROXY" | "THERMAL_CONTEXT" | "CIRCULATION" | "ACCESSIBILITY_EVIDENCE" | "REGULATORY_STATUS" | "CRITIQUE"; label: string; state: EpistemicVisualState; source: string; method: string; units: string; result: string };
+export type VisualOverlay = { id: string; type: "DAYLIGHT_PROXY" | "THERMAL_CONTEXT" | "CIRCULATION" | "ACCESSIBILITY_EVIDENCE" | "REGULATORY_STATUS" | "CRITIQUE" | "OPENING_EVIDENCE"; label: string; state: EpistemicVisualState; source: string; method: string; units: string; result: string };
 export type CoordinatedLevelView = { levelId: string; roomIds: string[]; coreIds: string[]; orientation: "NORTH_UP"; scale: "SHARED_SITE_SCALE"; stale: false };
 export type PresentationBoard = { id: string; title: string; blocks: string[]; viewModel: PresentationViewModel; anatomy: A29ReadModel; overlays: VisualOverlay[]; legend: string[]; warnings: string[]; provenance: string[] };
 export type ComparisonBoard = { alternatives: Array<{ alternativeId: string; modelVersion: string; levelIds: string[] }>; synchronized: boolean; winnerCreated: false; humanSelection: "NONE"; differences: string[]; tradeoffs: string[]; unresolved: string[] };
@@ -13,6 +14,7 @@ export function buildMultilevelView(plan: ResidentialPlan = generateVerifiedResi
 }
 
 export function buildTruthfulOverlays(plan: ResidentialPlan = generateVerifiedResidentialPlan()): VisualOverlay[] {
+  const openingAudit = summarizeA30OpeningAudit(plan);
   return [
     { id: "A28-DAYLIGHT-PROXY", type: "DAYLIGHT_PROXY", label: "Daylight exposure proxy", state: "PROXY", source: "A25.analyzeDaylight", method: "orientation + aperture ratio", units: "band", result: "MEDIUM" },
     { id: "A28-THERMAL-CONTEXT", type: "THERMAL_CONTEXT", label: "Ambient thermal context", state: "OBSERVED", source: "Open-Meteo / controlled fixture", method: "outdoor weather context", units: "°C / % / m/s", result: "26°C / 65% / 2.4m/s" },
@@ -20,6 +22,7 @@ export function buildTruthfulOverlays(plan: ResidentialPlan = generateVerifiedRe
     { id: "A28-ACCESSIBILITY", type: "ACCESSIBILITY_EVIDENCE", label: "Accessibility evidence", state: "REQUIRES_HUMAN_REVIEW", source: "A20-P2", method: "evidence assessment", units: "status", result: "PROPOSED / NOT_COMPLIANCE" },
     { id: "A28-REGULATORY", type: "REGULATORY_STATUS", label: "Regulatory applicability", state: "NOT_ASSESSED", source: "A20-P3R", method: "source and jurisdiction gate", units: "status", result: "NOT_ASSESSED" },
     { id: "A28-CRITIQUE", type: "CRITIQUE", label: "Architectural critique", state: "REQUIRES_HUMAN_REVIEW", source: "A16", method: "geometry-critical reading", units: "findings", result: "review required" },
+    { id: "A30-OPENINGS", type: "OPENING_EVIDENCE", label: "Generic opening evidence", state: "REQUIRES_HUMAN_REVIEW", source: "A30 + A29", method: "boundary binding read model", units: "openings", result: `${openingAudit.existingOpenings.length} observed legacy records; binding/role/traversability require evidence` },
   ];
 }
 
