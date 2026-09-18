@@ -700,5 +700,26 @@
     "available": "可用",
     "orientation": "朝向",
     "site_truth": "合成的地块/场地环境被如实展示；缺少的地籍、地形和邻近数据仍保持缺失。"
+  }  ,
+  "field_capture": {
+    "title": "现场采集",
+    "description": "直接从现场采集证据。",
+    "photo": "照片",
+    "video": "视频",
+    "observation": "观察",
+    "point": "点",
+    "take_photo": "拍照",
+    "select_photo": "选择照片",
+    "use_location": "使用当前位置",
+    "location_denied": "位置不可用；仍可继续采集。",
+    "scope": "空间尺度",
+    "note": "简短备注",
+    "note_placeholder": "例如：邻近建筑约5层",
+    "confirm": "确认证据",
+    "pending": "检查并确认采集内容",
+    "unknown": "未知",
+    "captured": "证据已采集",
+    "camera_hint": "相机会在移动浏览器中打开。",
+    "map_point": "在地图上放置点"
   }
 }

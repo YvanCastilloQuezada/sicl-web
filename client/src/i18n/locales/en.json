@@ -700,5 +700,26 @@
     "available": "AVAILABLE",
     "orientation": "Orientation",
     "site_truth": "Synthetic parcel/site context is shown truthfully; missing cadastral, terrain and neighboring data remain missing."
+  }  ,
+  "field_capture": {
+    "title": "Field capture",
+    "description": "Capture evidence directly from the site.",
+    "photo": "Photo",
+    "video": "Video",
+    "observation": "Observation",
+    "point": "Point",
+    "take_photo": "Take photo",
+    "select_photo": "Select photo",
+    "use_location": "Use current location",
+    "location_denied": "Location unavailable; capture can continue.",
+    "scope": "Spatial scope",
+    "note": "Short note",
+    "note_placeholder": "E.g. Neighboring building approx. 5 floors",
+    "confirm": "Confirm evidence",
+    "pending": "Review and confirm the capture",
+    "unknown": "Unknown",
+    "captured": "Evidence captured",
+    "camera_hint": "The camera opens from the mobile browser.",
+    "map_point": "Place point on map"
   }
 }

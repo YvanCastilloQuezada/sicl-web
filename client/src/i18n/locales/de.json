@@ -700,5 +700,26 @@
     "available": "VERFÜGBAR",
     "orientation": "Ausrichtung",
     "site_truth": "Der synthetische Parzellen-/Standortkontext wird ehrlich dargestellt; fehlende Kataster-, Gelände- und Nachbardaten bleiben fehlend."
+  }  ,
+  "field_capture": {
+    "title": "Felderfassung",
+    "description": "Erfassen Sie Nachweise direkt am Standort.",
+    "photo": "Foto",
+    "video": "Video",
+    "observation": "Beobachtung",
+    "point": "Punkt",
+    "take_photo": "Foto aufnehmen",
+    "select_photo": "Foto auswählen",
+    "use_location": "Aktuellen Standort verwenden",
+    "location_denied": "Standort nicht verfügbar; die Erfassung kann fortgesetzt werden.",
+    "scope": "Räumlicher Maßstab",
+    "note": "Kurze Notiz",
+    "note_placeholder": "z. B. Nachbargebäude, ca. 5 Geschosse",
+    "confirm": "Nachweis bestätigen",
+    "pending": "Erfassung prüfen und bestätigen",
+    "unknown": "Unbekannt",
+    "captured": "Nachweis erfasst",
+    "camera_hint": "Die Kamera wird im mobilen Browser geöffnet.",
+    "map_point": "Punkt auf der Karte setzen"
   }
 }

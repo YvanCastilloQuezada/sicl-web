@@ -700,5 +700,26 @@
     "available": "DISPONÍVEL",
     "orientation": "Orientação",
     "site_truth": "O contexto sintético de parcela/sítio é mostrado com transparência; dados cadastrais, de terreno e vizinhos ausentes continuam ausentes."
+  }  ,
+  "field_capture": {
+    "title": "Captura de campo",
+    "description": "Capture evidências diretamente no local.",
+    "photo": "Foto",
+    "video": "Vídeo",
+    "observation": "Observação",
+    "point": "Ponto",
+    "take_photo": "Tirar foto",
+    "select_photo": "Selecionar foto",
+    "use_location": "Usar localização atual",
+    "location_denied": "Localização indisponível; a captura pode continuar.",
+    "scope": "Escala espacial",
+    "note": "Nota breve",
+    "note_placeholder": "Ex.: Edifício vizinho aprox. 5 andares",
+    "confirm": "Confirmar evidência",
+    "pending": "Revise e confirme a captura",
+    "unknown": "Desconhecido",
+    "captured": "Evidência capturada",
+    "camera_hint": "A câmera abre no navegador móvel.",
+    "map_point": "Colocar ponto no mapa"
   }
 }

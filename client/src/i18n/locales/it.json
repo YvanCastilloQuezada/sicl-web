@@ -700,5 +700,26 @@
     "available": "DISPONIBILE",
     "orientation": "Orientamento",
     "site_truth": "Il contesto sintetico del lotto/sito è mostrato con trasparenza; i dati catastali, del terreno e dei vicini mancanti restano mancanti."
+  }  ,
+  "field_capture": {
+    "title": "Acquisizione sul campo",
+    "description": "Acquisisci evidenze direttamente dal sito.",
+    "photo": "Foto",
+    "video": "Video",
+    "observation": "Osservazione",
+    "point": "Punto",
+    "take_photo": "Scatta foto",
+    "select_photo": "Seleziona foto",
+    "use_location": "Usa posizione attuale",
+    "location_denied": "Posizione non disponibile; l’acquisizione può continuare.",
+    "scope": "Scala spaziale",
+    "note": "Nota breve",
+    "note_placeholder": "Es. Edificio vicino di circa 5 piani",
+    "confirm": "Conferma evidenza",
+    "pending": "Rivedi e conferma l’acquisizione",
+    "unknown": "Sconosciuto",
+    "captured": "Evidenza acquisita",
+    "camera_hint": "La fotocamera si apre dal browser mobile.",
+    "map_point": "Posiziona punto sulla mappa"
   }
 }

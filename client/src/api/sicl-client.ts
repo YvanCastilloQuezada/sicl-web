@@ -82,6 +82,27 @@ export type EvidenceInput = {
   state?: string;
 };
 
+export type SpatialEvidenceInput = {
+  evidence_id?: string;
+  statement: string;
+  evidence_type?: "PHOTO" | "OBSERVATION";
+  evidence_url?: string;
+  photo_reference?: string;
+  spatial_scope: string;
+  observation_type: string;
+  epistemic_state?: string;
+  evidence_state?: string;
+  captured_at?: string;
+  observation_point?: { latitude: number; longitude: number; accuracy?: number; crs: string } | null;
+  photo_direction?: number | null;
+  value?: unknown;
+  unit?: string | null;
+  qualifier?: string;
+  actor?: string;
+  source_kind?: string;
+  unknowns?: string[];
+};
+
 export type SourceInput = {
   source_id: string;
   source_type: string;
@@ -297,6 +318,11 @@ export const siclClient = {
     const data = await v1Request<{ evidence: Evidence }>(`/v1/projects/${encodeURIComponent(projectId)}/evidence`, { method: "POST", body: JSON.stringify(input) });
     invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
     return data.evidence;
+  },
+  async createSpatialEvidence(projectId: string, input: SpatialEvidenceInput): Promise<CommandData> {
+    const data = await v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence`, { method: "POST", body: JSON.stringify({ payload: input }) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
+    return data;
   },
   async listSources(projectId: string): Promise<Source[]> {
     const data = await cachedV1Request<{ sources: Source[] }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`);

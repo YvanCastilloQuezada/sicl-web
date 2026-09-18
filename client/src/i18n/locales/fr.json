@@ -700,5 +700,26 @@
     "available": "DISPONIBLE",
     "orientation": "Orientation",
     "site_truth": "Le contexte synthétique de parcelle/site est présenté honnêtement ; les données cadastrales, de terrain et voisines absentes le restent."
+  }  ,
+  "field_capture": {
+    "title": "Capture de terrain",
+    "description": "Capturez des preuves directement sur le site.",
+    "photo": "Photo",
+    "video": "Vidéo",
+    "observation": "Observation",
+    "point": "Point",
+    "take_photo": "Prendre une photo",
+    "select_photo": "Sélectionner une photo",
+    "use_location": "Utiliser la position actuelle",
+    "location_denied": "Position indisponible ; la capture peut continuer.",
+    "scope": "Échelle spatiale",
+    "note": "Note courte",
+    "note_placeholder": "Ex. Bâtiment voisin d’environ 5 étages",
+    "confirm": "Confirmer la preuve",
+    "pending": "Vérifiez et confirmez la capture",
+    "unknown": "Inconnu",
+    "captured": "Preuve capturée",
+    "camera_hint": "La caméra s’ouvre depuis le navigateur mobile.",
+    "map_point": "Placer un point sur la carte"
   }
 }
