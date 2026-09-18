@@ -987,6 +987,13 @@
     "synthesis_operation_mapping": "Possible operation mapping",
     "synthesis_specialists": "Specialist perspectives",
     "synthesis_coherent": "Internally coherent hypothesis",
-    "synthesis_readiness": "Readiness"
+    "synthesis_readiness": "Readiness",
+    "a13_spatial_title": "Organisation spatiale dérivée",
+    "a13_pending": "En attente de l’autorité humaine",
+    "a13_coherent": "Cohérente",
+    "a13_incomplete": "Incomplète",
+    "a13_units": "unités",
+    "a13_relations": "relations",
+    "a13_intents": "intentions"
   }
 }

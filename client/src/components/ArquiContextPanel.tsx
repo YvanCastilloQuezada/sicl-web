@@ -14,6 +14,7 @@ import { answerCapabilityQuestion, deriveCapabilityKnowledge, type CapabilityKno
 import ArquiControlledOperations from "@/components/ArquiControlledOperations";
 import { answerDesignProblemQuestion, deriveArchitecturalProblem } from "@/components/arquiDesignProblem";
 import { answerStrategyQuestion, synthesizeArchitecturalStrategies, type ArchitecturalStrategy } from "@/components/arquiArchitecturalSynthesis";
+import { deriveSpatialRealizations, a13Invariants, type SpatialDesignOrganization } from "@/components/arquiSpatialRealization";
 
 type WorkContext = "FIELD" | "DESIGN" | "ANALYSIS" | "COMPARISON" | "REVIEW" | "PRESENTATION_AR" | "UNKNOWN";
 type Props = { projectId: string; onNavigate: (target: string) => void; initialWorkContext?: WorkContext };
@@ -78,6 +79,7 @@ export default function ArquiContextPanel({ projectId, onNavigate, initialWorkCo
   const workflow = deriveArquiWorkflow(workflowGoal, { alternatives: summary.alternativeCount, photos: summary.photos, pendingReview: summary.pendingReview, locationRegistered: summary.locationRegistered });
   const designProblem = useMemo(() => deriveArchitecturalProblem(context?.project, context?.evidence ?? [], context?.registrations ?? []), [context]);
   const synthesis = useMemo(() => synthesizeArchitecturalStrategies(designProblem), [designProblem]);
+  const spatialRealizations = useMemo<SpatialDesignOrganization[]>(() => deriveSpatialRealizations(synthesis, capabilityKnowledgeContext), [synthesis, capabilityKnowledgeContext]);
   const askArqui = async () => {
     const asked = question;
     const response = routeArquiQuestion(asked, dialogueContext);
@@ -141,6 +143,10 @@ export default function ArquiContextPanel({ projectId, onNavigate, initialWorkCo
             <div className="mt-3 flex gap-2"><input value={synthesisQuestion} onChange={(event) => setSynthesisQuestion(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") askSynthesis(); }} placeholder={t("arqui.synthesis_strategy_prompt")} className="min-w-0 flex-1 rounded border border-input bg-background px-3 py-2 text-sm" aria-label={t("arqui.synthesis_strategy_prompt")} /><Button type="button" variant="outline" onClick={askSynthesis} disabled={!synthesisQuestion.trim()}>{t("arqui.ask")}</Button></div>{synthesisAnswer && <p className="mt-2 rounded border border-border bg-background p-2 text-sm" role="status">{t(synthesisAnswer.answerKey, synthesisAnswer.params)}</p>}
             <p className="mt-3 text-xs text-muted-foreground">{t("arqui.synthesis_no_winner")} {t("arqui.synthesis_no_generation")}</p>
           </>}
+        </div>
+        <div className="rounded border border-[#385348]/30 bg-background p-3" aria-label="A13 spatial organization">
+          <div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">A13 · {t("arqui.a13_spatial_title")}</p><p className="mt-1 text-sm text-muted-foreground">{t("arqui.synthesis_subtitle")}</p></div><span className="rounded-full border border-border px-2 py-1 text-xs font-semibold">{t("arqui.a13_pending")}</span></div>
+          <div className="mt-3 grid gap-3 lg:grid-cols-3">{spatialRealizations.map((item) => { const invariants = a13Invariants(item); return <div key={item.id} className="rounded border border-border p-3"><p className="text-sm font-semibold">{item.strategyFamily}</p><p className="mt-1 text-xs text-muted-foreground">{item.spatialUnits.length} units · {item.relationships.length} relations · {item.generativeIntents.length} intents</p><p className="mt-2 text-xs text-muted-foreground">{invariants.coherent ? t("arqui.a13_coherent") : t("arqui.a13_incomplete")} · {item.realizability}</p><p className="mt-2 text-xs text-muted-foreground">{t("arqui.reasoning_no_decision")}</p></div>; })}</div>
         </div>
         <ArquiControlledOperations projectId={projectId} project={context.project} onNavigate={onNavigate} />
         {diagnostics.length > 0 && <div className="rounded border border-[#d07b4a]/30 bg-[#fffaf5] p-3" aria-label={t("arqui.diagnostics_title")}><p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#a94524]">{t("arqui.diagnostics_title")}</p><div className="mt-2 space-y-2">{diagnostics.map((item) => <div key={item.id} className="rounded border border-[#d07b4a]/20 bg-background p-2"><p className="text-sm font-medium text-[#385348]">{t(item.messageKey, item.messageParams)}</p><p className="mt-1 text-xs text-muted-foreground">{t("arqui.based_on")} {t(item.basisKey, item.messageParams)}</p>{item.action && <Button type="button" size="sm" className="mt-2" onClick={() => onNavigate(item.action!.target)}>{t(item.action.labelKey, item.action.params)}</Button>}</div>)}</div></div>}

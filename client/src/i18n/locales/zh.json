@@ -987,6 +987,13 @@
     "synthesis_operation_mapping": "Possible operation mapping",
     "synthesis_specialists": "Specialist perspectives",
     "synthesis_coherent": "Internally coherent hypothesis",
-    "synthesis_readiness": "Readiness"
+    "synthesis_readiness": "Readiness",
+    "a13_spatial_title": "派生空间组织",
+    "a13_pending": "等待人类授权",
+    "a13_coherent": "一致",
+    "a13_incomplete": "不完整",
+    "a13_units": "个单元",
+    "a13_relations": "个关系",
+    "a13_intents": "个意图"
   }
 }

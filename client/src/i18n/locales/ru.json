@@ -987,6 +987,13 @@
     "synthesis_operation_mapping": "Possible operation mapping",
     "synthesis_specialists": "Specialist perspectives",
     "synthesis_coherent": "Internally coherent hypothesis",
-    "synthesis_readiness": "Readiness"
+    "synthesis_readiness": "Readiness",
+    "a13_spatial_title": "Производная пространственная организация",
+    "a13_pending": "Ожидает решения человека",
+    "a13_coherent": "Согласованная",
+    "a13_incomplete": "Неполная",
+    "a13_units": "единиц",
+    "a13_relations": "связей",
+    "a13_intents": "намерений"
   }
 }
