@@ -352,6 +352,9 @@ export const siclClient = {
     const data = await cachedV1Request<{ sources: Source[] }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`);
     return data?.sources ?? [];
   },
+  async queryDesignKnowledge(input: { spatial_scope?: string; problem_terms?: string[]; objective_terms?: string[] }): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>("/v1/design-knowledge/query", { method: "POST", body: JSON.stringify(input) });
+  },
   async getSource(projectId: string, sourceId: string): Promise<Source> {
     const data = await cachedV1Request<{ source: Source }>(`/v1/projects/${encodeURIComponent(projectId)}/sources/${encodeURIComponent(sourceId)}`);
     return data.source;
