@@ -722,6 +722,7 @@
     "camera_hint": "The camera opens from the mobile browser.",
     "map_point": "Place point on map",
     "place_point": "Place point",
-    "point_ready": "Point ready"
+    "point_ready": "Point ready",
+    "persisted": "Photo persisted and associated with the project."
   }
 }

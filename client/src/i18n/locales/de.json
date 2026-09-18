@@ -722,6 +722,7 @@
     "camera_hint": "Die Kamera wird im mobilen Browser geöffnet.",
     "map_point": "Punkt auf der Karte setzen",
     "place_point": "Punkt setzen",
-    "point_ready": "Punkt bereit"
+    "point_ready": "Punkt bereit",
+    "persisted": "Foto dauerhaft gespeichert und dem Projekt zugeordnet."
   }
 }

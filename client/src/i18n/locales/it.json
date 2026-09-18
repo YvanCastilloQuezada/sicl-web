@@ -722,6 +722,7 @@
     "camera_hint": "La fotocamera si apre dal browser mobile.",
     "map_point": "Posiziona punto sulla mappa",
     "place_point": "Posiziona punto",
-    "point_ready": "Punto pronto"
+    "point_ready": "Punto pronto",
+    "persisted": "Foto persistita e associata al progetto."
   }
 }

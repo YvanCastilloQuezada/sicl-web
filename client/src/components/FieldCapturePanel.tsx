@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { apiErrorMessage, siclClient } from "@/api/sicl-client";
+import { apiErrorMessage, siclClient, type SpatialEvidenceInput } from "@/api/sicl-client";
 
 const SCOPES = ["edificacion", "parcela_sitio", "zona_barrio_sector", "distrito_ciudad", "provincia_metropoli"];
 type Capture = { file: File; preview: string; capturedAt: string };
@@ -45,7 +45,7 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
     setBusy(true); setError(""); setMessage("");
     try {
       const captureId = `CAP-${Date.now().toString(36).toUpperCase()}`;
-      await siclClient.createSpatialEvidence(projectId, {
+      const evidencePayload: SpatialEvidenceInput = {
         evidence_id: captureId,
         statement: note.trim() || t("field_capture.photo"),
         evidence_type: capture ? "PHOTO" : "OBSERVATION",
@@ -62,9 +62,11 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
         actor: "field-architect",
         source_kind: "USER / FIELD_CAPTURE",
         unknowns: ["photo_direction", ...(location ? [] : ["observation_point"])],
-      });
+      };
+      if (capture) await siclClient.createPersistentSpatialEvidence(projectId, evidencePayload, capture.file);
+      else await siclClient.createSpatialEvidence(projectId, evidencePayload);
       if (capture) URL.revokeObjectURL(capture.preview);
-      setCapture(undefined); setNote(""); setMessage(t("field_capture.captured")); onCaptured?.();
+      setCapture(undefined); setNote(""); setMessage(capture ? t("field_capture.persisted") : t("field_capture.captured")); onCaptured?.();
     } catch (err) { setError(apiErrorMessage(err)); } finally { setBusy(false); }
   };
   const pointX = location ? (location.longitude + 180) / 360 * 720 : 360;

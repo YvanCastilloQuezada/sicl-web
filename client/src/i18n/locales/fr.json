@@ -722,6 +722,7 @@
     "camera_hint": "La caméra s’ouvre depuis le navigateur mobile.",
     "map_point": "Placer un point sur la carte",
     "place_point": "Placer un point",
-    "point_ready": "Point prêt"
+    "point_ready": "Point prêt",
+    "persisted": "Photo persistée et associée au projet."
   }
 }

@@ -722,6 +722,7 @@
     "camera_hint": "相机会在移动浏览器中打开。",
     "map_point": "在地图上放置点",
     "place_point": "放置点",
-    "point_ready": "点已就绪"
+    "point_ready": "点已就绪",
+    "persisted": "照片已持久化并关联到项目。"
   }
 }

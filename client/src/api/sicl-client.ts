@@ -201,7 +201,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     ...init,
     headers: {
       accept: "application/json",
-      ...(init?.body ? { "content-type": "application/json" } : {}),
+      ...(init?.body && !(init.body instanceof FormData) ? { "content-type": "application/json" } : {}),
       ...(init?.headers ?? {}),
     },
   });
@@ -321,6 +321,14 @@ export const siclClient = {
   },
   async createSpatialEvidence(projectId: string, input: SpatialEvidenceInput): Promise<CommandData> {
     const data = await v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence`, { method: "POST", body: JSON.stringify({ payload: input }) });
+    invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
+    return data;
+  },
+  async createPersistentSpatialEvidence(projectId: string, input: SpatialEvidenceInput, file: File): Promise<CommandData> {
+    const form = new FormData();
+    form.append("file", file, file.name);
+    form.append("payload_json", JSON.stringify(input));
+    const data = await v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence/media`, { method: "POST", body: form });
     invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
     return data;
   },
