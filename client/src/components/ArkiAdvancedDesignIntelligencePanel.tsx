@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
+import { buildD17D32Proof } from "./arkiWorldClassDesignIntelligence";
 import { SpatialSvgViewer } from "./UPAO001SpatialViewer";
 
 export function ArkiAdvancedDesignIntelligencePanel() {
   const exploration = buildD8Exploration();
+  const worldClass = buildD17D32Proof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
   return <section aria-label="ARKI advanced design intelligence" className="space-y-4">
@@ -25,6 +27,11 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="text-sm font-semibold">Design pressures and boundaries</p>
       <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{exploration.pressures.map((pressure) => <li key={pressure.id}><strong>{pressure.family}</strong> · {pressure.classification} · {pressure.statement}</li>)}</ul>
       <p className="mt-3 text-xs text-muted-foreground">No score, ranking, winner, automatic decision, structural adequacy, environmental performance or regulatory compliance is claimed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">Concept → parti → massing</p>
+      <div className="mt-2 grid gap-2 md:grid-cols-3">{worldClass.result.d32.concepts.map((concept) => <div key={concept.id} className="rounded-md bg-muted p-3 text-xs"><strong>{concept.id}</strong><p className="mt-1">{concept.hypothesis}</p><p className="mt-2 text-muted-foreground">Parti: {worldClass.result.d32.partis.find((parti) => parti.conceptId === concept.id)?.organizingIdea}</p></div>)}</div>
+      <p className="mt-3 text-xs text-muted-foreground">Aesthetic interpretation is explicit and human-led. World-class capability remains aspirational, not certified.</p>
     </div>
   </section>;
 }

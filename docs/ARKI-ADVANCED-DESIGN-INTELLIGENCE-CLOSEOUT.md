@@ -1,173 +1,175 @@
-# ARKI — Advanced Design Intelligence D1–D16 Closeout
+# ARKI — Advanced Design Intelligence D1–D32 Closeout
 
 ## Executive result
 
-**D1–D16 = PASS_WITH_OBSERVATIONS.** The authorized Web-side layer now composes the frozen A21 spatial state, K1–K11 knowledge program, controlled alternatives, vertical circulation, critique, site reasoning, program adaptation, constraint analysis, structural awareness, material/envelope reasoning, multi-scale coherence and deterministic change impact.
+**ARKI_DESIGN_INTELLIGENCE = PASS_WITH_OBSERVATIONS.** The authorized D17–D32 extension is implemented as a controlled architectural-intelligence layer over the existing D1–D16, A21 and K1–K11 surfaces. It does not create a parallel knowledge architecture, renderer, engineering solver or decision system.
 
-This is **architectural design intelligence under human authority**, not autonomous architecture, structural engineering, construction BIM, regulatory certification or performance simulation. Core, Core Contract, persistence and infrastructure remain unchanged.
+The result demonstrates a broad integrated capability architecture intended to support high-level design work. It does **not** certify that ARKI is a world-class architect. Real quality requires real projects and Human Architect evaluation.
 
-## D1–D8 baseline
+## D17–D32 results
 
-The previously completed D1–D8 capabilities remain frozen and verified: bounded vertical-circulation representation, three meaningful A/B/C hypotheses, explicit deterministic variation, three-generation lineage, knowledge-grounded revision, environmental and regulatory pressures, multi-dimensional critique and iterative visual exploration.
+| Phase | Result | Boundary preserved |
+|---|---|---|
+| D17 Architectural concept | **PROVEN** | Concept is traceable to spatial and formal consequences; no post-hoc label |
+| D18 Parti intelligence | **PROVEN** | Three partis, mutation and configuration traceability; no best parti |
+| D19 Proportion and spatial order | **PROVEN** | Proportion, hierarchy, rhythm and alignment are interpretive; no universal rule |
+| D20 Spatial sequence and experience | **PROVEN** | Approach, arrival, threshold, entry, orientation, sequence, pause and destination |
+| D21 Architectural light | **PROVEN** | Opportunities only; quantitative daylight remains `UNKNOWN` |
+| D22 Form and massing | **PROVEN** | Program-linked massing alternatives; no arbitrary sculpture |
+| D23 Facade composition | **PROVEN** | Interior organization informs façade hypotheses; decorative decoupling prohibited |
+| D24 Tectonic intelligence | **PROVEN** | Space, support, span, edge, opening and assembly questions; no engineering claim |
+| D25 Place and context | **PROVEN** | Context evidence is separated from stereotype; unknown context remains unknown |
+| D26 Landscape / indoor-outdoor | **PROVEN** | Patio, courtyard, edge, threshold, shade and ground-interface reasoning |
+| D27 Typological intelligence | **PROVEN** | Patterns are transformed for HOUSE-A21; template copying prohibited |
+| D28 Precedent reasoning | **PROVEN** | Principle → context → limitation → transformation → hypothesis; no copying |
+| D29 Economy and value | **PROVEN** | Area, circulation, complexity and maintenance implications; actual cost unknown |
+| D30 Adaptability and stewardship | **PROVEN** | Future change, maintenance, reversibility and longevity questions |
+| D31 Architectural synthesis | **PROVEN** | Relationships, tensions, contradictions, opportunities and missing evidence |
+| D32 Design Excellence Studio Loop | **PROVEN** | Integrated studio sequence with visual proof, memory and Human Architect review |
 
-The D1–D8 proof continues to preserve `HUMAN_ARCHITECT_FINAL`, `NO_WINNER`, `NO_DECISION`, `UNKNOWN`, immutable parents and explicit provenance.
+## D17 — Architectural concept intelligence
 
-## D9 — Site-to-building reasoning
+Three bounded concept hypotheses are generated from the HOUSE-A21 problem and existing A21/D2 intent: protected courtyard, transition spine and compact core with released ground. Each concept stores its problem basis, spatial consequences, formal consequences, material/environmental implications and configuration identity.
 
-D9 establishes the chain `SITE/CONTEXT → SITE CONDITIONS → DESIGN PRESSURES → BUILDING RESPONSE → LEVEL ORGANIZATION → SPACE ORGANIZATION`. The current site is a synthetic local envelope. Survey geometry, frontage, surrounding context, real orientation and solar exposure remain `UNKNOWN`.
+The concept is generated before the associated configuration identity. It is not a decorative explanation added after geometry. All concepts remain `HYPOTHESIS`.
 
-Site-derived implications are not treated as facts. Each implication carries source, evidence, scope and unknowns. Site-to-space links are retained through placement IDs. Cross-scale reasoning is `PARTIAL` because real cadastral and contextual evidence is unavailable.
+## D18 — Parti intelligence
 
-## D10 — Programmatic change and adaptation
+Each concept produces a corresponding parti. The partís are distinguishable from detailed plan geometry and carry organizing idea, transformation, provenance and target configuration. Parti mutation is represented as a controlled transformation rather than an automatic selection.
 
-D10 introduces a bounded program change: adding an optional `STUDY` space. The system records the base program, change type, impacted relationships, affected zones, affected circulation, unaffected program identifiers, revision hypothesis and direct geometry traceability.
+`NO_WINNER` remains explicit.
 
-The base configuration is not blindly regenerated. The new space remains a hypothesis and requires human authorization before any actual product mutation.
+## D19–D21 — Order, experience and light
 
-## D11 — Constraint-driven resolution
+D19 represents proportion, hierarchy, rhythm, alignment, datum and solid/void relationships without imposing a universal proportion law. D20 represents architectural experience as a sequence rather than shortest-path optimization. D21 identifies courtyard, opening, depth, shading and visual-emphasis opportunities while keeping quantitative daylight performance unknown.
 
-D11 distinguishes constraints from preferences and unknowns. It evaluates site boundary, program preservation, optional-study preference and accessibility uncertainty. It represents compatibility, tension, conflict and unknown states.
+No beauty score, daylight score or universal aesthetic rule is generated.
 
-No constraint is silently violated. No automatic priority hierarchy is created. Resolution strategies are returned for human choice. A conflict is represented as `CONSTRAINT_CONFLICT` when a geometry escapes the site envelope.
+## D22–D24 — Massing, façade and tectonics
 
-## D12 — Structural and constructability awareness
+D22 provides three massing hypotheses linked to program, void, level relations and configuration identity. D23 relates interior organization, privacy and opening hierarchy to façade composition. D24 records support, span, edge, opening, envelope and assembly questions.
 
-D12 identifies structural implications, structural questions, constructability implications and specialist-evidence needs. The proof considers vertical alignment, large conceptual zones and the absence of construction assemblies.
+Structural performance, load paths, adequacy, detailing and construction certification remain unknown or specialist-required.
 
-`STRUCTURAL_PERFORMANCE = UNKNOWN`. No load calculation, adequacy claim, structural solver or unsupported geometry mutation was introduced.
+## D25–D28 — Place, landscape, typology and precedent
 
-## D13 — Material, envelope and building-system reasoning
+D25 limits contextual reasoning to available evidence and explicitly lists unavailable urban morphology, cultural, historical and regional-construction evidence. D26 connects the building to patio, courtyard, forecourt, covered transition, edge and ground interface.
 
-D13 represents material intentions, envelope strategies and system-space implications. Examples include opaque/light enclosure as a design intention, protected/exposed opening review, conceptual envelope continuity, service-zone demand and maintenance-access questions.
+D27 transforms typological patterns such as courtyard house, linear bar and cluster rather than copying them. D28 retains attribution for Alexander/CES, Ching, Edward T. White and the existing environmental source families. These sources provide principles and questions, not doctrine, requirements or copied form.
 
-These are not material specifications, construction details, manufacturer selections, thermal values or MEP engineering. Full BIM expansion remains inactive.
+No cultural stereotype and no stylistic imitation engine were introduced.
 
-## D14 — Multi-scale architectural coherence
+## D29–D30 — Economy, adaptability and stewardship
 
-D14 evaluates a controlled program change across `SPACE`, `LEVEL`, `BUILDING`, `SITE` and `ELEMENT`. It classifies effects as coherent, potential cross-scale tension, cross-scale conflict or unknown.
+D29 reasons about area allocation, circulation efficiency, envelope complexity, structural implications, repetition, maintenance and adaptability. It does not estimate actual cost or choose the cheapest alternative.
 
-The added study is a space-level modification that may affect N1 circulation and building program coherence while remaining contained within the synthetic site. Element-level construction consequences remain unknown.
+D30 models future program change, conversion, expansion, maintenance access, replaceability, reversible decisions and durability questions. Lifecycle performance remains unknown.
 
-## D15 — Design robustness and change impact
+## D31 — Architectural synthesis and critical judgment
 
-D15 models deterministic change propagation without inventing a numeric robustness score. The `ADD_SPACE STUDY` scenario records local impact, cross-scale impact, affected components, revision scope, unaffected components and propagation edges.
+D31 integrates the available dimensions without reducing architecture to a checklist. It identifies strong and weak relationships, coherence and incoherence, tensions, opportunities, contradictions, unresolved questions, missing evidence and possible transformations.
 
-The revision scope is `MULTI_SCALE`. `robustnessScore = NOT_CALCULATED`, preserving the distinction between controlled change analysis and probabilistic engineering reliability.
+No universal score, beauty score, ranking or automatic winner is produced.
 
-## D16 — Integrated architectural design intelligence
+## D32 — Design Excellence Studio Loop
 
-D16 composes the full chain:
+The controlled sequence is represented as:
 
 ```text
-HUMAN DESIGN INTENT
-→ SITE / CONTEXT
+HUMAN BRIEF
+→ PROJECT UNDERSTANDING
+→ SITE READING
 → PROGRAM
-→ RELATIONSHIPS
-→ DESIGN PRESSURES
-→ REAL KNOWLEDGE
-→ SPECIALIST PERSPECTIVES
-→ CONSTRAINTS
-→ MULTIPLE HYPOTHESES
-→ SPATIAL CONFIGURATIONS
-→ PHYSICAL REALIZATION
-→ VERTICAL CIRCULATION
-→ READBACK
-→ CRITIQUE
-→ STRUCTURAL / CONSTRUCTABILITY AWARENESS
-→ MATERIAL / ENVELOPE / SYSTEM AWARENESS
-→ MULTI-SCALE COHERENCE
+→ ARCHITECTURAL PROBLEM
+→ KNOWLEDGE / PRECEDENT
+→ CONCEPT A / B / C
+→ PARTI A / B / C
+→ MASSING
+→ SPATIAL CONFIGURATION
+→ CIRCULATION / EXPERIENCE
+→ LIGHT
+→ STRUCTURAL / TECTONIC AWARENESS
+→ MATERIAL / ENVELOPE
+→ LANDSCAPE / CONTEXT
+→ ECONOMIC / ADAPTABILITY IMPLICATIONS
+→ MULTI-DIMENSIONAL CRITIQUE
+→ ARCHITECTURAL SYNTHESIS
 → TRADE-OFFS
-→ HUMAN AUTHORIZATION
-→ GEOMETRIC REVISION HYPOTHESIS
-→ CHILD GENERATION
+→ HUMAN ARCHITECT REVIEW
+→ AUTHORIZED DESIGN DIRECTION
+→ GEOMETRIC REVISION
 → FRESH READBACK
-→ CHANGE IMPACT
-→ RE-EVALUATION
-→ VISUAL COMPARISON
+→ SECOND CRITIQUE
+→ REFINEMENT
+→ GENERATION N
+→ VISUAL PRESENTATION
 → HUMAN ARCHITECT
 ```
 
-The integrated proof uses HOUSE-A21, the three D2 alternatives, the K11 Housing/Bioclimatic knowledge path, D6 pressures, D7 critique, D10 adaptation, D11 constraints, D12 structural awareness, D13 material/envelope reasoning, D14 coherence and D15 change impact. The existing `SpatialSvgViewer` remains the renderer. The visual panel now exposes alternatives and generation lineage without adding a second rendering system.
+The existing `SpatialSvgViewer` remains the renderer. The existing ARKI panel now exposes alternative selection, generation lineage and the concept → parti distinction. No new renderer or new interaction architecture was added.
 
-## Design quality model
+## Cross-cutting controls
 
-Quality is represented as structured dimensions rather than one score. The current evidence-supported dimensions are functional, spatial, circulation, privacy, environmental, regulatory, structural awareness, constructability, material, envelope, multi-scale coherence, robustness and architectural intent. No universal beauty score, architecture score, ranking or winner is created.
+`PROJECT_DESIGN_MEMORY` is reused from A21 and remains no-automatic-decision. `DESIGN_RECOVERY` is represented as revision → fresh readback → unintended consequence → critique → recovery hypothesis. `PROGRESSIVE_DESIGN_RESOLUTION` is represented as concept → parti → massing → space → element, with construction resolution deliberately bounded.
 
-## Intent, rationale and causal traceability
+Aesthetic reasoning is explicitly interpretive. Project intent drives expression; ARKI has no universal style. Creative divergence is bounded by brief, site, program, constraints and intent. Controlled convergence requires Human Architect direction and does not select a final path autonomously.
 
-The integrated result records original intent, revision and impact. The current controlled revision modifies intent by adding an optional study and therefore remains subject to human acceptance.
-
-The structured rationale stores trigger, observed issue, evidence, knowledge support, constraint, trade-off, provisional implication, authorization reference, affected geometry and result. It is a concise design record, not chain-of-thought.
-
-The causal trace is:
+## Negative controls
 
 ```text
-SOURCE
-→ K4 KNOWLEDGE
-→ K6 FINDING
-→ K7 SYNTHESIS
-→ D6 PRESSURE
-→ D7 CRITIQUE
-→ D10 PROGRAM CHANGE
-→ D15 IMPACT
-→ D10 STUDY HYPOTHESIS GEOMETRY
+NO_AUTOMATIC_WINNER = PASS
+NO_AUTOMATIC_DECISION = PASS
+NO_BEAUTY_SCORE = PASS
+NO_UNIVERSAL_STYLE = PASS
+NO_PRECEDENT_COPYING = PASS
+NO_FALSE_PERFORMANCE = PASS
+NO_FALSE_COMPLIANCE = PASS
+NO_FALSE_STRUCTURAL_ADEQUACY = PASS
+NO_FAKE_COST = PASS
+NO_CULTURAL_STEREOTYPE = PASS
+NO_RANDOM_FORM_AS_DESIGN_INTELLIGENCE = PASS
+NO_HUMAN_AUTHORITY_OVERRIDE = PASS
+WORLD_CLASS_CAPABILITY_CLAIM = ASPIRATIONAL_NOT_CERTIFIED
 ```
 
 ## Final classification
 
 ```text
-ARKI_ADVANCED_DESIGN_INTELLIGENCE = PASS_WITH_OBSERVATIONS
-D1_VERTICAL_CIRCULATION = PROVEN
-D2_MULTIPLE_ALTERNATIVES = PROVEN
-D3_DESIGN_VARIATION = PROVEN
-D4_MULTI_GENERATION_LINEAGE = PROVEN
-D5_KNOWLEDGE_GROUNDED_DESIGN = PROVEN
-D6_DESIGN_PRESSURES = PROVEN
-D7_MULTI_DIMENSIONAL_CRITIQUE = PROVEN
-D8_ITERATIVE_DESIGN_EVOLUTION = PROVEN
-D9_SITE_TO_BUILDING_REASONING = PROVEN
-D10_PROGRAMMATIC_ADAPTATION = PROVEN
-D11_CONSTRAINT_DRIVEN_DESIGN = PROVEN
-D12_STRUCTURAL_CONSTRUCTABILITY_AWARENESS = PROVEN
-D13_MATERIAL_ENVELOPE_SYSTEM_REASONING = PROVEN
-D14_MULTI_SCALE_COHERENCE = PROVEN
-D15_DESIGN_ROBUSTNESS_CHANGE_IMPACT = PROVEN
-D16_INTEGRATED_DESIGN_INTELLIGENCE = PROVEN
-REAL_STAIR_GEOMETRY = PROVEN
-MULTIPLE_DESIGN_ALTERNATIVES = PROVEN
-MULTI_GENERATION_LINEAGE = PROVEN
-KNOWLEDGE_GROUNDED_REVISION = PROVEN
-SOURCE_TO_GEOMETRY_TRACEABILITY = PASS
-SITE_TO_SPACE_TRACEABILITY = PASS
-PROGRAM_TO_GEOMETRY_TRACEABILITY = PASS
-CONSTRAINT_CONFLICT_DETECTION = PROVEN
-STRUCTURAL_AWARENESS = PROVEN
-CONSTRUCTABILITY_AWARENESS = PROVEN
-MATERIAL_DESIGN_REASONING = PROVEN
-ENVELOPE_DESIGN_REASONING = PROVEN
-BUILDING_SYSTEM_SPATIAL_AWARENESS = PROVEN
-MULTI_SCALE_COHERENCE = PROVEN
-DESIGN_CHANGE_IMPACT = PROVEN
-IMPACT_PROPAGATION = PROVEN
-DESIGN_INTENT_TRACEABILITY = PASS
-DESIGN_RATIONALE_TRACEABILITY = PASS
+D17_ARCHITECTURAL_CONCEPT = PROVEN
+D18_PARTI_INTELLIGENCE = PROVEN
+D19_PROPORTION_SPATIAL_ORDER = PROVEN
+D20_SPATIAL_EXPERIENCE = PROVEN
+D21_ARCHITECTURAL_LIGHT = PROVEN
+D22_FORM_MASSING = PROVEN
+D23_FACADE_COMPOSITION = PROVEN
+D24_TECTONIC_INTELLIGENCE = PROVEN
+D25_PLACE_CONTEXT = PROVEN
+D26_LANDSCAPE_INDOOR_OUTDOOR = PROVEN
+D27_TYPOLOGICAL_INTELLIGENCE = PROVEN
+D28_PRECEDENT_REASONING = PROVEN
+D29_ECONOMY_VALUE = PROVEN
+D30_ADAPTABILITY_LONGEVITY = PROVEN
+D31_ARCHITECTURAL_SYNTHESIS = PROVEN
+D32_DESIGN_EXCELLENCE_STUDIO_LOOP = PROVEN
+CREATIVE_DIVERGENCE = PROVEN
+CONTROLLED_CONVERGENCE = PROVEN
+PROGRESSIVE_DESIGN_RESOLUTION = PROVEN
+PROJECT_DESIGN_MEMORY = PROVEN
+DESIGN_RECOVERY = PROVEN
+CONCEPT_TO_GEOMETRY_TRACEABILITY = PASS
+PARTI_TO_CONFIGURATION_TRACEABILITY = PASS
+PLAN_TO_MASS_TRACEABILITY = PASS
+INTERIOR_TO_FACADE_TRACEABILITY = PASS
+CONTEXT_TO_DESIGN_TRACEABILITY = PASS
 DESIGN_CAUSAL_TRACEABILITY = PASS
-ITERATIVE_DESIGN_EVOLUTION = PROVEN
-CROSS_SCALE_DESIGN_REASONING = PARTIAL
-STRUCTURAL_PERFORMANCE = UNKNOWN
-ENVIRONMENTAL_PERFORMANCE = UNKNOWN
-AIRFLOW_PERFORMANCE = UNKNOWN
-ACCESSIBILITY_COMPLIANCE = UNKNOWN
-REGULATORY_COMPLIANCE = UNKNOWN
-AUTOMATIC_WINNER = NONE
-AUTOMATIC_DECISION = NOT_CREATED
-AUTONOMOUS_DESIGN_DECISION = NO
 HUMAN_AUTHORITY = PRESERVED
 K1_K11 = FROZEN
+D1_D16 = PRESERVED
 CORE_CONTRACT_CHANGED = NO
 CORE_CHANGED = NO
 WEB_CHANGED = YES
 REAL_GATE = NOT_TRIGGERED
+LOCAL_COMMIT = PENDING_FINAL_VALIDATION
 PUSH = NO
 PR = NO
 MERGE = NO
@@ -176,7 +178,11 @@ DEPLOYMENT = NO
 
 ## Non-activation boundaries
 
-This order did not create K12, a new source or retrieval architecture, mass ingestion, RAG, embeddings, vector storage, production agents, a multi-agent framework, full BIM, Revit integration, a structural solver, CFD, energy simulation, MEP engineering, a cost database, a construction scheduler, server infrastructure or deployment changes.
+D17–D32 did not add K12, D33, new knowledge architecture, mass ingestion, RAG, embeddings, vector storage, multi-agent runtime, production specialist agents, full BIM, Revit integration, CFD, an energy engine, a structural solver, MEP engineering, construction detailing, cloud infrastructure or deployment.
+
+## Next stage
+
+If the final validation remains green, the D1–D32 foundation closes as `CLOSED / FROZEN / READY_FOR_REAL_PROJECT_VALIDATION`. The next stage is empirical: a real architectural project, Human Architect critique, controlled revision, performance and quality gap observation, and only then any new capability.
 
 ## References
 
