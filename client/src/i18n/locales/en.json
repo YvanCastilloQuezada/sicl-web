@@ -858,6 +858,18 @@
     "goal_review_visual_evidence": "review visual evidence",
     "goal_explore_design_alternatives": "explore alternatives",
     "goal_compare_alternatives": "compare alternatives",
-    "goal_prepare_registered_ar_view": "prepare a registered AR view"
+    "goal_prepare_registered_ar_view": "prepare a registered AR view",
+    "reasoning_title": "Design reasoning",
+    "reasoning_fact": "Verifiable facts",
+    "reasoning_computed": "Computed results",
+    "reasoning_interpretation": "Architectural interpretation",
+    "reasoning_hypothesis": "Provisional hypothesis",
+    "reasoning_unknown": "What we still do not know",
+    "reasoning_explore": "Explore existing capability",
+    "reasoning_no_decision": "This explanation does not create a recommendation, winner or decision.",
+    "reasoning_compare_prompt": "Preparing an explainable comparison.",
+    "reasoning_why_prompt": "Preparing the traceable basis.",
+    "reasoning_hypothesis_prompt": "Preparing a bounded hypothesis.",
+    "reasoning_spatial_prompt": "Preparing a spatial reading."
   }
 }

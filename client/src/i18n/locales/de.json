@@ -858,6 +858,18 @@
     "goal_review_visual_evidence": "visuelle Belege prüfen",
     "goal_explore_design_alternatives": "Alternativen erkunden",
     "goal_compare_alternatives": "Alternativen vergleichen",
-    "goal_prepare_registered_ar_view": "eine registrierte AR-Ansicht vorbereiten"
+    "goal_prepare_registered_ar_view": "eine registrierte AR-Ansicht vorbereiten",
+    "reasoning_title": "Entwurfsbegründung",
+    "reasoning_fact": "Überprüfbare Fakten",
+    "reasoning_computed": "Berechnete Ergebnisse",
+    "reasoning_interpretation": "Architektonische Interpretation",
+    "reasoning_hypothesis": "Vorläufige Hypothese",
+    "reasoning_unknown": "Was wir noch nicht wissen",
+    "reasoning_explore": "Vorhandene Fähigkeit erkunden",
+    "reasoning_no_decision": "Diese Erklärung erzeugt keine Empfehlung, keinen Gewinner und keine Entscheidung.",
+    "reasoning_compare_prompt": "Erklärbaren Vergleich vorbereiten.",
+    "reasoning_why_prompt": "Nachvollziehbare Grundlage vorbereiten.",
+    "reasoning_hypothesis_prompt": "Begrenzte Hypothese vorbereiten.",
+    "reasoning_spatial_prompt": "Räumliche Lesart vorbereiten."
   }
 }

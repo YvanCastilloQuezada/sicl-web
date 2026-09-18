@@ -858,6 +858,18 @@
     "goal_review_visual_evidence": "проверить визуальные свидетельства",
     "goal_explore_design_alternatives": "изучить варианты",
     "goal_compare_alternatives": "сравнить варианты",
-    "goal_prepare_registered_ar_view": "подготовить зарегистрированный AR-вид"
+    "goal_prepare_registered_ar_view": "подготовить зарегистрированный AR-вид",
+    "reasoning_title": "Обоснование проектного решения",
+    "reasoning_fact": "Проверяемые факты",
+    "reasoning_computed": "Вычисленные результаты",
+    "reasoning_interpretation": "Архитектурная интерпретация",
+    "reasoning_hypothesis": "Предварительная гипотеза",
+    "reasoning_unknown": "Чего мы пока не знаем",
+    "reasoning_explore": "Открыть существующую возможность",
+    "reasoning_no_decision": "Это объяснение не создает рекомендацию, победителя или решение.",
+    "reasoning_compare_prompt": "Подготовка объяснимого сравнения.",
+    "reasoning_why_prompt": "Подготовка проверяемого основания.",
+    "reasoning_hypothesis_prompt": "Подготовка ограниченной гипотезы.",
+    "reasoning_spatial_prompt": "Подготовка пространственного прочтения."
   }
 }

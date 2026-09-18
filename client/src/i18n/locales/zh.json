@@ -858,6 +858,18 @@
     "goal_review_visual_evidence": "审查视觉证据",
     "goal_explore_design_alternatives": "探索方案",
     "goal_compare_alternatives": "比较方案",
-    "goal_prepare_registered_ar_view": "准备已注册的 AR 视图"
+    "goal_prepare_registered_ar_view": "准备已注册的 AR 视图",
+    "reasoning_title": "设计推理",
+    "reasoning_fact": "可验证事实",
+    "reasoning_computed": "计算结果",
+    "reasoning_interpretation": "建筑解释",
+    "reasoning_hypothesis": "临时假设",
+    "reasoning_unknown": "我们仍然不知道的内容",
+    "reasoning_explore": "探索现有能力",
+    "reasoning_no_decision": "此解释不会创建建议、胜者或决策。",
+    "reasoning_compare_prompt": "正在准备可解释的比较。",
+    "reasoning_why_prompt": "正在准备可追溯依据。",
+    "reasoning_hypothesis_prompt": "正在准备有边界的假设。",
+    "reasoning_spatial_prompt": "正在准备空间解读。"
   }
 }

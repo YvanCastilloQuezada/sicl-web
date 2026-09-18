@@ -858,6 +858,18 @@
     "goal_review_visual_evidence": "rivedere evidenze visive",
     "goal_explore_design_alternatives": "esplorare alternative",
     "goal_compare_alternatives": "confrontare alternative",
-    "goal_prepare_registered_ar_view": "preparare una vista AR registrata"
+    "goal_prepare_registered_ar_view": "preparare una vista AR registrata",
+    "reasoning_title": "Ragionamento progettuale",
+    "reasoning_fact": "Fatti verificabili",
+    "reasoning_computed": "Risultati calcolati",
+    "reasoning_interpretation": "Interpretazione architettonica",
+    "reasoning_hypothesis": "Ipotesi provvisoria",
+    "reasoning_unknown": "Ciò che ancora non sappiamo",
+    "reasoning_explore": "Esplora capacità esistente",
+    "reasoning_no_decision": "Questa spiegazione non crea raccomandazioni, vincitori o decisioni.",
+    "reasoning_compare_prompt": "Preparazione di un confronto spiegabile.",
+    "reasoning_why_prompt": "Preparazione della base tracciabile.",
+    "reasoning_hypothesis_prompt": "Preparazione di un’ipotesi limitata.",
+    "reasoning_spatial_prompt": "Preparazione di una lettura spaziale."
   }
 }
