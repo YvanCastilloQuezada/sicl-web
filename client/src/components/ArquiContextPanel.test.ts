@@ -56,16 +56,16 @@ describe("ArquiContextPanel", () => {
     expect(onNavigate).toHaveBeenCalledWith("context");
   });
 
-  it("renders the invariant ARQUI identity and toggles compact/expanded presentation", async () => {
+  it("renders the invariant ARKI identity and toggles compact/expanded presentation", async () => {
     clientMock.listEvidence.mockResolvedValue([]);
     clientMock.listSpatialRegistrations.mockResolvedValue({ registrations: [] });
     renderPanel("P-3", vi.fn());
     await waitFor(() => expect(screen.getByTestId("arqui-avatar")).toBeTruthy());
-    expect(screen.getByText("ARQUI")).toBeTruthy();
+    expect(screen.getByText("ARKI")).toBeTruthy();
     expect(screen.getByText("Your contextual architectural assistant")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Collapse ARQUI" }));
+    fireEvent.click(screen.getByRole("button", { name: "Collapse ARKI" }));
     expect(screen.queryByText("Contextual guidance")).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Expand ARQUI" }));
+    fireEvent.click(screen.getByRole("button", { name: "Expand ARKI" }));
     expect(screen.getByText("Contextual guidance")).toBeTruthy();
   });
 

@@ -1,8 +1,8 @@
-# SiMS-DeI / SICL — Manual operativo desde cero
+# ARKI / SICL — Manual operativo desde cero
 
 **Estado:** documento operativo independiente
 
-**Sistema:** SiMS-DeI — Sistema de Inteligencia de Diseño Espacial Multiescala
+**Sistema:** ARKI — Sistema de Inteligencia de Diseño Espacial Multiescala
 
 **Lenguaje:** SICL — Spatial Intelligence Command Language
 

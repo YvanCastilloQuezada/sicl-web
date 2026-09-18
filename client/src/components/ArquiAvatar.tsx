@@ -11,7 +11,7 @@ const stateColors = {
 
 export default function ArquiAvatar({ size = "md", state = "ready", className = "" }: Props) {
   const dimension = size === "sm" ? "h-10 w-10" : "h-14 w-14";
-  return <span className={`relative inline-flex shrink-0 items-center justify-center rounded-full bg-[#f4f1ea] ${dimension} ${className}`} aria-label="ARQUI" data-testid="arqui-avatar">
+  return <span className={`relative inline-flex shrink-0 items-center justify-center rounded-full bg-[#f4f1ea] ${dimension} ${className}`} aria-label="ARKI" data-testid="arqui-avatar">
     <span className="absolute left-[18%] right-[18%] top-[10%] h-[36%] rounded-[55%_55%_42%_42%] border-2 border-[#d9dde0] bg-white shadow-sm" aria-hidden="true" />
     <span className="absolute left-[14%] right-[14%] top-[35%] h-[31%] rounded-[42%] bg-[#252b31] shadow-inner" aria-hidden="true"><span className="absolute left-[24%] top-[31%] h-[22%] w-[18%] rounded-full bg-[#f9d24a]" /><span className="absolute right-[24%] top-[31%] h-[22%] w-[18%] rounded-full bg-[#f9d24a]" /></span>
     <span className="absolute bottom-[8%] left-[26%] right-[26%] h-[29%] rounded-[42%_42%_30%_30%] bg-[#f2c300]" aria-hidden="true" />

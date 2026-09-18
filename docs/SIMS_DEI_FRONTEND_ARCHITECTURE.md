@@ -1,14 +1,20 @@
-# SiMS-DeI / SICL — Arquitectura del Frontend
+# ARKI / SICL — Arquitectura del Frontend
 
 **Versión documental:** 2.2 + Guided UX
 
+## Identidad actual
+
+`ARKI` es la identidad actual del producto, del software y de la inteligencia de diseño arquitectónico. `SICL` es el lenguaje formal de inteligencia espacial y `SICL Core` es la capa canónica de semántica y contrato. El arquitecto humano mantiene la autoridad final.
+
+El mapeo histórico es: `SiMS-DeI` → `ARKI` como identidad de producto; `ARQUI` → `ARKI` como identidad de la inteligencia arquitectónica y de su persona visual. Los nombres anteriores permanecen únicamente en documentación histórica, referencias técnicas o compatibilidad justificada.
+
 ## 1. Propósito
 
-El frontend `sims-dei-web` es la interfaz operativa de SiMS-DeI. Presenta el contexto del proyecto, guía el recorrido mínimo Camino A, consulta el Core remoto y expone herramientas de ayuda para aprender SICL. No es la autoridad del dominio y no sustituye la validación del Core.
+El frontend `sims-dei-web` es la interfaz operativa de ARKI. Presenta el contexto del proyecto, guía el recorrido mínimo Camino A, consulta el Core remoto y expone herramientas de ayuda para aprender SICL. No es la autoridad del dominio y no sustituye la validación del Core.
 
 ## 2. Distinción fundamental
 
-**SiMS-DeI** es el sistema de inteligencia de diseño espacial multiescala. Define el contexto de decisión, la organización de entidades, la trazabilidad y la relación entre escalas.
+**ARKI** es la inteligencia de diseño arquitectónico que ayuda a comprender, diseñar, generar, analizar, simular, comparar, criticar y revisar alternativas espaciales. Define la experiencia del producto, mientras que el Core conserva la semántica canónica.
 
 **SICL** es el Spatial Intelligence Command Language. Define la sintaxis formal de las operaciones que el usuario puede enviar al Core. La Command Bar traduce la interacción de la interfaz en comandos canónicos; no traduce ni modifica la semántica del protocolo.
 

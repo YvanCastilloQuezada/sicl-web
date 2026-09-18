@@ -14,7 +14,7 @@ export function buildHousePresentation(plan: ResidentialPlan = generateVerifiedR
     projectId: plan.projectId,
     alternativeId: plan.alternativeId,
     modelVersion: "HOUSE-001-EXPLICIT:v1",
-    title: "HOUSE-001 · ARQUI",
+    title: "HOUSE-001 · ARKI",
     subtitle: "Architectural presentation · N1 + N2 · Visual First / Data on Demand",
     levels: ["N1", "N2"].map((levelId) => ({ levelId, roomIds: roomsByLevel(levelId).map((room) => room.id), areaM2: roomsByLevel(levelId).reduce((sum, room) => sum + room.areaM2, 0), state: "COMPUTED" })),
     visibleLayers: ["SPACE_BOUNDARY", "SPACE_LABEL", "AREA", "FUNCTIONAL_ZONE", "CIRCULATION", "CORE", "NORTH", "DAYLIGHT_PROXY", "AMBIENT_THERMAL_CONTEXT", "MATERIAL_PROXY", "EPISTEMIC_WARNING"],

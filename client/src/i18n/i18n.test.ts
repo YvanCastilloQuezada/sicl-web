@@ -20,6 +20,15 @@ describe("i18n core", () => {
     expect(i18n.t("nav.project")).toBe("项目");
   });
 
+  it("keeps ARKI as the invariant visible identity across all locales", async () => {
+    for (const language of ["es", "en", "pt", "it", "fr", "de", "ru", "zh"]) {
+      await i18n.changeLanguage(language);
+      expect(i18n.t("header.title")).toBe("ARKI");
+      expect(i18n.t("header.subtitle")).toBe("ARKI · SICL");
+      expect(i18n.t("arqui.title")).toBe("ARKI");
+    }
+  });
+
   it("exposes the agreed localStorage persistence key", () => {
     expect(I18N_STORAGE_KEY).toBe("sims-dei-lang");
     expect(i18n.options.detection).toMatchObject({
@@ -31,7 +40,7 @@ describe("i18n core", () => {
   it("falls back to Spanish for an unsupported language", async () => {
     await i18n.changeLanguage("xx");
     expect(i18n.language).toBe("es");
-    expect(i18n.t("header.title")).toBe("SiMS-DeI");
+    expect(i18n.t("header.title")).toBe("ARKI");
   });
 
   it("normalizes browser regional language codes", () => {
