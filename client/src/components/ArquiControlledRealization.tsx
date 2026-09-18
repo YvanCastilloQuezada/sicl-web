@@ -7,6 +7,8 @@ import { apiErrorMessage, siclClient, type CoreProject } from "@/api/sicl-client
 import { SpatialSvgViewer, type Metrics, type SpatialRepresentation } from "./UPAO001SpatialViewer";
 import { buildA14Plan, deriveA14Coverage, readbackA14, type A14Capabilities, type A14Readback, type ArchitecturalRealizationPlan } from "./arquiControlledRealization";
 import ArquiArchitecturalReading from "./ArquiArchitecturalReading";
+import ArquiDesignCritic from "./ArquiDesignCritic";
+import { readArchitecturalResult } from "./arquiArchitecturalReading";
 import type { ArchitecturalStrategy } from "./arquiArchitecturalSynthesis";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
 
@@ -93,6 +95,7 @@ export default function ArquiControlledRealization({ projectId, project, strateg
     {readback && <div className="mt-3 rounded border border-emerald-300 bg-emerald-50 p-3 text-sm text-emerald-950" role="status"><p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="h-4 w-4" />{t("arqui.a14_readback")}: {readback.intentPreservation}</p><p className="mt-1 text-xs">{t("arqui.a14_source_result")}: {readback.sourceAlternativeId} → {readback.resultAlternativeId ?? "—"}</p><p className="mt-1 text-xs">{readback.preservationEvidence.join(" · ") || t("arqui.a14_unknown_preservation")}</p><p className="mt-1 text-xs">{readback.falseSuccess ? t("arqui.a14_false_success") : t("arqui.a14_geometry_verified")}</p></div>}
     {representation && <div className="mt-3"><SpatialSvgViewer representation={representation} metrics={metrics} language={i18n.language.split("-")[0]} /></div>}
     {representation && <div className="mt-3"><ArquiArchitecturalReading representation={representation} organization={organization} plan={plan} /></div>}
+    {representation && <div className="mt-3"><ArquiDesignCritic reading={readArchitecturalResult(representation, organization, plan)} /></div>}
     <p className="mt-3 text-xs text-muted-foreground">{t("arqui.a14_no_decision")}</p>
   </Card>;
 }
