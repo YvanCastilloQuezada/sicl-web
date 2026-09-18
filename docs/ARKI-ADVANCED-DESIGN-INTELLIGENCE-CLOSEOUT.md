@@ -1,102 +1,117 @@
-# ARKI — Advanced Design Intelligence D1–D8 Closeout
+# ARKI — Advanced Design Intelligence D1–D16 Closeout
 
 ## Executive result
 
-The D1–D8 macroorder is implemented as a bounded Web-side architectural design exploration layer. It reuses the frozen A21 configuration, canonical `SpatialRepresentation`, existing `SpatialSvgViewer`, K4–K7 knowledge flow and K8–K11 real-source pilot. Core, Core Contract, persistence, infrastructure and deployment were not changed.
+**D1–D16 = PASS_WITH_OBSERVATIONS.** The authorized Web-side layer now composes the frozen A21 spatial state, K1–K11 knowledge program, controlled alternatives, vertical circulation, critique, site reasoning, program adaptation, constraint analysis, structural awareness, material/envelope reasoning, multi-scale coherence and deterministic change impact.
 
-The result proves controlled design exploration rather than autonomous architectural decision-making. Every alternative remains a hypothesis. Human Architect authority is preserved.
+This is **architectural design intelligence under human authority**, not autonomous architecture, structural engineering, construction BIM, regulatory certification or performance simulation. Core, Core Contract, persistence and infrastructure remain unchanged.
 
-## D1 — Real vertical circulation
+## D1–D8 baseline
 
-D1 adds the minimum spatial representation of a vertical connection between N1 and N2. The representation includes identity, source and destination levels, footprint, entry, exit, direction, occupied region, connection relationships, provenance and epistemic status.
+The previously completed D1–D8 capabilities remain frozen and verified: bounded vertical-circulation representation, three meaningful A/B/C hypotheses, explicit deterministic variation, three-generation lineage, knowledge-grounded revision, environmental and regulatory pressures, multi-dimensional critique and iterative visual exploration.
 
-It explicitly separates `STAIR_GEOMETRY` from `CODE_COMPLIANT_STAIR`, and `VERTICAL_CONNECTION` from `ACCESSIBLE_ROUTE`. Structural design, riser/tread compliance, fire compliance and accessibility compliance remain unassessed.
+The D1–D8 proof continues to preserve `HUMAN_ARCHITECT_FINAL`, `NO_WINNER`, `NO_DECISION`, `UNKNOWN`, immutable parents and explicit provenance.
 
-**Result:** `D1_VERTICAL_CIRCULATION = PROVEN` and `VERTICAL_CIRCULATION_REALIZATION = PROVEN` within the controlled representation boundary.
+## D9 — Site-to-building reasoning
 
-## D2 — Multiple architectural alternatives
+D9 establishes the chain `SITE/CONTEXT → SITE CONDITIONS → DESIGN PRESSURES → BUILDING RESPONSE → LEVEL ORGANIZATION → SPACE ORGANIZATION`. The current site is a synthetic local envelope. Survey geometry, frontage, surrounding context, real orientation and solar exposure remain `UNKNOWN`.
 
-Three alternatives are generated from the same HOUSE-A21 program, site envelope, relationships, zoning intent and constraints:
+Site-derived implications are not treated as facts. Each implication carries source, evidence, scope and unknowns. Site-to-space links are retained through placement IDs. Cross-scale reasoning is `PARTIAL` because real cadastral and contextual evidence is unavailable.
 
-| Alternative | Strategy | Architectural distinction |
-|---|---|---|
-| `HOUSE-A21-D2-A` | Compact privacy | Reduced outdoor opening and stronger compact/private organization |
-| `HOUSE-A21-D2-B` | Courtyard social | Enlarged protected outdoor relationship and social void |
-| `HOUSE-A21-D2-C` | Separated masses | Stronger distinction between social and service groupings |
+## D10 — Programmatic change and adaptation
 
-They differ in spatial organization and relationship emphasis. They are not random perturbations and are not the same geometry with new IDs. No winner is selected.
+D10 introduces a bounded program change: adding an optional `STUDY` space. The system records the base program, change type, impacted relationships, affected zones, affected circulation, unaffected program identifiers, revision hypothesis and direct geometry traceability.
 
-**Result:** `D2_MULTIPLE_ALTERNATIVES = PROVEN`, `MULTIPLE_DESIGN_ALTERNATIVES = PROVEN`, `MEANINGFUL_VARIATION = PASS`, `FAKE_VARIATION = NONE`.
+The base configuration is not blindly regenerated. The new space remains a hypothesis and requires human authorization before any actual product mutation.
 
-## D3 — Explicit deterministic variation
+## D11 — Constraint-driven resolution
 
-The variation mechanism records explicit variables, values, basis and expected effect. The current proof includes outdoor relationship and organization variables. Variation is deterministic and preserves program identifiers, unknowns, provenance and hypothesis status.
+D11 distinguishes constraints from preferences and unknowns. It evaluates site boundary, program preservation, optional-study preference and accessibility uncertainty. It represents compatibility, tension, conflict and unknown states.
 
-**Result:** `D3_DESIGN_VARIATION = PROVEN`, `DESIGN_VARIABLES = EXPLICIT`, `VARIATION_DETERMINISM = PASS`.
+No constraint is silently violated. No automatic priority hierarchy is created. Resolution strategies are returned for human choice. A conflict is represented as `CONSTRAINT_CONFLICT` when a geometry escapes the site envelope.
 
-## D4 — Multi-generation lineage
+## D12 — Structural and constructability awareness
 
-The proof extends parent/child into three generations:
+D12 identifies structural implications, structural questions, constructability implications and specialist-evidence needs. The proof considers vertical alignment, large conceptual zones and the absence of construction assemblies.
 
-`GENERATION 0 → GENERATION 1 → GENERATION 2`
+`STRUCTURAL_PERFORMANCE = UNKNOWN`. No load calculation, adequacy claim, structural solver or unsupported geometry mutation was introduced.
 
-Each generation stores parent IDs, configuration IDs, revision IDs, human authorization references, affected geometry, unchanged geometry, reason, fresh-readback fingerprint, evaluation, provenance and source knowledge IDs where applicable. Parent configurations remain immutable and no destructive overwrite occurs.
+## D13 — Material, envelope and building-system reasoning
 
-**Result:** `D4_MULTI_GENERATION_LINEAGE = PROVEN`, `MULTI_GENERATION_LINEAGE = PROVEN`, `ANCESTRY_TRACEBACK = PASS`, `PARENT_IMMUTABILITY = PASS`.
+D13 represents material intentions, envelope strategies and system-space implications. Examples include opaque/light enclosure as a design intention, protected/exposed opening review, conceptual envelope continuity, service-zone demand and maintenance-access questions.
 
-## D5 — Knowledge-grounded design
+These are not material specifications, construction details, manufacturer selections, thermal values or MEP engineering. Full BIM expansion remains inactive.
 
-D5 composes the completed knowledge flow:
+## D14 — Multi-scale architectural coherence
 
-`PROJECT STATE → QUESTION → K4 RETRIEVAL → K5 NEED → K6 FINDINGS → K7 SYNTHESIS → CRITIQUE → PROVISIONAL IMPLICATION → HUMAN AUTHORIZATION → REVISION HYPOTHESIS → GEOMETRIC REVISION`
+D14 evaluates a controlled program change across `SPACE`, `LEVEL`, `BUILDING`, `SITE` and `ELEMENT`. It classifies effects as coherent, potential cross-scale tension, cross-scale conflict or unknown.
 
-The bioclimatic source-derived knowledge IDs are attached to the authorized revision hypothesis and to the generation provenance. This is traceability, not automatic authorization. The proof does not promote a knowledge claim to a requirement or decision.
+The added study is a space-level modification that may affect N1 circulation and building program coherence while remaining contained within the synthetic site. Element-level construction consequences remain unknown.
 
-**Result:** `D5_KNOWLEDGE_GROUNDED_DESIGN = PROVEN`, `KNOWLEDGE_GROUNDED_REVISION = PROVEN`, `SOURCE_TO_GEOMETRY_TRACEABILITY = PASS` within the controlled fixture.
+## D15 — Design robustness and change impact
 
-## D6 — Environmental and regulatory design pressures
+D15 models deterministic change propagation without inventing a numeric robustness score. The `ADD_SPACE STUDY` scenario records local impact, cross-scale impact, affected components, revision scope, unaffected components and propagation edges.
 
-The environmental pressure is classified as a `DESIGN_OPPORTUNITY`. It concerns orientation, openings, shading and cross-ventilation as design considerations. It does not claim thermal comfort, airflow or energy performance.
+The revision scope is `MULTI_SCALE`. `robustnessScore = NOT_CALCULATED`, preserving the distinction between controlled change analysis and probabilistic engineering reliability.
 
-The regulatory pressure is classified as `UNKNOWN_APPLICABILITY`. The RNE source is present, but jurisdiction, version, project scope and applicable rule have not been established for HOUSE-A21. No compliance claim is made.
+## D16 — Integrated architectural design intelligence
 
-**Result:** `D6_DESIGN_PRESSURES = PROVEN`, `ENVIRONMENTAL_DESIGN_PRESSURE = PROVEN`, `REGULATORY_DESIGN_PRESSURE = UNKNOWN`.
+D16 composes the full chain:
 
-## D7 — Multi-dimensional critique
+```text
+HUMAN DESIGN INTENT
+→ SITE / CONTEXT
+→ PROGRAM
+→ RELATIONSHIPS
+→ DESIGN PRESSURES
+→ REAL KNOWLEDGE
+→ SPECIALIST PERSPECTIVES
+→ CONSTRAINTS
+→ MULTIPLE HYPOTHESES
+→ SPATIAL CONFIGURATIONS
+→ PHYSICAL REALIZATION
+→ VERTICAL CIRCULATION
+→ READBACK
+→ CRITIQUE
+→ STRUCTURAL / CONSTRUCTABILITY AWARENESS
+→ MATERIAL / ENVELOPE / SYSTEM AWARENESS
+→ MULTI-SCALE COHERENCE
+→ TRADE-OFFS
+→ HUMAN AUTHORIZATION
+→ GEOMETRIC REVISION HYPOTHESIS
+→ CHILD GENERATION
+→ FRESH READBACK
+→ CHANGE IMPACT
+→ RE-EVALUATION
+→ VISUAL COMPARISON
+→ HUMAN ARCHITECT
+```
 
-Each alternative receives structured critique across the evidence-supported dimensions of function, spatial relationships, environmental response and regulatory pressure. Every item preserves observation, interpretation, evidence, knowledge support, unknowns, limitations and design implication.
+The integrated proof uses HOUSE-A21, the three D2 alternatives, the K11 Housing/Bioclimatic knowledge path, D6 pressures, D7 critique, D10 adaptation, D11 constraints, D12 structural awareness, D13 material/envelope reasoning, D14 coherence and D15 change impact. The existing `SpatialSvgViewer` remains the renderer. The visual panel now exposes alternatives and generation lineage without adding a second rendering system.
 
-The critique does not produce a score, ranking, recommendation or winner. Structural, economic, accessibility, constructability and performance claims remain unknown where evidence is absent.
+## Design quality model
 
-**Result:** `D7_MULTI_DIMENSIONAL_CRITIQUE = PROVEN`.
+Quality is represented as structured dimensions rather than one score. The current evidence-supported dimensions are functional, spatial, circulation, privacy, environmental, regulatory, structural awareness, constructability, material, envelope, multi-scale coherence, robustness and architectural intent. No universal beauty score, architecture score, ranking or winner is created.
 
-## D8 — Iterative architectural design evolution
+## Intent, rationale and causal traceability
 
-The integrated proof combines program, design pressures, real knowledge, three alternatives, canonical spatial representations, structured critique, trade-offs, human-authorized revision hypotheses, three generations, fresh readback fingerprints, re-evaluation and visual comparison through the existing `SpatialSvgViewer`.
+The integrated result records original intent, revision and impact. The current controlled revision modifies intent by adding an optional study and therefore remains subject to human acceptance.
 
-The visual panel provides controlled A/B/C inspection and displays the design-pressure boundaries. The panel is UI-minimal and does not redesign the application.
+The structured rationale stores trigger, observed issue, evidence, knowledge support, constraint, trade-off, provisional implication, authorization reference, affected geometry and result. It is a concise design record, not chain-of-thought.
 
-The fixture contains explicit human authorization references. ARKI does not fabricate a human choice. The selected alternative field identifies the controlled revision path used by the proof; it is not a winner or recommendation.
+The causal trace is:
 
-**Result:** `D8_ITERATIVE_DESIGN_EVOLUTION = PROVEN`, `ITERATIVE_DESIGN_EVOLUTION = PROVEN`, `MULTI_GENERATION_DESIGN = PROVEN`.
-
-## Evaluation and authority boundaries
-
-ARKI returns differences, strengths, weaknesses, tensions, unknowns, evidence gaps and provisional implications. It does not return best design, optimal design or automatic ranking. No automatic Pareto winner, weighted utility function, genetic algorithm or autonomous optimization was added.
-
-The following remain explicitly unestablished: structural performance, environmental performance, regulatory compliance, accessibility compliance, constructability and economic implication.
-
-## Cross-scale traceability
-
-The current proof preserves the supported chain `SITE → BUILDING/FOOTPRINT → LEVEL → SPACE → ARCHITECTURAL ELEMENT` through parent IDs, level IDs, placement IDs and element metadata. Full territorial or GIS cross-scale semantics are not present in this proof.
-
-**Result:** `CROSS_SCALE_TRACEABILITY = PARTIAL`.
-
-## Validation
-
-The focused D1–D8 test suite contains five tests covering real vertical geometry, three meaningful alternatives, explicit variation, multi-generation lineage, knowledge traceability, environmental and regulatory pressure classification, multi-dimensional critique, visual inspectability and negative authority controls.
-
-Before final closeout, the complete Web suite, the K1–K11 regressions, TypeScript, production build and `git diff --check` are run. Existing warnings about large chunks, Three.js deprecation and jsdom canvas support do not constitute failures.
+```text
+SOURCE
+→ K4 KNOWLEDGE
+→ K6 FINDING
+→ K7 SYNTHESIS
+→ D6 PRESSURE
+→ D7 CRITIQUE
+→ D10 PROGRAM CHANGE
+→ D15 IMPACT
+→ D10 STUDY HYPOTHESIS GEOMETRY
+```
 
 ## Final classification
 
@@ -110,23 +125,39 @@ D5_KNOWLEDGE_GROUNDED_DESIGN = PROVEN
 D6_DESIGN_PRESSURES = PROVEN
 D7_MULTI_DIMENSIONAL_CRITIQUE = PROVEN
 D8_ITERATIVE_DESIGN_EVOLUTION = PROVEN
+D9_SITE_TO_BUILDING_REASONING = PROVEN
+D10_PROGRAMMATIC_ADAPTATION = PROVEN
+D11_CONSTRAINT_DRIVEN_DESIGN = PROVEN
+D12_STRUCTURAL_CONSTRUCTABILITY_AWARENESS = PROVEN
+D13_MATERIAL_ENVELOPE_SYSTEM_REASONING = PROVEN
+D14_MULTI_SCALE_COHERENCE = PROVEN
+D15_DESIGN_ROBUSTNESS_CHANGE_IMPACT = PROVEN
+D16_INTEGRATED_DESIGN_INTELLIGENCE = PROVEN
 REAL_STAIR_GEOMETRY = PROVEN
-VERTICAL_CIRCULATION_REALIZATION = PROVEN
 MULTIPLE_DESIGN_ALTERNATIVES = PROVEN
-MEANINGFUL_VARIATION = PASS
-DESIGN_VARIABLES = EXPLICIT
-VARIATION_DETERMINISM = PASS
 MULTI_GENERATION_LINEAGE = PROVEN
-ANCESTRY_TRACEBACK = PASS
 KNOWLEDGE_GROUNDED_REVISION = PROVEN
 SOURCE_TO_GEOMETRY_TRACEABILITY = PASS
-ENVIRONMENTAL_DESIGN_PRESSURE = PROVEN
-REGULATORY_DESIGN_PRESSURE = UNKNOWN
-MULTI_DIMENSIONAL_CRITIQUE = PROVEN
+SITE_TO_SPACE_TRACEABILITY = PASS
+PROGRAM_TO_GEOMETRY_TRACEABILITY = PASS
+CONSTRAINT_CONFLICT_DETECTION = PROVEN
+STRUCTURAL_AWARENESS = PROVEN
+CONSTRUCTABILITY_AWARENESS = PROVEN
+MATERIAL_DESIGN_REASONING = PROVEN
+ENVELOPE_DESIGN_REASONING = PROVEN
+BUILDING_SYSTEM_SPATIAL_AWARENESS = PROVEN
+MULTI_SCALE_COHERENCE = PROVEN
+DESIGN_CHANGE_IMPACT = PROVEN
+IMPACT_PROPAGATION = PROVEN
+DESIGN_INTENT_TRACEABILITY = PASS
+DESIGN_RATIONALE_TRACEABILITY = PASS
+DESIGN_CAUSAL_TRACEABILITY = PASS
 ITERATIVE_DESIGN_EVOLUTION = PROVEN
-CROSS_SCALE_TRACEABILITY = PARTIAL
+CROSS_SCALE_DESIGN_REASONING = PARTIAL
 STRUCTURAL_PERFORMANCE = UNKNOWN
 ENVIRONMENTAL_PERFORMANCE = UNKNOWN
+AIRFLOW_PERFORMANCE = UNKNOWN
+ACCESSIBILITY_COMPLIANCE = UNKNOWN
 REGULATORY_COMPLIANCE = UNKNOWN
 AUTOMATIC_WINNER = NONE
 AUTOMATIC_DECISION = NOT_CREATED
@@ -143,8 +174,12 @@ MERGE = NO
 DEPLOYMENT = NO
 ```
 
+## Non-activation boundaries
+
+This order did not create K12, a new source or retrieval architecture, mass ingestion, RAG, embeddings, vector storage, production agents, a multi-agent framework, full BIM, Revit integration, a structural solver, CFD, energy simulation, MEP engineering, a cost database, a construction scheduler, server infrastructure or deployment changes.
+
 ## References
 
 [1]: https://arb.org.uk/architect-information/architects-code-standards-of-conduct-and-practice/ "Architects Code: Standards of Conduct and Practice"
-[2]: https://ases.org/passivesolardesign/ "Why Homeowners Should Use Passive Solar Design"
-[3]: https://www.gob.pe/institucion/vivienda/informes-publicaciones/2309793-reglamento-nacional-de-edificaciones-rne "Reglamento Nacional de Edificaciones - RNE"
+[2]: https://ases.org/passivesolardesign/ "Passive Solar Design"
+[3]: https://www.gob.pe/institucion/vivienda/informes-publicaciones/2309793-reglamento-nacional-de-edificaciones-rne "Reglamento Nacional de Edificaciones"

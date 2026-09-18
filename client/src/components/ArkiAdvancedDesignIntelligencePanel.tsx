@@ -17,6 +17,11 @@ export function ArkiAdvancedDesignIntelligencePanel() {
     </div>
     <SpatialSvgViewer representation={selected.representation} language="en" />
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">Generation lineage</p>
+      <div className="mt-2 flex flex-wrap gap-2" aria-label="Generation lineage">{exploration.generations.generations.map((generation) => <span key={generation.alternativeId} className="rounded-md bg-muted px-3 py-2 text-xs">G{generation.generation} · {generation.alternativeId}{generation.authorizationReference ? " · human-authorized" : ""}</span>)}</div>
+      <p className="mt-3 text-xs text-muted-foreground">Lineage is read-only in this panel. Parent geometry is preserved and no automatic revision is executed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
       <p className="text-sm font-semibold">Design pressures and boundaries</p>
       <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{exploration.pressures.map((pressure) => <li key={pressure.id}><strong>{pressure.family}</strong> · {pressure.classification} · {pressure.statement}</li>)}</ul>
       <p className="mt-3 text-xs text-muted-foreground">No score, ranking, winner, automatic decision, structural adequacy, environmental performance or regulatory compliance is claimed.</p>
