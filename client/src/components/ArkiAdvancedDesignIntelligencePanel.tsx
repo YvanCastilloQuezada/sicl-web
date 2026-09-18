@@ -3,6 +3,7 @@ import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
 import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
 import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
+import { runS2Proof } from "./arkiAdvancedSpatialEditing";
 import { buildD17D32Proof } from "./arkiWorldClassDesignIntelligence";
 import { SpatialSvgViewer } from "./UPAO001SpatialViewer";
 
@@ -12,6 +13,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const engineering = buildEngineeringIntelligence("HOUSING");
   const gdi = buildGDIProof();
   const s1 = runS1Proof();
+  const s2 = runS2Proof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
   return <section aria-label="ARKI advanced design intelligence" className="space-y-4">
@@ -56,6 +58,12 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="mt-1 text-sm text-muted-foreground">{s1.plan.spaces.length} spaces · {s1.plan.openings.length} openings · {s1.plan.shafts.length} shaft reservations · {s1.plan.routes.length} conceptual routes</p>
       <div className="mt-2 flex flex-wrap gap-2">{s1.plan.validations.filter((item) => item.id !== "UNKNOWN_PRESERVATION").map((item) => <span key={item.id} className={`rounded-md px-2 py-1 text-xs ${item.state === "PASS" ? "bg-muted" : "bg-amber-100"}`}>{item.id} · {item.state}</span>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">Conceptual floor plan only. Compliance, permit readiness and construction documentation are not claimed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">ARKI-S2 · Advanced spatial editing</p>
+      <p className="mt-1 text-sm text-muted-foreground">MOVE_ROOM · RESIZE_ROOM · OFFSET_ROOM · RESHAPE_SPATIAL_ELEMENT · EDIT_ROOM</p>
+      <p className="mt-2 text-xs text-muted-foreground">Proposal: {s2.proposed.kind} · authorization required · impact analysis before child mutation · fresh readback after execution.</p>
+      <p className="mt-2 text-xs">Authorized proof: <span className="font-semibold">{s2.authorized.state}</span> · Conflict control: <span className="font-semibold">{s2.conflict.state}</span> · Parent immutable: <span className="font-semibold">{s2.parentImmutable ? "YES" : "NO"}</span></p>
     </div>
   </section>;
 }
