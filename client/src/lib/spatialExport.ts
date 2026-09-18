@@ -21,7 +21,7 @@ function massRing(element: SpatialElement): Ring {
 }
 function fmt(n: number) { return Number(n.toFixed(6)); }
 function safeName(value: string) { return value.replace(/[^A-Za-z0-9_-]+/g, "_"); }
-export function exportFileName(meta: ExportMetadata, format: ExportFormat) { return `SiMS-DeI_${safeName(meta.projectId)}_${safeName(meta.alternativeId)}_${safeName(meta.alternativeName)}.${format}`; }
+export function exportFileName(meta: ExportMetadata, format: ExportFormat) { return `ARKI_${safeName(meta.projectId)}_${safeName(meta.alternativeId)}_${safeName(meta.alternativeName)}.${format}`; }
 function rings(rep: SpatialRepresentation) { return rep.elements.map((e) => ({ element: e, ring: e.element_type === "BuildingMass" ? massRing(e) : polygonRing(e), height: Number(e.metadata?.height ?? 0), base: Number(e.metadata?.base_elevation ?? 0) })).filter((x) => x.ring.length >= 3); }
 
 export function spatialToDxf(rep: SpatialRepresentation, meta: ExportMetadata): string {
@@ -36,7 +36,7 @@ export function spatialToDxf(rep: SpatialRepresentation, meta: ExportMetadata): 
     if (element.element_type === "BuildingMass" && Number(element.metadata?.height) > 0) lines.push("39", String(fmt(Number(element.metadata?.height))));
   }
   lines.push("0", "ENDSEC", "0", "EOF");
-  return lines.join("\n") + `\n999\nSiMS-DeI ${meta.projectId} ${meta.alternativeId} | units=${meta.units ?? "m"} | crs=${meta.coordinateSystem ?? "LOCAL_ENU"}\n`;
+  return lines.join("\n") + `\n999\nARKI ${meta.projectId} ${meta.alternativeId} | units=${meta.units ?? "m"} | crs=${meta.coordinateSystem ?? "LOCAL_ENU"}\n`;
 }
 
 function ifcEsc(value: string) { return value.replace(/'/g, "\\X2\\0027\\X0\\"); }
@@ -45,14 +45,14 @@ export function spatialToIfc(rep: SpatialRepresentation, meta: ExportMetadata): 
   const owner = add("IFCOWNERHISTORY", ["$", "$"]);
   const unit = add("IFCSIUNIT", ["*", ".LENGTHUNIT.", "$", ".METRE."]); const units = add("IFCUNITASSIGNMENT", [`(#${unit})`]);
   const ctx = add("IFCGEOMETRICREPRESENTATIONCONTEXT", ["'Body'", "'Model'", "3", "1.E-05", "#0", "#0"]);
-  const project = add("IFCPROJECT", [`'${ifcEsc(meta.projectId)}'`, `'${ifcEsc(meta.projectId)}'`, `'SiMS-DeI spatial/massing exchange'`, "$", "$", `#${owner}`, "$", `#${ctx}`, `#${units}`]);
+  const project = add("IFCPROJECT", [`'${ifcEsc(meta.projectId)}'`, `'${ifcEsc(meta.projectId)}'`, `'ARKI spatial/massing exchange'`, "$", "$", `#${owner}`, "$", `#${ctx}`, `#${units}`]);
   const site = add("IFCSITE", [`'${meta.projectId}-SITE'`, `'${meta.projectId}-SITE'`, "'Educational site'", "$", "$", "#0", "$", ".ELEMENT.", "(0.,0.,0.)", "$", "$", "$", "$", ".ELEMENT."]); const building = add("IFCBUILDING", [`'${meta.alternativeId}-BUILDING'`, `'${meta.alternativeName}'`, `'${ifcEsc(meta.alternativeName)} massing'`, "$", "$", "#0", "$", ".ELEMENT.", "(0.,0.,0.)", "$", "$", "$", "$", ".ELEMENT."]); const storey = add("IFCBUILDINGSTOREY", [`'${meta.alternativeId}-STOREY'`, `'${meta.alternativeName} Level 1'`, "'Spatial massing level'", "$", "$", "#0", "$", ".ELEMENT.", "(0.,0.,0.)", "0."]);
   const relProject = add("IFCRELAGGREGATES", [`'${meta.projectId}-REL'`, `#${owner}`, "'Project contains site'", "$", `#${project}`, `(#${site})`]); const relSite = add("IFCRELAGGREGATES", [`'${meta.projectId}-REL-SITE'`, `#${owner}`, "'Site contains building'", "$", `#${site}`, `(#${building})`]); const relBuilding = add("IFCRELAGGREGATES", [`'${meta.projectId}-REL-BLDG'`, `#${owner}`, "'Building contains storey'", "$", `#${building}`, `(#${storey})`]);
   const masses = deriveMasses(rep);
   for (const mass of masses) {
     const pts = mass.ring.map(([x,y]) => `(${fmt(x)},${fmt(y)})`).join(","); const poly = add("IFCPOLYLINE", [`(${mass.ring.map(([x,y]) => `#${add("IFCCARTESIANPOINT", [`(${fmt(x)},${fmt(y)},0.)`])}`).join(",")})`]); const profile = add("IFCARBITRARYCLOSEDPROFILEDEF", [".AREA.", `'${mass.element.id}'`, `#${poly}`]); const dir = add("IFCDIRECTION", ["(0.,0.,1.)"]); const pos = add("IFCAXIS2PLACEMENT3D", [`#${add("IFCCARTESIANPOINT", ["(0.,0.,0.)"] )}`, "$", "$"]); const solid = add("IFCEXTRUDEDAREASOLID", [`#${profile}`, `#${pos}`, `#${dir}`, String(fmt(mass.height))]); const shapeRep = add("IFCSHAPEREPRESENTATION", [`#${ctx}`, "'Body'", "'SweptSolid'", `(#${solid})`]); const shape = add("IFCPRODUCTDEFINITIONSHAPE", ["$", "$", `(#${shapeRep})`]); const proxy = add("IFCBUILDINGELEMENTPROXY", [`'${ifcEsc(mass.element.id)}'`, `#${owner}`, `'${ifcEsc(mass.element.id)}'`, `'${ifcEsc(meta.alternativeName)} massing object'`, "$", "$", `#${shape}`, "$", ".ELEMENT."]); add("IFCRELCONTAINEDINSPATIALSTRUCTURE", [`'${mass.element.id}-REL'`, `#${owner}`, "'Massing contained in storey'", "$", `(#${proxy})`, `#${storey}`]); void pts; void relProject; void relSite; void relBuilding;
   }
-  return `ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('SiMS-DeI spatial/massing exchange'),'2;1');\nFILE_NAME('${exportFileName(meta, "ifc")}',('${meta.timestamp ?? new Date().toISOString()}'),('SiMS-DeI'),'SiMS-DeI','SiMS-DeI','SiMS-DeI','');\nFILE_SCHEMA(('IFC4'));\nENDSEC;\nDATA;\n#0=IFCCARTESIANPOINT((0.,0.,0.));\n${e.join("\n")}\nENDSEC;\nEND-ISO-10303-21;\n`;
+  return `ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('ARKI spatial/massing exchange'),'2;1');\nFILE_NAME('${exportFileName(meta, "ifc")}',('${meta.timestamp ?? new Date().toISOString()}'),('ARKI'),'ARKI','ARKI','ARKI','');\nFILE_SCHEMA(('IFC4'));\nENDSEC;\nDATA;\n#0=IFCCARTESIANPOINT((0.,0.,0.));\n${e.join("\n")}\nENDSEC;\nEND-ISO-10303-21;\n`;
 }
 
 function bytes(text: string) { return new TextEncoder().encode(text); }
@@ -79,14 +79,14 @@ export function spatialToGlb(rep: SpatialRepresentation, meta: ExportMetadata): 
   const ys = positions.filter((_, i) => i % 3 === 1);
   const zs = positions.filter((_, i) => i % 3 === 2);
   const gltf = {
-    asset: { version: "2.0", generator: "SiMS-DeI" }, scene: 0,
+    asset: { version: "2.0", generator: "ARKI" }, scene: 0,
     scenes: [{ nodes: meshes.map((_, i) => i) }],
     nodes: meshes.map((_, i) => ({ mesh: i, name: `${meta.alternativeId}-mass-${i + 1}` })),
     meshes: meshes.map(() => ({ primitives: [{ attributes: { POSITION: 0 }, indices: 1 }] })),
     buffers: [{ byteLength: bin.length }],
     bufferViews: [{ buffer: 0, byteOffset: 0, byteLength: posBytes.length, target: 34962 }, { buffer: 0, byteOffset: posBytes.length, byteLength: idxBytes.length, target: 34963 }],
     accessors: [{ bufferView: 0, componentType: 5126, count: positions.length / 3, type: "VEC3", min: [Math.min(...xs), Math.min(...ys), Math.min(...zs)], max: [Math.max(...xs), Math.max(...ys), Math.max(...zs)] }, { bufferView: 1, componentType: 5125, count: indices.length, type: "SCALAR" }],
-    extras: { project_id: meta.projectId, alternative_id: meta.alternativeId, provenance: meta.provenance ?? "SiMS-DeI SpatialRepresentation" },
+    extras: { project_id: meta.projectId, alternative_id: meta.alternativeId, provenance: meta.provenance ?? "ARKI SpatialRepresentation" },
   };
   const jsonBytes = pad4(bytes(JSON.stringify(gltf)));
   const binBytes = pad4(bin);
