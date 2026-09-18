@@ -403,6 +403,9 @@ export const siclClient = {
   async linkDesignKnowledge(projectId: string, adoptedIntent: Record<string, unknown>): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intelligence/knowledge`, { method: "POST", body: JSON.stringify({ adopted_intent: adoptedIntent }) });
   },
+  async semanticReasoning(projectId: string, adoptedIntent: Record<string, unknown>, knowledge: Record<string, unknown>, alternative?: Record<string, unknown>, spatialScope?: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/semantic-reasoning`, { method: "POST", body: JSON.stringify({ payload: { adopted_intent: adoptedIntent, knowledge, alternative, spatial_scope: spatialScope }, actor: "architect-1" }) });
+  },
   async exploreDesignAlternative(projectId: string, baseAlternativeId: string, adoptedIntent: Record<string, unknown>, knowledge: Record<string, unknown>): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intelligence/explore`, { method: "POST", body: JSON.stringify({ base_alternative_id: baseAlternativeId, adopted_intent: adoptedIntent, knowledge }) });
   },
