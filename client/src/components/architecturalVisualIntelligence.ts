@@ -1,9 +1,10 @@
 import { buildHousePresentation, type EpistemicVisualState, type PresentationViewModel } from "./architecturalPresentation";
 import { generateVerifiedResidentialPlan, type ResidentialPlan } from "./residentialConstructivePlan";
+import { buildA29ReadModel, type A29ReadModel } from "./a29BoundaryConnectivity";
 
 export type VisualOverlay = { id: string; type: "DAYLIGHT_PROXY" | "THERMAL_CONTEXT" | "CIRCULATION" | "ACCESSIBILITY_EVIDENCE" | "REGULATORY_STATUS" | "CRITIQUE"; label: string; state: EpistemicVisualState; source: string; method: string; units: string; result: string };
 export type CoordinatedLevelView = { levelId: string; roomIds: string[]; coreIds: string[]; orientation: "NORTH_UP"; scale: "SHARED_SITE_SCALE"; stale: false };
-export type PresentationBoard = { id: string; title: string; blocks: string[]; viewModel: PresentationViewModel; overlays: VisualOverlay[]; legend: string[]; warnings: string[]; provenance: string[] };
+export type PresentationBoard = { id: string; title: string; blocks: string[]; viewModel: PresentationViewModel; anatomy: A29ReadModel; overlays: VisualOverlay[]; legend: string[]; warnings: string[]; provenance: string[] };
 export type ComparisonBoard = { alternatives: Array<{ alternativeId: string; modelVersion: string; levelIds: string[] }>; synchronized: boolean; winnerCreated: false; humanSelection: "NONE"; differences: string[]; tradeoffs: string[]; unresolved: string[] };
 export type PresentationRequest = "SHOW_PLAN" | "SHOW_ORGANIZATION" | "SHOW_CIRCULATION" | "SHOW_SOLAR" | "SHOW_CHANGED" | "PREPARE_REVIEW_BOARD";
 
@@ -24,8 +25,9 @@ export function buildTruthfulOverlays(plan: ResidentialPlan = generateVerifiedRe
 
 export function composeReviewBoard(plan: ResidentialPlan = generateVerifiedResidentialPlan()): PresentationBoard {
   const viewModel = buildHousePresentation(plan);
+  const anatomy = buildA29ReadModel(plan);
   const overlays = buildTruthfulOverlays(plan);
-  return { id: "HOUSE-001-REVIEW-BOARD", title: "HOUSE-001 · Architectural Review Board", blocks: [...viewModel.boardBlocks, "OVERLAY_LEGEND", "PROVENANCE"], viewModel, overlays, legend: ["PRIMARY_ARCHITECTURE", "FUNCTIONAL_ZONE", "ANALYTICAL_PROXY", "AMBIENT_CONTEXT", "HYPOTHESIS", "HUMAN_REVIEW_REQUIRED"], warnings: [...viewModel.warnings, ...overlays.filter((overlay) => overlay.state === "NOT_ASSESSED" || overlay.state === "REQUIRES_HUMAN_REVIEW").map((overlay) => `${overlay.label}: ${overlay.result}`)], provenance: [...viewModel.provenance, "A20-P1", "A20-P2", "A20-P3R", "A16"] };
+  return { id: "HOUSE-001-REVIEW-BOARD", title: "HOUSE-001 · Architectural Review Board", blocks: [...viewModel.boardBlocks, "BOUNDARY_INTERFACES", "CONNECTIONS", "OVERLAY_LEGEND", "PROVENANCE"], viewModel, anatomy, overlays, legend: ["PRIMARY_ARCHITECTURE", "FUNCTIONAL_ZONE", "ANALYTICAL_PROXY", "AMBIENT_CONTEXT", "BOUNDARY_INTERFACE", "CONNECTION_OBSERVED", "HYPOTHESIS", "HUMAN_REVIEW_REQUIRED"], warnings: [...viewModel.warnings, ...anatomy.warnings, ...overlays.filter((overlay) => overlay.state === "NOT_ASSESSED" || overlay.state === "REQUIRES_HUMAN_REVIEW").map((overlay) => `${overlay.label}: ${overlay.result}`)], provenance: [...viewModel.provenance, "A20-P1", "A20-P2", "A20-P3R", "A16", "A29.deriveA29Boundaries", "A29.deriveA29Connections"] };
 }
 
 export function comparePresentationStates(source: ResidentialPlan = generateVerifiedResidentialPlan(), result = source): ComparisonBoard {
