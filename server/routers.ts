@@ -8,7 +8,8 @@ import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject 
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
-import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCorePreference, createCoreProject, createCoreRecommendation, createCoreSpatialEvidence, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchCoreMediaDataUrl, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, reviewCoreSpatialEvidence } from "./coreHttpClient";
+import { analyzeVisualPhoto } from "./visualField";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -41,6 +42,50 @@ async function saveNext(ownerId: number, projectId: string, expectedVersion: num
 
 export const appRouter = router({
   system: systemRouter,
+  visualField: router({
+    analyze: protectedProcedure.input(z.object({ projectId: z.string().min(1), spatialScope: z.string().min(1), mediaId: z.string().min(1).optional(), imageDataUrl: z.string().startsWith("data:image/").optional() })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      if (!input.mediaId && !input.imageDataUrl) throw new TRPCError({ code: "BAD_REQUEST", message: "A persisted media_id or selected image is required" });
+      const imageDataUrl = input.mediaId ? await fetchCoreMediaDataUrl(input.projectId, input.mediaId) : input.imageDataUrl!;
+      const analysis = await analyzeVisualPhoto(imageDataUrl, { spatialScope: input.spatialScope, mediaId: input.mediaId });
+      const proposals = [];
+      for (let index = 0; index < analysis.observations.length; index += 1) {
+        const observation = analysis.observations[index];
+        const evidenceId = `VAI-${Date.now().toString(36).toUpperCase()}-${index + 1}`;
+        const created = await createCoreSpatialEvidence(input.projectId, {
+          evidence_id: evidenceId,
+          statement: observation.description,
+          evidence_type: "OBSERVATION",
+          spatial_scope: input.spatialScope,
+          observation_type: observation.observation_class,
+          epistemic_state: "AI_PROPOSED",
+          evidence_state: "AI_PROPOSED",
+          qualifier: observation.qualifier,
+          value: observation.value,
+          actor: "visual-analysis-provider",
+          source_kind: "AI_VISUAL_ANALYSIS",
+          method_version: "VISUAL-FIELD-INTELLIGENCE-01/P1",
+          media_id: input.mediaId,
+          photo_reference: input.mediaId,
+          unknowns: ["regulatory_status", "survey_measurement", "design_implication"],
+          provider: analysis.provider,
+          model: analysis.model,
+          analyzed_at: analysis.analyzed_at,
+          provider_explanation: observation.provider_explanation,
+          uncertainty: observation.uncertainty,
+          decision_created: false,
+        });
+        proposals.push({ evidence_id: evidenceId, ...observation, status: "AI_PROPOSED", provider: analysis.provider, model: analysis.model, created });
+      }
+      return { projectId: input.projectId, mediaId: input.mediaId ?? null, proposals, decisionCreated: false, humanReviewRequired: true };
+    }),
+    review: protectedProcedure.input(z.object({ projectId: z.string().min(1), evidenceId: z.string().min(1), action: z.enum(["CONFIRM", "CORRECT", "REJECT"]), correctedValue: z.unknown().optional(), correctedDescription: z.string().trim().optional(), reason: z.string().trim().min(1) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      const status = input.action === "REJECT" ? "REJECTED" : "APPROVED";
+      const review = await reviewCoreSpatialEvidence(input.projectId, input.evidenceId, { actor: String(ctx.user.id), authority: "PROJECT_ARCHITECT", status, review: input.action === "CORRECT" ? "HUMAN_CORRECTED" : `HUMAN_${input.action}`, reason: input.reason, review_action: input.action, corrected_value: input.correctedValue, corrected_description: input.correctedDescription, original_ai_proposal_preserved: true, decision_created: false });
+      return { evidenceId: input.evidenceId, action: input.action, review, decisionCreated: false };
+    }),
+  }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),

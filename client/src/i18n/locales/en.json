@@ -724,5 +724,16 @@
     "place_point": "Place point",
     "point_ready": "Point ready",
     "persisted": "Photo persisted and associated with the project."
+  },
+  "visual_field": {
+    "analyze": "Analyze visible conditions",
+    "persist_before_analyze": "Persist the photo before analysis.",
+    "analyzing": "Analyzing visible conditions…",
+    "proposals_ready": "AI-proposed observations are ready for human review.",
+    "proposals": "AI-proposed observations",
+    "review_hint": "Review each proposal before it becomes project information.",
+    "confirm": "Confirm",
+    "correct": "Correct",
+    "reject": "Reject"
   }
 }

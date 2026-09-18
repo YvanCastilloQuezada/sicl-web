@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { apiErrorMessage, siclClient, type SpatialEvidenceInput } from "@/api/sicl-client";
+import { analyzeVisualField, reviewVisualField } from "@/api/visual-field";
 
 const SCOPES = ["edificacion", "parcela_sitio", "zona_barrio_sector", "distrito_ciudad", "provincia_metropoli"];
 type Capture = { file: File; preview: string; capturedAt: string };
@@ -25,6 +26,8 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [mediaId, setMediaId] = useState<string>();
+  const [proposals, setProposals] = useState<Array<{ evidence_id: string; observation_class: string; description: string; qualifier: string; status: string }>>([]);
 
   const requestLocation = () => {
     if (!navigator.geolocation) { setLocationState("UNKNOWN"); return; }
@@ -63,10 +66,31 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
         source_kind: "USER / FIELD_CAPTURE",
         unknowns: ["photo_direction", ...(location ? [] : ["observation_point"])],
       };
-      if (capture) await siclClient.createPersistentSpatialEvidence(projectId, evidencePayload, capture.file);
+      if (capture) {
+        const saved = await siclClient.createPersistentSpatialEvidence(projectId, evidencePayload, capture.file);
+        const savedRecord = saved as { media_id?: unknown; evidence?: { media_id?: unknown } };
+        const persistedMediaId = typeof savedRecord.media_id === "string" ? savedRecord.media_id : typeof savedRecord.evidence?.media_id === "string" ? savedRecord.evidence.media_id : undefined;
+        setMediaId(persistedMediaId);
+      }
       else await siclClient.createSpatialEvidence(projectId, evidencePayload);
       if (capture) URL.revokeObjectURL(capture.preview);
       setCapture(undefined); setNote(""); setMessage(capture ? t("field_capture.persisted") : t("field_capture.captured")); onCaptured?.();
+    } catch (err) { setError(apiErrorMessage(err)); } finally { setBusy(false); }
+  };
+  const analyze = async () => {
+    if (!mediaId) { setError(t("visual_field.persist_before_analyze", "Persist the photo before analysis.")); return; }
+    setBusy(true); setError(""); setMessage(t("visual_field.analyzing", "Analyzing visible conditions…"));
+    try {
+      const result = await analyzeVisualField({ projectId, spatialScope: scope, mediaId });
+      setProposals(result.proposals.map((item) => ({ evidence_id: item.evidence_id, observation_class: item.observation_class, description: item.description, qualifier: item.qualifier, status: item.status })));
+      setMessage(t("visual_field.proposals_ready", "AI-proposed observations ready for human review."));
+    } catch (err) { setError(apiErrorMessage(err)); setMessage(""); } finally { setBusy(false); }
+  };
+  const review = async (proposal: typeof proposals[number], action: "CONFIRM" | "CORRECT" | "REJECT") => {
+    setBusy(true); setError("");
+    try {
+      await reviewVisualField({ projectId, evidenceId: proposal.evidence_id, action, reason: action === "CORRECT" ? "Architect corrected the visible observation." : `Architect selected ${action}.`, correctedDescription: action === "CORRECT" ? proposal.description : undefined });
+      setProposals((items) => items.map((item) => item.evidence_id === proposal.evidence_id ? { ...item, status: action === "CONFIRM" ? "HUMAN_CONFIRMED" : action === "CORRECT" ? "HUMAN_CORRECTED" : "REJECTED" } : item));
     } catch (err) { setError(apiErrorMessage(err)); } finally { setBusy(false); }
   };
   const pointX = location ? (location.longitude + 180) / 360 * 720 : 360;
@@ -94,10 +118,12 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1"><Button type="button" variant="outline" className="min-h-11" onClick={() => setPointMode((value) => !value)}><Pin className="mr-2 h-4 w-4" />{t("field_capture.place_point")}</Button><Button type="button" variant="outline" className="min-h-11" onClick={() => document.getElementById("field-observation")?.focus()}><MapPin className="mr-2 h-4 w-4" />{t("field_capture.observation")}</Button></div>
           <div><Label>{t("field_capture.note")}</Label><Textarea id="field-observation" value={note} onChange={(event) => setNote(event.target.value)} placeholder={t("field_capture.note_placeholder")} className="mt-1 min-h-20" /></div>
           <Button type="button" disabled={busy || (!capture && !note.trim())} onClick={confirm} className="min-h-12 w-full"><CheckCircle2 className="mr-2 h-4 w-4" />{busy ? t("field_capture.pending") : t("field_capture.confirm")}</Button>
+          {mediaId && <Button type="button" variant="secondary" disabled={busy} onClick={() => void analyze()} className="min-h-11 w-full">{t("visual_field.analyze", "Analyze visible conditions")}</Button>}
         </section>
       </div>
       <p className="text-xs text-muted-foreground">{t("field_capture.camera_hint")}</p>
       {message && <p role="status" className="border border-emerald-600/30 bg-emerald-50 p-3 text-sm text-emerald-950">{message}</p>}{error && <p role="alert" className="border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
+      {proposals.length > 0 && <section className="rounded-xl border border-primary/30 bg-background p-4" aria-label={t("visual_field.proposals", "AI-proposed observations")}><h3 className="font-semibold">{t("visual_field.proposals", "AI-proposed observations")}</h3><p className="mt-1 text-xs text-muted-foreground">{t("visual_field.review_hint", "Review each proposal before it becomes project information.")}</p><div className="mt-3 space-y-3">{proposals.map((proposal) => <article key={proposal.evidence_id} className="rounded-lg border border-border p-3"><div className="flex flex-wrap items-center justify-between gap-2"><span className="font-medium">{t(`visual_field.class_${proposal.observation_class}`, proposal.observation_class)}</span><span className="text-xs text-muted-foreground">{proposal.status} · {proposal.qualifier}</span></div><p className="mt-1 text-sm">{proposal.description}</p>{proposal.status === "AI_PROPOSED" && <div className="mt-3 flex flex-wrap gap-2"><Button size="sm" onClick={() => void review(proposal, "CONFIRM")}>{t("visual_field.confirm", "Confirm")}</Button><Button size="sm" variant="outline" onClick={() => void review(proposal, "CORRECT")}>{t("visual_field.correct", "Correct")}</Button><Button size="sm" variant="ghost" onClick={() => void review(proposal, "REJECT")}>{t("visual_field.reject", "Reject")}</Button></div>}</article>)}</div></section>}
     </CardContent>
   </Card>;
 }

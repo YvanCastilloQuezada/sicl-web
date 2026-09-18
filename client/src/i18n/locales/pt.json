@@ -724,5 +724,16 @@
     "place_point": "Colocar ponto",
     "point_ready": "Ponto pronto",
     "persisted": "Foto persistida e associada ao projeto."
+  },
+  "visual_field": {
+    "analyze": "Analisar condições visíveis",
+    "persist_before_analyze": "Persista a foto antes da análise.",
+    "analyzing": "Analisando condições visíveis…",
+    "proposals_ready": "Propostas de observação de IA prontas para revisão humana.",
+    "proposals": "Observações propostas por IA",
+    "review_hint": "Revise cada proposta antes que se torne informação do projeto.",
+    "confirm": "Confirmar",
+    "correct": "Corrigir",
+    "reject": "Rejeitar"
   }
 }

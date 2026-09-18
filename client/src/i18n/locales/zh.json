@@ -724,5 +724,16 @@
     "place_point": "放置点",
     "point_ready": "点已就绪",
     "persisted": "照片已持久化并关联到项目。"
+  },
+  "visual_field": {
+    "analyze": "分析可见条件",
+    "persist_before_analyze": "请先保存照片再进行分析。",
+    "analyzing": "正在分析可见条件…",
+    "proposals_ready": "AI 提出的观察结果已准备好供人工审核。",
+    "proposals": "AI 提出的观察结果",
+    "review_hint": "在将建议作为项目信息使用前请逐项审核。",
+    "confirm": "确认",
+    "correct": "更正",
+    "reject": "拒绝"
   }
 }

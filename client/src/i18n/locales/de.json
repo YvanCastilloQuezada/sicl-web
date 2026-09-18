@@ -724,5 +724,16 @@
     "place_point": "Punkt setzen",
     "point_ready": "Punkt bereit",
     "persisted": "Foto dauerhaft gespeichert und dem Projekt zugeordnet."
+  },
+  "visual_field": {
+    "analyze": "Sichtbare Bedingungen analysieren",
+    "persist_before_analyze": "Speichern Sie das Foto vor der Analyse.",
+    "analyzing": "Sichtbare Bedingungen werden analysiert…",
+    "proposals_ready": "KI-Vorschläge stehen zur menschlichen Prüfung bereit.",
+    "proposals": "Von der KI vorgeschlagene Beobachtungen",
+    "review_hint": "Prüfen Sie jeden Vorschlag, bevor er zu Projektinformation wird.",
+    "confirm": "Bestätigen",
+    "correct": "Korrigieren",
+    "reject": "Ablehnen"
   }
 }

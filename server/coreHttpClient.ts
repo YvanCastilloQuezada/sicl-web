@@ -137,3 +137,21 @@ export async function recordCoreHumanReview(projectId: string, payload: Record<s
 export async function recordCoreDecision(projectId: string, payload: Record<string, unknown>) {
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/decisions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...payload, actor: payload.actor ?? payload.actor_id ?? payload.decision_maker, authority: payload.authority ?? payload.authority_basis, statement: payload.statement ?? payload.rationale }) });
 }
+
+export async function createCoreSpatialEvidence(projectId: string, payload: Record<string, unknown>) {
+  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ payload }) });
+}
+
+export async function reviewCoreSpatialEvidence(projectId: string, evidenceId: string, payload: Record<string, unknown>) {
+  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence/${encodeURIComponent(evidenceId)}/review`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ payload }) });
+}
+
+export async function fetchCoreMediaDataUrl(projectId: string, mediaId: string): Promise<string> {
+  const base = coreUrl();
+  if (!base) throw new Error("SICL_CORE_URL is required");
+  const response = await fetch(`${base}/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence/media/${encodeURIComponent(mediaId)}`, { headers: serviceHeaders() });
+  if (!response.ok) throw await errorFromResponse(response);
+  const contentType = response.headers.get("content-type") || "image/jpeg";
+  const bytes = Buffer.from(await response.arrayBuffer());
+  return `data:${contentType};base64,${bytes.toString("base64")}`;
+}
