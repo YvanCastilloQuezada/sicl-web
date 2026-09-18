@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
 import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
+import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
 import { buildD17D32Proof } from "./arkiWorldClassDesignIntelligence";
 import { SpatialSvgViewer } from "./UPAO001SpatialViewer";
 
@@ -10,6 +11,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const worldClass = buildD17D32Proof();
   const engineering = buildEngineeringIntelligence("HOUSING");
   const gdi = buildGDIProof();
+  const s1 = runS1Proof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
   return <section aria-label="ARKI advanced design intelligence" className="space-y-4">
@@ -48,6 +50,12 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="mt-1 text-sm text-muted-foreground">{gdi.continuum.phases.length} controlled phases · {gdi.continuum.alternatives.length} hypotheses · {gdi.continuum.comparisons.length} descriptive comparisons</p>
       <div className="mt-2 flex flex-wrap gap-2">{gdi.continuum.alternatives.map((item) => <span key={item.id} className="rounded-md bg-muted px-2 py-1 text-xs">{item.id} · {item.dna.compositionFamily}</span>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">Distance describes difference, not quality. No automatic ranking, winner, decision or mutation is executed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">ARKI-S1 · Conceptual floor plan</p>
+      <p className="mt-1 text-sm text-muted-foreground">{s1.plan.spaces.length} spaces · {s1.plan.openings.length} openings · {s1.plan.shafts.length} shaft reservations · {s1.plan.routes.length} conceptual routes</p>
+      <div className="mt-2 flex flex-wrap gap-2">{s1.plan.validations.filter((item) => item.id !== "UNKNOWN_PRESERVATION").map((item) => <span key={item.id} className={`rounded-md px-2 py-1 text-xs ${item.state === "PASS" ? "bg-muted" : "bg-amber-100"}`}>{item.id} · {item.state}</span>)}</div>
+      <p className="mt-3 text-xs text-muted-foreground">Conceptual floor plan only. Compliance, permit readiness and construction documentation are not claimed.</p>
     </div>
   </section>;
 }
