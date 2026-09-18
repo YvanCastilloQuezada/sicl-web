@@ -1077,6 +1077,24 @@
     "a16_tradeoffs": "Trade-offs and open objectives",
     "a16_no_quality_score": "No quality, beauty or architecture score is created.",
     "a16_no_decision": "No winner, recommendation or Decision is created.",
-    "a16_no_mutation": "Geometry remains unchanged; autonomous critique→modify loops are disabled."
+    "a16_no_mutation": "Geometry remains unchanged; autonomous critique→modify loops are disabled.",
+    "a17_eyebrow": "CONTROLLED DESIGN REVISION",
+    "a17_title": "Explore one authorized revision",
+    "a17_description": "Select a bounded hypothesis, prepare it, authorize it, then read and critique the actual result again.",
+    "a17_hypothesis": "Selected hypothesis",
+    "a17_supported": "Supported existing operation",
+    "a17_parameter": "Mass separation (m)",
+    "a17_provenance": "Parameter provenance",
+    "a17_existing_operation_default": "Existing SET_GAP operation parameter; human editable.",
+    "a17_select": "Select hypothesis",
+    "a17_authorize": "Authorize operation",
+    "a17_execute": "Execute and re-read",
+    "a17_prepared_not_executed": "Prepared only. A second human authorization is still required.",
+    "a17_readback": "Independent readback",
+    "a17_geometry_changed": "Actual geometry changed and post-state was read.",
+    "a17_false_success": "False success rejected: geometry change not observed.",
+    "a17_source_result": "Source → result",
+    "a17_transition": "Finding transitions",
+    "a17_no_improvement_claim": "Change is not automatically an improvement; human evaluation remains required."
   }
 }

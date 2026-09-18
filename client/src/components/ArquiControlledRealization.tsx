@@ -9,6 +9,7 @@ import { buildA14Plan, deriveA14Coverage, readbackA14, type A14Capabilities, typ
 import ArquiArchitecturalReading from "./ArquiArchitecturalReading";
 import ArquiDesignCritic from "./ArquiDesignCritic";
 import { readArchitecturalResult } from "./arquiArchitecturalReading";
+import ArquiControlledRevision from "./ArquiControlledRevision";
 import type { ArchitecturalStrategy } from "./arquiArchitecturalSynthesis";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
 
@@ -96,6 +97,7 @@ export default function ArquiControlledRealization({ projectId, project, strateg
     {representation && <div className="mt-3"><SpatialSvgViewer representation={representation} metrics={metrics} language={i18n.language.split("-")[0]} /></div>}
     {representation && <div className="mt-3"><ArquiArchitecturalReading representation={representation} organization={organization} plan={plan} /></div>}
     {representation && <div className="mt-3"><ArquiDesignCritic reading={readArchitecturalResult(representation, organization, plan)} /></div>}
+    {representation && <div className="mt-3"><ArquiControlledRevision projectId={projectId} project={project} representation={representation} organization={organization} realizationPlan={plan} /></div>}
     <p className="mt-3 text-xs text-muted-foreground">{t("arqui.a14_no_decision")}</p>
   </Card>;
 }

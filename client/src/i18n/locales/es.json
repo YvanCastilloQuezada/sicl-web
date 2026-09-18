@@ -1077,6 +1077,24 @@
     "a16_tradeoffs": "Intercambios y objetivos abiertos",
     "a16_no_quality_score": "No se crea score de calidad, belleza o arquitectura.",
     "a16_no_decision": "No se crea ganador, recomendación ni Decision.",
-    "a16_no_mutation": "La geometría no cambia; los ciclos autónomos crítica→modificación están desactivados."
+    "a16_no_mutation": "La geometría no cambia; los ciclos autónomos crítica→modificación están desactivados.",
+    "a17_eyebrow": "REVISIÓN DE DISEÑO CONTROLADA",
+    "a17_title": "Explorar una revisión autorizada",
+    "a17_description": "Selecciona una hipótesis acotada, prepárala, autorízala y vuelve a leer y criticar el resultado real.",
+    "a17_hypothesis": "Hipótesis seleccionada",
+    "a17_supported": "Operación existente soportada",
+    "a17_parameter": "Separación de masas (m)",
+    "a17_provenance": "Proveniencia del parámetro",
+    "a17_existing_operation_default": "Parámetro de la operación SET_GAP existente; editable por la persona.",
+    "a17_select": "Seleccionar hipótesis",
+    "a17_authorize": "Autorizar operación",
+    "a17_execute": "Ejecutar y releer",
+    "a17_prepared_not_executed": "Solo preparada. Aún se requiere una segunda autorización humana.",
+    "a17_readback": "Readback independiente",
+    "a17_geometry_changed": "La geometría real cambió y se leyó el estado posterior.",
+    "a17_false_success": "Falso éxito rechazado: no se observó cambio geométrico.",
+    "a17_source_result": "Origen → resultado",
+    "a17_transition": "Transiciones de hallazgos",
+    "a17_no_improvement_claim": "El cambio no es automáticamente una mejora; la evaluación humana sigue siendo necesaria."
   }
 }
