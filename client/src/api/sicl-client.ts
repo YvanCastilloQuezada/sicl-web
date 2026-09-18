@@ -160,6 +160,13 @@ export type SpatialLocation = {
   latitude?: number | null;
   [key: string]: unknown;
 };
+export type SpatialRegistration = {
+  registration_id: string;
+  project_id: string;
+  status: string;
+  derived_transform?: { rotation_degrees?: number; scale?: number; translation?: { x: number; y: number } };
+  [key: string]: unknown;
+};
 
 export type MissingDataReport = {
   location_present: boolean;
@@ -331,6 +338,15 @@ export const siclClient = {
     const data = await v1Request<CommandData>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-evidence/media`, { method: "POST", body: form });
     invalidateCoreReadCache(`/v1/projects/${encodeURIComponent(projectId)}/evidence`);
     return data;
+  },
+  async listSpatialRegistrations(projectId: string): Promise<{ registrations: SpatialRegistration[] }> {
+    return v1Request<{ registrations: SpatialRegistration[] }>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-registrations`);
+  },
+  async proposeSpatialRegistration(projectId: string, payload: Record<string, unknown>): Promise<{ registration: SpatialRegistration }> {
+    return v1Request<{ registration: SpatialRegistration }>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-registrations`, { method: "POST", body: JSON.stringify({ payload }) });
+  },
+  async transitionSpatialRegistration(projectId: string, registrationId: string, payload: Record<string, unknown>): Promise<{ registration: SpatialRegistration }> {
+    return v1Request<{ registration: SpatialRegistration }>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-registrations/${encodeURIComponent(registrationId)}/transition`, { method: "POST", body: JSON.stringify({ payload }) });
   },
   async listSources(projectId: string): Promise<Source[]> {
     const data = await cachedV1Request<{ sources: Source[] }>(`/v1/projects/${encodeURIComponent(projectId)}/sources`);
