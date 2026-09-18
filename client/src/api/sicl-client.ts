@@ -430,4 +430,10 @@ export const siclClient = {
   async spatialSynthesisGenerate(projectId: string, adoptedIntent: Record<string, unknown>, families?: string[]): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/spatial-synthesis/generate`, { method: "POST", body: JSON.stringify({ adopted_intent: adoptedIntent, families }) });
   },
+  async previewSpatialOperation(projectId: string, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/spatial-operations/preview`, { method: "POST", body: JSON.stringify({ payload }) });
+  },
+  async executeSpatialOperation(projectId: string, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/spatial-operations/execute`, { method: "POST", body: JSON.stringify({ payload, actor: "architect" }) });
+  },
 };
