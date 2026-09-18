@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "Puedes consultar el contexto del proyecto.",
     "dialogue_knowledge_deferred": "Esta es una pregunta de conocimiento general. ARQUI la consultará en el Design Knowledge Agent, separándola de los hechos del proyecto.",
     "dialogue_unknown": "No tengo información suficiente para responder eso sin inventar un dato.",
-    "dialogue_knowledge_result": "Se consultó el Design Knowledge Agent: {{count}} coincidencias trazables."
+    "dialogue_knowledge_result": "Se consultó el Design Knowledge Agent: {{count}} coincidencias trazables.",
+    "diagnostics_title": "Diagnóstico del proyecto",
+    "diagnostic_pending_review": "Hay {{count}} observaciones AI_PROPOSED pendientes de revisión humana.",
+    "diagnostic_compare_blocked": "No puedo iniciar la comparación: hay {{count}} alternativa disponible y se requieren al menos dos.",
+    "diagnostic_registration_unknown": "El estado de registro espacial permanece desconocido.",
+    "diagnostic_no_blocking": "No detecto problemas bloqueantes en las comprobaciones disponibles.",
+    "consequence_review": "La revisión humana sigue pendiente.",
+    "consequence_compare": "La comparación no puede iniciar con una sola alternativa.",
+    "consequence_registration": "La vista AR puede requerir un registro válido.",
+    "view_alternatives": "Ver alternativas",
+    "review_registration": "Revisar registro"
   }
 }

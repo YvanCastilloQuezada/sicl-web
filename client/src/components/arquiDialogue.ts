@@ -1,4 +1,4 @@
-export type ArquiIntent = "PROJECT_STATE_QUERY" | "KNOWLEDGE_QUERY" | "ACTION_QUERY" | "NAVIGATION_QUERY" | "UNKNOWN_QUERY";
+export type ArquiIntent = "PROJECT_STATE_QUERY" | "KNOWLEDGE_QUERY" | "ACTION_QUERY" | "NAVIGATION_QUERY" | "DIAGNOSTIC_QUERY" | "UNKNOWN_QUERY";
 export type ArquiDialogueBasis = "PROJECT_STATE" | "PROJECT_EVIDENCE" | "HUMAN_REVIEW" | "WORK_CONTEXT" | "AVAILABLE_CAPABILITY" | "DESIGN_KNOWLEDGE" | "UNKNOWN";
 export type ArquiDialogueContext = { photos: number; pendingReview: number; confirmed: number; totalEvidence: number; locationRegistered: boolean; alternatives: number; hasAnalysis: boolean; workContext: string };
 export type ArquiDialogueResponse = { intent: ArquiIntent; answerKey: string; answerParams?: Record<string, unknown>; basis: ArquiDialogueBasis; basisKey: string; action?: { target: string; labelKey: string; params?: Record<string, unknown> } };
@@ -6,6 +6,10 @@ export type ArquiDialogueResponse = { intent: ArquiIntent; answerKey: string; an
 export function routeArquiQuestion(question: string, context: ArquiDialogueContext): ArquiDialogueResponse {
   const q = question.trim().toLowerCase();
   if (!q) return { intent: "UNKNOWN_QUERY", answerKey: "arqui.dialogue_empty", basis: "UNKNOWN", basisKey: "arqui.basis_unknown" };
+  if (/hay algo mal|me falta algo|qué falta|hay contradicciones|algo bloqueado|puedo continuar|qué necesito para comparar|cómo resuelvo/.test(q)) {
+    if (/comparar|puedo continuar/.test(q) && context.alternatives < 2) return { intent: "DIAGNOSTIC_QUERY", answerKey: "arqui.diagnostic_compare_blocked", answerParams: { count: context.alternatives }, basis: "AVAILABLE_CAPABILITY", basisKey: "arqui.basis_capability", action: { target: "alternatives", labelKey: "arqui.view_alternatives" } };
+    return { intent: "DIAGNOSTIC_QUERY", answerKey: context.pendingReview > 0 ? "arqui.diagnostic_pending_review" : "arqui.diagnostic_no_blocking", answerParams: { count: context.pendingReview }, basis: context.pendingReview > 0 ? "HUMAN_REVIEW" : "PROJECT_STATE", basisKey: context.pendingReview > 0 ? "arqui.basis_review" : "arqui.basis_project", action: context.pendingReview > 0 ? { target: "evidence", labelKey: "arqui.review_action", params: { count: context.pendingReview } } : undefined };
+  }
   if (/conocimiento|por qué.*(acceso|peatonal|registrar)|why.*(access|document)/i.test(q)) return { intent: "KNOWLEDGE_QUERY", answerKey: "arqui.dialogue_knowledge_deferred", basis: "DESIGN_KNOWLEDGE", basisKey: "arqui.basis_knowledge" };
   if (/muéstrame|mostrar|quiero ver|ir a|abrir|revisar/.test(q)) {
     if (/evidencia|observaci|review|pendiente/.test(q)) return { intent: "NAVIGATION_QUERY", answerKey: "arqui.dialogue_navigate_review", basis: "AVAILABLE_CAPABILITY", basisKey: "arqui.basis_capability", action: { target: "evidence", labelKey: "arqui.review_action", params: { count: context.pendingReview } } };

@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "Vous pouvez consulter le contexte du projet.",
     "dialogue_knowledge_deferred": "C’est une question de connaissance générale. ARQUI consultera l’agent Design Knowledge en la séparant des faits du projet.",
     "dialogue_unknown": "Je ne dispose pas d’informations suffisantes pour répondre sans inventer un fait.",
-    "dialogue_knowledge_result": "L’agent Design Knowledge a renvoyé {{count}} correspondances traçables."
+    "dialogue_knowledge_result": "L’agent Design Knowledge a renvoyé {{count}} correspondances traçables.",
+    "diagnostics_title": "Diagnostic du projet",
+    "diagnostic_pending_review": "{{count}} observations AI_PROPOSED attendent une revue humaine.",
+    "diagnostic_compare_blocked": "Je ne peux pas lancer la comparaison : {{count}} alternative est disponible et il en faut au moins deux.",
+    "diagnostic_registration_unknown": "L’état de l’enregistrement spatial reste inconnu.",
+    "diagnostic_no_blocking": "Je ne détecte aucun blocage dans les vérifications disponibles.",
+    "consequence_review": "La revue humaine reste en attente.",
+    "consequence_compare": "La comparaison ne peut pas commencer avec une seule alternative.",
+    "consequence_registration": "La vue AR peut nécessiter un enregistrement valide.",
+    "view_alternatives": "Voir les alternatives",
+    "review_registration": "Vérifier l’enregistrement"
   }
 }

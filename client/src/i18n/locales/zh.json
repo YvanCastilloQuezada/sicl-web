@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "你可以查看项目上下文。",
     "dialogue_knowledge_deferred": "这是一个通用知识问题。ARQUI 将查询 Design Knowledge Agent，并将其与项目事实分开。",
     "dialogue_unknown": "信息不足，无法在不编造事实的情况下回答。",
-    "dialogue_knowledge_result": "Design Knowledge Agent 返回了 {{count}} 条可追溯匹配。"
+    "dialogue_knowledge_result": "Design Knowledge Agent 返回了 {{count}} 条可追溯匹配。",
+    "diagnostics_title": "项目诊断",
+    "diagnostic_pending_review": "有 {{count}} 个 AI_PROPOSED 观察等待人工审查。",
+    "diagnostic_compare_blocked": "无法开始比较：当前有 {{count}} 个方案，至少需要两个。",
+    "diagnostic_registration_unknown": "空间注册状态仍然未知。",
+    "diagnostic_no_blocking": "在现有检查范围内未发现阻塞问题。",
+    "consequence_review": "人工审查仍在等待。",
+    "consequence_compare": "只有一个方案时无法开始比较。",
+    "consequence_registration": "AR 视图可能需要有效注册。",
+    "view_alternatives": "查看方案",
+    "review_registration": "检查注册"
   }
 }

@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "Sie können den Projektkontext prüfen.",
     "dialogue_knowledge_deferred": "Dies ist eine allgemeine Wissensfrage. ARQUI konsultiert den Design Knowledge Agent und trennt sie von Projektfakten.",
     "dialogue_unknown": "Es liegen nicht genügend Informationen vor, um ohne erfundene Fakten zu antworten.",
-    "dialogue_knowledge_result": "Der Design Knowledge Agent lieferte {{count}} nachvollziehbare Treffer."
+    "dialogue_knowledge_result": "Der Design Knowledge Agent lieferte {{count}} nachvollziehbare Treffer.",
+    "diagnostics_title": "Projektdiagnose",
+    "diagnostic_pending_review": "{{count}} AI_PROPOSED-Beobachtungen warten auf menschliche Prüfung.",
+    "diagnostic_compare_blocked": "Der Vergleich kann nicht starten: {{count}} Alternative ist verfügbar, mindestens zwei sind erforderlich.",
+    "diagnostic_registration_unknown": "Der Status der räumlichen Registrierung ist unbekannt.",
+    "diagnostic_no_blocking": "In den verfügbaren Prüfungen erkenne ich keine blockierenden Probleme.",
+    "consequence_review": "Die menschliche Prüfung steht noch aus.",
+    "consequence_compare": "Der Vergleich kann mit nur einer Alternative nicht starten.",
+    "consequence_registration": "Die AR-Ansicht kann eine gültige Registrierung erfordern.",
+    "view_alternatives": "Alternativen anzeigen",
+    "review_registration": "Registrierung prüfen"
   }
 }

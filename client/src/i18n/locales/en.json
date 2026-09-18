@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "You can inspect project context.",
     "dialogue_knowledge_deferred": "This is a general knowledge question. ARQUI will consult the Design Knowledge Agent while keeping it separate from project facts.",
     "dialogue_unknown": "I do not have enough information to answer without inventing a fact.",
-    "dialogue_knowledge_result": "The Design Knowledge Agent returned {{count}} traceable matches."
+    "dialogue_knowledge_result": "The Design Knowledge Agent returned {{count}} traceable matches.",
+    "diagnostics_title": "Project diagnostics",
+    "diagnostic_pending_review": "{{count}} AI_PROPOSED observations are pending human review.",
+    "diagnostic_compare_blocked": "I cannot start comparison: {{count}} alternative is available and at least two are required.",
+    "diagnostic_registration_unknown": "Spatial registration status remains unknown.",
+    "diagnostic_no_blocking": "I detect no blocking issues within the available checks.",
+    "consequence_review": "Human review remains pending.",
+    "consequence_compare": "Comparison cannot start with one alternative.",
+    "consequence_registration": "AR view may require a valid registration.",
+    "view_alternatives": "View alternatives",
+    "review_registration": "Review registration"
   }
 }

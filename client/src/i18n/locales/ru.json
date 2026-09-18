@@ -804,6 +804,16 @@
     "dialogue_navigate_context": "Можно открыть контекст проекта.",
     "dialogue_knowledge_deferred": "Это общий вопрос о знаниях. ARQUI обратится к Design Knowledge Agent, отделяя ответ от фактов проекта.",
     "dialogue_unknown": "Недостаточно информации, чтобы ответить без выдумывания факта.",
-    "dialogue_knowledge_result": "Design Knowledge Agent вернул отслеживаемых совпадений: {{count}}."
+    "dialogue_knowledge_result": "Design Knowledge Agent вернул отслеживаемых совпадений: {{count}}.",
+    "diagnostics_title": "Диагностика проекта",
+    "diagnostic_pending_review": "Наблюдений AI_PROPOSED, ожидающих проверки человеком: {{count}}.",
+    "diagnostic_compare_blocked": "Сравнение нельзя начать: доступна {{count}} альтернатива, а требуется как минимум две.",
+    "diagnostic_registration_unknown": "Состояние пространственной регистрации неизвестно.",
+    "diagnostic_no_blocking": "В доступных проверках блокирующих проблем не обнаружено.",
+    "consequence_review": "Проверка человеком еще ожидается.",
+    "consequence_compare": "Сравнение нельзя начать с одной альтернативой.",
+    "consequence_registration": "Для AR может потребоваться действительная регистрация.",
+    "view_alternatives": "Открыть альтернативы",
+    "review_registration": "Проверить регистрацию"
   }
 }
