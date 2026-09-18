@@ -9,6 +9,7 @@ import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
 import { runS2Proof } from "./arkiAdvancedSpatialEditing";
 import { buildD17D32Proof } from "./arkiWorldClassDesignIntelligence";
 import { SpatialSvgViewer } from "./UPAO001SpatialViewer";
+import { getModeProfile, modeView, type ArkiDesignMode } from "./arkiDesignModes";
 
 export function ArkiAdvancedDesignIntelligencePanel() {
   const exploration = buildD8Exploration();
@@ -22,6 +23,9 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const s1 = runS1Proof();
   const s2 = runS2Proof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
+  const [mode, setMode] = useState<ArkiDesignMode>("ARCHITECT");
+  const modeState = modeView(gdi.continuum, mode);
+  const modeProfile = getModeProfile(mode);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
   return <section aria-label="ARKI advanced design intelligence" className="space-y-4">
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
@@ -31,6 +35,14 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <div className="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="Architectural alternatives">
         {exploration.alternatives.map((alternative) => <button key={alternative.alternativeId} type="button" role="tab" aria-selected={alternative.alternativeId === selected.alternativeId} onClick={() => setAlternativeId(alternative.alternativeId)} className="rounded-md border border-border px-3 py-2 text-sm hover:bg-accent/10">{alternative.alternativeId} · {alternative.strategy}</button>)}
       </div>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">Architectural design mode</p>
+      <p className="mt-1 text-xs text-muted-foreground">One shared engine; mode changes exploration depth, not truth status or authority.</p>
+      <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Architectural design mode">
+        {(["JUNIOR", "ARCHITECT", "MASTER", "CRAZY"] as const).map((item) => <button key={item} type="button" role="radio" aria-checked={item === mode} onClick={() => setMode(item)} className="rounded-md border border-border px-3 py-2 text-xs hover:bg-accent/10">{item}</button>)}
+      </div>
+      <p className="mt-3 text-xs">Depth {modeProfile.reasoningDepth} · novelty {modeProfile.noveltyTolerance} · alternatives {modeState.alternatives.length} · human selection required</p>
     </div>
     <SpatialSvgViewer representation={selected.representation} language="en" />
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">

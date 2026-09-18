@@ -4,133 +4,142 @@
 **Fecha de corte:** 2026-09-18  
 **Regla:** `IMPLEMENTED` no significa `PROFESSIONALLY CERTIFIED`; los estados externos y los datos faltantes permanecen explícitos.
 
-## 1. Repositorios y ramas
+## 1. Identidad y repositorios
+
+La raíz canónica es **ARKI — Architectural Design Intelligence**. ARKI reutiliza los contratos SICL, A21, GDI, S1/S2, el modelo canónico de edificio, la evidencia y el orquestador de entrega. No existe un segundo motor de generación, un segundo modelo BIM, un segundo sistema de memoria ni un segundo motor de distancia.
 
 | Repositorio | Rama | HEAD | Estado |
 |---|---|---|---|
-| Core | `feat/weather-environmental-context-p1` | `646dae525dd1db4b9f357aced21cc1302fc791a0` | limpio; contrato Core no modificado por esta orden |
-| Web | `feat/spatial-pilot-media-studio-v1` | `04939e492e9bf0ed248c396771de83712b762ad9` al iniciar la orden; commit de esta orden se reporta en el cierre | cambios locales controlados; sin push/PR/merge/deploy |
+| Core | `feat/weather-environmental-context-p1` | `646dae525dd1db4b9f357aced21cc1302fc791a0` | sin cambios de esta macroorden |
+| Web | `feat/spatial-pilot-media-studio-v1` | se actualiza en el commit local de esta macroorden | cambios locales controlados; sin push, PR, merge ni deploy |
 
 ## 2. Organigrama funcional
 
 ```text
-ARKI / SiMS-DeI
-├── 01. Fundamentos epistemológicos
-│   ├── Human Architect = autoridad final
-│   ├── HYPOTHESIS / UNKNOWN preservados
-│   ├── provenance y lineage
-│   └── no winner / no automatic decision
-├── 02. Inteligencia arquitectónica
-│   ├── programa y relaciones A21
-│   ├── parti y zoning
-│   ├── circulación y coherencia multinivel
-│   ├── A15 lectura / A16 crítica / A17 revisión
-│   └── DesignMemory
-├── 03. Generative Design Intelligence
+ARKI — ARCHITECTURAL DESIGN INTELLIGENCE
+├── FOUNDATION
+│   ├── SICL Core
+│   ├── Human Authority
+│   ├── Evidence / Provenance / Lineage
+│   └── Epistemic Integrity: HYPOTHESIS / UNKNOWN / no winner
+├── ARCHITECTURAL INTELLIGENCE
+│   ├── Program / Relationships / Zoning / Circulation
+│   ├── Concept / Parti / Privacy / Views
+│   ├── A15 Read / A16 Critique / A17 Revision
+│   └── DesignMemory / Unified Architectural Design Read Model
+├── GENERATIVE INTELLIGENCE
 │   ├── GDI-P9 → GDI-P24
-│   ├── alternativas A/B/C
-│   ├── DNA, ramas, replay, comparación
-│   ├── critique, trade-offs, challenge
+│   ├── Alternatives / DNA / Branches / Replay
+│   ├── Comparison / Challenge / Trade-offs
 │   └── GDI → S2 controlled loop
-├── 04. Realización espacial
-│   ├── S1 planta conceptual verificable
-│   ├── S2 MOVE/RESIZE/OFFSET/RESHAPE/EDIT
-│   ├── límites, contención, no-overlap
-│   ├── muros, particiones, aperturas y reservas
-│   └── rutas y continuidad multinivel
-├── 05. Building Model
-│   ├── CanonicalBuildingModel único
-│   ├── identity / lineage / provenance
-│   ├── plan, site, section, elevation derivados
-│   └── quantities/costs con UNKNOWN cuando falta dato
-├── 06. Engineering
-│   ├── S3–S11, 48 disciplinas conceptuales
-│   ├── impactos y reservas
-│   └── cálculo profesional = externo / requiere datos
-├── 07. Professional intelligence
-│   ├── conocimiento K1–K11
-│   ├── regulación sin claim de compliance
-│   ├── site/GIS con REQUIRES_DATA
-│   ├── memoria y persistencia local
-│   └── costes sin tarifas inventadas
-├── 08. Interoperabilidad
-│   ├── DXF: adapter espacial
-│   ├── IFC: massing-only
-│   ├── GLB: visual massing
-│   └── GeoJSON: requiere geometría georreferenciada
-├── 09. Visual y documentación
-│   ├── SpatialSvgViewer / vistas derivadas
-│   ├── 2D/3D conceptual
-│   ├── SVG/PDF conceptual
-│   └── renderer avanzado = dependencia externa
-└── 10. Delivery Orchestrator
-    ├── DESIGN_BASIS
-    ├── DRAWINGS / SVG
-    ├── CAD / BIM / GIS states
-    ├── persistence snapshot
-    └── external dependency register
+├── DESIGN MODES
+│   ├── JUNIOR
+│   ├── ARCHITECT
+│   ├── MASTER
+│   └── CRAZY
+├── BUILDING REALIZATION
+│   ├── S1 conceptual floor plan
+│   ├── S2 controlled spatial editing
+│   ├── CanonicalBuildingModel
+│   └── Plan / Section / Massing / Circulation views
+├── TECHNICAL + PROFESSIONAL INTELLIGENCE
+│   ├── S3–S11 engineering awareness
+│   ├── S12–S20 regulation / knowledge / site / cost / persistence
+│   └── External calculation and certification gates
+├── AUTHORING + INTEROPERABILITY
+│   ├── Drawings / SVG / PDF conceptual source
+│   ├── DXF adapter
+│   ├── IFC massing-only adapter
+│   ├── GeoJSON / GIS when georeferenced data exists
+│   └── Visual / GLB / 2D / 3D conceptual representations
+└── DELIVERY
+    ├── Design Basis
+    ├── Drawings / CAD / BIM / GIS / Visual
+    ├── Project Data snapshot
+    └── Explicit external dependencies
 ```
 
-## 3. Dependencia canónica
+## 3. Shared engine and modes
+
+All four modes point to the same GDI, A21, S1/S2 and CanonicalBuildingModel contracts. The mode changes exploration depth, breadth, critique depth, novelty tolerance and bounded mutation amplitude. It does not change truth status, invent evidence, bypass hard constraints, create a decision or select a winner.
+
+| Mode | Reasoning depth | Alternative budget | Novelty | Mutation boundary | Intended use |
+|---|---:|---:|---|---|---|
+| JUNIOR | 1 | 1 | LOW | LOW | Conservative educational exploration |
+| ARCHITECT | 2 | 3 | BALANCED | MEDIUM | Balanced professional exploration |
+| MASTER | 4 | 3 | HIGH | HIGH | Deep multi-domain exploration |
+| CRAZY | 5 | 3 | RADICAL_BOUNDED | RADICAL_BOUNDED | Radical but bounded hypotheses |
+
+## 4. Capability inventory
+
+The registry currently contains **15 bounded capability groups**. Counting is by canonical `CapabilityRecord.id`, not by file count, test count or historical phase count. The Web implementation contains **one new contract module**, **one focused test file**, and an extension to the existing panel and registry. Core remains unchanged.
+
+| Branch | Capability groups | Main capabilities | Status distribution |
+|---|---:|---|---|
+| Foundation / epistemic controls | 1 | Human Authority, provenance, UNKNOWN, no automatic decision | PROVEN |
+| Architectural intelligence | 3 | A21, A15–A17, DesignMemory, unified read model | PROVEN / PROVEN_WITH_OBSERVATIONS |
+| Generative intelligence | 1 | GDI-P9–P24, alternatives, DNA, branches, comparison, challenge | PROVEN |
+| Spatial realization | 1 | S1/S2, boundaries, openings, routes, parent/child readback | PROVEN_WITH_OBSERVATIONS |
+| Visual/documentation | 2 | V-A and V-B | PROVEN_WITH_OBSERVATIONS |
+| BIM/GIS interoperability | 2 | V-C, GIS-CADASTRE | EXTERNAL_VALIDATION_REQUIRED / REQUIRES_DATA |
+| Engineering | 1 | S3–S11 conceptual registry and impact readback | PROVEN_WITH_OBSERVATIONS |
+| Professional intelligence | 1 | S12–S18 knowledge, regulation, site, cost, persistence | PROVEN_WITH_OBSERVATIONS |
+| Integrated product | 1 | S19–S20 local foundation and restoration | PROVEN_WITH_OBSERVATIONS |
+| Delivery boundary | 1 | Delivery package and external dependency register | UNKNOWN / EXTERNAL_VALIDATION_REQUIRED |
+| **Total** | **15** | **Canonical registry records** | — |
+
+## 5. Capability truth table
+
+| Capability | Status | Limit |
+|---|---|---|
+| Program, relationships, zoning and circulation | PROVEN | Hypothesis-based architectural intent; human review remains required |
+| Concept, parti and mode adaptation | PROVEN_WITH_OBSERVATIONS | Derived and revisable; not an automatic architectural decision |
+| Alternatives, trade-offs and challenge | PROVEN | Descriptive comparisons; no ranking or winner |
+| S1 conceptual floor plan | PROVEN_WITH_OBSERVATIONS | Geometrically verified conceptual plan; not construction documentation |
+| S2 spatial editing | PROVEN_WITH_OBSERVATIONS | Human authorization, immutable parent and fresh readback |
+| Canonical building model | PROVEN | Single derived model for current local scope |
+| Drawings and visual output | PROVEN_WITH_OBSERVATIONS | Conceptual plan/site/section/elevation and SVG source |
+| DXF | EXTERNAL_VALIDATION_REQUIRED | Adapter exists; round-trip requires external CAD validation |
+| IFC/Revit | EXTERNAL_VALIDATION_REQUIRED | Massing-only adapter; native Revit runtime is external |
+| GIS/cadastre | REQUIRES_DATA | CRS, surveyed parcel, terrain and provenance are required |
+| Engineering | PROVEN_WITH_OBSERVATIONS | Conceptual reservations and impacts; verified calculations require engines and data |
+| Regulation | PROVEN_WITH_OBSERVATIONS | Applicability chain exists; no compliance claim |
+| Cost | PROVEN_WITH_OBSERVATIONS | Quantities may be derived; rates and costs remain UNKNOWN |
+| Persistence | PROVEN_WITH_OBSERVATIONS | Deterministic local snapshot; production persistence not claimed |
+| Delivery | PROVEN_WITH_OBSERVATIONS | Packages outputs and declares external gates |
+
+## 6. Fresh Design Genius proof
+
+The bounded fixture `ARKI-DESIGN-GENIUS-E2E-001` is generated through the shared GDI engine and is not selected from the HOUSE-A21 identity. It produces three hypothesis alternatives with stable project-scoped identifiers, descriptive comparisons, lineage, challenge questions and human-selection requirements. The proof covers the four modes and confirms that mode variation preserves human authority, hard constraints and unknown states.
+
+The fixture is a local architectural intelligence proof. It does not prove professional certification, regulatory compliance, structural adequacy, Revit round-trip, surveyed GIS correctness, photoreal rendering or construction readiness.
+
+## 7. Canonical dependency flow
 
 ```text
 KNOWLEDGE + SITE + PROGRAM + HUMAN INTENT
                     ↓
-           ARCHITECTURAL INTELLIGENCE
+       ARCHITECTURAL INTELLIGENCE + MODE
                     ↓
            GENERATIVE INTELLIGENCE
                     ↓
-            SPATIAL REALIZATION
+             SPATIAL REALIZATION
                     ↓
-             BUILDING MODEL
+              BUILDING MODEL
                     ↓
-              ENGINEERING
+                ENGINEERING
                     ↓
-        PROFESSIONAL INTELLIGENCE
+         PROFESSIONAL INTELLIGENCE
                     ↓
-          DELIVERY ORCHESTRATOR
+             DELIVERY ORCHESTRATOR
                     ↓
-       PLANOS / CAD / BIM / GIS / VISUAL / DATA
+       PLAN / CAD / BIM / GIS / VISUAL / DATA
 ```
 
-## 4. Capacidad por rama
+## 8. External and data-dependent boundaries
 
-| Rama | Capacidades presentes en el estado auditado |
-|---|---|
-| `feat/weather-environmental-context-p1` (Core) | Core contractual, generación/operaciones espaciales base, ambiente Open-Meteo y estados de evidencia; sin cambios por esta orden |
-| `feat/spatial-pilot-media-studio-v1` (Web) | A21, A15–A34, K1–K11, D1–D32, GDI-P9–P24, S1/S2, authoring, engineering S3–S11, foundation S12–S20, exportación, visualización, persistencia local, Capability Set V1 y Delivery Orchestrator |
+Revit runtime, IFC parser/readback, DWG round-trip, photoreal renderer, CFD, energy simulation, structural solvers, detailed MEP, official GIS/cadastre, survey/terrain, current regulatory corpus, market rates and professional certification remain external gates. The local system reports `EXTERNAL_VALIDATION_REQUIRED`, `REQUIRES_DATA`, `CALCULATION_REQUIRED` or `UNKNOWN` rather than fabricating results.
 
-## 5. Registro factual de capacidades
+## 9. Next stage
 
-| Capacidad | Estado | Implementación / límite |
-|---|---|---|
-| Program / relationships / zoning | PROVEN | A21, hipótesis trazables |
-| Parti / concept | PROVEN_WITH_OBSERVATIONS | derivado y revisable; no decisión automática |
-| Circulation / vertical coherence | PROVEN_WITH_OBSERVATIONS | evidencia y reservas; compliance separado |
-| Alternatives / trade-offs | PROVEN | GDI y A/B/C; no ranking/winner |
-| Critique / challenge | PROVEN_WITH_OBSERVATIONS | observaciones y unknowns preservados |
-| S1 constructive spatial generation | PROVEN_WITH_OBSERVATIONS | planta conceptual verificable; no documentación constructiva |
-| S2 spatial editing | PROVEN_WITH_OBSERVATIONS | autorización humana, parent immutable, fresh readback |
-| Canonical Building Model | PROVEN | una sola fuente geométrica derivada |
-| Drawings | PROVEN_WITH_OBSERVATIONS | plan/site/section/elevation conceptuales |
-| 3D / GLB / SVG | PROVEN_WITH_OBSERVATIONS | visual/massing; renderer avanzado no afirmado |
-| DXF | EXTERNAL_VALIDATION_REQUIRED | adapter disponible; round-trip no probado aquí |
-| IFC / Revit | EXTERNAL_VALIDATION_REQUIRED | massing-only; runtime Revit externo |
-| GIS / cadastre | REQUIRES_DATA | GeoJSON/CRS requieren entrada georreferenciada |
-| Engineering | PROVEN_WITH_OBSERVATIONS | 48 disciplinas conceptuales; cálculos requieren engines/datos |
-| Regulatory | PROVEN_WITH_OBSERVATIONS | cadena y provenance; no compliance claim |
-| Cost / quantities | PROVEN_WITH_OBSERVATIONS | cantidades derivadas; rates/cost UNKNOWN |
-| Persistence | PROVEN_WITH_OBSERVATIONS | snapshot local determinista; producción pendiente |
-| Delivery | PROVEN_WITH_OBSERVATIONS | empaqueta outputs y estados externos |
-
-## 6. No duplicación
-
-Se conserva una única arquitectura canónica para `Alternative`, `SpatialRepresentation`, `CanonicalBuildingModel`, `DesignOperation`, `DesignMemory`, knowledge, evidence y delivery. No se creó un segundo BIM model, GIS model, lineage system, distance engine ni floor-plan engine.
-
-## 7. Dependencias externas
-
-Revit/IFC parser, DWG round-trip, renderer fotorrealista, CFD, energy simulation, structural solvers, detailed MEP, official GIS/cadastre, survey/terrain, current regulatory corpus, market cost data y professional certification no se simulan localmente. Cada uno queda como `EXTERNAL_VALIDATION_REQUIRED`, `REQUIRES_DATA` o `NOT_CLAIMED`.
-
-## 8. Scoreboard sin puntuación subjetiva
-
-ARKI cuenta con mecanismos operativos para **program, relationships, flow, site, concept, parti, plan, section, massing, circulation, privacy, alternatives, critique, trade-offs, change impact, documentation**. `views`, `environment`, `structure awareness`, `systems awareness` y `constructability awareness` existen como contexto/reservas/observaciones, no como prueba profesional universal.
+After this macroorder, ARKI broad capability expansion is frozen. The next work should use real architectural projects to verify the existing capabilities, find failures, fix those failures, validate professionally and connect external engines. No new capability alphabet is created automatically.
