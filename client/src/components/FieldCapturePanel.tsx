@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Camera, CheckCircle2, MapPin, Navigation, Paperclip, X } from "lucide-react";
+import { Camera, CheckCircle2, MapPin, Navigation, Paperclip, Pin, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,23 +22,28 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
   const [note, setNote] = useState("");
   const [location, setLocation] = useState<{ latitude: number; longitude: number; accuracy?: number; crs: string }>();
   const [locationState, setLocationState] = useState<"UNKNOWN" | "AVAILABLE" | "DENIED">("UNKNOWN");
+  const [pointMode, setPointMode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  const requestLocation = () => {
+    if (!navigator.geolocation) { setLocationState("UNKNOWN"); return; }
+    navigator.geolocation.getCurrentPosition(
+      (position) => { setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, crs: "EPSG:4326" }); setLocationState("AVAILABLE"); },
+      () => { setLocationState("DENIED"); },
+      { enableHighAccuracy: false, maximumAge: 30_000, timeout: 8_000 },
+    );
+  };
   const chooseFile = (file?: File) => {
     if (!file || !file.type.startsWith("image/")) return;
     setCapture({ file, preview: URL.createObjectURL(file), capturedAt: new Date().toISOString() });
     setMessage(""); setError("");
+    requestLocation();
   };
   const useCurrentLocation = () => {
     setError("");
-    if (!navigator.geolocation) { setLocationState("UNKNOWN"); setError(t("field_capture.location_denied")); return; }
-    navigator.geolocation.getCurrentPosition(
-      (position) => { setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy, crs: "EPSG:4326" }); setLocationState("AVAILABLE"); },
-      () => { setLocation(undefined); setLocationState("DENIED"); setError(t("field_capture.location_denied")); },
-      { enableHighAccuracy: false, maximumAge: 30_000, timeout: 8_000 },
-    );
+    requestLocation();
   };
   const confirm = async () => {
     if (!capture && !note.trim()) { setError(t("field_capture.pending")); return; }
@@ -75,9 +80,11 @@ export default function FieldCapturePanel({ projectId, onCaptured }: Props) {
         <input ref={inputRef} className="hidden" type="file" accept="image/*" capture="environment" onChange={(event) => chooseFile(event.target.files?.[0])} />
       </div>
       {capture && <div className="relative overflow-hidden rounded-xl border border-border bg-slate-950"><img src={capture.preview} alt={t("field_capture.photo")} className="max-h-64 w-full object-contain" /><button type="button" aria-label={t("common.cancel")} className="absolute right-2 top-2 rounded-full bg-black/70 p-2 text-white" onClick={() => { URL.revokeObjectURL(capture.preview); setCapture(undefined); }}><X className="h-4 w-4" /></button></div>}
-      <div className="grid gap-3 sm:grid-cols-2"><div><Label>{t("field_capture.scope")}</Label><Select value={scope} onValueChange={setScope}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent>{SCOPES.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div><div className="flex items-end"><Button type="button" variant="outline" className="w-full" onClick={useCurrentLocation}><Navigation className="mr-2 h-4 w-4" />{t("field_capture.use_location")}</Button></div></div>
+      <div className="grid gap-2 sm:grid-cols-3"><Button type="button" variant="outline" className="min-h-11" onClick={useCurrentLocation}><Navigation className="mr-2 h-4 w-4" />{t("field_capture.use_location")}</Button><Button type="button" variant="outline" className="min-h-11" onClick={() => setPointMode((value) => !value)}><Pin className="mr-2 h-4 w-4" />{t("field_capture.place_point")}</Button><Button type="button" variant="outline" className="min-h-11" onClick={() => document.getElementById("field-observation")?.focus()}><MapPin className="mr-2 h-4 w-4" />{t("field_capture.observation")}</Button></div>
+      {pointMode && <div className="overflow-hidden rounded-xl border border-border bg-slate-950"><svg viewBox="0 0 720 220" className="block h-40 w-full cursor-crosshair" role="img" aria-label={t("field_capture.place_point")} onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const x = ((event.clientX - rect.left) / rect.width) * 720; const y = ((event.clientY - rect.top) / rect.height) * 220; setLocation({ longitude: Number((-180 + (x / 720) * 360).toFixed(6)), latitude: Number((90 - (y / 220) * 180).toFixed(6)), crs: "EPSG:4326" }); setLocationState("AVAILABLE"); setPointMode(false); }}><rect width="720" height="220" fill="#0f2742" /><path d="M40 150 C140 70 220 170 330 90 S500 80 680 125" fill="none" stroke="#4f7894" strokeWidth="3" /><text x="16" y="24" fill="#d7e9f5" fontSize="12">EPSG:4326</text>{location && <circle cx={(location.longitude + 180) / 360 * 720} cy={(90 - location.latitude) / 180 * 220} r="9" fill="#fbbf24" stroke="#111827" strokeWidth="3" />}</svg></div>}
+      <div className="grid gap-3 sm:grid-cols-2"><div><Label>{t("field_capture.scope")}</Label><Select value={scope} onValueChange={setScope}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent>{SCOPES.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select></div><div className="flex items-end"><p className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-muted-foreground">{locationState === "AVAILABLE" ? t("field_capture.point_ready") : t("field_capture.unknown")}</p></div></div>
       <div className="flex items-center gap-2 text-xs text-muted-foreground"><MapPin className="h-4 w-4" />{locationState === "AVAILABLE" ? `${location?.latitude.toFixed(5)}, ${location?.longitude.toFixed(5)} ±${Math.round(location?.accuracy || 0)} m` : locationState === "DENIED" ? t("field_capture.location_denied") : t("field_capture.unknown")}</div>
-      <div><Label>{t("field_capture.note")}</Label><Textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder={t("field_capture.note_placeholder")} className="mt-1 min-h-20" /></div>
+      <div><Label>{t("field_capture.note")}</Label><Textarea id="field-observation" value={note} onChange={(event) => setNote(event.target.value)} placeholder={t("field_capture.note_placeholder")} className="mt-1 min-h-20" /></div>
       <p className="text-xs text-muted-foreground">{t("field_capture.camera_hint")}</p>
       <Button type="button" disabled={busy || (!capture && !note.trim())} onClick={confirm} className="min-h-12 w-full"><CheckCircle2 className="mr-2 h-4 w-4" />{busy ? t("field_capture.pending") : t("field_capture.confirm")}</Button>
       {message && <p role="status" className="border border-emerald-600/30 bg-emerald-50 p-3 text-sm text-emerald-950">{message}</p>}{error && <p role="alert" className="border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}

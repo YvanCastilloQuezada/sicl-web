@@ -700,7 +700,7 @@
     "available": "DISPONIBILE",
     "orientation": "Orientamento",
     "site_truth": "Il contesto sintetico del lotto/sito è mostrato con trasparenza; i dati catastali, del terreno e dei vicini mancanti restano mancanti."
-  }  ,
+  },
   "field_capture": {
     "title": "Acquisizione sul campo",
     "description": "Acquisisci evidenze direttamente dal sito.",
@@ -720,6 +720,8 @@
     "unknown": "Sconosciuto",
     "captured": "Evidenza acquisita",
     "camera_hint": "La fotocamera si apre dal browser mobile.",
-    "map_point": "Posiziona punto sulla mappa"
+    "map_point": "Posiziona punto sulla mappa",
+    "place_point": "Posiziona punto",
+    "point_ready": "Punto pronto"
   }
 }

@@ -700,7 +700,7 @@
     "available": "VERFÜGBAR",
     "orientation": "Ausrichtung",
     "site_truth": "Der synthetische Parzellen-/Standortkontext wird ehrlich dargestellt; fehlende Kataster-, Gelände- und Nachbardaten bleiben fehlend."
-  }  ,
+  },
   "field_capture": {
     "title": "Felderfassung",
     "description": "Erfassen Sie Nachweise direkt am Standort.",
@@ -720,6 +720,8 @@
     "unknown": "Unbekannt",
     "captured": "Nachweis erfasst",
     "camera_hint": "Die Kamera wird im mobilen Browser geöffnet.",
-    "map_point": "Punkt auf der Karte setzen"
+    "map_point": "Punkt auf der Karte setzen",
+    "place_point": "Punkt setzen",
+    "point_ready": "Punkt bereit"
   }
 }

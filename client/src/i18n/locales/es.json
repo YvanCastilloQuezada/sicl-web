@@ -700,7 +700,7 @@
     "available": "DISPONIBLE",
     "orientation": "Orientación",
     "site_truth": "El contexto sintético de parcela/sitio se muestra con honestidad; los datos catastrales, de terreno y vecinos ausentes siguen ausentes."
-  }  ,
+  },
   "field_capture": {
     "title": "Captura de campo",
     "description": "Captura evidencia directamente desde el sitio.",
@@ -720,6 +720,8 @@
     "unknown": "Desconocido",
     "captured": "Evidencia capturada",
     "camera_hint": "La cámara se abre desde el navegador móvil.",
-    "map_point": "Colocar punto en el mapa"
+    "map_point": "Colocar punto en el mapa",
+    "place_point": "Colocar punto",
+    "point_ready": "Punto listo"
   }
 }

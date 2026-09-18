@@ -700,7 +700,7 @@
     "available": "DISPONIBLE",
     "orientation": "Orientation",
     "site_truth": "Le contexte synthétique de parcelle/site est présenté honnêtement ; les données cadastrales, de terrain et voisines absentes le restent."
-  }  ,
+  },
   "field_capture": {
     "title": "Capture de terrain",
     "description": "Capturez des preuves directement sur le site.",
@@ -720,6 +720,8 @@
     "unknown": "Inconnu",
     "captured": "Preuve capturée",
     "camera_hint": "La caméra s’ouvre depuis le navigateur mobile.",
-    "map_point": "Placer un point sur la carte"
+    "map_point": "Placer un point sur la carte",
+    "place_point": "Placer un point",
+    "point_ready": "Point prêt"
   }
 }
