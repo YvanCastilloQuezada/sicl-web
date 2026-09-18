@@ -10,6 +10,7 @@ import ArquiArchitecturalReading from "./ArquiArchitecturalReading";
 import ArquiDesignCritic from "./ArquiDesignCritic";
 import { readArchitecturalResult } from "./arquiArchitecturalReading";
 import ArquiControlledRevision from "./ArquiControlledRevision";
+import ArquiArchitecturalSpaceSemantics from "./ArquiArchitecturalSpaceSemantics";
 import type { ArchitecturalStrategy } from "./arquiArchitecturalSynthesis";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
 
@@ -98,6 +99,7 @@ export default function ArquiControlledRealization({ projectId, project, strateg
     {representation && <div className="mt-3"><ArquiArchitecturalReading representation={representation} organization={organization} plan={plan} /></div>}
     {representation && <div className="mt-3"><ArquiDesignCritic reading={readArchitecturalResult(representation, organization, plan)} /></div>}
     {representation && <div className="mt-3"><ArquiControlledRevision projectId={projectId} project={project} representation={representation} organization={organization} realizationPlan={plan} /></div>}
+    {representation && <div className="mt-3"><ArquiArchitecturalSpaceSemantics project={project} representation={representation} organization={organization} /></div>}
     <p className="mt-3 text-xs text-muted-foreground">{t("arqui.a14_no_decision")}</p>
   </Card>;
 }
