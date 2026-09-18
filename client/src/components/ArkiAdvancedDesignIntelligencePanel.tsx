@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
+import { buildEngineeringProof } from "./arkiMultidisciplinaryEngineering";
 import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
 import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
 import { runS2Proof } from "./arkiAdvancedSpatialEditing";
@@ -11,6 +12,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const exploration = buildD8Exploration();
   const worldClass = buildD17D32Proof();
   const engineering = buildEngineeringIntelligence("HOUSING");
+  const engineeringProof = buildEngineeringProof();
   const gdi = buildGDIProof();
   const s1 = runS1Proof();
   const s2 = runS2Proof();
@@ -46,6 +48,12 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="mt-1 text-sm text-muted-foreground">{engineering.reservations.length} conceptual technical reservations · {engineering.dependencies.length} system dependencies · {engineering.routes.length} conceptual routes</p>
       <div className="mt-2 flex flex-wrap gap-2">{engineering.reservations.slice(0, 6).map((reservation) => <span key={reservation.id} className="rounded-md bg-muted px-2 py-1 text-xs">{reservation.systemId} · CONCEPTUAL</span>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">Shafts, equipment, clearances, maintenance and replacement routes require specialist review. No engineering performance or automatic mutation is claimed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">Multidisciplinary coordination · S3–S11</p>
+      <p className="mt-1 text-sm text-muted-foreground">{engineeringProof.model.disciplines.length} discipline records · {engineeringProof.model.records.length} common semantic records · {engineeringProof.impact.affectedSystems.length} systems affected by a sample architectural change</p>
+      <div className="mt-2 flex flex-wrap gap-2">{engineeringProof.impact.affectedSystems.slice(0, 8).map((system) => <span key={system} className="rounded-md bg-muted px-2 py-1 text-xs">{system}</span>)}</div>
+      <p className="mt-3 text-xs text-muted-foreground">Impact identified → specialist review → re-evaluation required. Geometry mutation is not executed; unknown engineering values remain unknown.</p>
     </div>
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
       <p className="text-sm font-semibold">GDI-P9 → GDI-P24 · Evolution studio</p>
