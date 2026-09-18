@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
 import { buildEngineeringProof } from "./arkiMultidisciplinaryEngineering";
+import { buildFinalPropagationProof, buildIntegratedProductFoundation } from "./arkiIntegratedProductFoundation";
 import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
 import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
 import { runS2Proof } from "./arkiAdvancedSpatialEditing";
@@ -13,6 +14,8 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const worldClass = buildD17D32Proof();
   const engineering = buildEngineeringIntelligence("HOUSING");
   const engineeringProof = buildEngineeringProof();
+  const integratedFoundation = buildIntegratedProductFoundation();
+  const finalPropagation = buildFinalPropagationProof({ operationId: "V-FINAL:READ-ONLY-SUMMARY", kind: "MOVE_ROOM", actor: "HUMAN_ARCHITECT", targetSpaceId: "HOUSE-A21:N1:ACCESS", parameters: { dx: 0, dy: 0 }, parentId: "HOUSE-A21-S1-CONCEPTUAL-FLOOR-PLAN", reason: "V-FINAL propagation summary", provenance: ["V-FINAL"], authorization: "AUTHORIZED", affectedRelationships: [], affectedGeometry: [], eventIndex: 1 } as never);
   const gdi = buildGDIProof();
   const s1 = runS1Proof();
   const s2 = runS2Proof();
@@ -60,6 +63,11 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="mt-1 text-sm text-muted-foreground">{gdi.continuum.phases.length} controlled phases · {gdi.continuum.alternatives.length} hypotheses · {gdi.continuum.comparisons.length} descriptive comparisons</p>
       <div className="mt-2 flex flex-wrap gap-2">{gdi.continuum.alternatives.map((item) => <span key={item.id} className="rounded-md bg-muted px-2 py-1 text-xs">{item.id} · {item.dna.compositionFamily}</span>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">Distance describes difference, not quality. No automatic ranking, winner, decision or mutation is executed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">Integrated product foundation · S12–S20 / V-FINAL</p>
+      <p className="mt-1 text-sm text-muted-foreground">{integratedFoundation.regulatory.length} regulatory chain(s) · {integratedFoundation.bim.buildingElementIds.length} canonical BIM identities · {integratedFoundation.drawings.length} drawing views · {integratedFoundation.quantities.length} quantity states</p>
+      <p className="mt-2 text-xs text-muted-foreground">Propagation: {finalPropagation.visual.join(" → ")} · regulation: {finalPropagation.regulation} · cost: {finalPropagation.cost} · human review required</p>
     </div>
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
       <p className="text-sm font-semibold">ARKI-S1 · Conceptual floor plan</p>
