@@ -368,6 +368,22 @@ export const siclClient = {
   async confirmMultimodal(projectId: string, candidate: Record<string, unknown>, actor: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/multimodal/confirm`, { method: "POST", body: JSON.stringify({ candidate, actor }) });
   },
+  async designMemory(projectId: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory`);
+  },
+  async memoryQuery(projectId: string, query: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory/query?q=${encodeURIComponent(query)}`);
+  },
+  async explainDesign(projectId: string, alternativeId: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory/explain/${encodeURIComponent(alternativeId)}`);
+  },
+  async replayDesign(projectId: string, alternativeId?: string): Promise<Record<string, unknown>> {
+    const suffix = alternativeId ? `?alternative_id=${encodeURIComponent(alternativeId)}` : "";
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory/replay${suffix}`);
+  },
+  async recordDesignDirection(projectId: string, alternativeId: string, status: string, reason?: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory/directions`, { method: "POST", body: JSON.stringify({ payload: { alternative_id: alternativeId, status, reason }, actor: "architect-1" }) });
+  },
   async confirmDesignIntent(projectId: string, interpretation: IntentInterpretation, approvedIds: string[], actor: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intents/confirm`, { method: "POST", body: JSON.stringify({ interpretation, approved_ids: approvedIds, actor }) });
   },
