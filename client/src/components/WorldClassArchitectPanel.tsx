@@ -1,0 +1,31 @@
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { assessWorldClassArchitectFaculties, WORLD_CLASS_ARCHITECT_FACULTIES, type FacultyState } from "./worldClassArchitectFaculties";
+
+type Props = { projectId: string; hasGeometry: boolean; hasEvidence: boolean; hasAlternatives: boolean; hasAnalysis: boolean };
+
+const stateLabel: Record<FacultyState, string> = { SUPPORTED: "Supported", PARTIAL: "Partial", REQUIRES_EVIDENCE: "Requires evidence", CONFLICTING: "Conflicting", NOT_ASSESSED: "Not assessed" };
+const stateClass: Record<FacultyState, string> = { SUPPORTED: "bg-emerald-100 text-emerald-800", PARTIAL: "bg-amber-100 text-amber-800", REQUIRES_EVIDENCE: "bg-slate-100 text-slate-700", CONFLICTING: "bg-red-100 text-red-800", NOT_ASSESSED: "bg-slate-100 text-slate-500" };
+
+export default function WorldClassArchitectPanel({ projectId, hasGeometry, hasEvidence, hasAlternatives, hasAnalysis }: Props) {
+  const { t } = useTranslation();
+  const assessment = useMemo(() => assessWorldClassArchitectFaculties({ projectId, evidenceByFaculty: {
+    DESIGN_JUDGMENT: { state: hasAlternatives ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasAlternatives ? ["A16", "A26"] : [] },
+    TYPOLOGICAL_MASTERY: { state: "PARTIAL", evidenceRefs: ["A24", "A26", "A27"] },
+    SPATIAL_REASONING: { state: hasGeometry ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasGeometry ? ["A13", "A21", "A24"] : [] },
+    MULTILEVEL_COHERENCE: { state: hasGeometry ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasGeometry ? ["A22", "A23"] : [] },
+    UNIVERSAL_ACCESS: { state: "REQUIRES_EVIDENCE", evidenceRefs: hasEvidence ? ["A20-P2", "A27"] : [] },
+    SAFETY_RESILIENCE: { state: hasAnalysis ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasAnalysis ? ["A25", "A27"] : [] },
+    MATERIAL_LIFECYCLE: { state: "PARTIAL", evidenceRefs: ["A26", "A27"] },
+    ECONOMIC_JUSTICE: { state: "REQUIRES_EVIDENCE", evidenceRefs: [] },
+    EVIDENCE_NORMATIVE_REASONING: { state: hasEvidence ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasEvidence ? ["A15", "A20-P3R", "A27"] : [] },
+    CULTURAL_CONTEXT: { state: "REQUIRES_EVIDENCE", evidenceRefs: [] },
+    CRITICAL_REFLEXIVITY: { state: hasAlternatives ? "PARTIAL" : "REQUIRES_EVIDENCE", evidenceRefs: hasAlternatives ? ["A16", "A17", "A21"] : [] },
+    PROFESSIONAL_COMMUNICATION: { state: "PARTIAL", evidenceRefs: ["A15", "A16", "A21"] },
+  } }), [projectId, hasGeometry, hasEvidence, hasAlternatives, hasAnalysis]);
+  return <Card className="border-[#385348]/20 bg-background" aria-label={t("arqui.world_class_title", { defaultValue: "World-class architect faculties" })}>
+    <CardHeader className="pb-3"><div className="flex flex-wrap items-center justify-between gap-2"><CardTitle className="font-serif text-xl">{t("arqui.world_class_title", { defaultValue: "World-class architect faculties" })}</CardTitle><span className="rounded-full bg-[#eef1eb] px-2 py-1 text-xs font-semibold text-[#385348]">{t("arqui.world_class_readiness", { defaultValue: "Readiness" })}: {assessment.readiness.replaceAll("_", " ")}</span></div><p className="text-sm text-muted-foreground">{t("arqui.world_class_subtitle", { defaultValue: "Twelve faculties are assessed from project evidence; missing evidence remains visible." })}</p></CardHeader>
+    <CardContent className="space-y-3"><div className="grid gap-2 sm:grid-cols-2">{WORLD_CLASS_ARCHITECT_FACULTIES.map((item) => { const result = assessment.faculties.find((faculty) => faculty.facultyId === item.id)!; return <div key={item.id} className="rounded border border-border bg-card p-2"><div className="flex items-start justify-between gap-2"><p className="text-sm font-semibold leading-5">{item.name}</p><span className={`shrink-0 rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${stateClass[result.state]}`}>{stateLabel[result.state]}</span></div><p className="mt-1 text-xs text-muted-foreground">{item.purpose}</p>{result.evidenceRefs.length > 0 && <p className="mt-1 text-[10px] text-muted-foreground">{t("arqui.world_class_evidence", { defaultValue: "Evidence" })}: {result.evidenceRefs.join(", ")}</p>}</div>; })}</div><div className="rounded border border-[#d07b4a]/40 bg-[#fffaf5] p-3 text-xs text-[#385348]"><strong>{t("arqui.world_class_human_gate", { defaultValue: "Human authority preserved." })}</strong><p className="mt-1">{t("arqui.world_class_no_certification", { defaultValue: "This is a capability-readiness view, not a professional certification, automatic winner, or regulatory approval." })}</p></div></CardContent>
+  </Card>;
+}
