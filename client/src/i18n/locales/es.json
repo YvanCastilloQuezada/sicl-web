@@ -735,5 +735,32 @@
     "confirm": "Confirmar",
     "correct": "Corregir",
     "reject": "Rechazar"
+  },
+  "arqui": {
+    "eyebrow": "ASISTENTE CONTEXTUAL",
+    "title": "ARQUI",
+    "subtitle": "Guía el trabajo de campo con el contexto disponible del proyecto.",
+    "refresh": "Actualizar",
+    "loading": "Leyendo el contexto del proyecto…",
+    "unavailable": "El contexto del proyecto no está disponible temporalmente.",
+    "retry": "Reintentar",
+    "location": "Ubicación",
+    "registered": "Registrada",
+    "not_registered": "No registrada",
+    "photos": "Fotografías",
+    "confirmed": "Observaciones confirmadas",
+    "pending": "Pendientes de revisión",
+    "guidance_title": "Orientación contextual",
+    "guidance_review": "{{count}} observaciones propuestas por IA requieren revisión humana.",
+    "guidance_empty": "Todavía no hay evidencia de campo registrada para este proyecto.",
+    "guidance_available": "Hay {{count}} registros de evidencia disponibles en el proyecto.",
+    "guidance_basis": "Base: estado estructurado del proyecto, Evidence, HumanReview y SpatialRegistration.",
+    "actions_title": "Acciones disponibles",
+    "review_action": "Revisar {{count}} observaciones",
+    "photo_action": "Capturar o añadir fotografía",
+    "location_action": "Ver contexto y ubicación",
+    "assistant_label": "Tu asistente arquitectónico contextual",
+    "expand": "Expandir ARQUI",
+    "collapse": "Contraer ARQUI"
   }
 }

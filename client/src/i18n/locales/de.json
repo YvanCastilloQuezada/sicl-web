@@ -735,5 +735,32 @@
     "confirm": "Bestätigen",
     "correct": "Korrigieren",
     "reject": "Ablehnen"
+  },
+  "arqui": {
+    "eyebrow": "KONTEXTASSISTENT",
+    "title": "ARQUI",
+    "subtitle": "Unterstützt die Feldarbeit mit dem verfügbaren Projektkontext.",
+    "refresh": "Aktualisieren",
+    "loading": "Projektkontext wird gelesen…",
+    "unavailable": "Der Projektkontext ist vorübergehend nicht verfügbar.",
+    "retry": "Erneut versuchen",
+    "location": "Standort",
+    "registered": "Registriert",
+    "not_registered": "Nicht registriert",
+    "photos": "Fotografien",
+    "confirmed": "Bestätigte Beobachtungen",
+    "pending": "Ausstehende Prüfung",
+    "guidance_title": "Kontextbezogene Anleitung",
+    "guidance_review": "{{count}} KI-vorgeschlagene Beobachtungen benötigen eine menschliche Prüfung.",
+    "guidance_empty": "Für dieses Projekt wurden noch keine Felddaten erfasst.",
+    "guidance_available": "Im Projekt sind {{count}} Evidenzdatensätze verfügbar.",
+    "guidance_basis": "Grundlage: strukturierter Projektstatus, Evidence, HumanReview und SpatialRegistration.",
+    "actions_title": "Verfügbare Aktionen",
+    "review_action": "{{count}} Beobachtungen prüfen",
+    "photo_action": "Foto aufnehmen oder hinzufügen",
+    "location_action": "Kontext und Standort anzeigen",
+    "assistant_label": "Ihr kontextbezogener Architekturassistent",
+    "expand": "ARQUI erweitern",
+    "collapse": "ARQUI reduzieren"
   }
 }

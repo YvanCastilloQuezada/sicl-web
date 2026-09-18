@@ -735,5 +735,32 @@
     "confirm": "Confirm",
     "correct": "Correct",
     "reject": "Reject"
+  },
+  "arqui": {
+    "eyebrow": "CONTEXTUAL ASSISTANT",
+    "title": "ARQUI",
+    "subtitle": "Guide field work using the project context that is available.",
+    "refresh": "Refresh",
+    "loading": "Reading project context…",
+    "unavailable": "Project context is temporarily unavailable.",
+    "retry": "Retry",
+    "location": "Location",
+    "registered": "Registered",
+    "not_registered": "Not registered",
+    "photos": "Photographs",
+    "confirmed": "Confirmed observations",
+    "pending": "Pending review",
+    "guidance_title": "Contextual guidance",
+    "guidance_review": "{{count}} AI-proposed observations require human review.",
+    "guidance_empty": "No field evidence has been recorded for this project yet.",
+    "guidance_available": "{{count}} evidence records are available in the project.",
+    "guidance_basis": "Basis: structured project state, Evidence, HumanReview and SpatialRegistration.",
+    "actions_title": "Available actions",
+    "review_action": "Review {{count}} observations",
+    "photo_action": "Capture or add a photograph",
+    "location_action": "View context and location",
+    "assistant_label": "Your contextual architectural assistant",
+    "expand": "Expand ARQUI",
+    "collapse": "Collapse ARQUI"
   }
 }

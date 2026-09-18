@@ -735,5 +735,32 @@
     "confirm": "确认",
     "correct": "更正",
     "reject": "拒绝"
+  },
+  "arqui": {
+    "eyebrow": "情境助手",
+    "title": "ARQUI",
+    "subtitle": "根据项目已有情境指导现场工作。",
+    "refresh": "刷新",
+    "loading": "正在读取项目情境…",
+    "unavailable": "项目情境暂时不可用。",
+    "retry": "重试",
+    "location": "位置",
+    "registered": "已登记",
+    "not_registered": "未登记",
+    "photos": "照片",
+    "confirmed": "已确认观察",
+    "pending": "待审核",
+    "guidance_title": "情境指导",
+    "guidance_review": "有 {{count}} 条 AI 提议的观察需要人工审核。",
+    "guidance_empty": "该项目尚未记录现场证据。",
+    "guidance_available": "项目中有 {{count}} 条证据记录可用。",
+    "guidance_basis": "依据：结构化项目状态、Evidence、HumanReview 和 SpatialRegistration。",
+    "actions_title": "可用操作",
+    "review_action": "审核 {{count}} 条观察",
+    "photo_action": "拍摄或添加照片",
+    "location_action": "查看情境和位置",
+    "assistant_label": "您的情境建筑助手",
+    "expand": "展开 ARQUI",
+    "collapse": "收起 ARQUI"
   }
 }
