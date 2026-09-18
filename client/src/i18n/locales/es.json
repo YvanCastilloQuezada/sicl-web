@@ -761,6 +761,21 @@
     "location_action": "Ver contexto y ubicación",
     "assistant_label": "Tu asistente arquitectónico contextual",
     "expand": "Expandir ARQUI",
-    "collapse": "Contraer ARQUI"
+    "collapse": "Contraer ARQUI",
+    "guidance_alternatives": "Hay {{count}} alternativas disponibles para explorar.",
+    "work_context": "Contexto de trabajo",
+    "context_source": "Derivado del estado actual",
+    "context_unknown": "Contexto no seleccionado",
+    "context_field": "Campo",
+    "context_design": "Diseño",
+    "context_analysis": "Análisis",
+    "context_comparison": "Comparación",
+    "context_review": "Revisión",
+    "context_presentation_ar": "Presentación / AR",
+    "basis_review": "Porque hay {{count}} propuestas AI_PROPOSED pendientes de revisión humana.",
+    "basis_alternatives": "Porque el proyecto expone {{count}} alternativas disponibles.",
+    "basis_context": "Porque existe información contextual disponible.",
+    "compare_action": "Comparar {{count}} alternativas",
+    "analysis_action": "Ver análisis"
   }
 }

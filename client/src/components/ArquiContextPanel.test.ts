@@ -8,6 +8,7 @@ import i18n from "@/i18n";
 const clientMock = vi.hoisted(() => ({
   listEvidence: vi.fn(),
   listSpatialRegistrations: vi.fn(),
+  getProject: vi.fn(),
 }));
 
 vi.mock("@/api/sicl-client", () => ({
@@ -27,6 +28,8 @@ describe("ArquiContextPanel", () => {
     await i18n.changeLanguage("en");
     clientMock.listEvidence.mockReset();
     clientMock.listSpatialRegistrations.mockReset();
+    clientMock.getProject.mockReset();
+    clientMock.getProject.mockResolvedValue({ project_id: "P", alternatives: [], evaluations: [], comparisons: [] });
   });
 
   it("derives confirmed and AI-proposed states without upgrading epistemic status", async () => {

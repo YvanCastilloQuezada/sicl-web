@@ -761,6 +761,21 @@
     "location_action": "查看情境和位置",
     "assistant_label": "您的情境建筑助手",
     "expand": "展开 ARQUI",
-    "collapse": "收起 ARQUI"
+    "collapse": "收起 ARQUI",
+    "guidance_alternatives": "有 {{count}} 个可探索的方案。",
+    "work_context": "工作上下文",
+    "context_source": "根据当前状态推导",
+    "context_unknown": "未选择上下文",
+    "context_field": "现场",
+    "context_design": "设计",
+    "context_analysis": "分析",
+    "context_comparison": "比较",
+    "context_review": "审查",
+    "context_presentation_ar": "展示 / AR",
+    "basis_review": "因为有 {{count}} 个 AI_PROPOSED 项目等待人工审查。",
+    "basis_alternatives": "因为项目提供了 {{count}} 个可用方案。",
+    "basis_context": "因为存在可用的上下文信息。",
+    "compare_action": "比较 {{count}} 个方案",
+    "analysis_action": "查看分析"
   }
 }

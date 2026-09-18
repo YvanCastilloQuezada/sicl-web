@@ -761,6 +761,21 @@
     "location_action": "Открыть контекст и местоположение",
     "assistant_label": "Ваш контекстный архитектурный помощник",
     "expand": "Развернуть ARQUI",
-    "collapse": "Свернуть ARQUI"
+    "collapse": "Свернуть ARQUI",
+    "guidance_alternatives": "Доступно альтернатив для изучения: {{count}}.",
+    "work_context": "Рабочий контекст",
+    "context_source": "Выведено из текущего состояния",
+    "context_unknown": "Контекст не выбран",
+    "context_field": "Поле",
+    "context_design": "Проектирование",
+    "context_analysis": "Анализ",
+    "context_comparison": "Сравнение",
+    "context_review": "Проверка",
+    "context_presentation_ar": "Презентация / AR",
+    "basis_review": "Потому что {{count}} элементов AI_PROPOSED ожидают проверки человеком.",
+    "basis_alternatives": "Потому что проект содержит {{count}} доступных альтернатив.",
+    "basis_context": "Потому что доступна контекстная информация.",
+    "compare_action": "Сравнить альтернативы ({{count}})",
+    "analysis_action": "Открыть анализ"
   }
 }
