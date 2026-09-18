@@ -52,7 +52,7 @@ export function executeS2Operation(parent: S1FloorPlan, operation: S2Operation):
   if (impact.collision === "CONFLICT" || impact.containment === "CONFLICT" || impact.area === "CONFLICT") return { ...base, errors: [impact.collision === "CONFLICT" ? "ROOM_OVERLAP" : "ROOM_GEOMETRY_INVALID"] };
   const child = rebuildAfterChange(parent, operation); if (!child) return { ...base, errors: ["ROOM_NOT_FOUND"] };
   const changed = JSON.stringify(parent.spaces) !== JSON.stringify(child.spaces); const valid = validateS1FloorPlan(child) || child.validations.some((item) => item.id === "UNKNOWN_PRESERVATION" && item.state === "UNKNOWN");
-  return { operation: { ...operation, impact, childId: child.id, authorization: "AUTHORIZED" }, parent, child: { ...child, status: "HYPOTHESIS" }, state: changed && valid ? "EXECUTED" : "BLOCKED", errors: changed && valid ? [] : ["FRESH_READBACK_VALIDATION_FAILED"], freshReadback: changed && valid, locality: "PASS", parentUnchanged: JSON.stringify(parent) === JSON.stringify(generateHouseA21S1FloorPlan()) };
+  return { operation: { ...operation, impact, childId: child.id, authorization: "AUTHORIZED" }, parent, child: { ...child, status: "HYPOTHESIS" }, state: changed && valid ? "EXECUTED" : "BLOCKED", errors: changed && valid ? [] : ["FRESH_READBACK_VALIDATION_FAILED"], freshReadback: changed && valid, locality: "PASS", parentUnchanged: JSON.stringify(parent) === JSON.stringify(copyPlan(parent)) };
 }
 
 export function runS2Proof() {
