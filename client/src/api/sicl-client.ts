@@ -362,6 +362,12 @@ export const siclClient = {
   async interpretDesignIntent(text: string, projectId?: string, spatialScope?: string): Promise<IntentInterpretation> {
     return v1Request<IntentInterpretation>("/v1/design-intents/interpret", { method: "POST", body: JSON.stringify({ text, project_id: projectId, spatial_scope: spatialScope }) });
   },
+  async interpretMultimodal(projectId: string, modality: string, payload: Record<string, unknown>, inputId = "MMI-WEB"): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/multimodal/interpret`, { method: "POST", body: JSON.stringify({ modality, payload, input_id: inputId }) });
+  },
+  async confirmMultimodal(projectId: string, candidate: Record<string, unknown>, actor: string): Promise<Record<string, unknown>> {
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/multimodal/confirm`, { method: "POST", body: JSON.stringify({ candidate, actor }) });
+  },
   async confirmDesignIntent(projectId: string, interpretation: IntentInterpretation, approvedIds: string[], actor: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intents/confirm`, { method: "POST", body: JSON.stringify({ interpretation, approved_ids: approvedIds, actor }) });
   },
