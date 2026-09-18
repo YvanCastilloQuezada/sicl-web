@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyRevisionResult, authorizeRevision, prepareRevision, supportedRevisionHypothesis, unsupportedRevisionHypothesis, validateRevision } from "./arquiControlledRevision";
+import { applyRevisionResult, authorizeRevision, prepareRevision, prepareSpaceGeometryRevision, supportedRevisionHypothesis, supportedSpaceGeometryRevisionHypothesis, unsupportedRevisionHypothesis, validateRevision } from "./arquiControlledRevision";
 import type { ArchitecturalDesignReading } from "./arquiArchitecturalReading";
 import type { ArchitecturalCritique } from "./arquiDesignCritic";
 
@@ -17,6 +17,13 @@ describe("A17 controlled revision loop", () => {
     expect(plan.selectedHypothesis.capabilityStatus).toBe("UNSUPPORTED");
     expect(plan.executionState).toBe("BLOCKED");
     expect(plan.parameterProvenance).toEqual([]);
+  });
+  it("prepares a generic explicit-space replacement without inventing a room-specific operation", () => {
+    const plan = prepareSpaceGeometryRevision(reading(), { space_id: "BEDROOM-01", program_item_id: "BEDROOM", geometry: { type: "polygon", coordinates: [[[0, 0], [5, 0], [5, 3], [0, 3], [0, 0]]] } }, true);
+    expect(supportedSpaceGeometryRevisionHypothesis().candidateCapability).toBe("REPLACE_SPATIAL_REALIZATION");
+    expect(plan.executionState).toBe("PREPARED");
+    expect(plan.selectedHypothesis.target).toBe("EXPLICIT_SPATIAL_REALIZATION");
+    expect(plan.parameters).toHaveProperty("replacement");
   });
   it("requires a traceable parameter and separates selection from authorization", () => {
     const plan = prepareRevision(supportedRevisionHypothesis(), reading(), { mass_separation: 8 }, true);
