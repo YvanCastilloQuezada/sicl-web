@@ -3,6 +3,7 @@ import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
 import { buildEngineeringProof } from "./arkiMultidisciplinaryEngineering";
 import { buildFinalPropagationProof, buildIntegratedProductFoundation } from "./arkiIntegratedProductFoundation";
+import { buildCapabilitySetV1, validateCapabilitySetV1 } from "./arkiCapabilitySetV1";
 import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
 import { runS1Proof } from "./arkiConstructiveSpatialGeneration";
 import { runS2Proof } from "./arkiAdvancedSpatialEditing";
@@ -16,6 +17,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const engineeringProof = buildEngineeringProof();
   const integratedFoundation = buildIntegratedProductFoundation();
   const finalPropagation = buildFinalPropagationProof({ operationId: "V-FINAL:READ-ONLY-SUMMARY", kind: "MOVE_ROOM", actor: "HUMAN_ARCHITECT", targetSpaceId: "HOUSE-A21:N1:ACCESS", parameters: { dx: 0, dy: 0 }, parentId: "HOUSE-A21-S1-CONCEPTUAL-FLOOR-PLAN", reason: "V-FINAL propagation summary", provenance: ["V-FINAL"], authorization: "AUTHORIZED", affectedRelationships: [], affectedGeometry: [], eventIndex: 1 } as never);
+  const capabilitySetV1 = buildCapabilitySetV1();
   const gdi = buildGDIProof();
   const s1 = runS1Proof();
   const s2 = runS2Proof();
@@ -68,6 +70,11 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="text-sm font-semibold">Integrated product foundation · S12–S20 / V-FINAL</p>
       <p className="mt-1 text-sm text-muted-foreground">{integratedFoundation.regulatory.length} regulatory chain(s) · {integratedFoundation.bim.buildingElementIds.length} canonical BIM identities · {integratedFoundation.drawings.length} drawing views · {integratedFoundation.quantities.length} quantity states</p>
       <p className="mt-2 text-xs text-muted-foreground">Propagation: {finalPropagation.visual.join(" → ")} · regulation: {finalPropagation.regulation} · cost: {finalPropagation.cost} · human review required</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">ARKI Capability Set V1</p>
+      <p className="mt-1 text-sm text-muted-foreground">{capabilitySetV1.capabilities.length} bounded capability groups · GDI-P9–P24: {capabilitySetV1.gdiPhases} phases · validation: {validateCapabilitySetV1(capabilitySetV1) ? "PASS" : "BLOCKED"}</p>
+      <p className="mt-2 text-xs text-muted-foreground">Human architect remains final authority. External Revit, surveyed GIS and professional certification remain explicitly pending.</p>
     </div>
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
       <p className="text-sm font-semibold">ARKI-S1 · Conceptual floor plan</p>

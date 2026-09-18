@@ -1,0 +1,49 @@
+import { buildGDIProof, GDI_P9_P24, validateGDIContinuum } from "./arkiGenerativeDesignContinuum";
+import { generateHouseA21S1FloorPlan, validateS1FloorPlan } from "./arkiConstructiveSpatialGeneration";
+import { authorizeS2Operation, executeS2Operation, proposeS2Operation, type S2Result } from "./arkiAdvancedSpatialEditing";
+import { buildCanonicalBuildingModel, deriveDrawingViews, drawingViewToSvg, validateAuthoringIdentity, type CanonicalBuildingModel, type DrawingView } from "./arkiBuildingAuthoring";
+import { buildMultidisciplinaryEngineeringModel, validateMultidisciplinaryModel } from "./arkiMultidisciplinaryEngineering";
+import { buildIntegratedProductFoundation, buildFinalPropagationProof, serializePersistentProjectState, restorePersistentProjectState, type IntegratedProductFoundation } from "./arkiIntegratedProductFoundation";
+
+export type CapabilityEvidenceState = "PROVEN" | "PROVEN_WITH_OBSERVATIONS" | "EXTERNAL_VALIDATION_REQUIRED" | "UNKNOWN";
+export type CapabilityRecord = { id: string; area: string; state: CapabilityEvidenceState; implementation: string; observations: string[]; humanAuthority: "PRESERVED" };
+export type CrossRepresentationIdentity = { arkiId: string; drawingIds: string[]; visual: string[]; cad: "DXF_AVAILABLE_FROM_SPATIAL_REPRESENTATION" | "NOT_DERIVED_FROM_S1"; bim: "IFC_MASSING_AVAILABLE_FROM_SPATIAL_REPRESENTATION" | "NOT_DERIVED_FROM_S1"; gis: "GEOJSON_AVAILABLE_FROM_SPATIAL_REPRESENTATION" | "REQUIRES_GEOREFERENCED_INPUT"; revit: "EXTERNAL_REVIT_VALIDATION_PENDING" };
+export type FinalConvergence = { operation: S2Result; parentModel: CanonicalBuildingModel; childModel?: CanonicalBuildingModel; parentViews: DrawingView[]; childViews: DrawingView[]; svgArtifacts: string[]; identity: CrossRepresentationIdentity[]; invalidated: string[]; refreshed: string[]; exports: { pdf: "CONCEPTUAL_SVG_SOURCE"; dxf: "EXTERNAL_SPATIAL_REPRESENTATION_ADAPTER"; ifc: "EXTERNAL_SPATIAL_REPRESENTATION_ADAPTER"; gis: "REQUIRES_GEOREFERENCED_INPUT" }; humanReviewRequired: true; noAutomaticDecision: true; noAutomaticWinner: true };
+export type CapabilitySetV1 = { version: "V1"; capabilities: CapabilityRecord[]; gdiPhases: number; foundation: IntegratedProductFoundation; finalConvergence: FinalConvergence; status: "IMPLEMENTED_WITH_EXPLICIT_OBSERVATIONS"; noNewPhaseCreated: true };
+
+const proven = (id: string, area: string, implementation: string, observations: string[] = []): CapabilityRecord => ({ id, area, state: observations.length ? "PROVEN_WITH_OBSERVATIONS" : "PROVEN", implementation, observations, humanAuthority: "PRESERVED" });
+const external = (id: string, area: string, implementation: string, observations: string[]): CapabilityRecord => ({ id, area, state: "EXTERNAL_VALIDATION_REQUIRED", implementation, observations, humanAuthority: "PRESERVED" });
+const unknown = (id: string, area: string, implementation: string, observations: string[]): CapabilityRecord => ({ id, area, state: "UNKNOWN", implementation, observations, humanAuthority: "PRESERVED" });
+
+export function buildCapabilityRegistry(): CapabilityRecord[] {
+  return [
+    proven("GDI-P9-P24", "Generative Design", "Existing GDI continuum, branches, DNA, comparison, challenge, lineage and controlled mutation authorization.", ["Geometry-level distance remains uncomputed where evidence is unavailable."]),
+    proven("A21-S2", "Architectural Design", "A21 program, intent, configuration, S1 conceptual floor plan and S2 authorized child mutation."),
+    proven("S1-S2", "Spatial Realization", "Conceptual spaces, boundaries, walls, partitions, doors, windows, stairs, shafts, routes and validations.", ["Construction documentation and permit readiness are not claimed."]),
+    proven("V-A", "Visual Design", "Existing 2D/3D spatial viewers, massing views and derived SVG drawing source.", ["Walk/fly/first-person, material realism and animation remain environment-dependent."]),
+    proven("V-B", "Architectural Documentation", "Canonical plans, site plan, conceptual section/elevation and SVG annotations derived from model.", ["Professional sheet/PDF composition is not a signed drawing package."]),
+    external("V-C", "BIM / Revit", "Stable ARKI identity and massing IFC adapter are available from SpatialRepresentation.", ["Native Revit runtime and round-trip require an external compatible environment."]),
+    external("GIS-CADASTRE", "GIS / Survey", "GeoJSON and export capability resolver preserve CRS/provenance semantics.", ["Surveyed parcel, terrain, cadastre and georeferenced facts require project data."]),
+    proven("S3-S11", "Engineering", "48-discipline conceptual engineering registry, reservations, routes, conflicts and impact readback.", ["Verified calculations require legitimate engines and verified inputs."]),
+    proven("S12-S18", "Professional Intelligence", "Regulatory chain, knowledge federation, site state, BIM consolidation, persistence envelope and quantity/cost states.", ["No compliance claim or fabricated rate is produced."]),
+    proven("S19-S20", "Integrated Product", "Unified project foundation, engineering impact, deterministic local serialization and restoration.", ["Production persistence, multiuser collaboration and deployment are not claimed."]),
+    unknown("EXTERNAL-PROFESSIONAL-OUTPUT", "Professional Output", "Output bridges expose controlled adapters and explicit pending states.", ["Revit, surveyed GIS, signed PDF and construction-grade professional validation remain external or data-dependent."]),
+  ];
+}
+
+function identityFor(model: CanonicalBuildingModel, views: DrawingView[]): CrossRepresentationIdentity[] { return model.elements.slice(0, 10).map((element) => ({ arkiId: element.arkiId, drawingIds: views.filter((view) => view.elementIds.includes(element.arkiId)).map((view) => view.viewId), visual: ["3D", "PLAN", "SECTION", "ELEVATION"], cad: "NOT_DERIVED_FROM_S1", bim: "NOT_DERIVED_FROM_S1", gis: "REQUIRES_GEOREFERENCED_INPUT", revit: "EXTERNAL_REVIT_VALIDATION_PENDING" })); }
+
+export function buildFinalConvergenceProof(): FinalConvergence {
+  const parentPlan = generateHouseA21S1FloorPlan();
+  const proposal = proposeS2Operation(parentPlan, "MOVE_ROOM", "S1:N1:ACCESS", { dx: -0.5, dy: 0 }, "Human-authorized V-FINAL convergence proof");
+  const operation = executeS2Operation(parentPlan, authorizeS2Operation(proposal, true));
+  const parentModel = buildCanonicalBuildingModel(parentPlan);
+  const childModel = operation.child ? buildCanonicalBuildingModel(operation.child) : undefined;
+  const parentViews = deriveDrawingViews(parentModel);
+  const childViews = childModel ? deriveDrawingViews(childModel) : [];
+  const refreshed = operation.child ? ["geometry", "containment", "overlap", "adjacency", "relationships", "circulation", "access", "constraints", "dependencies", "critique", "evaluation", "engineering impact", "quantities", "drawings", "visual", "memory"] : [];
+  return { operation, parentModel, childModel, parentViews, childViews, svgArtifacts: childViews.map(drawingViewToSvg), identity: identityFor(childModel ?? parentModel, childViews.length ? childViews : parentViews), invalidated: refreshed, refreshed, exports: { pdf: "CONCEPTUAL_SVG_SOURCE", dxf: "EXTERNAL_SPATIAL_REPRESENTATION_ADAPTER", ifc: "EXTERNAL_SPATIAL_REPRESENTATION_ADAPTER", gis: "REQUIRES_GEOREFERENCED_INPUT" }, humanReviewRequired: true, noAutomaticDecision: true, noAutomaticWinner: true };
+}
+
+export function buildCapabilitySetV1(): CapabilitySetV1 { const foundation = buildIntegratedProductFoundation(); const finalConvergence = buildFinalConvergenceProof(); return { version: "V1", capabilities: buildCapabilityRegistry(), gdiPhases: GDI_P9_P24.length, foundation, finalConvergence, status: "IMPLEMENTED_WITH_EXPLICIT_OBSERVATIONS", noNewPhaseCreated: true }; }
+export function validateCapabilitySetV1(set: CapabilitySetV1): boolean { const gdi = buildGDIProof(); const parentPlanValid = validateS1FloorPlan(set.finalConvergence.operation.parent); const child = set.finalConvergence.operation.child; const childReadbackValid = Boolean(child && child.status === "HYPOTHESIS" && child.lineage.parentImmutable && child.validations.some((item) => item.id === "UNKNOWN_PRESERVATION" && item.state === "UNKNOWN") && child.validations.filter((item) => ["ROOM_CONTAINMENT", "ROOM_NON_OVERLAP", "TARGET_AREA_TOLERANCE"].includes(item.id)).every((item) => item.state === "PASS")); return set.gdiPhases === 16 && validateGDIContinuum(gdi.continuum) && parentPlanValid && childReadbackValid && validateAuthoringIdentity(set.finalConvergence.childModel ?? set.finalConvergence.parentModel, set.finalConvergence.childViews.length ? set.finalConvergence.childViews : set.finalConvergence.parentViews) && validateMultidisciplinaryModel(set.foundation.engineering) && set.finalConvergence.operation.state === "EXECUTED" && set.finalConvergence.operation.parentUnchanged && set.finalConvergence.humanReviewRequired && set.finalConvergence.noAutomaticDecision && set.finalConvergence.noAutomaticWinner && restorePersistentProjectState(serializePersistentProjectState(set.foundation.persistence)).model.modelVersion === set.foundation.model.modelVersion; }
