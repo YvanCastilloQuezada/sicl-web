@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { buildD8Exploration } from "./arkiAdvancedDesignIntelligence";
 import { buildEngineeringIntelligence } from "./arkiBuildingEngineeringIntelligence";
+import { buildGDIProof } from "./arkiGenerativeDesignContinuum";
 import { buildD17D32Proof } from "./arkiWorldClassDesignIntelligence";
 import { SpatialSvgViewer } from "./UPAO001SpatialViewer";
 
@@ -8,6 +9,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const exploration = buildD8Exploration();
   const worldClass = buildD17D32Proof();
   const engineering = buildEngineeringIntelligence("HOUSING");
+  const gdi = buildGDIProof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
   return <section aria-label="ARKI advanced design intelligence" className="space-y-4">
@@ -40,6 +42,12 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="mt-1 text-sm text-muted-foreground">{engineering.reservations.length} conceptual technical reservations · {engineering.dependencies.length} system dependencies · {engineering.routes.length} conceptual routes</p>
       <div className="mt-2 flex flex-wrap gap-2">{engineering.reservations.slice(0, 6).map((reservation) => <span key={reservation.id} className="rounded-md bg-muted px-2 py-1 text-xs">{reservation.systemId} · CONCEPTUAL</span>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">Shafts, equipment, clearances, maintenance and replacement routes require specialist review. No engineering performance or automatic mutation is claimed.</p>
+    </div>
+    <div className="rounded-md border border-border bg-card p-4 text-card-foreground">
+      <p className="text-sm font-semibold">GDI-P9 → GDI-P24 · Evolution studio</p>
+      <p className="mt-1 text-sm text-muted-foreground">{gdi.continuum.phases.length} controlled phases · {gdi.continuum.alternatives.length} hypotheses · {gdi.continuum.comparisons.length} descriptive comparisons</p>
+      <div className="mt-2 flex flex-wrap gap-2">{gdi.continuum.alternatives.map((item) => <span key={item.id} className="rounded-md bg-muted px-2 py-1 text-xs">{item.id} · {item.dna.compositionFamily}</span>)}</div>
+      <p className="mt-3 text-xs text-muted-foreground">Distance describes difference, not quality. No automatic ranking, winner, decision or mutation is executed.</p>
     </div>
   </section>;
 }
