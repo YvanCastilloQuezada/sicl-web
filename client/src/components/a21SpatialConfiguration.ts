@@ -30,10 +30,10 @@ export type A21ConstraintEvaluation = {
   unknown: boolean;
 };
 export type A21SpatialConfiguration = {
-  configurationId: "HOUSE-A21-CONFIG-A";
+  configurationId: "HOUSE-A21-CONFIG-A" | `HOUSE-A21-CONFIG-A-${string}`;
   projectId: "HOUSE-A21";
   status: "HYPOTHESIS";
-  synthesisVersion: "A21-P4-v1";
+  synthesisVersion: "A21-P4-v1" | `A21-P4-${string}`;
   inputFingerprint: string;
   site: { widthM: number; depthM: number; origin: [number, number]; provenance: string };
   parti: { strategyId: string; organizingIdea: string; provenance: string[] };
