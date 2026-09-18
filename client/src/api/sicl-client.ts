@@ -385,7 +385,7 @@ export const siclClient = {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-memory/directions`, { method: "POST", body: JSON.stringify({ payload: { alternative_id: alternativeId, status, reason }, actor: "architect-1" }) });
   },
   async advancedEvolution(projectId: string, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
-    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/advanced-evolution`, { method: "POST", body: JSON.stringify({ payload, actor: "architect-1" }) });
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/advanced-evolution`, { method: "POST", body: JSON.stringify({ ...payload, actor: "architect-1" }) });
   },
   async multiscaleCapabilities(scope?: string): Promise<Record<string, unknown>> {
     const suffix = scope ? `?spatial_scope=${encodeURIComponent(scope)}` : "";
@@ -395,7 +395,7 @@ export const siclClient = {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/multiscale/context`, { method: "POST", body: JSON.stringify({ payload, actor: "architect-1" }) });
   },
   async multiAgentExploration(projectId: string, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
-    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/multi-agent-exploration`, { method: "POST", body: JSON.stringify({ payload, actor: "architect-1" }) });
+    return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/gdi/multi-agent-exploration`, { method: "POST", body: JSON.stringify({ ...payload, actor: "architect-1" }) });
   },
   async confirmDesignIntent(projectId: string, interpretation: IntentInterpretation, approvedIds: string[], actor: string): Promise<Record<string, unknown>> {
     return v1Request<Record<string, unknown>>(`/v1/projects/${encodeURIComponent(projectId)}/design-intents/confirm`, { method: "POST", body: JSON.stringify({ interpretation, approved_ids: approvedIds, actor }) });
