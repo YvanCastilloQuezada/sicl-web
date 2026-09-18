@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "Ouvrir la capture terrain"
+    "open_field_capture": "Ouvrir la capture terrain",
+    "workflow_title": "Flux suggéré",
+    "workflow_unknown": "Objectif à préciser",
+    "workflow_clarify": "Voulez-vous étudier le site, examiner les preuves, comparer des alternatives ou préparer la RA ?",
+    "workflow_goal_identified": "Objectif identifié : {{goal}}. Ceci est un guide ; vous décidez de chaque action.",
+    "workflow_based_on": "Fondé sur l’objectif explicite et l’état actuel des capacités.",
+    "workflow_understand_site": "Examiner le contexte et les preuves du site",
+    "workflow_visual_context": "Examiner les interprétations visuelles en attente",
+    "workflow_capture_field": "Capturer des informations de terrain",
+    "workflow_review_visual": "Examiner les propositions visuelles avec autorité humaine",
+    "workflow_explore_alternatives": "Explorer les alternatives existantes",
+    "workflow_compare_alternatives": "Comparer les alternatives sans choisir de gagnant",
+    "workflow_registered_ar": "Vérifier le référencement spatial avant la visualisation RA",
+    "goal_understand_site": "comprendre le site",
+    "goal_capture_field_information": "capturer des informations de terrain",
+    "goal_review_visual_evidence": "examiner les preuves visuelles",
+    "goal_explore_design_alternatives": "explorer les alternatives",
+    "goal_compare_alternatives": "comparer les alternatives",
+    "goal_prepare_registered_ar_view": "préparer une vue RA référencée"
   }
 }

@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "Felderfassung öffnen"
+    "open_field_capture": "Felderfassung öffnen",
+    "workflow_title": "Vorgeschlagener Ablauf",
+    "workflow_unknown": "Ziel zu klären",
+    "workflow_clarify": "Möchten Sie den Standort untersuchen, Belege prüfen, Alternativen vergleichen oder AR vorbereiten?",
+    "workflow_goal_identified": "Ziel erkannt: {{goal}}. Dies ist eine Anleitung; Sie entscheiden jede Aktion.",
+    "workflow_based_on": "Basiert auf dem ausdrücklichen Ziel und dem aktuellen Fähigkeitsstatus.",
+    "workflow_understand_site": "Standortkontext und Belege prüfen",
+    "workflow_visual_context": "Ausstehende visuelle Interpretationen prüfen",
+    "workflow_capture_field": "Feldinformationen erfassen",
+    "workflow_review_visual": "Visuelle Vorschläge mit menschlicher Autorität prüfen",
+    "workflow_explore_alternatives": "Vorhandene Alternativen erkunden",
+    "workflow_compare_alternatives": "Alternativen vergleichen, ohne einen Sieger zu wählen",
+    "workflow_registered_ar": "Raumregistrierung vor der AR-Visualisierung prüfen",
+    "goal_understand_site": "den Standort verstehen",
+    "goal_capture_field_information": "Feldinformationen erfassen",
+    "goal_review_visual_evidence": "visuelle Belege prüfen",
+    "goal_explore_design_alternatives": "Alternativen erkunden",
+    "goal_compare_alternatives": "Alternativen vergleichen",
+    "goal_prepare_registered_ar_view": "eine registrierte AR-Ansicht vorbereiten"
   }
 }

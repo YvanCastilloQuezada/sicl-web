@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "Открыть полевой сбор"
+    "open_field_capture": "Открыть полевой сбор",
+    "workflow_title": "Предлагаемый процесс",
+    "workflow_unknown": "Цель нужно уточнить",
+    "workflow_clarify": "Вы хотите изучить участок, проверить свидетельства, сравнить варианты или подготовить AR?",
+    "workflow_goal_identified": "Цель определена: {{goal}}. Это подсказка; каждое действие решаете вы.",
+    "workflow_based_on": "Основано на явной цели и текущем состоянии возможностей.",
+    "workflow_understand_site": "Проверить контекст и свидетельства участка",
+    "workflow_visual_context": "Проверить ожидающие визуальные интерпретации",
+    "workflow_capture_field": "Собрать полевые данные",
+    "workflow_review_visual": "Проверить визуальные предложения с участием человека",
+    "workflow_explore_alternatives": "Изучить существующие варианты",
+    "workflow_compare_alternatives": "Сравнить варианты без выбора победителя",
+    "workflow_registered_ar": "Проверить пространственную регистрацию перед AR-визуализацией",
+    "goal_understand_site": "понять участок",
+    "goal_capture_field_information": "собрать полевые данные",
+    "goal_review_visual_evidence": "проверить визуальные свидетельства",
+    "goal_explore_design_alternatives": "изучить варианты",
+    "goal_compare_alternatives": "сравнить варианты",
+    "goal_prepare_registered_ar_view": "подготовить зарегистрированный AR-вид"
   }
 }

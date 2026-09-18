@@ -1,5 +1,5 @@
-export type ArquiIntent = "PROJECT_STATE_QUERY" | "KNOWLEDGE_QUERY" | "ACTION_QUERY" | "NAVIGATION_QUERY" | "DIAGNOSTIC_QUERY" | "CAPABILITY_QUERY" | "READINESS_QUERY" | "REQUIREMENT_QUERY" | "VISUAL_ANALYSIS_QUERY" | "UNKNOWN_QUERY";
-export type ArquiDialogueBasis = "PROJECT_STATE" | "PROJECT_EVIDENCE" | "HUMAN_REVIEW" | "WORK_CONTEXT" | "AVAILABLE_CAPABILITY" | "CAPABILITY_CONTRACT" | "CAPABILITY_PREREQUISITE" | "VISUAL_INTELLIGENCE" | "DESIGN_KNOWLEDGE" | "UNKNOWN";
+export type ArquiIntent = "PROJECT_STATE_QUERY" | "KNOWLEDGE_QUERY" | "ACTION_QUERY" | "NAVIGATION_QUERY" | "DIAGNOSTIC_QUERY" | "CAPABILITY_QUERY" | "READINESS_QUERY" | "REQUIREMENT_QUERY" | "VISUAL_ANALYSIS_QUERY" | "WORKFLOW_GOAL_QUERY" | "UNKNOWN_QUERY";
+export type ArquiDialogueBasis = "PROJECT_STATE" | "PROJECT_EVIDENCE" | "HUMAN_REVIEW" | "WORK_CONTEXT" | "AVAILABLE_CAPABILITY" | "CAPABILITY_CONTRACT" | "CAPABILITY_PREREQUISITE" | "VISUAL_INTELLIGENCE" | "DESIGN_KNOWLEDGE" | "WORKFLOW" | "UNKNOWN";
 export type ArquiDialogueContext = { photos: number; pendingReview: number; confirmed: number; totalEvidence: number; locationRegistered: boolean; alternatives: number; hasAnalysis: boolean; workContext: string };
 export type ArquiDialogueResponse = { intent: ArquiIntent; answerKey: string; answerParams?: Record<string, unknown>; basis: ArquiDialogueBasis; basisKey: string; action?: { target: string; labelKey: string; params?: Record<string, unknown> } };
 

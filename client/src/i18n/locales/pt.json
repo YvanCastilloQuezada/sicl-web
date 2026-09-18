@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "Abrir captura de campo"
+    "open_field_capture": "Abrir captura de campo",
+    "workflow_title": "Fluxo sugerido",
+    "workflow_unknown": "Objetivo a esclarecer",
+    "workflow_clarify": "Você quer estudar o local, revisar evidências, comparar alternativas ou preparar AR?",
+    "workflow_goal_identified": "Objetivo identificado: {{goal}}. Isto é orientação; você decide cada ação.",
+    "workflow_based_on": "Baseado no objetivo explícito e no estado atual das capacidades.",
+    "workflow_understand_site": "Revisar contexto e evidências do local",
+    "workflow_visual_context": "Revisar interpretações visuais pendentes",
+    "workflow_capture_field": "Capturar informações de campo",
+    "workflow_review_visual": "Revisar propostas visuais com autoridade humana",
+    "workflow_explore_alternatives": "Explorar alternativas existentes",
+    "workflow_compare_alternatives": "Comparar alternativas sem escolher um vencedor",
+    "workflow_registered_ar": "Revisar o registro espacial antes da visualização AR",
+    "goal_understand_site": "entender o local",
+    "goal_capture_field_information": "capturar informações de campo",
+    "goal_review_visual_evidence": "revisar evidências visuais",
+    "goal_explore_design_alternatives": "explorar alternativas",
+    "goal_compare_alternatives": "comparar alternativas",
+    "goal_prepare_registered_ar_view": "preparar uma vista AR registrada"
   }
 }

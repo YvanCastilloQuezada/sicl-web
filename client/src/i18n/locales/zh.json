@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "打开现场采集"
+    "open_field_capture": "打开现场采集",
+    "workflow_title": "建议流程",
+    "workflow_unknown": "需要明确目标",
+    "workflow_clarify": "您想研究场地、审查证据、比较方案，还是准备 AR？",
+    "workflow_goal_identified": "已识别目标：{{goal}}。这是引导；每项行动由您决定。",
+    "workflow_based_on": "基于明确目标和当前能力状态。",
+    "workflow_understand_site": "查看场地背景与证据",
+    "workflow_visual_context": "查看待审查的视觉解读",
+    "workflow_capture_field": "采集现场信息",
+    "workflow_review_visual": "在人工权威下审查视觉建议",
+    "workflow_explore_alternatives": "探索现有方案",
+    "workflow_compare_alternatives": "比较方案但不选择赢家",
+    "workflow_registered_ar": "在 AR 可视化前检查空间注册",
+    "goal_understand_site": "了解场地",
+    "goal_capture_field_information": "采集现场信息",
+    "goal_review_visual_evidence": "审查视觉证据",
+    "goal_explore_design_alternatives": "探索方案",
+    "goal_compare_alternatives": "比较方案",
+    "goal_prepare_registered_ar_view": "准备已注册的 AR 视图"
   }
 }

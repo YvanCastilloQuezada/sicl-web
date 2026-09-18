@@ -840,6 +840,24 @@
     "readiness_ready_comparison": "Yes. Comparison is ready under the known prerequisites.",
     "readiness_blocked_comparison": "Comparison is blocked because at least two alternatives are required and there are {{count}}.",
     "basis_visual": "Visual intelligence",
-    "open_field_capture": "Open field capture"
+    "open_field_capture": "Open field capture",
+    "workflow_title": "Suggested workflow",
+    "workflow_unknown": "Goal needs clarification",
+    "workflow_clarify": "Do you want to study the site, review evidence, compare alternatives, or prepare AR?",
+    "workflow_goal_identified": "Goal identified: {{goal}}. This is guidance; you decide each action.",
+    "workflow_based_on": "Based on the explicit goal and current capability state.",
+    "workflow_understand_site": "Review site context and evidence",
+    "workflow_visual_context": "Review pending visual interpretations",
+    "workflow_capture_field": "Capture field information",
+    "workflow_review_visual": "Review visual proposals with human authority",
+    "workflow_explore_alternatives": "Explore existing alternatives",
+    "workflow_compare_alternatives": "Compare alternatives without selecting a winner",
+    "workflow_registered_ar": "Review spatial registration before AR visualization",
+    "goal_understand_site": "understand the site",
+    "goal_capture_field_information": "capture field information",
+    "goal_review_visual_evidence": "review visual evidence",
+    "goal_explore_design_alternatives": "explore alternatives",
+    "goal_compare_alternatives": "compare alternatives",
+    "goal_prepare_registered_ar_view": "prepare a registered AR view"
   }
 }
