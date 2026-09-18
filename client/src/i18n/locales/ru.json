@@ -1119,6 +1119,10 @@
     "p1_no_program": "No explicit program items available.",
     "p1_unknowns": "Unknowns preserved",
     "p1_no_unknowns": "No unknowns recorded.",
-    "p1_epistemic_note": "Program assignment, target area and relationships remain distinct from observed geometry and verified facts."
+    "p1_epistemic_note": "Program assignment, target area and relationships remain distinct from observed geometry and verified facts.",
+    "asi_g1_geometry_title": "ASI-G1 observed space geometry",
+    "asi_g1_geometry_count": "Bounded architectural spaces",
+    "asi_g1_actual_area": "Actual area",
+    "asi_g1_no_geometry": "No explicit architectural-space geometry observed. Semantic-only state is preserved."
   }
 }

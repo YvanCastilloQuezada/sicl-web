@@ -1,6 +1,7 @@
 import type { CoreProject } from "@/api/sicl-client";
 import type { SpatialRepresentation, SpatialElement } from "./UPAO001SpatialViewer";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
+import { isExplicitArchitecturalSpaceElement, validateArchitecturalSpaceGeometry } from "./architecturalSpaceGeometry";
 
 export type SpaceEpistemicStatus = "HUMAN_INPUT" | "PROJECT_STATE" | "A11_DERIVED" | "A13_HYPOTHESIS" | "SPATIAL_REPRESENTATION" | "DETERMINISTIC_COMPUTATION" | "VERIFIED_EVIDENCE" | "AI_PROPOSED" | "UNKNOWN";
 export type SpaceAssignmentStatus = "UNASSIGNED" | "PROPOSED" | "ASSIGNED" | "HUMAN_CONFIRMED" | "UNKNOWN";
@@ -29,11 +30,11 @@ function parseProgramItem(entry: unknown, index: number, sourceLabel = "PROJECT_
 
 export function deriveProgramItems(project: CoreProject | undefined, fixture?: unknown[]): ArchitecturalProgramItem[] { const source = fixture ?? list(record(project).program ?? record(project).programme); const sourceLabel = fixture ? "TEST_FIXTURE" : "project.program"; return source.map((entry, index) => parseProgramItem(entry, index, sourceLabel)).filter((item): item is ArchitecturalProgramItem => Boolean(item)); }
 
-function spatialCandidates(representation: SpatialRepresentation): SpatialElement[] { return representation.elements.filter((element) => element.element_type === "SpatialZone" || element.element_type === "SPATIAL_ZONE"); }
+function spatialCandidates(representation: SpatialRepresentation): SpatialElement[] { return representation.elements.filter(isExplicitArchitecturalSpaceElement); }
 function semanticFor(program: ArchitecturalProgramItem, instanceIndex: number, candidate: SpatialElement | undefined, organization: SpatialDesignOrganization): ArchitecturalSpaceSemantic {
-  const spatialElementId = candidate?.id; const metadata = record(candidate?.metadata); const actualArea = candidate ? area(candidate.geometry as AnyRecord) : undefined; const hasGeometry = Boolean(candidate?.geometry); const spatialZoneId = spatialElementId;
+  const spatialElementId = candidate?.id; const metadata = record(candidate?.metadata); const validation = candidate ? validateArchitecturalSpaceGeometry(candidate) : undefined; const actualArea = candidate && validation?.valid ? area(candidate.geometry as AnyRecord) : undefined; const hasGeometry = Boolean(candidate && validation?.valid); const spatialZoneId = spatialElementId;
   const unknowns = [...program.unknowns, ...(candidate ? [] : ["SPATIAL_REFERENCE"]), ...(actualArea === undefined ? ["ACTUAL_AREA"] : [])];
-  const realizationStatus: SpaceRealizationStatus = !candidate ? "SEMANTIC_SPACE" : hasGeometry ? "SPATIALLY_REFERENCED" : "SPATIALLY_REFERENCED";
+  const realizationStatus: SpaceRealizationStatus = !candidate ? "SEMANTIC_SPACE" : hasGeometry ? "GEOMETRICALLY_REALIZED" : "UNKNOWN";
   return { spaceId: `${program.programItemId}-${String(instanceIndex).padStart(2, "0")}`, programItemId: program.programItemId, instanceIndex, name: `${program.name} ${instanceIndex}`, spaceType: program.spaceType, ...(spatialElementId ? { spatialElementId } : {}), ...(spatialZoneId ? { spatialZoneId } : {}), ...(text(metadata.levelReference ?? metadata.level_reference) ? { levelReference: text(metadata.levelReference ?? metadata.level_reference) } : program.levelPreference ? { levelReference: program.levelPreference } : {}), ...(program.targetArea === undefined ? {} : { targetArea: program.targetArea }), ...(program.minimumArea === undefined ? {} : { minimumArea: program.minimumArea }), ...(actualArea === undefined ? {} : { actualArea }), boundaryStatus: hasGeometry ? "DERIVED_BOUNDARY" : "NO_BOUNDARY_YET", relationshipRequirements: program.adjacencyRequirements, observedRelationships: [], assignmentStatus: candidate ? "PROPOSED" : "UNASSIGNED", provenance: [...program.provenance, "P1.derived-space-instance", ...(candidate ? [`SpatialRepresentation.elements[${candidate.id}]`] : [])], epistemicStatus: candidate ? "SPATIAL_REPRESENTATION" : "A11_DERIVED", realizationStatus, unknowns };
 }
 

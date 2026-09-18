@@ -4,7 +4,7 @@ import type { SpatialRepresentation } from "./UPAO001SpatialViewer";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
 
 const organization = { id: "org-a", strategyId: "strategy-a", partiId: "parti-a", strategyFamily: "COURTYARD", spatialUnits: [], relationships: [], generativeIntents: [], provenance: [] } as unknown as SpatialDesignOrganization;
-const representation = { alternative_id: "UPAO-001-A", elements: [{ id: "SZ-01", element_type: "SpatialZone", geometry: { type: "polygon", coordinates: [[[0, 0], [4, 0], [4, 3], [0, 0]]] }, metadata: { level_reference: "LEVEL_01" }, labels: { en: "Zone" } }], north_degrees: 0, units: "m", provenance: "TEST_FIXTURE" } as unknown as SpatialRepresentation;
+const representation = { alternative_id: "UPAO-001-A", elements: [{ id: "SZ-01", element_type: "SpatialZone", geometry: { type: "polygon", coordinates: [[[0, 0], [4, 0], [4, 3], [0, 0]]] }, metadata: { level_reference: "LEVEL_01", space_role: "architectural_space", space_id: "LIVING-01", program_item_id: "LIVING", geometry_provenance: "TEST_FIXTURE" }, labels: { en: "Zone" } }], north_degrees: 0, units: "m", provenance: "TEST_FIXTURE" } as unknown as SpatialRepresentation;
 const fixture = [{ id: "LIVING", name: "Living", spaceType: "LIVING", quantity: 1, targetArea: 24, adjacency: [{ target: "DINING", relation: "REQUIRED_ADJACENCY" }] }, { id: "BEDROOM", name: "Bedroom", spaceType: "BEDROOM", quantity: 2 }, { id: "BATH", name: "Bathroom", spaceType: "BATHROOM", quantity: 1 }];
 
 describe("P1 architectural space semantics", () => {
@@ -30,7 +30,7 @@ describe("P1 architectural space semantics", () => {
   it("keeps semantic spaces distinct from geometric rooms", () => {
     const result = deriveArchitecturalSpaceSemantics(undefined, representation, organization, fixture);
     expect(result.spaces.some((space) => space.realizationStatus === "SEMANTIC_SPACE")).toBe(true);
-    expect(result.spaces.some((space) => space.realizationStatus === "GEOMETRICALLY_REALIZED")).toBe(false);
+    expect(result.spaces.some((space) => space.realizationStatus === "GEOMETRICALLY_REALIZED")).toBe(true);
     expect(result.noRoomInference).toBe(true);
   });
   it("references existing SpatialZone without renaming it into a room", () => {

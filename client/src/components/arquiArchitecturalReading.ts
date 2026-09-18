@@ -1,6 +1,7 @@
 import type { ArchitecturalRealizationPlan } from "./arquiControlledRealization";
 import type { SpatialDesignOrganization } from "./arquiSpatialRealization";
 import type { SpatialElement, SpatialRepresentation } from "./UPAO001SpatialViewer";
+import { readArchitecturalSpaceGeometry } from "./architecturalSpaceGeometry";
 
 export type ReadingEpistemicStatus = "FACT" | "COMPUTED" | "INTERPRETATION" | "HYPOTHESIS" | "UNKNOWN";
 export type CorrespondenceStatus = "PRESERVED" | "TRANSFORMED" | "NOT_REALIZED" | "UNVERIFIABLE" | "NOT_APPLICABLE";
@@ -18,6 +19,7 @@ export type ArchitecturalDesignReading = {
   observedCirculation: { status: "OBSERVED" | "UNKNOWN"; elementIds: string[]; basis: string[] };
   observedVerticalOrganization: { status: "OBSERVED" | "UNKNOWN"; floorCount?: number; height?: number; basis: string[] };
   observedSiteRelationship: { status: "OBSERVED" | "UNKNOWN"; position: "WITHIN_SITE" | "UNKNOWN"; orientationDegrees?: number; basis: string[] };
+  observedSpaceGeometry: ReturnType<typeof readArchitecturalSpaceGeometry>;
   correspondence: Array<{ expected: string; status: CorrespondenceStatus; observed: string; basis: string[] }>;
   transformations: string[];
   missingExpectedElements: string[];
@@ -86,6 +88,7 @@ export function readArchitecturalResult(representation: SpatialRepresentation, o
     observedCirculation: circulation.length ? { status: "OBSERVED", elementIds: circulation.map((item) => item.id), basis: ["actual CirculationElement elements"] } : { status: "UNKNOWN", elementIds: [], basis: ["no actual CirculationElement"] },
     observedVerticalOrganization: maxHeight.length ? { status: "OBSERVED", floorCount: Math.max(...maxFloors), height: Math.max(...maxHeight), basis: ["BuildingMass.metadata.floor_count", "BuildingMass.metadata.height"] } : { status: "UNKNOWN", basis: ["no actual vertical metadata"] },
     observedSiteRelationship: site && footprint ? { status: "OBSERVED", position: "WITHIN_SITE", orientationDegrees: representation.north_degrees, basis: ["actual SiteBoundary", "actual BuildingFootprint.parent_id", "SpatialRepresentation.north_degrees"] } : { status: "UNKNOWN", position: "UNKNOWN", basis: ["site relationship unavailable"] },
+    observedSpaceGeometry: readArchitecturalSpaceGeometry(representation),
     correspondence, transformations, missingExpectedElements, unverifiableElements, contradictions, provenance, epistemicStatus: "DERIVED", noCritique: true, noRecommendation: true, noMutation: true, noDecision: true,
   };
 }

@@ -1119,6 +1119,10 @@
     "p1_no_program": "No hay ítems de programa explícitos.",
     "p1_unknowns": "Desconocidos preservados",
     "p1_no_unknowns": "No hay desconocidos registrados.",
-    "p1_epistemic_note": "La asignación, el área objetivo y las relaciones siguen siendo distintas de la geometría observada y los hechos verificados."
+    "p1_epistemic_note": "La asignación, el área objetivo y las relaciones siguen siendo distintas de la geometría observada y los hechos verificados.",
+    "asi_g1_geometry_title": "Geometría observada de espacios ASI-G1",
+    "asi_g1_geometry_count": "Espacios arquitectónicos delimitados",
+    "asi_g1_actual_area": "Área actual",
+    "asi_g1_no_geometry": "No se observó geometría explícita de espacio arquitectónico. Se preserva el estado semántico."
   }
 }
