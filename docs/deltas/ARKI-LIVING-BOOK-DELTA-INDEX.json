@@ -1,0 +1,27 @@
+{
+  "schema": "ARKI-LIVING-BOOK-DELTA-INDEX-0.1",
+  "title": "ARKI — Libro Vivo: índice automático de deltas",
+  "last_updated": "2026-09-19",
+  "human_authority": "FINAL",
+  "volumes": [
+    "VOLUME_I",
+    "VOLUME_II",
+    "VOLUME_III"
+  ],
+  "deltas": [
+    {
+      "delta_id": "PASTED-FILE-IKAH3S-ARKI-ARQUI-CANONICAL-RESEARCH-REASONING-CHECKPOINT-V6-0-V6_0",
+      "source_name": "pasted_file_ikah3s_ARKI_ARQUI_Canonical_Research_Reasoning_Checkpoint_v6.0.xlsx",
+      "sha256": "155db9a345f83f652b79e81e228687066ccc1127a48e0d5c37f449291e3fde6e",
+      "received_at": "2026-09-19",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
+    }
+  ]
+}

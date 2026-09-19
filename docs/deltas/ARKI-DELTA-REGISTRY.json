@@ -1,0 +1,79 @@
+{
+  "schema": "ARKI-DELTA-REGISTRY-0.1",
+  "title": "ARKI — Registro automático de deltas",
+  "last_updated": "2026-09-19",
+  "human_authority": "FINAL",
+  "automatic_ingestion": "ENABLED",
+  "knowledge_claim_policy": "SUPPLIED_INPUT_IS_NOT_LEARNING",
+  "curriculum_targets": [
+    "VOLUME_I",
+    "VOLUME_II",
+    "VOLUME_III"
+  ],
+  "deltas": [
+    {
+      "delta_id": "PASTED-FILE-IKAH3S-ARKI-ARQUI-CANONICAL-RESEARCH-REASONING-CHECKPOINT-V6-0-V6_0",
+      "source_name": "pasted_file_ikah3s_ARKI_ARQUI_Canonical_Research_Reasoning_Checkpoint_v6.0.xlsx",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_file_ikah3s_ARKI_ARQUI_Canonical_Research_Reasoning_Checkpoint_v6.0.xlsx",
+      "destination": "docs/deltas/inbox/PASTED-FILE-IKAH3S-ARKI-ARQUI-CANONICAL-RESEARCH-REASONING-CHECKPOINT-V6-0-V6_0/pasted_file_ikah3s_ARKI_ARQUI_Canonical_Research_Reasoning_Checkpoint_v6.0.xlsx",
+      "sha256": "155db9a345f83f652b79e81e228687066ccc1127a48e0d5c37f449291e3fde6e",
+      "received_at": "2026-09-19",
+      "format": "xlsx",
+      "preview_items": [
+        "00_Executive",
+        "01_Delta_Map",
+        "02_Ontology_Convergence",
+        "03_Canonical_Primitives",
+        "04_Derived_Concepts",
+        "05_Canonical_Invariants",
+        "06_Reasoning_Grammar",
+        "07_Synthesis_Grammar",
+        "08_Design_Strategy",
+        "09_Architectural_Operators",
+        "10_Design_Moves",
+        "11_Multiscale_Architecture",
+        "12_Typed_Scale_Relationships",
+        "13_Composition_Experience",
+        "14_Learning_Architecture",
+        "15_Knowledge_Promotion",
+        "16_Transfer_Generalization",
+        "17_Knowledge_Delta",
+        "18_Unknown_Taxonomy",
+        "19_Evidence_Provenance",
+        "20_Runtime_Maturity",
+        "21_Autonomy_Matrix",
+        "22_Evaluation_Protocol",
+        "23_Cross_Typology_Tests",
+        "24_Adversarial_Tests",
+        "25_Regression_Protocol",
+        "26_Implementation_Delta",
+        "27_Reuse_Map",
+        "28_Guardrails",
+        "29_Acceptance",
+        "30_Sources",
+        "31_Research_Roadmap"
+      ],
+      "preview_count": 32,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
+    }
+  ]
+}

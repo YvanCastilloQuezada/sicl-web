@@ -10,6 +10,8 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
+    "arki:ingest-delta": "python3 scripts/arki_ingest_delta.py --file",
+    "arki:test-delta-ingestion": "python3 scripts/test_arki_ingest_delta.py",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {
