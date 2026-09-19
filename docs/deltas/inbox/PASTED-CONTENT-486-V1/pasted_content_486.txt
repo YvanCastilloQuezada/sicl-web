@@ -1,0 +1,580 @@
+# ARKI — P8.2
+## APPLICABILITY, SUFFICIENCY & LEGITIMATE NON-PLURALITY
+## SEMANTIC GATE REFINEMENT
+
+MODE = FOCUSED ARCHITECTURAL REASONING REFINEMENT
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+REPORTED LOCAL HEAD =
+05edd33758aeacd23a9a6468ebddca98a93107da
+
+============================================================
+0. REPOSITORY GOVERNANCE
+============================================================
+
+Verify repository, branch, local HEAD, remote HEAD and worktree.
+
+If the reported commits are validated and worktree is clean:
+
+push current branch first.
+
+Verify:
+
+LOCAL_HEAD = REMOTE_HEAD.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+1. PURPOSE
+============================================================
+
+P8.1 demonstrated an integrated chain but exposed ambiguity between:
+
+A. actual capability failure;
+
+B. legitimate absence of multiple feasible strategies/candidates;
+
+C. missing project evidence;
+
+D. required specialist input;
+
+E. required human decision;
+
+F. operation not applicable to the current state.
+
+Refine gate semantics so ARKI does not treat all inability to continue
+as the same kind of BLOCKED state.
+
+DO NOT enlarge strategy knowledge.
+DO NOT add arbitrary candidates.
+DO NOT fabricate multidisciplinary evidence.
+DO NOT make human decisions.
+
+============================================================
+2. CORE DISTINCTION
+============================================================
+
+Introduce/reuse the minimum canonical status semantics required to
+distinguish:
+
+DEMONSTRATED
+
+PARTIAL
+
+NOT_APPLICABLE
+
+INSUFFICIENT_EVIDENCE
+
+SPECIALIST_INPUT_REQUIRED
+
+HUMAN_DECISION_REQUIRED
+
+SINGLE_FEASIBLE_OPTION
+
+CAPABILITY_FAILURE
+
+IMPLEMENTATION_FAILURE
+
+UNKNOWN.
+
+Do not create duplicate status systems if equivalent semantics already
+exist.
+
+Reuse first.
+
+============================================================
+3. NEW INVARIANT
+============================================================
+
+Preserve:
+
+CANNOT PROCEED
+≠
+CAPABILITY FAILURE.
+
+A gate may legitimately terminate because its operation is not applicable
+or its required evidence/authority lies outside current project state.
+
+============================================================
+4. STRATEGY SYNTHESIS
+============================================================
+
+Reevaluate the P8.1 D6.2 result.
+
+Question:
+
+Was only one strategy generated because ARKI lacked generative capability?
+
+OR
+
+Were multiple potential strategies considered but only one remained
+applicable after legitimate filters?
+
+Distinguish:
+
+GENERATION_FAILURE
+
+from
+
+LEGITIMATE_SINGLE_APPLICABLE_STRATEGY.
+
+============================================================
+5. STRATEGIC PLURALITY
+============================================================
+
+Preserve:
+
+ONE APPLICABLE STRATEGY
+≠
+AUTOMATIC FAILURE.
+
+Strategic diversity is required only when the feasible strategic space
+supports genuinely distinct alternatives.
+
+Do not generate fake alternatives to satisfy a count threshold.
+
+============================================================
+6. REQUIRED EVIDENCE
+============================================================
+
+For strategy plurality report:
+
+POTENTIAL STRATEGY SPACE
+RETRIEVED STRATEGIES
+REJECTED STRATEGIES
+REJECTION REASONS
+APPLICABLE STRATEGIES
+UNKNOWN STRATEGIES
+WHETHER PLURALITY IS STRUCTURALLY WARRANTED.
+
+If plurality cannot be determined because knowledge/evidence is incomplete:
+
+INSUFFICIENT_EVIDENCE
+
+not:
+
+PASS.
+
+============================================================
+7. CANDIDATE COMPARISON
+============================================================
+
+Reevaluate D7.2 semantics.
+
+Preserve:
+
+ONE FEASIBLE CANDIDATE
+≠
+COMPARISON FAILURE.
+
+If only one candidate survives legitimate hard constraints:
+
+COMPARISON_STATUS =
+NOT_APPLICABLE_SINGLE_FEASIBLE_OPTION
+
+or canonical equivalent.
+
+Do not fabricate another candidate.
+
+============================================================
+8. DIFFERENT CASE
+============================================================
+
+If multiple feasible candidates exist and ARKI cannot compare them:
+
+CAPABILITY_FAILURE.
+
+Therefore distinguish:
+
+NO COMPARISON REQUIRED
+
+from
+
+COMPARISON REQUIRED BUT NOT POSSIBLE.
+
+============================================================
+9. MULTIDISCIPLINARY COORDINATION
+============================================================
+
+Reevaluate P8.1 coordination result.
+
+Determine whether missing project-specific multidisciplinary model is:
+
+A. unsupported representation capability;
+
+or
+
+B. missing specialist/project input.
+
+If B:
+
+SPECIALIST_INPUT_REQUIRED.
+
+Do not label as software failure.
+
+============================================================
+10. SPECIALIST BOUNDARY
+============================================================
+
+Preserve:
+
+SPECIALIST INPUT REQUIRED
+≠
+ARKI FAILURE.
+
+But also:
+
+SPECIALIST INPUT REQUIRED
+≠
+PASS.
+
+ARKI must record:
+
+WHAT INPUT IS MISSING
+WHY IT MATTERS
+WHICH SYSTEM/CAPABILITY DEPENDS ON IT
+WHO/WHAT COULD RESOLVE IT
+WHAT CAN STILL BE REASONED WITHOUT IT.
+
+============================================================
+11. PERFORMANCE
+============================================================
+
+Preserve current evidence classes:
+
+MEASURED
+SIMULATED
+PROXY
+SOURCE_STATEMENT
+UNKNOWN.
+
+Do not modify performance engine unless a real semantic defect is found.
+
+PROXY evidence should remain bounded.
+
+============================================================
+12. HUMAN DECISION
+============================================================
+
+PENDING_HUMAN_DECISION shall be interpreted as:
+
+HUMAN_DECISION_REQUIRED
+
+when the computational reasoning chain has reached a legitimate
+architectural choice boundary.
+
+This is not system failure.
+
+Do not automatically resolve it.
+
+============================================================
+13. GATE CONTRACT
+============================================================
+
+Each major gate should be able to report:
+
+OPERATION =
+APPLICABILITY =
+REQUIRED_INPUT =
+AVAILABLE_INPUT =
+EVIDENCE_SUFFICIENCY =
+CAPABILITY_AVAILABLE =
+RESULT =
+TERMINATION_REASON =
+NEXT_RESOLUTION_PATH =
+HUMAN/SPECIALIST AUTHORITY =.
+
+============================================================
+14. TERMINATION REASONS
+============================================================
+
+At minimum distinguish:
+
+SUCCESS
+
+LEGITIMATE_NOT_APPLICABLE
+
+SINGLE_FEASIBLE_OPTION
+
+INSUFFICIENT_EVIDENCE
+
+SPECIALIST_INPUT_REQUIRED
+
+HUMAN_DECISION_REQUIRED
+
+CAPABILITY_GAP
+
+IMPLEMENTATION_DEFECT
+
+HARD_CONSTRAINT_ELIMINATION
+
+UNKNOWN.
+
+============================================================
+15. PROJECT-LEVEL STATUS
+============================================================
+
+Do not collapse project state to simple PASS/FAIL.
+
+P8 project state should be capable of representing:
+
+INTEGRATED_CHAIN_DEMONSTRATED
+
+INTEGRATED_CHAIN_DEMONSTRATED_WITH_EXTERNAL_DEPENDENCIES
+
+INTEGRATED_CHAIN_PARTIAL_CAPABILITY_GAP
+
+INTEGRATED_CHAIN_PARTIAL_EVIDENCE_GAP
+
+BLOCKED_BY_IMPLEMENTATION
+
+BLOCKED_BY_REQUIRED_HUMAN_DECISION
+
+or minimal canonical equivalents.
+
+Avoid unnecessary enum proliferation; reuse existing state architecture
+where possible.
+
+============================================================
+16. REPLAY P8.1
+============================================================
+
+After semantic refinement, replay the same P8.1 controlled project.
+
+Do not change project facts merely to improve the result.
+
+Reclassify:
+
+D6.2
+D7.2
+coordination
+performance
+human decision
+
+using the refined semantics.
+
+============================================================
+17. EXPECTED POSSIBILITY — NOT EXPECTED ANSWER
+============================================================
+
+It is possible that replay produces:
+
+D6.2 =
+LEGITIMATE_SINGLE_APPLICABLE_STRATEGY
+
+D7.2 =
+NOT_APPLICABLE_SINGLE_FEASIBLE_OPTION
+
+COORDINATION =
+SPECIALIST_INPUT_REQUIRED
+
+PERFORMANCE =
+BOUNDED_PROXY_EVIDENCE
+
+DECISION =
+HUMAN_DECISION_REQUIRED.
+
+But these are hypotheses for interpretation, NOT answer keys.
+
+Determine actual states from runtime evidence.
+
+============================================================
+18. ADVERSARIAL CASES
+============================================================
+
+Add tests proving the status semantics are not simply relabeling failures.
+
+Case A:
+multiple strategies should exist but generator returns one
+→ CAPABILITY_FAILURE.
+
+Case B:
+multiple strategies generated, all but one legitimately eliminated
+→ SINGLE_APPLICABLE_STRATEGY.
+
+Case C:
+multiple feasible candidates exist but comparison cannot execute
+→ CAPABILITY_FAILURE.
+
+Case D:
+only one feasible candidate exists
+→ COMPARISON_NOT_APPLICABLE.
+
+Case E:
+multidisciplinary capability exists but specialist data absent
+→ SPECIALIST_INPUT_REQUIRED.
+
+Case F:
+required representation capability does not exist
+→ CAPABILITY_GAP.
+
+Case G:
+architectural trade-off exists and requires subjective selection
+→ HUMAN_DECISION_REQUIRED.
+
+============================================================
+19. NO SCORE HACK
+============================================================
+
+Do not convert these states into scalar scores.
+
+Do not rank capability states numerically to force project PASS.
+
+============================================================
+20. NO FALSE COMPLETENESS
+============================================================
+
+A project containing:
+
+SPECIALIST_INPUT_REQUIRED
+
+or
+
+INSUFFICIENT_EVIDENCE
+
+cannot be represented as fully verified.
+
+Preserve external dependencies.
+
+============================================================
+21. P8.2 ACCEPTANCE
+============================================================
+
+PASS if ARKI can correctly distinguish:
+
+failure
+non-applicability
+insufficient evidence
+external specialist dependency
+human authority boundary
+legitimate single feasible option
+
+without changing the architectural problem to fit the test.
+
+============================================================
+22. P8.1 REPLAY REPORT
+============================================================
+
+Return BEFORE / AFTER:
+
+D6.2 BEFORE =
+D6.2 AFTER =
+
+D7.2 BEFORE =
+D7.2 AFTER =
+
+COORDINATION BEFORE =
+COORDINATION AFTER =
+
+PERFORMANCE BEFORE =
+PERFORMANCE AFTER =
+
+HUMAN DECISION BEFORE =
+HUMAN DECISION AFTER =
+
+For every change explain evidence.
+
+============================================================
+23. INTEGRATED CHAIN STATUS
+============================================================
+
+Then report whether P8.1 should now be classified as:
+
+INTEGRATED_CHAIN_DEMONSTRATED
+
+INTEGRATED_CHAIN_DEMONSTRATED_WITH_EXTERNAL_DEPENDENCIES
+
+INTEGRATED_CHAIN_PARTIAL
+
+or
+
+BLOCKED
+
+based on evidence.
+
+Do not force promotion.
+
+============================================================
+24. REGRESSION
+============================================================
+
+Required:
+
+P8.1 = preserved
+L2/L3 = preserved
+L5/L6 = preserved
+L7 = preserved
+L8/L9 = preserved
+UNKNOWN = preserved
+HUMAN AUTHORITY = preserved
+REGULATORY SEPARATION = preserved
+NO FALSE LEARNING = preserved
+NO SECOND ENGINE = preserved
+FULL REGRESSION = PASS
+TYPECHECK = PASS
+BUILD = PASS
+GIT DIFF --CHECK = PASS.
+
+============================================================
+25. TRIPLE PROPAGATION
+============================================================
+
+Propagate accepted semantic refinement:
+
+ARKI
+→ CURRICULUM
+→ DIGITAL BOOK.
+
+Teach explicitly:
+
+NOT APPLICABLE
+≠
+FAILURE
+
+EXTERNAL DEPENDENCY
+≠
+SYSTEM FAILURE
+
+ONE FEASIBLE OPTION
+≠
+FAILURE TO COMPARE
+
+HUMAN DECISION REQUIRED
+≠
+REASONING FAILURE.
+
+============================================================
+26. GIT
+============================================================
+
+After validated completion:
+
+commit
+push current branch
+verify local == remote
+verify clean worktree.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+27. FINAL PRINCIPLE
+============================================================
+
+AN INTELLIGENT ARCHITECTURAL SYSTEM MUST KNOW NOT ONLY
+HOW TO CONTINUE REASONING.
+
+IT MUST ALSO KNOW WHY REASONING CANNOT OR SHOULD NOT
+CONTINUE AT A PARTICULAR GATE.
+
+DO NOT REPAIR LEGITIMATE LIMITS BY INVENTING ARCHITECTURE.
+
+Proceed.

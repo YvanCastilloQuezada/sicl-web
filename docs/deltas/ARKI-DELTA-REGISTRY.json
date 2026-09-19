@@ -568,6 +568,74 @@
         "MUTATE_PROJECT",
         "PUSH_WITHOUT_AUTHORIZATION"
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-486-V1",
+      "source_name": "pasted_content_486.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_486.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-486-V1/pasted_content_486.txt",
+      "sha256": "e87815030828fffee4a3c0032b20823a671c293a694e9e9b4a7e6c4a50ecbc6c",
+      "received_at": "2026-09-19",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P8.2",
+        "APPLICABILITY, SUFFICIENCY & LEGITIMATE NON-PLURALITY",
+        "SEMANTIC GATE REFINEMENT"
+      ],
+      "preview_count": 580,
+      "status": "EXECUTED / P8.2_PASS / EXTERNAL_DEPENDENCIES / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SEMANTIC_GATE_REFINEMENT / NO_LEARNING / NOT_CANONIZED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "follow_up_executions": [
+        {
+          "execution_state": "EXECUTED / P8.2_PASS / EXTERNAL_DEPENDENCIES / HUMAN_REVIEW_REQUIRED",
+          "p81_preserved": true,
+          "d62_before": "BLOCKED",
+          "d62_after": "SINGLE_FEASIBLE_OPTION",
+          "d72_before": "BLOCKED",
+          "d72_after": "NOT_APPLICABLE_SINGLE_FEASIBLE_OPTION",
+          "coordination_before": "BLOCKED",
+          "coordination_after": "SPECIALIST_INPUT_REQUIRED",
+          "performance_before": "PASS_WITH_OBSERVATIONS",
+          "performance_after": "PARTIAL_BOUNDED_PROXY_EVIDENCE",
+          "human_decision_before": "PENDING_HUMAN_DECISION",
+          "human_decision_after": "HUMAN_DECISION_REQUIRED",
+          "project_status": "INTEGRATED_CHAIN_DEMONSTRATED_WITH_EXTERNAL_DEPENDENCIES",
+          "semantic_trace": "STRUCTURAL_ONLY",
+          "k1_created": "NO",
+          "automatic_winner": "NONE",
+          "strategy_expansion": "NONE",
+          "candidate_fabrication": "NONE",
+          "specialist_evidence_fabrication": "NONE",
+          "focused_tests": "6/6 PASS",
+          "p81_preservation_tests": "3/3 PASS",
+          "full_regression": "PASS",
+          "typecheck": "PASS",
+          "build": "PASS",
+          "git_diff_check": "PASS",
+          "triple_propagation": "PASS",
+          "report": "docs/ARKI-P8.2-APPLICABILITY-SUFFICIENCY-REPLAY-2026-09-19.md",
+          "human_review": "REQUIRED",
+          "next_precise_work": "Supply project-specific specialist evidence and explicit human architectural decision; keep semantic trace gap visible."
+        }
+      ]
     }
   ]
 }

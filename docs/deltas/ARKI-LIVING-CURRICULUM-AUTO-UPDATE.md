@@ -227,3 +227,15 @@ HUMAN_AUTHORITY = FINAL
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-486-V1 -->
+## PASTED-CONTENT-486-V1 — pasted_content_486.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `e87815030828fffee4a3c0032b20823a671c293a694e9e9b4a7e6c4a50ecbc6c`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P8.2, APPLICABILITY, SUFFICIENCY & LEGITIMATE NON-PLURALITY, SEMANTIC GATE REFINEMENT
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
