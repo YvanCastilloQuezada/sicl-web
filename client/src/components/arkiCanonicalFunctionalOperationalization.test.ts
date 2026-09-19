@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ARKI_HANDOFF_ACCEPTANCE_IDS, ARKI_HANDOFF_DISPOSITION, buildHandoffAcceptanceFixture, buildResidentialOperationalProgram, deriveFunctionalViews, evaluateLearningTransfer, evaluateRegulatoryCoverage, evaluateSystemCompleteness, selectTemporalRegulatoryVersion, validateHandoffOperationalization } from "./arkiCanonicalFunctionalOperationalization";
+import { ARKI_HANDOFF_ACCEPTANCE_IDS, ARKI_HANDOFF_DISPOSITION, buildEducationOperationalProgram, buildHandoffAcceptanceFixture, buildHospitalSeparationTransferCases, buildResidentialOperationalProgram, deriveFunctionalViews, deriveFunctionalZoning, evaluateLearningTransfer, evaluateRegulatoryCoverage, evaluateSystemCompleteness, selectTemporalRegulatoryVersion, validateHandoffOperationalization } from "./arkiCanonicalFunctionalOperationalization";
 
 describe("ARKI canonical functional operationalization", () => {
   it("maps the handoff to reuse/extend/adapt/derived dispositions", () => {
@@ -76,5 +76,34 @@ describe("ARKI canonical functional operationalization", () => {
     expect(fixture.noAutomaticDecision).toBe(true);
     expect(fixture.humanAuthority).toBe("PRESERVED");
     expect(fixture.transfer.outcome).toBe("PASS");
+  });
+  it("builds an education profile as a functional program before geometry", () => {
+    const school = buildEducationOperationalProgram();
+    expect(school.profile.typology).toBe("EDUCATION");
+    expect(school.profile.epistemicState).toBe("HYPOTHESIS");
+    expect(school.profile.humanReviewRequired).toBe(true);
+    expect(school.requirements.map((r) => r.id)).toEqual(expect.arrayContaining(["SYS-ARRIVAL-SUPERVISION", "SYS-LEARNING", "SYS-FOOD", "SYS-ESCAPE"]));
+    expect(school.flows.some((flow) => flow.kind === "SERVICE" && flow.separation === "SPATIAL")).toBe(true);
+    expect(school.relationships.find((r) => r.id === "REL-SERVICE-LEARNING")?.compatibility).toBe("SEPARATE");
+    expect(school.noRoomListOntology).toBe(true);
+  });
+  it("derives school zoning bands from the canonical typology profile", () => {
+    const zones = deriveFunctionalZoning(buildEducationOperationalProgram());
+    expect(zones.map((zone) => zone.band)).toEqual(["PUBLIC_ENTRY", "SUPERVISED_SHARED", "LEARNING", "STAFF_RESTRICTED", "SERVICE"]);
+    expect(zones.every((zone) => zone.state === "PROPOSED")).toBe(true);
+    expect(zones.every((zone) => zone.evidence.length > 0)).toBe(true);
+    expect(zones.find((zone) => zone.band === "SERVICE")?.access).toBe("SERVICE");
+  });
+  it("transfers hospital flow separation independently to hotel and laboratory", () => {
+    const cases = buildHospitalSeparationTransferCases();
+    expect(cases.hotel.outcome).toBe("PASS");
+    expect(cases.laboratory.outcome).toBe("PASS");
+    expect(cases.hotel.humanReviewRequired).toBe(true);
+    expect(cases.laboratory.humanReviewRequired).toBe(true);
+    expect(cases.hotel.reason).toContain("without copying");
+    expect(cases.laboratory.reason).toContain("without copying");
+  });
+  it("rejects a hospital layout copied into a laboratory", () => {
+    expect(evaluateLearningTransfer({ fromTypology: "HEALTHCARE", toTypology: "INDUSTRY_LABORATORY_AGRICULTURE", preservedPrinciples: ["separate flows"], changedConditions: ["laboratory process"], nonApplicationCases: [], copiedSolution: true }).outcome).toBe("NOT_PROVEN");
   });
 });
