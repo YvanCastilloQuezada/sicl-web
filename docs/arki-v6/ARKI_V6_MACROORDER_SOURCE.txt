@@ -1,0 +1,1681 @@
+# MACROORDEN ARKI v6.0
+
+## CANONICAL RESEARCH & REASONING CHECKPOINT — DISCOVERY → DELTA → IMPLEMENTATION → EVALUATION → GITHUB
+
+### 0. AUTORIDAD DE ESTA ORDEN
+
+Ejecuta esta macroorden sobre el repositorio actual de ARKI/SICL Web.
+
+Esta orden integra el checkpoint:
+
+`ARKI_ARQUI_Canonical_Research_Reasoning_Checkpoint_v6.0.xlsx`
+
+El workbook v6.0 es **incremental** sobre:
+
+* v3.0
+* v4.0
+* v5.0
+
+Regla obligatoria:
+
+`NOT REPEATED ≠ DEPRECATED ≠ DELETE`
+
+Nada del v6.0 autoriza a eliminar conocimiento, contratos, invariantes, tests o capacidades anteriores simplemente porque no hayan sido repetidos.
+
+---
+
+# 1. OBJETIVO
+
+El objetivo de este ciclo NO es agregar otra tipología ni crear otro motor.
+
+El objetivo es determinar cuánto de la arquitectura conceptual v6.0 ya existe realmente en el repositorio y extender exclusivamente el delta necesario para avanzar desde:
+
+`DETECT → DIAGNOSE → EVALUATE → CONTROLLED REPAIR`
+
+hacia:
+
+`CAUSE → STRATEGY → CANDIDATE → MUTATION → REEVALUATION → TRANSFER → LEARNING EVIDENCE`
+
+sin duplicar la arquitectura existente.
+
+La pregunta principal que debe responder este ciclo es:
+
+**¿Puede ARKI resolver un caso estructuralmente nuevo utilizando conocimiento previo, sin una regla de reparación específica del dominio, y explicar exactamente qué sabía, qué reutilizó, qué ejecutó, qué adaptó, qué aprendió y qué sigue siendo desconocido?**
+
+---
+
+# 2. REGLA DE EJECUCIÓN
+
+Trabaja en cuatro fases obligatorias:
+
+`PHASE A — READ-ONLY DISCOVERY`
+
+`PHASE B — DELTA DECISION`
+
+`PHASE C — CONTROLLED IMPLEMENTATION`
+
+`PHASE D — VALIDATION + REPORT + GIT`
+
+No saltes directamente a programar.
+
+---
+
+# 3. PHASE A — READ-ONLY DISCOVERY
+
+Antes de modificar un solo archivo, inspecciona el repositorio real.
+
+Reporta:
+
+* repository;
+* current branch;
+* HEAD SHA;
+* remote;
+* worktree status;
+* package/runtime baseline;
+* ubicación real de AGENTS.md y reglas aplicables;
+* estado de tests;
+* arquitectura existente relacionada con esta orden.
+
+No asumas que el último SHA conocido sigue siendo HEAD.
+
+No cambies de rama salvo necesidad demostrada y autorización.
+
+## 3.1 Audita específicamente
+
+Localiza y comprende antes de modificar:
+
+* `CanonicalBuildingModel`;
+* `arkiBuildingAuthoring.ts`;
+* GDI;
+* A21;
+* S1;
+* S2;
+* candidate/alternative generation;
+* immutable parent / lineage;
+* dependency reevaluation;
+* critique/evaluation;
+* typology knowledge;
+* `arkiTypologyFunctionalKnowledge.ts`;
+* state/scenario/time structures;
+* capability/dependency structures;
+* learning cycle;
+* acquisition ledger;
+* provenance/evidence;
+* regulatory foundation;
+* Peru RNE verifier;
+* permit orchestrator;
+* FunctionalUnit;
+* A22Level;
+* `arkiMultiscaleSpatialHierarchy.ts`;
+* active topology;
+* any existing strategy/design-move/operator abstraction;
+* any existing knowledge-transfer/generalization mechanism;
+* existing reports/tests that already distinguish baseline/input/reuse/new knowledge.
+
+Search semantically, not only by filename.
+
+---
+
+# 4. REQUIRED DISCOVERY CLASSIFICATION
+
+For every v6 capability classify the existing implementation as exactly one of:
+
+`REUSE`
+
+`EXTEND`
+
+`ADAPT`
+
+`DATA_ONLY`
+
+`DERIVED_VIEW`
+
+`RESEARCH_ONLY`
+
+`DO_NOT_ADD`
+
+Produce a discovery matrix:
+
+| V6 CAPABILITY | EXISTING ARTIFACT | CURRENT CAPABILITY | GAP | DISPOSITION | FILES LIKELY AFFECTED |
+| ------------- | ----------------- | ------------------ | --- | ----------- | --------------------- |
+
+No implementation before completing this matrix.
+
+---
+
+# 5. HARD ARCHITECTURAL GUARDRAILS
+
+Preserve:
+
+`ONE GEOMETRY. ONE SEMANTICS. MULTIPLE OUTPUTS.`
+
+Do NOT create:
+
+* second geometry engine;
+* second building model;
+* second topology engine;
+* second typology engine;
+* second regulatory engine;
+* second knowledge engine;
+* second learning engine;
+* second human-review engine;
+* second capability engine;
+* independent synthesis universe.
+
+Explicitly prohibited unless the canonical architecture is demonstrably incapable and the report proves why:
+
+`WasteEngine`
+
+`KitchenRepairEngine`
+
+`HospitalFlowRepairEngine`
+
+`LabFlowRepairEngine`
+
+`PublicRealmRepairEngine`
+
+or equivalent deficit/typology-specific engines.
+
+Mandatory principle:
+
+`CAPABILITY DEFICIT → STRATEGY → MUTATION → REEVALUATION`
+
+not:
+
+`DOMAIN DEFICIT → DOMAIN-SPECIFIC ENGINE`
+
+---
+
+# 6. ONTOLOGY
+
+Preserve the provisional 17-primitive research model:
+
+1. ENTITY
+2. SYSTEM
+3. ACTIVITY
+4. STATE
+5. TRANSITION
+6. PROCESS
+7. RELATIONSHIP
+8. FLOW
+9. CONTROL
+10. INTERFACE
+11. REQUIREMENT
+12. CONDITION
+13. CAPACITY
+14. TIME
+15. EVIDENCE
+16. ISSUE
+17. HAZARD
+
+Important:
+
+HAZARD remains a **research-supported candidate primitive**.
+
+Do not create a new canonical HAZARD entity merely because it appears in v6.0 unless repository audit and architectural compatibility analysis justify formal canonization.
+
+Do not add primitive 18 in this cycle.
+
+---
+
+# 7. SYNTHESIS MODEL
+
+Target reasoning structure:
+
+`ISSUE / DEFICIT`
+
+→ `CAUSE MODEL`
+
+→ `REQUIRED CAPABILITY`
+
+→ `RESOLUTION TARGET`
+
+→ `HARD REQUIREMENTS`
+
+→ `REALIZATION STRATEGIES`
+
+→ `DESIGN MOVES`
+
+→ `CANDIDATE MUTATIONS`
+
+→ `CANONICAL MODEL DERIVATIVES`
+
+→ `DEPENDENCY-SCOPED REEVALUATION`
+
+→ `SCENARIO × STATE × TIME × ACTOR`
+
+→ `LIFECYCLE IMPACT`
+
+→ `COVERAGE`
+
+→ `FEASIBLE / NON-DOMINATED ALTERNATIVES`
+
+→ `TRADE-OFF EXPLANATION`
+
+→ `HUMAN AUTHORITY`
+
+This is a dependency graph with feedback loops.
+
+Do not implement it as a rigid wizard.
+
+---
+
+# 8. CRITICAL SYNTHESIS INVARIANTS
+
+Preserve:
+
+`DEFICIT ≠ CAUSE ≠ STRATEGY ≠ SOLUTION`
+
+`STRATEGY ≠ TEMPLATE`
+
+`OPERATOR ≠ MUTATION`
+
+`DESIGN MOVE ≠ ATOMIC OPERATOR`
+
+`PARAMETRIC VARIATION ≠ STRATEGIC DIVERSITY`
+
+`ARCHITECTURAL SYNTHESIS ≠ GEOMETRIC SYNTHESIS ONLY`
+
+`GEOMETRIC POSSIBILITY ≠ OPERATOR APPLICABILITY`
+
+`LOCAL MUTATION PASS ≠ GLOBAL CONFIGURATION PASS`
+
+`INVALID ≠ LOW SCORE`
+
+`UNKNOWN ≠ PENALTY ≠ FAIL ≠ PASS`
+
+`PARETO NON-DOMINATED ≠ ARCHITECTURALLY PREFERRED`
+
+`INFEASIBILITY MUST NOT BE HIDDEN BY SILENT CONSTRAINT RELAXATION`
+
+`GENERATED GEOMETRY WITHOUT TRACEABLE DESIGN INTENT IS SEMANTICALLY INCOMPLETE`
+
+---
+
+# 9. CAUSE BEFORE REPAIR
+
+ARKI must not automatically infer:
+
+`DEFICIT → GEOMETRIC REPAIR`
+
+Represent or expose the distinction between:
+
+* observed deficit;
+* hypothesized cause;
+* supported cause;
+* verified cause.
+
+Required invariant:
+
+`DEFICIT CERTAINTY ≠ CAUSE CERTAINTY`
+
+and:
+
+`CAUSE CERTAINTY ≠ SOLUTION CERTAINTY`
+
+If the cause cannot be established sufficiently:
+
+preserve UNKNOWN and provide a resolution path.
+
+---
+
+# 10. STRATEGY GENERATION
+
+If the existing architecture permits it without a parallel engine, introduce/extend a declarative strategy layer.
+
+Candidate strategy families:
+
+* SPATIAL;
+* TOPOLOGICAL;
+* ALLOCATIVE;
+* TEMPORAL;
+* CONTROL;
+* RESOURCE;
+* TECHNICAL;
+* EXTERNAL;
+* HYBRID.
+
+These are semantic classifications.
+
+They do NOT imply nine software engines.
+
+A deficit may activate multiple strategy families.
+
+Do not create exclusive mapping:
+
+`DEFICIT TYPE → ONE STRATEGY`
+
+Instead:
+
+`DEFICIT + CAUSE + CAPABILITY + CONDITIONS + AUTHORITY`
+
+→ candidate strategy set.
+
+---
+
+# 11. DESIGN MOVE
+
+A Design Move is a contextual composition of one or more operators.
+
+Where compatible with the existing architecture, represent or expose at least:
+
+* intent;
+* target;
+* strategy family;
+* operators;
+* preconditions;
+* forbidden conditions;
+* authority scope;
+* expected benefits;
+* expected costs;
+* expected risks;
+* unknown effects;
+* predicted impact scope;
+* verification scope;
+* actual effects;
+* unexpected effects;
+* provenance.
+
+Critical rule:
+
+**A DESIGN MOVE IS INCOMPLETE WITHOUT A POST-MUTATION VERIFICATION SCOPE.**
+
+---
+
+# 12. ARCHITECTURAL OPERATORS
+
+Do not create an operator engine unless absolutely required.
+
+First determine whether operators can be represented declaratively and executed through existing canonical mutation/generation mechanisms.
+
+Research vocabulary includes:
+
+### Spatial
+
+ADD
+REMOVE
+MOVE
+RESIZE
+ROTATE
+REORIENT
+EXTEND
+REDUCE
+
+### Compositional
+
+GROUP
+CLUSTER
+SEPARATE
+BUFFER
+INTERPOSE
+MERGE
+SUBDIVIDE
+DISTRIBUTE
+CENTRALIZE
+DECENTRALIZE
+
+### Topological
+
+CONNECT
+DISCONNECT
+REROUTE
+BYPASS
+ADD_ALTERNATE_PATH
+ISOLATE
+
+### Allocative
+
+ASSIGN
+REASSIGN
+SHARE
+DEDICATE
+RESERVE
+PRIORITIZE
+
+### Temporal
+
+SCHEDULE
+RESEQUENCE
+STAGGER
+TEMPORALLY_SEPARATE
+CHANGEOVER
+PHASE
+
+### Control
+
+AUTHORIZE
+RESTRICT
+METER
+PRIORITIZE
+TRIGGER
+INTERLOCK
+MONITOR
+
+### Resource
+
+ADD_RESOURCE
+REMOVE_RESOURCE
+REALLOCATE_RESOURCE
+RESERVE_RESOURCE
+DUPLICATE_RESOURCE
+SUBSTITUTE_RESOURCE
+
+### State/configuration
+
+ACTIVATE
+DEACTIVATE
+SWITCH
+RECONFIGURE
+FAILOVER
+RESTORE
+
+Do not implement operators that the controlled proof does not need merely to complete the list.
+
+---
+
+# 13. DESIGN FREEDOM / MUTABILITY / AUTHORITY
+
+Before mutation, distinguish:
+
+* physically mutable;
+* design-scope mutable;
+* legally/regulatorily constrained;
+* human-authorized;
+* external authority;
+* UNKNOWN.
+
+Mandatory:
+
+`EXISTENCE STATE ≠ MUTABILITY STATE`
+
+`MUTABLE ≠ AUTHORIZED TO MUTATE`
+
+`GEOMETRIC MUTABILITY ≠ DESIGN PREFERENCE ≠ AUTHORITY ≠ VALID STRATEGY`
+
+Automatic geometric repair must respect authority boundaries.
+
+---
+
+# 14. MULTISCALE ARCHITECTURE
+
+Preserve:
+
+`CANONICAL MICRO→MACRO FRAMEWORK = L00–L22`
+
+Do not create L23 for Level/Floor.
+
+Distinguish that taxonomy from runtime spatial relationships.
+
+The runtime model must be treated as:
+
+`CANONICAL GRAPH + DERIVED HIERARCHIES`
+
+not a universal tree.
+
+Do NOT impose universally:
+
+`SPACE → FUNCTIONAL_UNIT → LEVEL → FUNCTIONAL_SYSTEM → BUILDING`
+
+as strict parent-child containment.
+
+Required typed relations include conceptually:
+
+`SPACE PART_OF / PARTICIPATES_IN FUNCTIONAL_UNIT`
+
+`SPACE LOCATED_ON LEVEL`
+
+`FUNCTIONAL_UNIT SPANS LEVEL(S)`
+
+`LEVEL CONTAINS SPACE`
+
+`FUNCTIONAL_UNIT PARTICIPATES_IN FUNCTIONAL_SYSTEM`
+
+`FUNCTIONAL_SYSTEM SERVES FUNCTIONAL_UNIT / BUILDING`
+
+Preserve:
+
+`LEVEL ≠ FUNCTIONAL_UNIT`
+
+`FUNCTIONAL UNIT MAY CROSS LEVELS`
+
+`ONE LEVEL MAY CONTAIN MULTIPLE FUNCTIONAL UNITS`
+
+`FUNCTIONAL SYSTEM ↔ FUNCTIONAL UNIT IS NOT NECESSARILY PARENT–CHILD`
+
+`MULTISCALE ARCHITECTURAL STRUCTURE ≠ STRICT CONTAINMENT TREE`
+
+`SCALE COUNT WITHOUT SCALE DIMENSION IS AMBIGUOUS`
+
+---
+
+# 15. COMPOSITION / EXPERIENCE
+
+Do NOT build a universal beauty scorer in this cycle.
+
+Treat composition/experience initially as:
+
+`RESEARCH_ONLY`
+
+or:
+
+`DERIVED_VIEW`
+
+unless an existing reusable architecture already supports it cleanly.
+
+Preserve:
+
+`SPATIAL CONFIGURATION ≠ SPATIAL EXPERIENCE ≠ ARCHITECTURAL COMPOSITION ≠ AESTHETIC JUDGMENT`
+
+`WAYFINDING ≠ SIGNAGE`
+
+`VISIBLE ≠ REACHABLE`
+
+`LIGHT ≠ ILLUMINANCE`
+
+`PROPORTION MEASURABLE ≠ PROPORTION UNIVERSALLY PREFERRED`
+
+`GEOMETRIC DIVERSITY ≠ ARCHITECTURAL DIVERSITY`
+
+No:
+
+`BEAUTY_SCORE = x`
+
+as canonical architectural truth.
+
+---
+
+# 16. LEARNING ARCHITECTURE
+
+Do not create a second Learning Engine.
+
+Audit and reuse the current:
+
+* learning cycle;
+* acquisition ledger;
+* provenance;
+* evidence;
+* knowledge units.
+
+Conceptually preserve responsibilities:
+
+`KNOW ↔ REASON ↔ GENERATE ↔ VERIFY ↔ LEARN`
+
+under:
+
+`HUMAN AUTHORITY`
+
+These are responsibilities, not mandatory software modules.
+
+---
+
+# 17. ABSOLUTE LEARNING RULE
+
+Every future test and report must preserve:
+
+**WHAT DID ARKI LEARN
+≠ WHAT DID ARKI ALREADY KNOW
+≠ WHAT DID ARKI REUSE
+≠ WHAT DID ARKI SIMPLY EXECUTE
+≠ WHAT WAS SUPPLIED AS INPUT**
+
+No report may use the word “learned” unless this distinction has been demonstrated.
+
+---
+
+# 18. KNOWLEDGE STATE
+
+For controlled learning tests establish explicitly:
+
+`K0 = knowledge before`
+
+`I = supplied input`
+
+`R = retrieved/reused knowledge`
+
+`E = existing reasoning executed`
+
+`O = new observations`
+
+`K1 = knowledge after`
+
+Learning delta must be justified as:
+
+`K0 → K1`
+
+Do not count I, R or E as new learning.
+
+---
+
+# 19. LEARNING DELTA TYPES
+
+Support/report at least:
+
+`ADD`
+
+`REFINE`
+
+`GENERALIZE`
+
+`SPECIALIZE`
+
+`REVISE`
+
+`RETIRE`
+
+RETIRE does not erase history.
+
+`SUPERSEDED ≠ ERASED`
+
+---
+
+# 20. KNOWLEDGE PROMOTION
+
+Do not promote an observation directly into canonical knowledge.
+
+Required conceptual flow:
+
+`OBSERVED`
+
+→ `CANDIDATE`
+
+→ `SUPPORTED`
+
+→ `TRANSFER_TESTED`
+
+→ `GENERALIZED_CANDIDATE`
+
+→ `CANONICAL_CANDIDATE`
+
+→ `CANONICAL / HUMAN-CONFIRMED`
+
+with possible transitions to:
+
+`CONTEXT_SPECIFIC`
+
+`CONFLICTED`
+
+`SUPERSEDED`
+
+`REJECTED`
+
+Important:
+
+`KNOWLEDGE MATURITY IS A STATE GRAPH, NOT A ONE-WAY LADDER`
+
+`KNOWLEDGE MATURITY ≠ KNOWLEDGE GENERALITY`
+
+`AUTOMATIC OBSERVATION ≠ AUTOMATIC CANONIZATION`
+
+---
+
+# 21. KNOWLEDGE CLASSES
+
+Where the current architecture permits, distinguish semantically:
+
+* FACT;
+* RELATIONSHIP;
+* INVARIANT;
+* PATTERN;
+* HEURISTIC;
+* STRATEGY;
+* DESIGN MOVE;
+* COUNTEREXAMPLE;
+* REGULATORY REQUIREMENT;
+* REFERENCE VALUE;
+* HUMAN DECISION.
+
+Do not confuse:
+
+`INVARIANT`
+
+with:
+
+`HEURISTIC`
+
+or:
+
+`REGULATORY REQUIREMENT`.
+
+Preserve modality:
+
+`DESCRIPTIVE ≠ PREDICTIVE ≠ PRESCRIPTIVE ≠ NORMATIVE`
+
+and:
+
+`EPISTEMIC STRENGTH ≠ NORMATIVE FORCE`
+
+---
+
+# 22. TRANSFER / GENERALIZATION
+
+A transfer test must report:
+
+* source domain;
+* target domain;
+* transfer unit;
+* structural match;
+* critical differences;
+* adaptation burden;
+* transfer decision;
+* adaptation;
+* new domain-specific code required;
+* result;
+* evidence;
+* counterexample;
+* scope refinement;
+* fixation check.
+
+Transfer decision must be one of:
+
+`TRANSFER`
+
+`ADAPT`
+
+`DO_NOT_TRANSFER`
+
+Adaptation burden:
+
+`NONE`
+
+`LOW`
+
+`MODERATE`
+
+`HIGH`
+
+`STRUCTURALLY_INCOMPATIBLE`
+
+`UNKNOWN`
+
+---
+
+# 23. TRANSFER GUARDRAILS
+
+Preserve:
+
+`SIMILARITY ≠ TRANSFERABILITY`
+
+`MOST SIMILAR CASE ≠ MOST REUSABLE CASE`
+
+`TRANSFER UNIT ≠ WHOLE PRECEDENT`
+
+`PRECEDENT TRANSFER ≠ FORM COPYING`
+
+`SUCCESSFUL TRANSFER MAY PRESERVE REASONING WHILE CHANGING REALIZATION`
+
+`GENERAL REASONING TRANSFER ≠ DOMAIN-SPECIFIC SUFFICIENCY`
+
+`GENERALIZATION REQUIRES BOTH POSITIVE TRANSFER AND TRANSFER RESTRAINT`
+
+`AGGREGATE SIMILARITY MUST NOT OVERRIDE CRITICAL SEMANTIC DIFFERENCE`
+
+Critical semantic gates occur before similarity ranking.
+
+---
+
+# 24. REASONING PROVENANCE
+
+Add or expose reasoning provenance without duplicating existing provenance architecture.
+
+For every major generated strategy/candidate answer:
+
+`WHY DID ARKI CONSIDER THIS?`
+
+Possible origin classes:
+
+* canonical knowledge;
+* typology knowledge;
+* project input;
+* human instruction;
+* regulation;
+* transferred knowledge;
+* generated hypothesis.
+
+Preserve:
+
+`FACT PROVENANCE ≠ REASONING PROVENANCE`
+
+---
+
+# 25. UNKNOWN
+
+Every UNKNOWN must be classified.
+
+At minimum:
+
+`PROJECT_DATA`
+
+`ARCHITECTURAL_KNOWLEDGE`
+
+`REGULATORY`
+
+`SPECIALIST`
+
+`IMPLEMENTATION`
+
+`EVIDENCE`
+
+`HUMAN_DECISION`
+
+For every material UNKNOWN report:
+
+* WHAT is unknown;
+* WHY it is unknown;
+* WHAT is missing;
+* HOW it could be resolved;
+* WHO/WHAT could resolve it;
+* WHAT will be reevaluated afterward.
+
+Mandatory:
+
+`UNKNOWN WITHOUT RESOLUTION PATH = INCOMPLETE DIAGNOSIS`
+
+---
+
+# 26. REGULATORY SEPARATION
+
+Never merge:
+
+`GEOMETRIC STATUS`
+
+`FUNCTIONAL STATUS`
+
+`OPERATIONAL STATUS`
+
+`PERFORMANCE STATUS`
+
+`REGULATORY STATUS`
+
+`PROFESSIONAL APPROVAL`
+
+Preserve:
+
+`FOREIGN TECHNICAL REFERENCE ≠ PERU LAW`
+
+`OFFICIAL SOURCE ≠ CURRENTLY APPLICABLE REQUIREMENT`
+
+`SOURCE VERIFIED ≠ REQUIREMENT VERIFIED ≠ PROJECT COMPLIANCE VERIFIED`
+
+`RNE COMPLIANCE ≠ PERMIT APPROVAL`
+
+No foreign reference becomes Peruvian requirement through learning/transfer.
+
+---
+
+# 27. CONTROLLED TEST SUITE
+
+Do not attempt every possible typology.
+
+Use the smallest rigorous suite capable of demonstrating generalization.
+
+## TEST A — SOURCE
+
+Restaurant dirty-return / incompatible-flow problem.
+
+Purpose:
+
+establish baseline and reasoning pattern.
+
+Do NOT hardcode the previously generated 15 m² solution as the answer.
+
+## TEST B — SAME-TYPOLOGY VARIANT
+
+Restaurant with materially changed:
+
+* geometry;
+* capacity;
+* schedule and/or operating condition.
+
+Expected:
+
+ARKI must adapt rather than replay the previous geometry.
+
+## TEST C — POSITIVE CROSS-TYPOLOGY TRANSFER
+
+Hospital / healthcare incompatible journey case.
+
+Expected:
+
+reuse relevant reasoning structure but produce context-appropriate realization.
+
+No hospital-specific repair engine.
+
+## TEST D — TRANSFER RESTRAINT
+
+Laboratory / biosafety case with superficially similar dirty/waste/flow terminology.
+
+Expected:
+
+detect materially different hazard/containment/control semantics.
+
+A correct result may be:
+
+`ADAPT`
+
+or:
+
+`DO_NOT_TRANSFER`
+
+The restaurant realization must not be blindly copied.
+
+## TEST E — AUTHORITY BOUNDARY
+
+Public-realm accessibility/external-dependency deficit.
+
+Expected:
+
+ARKI must distinguish project-controlled from external-controlled mutation.
+
+No unauthorized external geometric repair.
+
+## TEST F — STRUCTURALLY DIFFERENT REALIZATION
+
+Mixed-use shared-capacity/concurrency problem.
+
+Expected:
+
+reuse capacity/concurrency reasoning without inventing a dedicated room solution.
+
+---
+
+# 28. ADVERSARIAL TESTS
+
+Include at minimum:
+
+### AT-01 — Similar label trap
+
+Restaurant waste vs biosafety waste.
+
+Must detect semantic differences.
+
+### AT-02 — Temporal separation trap
+
+Temporal separation appears attractive but emergency operation requires concurrency.
+
+Must reject invalid strategy.
+
+### AT-03 — Similarity-score trap
+
+Cases are highly similar except for critical HAZARD.
+
+Critical semantic difference must override similarity.
+
+### AT-04 — Design fixation
+
+Strong precedent is available.
+
+ARKI must still consider genuinely distinct strategy families where feasible.
+
+### AT-05 — Infeasible constraints
+
+No feasible solution exists.
+
+ARKI must report infeasibility.
+
+It must not silently relax mandatory constraints.
+
+### AT-06 — Authority trap
+
+Required mutation lies outside project authority.
+
+Do not mutate blindly.
+
+### AT-07 — UNKNOWN trap
+
+Critical unknown exists.
+
+Do not turn it into score penalty, PASS or FAIL.
+
+### AT-08 — Local-success/global-failure trap
+
+Candidate solves local deficit but damages egress/accessibility/another capability.
+
+Dependency propagation must reveal the new deficit.
+
+---
+
+# 29. STRATEGIC DIVERSITY
+
+Where multiple feasible approaches genuinely exist, generate at least two distinct **strategy families** before parameter exploration.
+
+Do not count:
+
+`wall at x`
+
+vs.
+
+`wall at x + 100 mm`
+
+as strategic diversity.
+
+Report separately:
+
+* strategic diversity;
+* topological diversity;
+* compositional diversity if evaluated;
+* parametric diversity.
+
+Preserve:
+
+`PARAMETRIC VARIATION ≠ STRATEGIC DIVERSITY`
+
+---
+
+# 30. CANDIDATE EVALUATION
+
+Order:
+
+`HARD CONSTRAINT GATES`
+
+→ `FEASIBLE SET`
+
+→ `PERFORMANCE / MULTIOBJECTIVE EVALUATION`
+
+→ `NON-DOMINATED ALTERNATIVES`
+
+→ `TRADE-OFF EXPLANATION`
+
+→ `HUMAN DECISION`
+
+Do not use a weighted score to compensate for mandatory failure.
+
+`INVALID ≠ LOW SCORE`
+
+Do not auto-select an architectural winner.
+
+---
+
+# 31. EXPECTED VS ACTUAL EFFECTS
+
+For each meaningful Design Move report:
+
+* expected effects;
+* actual effects;
+* unexpected effects.
+
+Unexpected consequences are potential learning events.
+
+But:
+
+`UNEXPECTED EFFECT ≠ AUTOMATIC GENERAL RULE`
+
+They must enter the knowledge promotion process.
+
+---
+
+# 32. PERMANENT EVALUATION REPORT
+
+Every controlled delta/test must contain all of the following sections.
+
+Do not omit sections silently.
+
+## A — Baseline / K0
+
+What ARKI knew and could do before.
+
+## B — Input
+
+Everything explicitly supplied.
+
+## C — Initial Unknowns
+
+Typed using the UNKNOWN taxonomy.
+
+## D — Reasoning Activated
+
+What capabilities/processes actually executed.
+
+## E — Knowledge Reused
+
+What prior knowledge was retrieved/transferred.
+
+## F — Reasoning Provenance
+
+Why each major reasoning move was considered.
+
+## G — Deficits Detected
+
+With evidence.
+
+## H — Cause Hypotheses
+
+Observed / hypothesized / supported / verified.
+
+## I — Strategies Generated
+
+Distinct strategy families.
+
+## J — Candidates
+
+Number, lineage, strategy family.
+
+## K — Rejected Candidates
+
+Why each was rejected.
+
+Distinguish hard failure from trade-off.
+
+## L — Geometry Mutations
+
+Exact mutations.
+
+## M — Relationships Changed
+
+Typed relationship delta.
+
+## N — Active Topology
+
+Actor/state/scenario/time scope.
+
+## O — Scenario Results
+
+Normal / peak / failure / recovery where relevant.
+
+## P — Dependency Propagation
+
+Direct and propagated impacts.
+
+## Q — New Deficits Created
+
+Post-mutation deficits.
+
+## R — Expected vs Actual Effects
+
+Including unexpected consequences.
+
+## S — Coverage
+
+Candidate / applicable / evaluated / unevaluated.
+
+## T — Evidence / Provenance
+
+Fact + reasoning provenance.
+
+## U — UNKNOWN
+
+Typed and explained.
+
+## V — UNKNOWN Resolution Path
+
+Mandatory for every material UNKNOWN.
+
+## W — Regulatory Status
+
+Separate from geometry/function/operation.
+
+## X — Human Decisions Required
+
+Decision + scope + consequences.
+
+## Y — Knowledge Before / K0
+
+Explicit knowledge state.
+
+## Z — Supplied Knowledge
+
+Excluded from learning claims.
+
+## AA — Retrieved Knowledge
+
+Previously available knowledge.
+
+## AB — Adapted Knowledge
+
+What was transformed and why.
+
+## AC — Learning Candidate
+
+Potential genuinely new reusable knowledge.
+
+## AD — Learning Class
+
+L1 PARAMETER
+L2 RELATIONSHIP
+L3 STRUCTURAL
+L4 REASONING PATTERN
+
+## AE — Persistence
+
+Did the learning candidate survive beyond immediate execution?
+
+## AF — Transfer Source / Target
+
+Domains.
+
+## AG — Context Differences
+
+Critical differences.
+
+## AH — Adaptation Burden
+
+Declared status.
+
+## AI — Transfer Decision
+
+TRANSFER / ADAPT / DO_NOT_TRANSFER.
+
+## AJ — Transfer Result
+
+With evidence.
+
+## AK — Counterexample / Adversarial Test
+
+What challenged the claim.
+
+## AL — Scope Refinement
+
+Generalized / specialized / revised.
+
+## AM — Fixation Check
+
+Did precedent knowledge collapse diversity?
+
+## AN — Knowledge After / K1
+
+Post-test reusable knowledge state.
+
+## AO — Learning Delta
+
+ADD / REFINE / GENERALIZE / SPECIALIZE / REVISE / RETIRE.
+
+## AP — Generalization Status
+
+NONE / POSSIBLE / PARTIAL / DEMONSTRATED.
+
+## AQ — Knowledge Regression
+
+Did previous knowledge degrade?
+
+## AR — Reasoning Regression
+
+Did application of existing knowledge degrade?
+
+## AS — Software Regression
+
+Tests/build/typecheck/etc.
+
+## AT — Runtime Maturity
+
+Independent maturity dimensions.
+
+## AU — Autonomy Level Demonstrated
+
+L0–L10 with evidence.
+
+## AV — Final Epistemic State
+
+Scope-qualified conclusion.
+
+---
+
+# 33. MANDATORY LEARNING MATRIX
+
+Produce:
+
+| CAPABILITY / KNOWLEDGE | ALREADY KNOWN | PROVIDED AS INPUT | REUSED | EXECUTED | NEWLY INTRODUCED | INFERRED | GENERALIZED | IMPLEMENTED | TESTED | REMAINS UNKNOWN | EVIDENCE |
+| ---------------------- | ------------- | ----------------- | ------ | -------- | ---------------- | -------- | ----------- | ----------- | ------ | --------------- | -------- |
+
+No learning conclusion without this matrix.
+
+---
+
+# 34. MANDATORY TRANSFER MATRIX
+
+Produce:
+
+| KNOWLEDGE / CAPABILITY | SOURCE DOMAIN | TARGET DOMAIN | REUSED WITHOUT CHANGE | ADAPTED | NEW DOMAIN CODE REQUIRED | RESULT | EVIDENCE |
+| ---------------------- | ------------- | ------------- | --------------------- | ------- | ------------------------ | ------ | -------- |
+
+If new domain-specific code was necessary, disclose it explicitly.
+
+Do not claim Core generalization merely because domain-specific code made the test pass.
+
+---
+
+# 35. AUTONOMY
+
+Evaluate independently:
+
+L0 — RECEIVES
+L1 — REPRESENTS
+L2 — DETECTS
+L3 — DIAGNOSES
+L4 — EVALUATES
+L5 — GENERATES STRATEGIES
+L6 — GENERATES CANDIDATES
+L7 — MUTATES / SYNTHESIZES
+L8 — REEVALUATES
+L9 — COMPARES
+L10 — GENERALIZES
+
+Do not infer higher levels from lower-level success.
+
+Human acceptance remains outside the ladder and remains human.
+
+---
+
+# 36. RUNTIME MATURITY
+
+Report independently:
+
+`RESEARCH STATUS`
+
+`TEACHABILITY STATUS`
+
+`IMPLEMENTATION STATUS`
+
+`VALIDATION STATUS`
+
+`GENERALIZATION STATUS`
+
+Do not collapse these into one status.
+
+Suggested overall progression:
+
+`RESEARCHED`
+
+→ `FORMALIZED`
+
+→ `TEACHABLE`
+
+→ `IMPLEMENTED`
+
+→ `CONTROLLED_TESTED`
+
+→ `CROSS_TYPOLOGY_TESTED`
+
+→ `GENERALIZED`
+
+→ `AUTONOMOUS_CANDIDATE_GENERATION`
+
+→ `HUMAN_VALIDATED`
+
+Do not claim stages without evidence.
+
+---
+
+# 37. REGRESSION
+
+Run and report three distinct regression classes.
+
+## R1 — SOFTWARE REGRESSION
+
+At minimum:
+
+* focused tests;
+* full regression suite;
+* TypeScript/typecheck;
+* build;
+* `git diff --check`.
+
+## R2 — KNOWLEDGE REGRESSION
+
+Verify that previous knowledge/invariants have not been lost, silently overwritten or incorrectly generalized.
+
+## R3 — REASONING REGRESSION
+
+Repeat appropriate previous controlled cases and verify that existing knowledge is not now applied worse because of new knowledge/precedents.
+
+Also preserve:
+
+* baseline immutability;
+* epistemic status;
+* regulatory separation.
+
+---
+
+# 38. IMPLEMENTATION SCOPE
+
+Implement only the smallest coherent delta required to demonstrate the architecture.
+
+Priority:
+
+1. permanent evaluation/reporting protocol;
+2. missing declarative synthesis structures;
+3. strategy/design-move representation if genuinely absent;
+4. reasoning provenance;
+5. transfer/generalization test harness;
+6. positive transfer;
+7. invalid-transfer restraint;
+8. knowledge/reasoning regression;
+9. learning-delta evidence.
+
+Composition/experience implementation is NOT the priority of this cycle unless it already exists and can be exposed cheaply as a derived view.
+
+---
+
+# 39. DO NOT IMPLEMENT
+
+Unless discovery proves indispensable:
+
+* full aesthetic agent;
+* universal beauty score;
+* new geometry engine;
+* new topology engine;
+* new learning engine;
+* new typology engine;
+* new regulation engine;
+* full generic optimizer rewrite;
+* new HAZARD canonical entity merely to satisfy workbook terminology;
+* L23;
+* rigid SPACE→FUNCTIONAL_UNIT→LEVEL parent tree;
+* autonomous professional approval;
+* automatic knowledge canonization;
+* domain-specific repair engines.
+
+---
+
+# 40. DOCUMENTATION
+
+Update/create focused documentation describing:
+
+1. v6 architectural delta;
+2. reuse decisions;
+3. synthesis grammar;
+4. strategy/design-move semantics;
+5. multiscale typed relationships;
+6. learning K0→K1 model;
+7. knowledge promotion;
+8. transfer/generalization;
+9. UNKNOWN taxonomy;
+10. evaluation protocol;
+11. controlled test results;
+12. limitations.
+
+Do not copy the entire workbook into documentation.
+
+Document implemented reality.
+
+---
+
+# 41. FINAL REPORT — REQUIRED SUMMARY
+
+End the report with exactly these conceptual answers:
+
+1. What ARKI already knew.
+2. What ARKI received as input.
+3. What ARKI reused.
+4. What ARKI simply executed.
+5. What ARKI adapted.
+6. What ARKI actually learned or refined.
+7. What ARKI generalized.
+8. What ARKI can now do that it could not do before.
+9. What it still cannot do.
+10. What remains UNKNOWN.
+11. How each material UNKNOWN can be resolved.
+12. What transfer succeeded.
+13. What transfer was rejected or required adaptation.
+14. What regressions were found.
+15. What autonomy level was actually demonstrated.
+16. What human decisions remain required.
+17. Software validation status.
+18. Final epistemic status.
+
+Do not use promotional language.
+
+Do not say “ARKI learned” unless the K0→K1 evidence supports it.
+
+---
+
+# 42. SOFTWARE REPORT
+
+Include:
+
+* repository;
+* branch;
+* baseline SHA;
+* final SHA;
+* files added;
+* files modified;
+* files deleted;
+* focused tests;
+* full tests;
+* typecheck;
+* build;
+* `git diff --check`;
+* worktree status;
+* remote status;
+* commit;
+* push;
+* PR;
+* merge;
+* deploy.
+
+---
+
+# 43. GIT AUTHORIZATION
+
+For this cycle the Product Owner has explicitly authorized:
+
+**After the complete implementation and only after all required validations pass:**
+
+1. create the final local commit;
+2. push that commit to the current working branch;
+3. verify local HEAD equals remote branch HEAD;
+4. verify worktree is clean.
+
+Do NOT:
+
+* merge;
+* deploy;
+* merge a PR;
+* change production;
+* publish outside the current branch;
+
+unless separately authorized.
+
+A PR is not required by this order.
+
+If validation fails materially, do not push a knowingly invalid implementation merely to finish the order.
+
+Report the blocker instead.
+
+---
+
+# 44. ACCEPTANCE GATES
+
+This macroorder is complete only if all applicable gates pass:
+
+### AC-01
+
+Repository discovery completed before edits.
+
+### AC-02
+
+Reuse map completed.
+
+### AC-03
+
+No parallel canonical engine introduced.
+
+### AC-04
+
+Distinct strategy families demonstrated where feasible.
+
+### AC-05
+
+Hard constraints gate candidates before preference comparison.
+
+### AC-06
+
+K0 / Input / Reused / Executed / K1 explicitly separated.
+
+### AC-07
+
+At least one positive cross-typology transfer evaluated.
+
+### AC-08
+
+At least one invalid or unsafe transfer correctly rejected/adapted.
+
+### AC-09
+
+Every material UNKNOWN typed with resolution path.
+
+### AC-10
+
+Software, knowledge and reasoning regression evaluated.
+
+### AC-11
+
+Human Authority preserved.
+
+### AC-12
+
+Focused tests + full tests + typecheck + build + `git diff --check` pass.
+
+### AC-13
+
+Validated work committed and pushed to current branch; local = remote; worktree clean.
+
+### AC-14
+
+No merge/deploy performed.
+
+---
+
+# 45. FINAL ARCHITECTURAL PRINCIPLE
+
+The objective is NOT to prove that ARKI can generate more geometry.
+
+The objective is to determine whether ARKI is beginning to demonstrate this sequence:
+
+`UNDERSTAND`
+
+→ `DIAGNOSE`
+
+→ `EXPLAIN CAUSE`
+
+→ `GENERATE DISTINCT STRATEGIES`
+
+→ `REALIZE THEM THROUGH THE CANONICAL MODEL`
+
+→ `PROPAGATE CONSEQUENCES`
+
+→ `DETECT NEW DEFICITS`
+
+→ `COMPARE TRADE-OFFS`
+
+→ `TRANSFER REASONING`
+
+→ `REFUSE INVALID TRANSFER`
+
+→ `REFINE KNOWLEDGE`
+
+while preserving:
+
+`EVIDENCE`
+
+`UNKNOWN`
+
+`PROVENANCE`
+
+`REGULATION`
+
+`HUMAN AUTHORITY`
+
+and the existing canonical architecture.
+
+**Do not optimize for number of new files or lines of code. Optimize for demonstrated architectural capability with the smallest coherent architectural delta.**
+
+Proceed autonomously through discovery, delta analysis, implementation, testing, final report, commit and push under the constraints above.
