@@ -497,6 +497,41 @@
           "next_precise_work": "Design an experiment where a meaningful architectural observation can emerge from experience comparison without being encoded in K0 or runtime."
         }
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-483-V1",
+      "source_name": "pasted_content_483.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_483.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-483-V1/pasted_content_483.txt",
+      "sha256": "83ecd5f4623e197a109536cd27289fc449b10c3e014609d35bad095286b9f506",
+      "received_at": "2026-09-19",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P8.0",
+        "INTEGRATED ARCHITECTURAL PRACTICE",
+        "READINESS & KNOWLEDGE CONTAMINATION AUDIT"
+      ],
+      "preview_count": 382,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
     }
   ]
 }

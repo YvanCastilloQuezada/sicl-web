@@ -1,0 +1,382 @@
+# ARKI — P8.0
+## INTEGRATED ARCHITECTURAL PRACTICE
+## READINESS & KNOWLEDGE CONTAMINATION AUDIT
+
+MODE = READ-ONLY DISCOVERY
+
+NO PRODUCT CODE CHANGES.
+NO NEW ENGINE.
+NO NEW KNOWLEDGE.
+NO NEW TEST FIXTURES.
+NO RESEARCH EXPANSION.
+NO IMPLEMENTATION.
+NO COMMIT REQUIRED UNLESS ONLY AN AUTHORIZED AUDIT REPORT
+IS ADDED AND EXISTING REPOSITORY GOVERNANCE ALLOWS IT.
+
+REPOSITORY:
+YvanCastilloQuezada/sicl-web
+
+BRANCH:
+feat/spatial-pilot-media-studio-v1
+
+REPORTED HEAD:
+878d7ba7d54053302ea19fcd5b60ef5bb3a4148a
+
+VERIFY ACTUAL STATE FIRST.
+
+==================================================
+A. PURPOSE
+==================================================
+
+Determine whether ARKI is ready to move from isolated capability
+experiments to an integrated architectural project.
+
+Target project for Track A:
+
+UPAO-001.
+
+Do NOT solve UPAO-001.
+
+Audit readiness only.
+
+==================================================
+B. CURRENT CAPABILITY BASELINE
+==================================================
+
+Verify actual implementation evidence for:
+
+L0 RECEIVE
+L1 REPRESENT
+L2 DETECT
+L3 DIAGNOSE
+L4 EVALUATE
+L5 GENERATE STRATEGIES
+L6 GENERATE CANDIDATES
+L7 MUTATE/SYNTHESIZE
+L8 REEVALUATE
+L9 COMPARE
+L10 GENERALIZE.
+
+Do not rely only on documentation claims.
+
+Map:
+
+CAPABILITY
+→ IMPLEMENTATION
+→ TEST
+→ EVIDENCE
+→ LIMITATION.
+
+==================================================
+C. INTEGRATED PROJECT PIPELINE
+==================================================
+
+Audit whether current ARKI can represent/reason through:
+
+PROJECT PURPOSE
+SITE
+CONTEXT
+ACTORS/SUBJECTS
+ACTIVITIES
+PROCESSES
+CAPABILITIES
+SYSTEM REQUIREMENTS
+FUNCTIONAL REQUIREMENTS
+PROGRAM
+FUNCTIONAL UNITS
+RELATIONSHIPS
+FLOWS
+JOURNEYS
+CONTROLS
+CAPACITY
+TIME
+STATE
+SCENARIO
+AUTHORITY
+REGULATORY APPLICABILITY
+CLIMATE
+PERFORMANCE
+DESIGN INTENT
+STRATEGIES
+CANDIDATES
+TOPOLOGY
+GEOMETRY
+DEPENDENCY PROPAGATION
+REEVALUATION
+TRADE-OFF COMPARISON
+HUMAN DECISION
+PROVENANCE
+LEARNING.
+
+For each:
+
+EXISTS
+PARTIAL
+ABSENT
+NOT_APPLICABLE.
+
+==================================================
+D. END-TO-END CONNECTION AUDIT
+==================================================
+
+Do not merely count modules.
+
+Determine whether they are connected.
+
+Example:
+
+PROGRAM EXISTS
+and
+GEOMETRY EXISTS
+
+does NOT prove:
+
+PROGRAM → GEOMETRY
+
+is traceable.
+
+Audit actual bridges:
+
+PURPOSE → CAPABILITY
+
+CAPABILITY → SYSTEM REQUIREMENT
+
+SYSTEM REQUIREMENT → FUNCTIONAL REQUIREMENT
+
+FUNCTIONAL REQUIREMENT → SPATIAL REALIZATION
+
+SPATIAL REALIZATION → CANDIDATE
+
+CANDIDATE → CANONICAL MODEL
+
+CANONICAL MODEL → EVALUATION
+
+EVALUATION → DEFICIT
+
+DEFICIT → CAUSE
+
+CAUSE → STRATEGY
+
+STRATEGY → DESIGN MOVE
+
+DESIGN MOVE → MUTATION
+
+MUTATION → REEVALUATION
+
+REEVALUATION → COMPARISON
+
+COMPARISON → HUMAN DECISION RECORD.
+
+Report broken bridges.
+
+==================================================
+E. UPAO-001 CONTAMINATION AUDIT
+==================================================
+
+Search entire repository and relevant persistent knowledge for:
+
+UPAO
+UPAO-001
+Trujillo
+mixed-use
+2000
+FAR
+6 floors
+and semantic equivalents where practical.
+
+Audit:
+
+source code
+tests
+fixtures
+documentation
+knowledge stores
+research artifacts
+curriculum
+Digital Book
+previous reasoning cases
+geometry
+program data
+strategy data
+candidate data
+expected outputs.
+
+Classify each discovered UPAO-related item:
+
+PROJECT INPUT
+GENERAL KNOWLEDGE
+PREVIOUSLY DERIVED KNOWLEDGE
+TEST ORACLE
+HARDCODED PROJECT KNOWLEDGE
+HISTORICAL RESULT
+UNKNOWN ORIGIN.
+
+==================================================
+F. K0-UPAO
+==================================================
+
+Construct a READ-ONLY inventory of what ARKI already knows about
+UPAO-001.
+
+Do not add anything.
+
+Separate:
+
+GENERAL ARCHITECTURAL KNOWLEDGE
+
+from
+
+UPAO-SPECIFIC KNOWLEDGE.
+
+Report:
+
+WHAT IS ALREADY KNOWN
+WHAT WAS PREVIOUSLY SUPPLIED
+WHAT WAS PREVIOUSLY DERIVED
+WHAT IS ABSENT
+WHAT CANNOT BE DETERMINED.
+
+==================================================
+G. PROJECT INPUT BOUNDARY
+==================================================
+
+Determine the minimum legitimate information that could be supplied to
+ARKI at the start of an integrated project without giving it the solution.
+
+Propose categories only.
+
+Do not populate missing project facts.
+
+Separate:
+
+CLIENT-PROVIDED FACT
+SITE FACT
+PROJECT OBJECTIVE
+HARD CONSTRAINT
+PREFERENCE
+REGULATORY SOURCE
+UNKNOWN
+HUMAN DECISION.
+
+==================================================
+H. SOLUTION LEAKAGE
+==================================================
+
+Identify any existing UPAO artifacts that would leak:
+
+program solution
+zoning solution
+strategy
+candidate
+geometry
+expected deficit
+expected cause
+preferred alternative.
+
+Recommend how to isolate them experimentally WITHOUT deleting history.
+
+No destructive cleanup.
+
+==================================================
+I. INTEGRATED PRACTICE GAPS
+==================================================
+
+Return only GENERAL gaps that prevent a complete project.
+
+For each:
+
+GAP
+WHY REQUIRED
+CURRENT PARTIAL CAPABILITY
+REUSE PATH
+MINIMUM EXTENSION
+WHETHER IT BLOCKS P8.1.
+
+Do not propose a new engine by default.
+
+==================================================
+J. LEARNING EXPERIMENT READINESS
+==================================================
+
+Assess whether UPAO-001 can legitimately be used for:
+
+INTEGRATED CAPABILITY TEST
+NOVEL LEARNING TEST
+TRANSFER SOURCE.
+
+These may have different answers.
+
+Do not force all to YES.
+
+==================================================
+K. SECOND PROJECT REQUIREMENT
+==================================================
+
+Define characteristics required for a future unseen Project B.
+
+Do NOT design Project B yet.
+
+Specify only what must differ enough to test:
+
+transfer
+adaptation
+restraint
+fixation
+generalization.
+
+==================================================
+L. OUTPUT
+==================================================
+
+Return:
+
+1. REPOSITORY STATE
+
+2. L0–L10 VERIFIED IMPLEMENTATION MAP
+
+3. INTEGRATED PIPELINE MAP
+
+4. BROKEN BRIDGES
+
+5. UPAO-001 CONTAMINATION MAP
+
+6. K0-UPAO INVENTORY
+
+7. SAFE PROJECT INPUT BOUNDARY
+
+8. SOLUTION-LEAKAGE RISKS
+
+9. MINIMUM INTEGRATION GAPS
+
+10. P8.1 READINESS:
+READY
+READY_WITH_GAPS
+BLOCKED
+
+11. UPAO SUITABILITY:
+INTEGRATED PRACTICE =
+LEARNING EXPERIMENT =
+TRANSFER SOURCE =
+
+12. REQUIREMENTS FOR UNSEEN PROJECT B
+
+13. RECOMMENDED NEXT MACROORDER SCOPE.
+
+==================================================
+M. IMPORTANT
+==================================================
+
+DO NOT SOLVE UPAO-001.
+
+DO NOT MODIFY ARKI TO MAKE P8 READY.
+
+DO NOT INSERT MISSING KNOWLEDGE.
+
+DO NOT GENERATE A PROJECT SOLUTION.
+
+DO NOT CREATE K1.
+
+This audit exists to determine what is already present before the
+integrated experiment begins.
+
+Proceed read-only.

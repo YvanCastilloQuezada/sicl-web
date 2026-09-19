@@ -203,3 +203,15 @@ HUMAN_AUTHORITY = FINAL
 - **Patrón novedoso válido:** `NONE`; los efectos repetidos fueron `ALREADY_KNOWN` o `DIRECT_EXECUTION_RESULT`.
 - **K1:** `NOT_CREATED`; D7.9 y D8.0 detenidos.
 - **Regla:** repetición no equivale a causalidad; correlación no equivale a ley arquitectónica.
+
+<!-- PASTED-CONTENT-483-V1 -->
+## PASTED-CONTENT-483-V1 — pasted_content_483.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `83ecd5f4623e197a109536cd27289fc449b10c3e014609d35bad095286b9f506`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P8.0, INTEGRATED ARCHITECTURAL PRACTICE, READINESS & KNOWLEDGE CONTAMINATION AUDIT
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
