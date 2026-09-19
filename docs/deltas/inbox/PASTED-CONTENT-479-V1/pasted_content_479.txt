@@ -1,0 +1,1244 @@
+# ARKI — MACROORDEN D6.2A → D6.2R → D7.0
+## Strategic Knowledge Foundation + Applicability Reasoning
+## + Contextual Strategy Synthesis + Automatic Bridge Resume
+
+MODE:
+AUTONOMOUS GATED EXECUTION
+
+CURRENT VERIFIED STATE:
+
+D6.0 REASONING CONTRACTS = COMPLETE
+D6.1 CONTROLLED GENERATIVE PROOF = VALID NEGATIVE RESULT
+D6.2 GENERAL STRATEGY SYNTHESIS = BLOCKED
+D6.3 = NOT_EXECUTED_BY_GOVERNANCE
+D6.4 = NOT_EXECUTED_BY_GOVERNANCE
+D6.5 = NOT_EXECUTED_BY_GOVERNANCE
+D7.0 = BLOCKED_AT_D6.2
+
+Known latest reported repository state:
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+KNOWN FINAL SHA =
+803368a0eb72a7a6e6d8b29b0c8a7f5493461653
+
+DO NOT ASSUME THIS IS STILL HEAD.
+
+Verify actual repository state before editing.
+
+================================================================
+0. PURPOSE
+================================================================
+
+The previous experiments have already demonstrated a general capability gap.
+
+Do NOT rerun D6.2 unchanged.
+
+Implement the MINIMUM GENERAL EXTENSION required to transform:
+
+CAUSE
++ REQUIRED EFFECT
++ CONDITIONS
++ STATE / SCENARIO / TIME
++ MUTABILITY
++ AUTHORITY
++ HARD CONSTRAINTS
++ STRATEGIC KNOWLEDGE
+
+into:
+
+APPLICABLE STRATEGY SPACE
+
+and then into:
+
+CONTEXTUALIZED STRATEGIES.
+
+After implementing that foundation:
+
+1. rerun D6.2 with zero supplied strategies;
+2. if D6.2 passes honestly, resume the existing bridge automatically:
+   D6.3 → D6.4 → D6.5 → D7.0;
+3. if D6.2 remains blocked, STOP and report the new precise capability gap.
+
+DO NOT bypass the gate.
+
+================================================================
+1. DISCOVERY FIRST
+================================================================
+
+Before implementation:
+
+1. read AGENTS.md and repository instructions;
+2. verify repository / branch / HEAD / remote / worktree;
+3. inspect D6.0 contracts;
+4. inspect D6.1 proof infrastructure;
+5. inspect D6.2 failed gate implementation;
+6. inspect V6CauseModel;
+7. inspect V6StrategyFamily;
+8. inspect V6DesignMove;
+9. inspect existing operator representations;
+10. inspect GDI/A21/S1/S2;
+11. inspect canonical knowledge structures;
+12. inspect provenance;
+13. inspect knowledge acquisition / learning ledger;
+14. inspect dependency reasoning;
+15. inspect authority/mutability representation;
+16. inspect existing alternative/candidate mechanisms;
+17. inspect triple propagation:
+    ARKI → Curriculum → Digital Book.
+
+Produce an internal reuse map:
+
+REUSE
+EXTEND
+ADAPT
+DATA_ONLY
+DERIVED_VIEW
+DO_NOT_DUPLICATE.
+
+Do not create architecture before this discovery.
+
+================================================================
+2. PERMANENT NEW INVARIANTS
+================================================================
+
+Preserve and propagate:
+
+ARCHITECTURAL KNOWLEDGE
+≠
+SYSTEM CAPABILITY KNOWLEDGE.
+
+KNOWLEDGE ABOUT ARKI
+≠
+KNOWLEDGE ABOUT ARCHITECTURE.
+
+And add:
+
+STRATEGY REPRESENTATION
+≠
+STRATEGY KNOWLEDGE
+≠
+STRATEGY RETRIEVAL
+≠
+STRATEGY APPLICABILITY
+≠
+STRATEGY SYNTHESIS.
+
+Also:
+
+RETRIEVED STRATEGY KNOWLEDGE
+≠
+GENERATED CONTEXTUAL STRATEGY.
+
+And:
+
+REQUIRED EFFECT
+≠
+STRATEGY.
+
+EFFECT MATCH
+≠
+APPLICABILITY.
+
+APPLICABILITY
+≠
+VALIDITY.
+
+VALIDITY
+≠
+SELECTION.
+
+================================================================
+3. DO NOT CREATE A SECOND REASONING ENGINE
+================================================================
+
+The conceptual capability described below does NOT automatically authorize:
+
+GeneralStrategyEngine
+ArchitecturalReasoningEngine
+StrategyAI
+DesignBrain
+or another parallel engine.
+
+First extend the canonical architecture.
+
+Reuse existing:
+
+CanonicalBuildingModel
+V6CauseModel
+V6StrategyFamily
+V6DesignMove
+operator structures
+knowledge store
+provenance
+learning ledger
+GDI/A21/S1/S2
+dependency mechanisms
+human authority.
+
+If a new module is technically necessary, it must be an extension/service
+of the canonical reasoning architecture, not an independent source of truth.
+
+ONE CANONICAL KNOWLEDGE MODEL.
+
+ONE CANONICAL BUILDING MODEL.
+
+NO SECOND ARCHITECTURAL INTELLIGENCE.
+
+================================================================
+4. WHAT D6.2A MUST ADD
+================================================================
+
+D6.2A must provide three distinct capabilities:
+
+A. STRATEGIC KNOWLEDGE
+
+What general architectural transformations are known and what effects
+they may produce.
+
+B. APPLICABILITY REASONING
+
+Which known strategic transformations are potentially applicable to the
+current cause/effect/context.
+
+C. CONTEXTUAL STRATEGY SYNTHESIS
+
+Transform applicable general knowledge into a contextual strategy for the
+current architectural problem.
+
+These three must remain distinguishable in provenance.
+
+================================================================
+5. STRATEGIC KNOWLEDGE UNIT
+================================================================
+
+Create or extend the minimum canonical representation required to express
+a reusable strategic knowledge unit.
+
+Conceptually it must support:
+
+ID
+FAMILY
+ACTION
+INTENT
+
+ACTS_ON
+TRANSFORMS
+POTENTIAL_EFFECTS
+
+APPLIES_WHEN
+MAY_NOT_APPLY_WHEN
+FORBIDDEN_WHEN
+
+PRECONDITIONS
+DEPENDENCIES
+
+REQUIRED_AUTHORITY
+REQUIRED_MUTABILITY
+
+POSSIBLE_BENEFITS
+POSSIBLE_COSTS
+POSSIBLE_SIDE_EFFECTS
+UNKNOWN_EFFECTS
+
+SCALE
+STATE
+TIME
+SCENARIO
+
+EVIDENCE
+PROVENANCE
+EPISTEMIC_STATUS
+GENERALIZATION_SCOPE.
+
+IMPORTANT:
+
+This is a conceptual contract.
+
+Do not duplicate fields already represented canonically elsewhere.
+
+Reference canonical concepts instead of copying them.
+
+================================================================
+6. KNOWLEDGE CONTENT
+================================================================
+
+Do NOT populate the foundation with benchmark-specific solutions.
+
+Strategic knowledge must be general architectural transformation knowledge.
+
+Examples of general families already recognized in ARKI include:
+
+SPATIAL
+TOPOLOGICAL
+ALLOCATIVE
+TEMPORAL
+CONTROL
+RESOURCE
+STATE
+TECHNICAL
+EXTERNAL
+HYBRID
+
+where supported by existing canonical knowledge.
+
+These are classification families, NOT engines.
+
+Do not assume every family applies to every problem.
+
+================================================================
+7. STRATEGIC ACTION SEMANTICS
+================================================================
+
+Knowledge should describe transformations by semantic effect.
+
+Examples of generic actions may include concepts such as:
+
+SEPARATE
+CONNECT
+DISCONNECT
+REROUTE
+REALLOCATE
+SEQUENCE
+SCHEDULE
+CONTROL
+RESTRICT
+BUFFER
+DUPLICATE
+DECENTRALIZE
+CENTRALIZE
+INCREASE_CAPACITY
+REDUCE_DEMAND
+CHANGE_INTERFACE
+CHANGE_STATE
+CHANGE_RESOURCE_ALLOCATION
+
+ONLY where supported by current research/canonical knowledge.
+
+Do not add arbitrary actions merely to increase strategy count.
+
+Do not treat these examples as mandatory enumeration.
+
+================================================================
+8. EFFECT MODEL
+================================================================
+
+The crucial relationship is:
+
+STRATEGIC ACTION
+→ POTENTIAL EFFECT.
+
+ARKI must know that transformations MAY affect architectural conditions.
+
+Examples:
+
+topological transformation
+may affect
+connectivity / journey / interaction;
+
+temporal transformation
+may affect
+concurrency / simultaneity / demand overlap;
+
+allocation transformation
+may affect
+resource availability / capacity distribution;
+
+control transformation
+may affect
+permitted interaction / access / state transition.
+
+These are potential causal relationships.
+
+They are NOT universal guarantees.
+
+Represent uncertainty and scope.
+
+================================================================
+9. FORWARD + REVERSE REASONING
+================================================================
+
+Support both reasoning directions:
+
+FORWARD:
+
+STRATEGY
+→ POTENTIAL EFFECTS.
+
+REVERSE:
+
+REQUIRED EFFECT
+→ POTENTIAL STRATEGIC KNOWLEDGE.
+
+Reverse reasoning generates hypotheses.
+
+It does NOT prove applicability.
+
+Freeze:
+
+REVERSE EFFECT MATCH
+≠
+VALID STRATEGY.
+
+================================================================
+10. REQUIRED EFFECT
+================================================================
+
+D6.2 currently has:
+
+CAUSE
+
+but lacks a sufficiently operational bridge toward strategy.
+
+Introduce or derive:
+
+REQUIRED EFFECT.
+
+Example structure:
+
+DEFICIT:
+incompatible interaction
+
+CAUSE:
+two journeys interact at an interface under simultaneous operation
+
+REQUIRED EFFECT:
+reduce or eliminate incompatible simultaneous interaction.
+
+Do not encode the solution inside REQUIRED EFFECT.
+
+Bad:
+
+REQUIRED EFFECT =
+build separate corridor.
+
+Good:
+
+REQUIRED EFFECT =
+reduce incompatible interaction while maintaining required journeys.
+
+================================================================
+11. CAUSE → REQUIRED EFFECT
+================================================================
+
+ARKI must derive or formulate required effect from:
+
+DEFICIT
++
+CAUSE
++
+REQUIRED CAPABILITY
++
+CONSTRAINTS.
+
+Do not allow:
+
+CAUSE
+→ HARDCODED STRATEGY.
+
+Required chain:
+
+CAUSE
+→ REQUIRED CHANGE/EFFECT
+→ POTENTIAL STRATEGIC KNOWLEDGE.
+
+================================================================
+12. POTENTIAL STRATEGY RETRIEVAL
+================================================================
+
+Given REQUIRED EFFECT:
+
+retrieve general strategic knowledge whose potential effects are relevant.
+
+Report:
+
+REQUIRED EFFECT =
+KNOWLEDGE CONSIDERED =
+EFFECT MATCH =
+MATCH BASIS =
+PROVENANCE =
+
+This stage is RETRIEVAL.
+
+It is not yet L5 synthesis.
+
+================================================================
+13. APPLICABILITY REASONING
+================================================================
+
+For every potential strategic unit evaluate:
+
+PRECONDITIONS
+FORBIDDEN CONDITIONS
+STATE
+SCENARIO
+TIME
+SCALE
+TARGET COMPATIBILITY
+MUTABILITY
+AUTHORITY
+DEPENDENCIES
+HARD CONSTRAINTS
+UNKNOWN.
+
+Return one of:
+
+APPLICABLE
+CONDITIONALLY_APPLICABLE
+NOT_APPLICABLE
+UNKNOWN_APPLICABILITY.
+
+Do not collapse UNKNOWN into NOT_APPLICABLE.
+
+================================================================
+14. REJECTION REASONING
+================================================================
+
+Every rejected strategy hypothesis must retain an explainable reason.
+
+Examples:
+
+AUTHORITY_CONFLICT
+MUTABILITY_CONFLICT
+HARD_CONSTRAINT_CONFLICT
+STATE_INCOMPATIBLE
+TEMPORAL_INCOMPATIBLE
+SCALE_INCOMPATIBLE
+TARGET_INCOMPATIBLE
+DEPENDENCY_UNRESOLVED
+MISSING_EVIDENCE
+UNKNOWN.
+
+No silent filtering.
+
+================================================================
+15. CONTEXTUAL STRATEGY SYNTHESIS
+================================================================
+
+This is the actual L5 candidate capability.
+
+Take:
+
+GENERAL STRATEGIC KNOWLEDGE
++
+CURRENT CAUSE
++
+REQUIRED EFFECT
++
+CURRENT TARGET
++
+CURRENT CONDITIONS
++
+APPLICABILITY RESULT
+
+and synthesize a contextual strategy.
+
+Example distinction:
+
+RETRIEVED KNOWLEDGE:
+
+REROUTE may change journey interaction.
+
+CONTEXTUAL STRATEGY:
+
+Reroute journey A before interface X so that actor/state Y does not share
+the incompatible interaction during scenario Z, subject to authority and
+route-validity verification.
+
+The contextual statement must be generated from current model semantics.
+
+Do not store benchmark sentences as templates that contain the answer.
+
+================================================================
+16. PROVENANCE OF GENERATED STRATEGY
+================================================================
+
+Every generated strategy must identify:
+
+SOURCE KNOWLEDGE UNITS
+CAUSE
+REQUIRED EFFECT
+APPLICABILITY EVIDENCE
+CONTEXTUALIZATION
+ASSUMPTIONS
+UNKNOWNS
+REJECTED ALTERNATIVES.
+
+Provenance must make it possible to answer:
+
+WHY DID ARKI GENERATE THIS STRATEGY?
+
+================================================================
+17. STRATEGIC DIVERSITY
+================================================================
+
+If multiple genuinely applicable transformation families exist, ARKI should
+generate more than one strategy.
+
+But:
+
+DO NOT generate alternatives only to satisfy a numeric threshold.
+
+If only one family is valid:
+
+generate one
+and explain why others were rejected.
+
+The D6.2 gate's "more than one" requirement applies only when the problem
+genuinely permits strategic plurality.
+
+================================================================
+18. ANTI-FIXTURE TEST
+================================================================
+
+Tests must not contain the expected strategy list as executable input.
+
+Prohibited fixture pattern:
+
+expectedStrategies = [
+  "separate",
+  "reroute",
+  "schedule"
+]
+
+if those values are consumed by runtime generation.
+
+Expected outputs may be used only in assertions external to runtime.
+
+================================================================
+19. ANTI-TYPOLOGY-DISPATCH TEST
+================================================================
+
+Run equivalent structural problems under changed typology labels.
+
+Strategy generation should depend primarily on structural semantics,
+not the string:
+
+restaurant
+hospital
+laboratory
+etc.
+
+If changing only typology label changes strategy generation without
+relevant domain knowledge:
+
+FAIL.
+
+================================================================
+20. DOMAIN KNOWLEDGE IS STILL VALID
+================================================================
+
+Do not remove typology/domain knowledge.
+
+Domain knowledge may legitimately alter:
+
+hazards
+controls
+constraints
+activities
+requirements
+applicability
+regulatory context
+acceptable strategies.
+
+But it must do so through explicit knowledge/provenance.
+
+Preserve:
+
+TYPOLOGY MAY CONDITION REASONING.
+
+TYPOLOGY MUST NOT SECRETLY SELECT THE ANSWER.
+
+================================================================
+21. NEGATIVE CONTROL
+================================================================
+
+Include a case where an effect match exists but strategy is invalid.
+
+Example conceptual pattern:
+
+temporal separation could reduce concurrency
+
+BUT:
+
+the scenario requires simultaneous operation.
+
+Expected:
+
+EFFECT_MATCH = YES
+APPLICABILITY = NOT_APPLICABLE.
+
+This proves:
+
+EFFECT MATCH
+≠
+APPLICABILITY.
+
+================================================================
+22. AUTHORITY CONTROL
+================================================================
+
+Include a strategy whose transformation would require authority ARKI/project
+does not possess.
+
+Expected:
+
+POTENTIAL = YES
+APPLICABLE = NO / CONDITIONAL
+REASON = AUTHORITY.
+
+No external mutation.
+
+================================================================
+23. UNKNOWN CONTROL
+================================================================
+
+Include insufficient information for one applicability condition.
+
+Expected:
+
+UNKNOWN_APPLICABILITY
+
+with:
+
+WHY UNKNOWN
+WHAT IS MISSING
+HOW TO RESOLVE
+WHO/WHAT CAN RESOLVE.
+
+UNKNOWN must not be invented away.
+
+================================================================
+24. D6.2A TESTS
+================================================================
+
+Add focused tests proving:
+
+1. strategic knowledge is general, not typology-specific;
+2. forward effect reasoning;
+3. reverse effect retrieval;
+4. effect match does not imply applicability;
+5. precondition filtering;
+6. forbidden-condition filtering;
+7. authority filtering;
+8. mutability filtering;
+9. state/time/scenario filtering;
+10. UNKNOWN applicability;
+11. explainable rejection;
+12. contextual strategy synthesis;
+13. provenance;
+14. anti-fixture behavior;
+15. anti-typology-dispatch behavior;
+16. no second engine;
+17. baseline history preserved.
+
+================================================================
+25. D6.2R — RETEST
+================================================================
+
+After D6.2A implementation passes focused validation:
+
+rerun D6.2.
+
+Use zero supplied strategies.
+
+Required report:
+
+STRATEGIES PROVIDED =
+STRATEGIC KNOWLEDGE RETRIEVED =
+POTENTIAL STRATEGIES =
+APPLICABLE STRATEGIES =
+CONTEXTUAL STRATEGIES GENERATED =
+REJECTED =
+UNKNOWN_APPLICABILITY =
+PROVENANCE =
+
+Critically distinguish:
+
+RETRIEVED
+vs
+GENERATED.
+
+================================================================
+26. L5 ACCEPTANCE
+================================================================
+
+L5 = DEMONSTRATED only if:
+
+1. STRATEGIES PROVIDED = 0;
+2. general knowledge exists independently of benchmark;
+3. ARKI derives required effect;
+4. ARKI retrieves potential transformations by effect;
+5. ARKI evaluates applicability;
+6. ARKI rejects invalid transformations;
+7. ARKI contextualizes applicable knowledge;
+8. generated strategies are not fixture literals;
+9. strategy provenance is complete;
+10. no typology-specific dispatch determines the answer;
+11. authority is respected;
+12. UNKNOWN remains explicit;
+13. strategic plurality appears where structurally justified.
+
+Otherwise:
+
+L5 = PARTIAL / NOT_DEMONSTRATED.
+
+================================================================
+27. STOP RULE AFTER D6.2R
+================================================================
+
+If L5 is NOT_DEMONSTRATED:
+
+STOP.
+
+Do not implement D6.3.
+
+Return:
+
+WHAT PART FAILED:
+
+CAUSE→EFFECT?
+EFFECT RETRIEVAL?
+APPLICABILITY?
+CONTEXTUALIZATION?
+PROVENANCE?
+STRATEGIC DIVERSITY?
+OTHER?
+
+This must become the next precise capability gap.
+
+================================================================
+28. IF D6.2R PASSES
+================================================================
+
+If and only if D6.2R honestly demonstrates L5:
+
+resume the previously authorized bridge automatically.
+
+Proceed:
+
+D6.3
+→ D6.4
+→ D6.5
+→ D7.0
+
+under all previous gates.
+
+Do not request routine Product Owner approval between gates.
+
+================================================================
+29. D6.3 — CANDIDATE SYNTHESIS
+================================================================
+
+Use contextual strategies produced by L5.
+
+Attempt:
+
+STRATEGY
+→ DESIGN MOVE
+→ OPERATOR SELECTION
+→ OPERATOR COMPOSITION
+→ CANDIDATE.
+
+Do not manually supply final candidate geometry.
+
+Acceptance remains:
+
+L6 requires genuinely generated candidates.
+
+L7 requires controlled mutation not hardcoded to benchmark.
+
+If blocked:
+
+STOP.
+
+================================================================
+30. D6.4 — CLOSED LOOP
+================================================================
+
+If D6.3 passes:
+
+CANDIDATE
+→ MUTATION
+→ DEPENDENCY-SCOPED REEVALUATION
+→ EXPECTED VS ACTUAL EFFECT
+→ NEW DEFICIT DETECTION
+→ HARD GATES
+→ FEASIBLE SET
+→ COMPARISON
+→ HUMAN DECISION.
+
+Attempt to demonstrate L7/L8/L9.
+
+No automatic winner.
+
+If blocked:
+
+STOP.
+
+================================================================
+31. D6.5 — TRANSFER + LEARNING
+================================================================
+
+If D6.4 passes:
+
+run the existing cross-domain battery.
+
+At minimum include:
+
+SOURCE
+VARIANT
+POSITIVE TRANSFER
+TRANSFER RESTRAINT
+AUTHORITY CASE
+MIXED-USE / CONCURRENCY
+ADVERSARIAL CRITICAL-DIFFERENCE CASE.
+
+Attempt:
+
+positive transfer;
+adaptation;
+restraint;
+counterexample;
+persistence;
+K0→K1;
+generalization.
+
+Do not claim learning from execution alone.
+
+================================================================
+32. D7.0
+================================================================
+
+If preceding gates permit:
+
+produce canonical General Reasoning Checkpoint.
+
+D7 is consolidation, not automatic promotion.
+
+Report separately:
+
+L0
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10.
+
+D7 may consolidate L5–L9 while L10 remains PARTIAL,
+provided the report says so explicitly.
+
+Do not claim D7 general reasoning if L5/L6 remain absent.
+
+================================================================
+33. LEARNING ARCHITECTURE
+================================================================
+
+Strategic knowledge added by engineers during D6.2A is:
+
+SUPPLIED / FORMALIZED KNOWLEDGE.
+
+It is NOT knowledge ARKI learned autonomously.
+
+This distinction is mandatory.
+
+Report:
+
+STRATEGIC KNOWLEDGE SUPPLIED BY D6.2A =
+STRATEGIES RETRIEVED =
+STRATEGIES GENERATED =
+NEW KNOWLEDGE LEARNED =
+
+Do not count implementation as learning.
+
+================================================================
+34. CURRICULUM UPDATE
+================================================================
+
+Update the existing Living Curriculum.
+
+Add reasoning objectives around:
+
+CAUSE → REQUIRED EFFECT
+
+EFFECT-BASED RETRIEVAL
+
+FORWARD EFFECT REASONING
+
+REVERSE EFFECT REASONING
+
+STRATEGY APPLICABILITY
+
+STRATEGY REJECTION
+
+CONTEXTUAL STRATEGY SYNTHESIS
+
+STRATEGIC DIVERSITY
+
+AUTHORITY-AWARE REASONING
+
+UNKNOWN-AWARE REASONING.
+
+Do not mark as mastered until demonstrated.
+
+================================================================
+35. DIGITAL BOOK UPDATE
+================================================================
+
+Preserve D6.1 and original D6.2 negative results.
+
+Add D6.2A as:
+
+CAPABILITY FOUNDATION IMPLEMENTATION
+
+not:
+
+AUTONOMOUS LEARNING.
+
+If D6.2R succeeds, record:
+
+what was supplied;
+what was retrieved;
+what was generated;
+what remained unknown.
+
+Never rewrite the prior failures.
+
+================================================================
+36. TRIPLE PROPAGATION
+================================================================
+
+Use existing automation:
+
+DELTA
+→ ARKI
+→ CURRICULUM
+→ DIGITAL BOOK.
+
+Do not create another pipeline.
+
+Run consistency gate after each reached stage.
+
+Required:
+
+RUNTIME STATUS
+=
+CURRICULUM MATURITY CLAIM
+=
+BOOK EPISTEMIC CLAIM
+
+at compatible levels.
+
+================================================================
+37. A–AV
+================================================================
+
+Continue using the existing permanent A–AV evaluation protocol.
+
+Do not create a substitute protocol.
+
+D6.2R and each later major experimental case must produce A–AV where
+applicable.
+
+================================================================
+38. REGRESSION
+================================================================
+
+Before each gate transition run focused validation.
+
+Before final completion run:
+
+focused tests
+v6.0 tests
+v6.1 tests
+D6.2 tests
+full regression
+typecheck
+build
+git diff --check
+
+plus:
+
+knowledge regression
+reasoning regression
+geometry regression
+epistemic regression
+regulatory regression
+triple-propagation consistency.
+
+================================================================
+39. NO NEW BROAD RESEARCH
+================================================================
+
+Do not begin another broad typology research cycle.
+
+If D6.2A exposes a missing general architectural knowledge concept:
+
+record it.
+
+Only perform the minimum targeted research necessary if implementation
+cannot proceed safely without it.
+
+Do not use research as a substitute for the experiment.
+
+================================================================
+40. NO ONTOLOGY EXPANSION BY DEFAULT
+================================================================
+
+Do not add primitive 18.
+
+Do not canonize HAZARD automatically.
+
+New concepts should default to:
+
+DERIVED CONCEPT
+KNOWLEDGE UNIT
+RELATIONSHIP
+ATTRIBUTE
+
+unless evidence requires architectural review.
+
+================================================================
+41. FINAL REPORT IF BLOCKED
+================================================================
+
+If any gate blocks:
+
+return:
+
+LAST PASSED GATE =
+BLOCKED GATE =
+AUTONOMY LEVEL REACHED =
+
+WHAT WORKS =
+WHAT DOES NOT WORK =
+PRECISE MISSING CAPABILITY =
+WHY IT IS GENERAL =
+WHY DOMAIN PATCHING WAS REJECTED =
+MINIMUM NEXT EXTENSION =
+
+ARKI UPDATE =
+CURRICULUM UPDATE =
+DIGITAL BOOK UPDATE =
+
+TESTS =
+REGRESSIONS =
+GIT STATE =
+
+Then stop.
+
+================================================================
+42. FINAL REPORT IF D7 IS REACHED
+================================================================
+
+If D7.0 is reached:
+
+report:
+
+D6.2A FOUNDATION =
+D6.2R L5 =
+D6.3 L6/L7 =
+D6.4 L7/L8/L9 =
+D6.5 TRANSFER =
+D6.5 LEARNING =
+D6.5 PERSISTENCE =
+D6.5 GENERALIZATION =
+D7 GENERAL REASONING =
+
+Then:
+
+WHAT ARKI KNEW BEFORE
+WHAT KNOWLEDGE WAS SUPPLIED
+WHAT ARKI RETRIEVED
+WHAT ARKI GENERATED
+WHAT ARKI EXECUTED
+WHAT ARKI ADAPTED
+WHAT ARKI LEARNED
+WHAT ARKI GENERALIZED
+WHAT ARKI REJECTED
+WHAT REMAINS UNKNOWN.
+
+================================================================
+43. GIT
+================================================================
+
+You are authorized to commit and push completed validated work to the
+current branch.
+
+Use meaningful checkpoint commits only.
+
+Do not commit broken intermediate states merely to show progress.
+
+After final reached gate:
+
+verify:
+
+LOCAL_HEAD
+REMOTE_HEAD
+LOCAL_REMOTE_MATCH
+WORKTREE CLEAN.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+================================================================
+44. HUMAN AUTHORITY
+================================================================
+
+Do not stop for routine technical choices.
+
+Request Product Owner intervention only if:
+
+canonical architecture must materially change;
+ontology expansion appears necessary;
+two valid architectural directions require human selection;
+professional/regulatory judgment is required;
+destructive migration is required;
+repository integrity is at risk;
+an existing canonical invariant would need revision.
+
+Otherwise proceed autonomously.
+
+================================================================
+45. FINAL PRINCIPLE
+================================================================
+
+D6.2A IS ALLOWED TO TEACH ARKI GENERAL STRATEGIC KNOWLEDGE.
+
+D6.2R MUST TEST WHETHER ARKI CAN USE THAT KNOWLEDGE
+TO GENERATE A CONTEXTUAL STRATEGY.
+
+DO NOT CONFUSE:
+
+TEACHING THE KNOWLEDGE
+
+WITH
+
+GENERATING THE STRATEGY
+
+WITH
+
+LEARNING NEW KNOWLEDGE.
+
+The target is:
+
+GENERAL KNOWLEDGE
+→ GENERAL APPLICABILITY REASONING
+→ CONTEXTUAL SYNTHESIS
+
+not:
+
+BENCHMARK
+→ PREPROGRAMMED ANSWER.
+
+Proceed autonomously through the highest honestly demonstrated gate.

@@ -213,6 +213,84 @@
           "history_policy": "Previous D6.2 BLOCKED result preserved; this is a subsequent controlled run."
         }
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-479-V1",
+      "source_name": "pasted_content_479.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_479.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-479-V1/pasted_content_479.txt",
+      "sha256": "416e53d681f2c1260025e9e31f964d9e610158f91705f12a23623d9bae9a5b7f",
+      "received_at": "2026-09-19",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — MACROORDEN D6.2A → D6.2R → D7.0",
+        "Strategic Knowledge Foundation + Applicability Reasoning",
+        "+ Contextual Strategy Synthesis + Automatic Bridge Resume"
+      ],
+      "preview_count": 1244,
+      "status": "EXECUTED / D7_PARTIAL / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "IMPLEMENTED_TESTED_CONTROLLED_SCOPE / AUTONOMOUS_LEARNING_NOT_CLAIMED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "follow_up_executions": [
+        {
+          "execution_state": "EXECUTED / D7_PARTIAL / HUMAN_REVIEW_REQUIRED",
+          "d62a": "PASS",
+          "d62r": "PASS_WITH_OBSERVATIONS",
+          "d63": "PASS",
+          "d64": "PASS_WITH_OBSERVATIONS",
+          "d65": "PASS_WITH_OBSERVATIONS",
+          "d70": "PARTIAL_CONSOLIDATION",
+          "l5": "DEMONSTRATED",
+          "l6": "DEMONSTRATED",
+          "l7": "DEMONSTRATED_BOUNDED_S2",
+          "l8": "PARTIAL",
+          "l9": "PARTIAL",
+          "l10": "PARTIAL",
+          "strategies_provided": 0,
+          "strategic_knowledge_retrieved": 5,
+          "potential_strategies": 5,
+          "applicable_strategies": 4,
+          "contextual_strategies_generated": 4,
+          "candidates_generated": 4,
+          "feasible_mutations": 3,
+          "transfer_assessments": 4,
+          "focused_tests": "26/26 PASS",
+          "typecheck": "PASS",
+          "build": "PASS",
+          "anti_fixture": "PASS",
+          "anti_typology_dispatch": "PASS",
+          "unknown_preservation": "PASS",
+          "human_authority": "PRESERVED",
+          "automatic_winner": "NONE",
+          "automatic_decision": "NONE",
+          "learning_claim": "NONE",
+          "persistence": "NOT_TESTED",
+          "generalization": "PARTIAL",
+          "reports": [
+            "docs/ARKI-D6.2R-CONTEXTUAL-STRATEGY-SYNTHESIS-2026-09-19.md",
+            "docs/ARKI-D7.0-GENERAL-REASONING-CHECKPOINT-2026-09-19.md"
+          ],
+          "next_precise_work": "Close L8/L9 with dependency-scoped expected-vs-actual effect verification, human-reviewed comparison, then test persistence/generalization separately.",
+          "full_regression": "PASS"
+        }
+      ]
     }
   ]
 }

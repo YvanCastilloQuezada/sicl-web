@@ -115,3 +115,25 @@ HUMAN_AUTHORITY = FINAL
 - **Capacidades no demostradas:** candidatos, mutaciones, reevaluación y generalización.
 - **Conocimiento arquitectónico nuevo:** no creado; se demostró capacidad del sistema.
 - **Siguiente objetivo:** D6.3, estrategia → Design Move → operadores → candidato.
+
+<!-- PASTED-CONTENT-479-V1 -->
+## PASTED-CONTENT-479-V1 — pasted_content_479.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `416e53d681f2c1260025e9e31f964d9e610158f91705f12a23623d9bae9a5b7f`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN D6.2A → D6.2R → D7.0, Strategic Knowledge Foundation + Applicability Reasoning, + Contextual Strategy Synthesis + Automatic Bridge Resume
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- D6.2R-D7-RESULT -->
+## D6.2R → D7.0 — Resultado consolidado
+
+- **Estado:** `D7_PARTIAL / HUMAN_REVIEW_REQUIRED`; los bloqueos y resultados previos permanecen preservados.
+- **Evidencia:** `docs/ARKI-D6.2R-CONTEXTUAL-STRATEGY-SYNTHESIS-2026-09-19.md` y `docs/ARKI-D7.0-GENERAL-REASONING-CHECKPOINT-2026-09-19.md`.
+- **Objetivos docentes demostrados:** causa → efecto requerido, retrieval por efecto, razonamiento forward/reverse, aplicabilidad, rechazo explicable, síntesis contextual, diversidad estratégica, autoridad y UNKNOWN.
+- **Capacidades demostradas:** L5, L6 y L7 en alcance controlado; L8, L9 y L10 permanecen parciales.
+- **Aprendizaje autónomo:** `NONE`; conocimiento estratégico formalizado por ingeniería, no aprendido por ejecución.
+- **Próxima evidencia:** verificación de efectos esperados versus actuales, comparación revisada por humano, persistencia y generalización.

@@ -52,6 +52,26 @@ export type V62SynthesisResult = {
   disposition: V6ReuseDisposition;
 };
 
+export type V62ContextualStrategy = {
+  strategyId: string;
+  family: V6StrategyFamily;
+  statement: string;
+  sourceKnowledge: string[];
+  cause: string;
+  requiredEffect: string;
+  applicabilityEvidence: string[];
+  contextualization: string[];
+  assumptions: string[];
+  unknowns: string[];
+  rejectedAlternatives: string[];
+  epistemicStatus: "HYPOTHESIS";
+  provenance: string[];
+};
+
+export type V62ContextualSynthesisResult = V62SynthesisResult & {
+  contextualStrategies: V62ContextualStrategy[];
+};
+
 const STRATEGY_KNOWLEDGE: V62StrategyKnowledge[] = [
   {
     id: "SK-SEPARATE-SPATIAL",
@@ -172,4 +192,34 @@ export function synthesizeV62Strategies(input: V62ReasoningInput): V62SynthesisR
     provenance: ["ARKI generic strategy knowledge registry", "D6.2 generic applicability checks", "No typology name used for dispatch"],
     disposition: "EXTEND",
   };
+}
+
+export function synthesizeV62ContextualStrategies(input: V62ReasoningInput): V62ContextualSynthesisResult {
+  const base = synthesizeV62Strategies(input);
+  const contextualStrategies = base.applicableStrategies.map((strategy) => {
+    const context = [...input.conditionTags, ...input.stateTags, ...input.scenarioTags].join(", ");
+    const statement = `${strategy.intent} Applied to the current deficit through ${strategy.id} under ${context || "the recorded conditions"}; verify the required effect before any design move or mutation.`;
+    return {
+      strategyId: strategy.id,
+      family: strategy.family,
+      statement,
+      sourceKnowledge: [strategy.id, ...strategy.provenance],
+      cause: input.cause,
+      requiredEffect: input.requiredEffect,
+      applicabilityEvidence: [strategy.rationale, ...strategy.matchedEffects],
+      contextualization: [
+        `Target conditions: ${input.conditionTags.join(", ") || "UNSPECIFIED"}`,
+        `State: ${input.stateTags.join(", ") || "UNSPECIFIED"}`,
+        `Scenario: ${input.scenarioTags.join(", ") || "UNSPECIFIED"}`,
+        `Authority: ${input.authority}`,
+        `Mutability: ${input.mutability}`,
+      ],
+      assumptions: ["The recorded cause and required effect are accurate enough for a hypothesis."],
+      unknowns: [...strategy.unknownEffects, "Actual impact requires a later Design Move, candidate and verification."],
+      rejectedAlternatives: base.rejectedStrategies.map((item) => `${item.strategyId}: ${item.reasons.join("; ")}`),
+      epistemicStatus: "HYPOTHESIS" as const,
+      provenance: ["D6.2R contextual synthesis", ...strategy.provenance],
+    };
+  });
+  return { ...base, contextualStrategies };
 }
