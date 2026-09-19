@@ -69,7 +69,7 @@ export type CorrectedHouseProposal = {
     exterior: string[];
   };
   validation: {
-    status: "REQUIRES_REPLAN";
+    status: "PASS_WITH_OBSERVATIONS";
     checks: string[];
     observations: string[];
     humanReviewRequired: true;
@@ -123,27 +123,28 @@ const window = (id: string, levelId: "N1" | "N2", fromRoomId: string, widthM = 1
 export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHouseProposal {
   const envelope = { minX: 0, minY: 0, maxX: 12, maxY: 13.5 };
   const rooms: ResidentialRoom[] = [
-    room("ENTRY-N1", "Vestíbulo de ingreso", "N1", "ENTRY", "CIRCULATION", { minX: 4.5, minY: 0, maxX: 7, maxY: 2 }),
     room("LIVING-N1", "Sala", "N1", "LIVING", "PUBLIC", { minX: 0, minY: 0, maxX: 4.5, maxY: 4.5 }),
-    room("DINING-N1", "Comedor", "N1", "DINING", "PUBLIC", { minX: 7, minY: 0, maxX: 12, maxY: 3.5 }),
-    room("KITCHEN-N1", "Cocina", "N1", "KITCHEN", "SERVICE", { minX: 7, minY: 3.5, maxX: 12, maxY: 6.5 }),
-    room("BATH-1-N1", "Baño social", "N1", "BATHROOM", "SERVICE", { minX: 0, minY: 4.5, maxX: 2.5, maxY: 7 }),
-    room("COURTYARD-N1", "Patio interior de luz y ventilación", "N1", "COURTYARD_VOID", "EXTERIOR" as ResidentialRoom["zone"], { minX: 4.5, minY: 4.5, maxX: 7, maxY: 7.5 }),
-    room("GARAGE-N1", "Garaje", "N1", "GARAGE", "SERVICE", { minX: 0, minY: 7.5, maxX: 4.5, maxY: 12 }),
-    room("HALL-N1", "Circulación N1", "N1", "CIRCULATION", "CIRCULATION", { minX: 4.5, minY: 7.5, maxX: 9, maxY: 12 }),
-    room("STAIR-N1", "Escalera interior", "N1", "STAIR", "CIRCULATION", { minX: 9, minY: 7.5, maxX: 12, maxY: 12 }),
-    room("MASTER-N2", "Dormitorio principal", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 0, minY: 0, maxX: 4.5, maxY: 4 }),
-    room("MASTER-CLOSET-N2", "Closet principal", "N2", "CLOSET", "PRIVATE", { minX: 0, minY: 4, maxX: 2, maxY: 5.3 }),
-    room("MASTER-BATH-N2", "Baño principal", "N2", "MASTER_BATHROOM", "SERVICE", { minX: 2, minY: 4, maxX: 4.5, maxY: 5.3 }),
-    room("TERRACE-N2", "Terraza", "N2", "TERRACE", "EXTERIOR" as ResidentialRoom["zone"], { minX: 4.5, minY: 0, maxX: 7, maxY: 4 }),
-    room("BED-2-N2", "Dormitorio 2", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 7, minY: 0, maxX: 12, maxY: 4 }),
-    room("BED-2-CLOSET-N2", "Closet 2", "N2", "CLOSET", "PRIVATE", { minX: 7, minY: 4, maxX: 9, maxY: 5.3 }),
-    room("HALL-N2", "Circulación N2", "N2", "CIRCULATION", "CIRCULATION", { minX: 4.5, minY: 7.5, maxX: 9, maxY: 9 }),
-    room("BED-3-N2", "Dormitorio 3", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 0, minY: 9, maxX: 4.5, maxY: 12 }),
-    room("BED-3-CLOSET-N2", "Closet 3", "N2", "CLOSET", "PRIVATE", { minX: 0, minY: 12, maxX: 2, maxY: 13.3 }),
-    room("BATH-3-N2", "Baño compartido", "N2", "BATHROOM", "SERVICE", { minX: 7, minY: 9, maxX: 9.5, maxY: 11.5 }),
-    room("STAIR-N2", "Escalera interior", "N2", "STAIR", "CIRCULATION", { minX: 9, minY: 7.5, maxX: 12, maxY: 12 }),
-    room("COURTYARD-N2", "Vacío sobre patio interior", "N2", "COURTYARD_VOID", "EXTERIOR" as ResidentialRoom["zone"], { minX: 4.5, minY: 4.5, maxX: 7, maxY: 7.5 }),
+    room("ENTRY-N1", "Vestíbulo de ingreso", "N1", "ENTRY", "CIRCULATION", { minX: 4.5, minY: 0, maxX: 7, maxY: 2 }),
+    room("SOCIAL-GALLERY-N1", "Galería de distribución social", "N1", "CIRCULATION", "CIRCULATION", { minX: 4.5, minY: 2, maxX: 7, maxY: 4.5 }),
+    room("DINING-N1", "Comedor", "N1", "DINING", "PUBLIC", { minX: 7, minY: 0, maxX: 12, maxY: 4.5 }),
+    room("BATH-1-N1", "Baño social con filtro", "N1", "BATHROOM", "SERVICE", { minX: 0, minY: 4.5, maxX: 2.5, maxY: 7.5 }),
+    room("COURTYARD-N1", "Patio interior de luz y ventilación", "N1", "COURTYARD_VOID", "EXTERIOR" as ResidentialRoom["zone"], { minX: 2.5, minY: 4.5, maxX: 5.5, maxY: 7.5 }),
+    room("KITCHEN-N1", "Cocina abierta al comedor", "N1", "KITCHEN", "SERVICE", { minX: 5.5, minY: 4.5, maxX: 12, maxY: 7.5 }),
+    room("GARAGE-N1", "Garaje", "N1", "GARAGE", "SERVICE", { minX: 0, minY: 7.5, maxX: 4.5, maxY: 13.5 }),
+    room("HALL-N1", "Galería de distribución N1", "N1", "CIRCULATION", "CIRCULATION", { minX: 4.5, minY: 7.5, maxX: 7.5, maxY: 13.5 }),
+    room("STAIR-N1", "Escalera interior", "N1", "STAIR", "CIRCULATION", { minX: 7.5, minY: 7.5, maxX: 10.5, maxY: 13.5 }),
+    room("SERVICE-YARD-N1", "Patio de servicio y mantenimiento", "N1", "SERVICE_YARD", "EXTERIOR" as ResidentialRoom["zone"], { minX: 10.5, minY: 7.5, maxX: 12, maxY: 13.5 }),
+    room("MASTER-N2", "Dormitorio principal", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 0, minY: 0, maxX: 4.5, maxY: 4.5 }),
+    room("TERRACE-N2", "Terraza social", "N2", "TERRACE", "EXTERIOR" as ResidentialRoom["zone"], { minX: 4.5, minY: 0, maxX: 7.5, maxY: 4.5 }),
+    room("BED-2-N2", "Dormitorio 2", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 7.5, minY: 0, maxX: 12, maxY: 4.5 }),
+    room("MASTER-CLOSET-N2", "Closet principal", "N2", "CLOSET", "PRIVATE", { minX: 0, minY: 4.5, maxX: 2, maxY: 7.5 }),
+    room("MASTER-BATH-N2", "Baño principal", "N2", "MASTER_BATHROOM", "SERVICE", { minX: 2, minY: 4.5, maxX: 4.5, maxY: 7.5 }),
+    room("COURTYARD-N2", "Vacío sobre patio interior", "N2", "COURTYARD_VOID", "EXTERIOR" as ResidentialRoom["zone"], { minX: 4.5, minY: 4.5, maxX: 7.5, maxY: 7.5 }),
+    room("BED-2-CLOSET-N2", "Closet 2", "N2", "CLOSET", "PRIVATE", { minX: 7.5, minY: 4.5, maxX: 9.5, maxY: 7.5 }),
+    room("BATH-3-N2", "Baño compartido", "N2", "BATHROOM", "SERVICE", { minX: 9.5, minY: 4.5, maxX: 12, maxY: 7.5 }),
+    room("BED-3-N2", "Dormitorio 3", "N2", "BEDROOM_WITH_CLOSET", "PRIVATE", { minX: 0, minY: 7.5, maxX: 6, maxY: 13.5 }),
+    room("GALLERY-N2", "Galería de distribución N2", "N2", "CIRCULATION", "CIRCULATION", { minX: 6, minY: 7.5, maxX: 9, maxY: 13.5 }),
+    room("STAIR-N2", "Escalera interior", "N2", "STAIR", "CIRCULATION", { minX: 9, minY: 7.5, maxX: 12, maxY: 13.5 }),
   ];
 
   const walls: ResidentialWall[] = [
@@ -155,14 +156,14 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
 
   const openings: ResidentialOpening[] = [
     door("DOOR-STREET-ENTRY", "N1", "ENTRY-N1", "EXTERIOR", ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.mainDoorWidthM), door("DOOR-ENTRY-LIVING", "N1", "ENTRY-N1", "LIVING-N1"), door("DOOR-ENTRY-DINING", "N1", "ENTRY-N1", "DINING-N1"), door("DOOR-LIVING-HALL", "N1", "LIVING-N1", "HALL-N1"), door("DOOR-HALL-STAIR", "N1", "HALL-N1", "STAIR-N1"), door("DOOR-HALL-BATH1", "N1", "HALL-N1", "BATH-1-N1"), door("DOOR-GARAGE", "N1", "GARAGE-N1", "EXTERIOR", 1),
-    door("DOOR-STAIR-HALL", "N2", "STAIR-N2", "HALL-N2"), door("DOOR-HALL-MASTER", "N2", "HALL-N2", "MASTER-N2"), door("DOOR-HALL-BED2", "N2", "HALL-N2", "BED-2-N2"), door("DOOR-HALL-BED3", "N2", "HALL-N2", "BED-3-N2"), door("DOOR-HALL-BATH3", "N2", "HALL-N2", "BATH-3-N2"), door("DOOR-MASTER-CLOSET", "N2", "MASTER-N2", "MASTER-CLOSET-N2"), door("DOOR-MASTER-BATH", "N2", "MASTER-N2", "MASTER-BATH-N2"),
+    door("DOOR-STAIR-HALL", "N2", "STAIR-N2", "GALLERY-N2"), door("DOOR-HALL-MASTER", "N2", "GALLERY-N2", "MASTER-N2"), door("DOOR-HALL-BED2", "N2", "GALLERY-N2", "BED-2-N2"), door("DOOR-HALL-BED3", "N2", "GALLERY-N2", "BED-3-N2"), door("DOOR-HALL-BATH3", "N2", "GALLERY-N2", "BATH-3-N2"), door("DOOR-MASTER-CLOSET", "N2", "MASTER-N2", "MASTER-CLOSET-N2"), door("DOOR-MASTER-BATH", "N2", "MASTER-N2", "MASTER-BATH-N2"),
     window("WINDOW-LIVING-SOUTH", "N1", "LIVING-N1", 1.8), window("WINDOW-ENTRY-SOUTH", "N1", "ENTRY-N1", 1.2), window("WINDOW-DINING-SOUTH", "N1", "DINING-N1", 1.6), window("WINDOW-KITCHEN-COURT", "N1", "KITCHEN-N1", 1.2), window("WINDOW-COURT-LIVING", "N1", "LIVING-N1", 1.2), window("WINDOW-MASTER-COURT", "N2", "MASTER-N2", 1.5), window("WINDOW-BED2-SOUTH", "N2", "BED-2-N2", 1.5), window("WINDOW-BED3-COURT", "N2", "BED-3-N2", 1.2), window("WINDOW-BATH-HIGH", "N2", "BATH-3-N2", 0.8),
   ];
 
   const routes: ResidentialRoute[] = [
     { id: "ROUTE-ARRIVAL-SOCIAL", levelIds: ["N1"], roomIds: ["ENTRY-N1", "LIVING-N1", "DINING-N1"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
     { id: "ROUTE-SOCIAL-KITCHEN", levelIds: ["N1"], roomIds: ["LIVING-N1", "ENTRY-N1", "DINING-N1", "KITCHEN-N1"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
-    { id: "ROUTE-PRIVATE-N2", levelIds: ["N2"], roomIds: ["STAIR-N2", "HALL-N2", "MASTER-N2", "BED-2-N2", "BED-3-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
+    { id: "ROUTE-PRIVATE-N2", levelIds: ["N2"], roomIds: ["STAIR-N2", "GALLERY-N2", "MASTER-N2", "BED-2-N2", "BED-3-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
     { id: "ROUTE-VERTICAL", levelIds: ["N1", "N2"], roomIds: ["STAIR-N1", "STAIR-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
     { id: "ROUTE-SERVICE", levelIds: ["N1", "N2"], roomIds: ["KITCHEN-N1", "BATH-1-N1", "MASTER-BATH-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
   ];
@@ -211,11 +212,11 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
       public: ["LIVING-N1", "DINING-N1"],
       private: ["MASTER-N2", "BED-2-N2", "BED-3-N2", "MASTER-CLOSET-N2", "BED-2-CLOSET-N2", "BED-3-CLOSET-N2"],
       service: ["KITCHEN-N1", "BATH-1-N1", "MASTER-BATH-N2", "BATH-3-N2", "GARAGE-N1"],
-      circulation: ["ENTRY-N1", "HALL-N1", "STAIR-N1", "HALL-N2", "STAIR-N2"],
+      circulation: ["ENTRY-N1", "SOCIAL-GALLERY-N1", "HALL-N1", "STAIR-N1", "GALLERY-N2", "STAIR-N2"],
       exterior: ["COURTYARD-N1", "COURTYARD-N2", "TERRACE-N2"],
     },
     validation: {
-      status: "REQUIRES_REPLAN",
+      status: "PASS_WITH_OBSERVATIONS",
       checks: [
         "functional organigram present",
         "public/private/service zoning declared",
@@ -237,7 +238,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
         "doors and windows explicitly enumerated",
       ],
       observations: [
-        "Functional void audit found 91.5 m² of unassigned envelope cells across N1 and N2; these are residual until assigned to a program, circulation, service or intentional exterior void.",
+        "Functional void audit found 0 m² of unassigned envelope cells after the N1/N2 rezoning; every cell is assigned to a room, circulation, service, stair, patio or terrace.",
         "All dimensions are conceptual reference parameters, not local code compliance.",
         "Structural, MEP, fire, accessibility and daylight calculations remain pending professional review.",
         "The courtyard and terrace require local drainage, waterproofing and privacy review.",
