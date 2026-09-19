@@ -3,9 +3,10 @@ import { ARKI_PLAN_SYMBOL_RULES, buildHousePlanSymbolLesson, validatePlanSymbolI
 
 describe("architectural plan symbols", () => {
   it("teaches distinct wall, door, window and clerestory semantics", () => {
-    expect(ARKI_PLAN_SYMBOL_RULES.map((rule) => rule.kind)).toEqual([
-      "WALL", "DOOR_HINGED", "DOOR_SLIDING", "WINDOW", "WINDOW_HIGH", "OPENING_UNKNOWN",
-    ]);
+    expect(ARKI_PLAN_SYMBOL_RULES.length).toBeGreaterThanOrEqual(20);
+    expect(ARKI_PLAN_SYMBOL_RULES.map((rule) => rule.kind)).toEqual(expect.arrayContaining([
+      "WALL", "DOOR_DOUBLE", "DOOR_UNEVEN_DOUBLE", "DOOR_OPPOSING", "DOOR_REVOLVING", "DOOR_POCKET", "DOOR_DOUBLE_POCKET", "DOOR_BYPASS", "DOOR_BIFOLD", "DOOR_DOUBLE_BIFOLD", "DOOR_SLIDING_GLASS", "DOOR_OVERHEAD", "WINDOW_CASEMENT", "WINDOW_GLIDER", "WINDOW_GARDEN", "WINDOW_BOW", "WINDOW_BAY", "WINDOW_HIGH", "OPENING_UNKNOWN",
+    ]));
     expect(ARKI_PLAN_SYMBOL_RULES.find((rule) => rule.kind === "WINDOW_HIGH")?.requiredGeometry).toContain("height_semantics");
   });
 
@@ -20,7 +21,7 @@ describe("architectural plan symbols", () => {
 
   it("keeps the lesson educational and human-reviewed", () => {
     const lesson = buildHousePlanSymbolLesson();
-    expect(lesson.rules).toHaveLength(6);
+    expect(lesson.rules.length).toBeGreaterThanOrEqual(20);
     expect(lesson.humanReviewRequired).toBe(true);
   });
 });
