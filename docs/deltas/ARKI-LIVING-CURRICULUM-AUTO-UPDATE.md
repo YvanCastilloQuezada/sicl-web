@@ -161,3 +161,24 @@ HUMAN_AUTHORITY = FINAL
 - **D7.4/L10:** `PARTIAL`; transferencia positiva y restraint, pero sin persistencia ni regresión.
 - **Progresión docente:** `PREDICT EFFECT → MUTATE → OBSERVE EFFECT → COMPARE PREDICTION → DETECT SIDE EFFECT → REFINE KNOWLEDGE → TRANSFER → CHALLENGE`.
 - **Regla:** runtime parcial no se presenta como conocimiento dominado ni generalizado.
+
+<!-- PASTED-CONTENT-481-V1 -->
+## PASTED-CONTENT-481-V1 — pasted_content_481.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `423b9b2881dcd46327675c00a8666fefa1ccef4158428ac3c7ab10ec84ed2eb5`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN D7.6 → D8.0, AUTONOMOUS DETECTION & DIAGNOSIS, NOVEL OBSERVATION, PERSISTENT ARCHITECTURAL LEARNING, TRANSFER, RESTRAINT & GENERALIZATION
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- D7.6-D7.8-RESULT -->
+## D7.6 → D7.8 — Detección, diagnóstico y novedad
+
+- **D7.6/L2:** `DEMONSTRATED`; detección relacional no suministrada, controles de falso positivo/falso negativo y UNKNOWN.
+- **D7.7/L3:** `DEMONSTRATED`; hipótesis causales discriminadas, hipótesis no apoyadas retenidas y causas UNKNOWN preservadas.
+- **D7.8:** `NO_VALID_NOVEL_OBSERVATION`; K0 congelado, efectos clasificados como ejecución directa.
+- **D7.9/D8.0:** `STOPPED`; no se crea K1, no se declara persistencia ni generalización arquitectónica.
+- **Regla pedagógica:** detección, diagnóstico, observación, aprendizaje y generalización permanecen separados.

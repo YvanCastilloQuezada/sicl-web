@@ -1,0 +1,1629 @@
+# ARKI — MACROORDEN D7.6 → D8.0
+## AUTONOMOUS DETECTION & DIAGNOSIS
+## NOVEL OBSERVATION
+## PERSISTENT ARCHITECTURAL LEARNING
+## TRANSFER, RESTRAINT & GENERALIZATION
+
+MODE:
+AUTONOMOUS GATED EXECUTION
+
+============================================================
+0. CURRENT BASELINE
+============================================================
+
+Reported current maturity:
+
+L0 RECEIVES                 = DEMONSTRATED
+L1 REPRESENTS               = DEMONSTRATED
+L2 DETECTS                  = PARTIAL
+L3 DIAGNOSES                = PARTIAL
+L4 EVALUATES                = DEMONSTRATED
+L5 GENERATES STRATEGIES     = DEMONSTRATED
+L6 GENERATES CANDIDATES     = DEMONSTRATED
+L7 MUTATES / SYNTHESIZES    = DEMONSTRATED_BOUNDED_S2
+L8 REEVALUATES              = DEMONSTRATED
+L9 COMPARES                 = DEMONSTRATED
+L10 GENERALIZES             = PARTIAL
+
+D7.3:
+
+NO_VALID_LEARNING_EVENT_OBSERVED
+K1 = NOT_CREATED
+PERSISTENCE = NOT_DEMONSTRATED
+
+D7.4:
+
+POSITIVE TRANSFER = DEMONSTRATED
+TRANSFER RESTRAINT = DEMONSTRATED
+GENERALIZATION = PARTIAL
+
+D7.5:
+
+PARTIAL / HIGHEST HONEST MATURITY
+
+Reported repository:
+
+YvanCastilloQuezada/sicl-web
+
+Reported branch:
+
+feat/spatial-pilot-media-studio-v1
+
+Reported baseline HEAD:
+
+cd4d2e777bba3a26d5f7da2b86d29ca437491996
+
+DO NOT ASSUME THIS IS STILL HEAD.
+
+Verify:
+
+repository
+branch
+HEAD
+remote
+worktree
+AGENTS.md
+applicable repository instructions
+
+before editing.
+
+============================================================
+1. PURPOSE
+============================================================
+
+The next frontier is NOT:
+
+more strategy units;
+more candidate count;
+more typologies;
+more benchmark-specific rules.
+
+The next frontier is to test whether ARKI can complete:
+
+PROJECT STATE
+→ DETECT DEFICIT
+→ DIAGNOSE CAUSE
+→ GENERATE STRATEGIES
+→ GENERATE CANDIDATES
+→ MUTATE
+→ REEVALUATE
+→ COMPARE
+→ OBSERVE NOVEL EFFECT
+→ FORM LEARNING CANDIDATE
+→ CHALLENGE
+→ PERSIST K1
+→ REINITIALIZE
+→ RETRIEVE K1
+→ REUSE K1
+→ TRANSFER / RESTRAIN
+→ GENERALIZE WITH SCOPE.
+
+The central question is:
+
+CAN ARKI DISCOVER ARCHITECTURALLY RELEVANT KNOWLEDGE
+THAT WAS NOT SUPPLIED AS INPUT,
+PERSIST IT,
+RETRIEVE IT IN A FRESH EXECUTION,
+USE IT IN A STRUCTURALLY NEW CASE,
+AND ALSO KNOW WHEN NOT TO APPLY IT?
+
+============================================================
+2. GATED PROGRESSION
+============================================================
+
+Execute:
+
+D7.6
+AUTONOMOUS DEFICIT DETECTION
+
+→ GATE
+
+D7.7
+AUTONOMOUS CAUSE DIAGNOSIS
+
+→ GATE
+
+D7.8
+NOVEL OBSERVATION & LEARNING CANDIDATE
+
+→ GATE
+
+D7.9
+PERSISTENCE / REINITIALIZATION / INDEPENDENT REUSE
+
+→ GATE
+
+D8.0
+TRANSFER / RESTRAINT / GENERALIZATION CHECKPOINT.
+
+Do not promote a later stage if its logical prerequisite does not exist.
+
+============================================================
+3. REUSE FIRST
+============================================================
+
+Before adding code inspect and reuse:
+
+CanonicalBuildingModel
+existing capability model
+functional void / deficit audits
+journey reasoning
+flow reasoning
+relationship reasoning
+capacity/concurrency reasoning
+state/scenario/time reasoning
+dependency graph
+V6CauseModel
+D6.2A strategic knowledge
+D6.2R contextual synthesis
+DesignMove
+operator structures
+S2 bounded mutation
+D7.1 reevaluation
+D7.2 comparison
+V6LearningLedger
+knowledge store
+acquisition ledger
+transfer assessment
+provenance
+UNKNOWN architecture
+human authority
+triple propagation.
+
+Create a reuse map:
+
+REUSE
+EXTEND
+ADAPT
+DATA_ONLY
+DERIVED_VIEW
+DO_NOT_DUPLICATE.
+
+No second detection engine.
+No second diagnosis engine.
+No second learning engine.
+No second knowledge store.
+
+============================================================
+4. CRITICAL EXPERIMENTAL RULE
+============================================================
+
+Do NOT put the expected deficit, cause, learning result or K1 into
+runtime input.
+
+The experiment must distinguish:
+
+TEST ORACLE
+
+from
+
+RUNTIME KNOWLEDGE.
+
+Assertions may know the expected experimental condition.
+
+ARKI may not consume the answer.
+
+============================================================
+5. NEW PERMANENT INVARIANTS
+============================================================
+
+Preserve and propagate:
+
+OBSERVED CONDITION
+≠
+DEFICIT.
+
+DEFICIT
+≠
+CAUSE.
+
+CAUSE
+≠
+STRATEGY.
+
+DETECTION
+≠
+DIAGNOSIS.
+
+DIAGNOSIS
+≠
+DESIGN RESPONSE.
+
+ANOMALY
+≠
+ARCHITECTURAL PROBLEM.
+
+OBSERVATION
+≠
+LEARNING.
+
+NOVEL OBSERVATION
+≠
+VALID KNOWLEDGE.
+
+PERSISTED KNOWLEDGE
+≠
+GENERALIZED KNOWLEDGE.
+
+REPEATED EFFECT
+≠
+UNIVERSAL RULE.
+
+FAILED TRANSFER
+MAY REFINE KNOWLEDGE.
+
+============================================================
+6. D7.6 — AUTONOMOUS DEFICIT DETECTION
+============================================================
+
+GOAL:
+
+Test L2 without supplying the deficit.
+
+Input should describe architectural/project state through existing
+canonical semantics.
+
+Examples of allowed input dimensions:
+
+actors / subjects
+activities
+states
+processes
+journeys
+flows
+relationships
+interfaces
+topology
+capacity
+demand
+time
+scenario
+controls
+authority
+geometry
+resources
+requirements
+evidence.
+
+Do NOT provide:
+
+DEFICIT = X
+
+or equivalent hidden answer.
+
+============================================================
+7. DETECTION MUST BE RELATIONAL
+============================================================
+
+ARKI should not merely search for a room name or missing field.
+
+Detection should evaluate relationships such as:
+
+REQUIRED
+vs
+AVAILABLE
+
+DEMAND
+vs
+CAPACITY
+
+REQUIRED JOURNEY
+vs
+ACTIVE TOPOLOGY
+
+COMPATIBILITY
+vs
+ACTUAL INTERACTION
+
+REQUIRED STATE
+vs
+OBSERVED / MODELED STATE
+
+REQUIRED CONTROL
+vs
+ACTIVE CONTROL
+
+DEPENDENCY REQUIRED
+vs
+DEPENDENCY AVAILABLE
+
+REQUIRED EVIDENCE
+vs
+COVERAGE.
+
+Use only relationships supported by current architecture.
+
+============================================================
+8. DETECTION OUTPUT
+============================================================
+
+Each detected deficit must contain:
+
+DETECTED CONDITION
+EXPECTED / REQUIRED CONDITION
+ACTUAL CONDITION
+MISMATCH
+AFFECTED CAPABILITY
+SUBJECT
+STATE
+SCENARIO
+TIME
+SCOPE
+EVIDENCE
+COVERAGE
+UNKNOWN
+PROVENANCE
+CONFIDENCE / EPISTEMIC STATUS.
+
+No cause yet unless independently derived later.
+
+============================================================
+9. FALSE-POSITIVE CONTROL
+============================================================
+
+Include a structurally unusual but valid condition.
+
+ARKI must NOT call every unusual configuration a deficit.
+
+Test:
+
+UNUSUAL
+≠
+INVALID.
+
+============================================================
+10. FALSE-NEGATIVE CONTROL
+============================================================
+
+Include at least one real deficit that cannot be detected from superficial
+geometry alone.
+
+ARKI should need semantic relationships / capability state.
+
+This tests:
+
+GEOMETRIC ODDITY
+≠
+FUNCTIONAL DEFICIT.
+
+============================================================
+11. UNKNOWN CONTROL
+============================================================
+
+Include a case where evidence is insufficient to determine whether a
+deficit exists.
+
+Expected:
+
+DETECTION STATUS = UNKNOWN / INSUFFICIENT_EVIDENCE
+
+not:
+
+PASS
+or
+FAIL invented from missing data.
+
+============================================================
+12. D7.6 GATE
+============================================================
+
+L2 = DEMONSTRATED only if ARKI can:
+
+detect at least one genuine deficit not supplied as input;
+avoid a controlled false positive;
+preserve an evidence-insufficient case as UNKNOWN;
+identify affected capability and context;
+provide provenance;
+avoid typology-name dispatch;
+avoid fixture answer leakage.
+
+If L2 fails:
+
+STOP.
+
+Do not implement a domain-specific detector.
+
+Report the general missing capability.
+
+============================================================
+13. D7.7 — AUTONOMOUS CAUSE DIAGNOSIS
+============================================================
+
+Execute only if D7.6 passes.
+
+The detected deficit is now input to diagnosis.
+
+But:
+
+CAUSE IS NOT PROVIDED.
+
+ARKI must attempt:
+
+DEFICIT
+→ CAUSE HYPOTHESES
+→ EVIDENCE TEST
+→ SUPPORTED / UNSUPPORTED / UNKNOWN CAUSE.
+
+============================================================
+14. CAUSE HYPOTHESES
+============================================================
+
+Generate possible cause hypotheses from canonical relationships and
+dependencies.
+
+Do not assume:
+
+NEAREST OBJECT
+=
+CAUSE.
+
+Do not assume:
+
+DEFICIT LOCATION
+=
+CAUSE LOCATION.
+
+Preserve:
+
+FAILURE LOCATION
+≠
+CONSEQUENCE LOCATION.
+
+LOCAL DEFICIT
+≠
+LOCAL CAUSE.
+
+============================================================
+15. CAUSAL STATUS
+============================================================
+
+Use existing V6 cause distinctions where possible:
+
+OBSERVED
+HYPOTHESIZED
+SUPPORTED
+VERIFIED
+
+or exact canonical equivalents.
+
+Do not promote HYPOTHESIS directly to VERIFIED.
+
+============================================================
+16. MULTICAUSALITY
+============================================================
+
+Allow:
+
+ONE DEFICIT
+←
+MULTIPLE POSSIBLE CAUSES.
+
+And:
+
+ONE CAUSE
+→
+MULTIPLE DEFICITS.
+
+Do not force one-to-one diagnosis.
+
+============================================================
+17. CAUSE DISCRIMINATION
+============================================================
+
+Include a case with at least two plausible causes where only one is
+supported by available evidence.
+
+ARKI must retain rejected/unsupported hypotheses and reasons.
+
+============================================================
+18. CAUSAL UNKNOWN
+============================================================
+
+If evidence cannot discriminate causes:
+
+CAUSE = UNKNOWN / MULTIPLE PLAUSIBLE
+
+with resolution path.
+
+Do not invent certainty.
+
+============================================================
+19. D7.7 GATE
+============================================================
+
+L3 = DEMONSTRATED only if:
+
+deficit was not supplied;
+cause was not supplied;
+ARKI generated causal hypotheses;
+evidence discriminated at least one hypothesis;
+unsupported hypotheses were retained/rejected explainably;
+UNKNOWN remains possible;
+provenance is complete.
+
+If diagnosis is simply a lookup from deficit type:
+
+L3 = NOT_DEMONSTRATED.
+
+If blocked:
+
+STOP.
+
+============================================================
+20. D7.8 — NOVEL OBSERVATION EXPERIMENT
+============================================================
+
+Execute only after L2/L3 are demonstrated.
+
+Use the now-established chain:
+
+DETECT
+→ DIAGNOSE
+→ STRATEGY
+→ CANDIDATE
+→ MUTATE
+→ REEVALUATE.
+
+The experiment must attempt to produce an observation that is NOT already
+contained in K0.
+
+============================================================
+21. FREEZE K0 BEFORE EXECUTION
+============================================================
+
+Before mutation create a machine-verifiable K0 snapshot.
+
+K0 must include relevant:
+
+facts
+relationships
+invariants
+patterns
+heuristics
+strategies
+Design Moves
+known effects
+side effects
+counterexamples
+scope
+evidence
+confidence
+unknowns.
+
+Record K0 hash/version if architecture supports it.
+
+K0 must be frozen BEFORE observing the experimental result.
+
+============================================================
+22. PREDICTION BEFORE OBSERVATION
+============================================================
+
+Before executing candidate mutation record:
+
+EXPECTED EFFECTS
+KNOWN POSSIBLE SIDE EFFECTS
+UNKNOWN EFFECTS.
+
+This is essential.
+
+Without pre-observation prediction, novelty cannot be reliably assessed.
+
+============================================================
+23. NOVELTY TEST
+============================================================
+
+After mutation and reevaluation:
+
+compare observed effects against K0.
+
+Classify each observation:
+
+ALREADY_KNOWN
+PREDICTED_FROM_K0
+DIRECT_EXECUTION_RESULT
+NOVEL_CANDIDATE
+UNKNOWN_NOVELTY.
+
+A NOVEL_CANDIDATE must NOT be:
+
+supplied as input;
+stored in strategic registry;
+encoded as expected runtime answer;
+retrieved from prior knowledge;
+a trivial restatement of mutation;
+a test-fixture literal consumed by runtime.
+
+============================================================
+24. NOVEL OBSERVATION
+============================================================
+
+A useful candidate pattern is:
+
+K0 predicts:
+
+A
+B
+
+execution observes:
+
+A
+B
+C
+
+where C was not in K0.
+
+But C must be architecturally meaningful.
+
+Do not count:
+
+new UUID
+timestamp
+coordinate bookkeeping
+serialization change
+test metadata
+
+as architectural learning.
+
+============================================================
+25. ARCHITECTURAL RELEVANCE
+============================================================
+
+A novel observation may concern:
+
+relationship
+dependency
+interaction
+capacity behavior
+journey consequence
+state dependence
+temporal dependence
+strategy applicability
+side effect
+operator composition
+scope limitation
+counterexample
+reasoning pattern.
+
+It need not be a new primitive.
+
+============================================================
+26. NO FORCED NOVELTY
+============================================================
+
+Do not deliberately modify the simulator/runtime to secretly create a
+predetermined "surprise".
+
+The experiment may expose a previously unrecorded consequence through
+existing reasoning/mutation/reevaluation.
+
+If no valid novelty appears:
+
+NO_VALID_NOVEL_OBSERVATION
+
+is the correct result.
+
+Do not manufacture K1.
+
+============================================================
+27. LEARNING CANDIDATE
+============================================================
+
+If valid novelty exists:
+
+OBSERVATION
+→ LEARNING CANDIDATE.
+
+Record:
+
+K0
+CONTEXT
+ACTION / STRATEGY
+OBSERVATION
+NOVEL ELEMENT
+EVIDENCE
+COUNTEREVIDENCE
+SCOPE
+UNCERTAINTY
+PROVENANCE.
+
+Classify:
+
+L1 PARAMETER
+L2 RELATIONSHIP
+L3 STRUCTURAL
+L4 REASONING PATTERN.
+
+And:
+
+ADD
+REFINE
+GENERALIZE
+SPECIALIZE
+REVISE
+RETIRE.
+
+============================================================
+28. CHALLENGE BEFORE PERSISTENCE
+============================================================
+
+Do not persist a general rule after one observation.
+
+Challenge the candidate using:
+
+REPEAT CASE
+VARIANT CASE
+COUNTEREXAMPLE CASE.
+
+Possible outcomes:
+
+SUPPORTED
+CONTEXT_SPECIFIC
+REFINED
+REJECTED
+CONFLICTED
+UNKNOWN.
+
+============================================================
+29. LEARNING MAY NARROW KNOWLEDGE
+============================================================
+
+If counterexample shows the observation only applies under condition X:
+
+do NOT discard the learning automatically.
+
+Possible valid learning:
+
+BEFORE:
+S may cause C.
+
+AFTER:
+S may cause C only when X is present.
+
+This is:
+
+SPECIALIZE / REFINE.
+
+Preserve:
+
+LEARNING
+≠
+ONLY ADDING KNOWLEDGE.
+
+============================================================
+30. D7.8 GATE
+============================================================
+
+D7.8 PASS requires at least one legitimate:
+
+NOVEL OBSERVATION
+→ LEARNING CANDIDATE
+→ CHALLENGE RESULT.
+
+But D7.8 does NOT require that candidate become generalized.
+
+If no valid event exists:
+
+D7.8 =
+NO_VALID_LEARNING_EVENT_OBSERVED
+
+and STOP promotion to persistence.
+
+Do not fabricate K1.
+
+============================================================
+31. D7.9 — PERSISTENCE
+============================================================
+
+Execute only if D7.8 produces a legitimate learning candidate with
+sufficient evidence for persistence at an appropriate non-canonical state.
+
+Use existing knowledge infrastructure.
+
+Do not create a second persistence system.
+
+============================================================
+32. K1
+============================================================
+
+Persist the learning candidate at its justified maturity.
+
+K1 must preserve:
+
+K0 lineage
+observation
+evidence
+counterevidence
+scope
+conditions
+provenance
+maturity
+authority
+temporal validity
+generalization status.
+
+K1 does NOT mean CANONICAL.
+
+============================================================
+33. TRUE REINITIALIZATION
+============================================================
+
+After persistence:
+
+end the generating reasoning execution.
+
+Create a fresh reasoning initialization.
+
+The new run must not receive:
+
+the prior observation;
+the prior expected answer;
+the prior candidate solution;
+the K1 content through test fixture.
+
+K1 may only enter through the normal persistent knowledge retrieval path.
+
+============================================================
+34. INDEPENDENT RETRIEVAL
+============================================================
+
+RUN B must demonstrate:
+
+QUERY / PROBLEM
+→ NORMAL KNOWLEDGE RETRIEVAL
+→ K1 FOUND
+→ K1 APPLICABILITY CHECK
+→ K1 USED OR REJECTED.
+
+Report:
+
+K1 RETRIEVED =
+WHY RETRIEVED =
+SCOPE MATCH =
+APPLICABILITY =
+HOW USED =
+PROVENANCE =.
+
+============================================================
+35. RETENTION ≠ USE
+============================================================
+
+If K1 exists in storage but is never retrieved:
+
+PERSISTENCE STORAGE = PASS
+FUNCTIONAL PERSISTENCE = NOT_DEMONSTRATED.
+
+If retrieved but irrelevant:
+
+RETRIEVAL = PASS
+REUSE = NOT_APPLICABLE / FAIL as appropriate.
+
+============================================================
+36. D7.9 GATE
+============================================================
+
+Persistent learning is DEMONSTRATED only if:
+
+valid K0 exists;
+valid novel observation exists;
+candidate survived challenge;
+K1 persisted;
+fresh initialization occurred;
+K1 was independently retrieved;
+K1 influenced reasoning appropriately;
+provenance remained intact;
+K0 history remained intact.
+
+Otherwise:
+
+PARTIAL
+or
+NOT_DEMONSTRATED.
+
+============================================================
+37. D8.0 — TRANSFER & GENERALIZATION
+============================================================
+
+Execute only if D7.9 provides a legitimate persisted K1.
+
+Now test whether K1 transfers.
+
+Use at least:
+
+A. SAME-DOMAIN VARIANT
+B. STRUCTURALLY COMPATIBLE CROSS-TYPOLOGY CASE
+C. ADAPTATION CASE
+D. CRITICAL-DIFFERENCE RESTRAINT CASE
+E. COUNTEREXAMPLE.
+
+Do not supply the desired transfer decision.
+
+============================================================
+38. TRANSFER SHOULD USE STRUCTURE
+============================================================
+
+K1 retrieval/transfer should depend on relevant structural semantics:
+
+purpose
+capability
+subject
+state
+process
+relationship
+hazard
+control
+time
+scale
+authority
+context
+
+not merely typology labels.
+
+============================================================
+39. POSITIVE TRANSFER
+============================================================
+
+Test whether K1 improves reasoning in a structurally compatible case.
+
+"Improves" must be operationally defined.
+
+Possible evidence:
+
+earlier detection;
+better diagnosis;
+more appropriate applicability;
+avoided failed strategy;
+new side-effect anticipation;
+better scope;
+better UNKNOWN recognition.
+
+Do not use vague "better architecture" claims.
+
+============================================================
+40. RESTRAINT
+============================================================
+
+Use a superficially similar but critically incompatible case.
+
+ARKI must:
+
+reject K1
+or
+adapt/specialize it.
+
+Preserve:
+
+GENERALIZATION
+REQUIRES
+POSITIVE TRANSFER
++
+TRANSFER RESTRAINT.
+
+============================================================
+41. FIXATION TEST
+============================================================
+
+Compare reasoning with and without retrieved K1 where experimentally
+appropriate.
+
+Measure separately:
+
+reasoning similarity
+strategy similarity
+topology similarity
+geometry similarity.
+
+K1 must not force reproduction of prior form.
+
+Preserve:
+
+REASONING TRANSFER
+≠
+FORM COPYING.
+
+============================================================
+42. KNOWLEDGE REGRESSION
+============================================================
+
+After K1 persistence rerun relevant historical cases.
+
+Check:
+
+false application
+overgeneralization
+loss of valid UNKNOWN
+loss of previous knowledge
+incorrect confidence increase
+strategy fixation
+incorrect transfer.
+
+Report:
+
+KNOWLEDGE_REGRESSION =
+PASS / FAIL.
+
+============================================================
+43. REASONING REGRESSION
+============================================================
+
+Check whether K1 damages:
+
+detection
+diagnosis
+strategy generation
+candidate diversity
+reevaluation
+comparison
+restraint.
+
+Report independently:
+
+REASONING_REGRESSION =
+PASS / FAIL.
+
+============================================================
+44. D8.0 GENERALIZATION ACCEPTANCE
+============================================================
+
+L10 = DEMONSTRATED only if all are supported:
+
+VALID NOVEL OBSERVATION
+K0→K1
+PERSISTENCE
+FRESH RETRIEVAL
+FUNCTIONAL REUSE
+POSITIVE TRANSFER
+ADAPTATION WHERE REQUIRED
+TRANSFER RESTRAINT
+COUNTEREXAMPLE
+EXPLICIT SCOPE
+FIXATION CONTROL
+KNOWLEDGE REGRESSION PASS
+REASONING REGRESSION PASS
+PROVENANCE
+HUMAN AUTHORITY.
+
+Otherwise:
+
+L10 = PARTIAL.
+
+Do not lower the threshold to reach D8.
+
+============================================================
+45. D8.0 CHECKPOINT DEFINITION
+============================================================
+
+D8.0 title:
+
+ARKI ARCHITECTURAL LEARNING & GENERALIZATION CHECKPOINT
+
+Possible final states:
+
+A.
+D8.0 = DEMONSTRATED
+
+B.
+D8.0 = PARTIAL
+
+C.
+D8.0 = BLOCKED_AT_D7.X
+
+All are valid outcomes.
+
+============================================================
+46. IMPORTANT DISTINCTION
+============================================================
+
+D8.0 must independently report:
+
+CAPABILITY GENERALIZATION
+
+and
+
+ARCHITECTURAL KNOWLEDGE GENERALIZATION.
+
+These are not identical.
+
+Example:
+
+ARKI may demonstrate that its transfer mechanism works across domains
+
+without having generalized a particular architectural rule.
+
+Preserve:
+
+CAPABILITY GENERALIZATION
+≠
+KNOWLEDGE GENERALIZATION.
+
+============================================================
+47. SYSTEM LEARNING VS ARCHITECTURAL LEARNING
+============================================================
+
+Report separately:
+
+SYSTEM CAPABILITY LEARNING/IMPROVEMENT
+
+and
+
+ARCHITECTURAL KNOWLEDGE LEARNING.
+
+Engineering changes to ARKI are not autonomous learning.
+
+A newly implemented detector is:
+
+ENGINEERED CAPABILITY.
+
+A novel architectural relationship discovered from evidence may be:
+
+ARCHITECTURAL LEARNING CANDIDATE.
+
+============================================================
+48. DO NOT LEARN FROM TEST ORACLE
+============================================================
+
+The test harness may know:
+
+expected deficit
+expected causal condition
+hidden experimental property
+expected transfer compatibility.
+
+Runtime may not retrieve those values.
+
+Add explicit leakage control.
+
+TEST_ORACLE_LEAKAGE = PASS required.
+
+============================================================
+49. EXPERIMENTAL BLINDING
+============================================================
+
+Where practical:
+
+separate runtime fixture from assertion fixture.
+
+Runtime receives only architectural state.
+
+Assertions evaluate externally.
+
+This is particularly important for:
+
+D7.6
+D7.7
+D7.8
+D8.0.
+
+============================================================
+50. ADVERSARIAL CONTROLS
+============================================================
+
+Include:
+
+false-positive deficit case;
+false-negative risk case;
+ambiguous cause case;
+invalid transfer case;
+superficially similar case;
+insufficient evidence case;
+authority-boundary case.
+
+Do not optimize only for happy path.
+
+============================================================
+51. L2/L3 RETENTION
+============================================================
+
+If D7.6/D7.7 demonstrate L2/L3:
+
+rerun them after K1.
+
+K1 must not degrade detection/diagnosis.
+
+============================================================
+52. L5–L9 RETENTION
+============================================================
+
+D8 cannot be claimed if learning breaks previously demonstrated capability.
+
+Rerun:
+
+L5 strategy generation
+L6 candidate generation
+L7 bounded synthesis
+L8 reevaluation
+L9 comparison.
+
+Preserve historical baselines.
+
+============================================================
+53. RUNTIME MATURITY
+============================================================
+
+Report independently:
+
+RESEARCH STATUS
+TEACHABILITY STATUS
+IMPLEMENTATION STATUS
+VALIDATION STATUS
+GENERALIZATION STATUS.
+
+Do not collapse them.
+
+============================================================
+54. TRIPLE PROPAGATION
+============================================================
+
+For every reached delta:
+
+D7.6
+D7.7
+D7.8
+D7.9
+D8.0
+
+propagate through existing automation:
+
+DELTA
+→ ARKI
+→ CURRICULUM
+→ DIGITAL BOOK.
+
+Do not create another pipeline.
+
+============================================================
+55. CURRICULUM EVOLUTION
+============================================================
+
+Extend curriculum with:
+
+OBSERVE
+→ DETECT
+→ DIAGNOSE
+→ PREDICT
+→ ACT
+→ OBSERVE CONSEQUENCE
+→ COMPARE TO K0
+→ IDENTIFY NOVELTY
+→ CHALLENGE
+→ LEARN
+→ RETAIN
+→ TRANSFER
+→ RESTRAIN.
+
+Mark each capability by actual maturity.
+
+Do not teach D8 learning as mastered unless demonstrated.
+
+============================================================
+56. DIGITAL BOOK
+============================================================
+
+Record:
+
+experimental setup
+K0
+blind runtime input
+predictions
+observations
+novelty assessment
+learning candidate
+counterevidence
+challenge cases
+K1
+persistence result
+fresh retrieval
+reuse
+transfer
+restraint
+fixation
+regressions
+human review.
+
+Preserve negative results.
+
+============================================================
+57. A–AV
+============================================================
+
+Continue permanent A–AV protocol.
+
+For D7.6–D8.0 add explicit experimental fields where needed but do not
+replace A–AV.
+
+Especially preserve:
+
+Y Knowledge Before/K0
+Z Supplied Knowledge
+AA Retrieved Knowledge
+AB Adapted Knowledge
+AC Learning Candidate
+AD Learning Class
+AE Persistence
+AF Transfer Source/Target
+AG Context Differences
+AH Adaptation Burden
+AI Transfer Decision
+AJ Transfer Result
+AK Counterexample
+AL Scope Refinement
+AM Fixation
+AN Knowledge After/K1
+AO Learning Delta
+AP Generalization
+AQ Knowledge Regression
+AR Reasoning Regression
+AT Runtime Maturity
+AU Autonomy
+AV Final Epistemic State.
+
+============================================================
+58. NO BROAD RESEARCH
+============================================================
+
+Do not reopen broad architectural typology research.
+
+Do not enlarge knowledge merely to create a novel event.
+
+If experiment exposes a genuine missing general concept:
+
+record it as a gap.
+
+Perform targeted research only if necessary to interpret the gap safely.
+
+============================================================
+59. NO ONTOLOGY EXPANSION BY DEFAULT
+============================================================
+
+No primitive 18 by default.
+
+HAZARD remains under existing governance.
+
+A novel observation does not automatically create a primitive.
+
+============================================================
+60. HUMAN AUTHORITY
+============================================================
+
+Human authority remains outside the autonomy ladder.
+
+ARKI may:
+
+detect
+diagnose
+generate
+mutate within authority
+reevaluate
+compare
+form learning candidates
+persist justified non-canonical knowledge
+retrieve
+transfer
+reject transfer.
+
+ARKI may not automatically:
+
+certify professional adequacy;
+approve regulatory compliance;
+canonize high-authority architectural doctrine;
+select subjective architectural winner.
+
+============================================================
+61. STOP CONDITIONS
+============================================================
+
+STOP forward promotion if:
+
+L2 cannot be demonstrated without hardcoding;
+L3 cannot be demonstrated without supplied cause;
+novel observation requires manufactured test answer;
+K1 would merely duplicate K0;
+persistence requires bypassing canonical knowledge store;
+fresh run receives K1 through fixture;
+transfer depends on typology-name dispatch;
+regression appears;
+human/professional decision is required;
+canonical architecture would need material redesign.
+
+Report exact blocker.
+
+============================================================
+62. VALIDATION
+============================================================
+
+Run focused tests at every gate.
+
+Before final checkpoint run:
+
+all D6 relevant tests
+all D7 relevant tests
+new D7.6–D8 tests
+full regression
+typecheck
+build
+git diff --check.
+
+Mandatory controls:
+
+ANTI_FIXTURE
+ANTI_TYPOLOGY_DISPATCH
+TEST_ORACLE_LEAKAGE
+UNKNOWN_PRESERVATION
+BASELINE_IMMUTABILITY
+NO_SECOND_ENGINE
+HUMAN_AUTHORITY
+KNOWLEDGE_REGRESSION
+REASONING_REGRESSION
+GEOMETRY_REGRESSION
+EPISTEMIC_REGRESSION
+REGULATORY_REGRESSION
+TRIPLE_PROPAGATION_CONSISTENCY.
+
+============================================================
+63. GIT
+============================================================
+
+Proceed autonomously to highest honestly demonstrated gate.
+
+Use meaningful validated checkpoint commits.
+
+If blocked:
+
+commit/push the truthful validated result and blocker documentation
+provided repository validations pass.
+
+If D8 reached:
+
+commit/push final checkpoint.
+
+Verify:
+
+LOCAL_HEAD
+REMOTE_HEAD
+LOCAL_REMOTE_MATCH
+WORKTREE.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+64. FINAL AUTONOMY LEDGER
+============================================================
+
+Return:
+
+L0 RECEIVES =
+L1 REPRESENTS =
+L2 DETECTS =
+L3 DIAGNOSES =
+L4 EVALUATES =
+L5 GENERATES STRATEGIES =
+L6 GENERATES CANDIDATES =
+L7 MUTATES/SYNTHESIZES =
+L8 REEVALUATES =
+L9 COMPARES =
+L10 GENERALIZES =
+
+Use:
+
+DEMONSTRATED
+PARTIAL
+NOT_DEMONSTRATED
+BLOCKED
+
+with evidence.
+
+============================================================
+65. FINAL LEARNING LEDGER
+============================================================
+
+Return:
+
+K0 SNAPSHOT =
+NOVEL OBSERVATION =
+NOVELTY CLASSIFICATION =
+LEARNING CANDIDATE =
+LEARNING CLASS =
+LEARNING DELTA TYPE =
+CHALLENGE RESULT =
+COUNTEREXAMPLE =
+K1 CREATED =
+K1 MATURITY =
+PERSISTED =
+FRESH INITIALIZATION =
+INDEPENDENTLY RETRIEVED =
+FUNCTIONALLY REUSED =
+POSITIVE TRANSFER =
+ADAPTATION =
+RESTRAINT =
+FIXATION CONTROL =
+KNOWLEDGE REGRESSION =
+REASONING REGRESSION =
+KNOWLEDGE GENERALIZATION =
+CAPABILITY GENERALIZATION =.
+
+============================================================
+66. FINAL EXPLANATION
+============================================================
+
+Answer separately:
+
+1. WHAT ARKI ALREADY KNEW
+2. WHAT WAS SUPPLIED
+3. WHAT ARKI DETECTED
+4. WHAT ARKI DIAGNOSED
+5. WHAT ARKI GENERATED
+6. WHAT ARKI EXECUTED
+7. WHAT ARKI OBSERVED
+8. WHAT WAS ACTUALLY NOVEL
+9. WHAT BECAME A LEARNING CANDIDATE
+10. WHAT WAS REJECTED AS FALSE LEARNING
+11. WHAT BECAME K1
+12. WHAT PERSISTED
+13. WHAT WAS RETRIEVED AFTER REINITIALIZATION
+14. WHAT WAS REUSED
+15. WHAT TRANSFERRED
+16. WHAT DID NOT TRANSFER
+17. WHAT WAS ADAPTED
+18. WHAT WAS GENERALIZED
+19. WHAT REMAINS CONTEXT-SPECIFIC
+20. WHAT REMAINS UNKNOWN
+21. WHAT STILL REQUIRES HUMAN AUTHORITY
+22. WHAT THE NEXT FRONTIER IS.
+
+============================================================
+67. D8.0 SUCCESS CRITERION
+============================================================
+
+The objective is NOT merely:
+
+ARKI CAN REMEMBER SOMETHING.
+
+The objective is:
+
+ARKI CAN DISCOVER SOMETHING
+IT WAS NOT GIVEN,
+JUSTIFY WHY IT MAY MATTER,
+CHALLENGE IT,
+PERSIST IT WITHOUT ERASING HISTORY,
+RETRIEVE IT LATER,
+USE IT WHERE STRUCTURALLY APPLICABLE,
+REFUSE IT WHERE INAPPLICABLE,
+AND PRESERVE HUMAN AUTHORITY.
+
+Only then may:
+
+ARCHITECTURAL LEARNING & GENERALIZATION
+
+be considered demonstrated.
+
+============================================================
+68. FINAL PRINCIPLE
+============================================================
+
+DO NOT PROGRAM THE DISCOVERY.
+
+DO NOT PROGRAM THE LEARNING RESULT.
+
+DO NOT PROGRAM THE TRANSFER RESULT.
+
+BUILD ONLY THE GENERAL CAPABILITIES REQUIRED TO LET THE EXPERIMENT OCCUR.
+
+IF NOTHING NEW IS DISCOVERED:
+
+THAT IS VALID EVIDENCE.
+
+IF A LEARNING CANDIDATE FAILS:
+
+THAT IS VALID EVIDENCE.
+
+IF K1 DOES NOT GENERALIZE:
+
+REFINE ITS SCOPE.
+
+THE GOAL IS NOT D8 AT ANY COST.
+
+THE GOAL IS TO DETERMINE THE HIGHEST
+EVIDENCE-SUPPORTED LEVEL OF ARCHITECTURAL LEARNING.
+
+Proceed.
