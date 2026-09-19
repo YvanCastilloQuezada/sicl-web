@@ -15,5 +15,7 @@ describe("Neufert residential zoning", () => {
     expect(evaluation.findings.find((item) => item.ruleId === "NZ-06")?.status).toBe("UNKNOWN");
     expect(evaluation.noAutomaticDecision).toBe(true);
     expect(evaluation.humanReviewRequired).toBe(true);
+    expect(evaluation.areaRelations).toHaveLength(7);
+    expect(evaluation.areaRelations.find((item) => item.relation === "UNKNOWN_ACCESS")?.evidenceStatus).toBe("UNKNOWN");
   });
 });

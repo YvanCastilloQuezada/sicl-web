@@ -20,6 +20,18 @@ export const NEUFERT_RESIDENTIAL_ZONING_RULES: NeufertZoningRule[] = [
 
 export type ZoningFinding = { ruleId: string; status: "SUPPORTED" | "PARTIAL" | "UNKNOWN" | "CONFLICT"; finding: string; requiredEvidence: string };
 
+export type ResidentialAreaRelation = { from: string; to: string; relation: "DIRECT_FUNCTIONAL" | "BUFFERED" | "SERVICE_SUPPORT" | "SEPARATED" | "UNKNOWN_ACCESS"; rationale: string; evidenceStatus: "HYPOTHESIS" | "UNKNOWN" };
+
+export const NEUFERT_RESIDENTIAL_AREA_RELATIONS: ResidentialAreaRelation[] = [
+  { from: "SOCIAL", to: "ENTRY", relation: "DIRECT_FUNCTIONAL", rationale: "Visitors should reach the social zone without crossing private bedrooms.", evidenceStatus: "UNKNOWN" },
+  { from: "SOCIAL", to: "EXTERIOR", relation: "DIRECT_FUNCTIONAL", rationale: "Living/dining benefit from an intentional relationship with patio, terrace or garden.", evidenceStatus: "HYPOTHESIS" },
+  { from: "KITCHEN", to: "DINING", relation: "SERVICE_SUPPORT", rationale: "Food preparation and serving should have a short, legible functional relationship.", evidenceStatus: "HYPOTHESIS" },
+  { from: "PRIVATE", to: "SOCIAL", relation: "BUFFERED", rationale: "Bedrooms should not be the first space encountered from public arrival.", evidenceStatus: "HYPOTHESIS" },
+  { from: "BATHROOMS", to: "PRIVATE", relation: "SERVICE_SUPPORT", rationale: "Bathrooms support bedrooms but require privacy and maintainable service logic.", evidenceStatus: "HYPOTHESIS" },
+  { from: "SERVICE", to: "PRIVATE", relation: "SEPARATED", rationale: "Service movement should not unnecessarily cross bedrooms.", evidenceStatus: "HYPOTHESIS" },
+  { from: "N1", to: "N2", relation: "UNKNOWN_ACCESS", rationale: "The brief does not define a stair, external access or independent upper-floor entry.", evidenceStatus: "UNKNOWN" },
+];
+
 export function evaluateNeufertResidentialZoning() {
   const proposal = buildSingleFacadeHouseProposal();
   const byProgram = (programId: string) => proposal.rooms.filter((r) => r.programId === programId);
@@ -32,5 +44,5 @@ export function evaluateNeufertResidentialZoning() {
     { ruleId: "NZ-06", status: "UNKNOWN", finding: "The proposal does not know how one enters the house or the second floor; no stair is claimed.", requiredEvidence: "Architect decision on access and vertical connection." },
     { ruleId: "NZ-07", status: "PARTIAL", finding: "The single free facade and three neighbors are recorded; openings and daylight strategy remain unresolved.", requiredEvidence: "Site survey, local code and daylight/ventilation study." },
   ];
-  return { knowledge: "NEUFERT_ARCHITECTS_DATA", knowledgeStatus: "SOURCE_DERIVED_HYPOTHESIS" as const, rules: NEUFERT_RESIDENTIAL_ZONING_RULES, proposal, findings, humanReviewRequired: true, noAutomaticDecision: true };
+  return { knowledge: "NEUFERT_ARCHITECTS_DATA", knowledgeStatus: "SOURCE_DERIVED_HYPOTHESIS" as const, rules: NEUFERT_RESIDENTIAL_ZONING_RULES, areaRelations: NEUFERT_RESIDENTIAL_AREA_RELATIONS, proposal, findings, humanReviewRequired: true, noAutomaticDecision: true };
 }
