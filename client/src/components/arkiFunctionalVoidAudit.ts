@@ -1,4 +1,5 @@
 import type { Rect, ResidentialRoom } from "./residentialConstructivePlan";
+import type { V3CapabilityAssessment, V3DeficitKind } from "./arkiV3KnowledgeDelta";
 
 export type FunctionalVoidStatus = "INTENTIONAL_VOID" | "CIRCULATION" | "SERVICE" | "UNASSIGNED_RESIDUAL";
 
@@ -44,4 +45,31 @@ export function summarizeFunctionalVoids(envelope: Rect, rooms: ResidentialRoom[
     rule: "Every enclosed or exposed part of a floor must have a declared functional role; otherwise it is residual and blocks a functional-pass claim.",
     humanReviewRequired: true as const,
   };
+}
+
+export type FunctionalCapabilityDeficitFinding = {
+  capabilityId: string;
+  requirementId: string;
+  deficit: V3DeficitKind;
+  status: "OPEN" | "UNKNOWN";
+  reason: string;
+  evidenceRefs: string[];
+  humanReviewRequired: true;
+};
+
+/** Extends the geometric residual audit with non-geometric functional deficits. */
+export function auditFunctionalCapabilityDeficits(assessments: V3CapabilityAssessment[]): FunctionalCapabilityDeficitFinding[] {
+  return assessments.flatMap((assessment) => {
+    if (assessment.satisfied === "SATISFIED" || !assessment.deficit) return [];
+    const deficit = assessment.deficit;
+    return [{
+      capabilityId: assessment.capabilityId,
+      requirementId: assessment.requirementId,
+      deficit,
+      status: assessment.satisfied === "UNKNOWN" ? "UNKNOWN" : "OPEN",
+      reason: `Capability ${assessment.requirementId} is ${assessment.satisfied.toLowerCase()} with deficit ${deficit.toLowerCase()}.`,
+      evidenceRefs: assessment.evidence.map((evidence) => evidence.id),
+      humanReviewRequired: true as const,
+    }];
+  });
 }
