@@ -185,6 +185,56 @@
           "full_regression": "PASS"
         }
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-480-V1",
+      "source_name": "pasted_content_480.txt",
+      "sha256": "5cb20356f38f0173bb9bf877fbeadb666de705d8543f7a8a9dddc7c68e3bea62",
+      "received_at": "2026-09-19",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "EXECUTED / D7.5_PARTIAL / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "OBSERVED_RUNTIME_CAPABILITY / NO_VALID_LEARNING_EVENT / NOT_CANONIZED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record.",
+      "follow_up_executions": [
+        {
+          "execution_state": "EXECUTED / D7.5_PARTIAL / HUMAN_REVIEW_REQUIRED",
+          "d71": "PASS",
+          "l8": "DEMONSTRATED",
+          "d72": "PASS",
+          "l9": "DEMONSTRATED",
+          "d73": "NO_VALID_LEARNING_EVENT_OBSERVED",
+          "persistent_learning": "NOT_DEMONSTRATED",
+          "d74": "PARTIAL_PERSISTENCE_MISSING",
+          "l10": "PARTIAL",
+          "d75": "PARTIAL / HIGHEST_HONEST_MATURITY",
+          "candidates_compared": 3,
+          "feasible_set": 3,
+          "tradeoff_set": 3,
+          "automatic_winner": "NONE",
+          "automatic_decision": "NONE",
+          "human_authority": "PRESERVED",
+          "learning_candidate": "NONE",
+          "k0": "RECORDED",
+          "k1": "NOT_CREATED",
+          "persistence": "NOT_DEMONSTRATED",
+          "fixation": "NOT_TESTED",
+          "knowledge_regression": "NOT_TESTED",
+          "reasoning_regression": "NOT_TESTED",
+          "focused_tests": "15/15 PASS",
+          "full_regression": "PASS",
+          "typecheck": "PASS",
+          "build": "PASS",
+          "git_diff_check": "PASS",
+          "triple_propagation": "PASS",
+          "report": "docs/ARKI-D7.5-CONSOLIDATED-REASONING-LEARNING-CHECKPOINT-2026-09-19.md",
+          "human_review": "REQUIRED",
+          "next_precise_work": "Obtain a genuinely new unsupplied observation, create K1, persist/retrieve it after reinitialization, then run fixation and regression tests."
+        }
+      ]
     }
   ]
 }

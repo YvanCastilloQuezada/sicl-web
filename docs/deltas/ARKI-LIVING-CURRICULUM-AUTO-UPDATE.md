@@ -137,3 +137,27 @@ HUMAN_AUTHORITY = FINAL
 - **Capacidades demostradas:** L5, L6 y L7 en alcance controlado; L8, L9 y L10 permanecen parciales.
 - **Aprendizaje autónomo:** `NONE`; conocimiento estratégico formalizado por ingeniería, no aprendido por ejecución.
 - **Próxima evidencia:** verificación de efectos esperados versus actuales, comparación revisada por humano, persistencia y generalización.
+
+<!-- PASTED-CONTENT-480-V1 -->
+## PASTED-CONTENT-480-V1 — pasted_content_480.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `5cb20356f38f0173bb9bf877fbeadb666de705d8543f7a8a9dddc7c68e3bea62`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN D7.1 → D7.5, CLOSED-LOOP REASONING, COMPARISON, PERSISTENT LEARNING, AND GENERALIZATION PROOF
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- D7.1-D7.5-RESULT -->
+## D7.1 → D7.5 — Resultado de cierre de razonamiento y aprendizaje
+
+- **Estado:** `D7.5 PARTIAL / HUMAN_REVIEW_REQUIRED`; los fallos y bloqueos anteriores permanecen preservados.
+- **Evidencia:** `docs/ARKI-D7.5-CONSOLIDATED-REASONING-LEARNING-CHECKPOINT-2026-09-19.md`.
+- **D7.1/L8:** `DEMONSTRATED`; efectos geométricos esperados versus observados, dependencias y déficits nuevos.
+- **D7.2/L9:** `DEMONSTRATED`; tres candidatos factibles y conjunto de trade-offs sin ganador automático.
+- **D7.3:** `NO VALID LEARNING EVENT OBSERVED`; K0 registrado, K1 no creado, persistencia no demostrada.
+- **D7.4/L10:** `PARTIAL`; transferencia positiva y restraint, pero sin persistencia ni regresión.
+- **Progresión docente:** `PREDICT EFFECT → MUTATE → OBSERVE EFFECT → COMPARE PREDICTION → DETECT SIDE EFFECT → REFINE KNOWLEDGE → TRANSFER → CHALLENGE`.
+- **Regla:** runtime parcial no se presenta como conocimiento dominado ni generalizado.
