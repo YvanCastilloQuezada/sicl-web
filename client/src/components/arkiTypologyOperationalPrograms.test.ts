@@ -3,6 +3,7 @@ import {
   buildAllTypologyOperationalPrograms,
   buildEducationPreCoordinateTopologies,
   evaluateEducationPreCoordinateTopologies,
+  evaluateAllTypologyPrograms,
   validateAllTypologyPrograms,
 } from "./arkiTypologyOperationalPrograms";
 
@@ -10,7 +11,7 @@ describe("ARKI canonical typology operational programs", () => {
   it("materializes every registered typology without creating a second engine", () => {
     const programs = buildAllTypologyOperationalPrograms();
     const validation = validateAllTypologyPrograms(programs);
-    expect(validation).toHaveLength(8);
+    expect(validation).toHaveLength(23);
     expect(validation.every((item) => item.profilePresent)).toBe(true);
     expect(validation.every((item) => item.hypothesis)).toBe(true);
     expect(validation.every((item) => item.humanReviewRequired)).toBe(true);
@@ -38,5 +39,17 @@ describe("ARKI canonical typology operational programs", () => {
     expect(second.every((result) => result.checks.some((check) => check.status === "UNKNOWN"))).toBe(true);
     expect(first.every((result) => !result.winnerCreated && !result.recommendationCreated && !result.decisionCreated)).toBe(true);
     expect(second.every((result) => !result.winnerCreated && !result.recommendationCreated && !result.decisionCreated)).toBe(true);
+  });
+
+  it("evaluates all canonical typologies twice without promoting hypotheses to decisions", () => {
+    const programs = buildAllTypologyOperationalPrograms();
+    const first = evaluateAllTypologyPrograms(programs, "TYPOLOGY-EVAL-01");
+    const second = evaluateAllTypologyPrograms(programs, "TYPOLOGY-EVAL-02");
+    expect(first).toHaveLength(23);
+    expect(second).toHaveLength(23);
+    expect(first.every((result) => result.passCount === 4 && result.checks.some((check) => check.status === "UNKNOWN"))).toBe(true);
+    expect(second.every((result) => result.passCount === 4 && result.checks.some((check) => check.status === "UNKNOWN"))).toBe(true);
+    expect(first.every((result) => result.humanReviewRequired && !result.winnerCreated && !result.recommendationCreated && !result.decisionCreated)).toBe(true);
+    expect(second.every((result) => result.humanReviewRequired && !result.winnerCreated && !result.recommendationCreated && !result.decisionCreated)).toBe(true);
   });
 });

@@ -2,6 +2,7 @@ import {
   buildEducationOperationalProgram,
   buildFunctionalProfile,
   buildMinimumSystemRequirement,
+  buildResidentialOperationalProgram,
   deriveFunctionalZoning,
   type Activity,
   type Flow,
@@ -9,12 +10,11 @@ import {
   type OperationalProgram,
   type Relationship,
 } from "./arkiCanonicalFunctionalOperationalization";
-import type { FlowKind, TypologyId } from "./arkiTypologyFunctionalKnowledge";
-import { getTypologyFunctionalProfile } from "./arkiTypologyFunctionalKnowledge";
+import { CANONICAL_TYPOLOGY_IDS, getTypologyFunctionalProfile, type CanonicalTypologyId, type FlowKind, type TypologyId } from "./arkiTypologyFunctionalKnowledge";
 
 export type PreCoordinateTopology = {
   id: string;
-  typology: TypologyId;
+  typology: CanonicalTypologyId;
   strategy: string;
   zones: string[];
   nodes: string[];
@@ -44,7 +44,7 @@ const mapFlowKind = (kind: FlowKind): Flow["kind"] => {
   return kind as Flow["kind"];
 };
 
-export function buildGenericTypologyOperationalProgram(typology: Exclude<TypologyId, "RESIDENTIAL" | "EDUCATION">): OperationalProgram {
+export function buildGenericTypologyOperationalProgram(typology: Exclude<CanonicalTypologyId, "RESIDENTIAL" | "EDUCATION">): OperationalProgram {
   const profile = getTypologyFunctionalProfile(typology);
   const functionalProfile = buildFunctionalProfile(typology);
   const requirements = profile.programGroups.map((group, index) => buildMinimumSystemRequirement({
@@ -62,24 +62,16 @@ export function buildGenericTypologyOperationalProgram(typology: Exclude<Typolog
   return { profile: functionalProfile, requirements, activities, resources: [], processes: [{ id: `PROC-${typology}`, name: `${typology} operational cycle`, actorIds: functionalProfile.actors, activityIds: activities.map((activity) => activity.id), transitionIds: [], flowIds: flows.map((flow) => flow.id), state: "PROPOSED" }], transitions: [], flows, relationships, controls: [{ id: `CTRL-${typology}-ACCESS`, kind: "VERIFICATION", appliesTo: requirements.map((requirement) => requirement.id), state: "PROPOSED", evidence: [evidence(`control:${typology}`, "functional profile")] }], interfaces: [{ id: `IF-${typology}-ENTRY`, fromDomain: "PUBLIC", toDomain: typology, boundary: "PROJECT_DEFINED", accessRequirement: "CONTEXT_AND_JURISDICTION_REQUIRED", evidence: [evidence(`interface:${typology}`, "functional profile")] }], capacities: [{ id: `CAP-${typology}-DEMAND`, kind: "OCCUPANCY", timeBasis: "project-defined peak", demandBasis: "synthetic educational fixture", state: "PROPOSED" }], functionalRequirements, sourceRefs: functionalProfile.provenance, noRoomListOntology: true };
 }
 
-export function buildAllTypologyOperationalPrograms(): Record<TypologyId, OperationalProgram> {
-  return {
-    RESIDENTIAL: (awaitableResidential()),
-    EDUCATION: buildEducationOperationalProgram(),
-    HEALTHCARE: buildGenericTypologyOperationalProgram("HEALTHCARE"),
-    HOSPITALITY_COMMERCE: buildGenericTypologyOperationalProgram("HOSPITALITY_COMMERCE"),
-    OFFICE_RELIGIOUS: buildGenericTypologyOperationalProgram("OFFICE_RELIGIOUS"),
-    INDUSTRY_LABORATORY_AGRICULTURE: buildGenericTypologyOperationalProgram("INDUSTRY_LABORATORY_AGRICULTURE"),
-    SPORTS_CULTURE: buildGenericTypologyOperationalProgram("SPORTS_CULTURE"),
-    TRANSPORT: buildGenericTypologyOperationalProgram("TRANSPORT"),
-  };
-}
-
-function awaitableResidential(): OperationalProgram {
-  // Kept as a local indirection so the complete registry has one canonical shape.
-  // The residential specialization remains owned by the canonical operationalization module.
-  const profile = buildFunctionalProfile("RESIDENTIAL");
-  return { profile, requirements: [buildMinimumSystemRequirement({ id: "SYS-RESIDENTIAL", name: "Domestic life", role: "PRIMARY", rationale: "Residential functioning requires a coordinated domestic cycle.", compatibleRealizations: ["RESIDENTIAL_PROGRAM", "FLEXIBLE_DOMESTIC_SYSTEM"] })], activities: [], resources: [], processes: [], transitions: [], flows: [], relationships: [], controls: [], interfaces: [], capacities: [{ id: "CAP-RESIDENTIAL-DEMAND", kind: "OCCUPANCY", timeBasis: "project-defined", demandBasis: "synthetic educational fixture", state: "PROPOSED" }], functionalRequirements: [], sourceRefs: profile.provenance, noRoomListOntology: true };
+export function buildAllTypologyOperationalPrograms(): Record<CanonicalTypologyId, OperationalProgram> {
+  const programs = {} as Record<CanonicalTypologyId, OperationalProgram>;
+  for (const typology of CANONICAL_TYPOLOGY_IDS) {
+    programs[typology] = typology === "RESIDENTIAL"
+      ? buildResidentialOperationalProgram()
+      : typology === "EDUCATION"
+        ? buildEducationOperationalProgram()
+        : buildGenericTypologyOperationalProgram(typology);
+  }
+  return programs;
 }
 
 export function buildEducationPreCoordinateTopologies(): PreCoordinateTopology[] {
@@ -97,15 +89,31 @@ export function evaluateEducationPreCoordinateTopologies(input: { evaluationId: 
     const checks: TopologyEvaluation["checks"] = [
       { id: "ZONE_COVERAGE", status: candidate.zones.length === 5 ? "PASS" : "CONFLICT", reason: "All canonical education zoning bands are represented." },
       { id: "SERVICE_LEARNING_SEPARATION", status: candidate.edges.some((edge) => edge.from === "SERVICE" && edge.to === "LEARNING" && edge.relation === "SEPARATION") ? "PASS" : "CONFLICT", reason: "The candidate preserves a pre-coordinate separation constraint." },
-      { id: "CONTEXT_FIT", status: input.siteConstraint && input.climateCondition ? "UNKNOWN" : "UNKNOWN", reason: `Enrollment ${input.enrollment} and context are inputs for later geometry; no automatic fit claim is made.` },
+      { id: "CONTEXT_FIT", status: "UNKNOWN", reason: `Enrollment ${input.enrollment} and context are inputs for later geometry; no automatic fit claim is made.` },
       { id: "HUMAN_REVIEW", status: "PASS", reason: "Candidate remains proposed and requires human architectural review." },
     ];
-    const score = checks.filter((check) => check.status === "PASS").length;
-    return { evaluationId: input.evaluationId, candidateId: candidate.id, checks, score, winnerCreated: false, recommendationCreated: false, decisionCreated: false, humanReviewRequired: true };
+    return { evaluationId: input.evaluationId, candidateId: candidate.id, checks, score: checks.filter((check) => check.status === "PASS").length, winnerCreated: false, recommendationCreated: false, decisionCreated: false, humanReviewRequired: true };
   });
 }
 
-export function validateAllTypologyPrograms(programs: Record<TypologyId, OperationalProgram>) {
-  const ids: TypologyId[] = ["RESIDENTIAL", "EDUCATION", "HEALTHCARE", "HOSPITALITY_COMMERCE", "OFFICE_RELIGIOUS", "INDUSTRY_LABORATORY_AGRICULTURE", "SPORTS_CULTURE", "TRANSPORT"];
-  return ids.map((typology) => ({ typology, profilePresent: programs[typology].profile.typology === typology, hypothesis: programs[typology].profile.epistemicState === "HYPOTHESIS", humanReviewRequired: programs[typology].profile.humanReviewRequired, noRoomListOntology: programs[typology].noRoomListOntology, requirementsPresent: programs[typology].requirements.length > 0 }));
+export function validateAllTypologyPrograms(programs: Record<CanonicalTypologyId, OperationalProgram>) {
+  return CANONICAL_TYPOLOGY_IDS.map((typology) => ({ typology, profilePresent: programs[typology]?.profile.typology === typology, hypothesis: programs[typology]?.profile.epistemicState === "HYPOTHESIS", humanReviewRequired: programs[typology]?.profile.humanReviewRequired, noRoomListOntology: programs[typology]?.noRoomListOntology, requirementsPresent: (programs[typology]?.requirements.length ?? 0) > 0 }));
+}
+
+export function evaluateAllTypologyPrograms(programs: Record<CanonicalTypologyId, OperationalProgram>, evaluationId: string) {
+  return CANONICAL_TYPOLOGY_IDS.map((typology) => {
+    const program = programs[typology];
+    const checks = [
+      { id: "PROFILE_IDENTITY", status: program?.profile.typology === typology ? "PASS" : "CONFLICT", reason: "The operational program resolves to its canonical typology." },
+      { id: "FUNCTIONAL_SYSTEMS", status: program && program.requirements.length > 0 ? "PASS" : "CONFLICT", reason: "At least one functional system is present before coordinates." },
+      { id: "EPISTEMIC_BOUNDARY", status: program?.profile.epistemicState === "HYPOTHESIS" ? "PASS" : "CONFLICT", reason: "Source-derived functional knowledge remains a hypothesis." },
+      { id: "HUMAN_GATE", status: program?.profile.humanReviewRequired ? "PASS" : "CONFLICT", reason: "Human architectural review remains mandatory." },
+      { id: "CONTEXT_FIT", status: "UNKNOWN", reason: "Site, jurisdiction, capacity and project evidence are not inferred by the generic profile." },
+    ] as const;
+    return { evaluationId, typology, checks, passCount: checks.filter((check) => check.status === "PASS").length, humanReviewRequired: true as const, winnerCreated: false as const, recommendationCreated: false as const, decisionCreated: false as const };
+  });
+}
+
+export function resolveTypologyId(id: TypologyId): CanonicalTypologyId {
+  return getTypologyFunctionalProfile(id).id;
 }
