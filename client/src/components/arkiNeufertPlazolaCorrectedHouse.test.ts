@@ -29,7 +29,12 @@ describe("Neufert + Plazola corrected house", () => {
   });
 
   it("passes the authorized conceptual minimum references", () => {
-    expect(validateCorrectedHouseMinimums().allReferenceChecksPass).toBe(true);
+    const checks = validateCorrectedHouseMinimums();
+    expect(checks.allReferenceChecksPass).toBe(true);
+    expect(checks.wallsPass).toBe(true);
+    expect(checks.doorPass).toBe(true);
+    expect(checks.mainDoorPass).toBe(true);
+    expect(checks.daylightPass).toBe(true);
   });
 
   it("preserves epistemic limits", () => {

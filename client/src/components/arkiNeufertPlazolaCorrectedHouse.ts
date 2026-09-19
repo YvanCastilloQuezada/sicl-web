@@ -10,6 +10,10 @@ export const ARKI_RESIDENTIAL_REFERENCE_MINIMUMS = {
   circulationWidthM: 0.9,
   roomClearWidthM: 1.8,
   bathroomClearWidthM: 1.2,
+  wallThicknessM: 0.15,
+  interiorDoorWidthM: 0.9,
+  mainDoorWidthM: 1.2,
+  minimumLightClearDistanceM: 1.8,
   floorToCeilingM: 2.4,
   standardSillHeightM: 0.9,
   epistemicState: "SOURCE_DERIVED_HYPOTHESIS" as const,
@@ -91,7 +95,7 @@ const wall = (id: string, levelId: "N1" | "N2", from: [number, number], to: [num
   levelId,
   from,
   to,
-  thicknessM: role === "EXTERNAL" ? 0.2 : 0.12,
+  thicknessM: ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.wallThicknessM,
   role,
 });
 
@@ -113,6 +117,7 @@ const window = (id: string, levelId: "N1" | "N2", fromRoomId: string, widthM = 1
   kind: "WINDOW",
   widthM,
   status: "PROPOSED",
+  clearDistanceToOpposingObstructionM: ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.minimumLightClearDistanceM,
 });
 
 export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHouseProposal {
@@ -149,8 +154,8 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
   ];
 
   const openings: ResidentialOpening[] = [
-    door("DOOR-STREET-ENTRY", "N1", "ENTRY-N1", "EXTERIOR"), door("DOOR-ENTRY-LIVING", "N1", "ENTRY-N1", "LIVING-N1"), door("DOOR-ENTRY-DINING", "N1", "ENTRY-N1", "DINING-N1"), door("DOOR-LIVING-HALL", "N1", "LIVING-N1", "HALL-N1"), door("DOOR-HALL-STAIR", "N1", "HALL-N1", "STAIR-N1"), door("DOOR-HALL-BATH1", "N1", "HALL-N1", "BATH-1-N1"), door("DOOR-GARAGE", "N1", "GARAGE-N1", "EXTERIOR"),
-    door("DOOR-STAIR-HALL", "N2", "STAIR-N2", "HALL-N2"), door("DOOR-HALL-MASTER", "N2", "HALL-N2", "MASTER-N2"), door("DOOR-HALL-BED2", "N2", "HALL-N2", "BED-2-N2"), door("DOOR-HALL-BED3", "N2", "HALL-N2", "BED-3-N2"), door("DOOR-HALL-BATH3", "N2", "HALL-N2", "BATH-3-N2"), door("DOOR-MASTER-CLOSET", "N2", "MASTER-N2", "MASTER-CLOSET-N2", 0.8), door("DOOR-MASTER-BATH", "N2", "MASTER-N2", "MASTER-BATH-N2", 0.8),
+    door("DOOR-STREET-ENTRY", "N1", "ENTRY-N1", "EXTERIOR", ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.mainDoorWidthM), door("DOOR-ENTRY-LIVING", "N1", "ENTRY-N1", "LIVING-N1"), door("DOOR-ENTRY-DINING", "N1", "ENTRY-N1", "DINING-N1"), door("DOOR-LIVING-HALL", "N1", "LIVING-N1", "HALL-N1"), door("DOOR-HALL-STAIR", "N1", "HALL-N1", "STAIR-N1"), door("DOOR-HALL-BATH1", "N1", "HALL-N1", "BATH-1-N1"), door("DOOR-GARAGE", "N1", "GARAGE-N1", "EXTERIOR", 1),
+    door("DOOR-STAIR-HALL", "N2", "STAIR-N2", "HALL-N2"), door("DOOR-HALL-MASTER", "N2", "HALL-N2", "MASTER-N2"), door("DOOR-HALL-BED2", "N2", "HALL-N2", "BED-2-N2"), door("DOOR-HALL-BED3", "N2", "HALL-N2", "BED-3-N2"), door("DOOR-HALL-BATH3", "N2", "HALL-N2", "BATH-3-N2"), door("DOOR-MASTER-CLOSET", "N2", "MASTER-N2", "MASTER-CLOSET-N2"), door("DOOR-MASTER-BATH", "N2", "MASTER-N2", "MASTER-BATH-N2"),
     window("WINDOW-LIVING-SOUTH", "N1", "LIVING-N1", 1.8), window("WINDOW-ENTRY-SOUTH", "N1", "ENTRY-N1", 1.2), window("WINDOW-DINING-SOUTH", "N1", "DINING-N1", 1.6), window("WINDOW-KITCHEN-COURT", "N1", "KITCHEN-N1", 1.2), window("WINDOW-COURT-LIVING", "N1", "LIVING-N1", 1.2), window("WINDOW-MASTER-COURT", "N2", "MASTER-N2", 1.5), window("WINDOW-BED2-SOUTH", "N2", "BED-2-N2", 1.5), window("WINDOW-BED3-COURT", "N2", "BED-3-N2", 1.2), window("WINDOW-BATH-HIGH", "N2", "BATH-3-N2", 0.8),
   ];
 
@@ -223,6 +228,10 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
         "1.20 m bathroom clear-width reference applied",
         "2.40 m floor-to-ceiling reference recorded",
         "0.90 m standard sill reference recorded",
+        "0.15 m wall thickness reference applied",
+        "0.90 m interior door width reference applied",
+        "1.20 m principal street-entry width reference applied",
+        "1.80 m minimum clear distance for daylight openings recorded",
         "three-neighbor / one-free-facade condition preserved",
         "interior courtyard represented as void",
         "doors and windows explicitly enumerated",
@@ -246,6 +255,9 @@ export function validateCorrectedHouseMinimums(proposal = buildNeufertPlazolaCor
   const roomWidthPass = proposal.rooms.filter((r) => ["BEDROOM_WITH_CLOSET", "LIVING", "DINING", "KITCHEN"].includes(r.programId)).every((r) => r.footprint.maxX - r.footprint.minX >= 1.8 || r.footprint.maxY - r.footprint.minY >= 1.8);
   const bathWidthPass = proposal.rooms.filter((r) => ["BATHROOM", "MASTER_BATHROOM"].includes(r.programId)).every((r) => Math.min(r.footprint.maxX - r.footprint.minX, r.footprint.maxY - r.footprint.minY) >= 1.2);
   const routesPass = proposal.routes.every((route) => route.widthM >= 0.9);
-  const doorPass = proposal.openings.filter((o) => o.kind === "DOOR").every((o) => o.widthM >= 0.8);
-  return { roomWidthPass, bathWidthPass, routesPass, doorPass, allReferenceChecksPass: roomWidthPass && bathWidthPass && routesPass && doorPass };
+  const doorPass = proposal.openings.filter((o) => o.kind === "DOOR").every((o) => o.widthM >= ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.interiorDoorWidthM);
+  const mainDoorPass = proposal.openings.find((o) => o.id === "DOOR-STREET-ENTRY")?.widthM === ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.mainDoorWidthM;
+  const wallsPass = proposal.walls.every((wallItem) => wallItem.thicknessM === ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.wallThicknessM);
+  const daylightPass = proposal.openings.filter((o) => o.kind === "WINDOW").every((o) => (o.clearDistanceToOpposingObstructionM ?? 0) >= ARKI_RESIDENTIAL_REFERENCE_MINIMUMS.minimumLightClearDistanceM);
+  return { roomWidthPass, bathWidthPass, routesPass, doorPass, mainDoorPass, wallsPass, daylightPass, allReferenceChecksPass: roomWidthPass && bathWidthPass && routesPass && doorPass && mainDoorPass && wallsPass && daylightPass };
 }

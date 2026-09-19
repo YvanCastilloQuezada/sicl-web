@@ -3,7 +3,7 @@ import { A26_MATERIALS, selectSustainableMaterial, type A26MaterialSelection } f
 export type Rect = { minX: number; minY: number; maxX: number; maxY: number };
 export type ResidentialRoom = { id: string; name: string; levelId: string; programId: string; zone: "PUBLIC" | "PRIVATE" | "SERVICE" | "CIRCULATION"; footprint: Rect; targetAreaM2: number; areaM2: number; status: "EXPLICIT_GEOMETRY" };
 export type ResidentialWall = { id: string; levelId: string; from: [number, number]; to: [number, number]; thicknessM: number; role: "EXTERNAL" | "PARTITION" };
-export type ResidentialOpening = { id: string; levelId: string; fromRoomId: string; toRoomId: string; kind: "DOOR" | "WINDOW"; widthM: number; status: "PROPOSED" | "VERIFIED_CLEARANCE" };
+export type ResidentialOpening = { id: string; levelId: string; fromRoomId: string; toRoomId: string; kind: "DOOR" | "WINDOW"; widthM: number; status: "PROPOSED" | "VERIFIED_CLEARANCE"; clearDistanceToOpposingObstructionM?: number };
 export type ResidentialCore = { id: string; levelIds: string[]; footprint: Rect; kind: "STAIR" | "SERVICE_DUCT"; continuity: "CONTINUOUS" | "PROPOSED" };
 export type ResidentialRoute = { id: string; levelIds: string[]; roomIds: string[]; widthM: number; accessible: "PROPOSED" | "VERIFIED_GEOMETRY" | "NOT_ASSESSED"; egress: "PROPOSED" | "NOT_ASSESSED" };
 export type ResidentialPlan = { projectId: string; alternativeId: string; site: Rect; rooms: ResidentialRoom[]; walls: ResidentialWall[]; openings: ResidentialOpening[]; cores: ResidentialCore[]; routes: ResidentialRoute[]; adjacency: Array<{ from: string; to: string; kind: "REQUIRED" | "PREFERRED"; evidence: "GEOMETRIC_OPENING" | "DECLARED_PROGRAM" }>; materialSelection: A26MaterialSelection; carbonSummary: { grossAreaM2: number; selectedMaterial: string; carbonLowKgCo2e: number; carbonHighKgCo2e: number; carbonMidKgCo2e: number; state: "ILLUSTRATIVE_PROXY"; carbonIsNotLca: true }; validation: { state: "SUPPORTED" | "PARTIAL" | "CONFLICTING"; checks: string[]; conflicts: string[]; humanReviewRequired: true; constructionDocumentation: "NOT_GENERATED" } };
@@ -13,7 +13,7 @@ const contains = (outer: Rect, inner: Rect) => inner.minX >= outer.minX && inner
 const overlaps = (a: Rect, b: Rect) => a.minX < b.maxX && a.maxX > b.minX && a.minY < b.maxY && a.maxY > b.minY;
 const sameLevel = (a: ResidentialRoom, b: ResidentialRoom) => a.levelId === b.levelId;
 
-function wall(id: string, levelId: string, from: [number, number], to: [number, number], role: ResidentialWall["role"]): ResidentialWall { return { id, levelId, from, to, thicknessM: role === "EXTERNAL" ? 0.2 : 0.12, role }; }
+function wall(id: string, levelId: string, from: [number, number], to: [number, number], role: ResidentialWall["role"]): ResidentialWall { return { id, levelId, from, to, thicknessM: 0.15, role }; }
 
 export function generateVerifiedResidentialPlan(): ResidentialPlan {
   const site = { minX: 0, minY: 0, maxX: 10, maxY: 8 };
