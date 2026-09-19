@@ -215,3 +215,15 @@ HUMAN_AUTHORITY = FINAL
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-484-V1 -->
+## PASTED-CONTENT-484-V1 — pasted_content_484.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `9b6618bc014f199f8a0ff27060518df66105abcba20f9fb67d9fd88ec3f3bf3b`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN P8.1, CONTROLLED INTEGRATED ARCHITECTURAL PRACTICE, UPAO-001 HISTORICAL CONTAMINATED BENCHMARK, END-TO-END CONNECTION PROOF
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.

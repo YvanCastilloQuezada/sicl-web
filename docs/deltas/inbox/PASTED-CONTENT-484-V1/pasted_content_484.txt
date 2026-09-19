@@ -1,0 +1,952 @@
+# ARKI — MACROORDEN P8.1
+## CONTROLLED INTEGRATED ARCHITECTURAL PRACTICE
+## UPAO-001 HISTORICAL CONTAMINATED BENCHMARK
+## END-TO-END CONNECTION PROOF
+
+MODE = AUTONOMOUS GATED IMPLEMENTATION + EXECUTION
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+REPORTED BASELINE =
+878d7ba7d54053302ea19fcd5b60ef5bb3a4148a
+
+VERIFY ACTUAL HEAD, REMOTE HEAD AND WORKTREE BEFORE ANY CHANGE.
+
+P8.0 IS THE GOVERNING READINESS AUDIT.
+
+DO NOT REPEAT P8.0.
+DO NOT SOLVE UPAO-001 FROM HISTORICAL ANSWERS.
+DO NOT CLAIM CLEAN LEARNING.
+DO NOT CREATE K1.
+DO NOT CLAIM PERMIT READINESS.
+DO NOT CLAIM PROFESSIONAL VALIDATION.
+
+============================================================
+1. MISSION
+============================================================
+
+Demonstrate whether ARKI's existing architectural capabilities
+can operate as ONE TRACEABLE INTEGRATED PROJECT REASONING CHAIN.
+
+This is not primarily a new-capability experiment.
+
+It is an integration experiment.
+
+Primary question:
+
+CAN ARKI CONNECT ITS EXISTING KNOWLEDGE, REASONING,
+PROGRAM, RELATIONSHIP, SYNTHESIS, CANONICAL GEOMETRY,
+DETECTION, DIAGNOSIS, STRATEGY, MUTATION, REEVALUATION
+AND COMPARISON CAPABILITIES INTO ONE CONTROLLED
+ARCHITECTURAL PROJECT WORKFLOW?
+
+============================================================
+2. GOVERNING DISTINCTIONS
+============================================================
+
+Preserve:
+
+CAPABILITY ≠ INTEGRATED PRACTICE
+
+MODULE EXISTS ≠ MODULE IS CONNECTED
+
+PROJECT INPUT ≠ DERIVED KNOWLEDGE
+
+HISTORICAL FIXTURE ≠ FRESH DERIVATION
+
+PROGRAM ≠ ROOM LIST
+
+PROGRAM ≠ GEOMETRY
+
+TOPOLOGY ≠ GEOMETRY
+
+STRATEGY ≠ CANDIDATE
+
+CANDIDATE ≠ DECISION
+
+GEOMETRY ≠ PROFESSIONAL DOCUMENTATION
+
+SIMULATION ≠ COMPLIANCE
+
+EXECUTION ≠ LEARNING
+
+HUMAN AUTHORITY = FINAL
+
+============================================================
+3. UPAO-001 STATUS
+============================================================
+
+UPAO-001 SHALL BE TREATED AS:
+
+HISTORICAL_CONTAMINATED_INTEGRATION_BENCHMARK
+
+NOT:
+
+CLEAN_LEARNING_PROJECT
+
+NOT:
+
+UNSEEN_PROJECT
+
+NOT:
+
+PROFESSIONALLY_VALIDATED_PROJECT
+
+NOT:
+
+PERMIT_READY_PROJECT.
+
+Preserve all historical UPAO artifacts.
+
+Do not delete or rewrite them.
+
+============================================================
+4. EXPERIMENTAL ISOLATION
+============================================================
+
+Create the minimum clean project-run boundary required to prevent
+historical solution artifacts from silently entering the reasoning path.
+
+Reuse existing project/input architecture first.
+
+Do not create a second project system.
+
+Historical UPAO artifacts may remain available for later comparison
+but SHALL NOT be runtime inputs to the integrated derivation unless
+explicitly classified as legitimate project input.
+
+Exclude from derivation input:
+
+historical alternatives
+preferred parti
+historical geometry
+expected zoning
+expected deficit
+expected cause
+Pareto answer keys
+expected candidate IDs
+expected metrics
+previous preferred outcomes.
+
+============================================================
+5. INPUT LEDGER
+============================================================
+
+Every initial datum must be classified as one of:
+
+CLIENT_FACT
+SITE_FACT
+PROJECT_OBJECTIVE
+HARD_CONSTRAINT
+PREFERENCE
+REGULATORY_SOURCE
+UNKNOWN
+HUMAN_DECISION.
+
+Every input requires provenance.
+
+If origin cannot be established:
+
+UNKNOWN_ORIGIN.
+
+Do not silently convert UNKNOWN_ORIGIN into fact.
+
+============================================================
+6. DO NOT INVENT MISSING PROJECT FACTS
+============================================================
+
+When required information is absent:
+
+create UNKNOWN
++
+resolution path.
+
+Do not fabricate:
+
+survey
+topography
+soil
+exact parcel geometry
+verified legal parameters
+occupancy
+budget
+MEP requirements
+structural requirements
+fire engineering
+client decisions
+professional approvals.
+
+UNKNOWN WITHOUT RESOLUTION PATH =
+INCOMPLETE DIAGNOSIS.
+
+============================================================
+7. INTEGRATED TRACE
+============================================================
+
+Attempt the following chain using existing architecture:
+
+PROJECT INPUT
+→ PURPOSE
+→ REQUIRED CAPABILITIES
+→ SYSTEM REQUIREMENTS
+→ FUNCTIONAL REQUIREMENTS
+→ ACTIVITIES / PROCESSES
+→ ACTORS / SUBJECTS / STATES
+→ CAPACITY / TIME / SCENARIO
+→ RELATIONSHIPS
+→ FLOWS / JOURNEYS
+→ CONTROLS
+→ PROGRAM
+→ FUNCTIONAL UNITS
+→ SPATIAL REQUIREMENTS
+→ SPATIAL REALIZATION
+→ STRATEGY
+→ CANDIDATE
+→ TOPOLOGY
+→ CANONICAL MODEL
+→ EVALUATION
+→ DEFICIT
+→ CAUSE
+→ RESOLUTION STRATEGY
+→ DESIGN MOVE
+→ MUTATION
+→ REEVALUATION
+→ COMPARISON
+→ HUMAN DECISION POINT.
+
+Do not require every project fact to be resolved.
+
+The goal is traceability.
+
+============================================================
+8. TRACEABILITY RECORD
+============================================================
+
+For every derived architectural element preserve:
+
+SOURCE
+UPSTREAM REQUIREMENT
+REASONING STEP
+DERIVED RESULT
+EVIDENCE
+EPISTEMIC STATUS
+UNKNOWN
+DOWNSTREAM DEPENDENCIES.
+
+Required trace examples:
+
+PURPOSE
+→ CAPABILITY
+
+CAPABILITY
+→ SYSTEM REQUIREMENT
+
+SYSTEM REQUIREMENT
+→ FUNCTIONAL REQUIREMENT
+
+FUNCTIONAL REQUIREMENT
+→ PROGRAM ELEMENT
+
+PROGRAM ELEMENT
+→ RELATIONSHIP
+
+RELATIONSHIP
+→ SPATIAL REQUIREMENT
+
+SPATIAL REQUIREMENT
+→ SPATIAL REALIZATION
+
+SPATIAL REALIZATION
+→ CANONICAL ENTITY.
+
+============================================================
+9. REUSE BEFORE EXTENSION
+============================================================
+
+Audit/reuse actual existing:
+
+CanonicalBuildingModel
+A21
+S1
+S2
+GDI
+typology knowledge
+functional units
+relationship models
+flow/journey models
+strategy knowledge
+candidate synthesis
+D7.6 detection
+D7.7 diagnosis
+D7.1 reevaluation
+D7.2 comparison
+regulatory applicability
+DesignMemory
+provenance
+human authority.
+
+Do not duplicate them.
+
+============================================================
+10. NO SECOND ENGINE
+============================================================
+
+Do NOT create:
+
+UPAO engine
+integrated-project engine
+second program engine
+second geometry engine
+second reasoning engine
+second learning engine
+second regulatory engine.
+
+If a bridge is absent, extend the canonical architecture minimally.
+
+============================================================
+11. PURPOSE → CAPABILITY GATE
+============================================================
+
+P8.0 identified this bridge as partial.
+
+Test whether legitimate project purpose can produce traceable
+required capabilities without using UPAO historical solution artifacts.
+
+If not possible:
+
+record exact gap.
+
+Do not hardcode capability answers specifically for UPAO.
+
+============================================================
+12. CAPABILITY → REQUIREMENTS GATE
+============================================================
+
+Derive system/functional requirements where current knowledge supports it.
+
+Separate:
+
+FUNCTIONALLY_REQUIRED
+REGULATORILY_REQUIRED
+CLIENT_REQUIRED
+PREFERRED
+CONDITIONAL
+UNKNOWN.
+
+Do not infer regulatory necessity from typological necessity.
+
+============================================================
+13. PROGRAM GENERATION
+============================================================
+
+Do not start from historical UPAO room list.
+
+Use:
+
+PURPOSE
+CAPABILITIES
+ACTIVITIES
+PROCESSES
+ACTORS
+STATES
+CAPACITY
+RELATIONSHIPS
+FLOWS
+CONTROLS
+TIME
+
+to derive a program hypothesis.
+
+Preserve:
+
+NEED ≠ ROOM.
+
+SYSTEM REQUIRED ≠ ROOM REQUIRED.
+
+FUNCTIONAL COMPONENT ≠ NECESSARILY SEPARATE ROOM.
+
+============================================================
+14. PROGRAM COMPARISON CONTROL
+============================================================
+
+Only AFTER independent derivation may historical UPAO program
+artifacts be consulted as comparison evidence.
+
+Report separately:
+
+DERIVED_IN_CURRENT_RUN
+
+versus
+
+HISTORICAL_UPAO_ARTIFACT.
+
+Similarity does not prove correctness.
+
+Difference does not prove error.
+
+============================================================
+15. RELATIONSHIP / FLOW / JOURNEY GATE
+============================================================
+
+Build required architectural relationships independently.
+
+Do not infer:
+
+RELATIONSHIP = ADJACENCY
+
+FLOW = CORRIDOR
+
+JOURNEY = ROUTE.
+
+Use active topology/state/time where available.
+
+============================================================
+16. SPATIAL REALIZATION GATE
+============================================================
+
+Transform functional requirements into possible spatial realization
+without assuming a unique geometry.
+
+Preserve:
+
+FUNCTIONAL REQUIREMENT
+≠
+UNIQUE SPATIAL SOLUTION.
+
+Generate multiple realizations where current architecture legitimately
+supports alternatives.
+
+============================================================
+17. CANDIDATE SYNTHESIS
+============================================================
+
+Use existing strategy and candidate synthesis.
+
+Where structurally warranted:
+
+generate strategically distinct candidates.
+
+Do not manufacture diversity through labels or arbitrary parameter changes.
+
+PARAMETRIC VARIATION ≠ STRATEGIC DIVERSITY.
+
+============================================================
+18. CANONICAL MODEL
+============================================================
+
+Any geometric candidate must use the existing canonical model.
+
+ONE GEOMETRY.
+ONE SEMANTICS.
+MULTIPLE OUTPUTS.
+
+No alternate geometry representation.
+
+============================================================
+19. DESIGN INTENT TRACE
+============================================================
+
+For generated entities attempt to preserve:
+
+PURPOSE
+→ CAPABILITY
+→ REQUIREMENT
+→ RELATIONSHIP / CONSTRAINT
+→ STRATEGY
+→ SPATIAL REALIZATION
+→ GEOMETRIC ENTITY.
+
+A geometric entity without traceable intent must be reported as
+SEMANTICALLY_INCOMPLETE.
+
+============================================================
+20. EVALUATION
+============================================================
+
+Evaluate only supported domains.
+
+Separate:
+
+GEOMETRIC STATUS
+FUNCTIONAL STATUS
+OPERATIONAL STATUS
+PERFORMANCE STATUS
+REGULATORY STATUS
+PROFESSIONAL APPROVAL.
+
+Never collapse them into one PASS.
+
+============================================================
+21. REGULATORY CONTROL
+============================================================
+
+Use existing regulatory applicability architecture.
+
+Preserve:
+
+SOURCE VERIFIED
+≠
+REQUIREMENT VERIFIED
+≠
+PROJECT COMPLIANCE VERIFIED
+≠
+PERMIT APPROVED.
+
+Do not use synthetic UPAO RNE test evidence as proof of actual
+project compliance.
+
+============================================================
+22. PERFORMANCE CONTROL
+============================================================
+
+Environmental proxies may be used only with their actual evidence status.
+
+Do not claim measured performance from simulation/proxy data.
+
+PERFORMANCE_UNKNOWN is valid.
+
+============================================================
+23. AUTONOMOUS DEFICIT DETECTION
+============================================================
+
+Run existing L2 capability against the integrated project state.
+
+Do not supply expected deficits.
+
+Report:
+
+DETECTED DEFICITS
+UNKNOWN CONDITIONS
+EVIDENCE GAPS.
+
+============================================================
+24. AUTONOMOUS CAUSE DIAGNOSIS
+============================================================
+
+For selected supported deficits run L3.
+
+Do not supply causes.
+
+Preserve competing hypotheses.
+
+Do not promote unsupported cause to VERIFIED.
+
+============================================================
+25. RESOLUTION LOOP
+============================================================
+
+For at least one supported deficit, attempt:
+
+DEFICIT
+→ CAUSE
+→ REQUIRED EFFECT
+→ STRATEGY
+→ CANDIDATES
+→ DESIGN MOVE
+→ MUTATION.
+
+Use existing L5–L7 architecture.
+
+============================================================
+26. REEVALUATION
+============================================================
+
+After mutation run L8.
+
+Compare:
+
+EXPECTED EFFECT
+versus
+OBSERVED EFFECT.
+
+Also inspect:
+
+DEPENDENCY EFFECTS
+NEW DEFICITS
+UNKNOWN EFFECTS.
+
+LOCAL SUCCESS ≠ GLOBAL SUCCESS.
+
+============================================================
+27. COMPARISON
+============================================================
+
+Use L9 to compare feasible candidates.
+
+No universal scalar score.
+
+No automatic winner.
+
+Produce:
+
+TRADE-OFF SET
++
+EVIDENCE
++
+UNKNOWN
++
+HUMAN DECISION REQUIRED.
+
+============================================================
+28. HUMAN DECISION POINT
+============================================================
+
+Do not choose final architecture.
+
+Create a project-level decision record containing:
+
+DECISION REQUIRED
+OPTIONS
+TRADE-OFFS
+EVIDENCE
+UNKNOWN
+CONSEQUENCES
+REVERSIBILITY
+RECOMMENDATION STATUS IF ANY
+HUMAN AUTHORITY REQUIRED.
+
+ARKI may explain.
+
+ARKI may not impersonate the architect's final authority.
+
+============================================================
+29. BROKEN-BRIDGE BEHAVIOR
+============================================================
+
+If any bridge cannot be completed:
+
+DO NOT BYPASS IT.
+
+Record:
+
+FROM
+TO
+WHY BROKEN
+MISSING INFORMATION
+MISSING CAPABILITY
+EXISTING REUSE PATH
+MINIMUM EXTENSION
+BLOCKING STATUS.
+
+============================================================
+30. INTEGRATION GAP CLASSIFICATION
+============================================================
+
+Classify each gap:
+
+DATA_GAP
+KNOWLEDGE_GAP
+REASONING_GAP
+INTEGRATION_GAP
+IMPLEMENTATION_GAP
+REGULATORY_GAP
+SPECIALIST_GAP
+HUMAN_DECISION_GAP.
+
+Do not solve all gaps automatically.
+
+============================================================
+31. MULTIDISCIPLINARY BOUNDARY
+============================================================
+
+Architecture may reason about structural/MEP/fire/accessibility
+dependencies only to the level currently supported.
+
+Do not fabricate engineering design.
+
+Report specialist dependencies explicitly.
+
+============================================================
+32. P8.1 IS NOT A PERMIT PROJECT
+============================================================
+
+No claim of:
+
+construction ready
+permit ready
+code compliant
+professionally approved
+engineering coordinated
+
+unless independently demonstrated, which is not expected in P8.1.
+
+============================================================
+33. LEARNING IS DISABLED AS A CLAIM
+============================================================
+
+P8.1 may record observations.
+
+But:
+
+NO K1 CREATION.
+
+NO AUTONOMOUS LEARNING CLAIM.
+
+UPAO contamination prevents using this project as clean evidence.
+
+Potential observations may be retained as:
+
+OBSERVATION_ONLY
+HISTORICAL_CONTAMINATED_CONTEXT
+
+for later analysis.
+
+============================================================
+34. HISTORICAL COMPARISON
+============================================================
+
+After the independent integrated run is complete, compare its outputs
+with historical UPAO artifacts.
+
+Report:
+
+CONVERGENCE
+DIVERGENCE
+UNKNOWN_COMPARABILITY.
+
+Do not treat historical artifact as ground truth.
+
+============================================================
+35. PRIMARY ACCEPTANCE TEST
+============================================================
+
+P8.1 passes if ARKI demonstrates a traceable integrated chain across
+a meaningful portion of:
+
+INPUT
+→ PURPOSE
+→ REQUIREMENTS
+→ PROGRAM
+→ RELATIONSHIPS
+→ SPATIAL REALIZATION
+→ CANDIDATE
+→ CANONICAL MODEL
+→ EVALUATION
+→ DEFICIT
+→ CAUSE
+→ STRATEGY
+→ MUTATION
+→ REEVALUATION
+→ COMPARISON
+→ HUMAN DECISION POINT
+
+without:
+
+UPAO answer leakage
+typology-specific hardcoding
+parallel engines
+false compliance
+false learning
+automatic architectural winner.
+
+============================================================
+36. DO NOT FORCE FULL COMPLETION
+============================================================
+
+A truthful partial chain with an explicit broken bridge is superior
+to a fabricated end-to-end PASS.
+
+Possible final states:
+
+INTEGRATED_CHAIN_DEMONSTRATED
+
+INTEGRATED_CHAIN_PARTIAL
+
+BLOCKED_AT_<BRIDGE>.
+
+============================================================
+37. REGRESSION
+============================================================
+
+Preserve demonstrated capabilities:
+
+L0–L9.
+
+L7 remains bounded unless stronger evidence genuinely emerges.
+
+L10 remains PARTIAL.
+
+Run relevant historical regression.
+
+============================================================
+38. TRIPLE PROPAGATION
+============================================================
+
+Propagate accepted P8.1 results:
+
+DELTA
+→ ARKI
+→ CURRICULUM
+→ DIGITAL BOOK.
+
+Preserve epistemic state.
+
+Do not teach the curriculum or book that P8.1 proved clean learning,
+professional validation or permit readiness.
+
+============================================================
+39. TESTS
+============================================================
+
+At minimum test:
+
+CLEAN_RUN_BOUNDARY
+INPUT_PROVENANCE
+NO_HISTORICAL_SOLUTION_LEAKAGE
+PURPOSE_CAPABILITY_TRACE
+REQUIREMENT_TRACE
+PROGRAM_TRACE
+RELATIONSHIP_TRACE
+SPATIAL_REALIZATION_TRACE
+CANONICAL_MODEL_TRACE
+DEFICIT_DETECTION
+CAUSE_DIAGNOSIS
+STRATEGY_TRACE
+MUTATION_TRACE
+REEVALUATION_TRACE
+COMPARISON_TRACE
+HUMAN_DECISION_GATE
+UNKNOWN_PRESERVATION
+REGULATORY_SEPARATION
+NO_FALSE_LEARNING
+NO_SECOND_ENGINE
+ANTI_TYPOLOGY_DISPATCH
+BASELINE_IMMUTABILITY
+TRIPLE_PROPAGATION_CONSISTENCY.
+
+Then:
+
+FULL REGRESSION
+TYPECHECK
+BUILD
+GIT DIFF --CHECK.
+
+============================================================
+40. FINAL REPORT
+============================================================
+
+Report:
+
+REPOSITORY =
+BRANCH =
+INITIAL_SHA =
+FINAL_SHA =
+REMOTE_HEAD =
+WORKTREE =
+
+PROJECT =
+PROJECT_STATUS =
+
+INPUT FACTS =
+INPUT UNKNOWNS =
+
+PURPOSES DERIVED/REPRESENTED =
+CAPABILITIES =
+SYSTEM REQUIREMENTS =
+FUNCTIONAL REQUIREMENTS =
+PROGRAM ELEMENTS =
+FUNCTIONAL UNITS =
+RELATIONSHIPS =
+FLOWS =
+JOURNEYS =
+CONTROLS =
+
+STRATEGIES =
+CANDIDATES =
+CANONICAL MODEL ENTITIES =
+
+DEFICITS DETECTED =
+CAUSE HYPOTHESES =
+RESOLUTION STRATEGIES =
+MUTATIONS =
+REEVALUATIONS =
+NEW DEFICITS =
+TRADE-OFF SETS =
+HUMAN DECISIONS REQUIRED =
+
+COMPLETE TRACE CHAINS =
+PARTIAL TRACE CHAINS =
+BROKEN BRIDGES =
+
+DATA GAPS =
+KNOWLEDGE GAPS =
+REASONING GAPS =
+INTEGRATION GAPS =
+IMPLEMENTATION GAPS =
+REGULATORY GAPS =
+SPECIALIST GAPS =
+HUMAN DECISION GAPS =
+
+HISTORICAL UPAO CONVERGENCES =
+HISTORICAL UPAO DIVERGENCES =
+
+FALSE LEARNING CLAIMS = 0
+AUTOMATIC WINNER = 0
+PERMIT CLAIM = 0
+
+P8.1 FINAL STATUS =
+
+============================================================
+41. SOFTWARE REPORT
+============================================================
+
+Report:
+
+FILES CHANGED
+FILES ADDED
+TESTS ADDED
+FOCUSED TEST RESULT
+FULL REGRESSION
+TYPECHECK
+BUILD
+GIT DIFF CHECK
+TRIPLE PROPAGATION
+LOCAL HEAD
+REMOTE HEAD
+LOCAL_REMOTE_MATCH
+WORKTREE STATUS.
+
+============================================================
+42. GIT AUTHORIZATION
+============================================================
+
+After the highest truthful validated state is reached:
+
+COMMIT LOCALLY
+PUSH TO CURRENT BRANCH.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+43. STOP RULE
+============================================================
+
+If a foundational bridge is genuinely missing and cannot be connected
+by a minimal reuse-first extension:
+
+STOP.
+
+Do not build a large new architecture.
+
+Return the exact missing bridge.
+
+============================================================
+44. FINAL PRINCIPLE
+============================================================
+
+THE OBJECTIVE IS NOT TO MAKE UPAO LOOK COMPLETE.
+
+THE OBJECTIVE IS TO DETERMINE WHETHER ARKI CAN PRACTICE
+ARCHITECTURE AS AN INTEGRATED REASONING SYSTEM.
+
+A PARTIAL BUT TRACEABLE PROJECT IS MORE VALUABLE THAN
+A COMPLETE BUT PREPROGRAMMED PROJECT.
+
+Proceed autonomously to the highest honestly demonstrated
+integration gate.

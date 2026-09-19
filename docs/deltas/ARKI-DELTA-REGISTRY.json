@@ -532,6 +532,42 @@
         "MUTATE_PROJECT",
         "PUSH_WITHOUT_AUTHORIZATION"
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-484-V1",
+      "source_name": "pasted_content_484.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_484.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-484-V1/pasted_content_484.txt",
+      "sha256": "9b6618bc014f199f8a0ff27060518df66105abcba20f9fb67d9fd88ec3f3bf3b",
+      "received_at": "2026-09-19",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — MACROORDEN P8.1",
+        "CONTROLLED INTEGRATED ARCHITECTURAL PRACTICE",
+        "UPAO-001 HISTORICAL CONTAMINATED BENCHMARK",
+        "END-TO-END CONNECTION PROOF"
+      ],
+      "preview_count": 952,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
     }
   ]
 }
