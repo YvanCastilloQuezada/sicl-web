@@ -104,3 +104,14 @@ HUMAN_AUTHORITY = FINAL
 - **No implementado:** ningún motor específico de restaurante, hospital, laboratorio, espacio público o uso mixto.
 - **Aprendizaje:** no promovido; se conserva un resultado negativo sobre la capacidad del sistema.
 - **Próximo objetivo curricular:** distinguir vocabulario contractual de estrategia generada y diseñar la mínima extensión general antes de D6.3.
+
+<!-- D6.2-PASS-RESULT -->
+## D6.2 — Paso posterior a la extensión general
+
+- **Estado:** `PASS_WITH_OBSERVATIONS`; el bloqueo histórico permanece preservado.
+- **Informe:** `docs/ARKI-D6.2-GENERAL-STRATEGY-SYNTHESIS-PASS-2026-09-19.md`
+- **Estrategias suministradas:** `0`; recuperadas `5`; aplicables/generadas `5`; familias distintas `5`.
+- **Capacidad demostrada:** síntesis estratégica general dentro del alcance controlado.
+- **Capacidades no demostradas:** candidatos, mutaciones, reevaluación y generalización.
+- **Conocimiento arquitectónico nuevo:** no creado; se demostró capacidad del sistema.
+- **Siguiente objetivo:** D6.3, estrategia → Design Move → operadores → candidato.

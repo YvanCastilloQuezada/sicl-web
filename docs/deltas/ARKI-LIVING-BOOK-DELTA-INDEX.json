@@ -69,8 +69,8 @@
         "VOLUME_II",
         "VOLUME_III"
       ],
-      "editorial_state": "EXECUTED / BLOCKED_AT_D6.2 / HUMAN_REVIEW_REQUIRED",
-      "knowledge_state": "OBSERVED_NEGATIVE_RESULT / NOT_LEARNED",
+      "editorial_state": "EXECUTED / D6.2_PASS_WITH_OBSERVATIONS / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "IMPLEMENTED_TESTED_CONTROLLED_SCOPE / NOT_ARCHITECTURAL_KNOWLEDGE",
       "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record.",
       "execution": {
         "execution_state": "EXECUTED / BLOCKED_AT_D6.2 / HUMAN_REVIEW_REQUIRED",
@@ -102,6 +102,31 @@
         "VOLUME_I",
         "VOLUME_II",
         "VOLUME_III"
+      ],
+      "follow_up_executions": [
+        {
+          "state": "D6.2 PASS_WITH_OBSERVATIONS",
+          "l5": "DEMONSTRATED",
+          "l6": "NOT_DEMONSTRATED",
+          "l7": "NOT_DEMONSTRATED",
+          "l8": "NOT_DEMONSTRATED",
+          "l9": "PARTIAL",
+          "l10": "NOT_DEMONSTRATED",
+          "strategies_provided": 0,
+          "strategies_retrieved": 5,
+          "strategies_generated": 5,
+          "distinct_families": 5,
+          "candidates_generated": 0,
+          "mutations": 0,
+          "focused_tests": "19/19 PASS",
+          "typecheck": "PASS",
+          "anti_hardcoding": "PASS",
+          "unknown_preservation": "PASS",
+          "human_authority": "PRESERVED",
+          "report": "docs/ARKI-D6.2-GENERAL-STRATEGY-SYNTHESIS-PASS-2026-09-19.md",
+          "next_gate": "D6.3",
+          "history_policy": "Previous D6.2 BLOCKED result preserved; this is a subsequent controlled run."
+        }
       ]
     }
   ]
