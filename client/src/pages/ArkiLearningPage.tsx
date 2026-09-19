@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { buildL00L08HouseLearningPilot, evaluateLearningCycle, recordExplanation, recordPractice } from "@/components/arkiLearningCycle";
+import { buildL00L08HouseLearningPilot, evaluateLearningCycle, recordControlledEducationalProof, recordExplanation, recordPractice } from "@/components/arkiLearningCycle";
 
 const phases = ["PRINCIPLE", "EXPLANATION", "PRACTICE", "EVALUATION", "CORRECTION", "TRANSFER", "HUMAN_REVIEW"] as const;
 
@@ -15,7 +15,9 @@ export default function ArkiLearningPage() {
     const pilot = buildL00L08HouseLearningPilot();
     const explained = recordExplanation(pilot, { attemptId: "visible-explanation", statement: "Room name is not an activity model; relationships remain multidimensional.", evidenceRefs: ["KU-L00-001", "KU-L02-001", "KU-L05-001"], unknowns: ["household schedule", "site orientation"], contradictions: ["courtyard preference versus privacy"], epistemicState: "HYPOTHESIS" });
     const practiced = recordPractice(explained, { attemptId: "visible-practice", statement: "HOUSE-A21 keeps three independent topology hypotheses before coordinates.", evidenceRefs: pilot.topologyEvidence?.hypothesisIds ?? [], unknowns: ["service route", "structural feasibility"], contradictions: ["openness versus privacy"], epistemicState: "HYPOTHESIS" });
-    return { pilot, evaluated: evaluateLearningCycle(practiced) };
+    const evaluated = evaluateLearningCycle(practiced);
+    const acquired = recordControlledEducationalProof(evaluated, { proofId: "L09-L32-sample-01", level: "L09", principleApplied: "functional unit is not a room", nonApplicationDeclared: "reference dimensions are not project requirements", transferDeclared: "transfer to a small non-residential context with changed users", evidenceRefs: ["P-L09-01", "synthetic-fixture"], unknowns: ["real project evidence", "jurisdiction"], result: "PASS_WITH_OBSERVATIONS", dataClass: "SYNTHETIC_CONTROLLED_EDUCATIONAL_PROOF", reviewer: "PRODUCT_OWNER_DELEGATED" });
+    return { pilot, evaluated: acquired };
   }, []);
   const { pilot, evaluated } = lesson;
 
@@ -32,11 +34,11 @@ export default function ArkiLearningPage() {
     <Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none">
       <CardHeader className="flex-row items-center justify-between space-y-0">
         <div><CardTitle className="font-serif text-xl">{t("learning.pilot")}</CardTitle><p className="mt-1 text-sm text-[#718078]">{pilot.practices[0].context.description}</p></div>
-        <Badge variant="outline">{pilot.maturity}</Badge>
+        <Badge variant="outline">{evaluated.maturity}</Badge>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid gap-2 md:grid-cols-7">{phases.map((phase, index) => <div key={phase} className={`rounded-md border p-2 text-center text-[10px] font-semibold tracking-wide ${index <= 3 ? "border-[#d07b4a] bg-[#fff4ed] text-[#a95e35]" : "border-[#d4d8d0] text-[#718078]"}`}>{phase}</div>)}</div>
-        <div className="flex flex-wrap gap-2"><Badge variant="secondary">{t("learning.not_mature")}</Badge><Badge variant="outline">{t("learning.review_pending")}</Badge><Badge variant="outline">HYPOTHESIS / UNKNOWN</Badge></div>
+        <div className="flex flex-wrap gap-2"><Badge variant="secondary">{t("learning.not_mature")}</Badge><Badge variant="outline">PRACTICED_WITH_OBSERVATIONS</Badge><Badge variant="outline">{t("learning.review_pending")}</Badge><Badge variant="outline">HYPOTHESIS / UNKNOWN</Badge></div>
       </CardContent>
     </Card>
 

@@ -18,7 +18,7 @@ export type LearningPhase =
 
 export type LearningOutcome = "NOT_STARTED" | "IN_PROGRESS" | "PASS_WITH_OBSERVATIONS" | "PASS" | "NOT_PROVEN" | "FAIL";
 export type HumanReviewAction = "CONFIRM" | "CORRECT" | "REJECT" | "REQUEST_MORE_EVIDENCE";
-export type LearningMaturity = "IMPORTED_CURRICULAR_KNOWLEDGE" | "PRACTICE_PENDING" | "HUMAN_REVIEWED" | "TRANSFERRED" | "MATURE";
+export type LearningMaturity = "IMPORTED_CURRICULAR_KNOWLEDGE" | "PRACTICE_PENDING" | "PRACTICED_WITH_OBSERVATIONS" | "HUMAN_REVIEWED" | "TRANSFERRED" | "MATURE";
 
 export type LearningContext = {
   projectId: string;
@@ -83,6 +83,19 @@ export type LearningTransfer = {
   humanReviewRequired: true;
 };
 
+export type ControlledEducationalProof = {
+  proofId: string;
+  level: string;
+  principleApplied: string;
+  nonApplicationDeclared: string;
+  transferDeclared: string;
+  evidenceRefs: string[];
+  unknowns: string[];
+  result: "PASS_WITH_OBSERVATIONS" | "PASS";
+  dataClass: "SYNTHETIC_CONTROLLED_EDUCATIONAL_PROOF" | "PROJECT_EVIDENCE";
+  reviewer: "PRODUCT_OWNER_DELEGATED" | "ARCHITECT";
+};
+
 export type ArkiLearningCycle = {
   cycleId: string;
   knowledgeUnitIds: string[];
@@ -91,6 +104,7 @@ export type ArkiLearningCycle = {
   explanation: LearningAttempt | null;
   practices: LearningPractice[];
   topologyEvidence: { fixtureId: string; hypothesisIds: string[]; validated: boolean } | null;
+  acquisition: ControlledEducationalProof | null;
   attempts: LearningAttempt[];
   assessment: LearningAssessment | null;
   correction: LearningCorrection | null;
@@ -121,6 +135,7 @@ export function createLearningCycle(input: { cycleId: string; knowledgeUnitIds: 
     explanation: null,
     practices: input.practices,
     topologyEvidence: input.topologyEvidence ?? null,
+    acquisition: null,
     attempts: [],
     assessment: null,
     correction: null,
@@ -170,6 +185,12 @@ export function recordTransfer(cycle: ArkiLearningCycle, transfer: LearningTrans
   const outcome = transfer.changedConditions.length > 0 && transfer.nonApplicationCases.length > 0 ? transfer.outcome : "NOT_PROVEN";
   const normalizedTransfer = { ...transfer, outcome };
   return { ...cycle, transfer: normalizedTransfer, currentPhase: "HUMAN_REVIEW", maturity: outcome === "PASS" ? "TRANSFERRED" : "HUMAN_REVIEWED" };
+}
+
+export function recordControlledEducationalProof(cycle: ArkiLearningCycle, proof: ControlledEducationalProof): ArkiLearningCycle {
+  if (proof.evidenceRefs.length === 0 || proof.unknowns.length === 0) throw new Error("Controlled proof must preserve evidence and unknowns");
+  if (!proof.principleApplied || !proof.nonApplicationDeclared || !proof.transferDeclared) throw new Error("Controlled proof requires application, non-application and transfer statements");
+  return { ...cycle, acquisition: proof, maturity: "PRACTICED_WITH_OBSERVATIONS", currentPhase: "HUMAN_REVIEW" };
 }
 
 export function reviewLearningCycle(cycle: ArkiLearningCycle, action: "CONFIRM" | "REJECT"): ArkiLearningCycle {

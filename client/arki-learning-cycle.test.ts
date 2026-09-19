@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildL00L08HouseLearningPilot,
   evaluateLearningCycle,
+  recordControlledEducationalProof,
   recordCorrection,
   recordExplanation,
   recordPractice,
@@ -48,5 +49,14 @@ describe("ARKI canonical learning cycle pilot", () => {
 
   it("passes negative controls for epistemic integrity and authority", () => {
     expect(runLearningCycleNegativeControls()).toEqual({ importedNotMature: true, noTransferBeforeHumanCorrection: true, humanAuthorityPreserved: true, automaticPromotionBlocked: true, unknownPreserved: true });
+  });
+
+  it("records controlled acquisition without promoting knowledge to mature", () => {
+    const pilot = buildL00L08HouseLearningPilot();
+    const practiced = recordControlledEducationalProof(pilot, { proofId: "L09-L32-sample-01", level: "L09", principleApplied: "functional unit is not a room", nonApplicationDeclared: "reference dimensions are not project requirements", transferDeclared: "transfer to a small non-residential context with changed users", evidenceRefs: ["P-L09-01", "synthetic-fixture"], unknowns: ["real project evidence", "jurisdiction"], result: "PASS_WITH_OBSERVATIONS", dataClass: "SYNTHETIC_CONTROLLED_EDUCATIONAL_PROOF", reviewer: "PRODUCT_OWNER_DELEGATED" });
+    expect(practiced.acquisition?.proofId).toBe("L09-L32-sample-01");
+    expect(practiced.maturity).toBe("PRACTICED_WITH_OBSERVATIONS");
+    expect(practiced.currentPhase).toBe("HUMAN_REVIEW");
+    expect(practiced.noAutomaticPromotion).toBe(true);
   });
 });
