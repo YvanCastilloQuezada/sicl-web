@@ -1,0 +1,601 @@
+# ARKI — MACROORDEN D7.8E → D8.0
+## MULTI-EXPERIENCE ARCHITECTURAL DISCOVERY
+## → LEARNING CANDIDATE
+## → PERSISTENCE
+## → GENERALIZATION
+
+MODE = AUTONOMOUS GATED EXECUTION
+
+BASELINE REPORTED:
+REPOSITORY = YvanCastilloQuezada/sicl-web
+BRANCH = feat/spatial-pilot-media-studio-v1
+HEAD = 4229b01fca5434e28a766fbd9b45810e55ce5722
+
+VERIFY ACTUAL HEAD/WORKTREE BEFORE EDITING.
+
+CURRENT MATURITY:
+
+L0 = DEMONSTRATED
+L1 = DEMONSTRATED
+L2 = DEMONSTRATED
+L3 = DEMONSTRATED
+L4 = DEMONSTRATED
+L5 = DEMONSTRATED
+L6 = DEMONSTRATED
+L7 = DEMONSTRATED_BOUNDED_S2
+L8 = DEMONSTRATED
+L9 = DEMONSTRATED
+L10 = PARTIAL
+
+D7.8 PREVIOUS RESULT =
+NO_VALID_NOVEL_OBSERVATION
+
+DO NOT REWRITE THIS RESULT.
+
+==================================================
+1. OBJECTIVE
+==================================================
+
+Do NOT attempt to manufacture novelty inside one mutation.
+
+Test whether ARKI can discover a previously unrepresented
+architectural relationship by comparing MULTIPLE independent
+architectural experiences.
+
+Target chain:
+
+K0
+→ EXPERIENCE SET
+→ STRUCTURED OBSERVATIONS
+→ CROSS-CASE COMPARISON
+→ PATTERN HYPOTHESES
+→ K0 NOVELTY CHECK
+→ REPEAT
+→ VARIANT
+→ COUNTEREXAMPLE
+→ LEARNING CANDIDATE
+→ PERSIST K1
+→ FRESH INITIALIZATION
+→ RETRIEVE K1
+→ FUNCTIONAL REUSE
+→ TRANSFER / RESTRAINT
+→ D8.0.
+
+==================================================
+2. DO NOT PROGRAM THE PATTERN
+==================================================
+
+Runtime fixtures may define:
+
+project state
+actors
+activities
+relationships
+journeys
+flows
+capacity
+state/time/scenario
+authority
+geometry
+candidate mutations.
+
+Fixtures must NOT define:
+
+expected discovered relationship
+expected learning rule
+expected K1
+expected generalization.
+
+Test oracle must remain external.
+
+TEST_ORACLE_LEAKAGE = FAIL if runtime can consume
+the intended discovery.
+
+==================================================
+3. K0 FREEZE
+==================================================
+
+Before experimentation freeze relevant K0.
+
+Include:
+
+known relationships
+known strategy effects
+known side effects
+known applicability
+known counterexamples
+known reasoning patterns
+known UNKNOWNs.
+
+The discovered candidate must be absent from K0.
+
+==================================================
+4. EXPERIENCE SET
+==================================================
+
+Generate or execute multiple controlled experiences using
+existing L2–L9 capabilities.
+
+Prefer variation across:
+
+geometry
+topology
+capacity
+concurrency
+state
+time
+journey configuration
+resource allocation
+interface conditions.
+
+Do not vary typology labels merely to create apparent diversity.
+
+Each experience must preserve:
+
+INPUT STATE
+DETECTED DEFICIT
+DIAGNOSED CAUSE
+STRATEGY
+CANDIDATE
+MUTATION
+EXPECTED EFFECT
+ACTUAL OBSERVATION
+DEPENDENCY EFFECTS
+NEW DEFICITS
+UNKNOWN
+PROVENANCE.
+
+==================================================
+5. STRUCTURED OBSERVATION SPACE
+==================================================
+
+Reuse existing canonical properties.
+
+Do not create arbitrary synthetic metrics merely to enable discovery.
+
+Candidate observable dimensions may include only values already
+legitimately derivable from canonical model/reasoning.
+
+==================================================
+6. CROSS-CASE PATTERN DISCOVERY
+==================================================
+
+Compare experiences for repeated or conditional relationships.
+
+ARKI may hypothesize patterns such as:
+
+WHEN structural condition X
+AND intervention Y
+OBSERVED consequence Z.
+
+But do not predefine X/Y/Z in runtime.
+
+Pattern discovery must originate from experience records.
+
+==================================================
+7. CORRELATION CONTROL
+==================================================
+
+A repeated association is:
+
+PATTERN HYPOTHESIS
+
+not:
+
+CAUSAL RULE.
+
+Preserve:
+
+REPETITION ≠ CAUSATION.
+
+CORRELATION ≠ ARCHITECTURAL LAW.
+
+PATTERN ≠ GENERALIZATION.
+
+==================================================
+8. NOVELTY CLASSIFICATION
+==================================================
+
+For every pattern hypothesis classify:
+
+ALREADY_KNOWN
+DERIVABLE_FROM_K0
+DIRECT_EXECUTION_RESULT
+TRIVIAL_RESTATEMENT
+NOVEL_PATTERN_CANDIDATE
+UNKNOWN_NOVELTY.
+
+Only NOVEL_PATTERN_CANDIDATE may proceed.
+
+==================================================
+9. ARCHITECTURAL RELEVANCE
+==================================================
+
+Reject patterns based only on:
+
+IDs
+timestamps
+serialization
+test ordering
+fixture naming
+typology strings
+implementation artifacts.
+
+Candidate must concern architectural semantics.
+
+==================================================
+10. MINIMUM EVIDENCE
+==================================================
+
+A single occurrence cannot become K1.
+
+For a candidate P execute:
+
+REPEAT CASE
+VARIANT CASE
+COUNTEREXAMPLE CASE.
+
+Preserve results individually.
+
+==================================================
+11. COUNTEREXAMPLE IS REQUIRED
+==================================================
+
+Actively search for a case where P may not hold.
+
+Possible outcomes:
+
+SUPPORTED_WITH_SCOPE
+REFINED
+SPECIALIZED
+CONTEXT_SPECIFIC
+REJECTED
+CONFLICTED
+UNKNOWN.
+
+Do not optimize tests to make P survive.
+
+==================================================
+12. SCOPE DISCOVERY
+==================================================
+
+If P holds only under condition X:
+
+candidate knowledge should become:
+
+P WHEN X
+
+not universal P.
+
+Learning that narrows scope is valid learning.
+
+==================================================
+13. CAUSAL LANGUAGE CONTROL
+==================================================
+
+Unless causal evidence exists, use:
+
+associated with
+observed under
+co-occurs with
+conditional pattern
+
+rather than:
+
+causes
+guarantees
+produces universally.
+
+ARKI language certainty must not exceed evidence.
+
+==================================================
+14. D7.8E GATE
+==================================================
+
+PASS only if:
+
+pattern was not supplied;
+pattern was absent from K0;
+pattern is architecturally meaningful;
+pattern appears through cross-case comparison;
+pattern survives at least one repeat/variant;
+counterexample was attempted;
+scope is explicit;
+provenance is complete.
+
+Otherwise:
+
+NO_VALID_LEARNING_EVENT_OBSERVED.
+
+STOP.
+
+Do not create K1.
+
+==================================================
+15. LEARNING CANDIDATE
+==================================================
+
+If gate passes create a non-canonical learning candidate.
+
+Record:
+
+K0
+EXPERIENCES
+PATTERN
+EVIDENCE
+COUNTEREVIDENCE
+SCOPE
+CONFIDENCE
+UNKNOWN
+PROVENANCE.
+
+Classify using existing learning architecture.
+
+No automatic canonization.
+
+==================================================
+16. D7.9 — PERSISTENCE
+==================================================
+
+Persist through existing canonical knowledge mechanism.
+
+Do not create another store.
+
+Preserve K0 lineage.
+
+Then terminate/reinitialize reasoning context.
+
+Fresh run must not receive the candidate through fixture.
+
+==================================================
+17. FRESH RETRIEVAL
+==================================================
+
+Present a structurally relevant new case.
+
+Test:
+
+K1 STORED?
+K1 RETRIEVED?
+WHY RETRIEVED?
+SCOPE MATCH?
+APPLICABILITY?
+USED?
+EFFECT ON REASONING?
+PROVENANCE?
+
+Storage alone is insufficient.
+
+==================================================
+18. FUNCTIONAL REUSE
+==================================================
+
+Demonstrate that K1 changes reasoning appropriately.
+
+Possible evidence:
+
+earlier detection
+better causal hypothesis
+better strategy applicability
+anticipation of side effect
+better UNKNOWN recognition
+avoidance of invalid candidate.
+
+Do not define "better" subjectively.
+
+==================================================
+19. D8.0 POSITIVE TRANSFER
+==================================================
+
+Use K1 in a structurally compatible case outside the original
+experience set.
+
+Do not use simple fixture renaming.
+
+Record adaptation burden.
+
+==================================================
+20. D8.0 RESTRAINT
+==================================================
+
+Use a superficially similar but critically incompatible case.
+
+ARKI must reject, adapt or scope-limit K1.
+
+Blind transfer = FAIL.
+
+==================================================
+21. FIXATION
+==================================================
+
+K1 must not force reproduction of prior geometry.
+
+Check independently:
+
+reasoning similarity
+strategy similarity
+topology similarity
+geometry similarity.
+
+REASONING TRANSFER ≠ FORM COPYING.
+
+==================================================
+22. REGRESSION
+==================================================
+
+Rerun representative historical cases.
+
+Required:
+
+L2 RETAINED
+L3 RETAINED
+L5 RETAINED
+L6 RETAINED
+L7 RETAINED
+L8 RETAINED
+L9 RETAINED
+
+KNOWLEDGE_REGRESSION = PASS
+REASONING_REGRESSION = PASS
+UNKNOWN_PRESERVATION = PASS
+HUMAN_AUTHORITY = PASS.
+
+==================================================
+23. D8.0 ACCEPTANCE
+==================================================
+
+L10 = DEMONSTRATED only if:
+
+NOVEL_PATTERN_CANDIDATE = VALID
+CHALLENGE = PASS
+K1 = CREATED AT JUSTIFIED MATURITY
+PERSISTENCE = PASS
+FRESH_INITIALIZATION = PASS
+INDEPENDENT_RETRIEVAL = PASS
+FUNCTIONAL_REUSE = PASS
+POSITIVE_TRANSFER = PASS
+RESTRAINT = PASS
+FIXATION_CONTROL = PASS
+KNOWLEDGE_REGRESSION = PASS
+REASONING_REGRESSION = PASS.
+
+Otherwise:
+
+L10 = PARTIAL.
+
+==================================================
+24. CAPABILITY VS KNOWLEDGE
+==================================================
+
+Report separately:
+
+CAPABILITY GENERALIZATION
+ARCHITECTURAL KNOWLEDGE GENERALIZATION.
+
+Engineering this discovery mechanism is not itself
+architectural learning.
+
+==================================================
+25. TRIPLE PROPAGATION
+==================================================
+
+Propagate reached results using existing:
+
+DELTA
+→ ARKI
+→ CURRICULUM
+→ DIGITAL BOOK.
+
+Preserve D7.8 original negative result.
+
+Do not rewrite history.
+
+==================================================
+26. VALIDATION
+==================================================
+
+Run:
+
+focused discovery tests
+D7.6/D7.7 regression
+D6/D7 relevant regression
+full regression
+typecheck
+build
+git diff --check
+
+plus:
+
+ANTI_FIXTURE
+ANTI_TYPOLOGY_DISPATCH
+TEST_ORACLE_LEAKAGE
+UNKNOWN_PRESERVATION
+NO_SECOND_ENGINE
+BASELINE_IMMUTABILITY
+HUMAN_AUTHORITY
+TRIPLE_PROPAGATION_CONSISTENCY.
+
+==================================================
+27. GIT
+==================================================
+
+Commit and push highest validated truthful state.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+Verify:
+
+LOCAL_HEAD
+REMOTE_HEAD
+LOCAL_REMOTE_MATCH
+WORKTREE CLEAN.
+
+==================================================
+28. STOP RULE
+==================================================
+
+If no valid novel pattern emerges:
+
+STOP.
+
+Return the evidence.
+
+Do NOT enlarge the strategic registry.
+Do NOT insert the expected pattern.
+Do NOT manufacture K1.
+
+The next decision will be experimental design, not hardcoding.
+
+==================================================
+29. FINAL REPORT
+==================================================
+
+Return:
+
+EXPERIENCES EXECUTED =
+K0 VERSION =
+PATTERNS HYPOTHESIZED =
+ALREADY KNOWN =
+DERIVABLE FROM K0 =
+DIRECT EXECUTION RESULTS =
+NOVEL PATTERN CANDIDATES =
+REPEAT RESULTS =
+VARIANT RESULTS =
+COUNTEREXAMPLE RESULTS =
+LEARNING CANDIDATES =
+K1 CREATED =
+K1 PERSISTED =
+FRESH RETRIEVAL =
+FUNCTIONAL REUSE =
+POSITIVE TRANSFER =
+RESTRAINT =
+FIXATION =
+KNOWLEDGE REGRESSION =
+REASONING REGRESSION =
+L10 =
+
+And explain separately:
+
+WHAT WAS ENGINEERED
+WHAT WAS ALREADY KNOWN
+WHAT WAS OBSERVED
+WHAT WAS DISCOVERED
+WHAT WAS LEARNED
+WHAT WAS PERSISTED
+WHAT WAS REUSED
+WHAT WAS GENERALIZED
+WHAT WAS REJECTED
+WHAT REMAINS UNKNOWN.
+
+==================================================
+30. FINAL RULE
+==================================================
+
+DO NOT TEACH ARKI THE DISCOVERY
+AND THEN CLAIM ARKI DISCOVERED IT.
+
+THE DISCOVERY MUST EMERGE FROM COMPARING EXPERIENCE.
+
+Proceed autonomously to the highest honestly demonstrated gate.

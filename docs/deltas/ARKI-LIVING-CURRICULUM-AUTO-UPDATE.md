@@ -182,3 +182,24 @@ HUMAN_AUTHORITY = FINAL
 - **D7.8:** `NO_VALID_NOVEL_OBSERVATION`; K0 congelado, efectos clasificados como ejecución directa.
 - **D7.9/D8.0:** `STOPPED`; no se crea K1, no se declara persistencia ni generalización arquitectónica.
 - **Regla pedagógica:** detección, diagnóstico, observación, aprendizaje y generalización permanecen separados.
+
+<!-- PASTED-CONTENT-482-V1 -->
+## PASTED-CONTENT-482-V1 — pasted_content_482.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `d4a21b7fd842170f7e5594ea5096ccebb6905d7fcff644b502cb8676d72e9dc8`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN D7.8E → D8.0, MULTI-EXPERIENCE ARCHITECTURAL DISCOVERY, → LEARNING CANDIDATE, → PERSISTENCE, → GENERALIZATION
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- D7.8E-RESULT -->
+## D7.8E — Descubrimiento multi-experiencia
+
+- **Experiencias:** `3`; comparación estructural sin variar sólo etiquetas tipológicas.
+- **Repetición / variante / contraejemplo:** `PASS / PASS / PASS`.
+- **Patrón novedoso válido:** `NONE`; los efectos repetidos fueron `ALREADY_KNOWN` o `DIRECT_EXECUTION_RESULT`.
+- **K1:** `NOT_CREATED`; D7.9 y D8.0 detenidos.
+- **Regla:** repetición no equivale a causalidad; correlación no equivale a ley arquitectónica.
