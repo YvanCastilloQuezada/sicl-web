@@ -65,7 +65,7 @@ export type CorrectedHouseProposal = {
     exterior: string[];
   };
   validation: {
-    status: "PASS_WITH_OBSERVATIONS";
+    status: "REQUIRES_REPLAN";
     checks: string[];
     observations: string[];
     humanReviewRequired: true;
@@ -210,7 +210,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
       exterior: ["COURTYARD-N1", "COURTYARD-N2", "TERRACE-N2"],
     },
     validation: {
-      status: "PASS_WITH_OBSERVATIONS",
+      status: "REQUIRES_REPLAN",
       checks: [
         "functional organigram present",
         "public/private/service zoning declared",
@@ -228,6 +228,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
         "doors and windows explicitly enumerated",
       ],
       observations: [
+        "Functional void audit found 91.5 m² of unassigned envelope cells across N1 and N2; these are residual until assigned to a program, circulation, service or intentional exterior void.",
         "All dimensions are conceptual reference parameters, not local code compliance.",
         "Structural, MEP, fire, accessibility and daylight calculations remain pending professional review.",
         "The courtyard and terrace require local drainage, waterproofing and privacy review.",
