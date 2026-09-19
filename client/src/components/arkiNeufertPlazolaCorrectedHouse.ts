@@ -53,6 +53,7 @@ export type CorrectedHouseProposal = {
   rooms: ResidentialRoom[];
   walls: ResidentialWall[];
   openings: ResidentialOpening[];
+  openConnections: Array<{ id: string; levelId: string; fromRoomId: string; toRoomId: string; kind: "OPEN_CONNECTION" | "LOW_WALL_OPENING"; widthM: number; rationale: string }>;
   cores: Array<{ id: string; levelIds: string[]; footprint: Rect; kind: "STAIR" | "SERVICE_DUCT"; continuity: "CONTINUOUS" }>;
   routes: ResidentialRoute[];
   functionalOrganigram: FunctionalOrganigram;
@@ -148,7 +149,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
   ];
 
   const openings: ResidentialOpening[] = [
-    door("DOOR-STREET-ENTRY", "N1", "ENTRY-N1", "EXTERIOR"), door("DOOR-ENTRY-LIVING", "N1", "ENTRY-N1", "LIVING-N1"), door("DOOR-ENTRY-DINING", "N1", "ENTRY-N1", "DINING-N1"), door("DOOR-LIVING-HALL", "N1", "LIVING-N1", "HALL-N1"), door("DOOR-DINING-KITCHEN", "N1", "DINING-N1", "KITCHEN-N1"), door("DOOR-HALL-STAIR", "N1", "HALL-N1", "STAIR-N1"), door("DOOR-HALL-BATH1", "N1", "HALL-N1", "BATH-1-N1"), door("DOOR-GARAGE", "N1", "GARAGE-N1", "EXTERIOR"),
+    door("DOOR-STREET-ENTRY", "N1", "ENTRY-N1", "EXTERIOR"), door("DOOR-ENTRY-LIVING", "N1", "ENTRY-N1", "LIVING-N1"), door("DOOR-ENTRY-DINING", "N1", "ENTRY-N1", "DINING-N1"), door("DOOR-LIVING-HALL", "N1", "LIVING-N1", "HALL-N1"), door("DOOR-HALL-STAIR", "N1", "HALL-N1", "STAIR-N1"), door("DOOR-HALL-BATH1", "N1", "HALL-N1", "BATH-1-N1"), door("DOOR-GARAGE", "N1", "GARAGE-N1", "EXTERIOR"),
     door("DOOR-STAIR-HALL", "N2", "STAIR-N2", "HALL-N2"), door("DOOR-HALL-MASTER", "N2", "HALL-N2", "MASTER-N2"), door("DOOR-HALL-BED2", "N2", "HALL-N2", "BED-2-N2"), door("DOOR-HALL-BED3", "N2", "HALL-N2", "BED-3-N2"), door("DOOR-HALL-BATH3", "N2", "HALL-N2", "BATH-3-N2"), door("DOOR-MASTER-CLOSET", "N2", "MASTER-N2", "MASTER-CLOSET-N2", 0.8), door("DOOR-MASTER-BATH", "N2", "MASTER-N2", "MASTER-BATH-N2", 0.8),
     window("WINDOW-LIVING-SOUTH", "N1", "LIVING-N1", 1.8), window("WINDOW-ENTRY-SOUTH", "N1", "ENTRY-N1", 1.2), window("WINDOW-DINING-SOUTH", "N1", "DINING-N1", 1.6), window("WINDOW-KITCHEN-COURT", "N1", "KITCHEN-N1", 1.2), window("WINDOW-COURT-LIVING", "N1", "LIVING-N1", 1.2), window("WINDOW-MASTER-COURT", "N2", "MASTER-N2", 1.5), window("WINDOW-BED2-SOUTH", "N2", "BED-2-N2", 1.5), window("WINDOW-BED3-COURT", "N2", "BED-3-N2", 1.2), window("WINDOW-BATH-HIGH", "N2", "BATH-3-N2", 0.8),
   ];
@@ -158,7 +159,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
     { id: "ROUTE-SOCIAL-KITCHEN", levelIds: ["N1"], roomIds: ["LIVING-N1", "ENTRY-N1", "DINING-N1", "KITCHEN-N1"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
     { id: "ROUTE-PRIVATE-N2", levelIds: ["N2"], roomIds: ["STAIR-N2", "HALL-N2", "MASTER-N2", "BED-2-N2", "BED-3-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
     { id: "ROUTE-VERTICAL", levelIds: ["N1", "N2"], roomIds: ["STAIR-N1", "STAIR-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
-    { id: "ROUTE-SERVICE", levelIds: ["N1", "N2"], roomIds: ["KITCHEN-N1", "BATH-1-N1", "BATH-2-N1", "MASTER-BATH-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
+    { id: "ROUTE-SERVICE", levelIds: ["N1", "N2"], roomIds: ["KITCHEN-N1", "BATH-1-N1", "MASTER-BATH-N2", "BATH-3-N2"], widthM: 0.9, accessible: "PROPOSED", egress: "PROPOSED" },
   ];
 
   const functionalOrganigram: FunctionalOrganigram = {
@@ -194,6 +195,7 @@ export function buildNeufertPlazolaCorrectedHouseProposal(): CorrectedHousePropo
     rooms,
     walls,
     openings,
+    openConnections: [{ id: "OPEN-KITCHEN-DINING", levelId: "N1", fromRoomId: "KITCHEN-N1", toRoomId: "DINING-N1", kind: "OPEN_CONNECTION", widthM: 1.8, rationale: "Food preparation and serving remain visually and functionally connected without a hinged door." }],
     cores: [
       { id: "STAIR-CORE-CONTINUOUS", levelIds: ["N1", "N2"], footprint: { minX: 9, minY: 7.5, maxX: 12, maxY: 12 }, kind: "STAIR", continuity: "CONTINUOUS" },
       { id: "SERVICE-DUCT-CONTINUOUS", levelIds: ["N1", "N2"], footprint: { minX: 7, minY: 5.3, maxX: 7.6, maxY: 6.5 }, kind: "SERVICE_DUCT", continuity: "CONTINUOUS" },

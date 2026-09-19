@@ -12,6 +12,10 @@ describe("Neufert + Plazola corrected house", () => {
     expect(ids).toContain("GARAGE");
     expect(proposal.functionalOrganigram.sequence).toContain("KITCHEN_SERVICE");
     expect(proposal.functionalOrganigram.relations.some((r) => r.from === "KITCHEN" && r.to === "DINING")).toBe(true);
+    expect(proposal.openConnections).toEqual([
+      expect.objectContaining({ fromRoomId: "KITCHEN-N1", toRoomId: "DINING-N1", kind: "OPEN_CONNECTION" }),
+    ]);
+    expect(proposal.openings.some((opening) => opening.fromRoomId === "DINING-N1" && opening.toRoomId === "KITCHEN-N1")).toBe(false);
   });
 
   it("resolves entry, vertical access, zoning and the one-free-facade constraint", () => {
@@ -35,4 +39,3 @@ describe("Neufert + Plazola corrected house", () => {
     expect(proposal.validation.constructionDocumentation).toBe("NOT_GENERATED");
   });
 });
-
