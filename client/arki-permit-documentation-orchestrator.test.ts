@@ -27,6 +27,20 @@ describe("ARKI permit documentation orchestration", () => {
     expect(pkg.permitReady).toBe(false);
   });
 
+  it("accepts an explicit RNE VERIFIED package without promoting the permit package", () => {
+    const pkg = buildPermitDocumentationPackage(buildIntegratedProductFoundation("HOUSE-A21"), {
+      jurisdiction: "PERU",
+      projectUseType: "RESIDENTIAL",
+      projectStage: "ANTEPROYECTO",
+      regulatoryComplianceStatus: "VERIFIED",
+      regulatoryVerificationRefs: ["rne-verification:HOUSE-A21:2026-001"],
+    });
+    expect(pkg.gates.find((gate) => gate.phase === "P3_REGULATORY_APPLICABILITY")?.state).toBe("PASS_WITH_OBSERVATIONS");
+    expect(pkg.gates.find((gate) => gate.phase === "P3_REGULATORY_APPLICABILITY")?.evidence).toContain("rne-verification:HOUSE-A21:2026-001");
+    expect(pkg.permitReady).toBe(false);
+    expect(pkg.constructionReady).toBe(false);
+  });
+
   it("never converts missing engineering data into a success", () => {
     const pkg = buildPermitDocumentationPackage(buildIntegratedProductFoundation("HOUSE-A21"));
     const engineeringGate = pkg.gates.find((gate) => gate.phase === "P2_ENGINEERING_COORDINATION");
