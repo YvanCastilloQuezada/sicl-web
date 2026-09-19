@@ -7,6 +7,24 @@ export type CanonicalBuildingModel = { projectId: string; modelVersion: string; 
 export type DrawingViewKind = "FLOOR_PLAN" | "SITE_PLAN" | "BUILDING_SECTION" | "EXTERIOR_ELEVATION";
 export type DrawingView = { viewId: string; kind: DrawingViewKind; modelVersion: string; elementIds: string[]; annotations: Array<{ id: string; text: string; sourceElementId?: string }>; geometry: Array<{ elementId: string; type: "POLYGON" | "LINE"; coordinates: unknown }>; provenance: string[] };
 
+export type ConstructiveDiscipline = "ARCHITECTURE" | "STRUCTURE" | "MEP";
+export type ConstructiveReadinessState = "READY_WITH_OBSERVATIONS" | "REQUIRES_DATA" | "NOT_AVAILABLE";
+export type ConstructiveCandidate = { id: string; kind: string; discipline: ConstructiveDiscipline; sourceElementIds: string[]; state: ConstructiveReadinessState; geometryAvailable: boolean; missingInputs: string[]; epistemicState: "HYPOTHESIS" };
+export type ConstructiveReadiness = { state: ConstructiveReadinessState; candidates: ConstructiveCandidate[]; missingInputs: string[]; externalValidationRequired: string[]; claims: string[] };
+
+export function deriveConstructiveReadiness(model: CanonicalBuildingModel): ConstructiveReadiness {
+  const candidates: ConstructiveCandidate[] = [];
+  const add = (kind: string, discipline: ConstructiveDiscipline, elements: CanonicalBuildingElement[], missingInputs: string[], state: ConstructiveReadinessState = "REQUIRES_DATA") => {
+    if (elements.length) candidates.push({ id: model.projectId + ":CONSTRUCTIVE-" + kind, kind, discipline, sourceElementIds: elements.map((element) => element.arkiId), state, geometryAvailable: elements.every((element) => Boolean(element.geometry)), missingInputs, epistemicState: "HYPOTHESIS" });
+  };
+  add("WALL_AND_PARTITION_CANDIDATES", "ARCHITECTURE", model.elements.filter((element) => element.kind === "WALL" || element.kind === "PARTITION"), ["wall thickness", "wall height", "resolved adjacency", "material/assembly"]);
+  add("DOOR_AND_WINDOW_CANDIDATES", "ARCHITECTURE", model.elements.filter((element) => element.kind === "DOOR" || element.kind === "WINDOW"), ["opening dimensions", "controlled family/type", "verified host wall geometry"]);
+  add("STAIR_CANDIDATES", "ARCHITECTURE", model.elements.filter((element) => element.kind === "STAIR"), ["riser/tread dimensions", "landing rules", "clear width", "code verification"]);
+  add("SHAFT_AND_SERVICE_RESERVATIONS", "MEP", model.elements.filter((element) => element.kind === "SHAFT"), ["system assignment", "equipment/duct dimensions", "discipline calculations"]);
+  add("STRUCTURAL_COORDINATION_RESERVATION", "STRUCTURE", model.elements.filter((element) => element.kind === "SPACE"), ["structural grid", "loads", "material system", "structural analysis"], "NOT_AVAILABLE");
+  return { state: candidates.length ? "REQUIRES_DATA" : "NOT_AVAILABLE", candidates, missingInputs: Array.from(new Set(candidates.flatMap((candidate) => candidate.missingInputs))), externalValidationRequired: ["DWG native round-trip", "Revit native/API round-trip", "MEP coordination", "structural analysis", "professional review"], claims: ["Candidates are derived from the existing CanonicalBuildingModel.", "No construction value or permit status is fabricated.", "All outputs remain HYPOTHESIS."] };
+}
+
 const polygon = (value: S1Polygon) => value.coordinates[0];
 const version = "ARKI-AUTHORING-1";
 const prov = ["ARKI canonical building authoring", "S1 conceptual floor plan", "same canonical model"];
