@@ -1,0 +1,1437 @@
+# ARKI — MACROORDEN PUENTE D6.2 → D7.0
+## General Strategy Synthesis → Candidate Synthesis → Closed-Loop Reasoning
+## → Transfer/Learning Proof → Canonical General Reasoning Checkpoint
+
+MODE:
+AUTONOMOUS GATED EXECUTION
+
+PURPOSE:
+Avanzar desde el resultado experimental D6.1 hasta D7.0 en un único ciclo
+de trabajo, evitando órdenes artificialmente fragmentadas, pero SIN saltar
+ningún gate epistemológico.
+
+THIS IS NOT AUTHORIZATION TO MAKE EVERY STAGE PASS.
+
+A failed gate is a valid result.
+
+============================================================
+0. BASELINE
+============================================================
+
+Use the actual repository state.
+
+Expected project:
+YvanCastilloQuezada/sicl-web
+
+Expected working branch:
+feat/spatial-pilot-media-studio-v1
+
+Known D6.1 reported final SHA:
+013d63977e4f60d3507d3e128d263878cd46d865
+
+DO NOT ASSUME IT IS STILL HEAD.
+
+Before edits:
+
+1. read AGENTS.md and applicable repository instructions;
+2. verify repository;
+3. verify current branch;
+4. verify HEAD;
+5. verify remote;
+6. verify worktree;
+7. locate D6.0 contracts;
+8. locate D6.1 experimental harness;
+9. locate CanonicalBuildingModel;
+10. locate existing generation/mutation infrastructure;
+11. locate learning/acquisition/provenance infrastructure;
+12. locate automated delta propagation to:
+    - ARKI;
+    - living curriculum;
+    - Digital Book / Libro Vivo.
+
+Report actual baseline before implementation.
+
+============================================================
+1. D6.1 IS EXPERIMENTAL EVIDENCE
+============================================================
+
+Preserve D6.1 result:
+
+V6.1 = PARTIAL / PASS_WITH_OBSERVATIONS
+
+L0 = DEMONSTRATED
+L1 = DEMONSTRATED
+L2 = PARTIAL
+L3 = PARTIAL
+L4 = DEMONSTRATED
+L5 = NOT_DEMONSTRATED
+L6 = NOT_DEMONSTRATED
+L7 = NOT_DEMONSTRATED
+L8 = NOT_DEMONSTRATED
+L9 = PARTIAL
+L10 = NOT_DEMONSTRATED
+
+Preserve:
+
+STRATEGIES GENERATED = 0
+CANDIDATES GENERATED = 0
+MUTATIONS = 0
+K1 PROMOTIONS = 0
+GENERALIZATION = NOT_DEMONSTRATED
+
+Do not rewrite D6.1 history after later success.
+
+============================================================
+2. NEW PERMANENT INVARIANT
+============================================================
+
+Preserve:
+
+ARCHITECTURAL KNOWLEDGE
+≠
+SYSTEM CAPABILITY KNOWLEDGE.
+
+D6.1 produced evidence about ARKI's capabilities and limits.
+
+That does NOT automatically constitute new architectural knowledge.
+
+Also preserve:
+
+KNOWLEDGE ABOUT ARKI
+≠
+KNOWLEDGE ABOUT ARCHITECTURE.
+
+============================================================
+3. OBJECTIVE
+============================================================
+
+Attempt the following gated progression:
+
+D6.2
+GENERAL STRATEGY SYNTHESIS
+
+→ GATE 6.2
+
+D6.3
+GENERAL CANDIDATE SYNTHESIS
+
+→ GATE 6.3
+
+D6.4
+CLOSED-LOOP SYNTHESIS / REEVALUATION / COMPARISON
+
+→ GATE 6.4
+
+D6.5
+TRANSFER + LEARNING + PERSISTENCE PROOF
+
+→ GATE 6.5
+
+D7.0
+CANONICAL GENERAL REASONING CHECKPOINT
+
+D7.0 is a CONSOLIDATION GATE.
+
+It is not automatically reached because code was written.
+
+============================================================
+4. GLOBAL ANTI-HARDCODING RULE
+============================================================
+
+Do not make the benchmark pass by programming its answers.
+
+PROHIBITED:
+
+restaurant-specific repair engine;
+hospital-specific repair engine;
+laboratory-specific repair engine;
+public-realm-specific repair engine;
+mixed-use-specific repair engine;
+
+or equivalent hidden dispatch logic.
+
+No:
+
+if restaurant → strategy X
+if hospital → strategy Y
+if laboratory → reject strategy Z
+
+unless that knowledge already exists as legitimate, provenance-bearing
+domain knowledge and is used through the canonical knowledge architecture.
+
+Domain knowledge may CONDITION reasoning.
+
+Domain name may NOT secretly determine the answer.
+
+============================================================
+5. ARCHITECTURAL RULE
+============================================================
+
+Do not create a second reasoning engine.
+
+First reuse:
+
+CanonicalBuildingModel
+existing GDI/A21/S1/S2 mechanisms
+existing alternative/lineage mechanisms
+existing critique/evaluation
+existing dependency reasoning
+existing V6CauseModel
+existing V6DesignMove
+existing V6TransferAssessment
+existing V6LearningLedger
+existing V6EvaluationReport
+existing Knowledge Store
+existing acquisition ledger
+existing provenance
+existing regulatory architecture
+existing human authority.
+
+Any new implementation must be:
+
+REUSE
+EXTEND
+ADAPT
+
+before considering a new subsystem.
+
+============================================================
+6. SHARED REASONING GRAMMAR
+============================================================
+
+Target:
+
+PROBLEM / ISSUE
+→ DEFICIT
+→ CAUSE HYPOTHESES
+→ REQUIRED CAPABILITY
+→ REQUIRED EFFECT
+→ RESOLUTION TARGET
+→ CONDITIONS
+→ MUTABILITY
+→ AUTHORITY
+→ APPLICABLE STRATEGY SPACE
+→ DESIGN MOVES
+→ APPLICABLE OPERATORS
+→ OPERATOR COMPOSITIONS
+→ CANDIDATES
+→ MUTATIONS
+→ DEPENDENCY-SCOPED REEVALUATION
+→ NEW DEFICITS
+→ HARD GATES
+→ FEASIBLE SET
+→ PERFORMANCE / TRADE-OFF COMPARISON
+→ HUMAN DECISION
+→ OBSERVATION
+→ LEARNING CANDIDATE
+→ TRANSFER TEST
+→ KNOWLEDGE DELTA.
+
+This is not required to be a rigid linear pipeline.
+
+Feedback loops are allowed.
+
+============================================================
+7. D6.2 — GENERAL STRATEGY SYNTHESIS
+============================================================
+
+GOAL:
+
+Demonstrate L5 without domain-specific answer programming.
+
+The key new reasoning relationship is:
+
+CAUSE
++
+REQUIRED EFFECT
++
+CONDITIONS
++
+CAPABILITY
++
+MUTABILITY
++
+AUTHORITY
++
+KNOWN STRATEGY/OPERATOR EFFECTS
+
+→ APPLICABLE STRATEGY SPACE.
+
+Do not primarily search by building typology name.
+
+Prefer reasoning by:
+
+REQUIRED EFFECT.
+
+Example conceptual relationship:
+
+CAUSE:
+incompatible simultaneous interaction
+
+REQUIRED EFFECT:
+reduce incompatible interaction
+
+Potential applicable reasoning mechanisms may include:
+
+spatial separation;
+topological rerouting;
+temporal separation;
+access/control change;
+resource/allocation change;
+
+ONLY if their known effects and preconditions support applicability.
+
+Do not hardcode this example as the benchmark solution.
+
+============================================================
+8. STRATEGY KNOWLEDGE
+============================================================
+
+A strategy family should expose enough semantics to reason about:
+
+ID
+FAMILY
+INTENT
+POTENTIAL_EFFECTS
+PRECONDITIONS
+FORBIDDEN_CONDITIONS
+TARGET_TYPES
+REQUIRED_AUTHORITY
+DEPENDENCIES
+POSSIBLE_SIDE_EFFECTS
+UNKNOWN_EFFECTS
+PROVENANCE.
+
+Reuse existing structures where possible.
+
+Do not create one strategy engine per family.
+
+============================================================
+9. STRATEGY APPLICABILITY
+============================================================
+
+Preserve:
+
+POTENTIAL STRATEGY
+≠
+APPLICABLE STRATEGY
+≠
+VALID STRATEGY
+≠
+SELECTED STRATEGY.
+
+Applicability must consider:
+
+cause;
+required effect;
+conditions;
+state;
+scenario;
+time;
+mutability;
+authority;
+hard constraints;
+known dependencies;
+unknowns.
+
+============================================================
+10. D6.2 CONTROLLED TEST
+============================================================
+
+Create/use a problem fixture containing:
+
+PROBLEM DATA
+CONDITIONS
+PROJECT STATE
+
+but:
+
+STRATEGIES PROVIDED AS INPUT = 0.
+
+The system must attempt to generate strategy candidates.
+
+Report:
+
+STRATEGIES PROVIDED =
+STRATEGIES RETRIEVED =
+STRATEGIES GENERATED =
+STRATEGIES REJECTED =
+REASON FOR EACH =
+PROVENANCE =
+
+============================================================
+11. GATE D6.2
+============================================================
+
+D6.2 PASS requires:
+
+1. at least one test with zero supplied strategies;
+2. ARKI produces more than one genuinely distinct strategy family
+   where the problem permits it;
+3. strategy provenance is traceable;
+4. each strategy explains required effect;
+5. preconditions are checked;
+6. authority is checked;
+7. mutability is checked;
+8. no domain-specific repair rule was added;
+9. rejected strategies retain reasons;
+10. UNKNOWN remains explicit.
+
+If strategies are supplied by fixtures:
+
+L5 = NOT_DEMONSTRATED.
+
+If domain name determines strategy:
+
+L5 = NOT_DEMONSTRATED.
+
+If D6.2 fails:
+
+STOP FORWARD IMPLEMENTATION.
+
+Do not proceed to D6.3 merely to satisfy this macroorder.
+
+Produce failure report and propagate it.
+
+============================================================
+12. D6.3 — GENERAL CANDIDATE SYNTHESIS
+============================================================
+
+Only execute if D6.2 passes.
+
+GOAL:
+
+Demonstrate L6 and attempt general L7.
+
+Required chain:
+
+STRATEGY
+→ DESIGN MOVE
+→ OPERATOR SELECTION
+→ OPERATOR COMPOSITION
+→ CANDIDATE.
+
+The system must transform strategy into one or more realizable Design Moves.
+
+============================================================
+13. OPERATOR SELECTION
+============================================================
+
+Operators must be selected by:
+
+expected effect;
+target compatibility;
+preconditions;
+authority;
+mutability;
+constraints;
+
+not by typology-specific lookup.
+
+Preserve:
+
+OPERATOR
+≠
+DESIGN MOVE.
+
+DESIGN MOVE
+≠
+MUTATION.
+
+MUTATION
+≠
+CANDIDATE VALIDITY.
+
+============================================================
+14. OPERATOR COMPOSITION
+============================================================
+
+Allow multiple operators when necessary.
+
+Preserve:
+
+VALID OPERATORS INDIVIDUALLY
+≠
+VALID OPERATOR COMBINATION.
+
+OPERATOR COMPOSITION MAY BE ORDER-DEPENDENT.
+
+Represent:
+
+S0
+→ O1
+→ S1
+→ O2
+→ S2.
+
+Each transition retains lineage/provenance.
+
+============================================================
+15. CANDIDATE REQUIREMENTS
+============================================================
+
+Every candidate must preserve:
+
+parent;
+lineage;
+design intent;
+cause;
+required capability;
+strategy;
+Design Move;
+operators;
+mutations;
+expected effects;
+verification scope;
+provenance;
+epistemic status.
+
+Original baseline remains immutable.
+
+============================================================
+16. STRATEGIC VS PARAMETRIC DIVERSITY
+============================================================
+
+Report separately:
+
+STRATEGIC DIVERSITY
+TOPOLOGICAL DIVERSITY
+COMPOSITIONAL DIVERSITY
+GEOMETRIC DIVERSITY
+PARAMETRIC DIVERSITY.
+
+Do not count coordinate variants as strategic alternatives.
+
+============================================================
+17. GATE D6.3
+============================================================
+
+D6.3 PASS requires:
+
+1. strategies generated by D6.2;
+2. at least two genuinely distinct candidate approaches where feasible;
+3. Design Moves generated from strategy;
+4. operators selected through general applicability;
+5. canonical model reused;
+6. parent remains immutable;
+7. lineage preserved;
+8. no domain-specific candidate generator;
+9. candidate provenance complete;
+10. at least one actual controlled mutation.
+
+If strategy exists but candidate requires manually supplied geometry:
+
+L6 = NOT_DEMONSTRATED.
+
+If candidate exists but mutation is case-hardcoded:
+
+GENERAL L7 = NOT_DEMONSTRATED.
+
+On failure:
+
+STOP FORWARD IMPLEMENTATION.
+
+============================================================
+18. D6.4 — CLOSED-LOOP SYNTHESIS
+============================================================
+
+Only execute if D6.3 passes.
+
+GOAL:
+
+Demonstrate:
+
+L7
+L8
+and strengthen L9.
+
+Required loop:
+
+CANDIDATE
+→ MUTATE
+→ REEVALUATE
+→ PROPAGATE
+→ DETECT NEW DEFICITS
+→ FILTER
+→ COMPARE.
+
+============================================================
+19. DEPENDENCY-SCOPED REEVALUATION
+============================================================
+
+After mutation determine:
+
+DIRECTLY_AFFECTED
+DEPENDENCY_AFFECTED
+POSSIBLY_AFFECTED
+UNKNOWN_IMPACT.
+
+Reevaluate relevant:
+
+capabilities;
+journeys;
+flows;
+interfaces;
+capacity;
+state;
+time;
+scenario;
+accessibility;
+life safety;
+regulatory applicability;
+operational conditions;
+
+where supported by current architecture.
+
+Do not claim evaluation where capability does not exist.
+
+============================================================
+20. EFFECT VERIFICATION
+============================================================
+
+For every Design Move compare:
+
+EXPECTED EFFECT
+vs
+ACTUAL EFFECT.
+
+Also report:
+
+UNEXPECTED EFFECTS.
+
+Preserve:
+
+PREDICTED IMPACT
+≠
+VERIFIED IMPACT.
+
+Unexpected effect may become a learning candidate.
+
+It does not automatically become knowledge.
+
+============================================================
+21. NEW DEFICIT DETECTION
+============================================================
+
+A candidate that resolves original deficit but introduces another material
+deficit is not an unconditional success.
+
+Required:
+
+ORIGINAL DEFICIT STATUS
+NEW DEFICITS
+PROPAGATED DEFICITS
+UNRESOLVED DEFICITS.
+
+============================================================
+22. FEASIBILITY BEFORE OPTIMIZATION
+============================================================
+
+Required order:
+
+HARD CONSTRAINT GATES
+→ FEASIBLE SET
+→ PERFORMANCE EVALUATION
+→ NON-DOMINATED SET
+→ TRADE-OFF EXPLANATION
+→ HUMAN DECISION.
+
+No automatic architectural winner.
+
+No mandatory failure may be compensated by weighted scoring.
+
+============================================================
+23. COMPARISON
+============================================================
+
+L9 requires meaningful comparison.
+
+Comparison must explain:
+
+where A performs better;
+where B performs better;
+trade-offs;
+unknowns;
+coverage;
+hard failures;
+human judgment dimensions.
+
+No single universal architecture score.
+
+============================================================
+24. GATE D6.4
+============================================================
+
+D6.4 PASS requires:
+
+1. controlled mutation;
+2. dependency-scoped reevaluation;
+3. actual effects measured where supported;
+4. unexpected effects preserved;
+5. new-deficit detection;
+6. hard constraints before scoring;
+7. at least two feasible alternatives compared where available;
+8. no automatic winner;
+9. human authority preserved;
+10. L8 evidence present.
+
+If mutation occurs without reevaluation:
+
+L8 = NOT_DEMONSTRATED.
+
+If comparison is merely numeric ranking:
+
+L9 remains PARTIAL.
+
+On failure:
+
+STOP FORWARD IMPLEMENTATION.
+
+============================================================
+25. D6.5 — TRANSFER + LEARNING PROOF
+============================================================
+
+Only execute if D6.4 passes.
+
+Now rerun the controlled cross-domain battery.
+
+Use:
+
+A. source problem;
+B. materially changed same-typology variant;
+C. hospital positive-transfer case;
+D. laboratory/biosafety restraint case;
+E. public-realm authority case;
+F. mixed-use concurrency/capacity case;
+G. adversarial high-similarity/critical-difference case.
+
+Do NOT provide strategies/candidates as input.
+
+============================================================
+26. POSITIVE TRANSFER
+============================================================
+
+ARKI must independently identify reusable reasoning.
+
+Report:
+
+SOURCE KNOWLEDGE
+TRANSFER UNIT
+TARGET PROBLEM
+STRUCTURAL MATCH
+CRITICAL DIFFERENCES
+ADAPTATION BURDEN
+TRANSFER DECISION
+ADAPTATION
+RESULT.
+
+Possible:
+
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER.
+
+============================================================
+27. TRANSFER RESTRAINT
+============================================================
+
+At least one superficially similar case must be rejected or materially adapted
+because of a critical semantic difference.
+
+Preferred domains include:
+
+HAZARD
+CONTAINMENT
+CONTROL
+AUTHORITY
+REGULATION
+STATE
+TIME.
+
+Preserve:
+
+SIMILARITY
+≠
+TRANSFERABILITY.
+
+============================================================
+28. PUBLIC-REALM AUTHORITY TEST
+============================================================
+
+ARKI may reason beyond property/project boundaries.
+
+But:
+
+ANALYTICAL BOUNDARY
+≠
+AUTHORITY BOUNDARY.
+
+It must not mutate external geometry without authority.
+
+============================================================
+29. MIXED-USE TEST
+============================================================
+
+Use a shared-capacity/concurrency deficit.
+
+Verify that ARKI does not reduce every deficit to:
+
+ADD SPACE.
+
+Potential reasoning may involve:
+
+spatial;
+allocative;
+temporal;
+control;
+resource;
+operational;
+
+depending on evidence.
+
+============================================================
+30. LEARNING K0 → K1
+============================================================
+
+For every claimed learning event record:
+
+K0
+SUPPLIED INPUT
+RETRIEVED KNOWLEDGE
+EXECUTED KNOWLEDGE
+ADAPTED KNOWLEDGE
+OBSERVATION
+LEARNING CANDIDATE
+COUNTEREVIDENCE
+K1.
+
+Freeze:
+
+WHAT ARKI LEARNED
+≠
+WHAT ARKI ALREADY KNEW
+≠
+WHAT ARKI REUSED
+≠
+WHAT ARKI EXECUTED
+≠
+WHAT WAS SUPPLIED.
+
+============================================================
+31. LEARNING DELTA
+============================================================
+
+Classify any valid delta:
+
+ADD
+REFINE
+GENERALIZE
+SPECIALIZE
+REVISE
+RETIRE.
+
+Also:
+
+L1 PARAMETER
+L2 RELATIONSHIP
+L3 STRUCTURAL
+L4 REASONING PATTERN.
+
+Do not force ADD.
+
+Learning may narrow prior knowledge.
+
+============================================================
+32. PERSISTENCE TEST
+============================================================
+
+A learning candidate must survive beyond the generating execution before
+persistent learning can be claimed.
+
+Test:
+
+RUN 1
+→ produce candidate knowledge
+→ persist through authorized existing mechanism.
+
+RUN 2 / independent evaluation
+→ retrieve/use knowledge.
+
+If unavailable:
+
+PERSISTENCE = NOT_DEMONSTRATED.
+
+============================================================
+33. GENERALIZATION TEST
+============================================================
+
+GENERALIZATION = DEMONSTRATED requires:
+
+positive transfer;
+adaptation;
+invalid-transfer restraint;
+counterexample;
+persistence;
+cross-context use;
+no domain-specific answer engine;
+provenance;
+scope;
+no knowledge/reasoning regression.
+
+Otherwise use:
+
+NONE
+POSSIBLE
+PARTIAL.
+
+============================================================
+34. FIXATION TEST
+============================================================
+
+Verify that precedent retrieval does not collapse candidate diversity.
+
+Report:
+
+REASONING REUSED
+FORM REUSED
+TOPOLOGY REUSED
+ALTERNATIVES CONSIDERED
+WHY SIMILAR
+WHY DIFFERENT.
+
+Preserve:
+
+LEARN THE REASON FOR THE CONFIGURATION,
+NOT THE CONFIGURATION ITSELF.
+
+============================================================
+35. GATE D6.5
+============================================================
+
+D6.5 PASS requires evidence for:
+
+POSITIVE_TRANSFER
+TRANSFER_RESTRAINT
+ADAPTATION
+PERSISTENCE
+COUNTEREXAMPLE
+SCOPE_REFINEMENT
+NO_FIXATION_FAILURE
+NO_DOMAIN_ENGINE
+NO_KNOWLEDGE_REGRESSION
+NO_REASONING_REGRESSION.
+
+Only then may L10 be considered DEMONSTRATED.
+
+If evidence is incomplete:
+
+L10 = PARTIAL or NOT_DEMONSTRATED.
+
+Do not proceed to canonical D7 promotion as if generalization passed.
+
+============================================================
+36. D7.0 — CANONICAL GENERAL REASONING CHECKPOINT
+============================================================
+
+D7.0 is not another feature implementation.
+
+It is a CONSOLIDATION + EPISTEMIC PROMOTION checkpoint.
+
+Execute only after evaluating gates D6.2–D6.5.
+
+D7.0 must answer:
+
+WHAT IS NOW STABLE?
+WHAT IS DEMONSTRATED?
+WHAT REMAINS PARTIAL?
+WHAT FAILED?
+WHAT IS RESEARCH ONLY?
+WHAT IS TEACHABLE?
+WHAT IS IMPLEMENTED?
+WHAT IS GENERALIZED?
+WHAT REQUIRES HUMAN AUTHORITY?
+
+============================================================
+37. D7 CANONICALIZATION RULE
+============================================================
+
+Do not canonize everything created during D6.x.
+
+Classify every relevant artifact/knowledge unit as:
+
+CANONICAL
+GENERALIZED_CANDIDATE
+TRANSFER_TESTED
+SUPPORTED
+CANDIDATE
+CONTEXT_SPECIFIC
+CONFLICTED
+SUPERSEDED
+REJECTED
+UNKNOWN.
+
+Human-confirmation requirements remain in force.
+
+============================================================
+38. D7 ONTOLOGY
+============================================================
+
+Do not add primitive 18 merely because D6.x introduced new derived concepts.
+
+Reevaluate the 17-candidate primitive ontology.
+
+Specifically reassess HAZARD.
+
+Possible result:
+
+HAZARD remains candidate.
+
+Do not canonize it unless evidence and architecture justify it.
+
+============================================================
+39. D7 REASONING ARCHITECTURE
+============================================================
+
+If supported by evidence, consolidate the general architecture:
+
+KNOW
+↔
+REASON
+↔
+GENERATE
+↔
+VERIFY
+↔
+LEARN
+
+under:
+
+PROJECT INTENT
++
+HUMAN AUTHORITY.
+
+These remain conceptual responsibilities.
+
+Do not automatically create five software engines.
+
+============================================================
+40. AUTOMATIC TRIPLE PROPAGATION
+============================================================
+
+At EACH successful/failed internal delta:
+
+D6.2
+D6.3
+D6.4
+D6.5
+D7.0
+
+use the existing automation to update:
+
+1. ARKI;
+2. Living Curriculum;
+3. Digital Book / Libro Vivo.
+
+Do not build a second propagation pipeline.
+
+============================================================
+41. PROPAGATION MUST INCLUDE NEGATIVE RESULTS
+============================================================
+
+A failed gate must also propagate.
+
+Example:
+
+D6.2:
+L5 = NOT_DEMONSTRATED
+
+must appear consistently in:
+
+ARKI capability state;
+Curriculum;
+Digital Book.
+
+Do not teach a failed capability as mastered.
+
+============================================================
+42. RUNTIME ↔ CURRICULUM ↔ BOOK CONSISTENCY
+============================================================
+
+At every gate run:
+
+RUNTIME
+↔
+CURRICULUM
+↔
+DIGITAL BOOK
+
+consistency audit.
+
+No epistemic inflation.
+
+Examples:
+
+RESEARCHED ≠ IMPLEMENTED
+IMPLEMENTED ≠ TESTED
+TESTED ≠ GENERALIZED
+GENERALIZED ≠ HUMAN-APPROVED.
+
+============================================================
+43. CURRICULUM
+============================================================
+
+Curriculum must evolve based on demonstrated capability and identified gaps.
+
+For each D6.x delta record:
+
+LEARNING OBJECTIVE
+PREREQUISITE
+KNOWLEDGE
+REASONING CAPABILITY
+EXERCISE / TEST
+EXPECTED EVIDENCE
+CURRENT MATURITY
+KNOWN LIMIT
+NEXT LEARNING TARGET.
+
+The curriculum teaches ARKI's architectural reasoning architecture,
+not benchmark answers.
+
+============================================================
+44. DIGITAL BOOK
+============================================================
+
+The Digital Book must preserve:
+
+research;
+experiments;
+negative results;
+successful strategies;
+failed strategies;
+counterexamples;
+knowledge evolution;
+scope refinements;
+unknowns;
+human decisions;
+provenance.
+
+Do not rewrite history after success.
+
+D6.1 remains a valid negative experimental result even if D6.5 later succeeds.
+
+============================================================
+45. PERMANENT EVALUATION PROTOCOL
+============================================================
+
+Use the existing A–AV protocol.
+
+Do not create another reporting protocol.
+
+Every major test must still distinguish:
+
+Baseline
+Input
+Initial Unknowns
+Reasoning Activated
+Knowledge Reused
+Reasoning Provenance
+Deficits
+Cause
+Strategies
+Candidates
+Rejected Candidates
+Mutations
+Relationships
+Topology
+Scenarios
+Dependencies
+New Deficits
+Expected/Actual Effects
+Coverage
+Evidence
+UNKNOWN
+Resolution Path
+Regulatory Status
+Human Decisions
+K0
+Supplied
+Retrieved
+Adapted
+Learning Candidate
+Learning Class
+Persistence
+Transfer
+Counterexample
+Scope Refinement
+Fixation
+K1
+Learning Delta
+Generalization
+Knowledge Regression
+Reasoning Regression
+Software Regression
+Runtime Maturity
+Autonomy
+Final Epistemic State.
+
+============================================================
+46. REGRESSION
+============================================================
+
+At each gate run appropriate focused tests.
+
+Before final D7.0 run:
+
+FULL SOFTWARE REGRESSION
+KNOWLEDGE REGRESSION
+REASONING REGRESSION
+GEOMETRY REGRESSION
+EPISTEMIC REGRESSION
+REGULATORY REGRESSION
+TRIPLE-PROPAGATION CONSISTENCY.
+
+============================================================
+47. AUTONOMY REPORT
+============================================================
+
+Final D7 report:
+
+L0 RECEIVES =
+L1 REPRESENTS =
+L2 DETECTS =
+L3 DIAGNOSES =
+L4 EVALUATES =
+L5 GENERATES STRATEGIES =
+L6 GENERATES CANDIDATES =
+L7 MUTATES / SYNTHESIZES =
+L8 REEVALUATES =
+L9 COMPARES =
+L10 GENERALIZES =
+
+Each:
+
+DEMONSTRATED
+PARTIAL
+NOT_DEMONSTRATED
+BLOCKED
+
+with evidence.
+
+No inference by association.
+
+============================================================
+48. D7 ACCEPTANCE
+============================================================
+
+D7.0 may be called:
+
+GENERAL_REASONING_CHECKPOINT = DEMONSTRATED
+
+only if evidence supports at least:
+
+L5 DEMONSTRATED
+L6 DEMONSTRATED
+L7 DEMONSTRATED
+L8 DEMONSTRATED
+L9 meaningfully demonstrated
+and cross-domain reasoning evidence exists.
+
+L10 may remain PARTIAL without invalidating D7 as a checkpoint,
+but must be stated explicitly.
+
+If L5 or L6 fail:
+
+D7 GENERAL REASONING MUST NOT BE CLAIMED.
+
+Use instead:
+
+D7_CHECKPOINT = BLOCKED_AT_D6.X
+
+and report why.
+
+============================================================
+49. FINAL DELIVERABLES
+============================================================
+
+Produce:
+
+1. consolidated technical report D6.2→D7.0;
+2. per-gate results;
+3. capability gap log;
+4. strategy provenance matrix;
+5. candidate lineage matrix;
+6. learning K0→K1 matrix;
+7. transfer matrix;
+8. regression matrix;
+9. autonomy matrix;
+10. runtime/curriculum/book consistency matrix;
+11. D7 canonical knowledge delta;
+12. remaining UNKNOWN/research debt;
+13. final repository state.
+
+Update existing canonical documentation rather than duplicating it.
+
+============================================================
+50. GIT STRATEGY
+============================================================
+
+Avoid unnecessary commit fragmentation.
+
+Recommended:
+
+checkpoint commits only at meaningful validated gates.
+
+Possible:
+
+D6.2 validated
+D6.3/D6.4 coherent synthesis milestone
+D6.5/D7 final consolidation
+
+But adapt to repository safety.
+
+After all completed validated work:
+
+commit
+push current branch
+verify remote.
+
+If a gate blocks later stages:
+
+commit/push the truthful validated result and blocker documentation,
+provided repository validations pass.
+
+No PR.
+No merge.
+No deploy.
+
+============================================================
+51. FINAL SOFTWARE REPORT
+============================================================
+
+Return:
+
+REPOSITORY =
+BRANCH =
+INITIAL_SHA =
+D6.2_SHA =
+D6.3_SHA =
+D6.4_SHA =
+D6.5_SHA =
+D7_SHA =
+FINAL_SHA =
+
+FILES_ADDED =
+FILES_MODIFIED =
+FILES_DELETED =
+
+FOCUSED_TESTS =
+FULL_REGRESSION =
+TYPECHECK =
+BUILD =
+GIT_DIFF_CHECK =
+
+KNOWLEDGE_REGRESSION =
+REASONING_REGRESSION =
+GEOMETRY_REGRESSION =
+EPISTEMIC_REGRESSION =
+REGULATORY_REGRESSION =
+TRIPLE_PROPAGATION_CONSISTENCY =
+
+LOCAL_REMOTE_MATCH =
+WORKTREE =
+PUSH =
+PR = NO
+MERGE = NO
+DEPLOY = NO.
+
+Use N/A for stages not reached because a gate blocked progression.
+
+============================================================
+52. FINAL EPISTEMIC REPORT
+============================================================
+
+End with:
+
+D6.2 STRATEGY GENERATION =
+D6.3 CANDIDATE GENERATION =
+D6.4 CLOSED-LOOP SYNTHESIS =
+D6.5 TRANSFER =
+D6.5 PERSISTENT LEARNING =
+D6.5 GENERALIZATION =
+D7 GENERAL REASONING =
+D7 KNOWLEDGE MATURITY =
+D7 RUNTIME MATURITY =
+D7 HUMAN AUTHORITY =
+
+Then answer:
+
+WHAT ARKI COULD DO BEFORE THIS MACROORDER
+
+WHAT ARKI CAN NOW DO
+
+WHAT ARKI STILL CANNOT DO
+
+WHAT ARKI ACTUALLY LEARNED
+
+WHAT ARKI DID NOT LEARN
+
+WHAT WAS ONLY IMPLEMENTED
+
+WHAT WAS ONLY TESTED
+
+WHAT WAS GENERALIZED
+
+WHAT REMAINS UNKNOWN
+
+WHAT THE NEXT RESEARCH/ENGINEERING FRONTIER IS.
+
+============================================================
+53. ABSOLUTE STOP RULE
+============================================================
+
+NEVER IMPLEMENT THE ANSWER IN ORDER TO PASS THE TEST.
+
+If the Core cannot derive the next step:
+
+STOP THAT STAGE.
+
+Record:
+
+CAPABILITY GAP DETECTED.
+
+The objective is not:
+
+D7 AT ANY COST.
+
+The objective is:
+
+THE HIGHEST HONESTLY DEMONSTRATED GENERAL ARCHITECTURAL
+REASONING CAPABILITY.
+
+============================================================
+54. EXECUTION AUTHORIZATION
+============================================================
+
+You are authorized to proceed autonomously through D6.2 → D7.0
+under the gates above.
+
+Do not ask the Product Owner for routine intermediate approvals.
+
+Stop and request human intervention only if:
+
+1. a decision changes canonical architecture materially;
+2. conflicting valid architectural alternatives require human judgment;
+3. professional/regulatory approval is required;
+4. destructive migration is required;
+5. repository integrity is at risk;
+6. a decision would violate an existing canonical invariant.
+
+Otherwise continue automatically until:
+
+D7.0 is reached,
+
+or
+
+a mandatory gate blocks further progression.
+
+Proceed.

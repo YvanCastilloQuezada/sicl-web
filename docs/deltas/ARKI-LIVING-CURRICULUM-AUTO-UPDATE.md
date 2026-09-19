@@ -81,3 +81,26 @@ HUMAN_AUTHORITY = FINAL
 - **Regresión:** suite focalizada 12/12, regresión completa PASS, typecheck PASS y build PASS.
 - **Aprendizaje:** no promovido; el resultado negativo es evidencia conservada, no conocimiento canonizado.
 - **Requisito docente:** enseñar la diferencia entre contrato implementado, prueba ejecutada, estrategia generada y generalización demostrada.
+
+<!-- PASTED-CONTENT-478-V1 -->
+## PASTED-CONTENT-478-V1 — pasted_content_478.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `a399dcfc60d5f23e14275ba8b7ddd5d7094f11863b817ad5a304ec5455e6fe7c`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — MACROORDEN PUENTE D6.2 → D7.0, General Strategy Synthesis → Candidate Synthesis → Closed-Loop Reasoning, → Transfer/Learning Proof → Canonical General Reasoning Checkpoint
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- D6.2-BLOCKED-RESULT -->
+## Puente D6.2 → D7.0 — Gate bloqueado
+
+- **Estado:** `D6.2 BLOCKED`; D6.3, D6.4, D6.5 y D7.0 no se ejecutan por gobernanza.
+- **Informe:** `docs/ARKI-D6.2-D7.0-BRIDGE-REPORT-2026-09-19.md`
+- **L5:** `NOT_DEMONSTRATED`; estrategias suministradas `0`, recuperadas `0`, generadas `0`.
+- **Brecha:** falta un registro general de efectos/precondiciones y un procedimiento de aplicabilidad/síntesis con provenance.
+- **No implementado:** ningún motor específico de restaurante, hospital, laboratorio, espacio público o uso mixto.
+- **Aprendizaje:** no promovido; se conserva un resultado negativo sobre la capacidad del sistema.
+- **Próximo objetivo curricular:** distinguir vocabulario contractual de estrategia generada y diseñar la mínima extensión general antes de D6.3.
