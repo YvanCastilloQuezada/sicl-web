@@ -10,7 +10,10 @@ export type FunctionalVoidFinding = {
   reason: string;
 };
 
-const contains = (outer: Rect, x: number, y: number) => x >= outer.minX && x < outer.maxX && y >= outer.minY && y < outer.maxY;
+const contains = (outer: Rect, x: number, y: number) => {
+  const epsilon = 1e-9;
+  return x >= outer.minX - epsilon && x < outer.maxX + epsilon && y >= outer.minY - epsilon && y < outer.maxY + epsilon;
+};
 
 export function auditFunctionalVoids(envelope: Rect, rooms: ResidentialRoom[], levelId: string, cellSizeM = 0.5): FunctionalVoidFinding[] {
   const findings: FunctionalVoidFinding[] = [];
@@ -42,4 +45,3 @@ export function summarizeFunctionalVoids(envelope: Rect, rooms: ResidentialRoom[
     humanReviewRequired: true as const,
   };
 }
-

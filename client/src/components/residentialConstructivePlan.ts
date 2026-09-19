@@ -2,9 +2,9 @@ import { A26_MATERIALS, selectSustainableMaterial, type A26MaterialSelection } f
 
 export type Rect = { minX: number; minY: number; maxX: number; maxY: number };
 export type ResidentialRoom = { id: string; name: string; levelId: string; programId: string; zone: "PUBLIC" | "PRIVATE" | "SERVICE" | "CIRCULATION"; footprint: Rect; targetAreaM2: number; areaM2: number; status: "EXPLICIT_GEOMETRY" };
-export type ResidentialWall = { id: string; levelId: string; from: [number, number]; to: [number, number]; thicknessM: number; role: "EXTERNAL" | "PARTITION" };
-export type ResidentialOpening = { id: string; levelId: string; fromRoomId: string; toRoomId: string; kind: "DOOR" | "WINDOW"; widthM: number; status: "PROPOSED" | "VERIFIED_CLEARANCE"; clearDistanceToOpposingObstructionM?: number };
-export type ResidentialCore = { id: string; levelIds: string[]; footprint: Rect; kind: "STAIR" | "SERVICE_DUCT"; continuity: "CONTINUOUS" | "PROPOSED" };
+export type ResidentialWall = { id: string; levelId: string; from: [number, number]; to: [number, number]; thicknessM: number; role: "EXTERNAL" | "PARTITION"; roomIds?: string[] };
+export type ResidentialOpening = { id: string; levelId: string; fromRoomId: string; toRoomId: string; kind: "DOOR" | "WINDOW"; widthM: number; heightM?: number; sillHeightM?: number; operableHeightM?: number; status: "PROPOSED" | "VERIFIED_CLEARANCE"; clearDistanceToOpposingObstructionM?: number };
+export type ResidentialCore = { id: string; levelIds: string[]; footprint: Rect; kind: "STAIR" | "SERVICE_DUCT"; continuity: "CONTINUOUS" | "PROPOSED"; openToLevels?: string[]; openToLastLevel?: boolean };
 export type ResidentialRoute = { id: string; levelIds: string[]; roomIds: string[]; widthM: number; accessible: "PROPOSED" | "VERIFIED_GEOMETRY" | "NOT_ASSESSED"; egress: "PROPOSED" | "NOT_ASSESSED" };
 export type ResidentialPlan = { projectId: string; alternativeId: string; site: Rect; rooms: ResidentialRoom[]; walls: ResidentialWall[]; openings: ResidentialOpening[]; cores: ResidentialCore[]; routes: ResidentialRoute[]; adjacency: Array<{ from: string; to: string; kind: "REQUIRED" | "PREFERRED"; evidence: "GEOMETRIC_OPENING" | "DECLARED_PROGRAM" }>; materialSelection: A26MaterialSelection; carbonSummary: { grossAreaM2: number; selectedMaterial: string; carbonLowKgCo2e: number; carbonHighKgCo2e: number; carbonMidKgCo2e: number; state: "ILLUSTRATIVE_PROXY"; carbonIsNotLca: true }; validation: { state: "SUPPORTED" | "PARTIAL" | "CONFLICTING"; checks: string[]; conflicts: string[]; humanReviewRequired: true; constructionDocumentation: "NOT_GENERATED" } };
 
@@ -13,7 +13,35 @@ const contains = (outer: Rect, inner: Rect) => inner.minX >= outer.minX && inner
 const overlaps = (a: Rect, b: Rect) => a.minX < b.maxX && a.maxX > b.minX && a.minY < b.maxY && a.maxY > b.minY;
 const sameLevel = (a: ResidentialRoom, b: ResidentialRoom) => a.levelId === b.levelId;
 
-function wall(id: string, levelId: string, from: [number, number], to: [number, number], role: ResidentialWall["role"]): ResidentialWall { return { id, levelId, from, to, thicknessM: 0.15, role }; }
+function wall(id: string, levelId: string, from: [number, number], to: [number, number], role: ResidentialWall["role"], roomIds?: string[]): ResidentialWall { return { id, levelId, from, to, thicknessM: 0.15, role, ...(roomIds ? { roomIds } : {}) }; }
+
+/** A shared boundary is one physical wall, not one wall per adjacent room. */
+export function residentialWallKey(wallItem: Pick<ResidentialWall, "levelId" | "from" | "to" | "thicknessM" | "role">): string {
+  const endpoints = [`${wallItem.from[0]},${wallItem.from[1]}`, `${wallItem.to[0]},${wallItem.to[1]}`].sort();
+  return [wallItem.levelId, wallItem.role, wallItem.thicknessM.toFixed(3), ...endpoints].join("|");
+}
+
+export function deduplicateResidentialWalls(walls: ResidentialWall[]): ResidentialWall[] {
+  const canonical = new Map<string, ResidentialWall>();
+  for (const wallItem of walls) {
+    const key = residentialWallKey(wallItem);
+    const existing = canonical.get(key);
+    if (!existing) canonical.set(key, { ...wallItem, roomIds: wallItem.roomIds ? Array.from(new Set(wallItem.roomIds)) : undefined });
+    else if (wallItem.roomIds) existing.roomIds = Array.from(new Set([...(existing.roomIds ?? []), ...wallItem.roomIds]));
+  }
+  return Array.from(canonical.values());
+}
+
+export function findDuplicateResidentialWalls(walls: ResidentialWall[]): string[] {
+  const seen = new Set<string>();
+  const duplicates = new Set<string>();
+  for (const wallItem of walls) {
+    const key = residentialWallKey(wallItem);
+    if (seen.has(key)) duplicates.add(key);
+    seen.add(key);
+  }
+  return Array.from(duplicates);
+}
 
 export function generateVerifiedResidentialPlan(): ResidentialPlan {
   const site = { minX: 0, minY: 0, maxX: 10, maxY: 8 };
@@ -26,11 +54,11 @@ export function generateVerifiedResidentialPlan(): ResidentialPlan {
     { id: "BATH", name: "Bathroom", levelId: "N2", programId: "BATHROOM", zone: "SERVICE", footprint: { minX: 0.5, minY: 3.5, maxX: 3.5, maxY: 5.8 }, targetAreaM2: 6.9, areaM2: 6.9, status: "EXPLICIT_GEOMETRY" },
     { id: "HALL-N2", name: "Upper circulation", levelId: "N2", programId: "CIRCULATION", zone: "CIRCULATION", footprint: { minX: 3.5, minY: 3.5, maxX: 9.5, maxY: 4.3 }, targetAreaM2: 4.8, areaM2: 4.8, status: "EXPLICIT_GEOMETRY" },
   ];
-  const walls = [
+  const walls = deduplicateResidentialWalls([
     wall("EXT-N1-W", "N1", [0, 0], [10, 0], "EXTERNAL"), wall("EXT-N1-E", "N1", [10, 0], [10, 8], "EXTERNAL"), wall("EXT-N1-N", "N1", [10, 8], [0, 8], "EXTERNAL"), wall("EXT-N1-S", "N1", [0, 8], [0, 0], "EXTERNAL"),
     wall("EXT-N2-W", "N2", [0, 0], [10, 0], "EXTERNAL"), wall("EXT-N2-E", "N2", [10, 0], [10, 8], "EXTERNAL"), wall("EXT-N2-N", "N2", [10, 8], [0, 8], "EXTERNAL"), wall("EXT-N2-S", "N2", [0, 8], [0, 0], "EXTERNAL"),
-    wall("PART-N1-01", "N1", [5.5, 0.5], [5.5, 4], "PARTITION"), wall("PART-N2-01", "N2", [5, 0.5], [5, 3.5], "PARTITION"), wall("PART-N2-02", "N2", [0.5, 3.5], [9.5, 3.5], "PARTITION"),
-  ];
+    wall("PART-N1-01", "N1", [5.5, 0.5], [5.5, 3], "PARTITION", ["LIVING", "KITCHEN"]), wall("PART-N2-01", "N2", [5, 0.5], [5, 3.5], "PARTITION", ["BED-01", "BED-02"]), wall("PART-N2-02", "N2", [0.5, 3.5], [9.5, 3.5], "PARTITION", ["BED-01", "BATH", "HALL-N2"]),
+  ]);
   const openings: ResidentialOpening[] = [
     { id: "DOOR-ENTRY", levelId: "N1", fromRoomId: "LIVING", toRoomId: "HALL-N1", kind: "DOOR", widthM: 0.9, status: "VERIFIED_CLEARANCE" },
     { id: "DOOR-LIVING-KITCHEN", levelId: "N1", fromRoomId: "LIVING", toRoomId: "KITCHEN", kind: "DOOR", widthM: 0.9, status: "VERIFIED_CLEARANCE" },

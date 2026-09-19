@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyRoomOperation, generateVerifiedResidentialPlan } from "./residentialConstructivePlan";
+import { applyRoomOperation, deduplicateResidentialWalls, findDuplicateResidentialWalls, generateVerifiedResidentialPlan } from "./residentialConstructivePlan";
 
 describe("residential constructive spatial model", () => {
   it("generates explicit rooms, walls, openings, cores and routes", () => {
@@ -26,5 +26,19 @@ describe("residential constructive spatial model", () => {
     const outside = applyRoomOperation(plan, "OFFSET_ROOM", "BED-01", { dx: -5 });
     expect(outside.ok).toBe(false);
     expect(outside.errors).toContain("ROOM_OUTSIDE_SITE");
+  });
+
+  it("represents one physical wall for two adjacent rooms", () => {
+    const plan = generateVerifiedResidentialPlan();
+    const shared = plan.walls.find((wall) => wall.id === "PART-N1-01");
+    expect(shared?.roomIds).toEqual(["LIVING", "KITCHEN"]);
+    expect(findDuplicateResidentialWalls(plan.walls)).toEqual([]);
+    const duplicateInput = [
+      { ...shared!, id: "DUPLICATE-A" },
+      { ...shared!, id: "DUPLICATE-B", roomIds: ["KITCHEN", "LIVING"] },
+    ];
+    const canonical = deduplicateResidentialWalls(duplicateInput);
+    expect(canonical).toHaveLength(1);
+    expect(canonical[0].roomIds).toEqual(["LIVING", "KITCHEN"]);
   });
 });
