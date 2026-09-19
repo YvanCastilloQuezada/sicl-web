@@ -15,12 +15,15 @@ describe("single facade house proposal", () => {
     expect(ids).toContain("TERRACE");
   });
 
-  it("preserves the three neighbors and labels circulation as derived", () => {
+  it("preserves the three neighbors and exposes unresolved access honestly", () => {
     const proposal = buildSingleFacadeHouseProposal();
     expect(proposal.freeFacade).toBe("SOUTH");
     expect(proposal.neighbors).toEqual(["NORTH", "EAST", "WEST"]);
-    expect(proposal.derivedCirculation).toContain("STAIR-CORE-N1");
-    expect(proposal.openingsAssumption).toBe("SOUTH_FACADE_AND_INTERIOR_COURTYARD_ONLY");
+    expect(proposal.derivedCirculation).toEqual([]);
+    expect(proposal.unknowns).toContain("NO_STAIR_AUTHORIZED");
+    expect(proposal.unknowns).toContain("HOUSE_ENTRY_NOT_DEFINED");
+    expect(proposal.unknowns).toContain("SECOND_FLOOR_ACCESS_NOT_DEFINED");
+    expect(proposal.openingsAssumption).toContain("NOT_RESOLVED");
     expect(proposal.status).toBe("HYPOTHESIS");
   });
 });
