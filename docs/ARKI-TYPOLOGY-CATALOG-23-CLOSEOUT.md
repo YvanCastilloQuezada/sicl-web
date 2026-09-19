@@ -2,7 +2,7 @@
 
 ## Estado
 
-ARKI dispone ahora de **23 perfiles tipológicos canónicos**: Residential, Hospitality, Care, Education, Office, Healthcare, Laboratory, Industry, Logistics, Transport, Retail, Market, Restaurant, Library, Museum, Sports, Religious, Civic, Justice, Emergency, Mixed-use, Campus y Urban/Public realm.
+ARKI dispone ahora de **23 perfiles tipológicos canónicos operativos**: Residential, Hospitality, Care, Education, Office, Healthcare, Laboratory, Industry, Logistics, Transport, Retail, Market, Restaurant, Library, Museum, Sports, Religious, Civic, Justice, Emergency, Mixed-use, Campus y Urban/Public realm. Esto demuestra cobertura de software y contratos funcionales; no demuestra un corpus profesional exhaustivo.
 
 Cada perfil contiene programa funcional, actores, flujos, gradiente de zonificación, relaciones de adyacencia/separación/interfaz, preguntas de validación y trazabilidad a Neufert/Plazola como **SOURCE_DERIVED_HYPOTHESIS**. La revisión humana continúa siendo obligatoria.
 
@@ -10,7 +10,7 @@ Cada perfil contiene programa funcional, actores, flujos, gradiente de zonificac
 
 Se ejecutan dos evaluaciones independientes sobre los 23 programas. Cada una verifica identidad tipológica, presencia de sistemas funcionales, preservación del estado HYPOTHESIS y gate humano. El ajuste de contexto permanece **UNKNOWN** hasta disponer de sitio, jurisdicción, capacidad, clima y evidencia de proyecto.
 
-La evaluación no crea ganador, recomendación ni decisión. Tampoco transforma referencias bibliográficas en normativa automática.
+La evaluación no crea ganador, recomendación ni decisión. Tampoco transforma referencias bibliográficas en normativa automática. Neufert y Plazola permanecen como conocimiento profesional derivado parcial, contextual y sujeto a corroboración; no son reglas universales.
 
 ## Topologías educativas
 

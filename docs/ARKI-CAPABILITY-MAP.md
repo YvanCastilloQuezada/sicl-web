@@ -1,8 +1,9 @@
 # ARKI — Capability Map V1
 
 **Estado:** CURRENT / CANONICAL / GENERATED FROM ACTUAL IMPLEMENTATION  
-**Fecha de corte:** 2026-09-18  
-**Regla:** `IMPLEMENTED` no significa `PROFESSIONALLY CERTIFIED`; los estados externos y los datos faltantes permanecen explícitos.
+**Fecha de corte:** 2026-09-19
+**Autoridad de estado:** `ARKI-Research-Implementation-Handoff-Manus-v1.0(2).xlsx` y su reconciliación canónica.
+**Regla:** `IMPLEMENTED` no significa `PROFESSIONALLY CERTIFIED`; los estados externos, la cobertura parcial y los datos faltantes permanecen explícitos.
 
 ## 1. Identidad y repositorios
 
@@ -11,7 +12,7 @@ La raíz canónica es **ARKI — Architectural Design Intelligence**. ARKI reuti
 | Repositorio | Rama | HEAD | Estado |
 |---|---|---|---|
 | Core | `feat/weather-environmental-context-p1` | `646dae525dd1db4b9f357aced21cc1302fc791a0` | sin cambios de esta macroorden |
-| Web | `feat/spatial-pilot-media-studio-v1` | se actualiza en el commit local de esta macroorden | cambios locales controlados; sin push, PR, merge ni deploy |
+| Web | `feat/spatial-pilot-media-studio-v1` | se actualiza en el commit de reconciliación | push autorizado por instrucción posterior; sin PR, merge ni deploy |
 
 ## 2. Organigrama funcional
 
@@ -72,7 +73,7 @@ All four modes point to the same GDI, A21, S1/S2 and CanonicalBuildingModel cont
 
 ## 4. Capability inventory
 
-The registry currently contains **15 bounded capability groups**. Counting is by canonical `CapabilityRecord.id`, not by file count, test count or historical phase count. The Web implementation contains **one new contract module**, **one focused test file**, and an extension to the existing panel and registry. Core remains unchanged.
+The registry currently contains **15 bounded capability groups**. Counting is by canonical `CapabilityRecord.id`, not by file count, test count or historical phase count. Typology coverage is **23/23 present**, but the source-derived knowledge corpus, multiscale evidence, regulatory corpus and professional validation remain partial or unknown. Core remains unchanged.
 
 | Branch | Capability groups | Main capabilities | Status distribution |
 |---|---:|---|---|
