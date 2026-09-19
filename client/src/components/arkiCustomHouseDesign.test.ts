@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { diagnoseCustomHouseDesign, generateCustomHouseDesign } from "./arkiCustomHouseDesign";
+import { diagnoseCustomHouseDesign, generateCustomHouseDesign, generateResolvedCustomHouseDesign } from "./arkiCustomHouseDesign";
 
 describe("custom two-level house design", () => {
   it("realizes the requested residential program on a 300m2 site", () => {
@@ -36,5 +36,13 @@ describe("custom two-level house design", () => {
     expect(diagnostics.some((item) => item.principle === "A22-MULTILEVEL-CONTINUITY")).toBe(true);
     expect(diagnostics.some((item) => item.principle === "A20-CIRCULATION-EVIDENCE")).toBe(true);
     expect(diagnostics.every((item) => item.correction.length > 0 && item.observation.length > 0)).toBe(true);
+  });
+
+  it("resolves the demonstrated N2 adjacency and vertical circulation gaps", () => {
+    const repaired = generateResolvedCustomHouseDesign();
+    expect(diagnoseCustomHouseDesign(repaired)).toEqual([]);
+    expect(repaired.alternativeId).toBe("HOUSE-CUSTOM-B-ADJACENCY-REPAIRED");
+    expect(repaired.routes[0].roomIds).toContain("STAIR-CORE-CONTINUOUS");
+    expect(repaired.rooms.find((room) => room.id === "HALL-N2")?.footprint).toEqual({ minX: 4, minY: 0, maxX: 6.5, maxY: 10 });
   });
 });

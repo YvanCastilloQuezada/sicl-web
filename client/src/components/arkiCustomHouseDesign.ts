@@ -133,6 +133,27 @@ export function diagnoseCustomHouseDesign(plan: ResidentialPlan = generateCustom
   const hallN2 = byId.get("HALL-N2");
   if (stairN1 && hallN1 && !geometricAdjacency(stairN1.footprint, hallN1.footprint)) diagnostics.push({ id: "VERTICAL-CORE-N1", severity: "ERROR", principle: "A22-MULTILEVEL-CONTINUITY", elementIds: ["HALL-N1", "STAIR-LOBBY-N1"], observation: "The N1 circulation and stair landing are not geometrically connected despite the declared door.", correction: "Create a continuous landing and circulation edge before claiming vertical continuity." });
   if (stairN2 && hallN2 && !geometricAdjacency(stairN2.footprint, hallN2.footprint)) diagnostics.push({ id: "VERTICAL-CORE-N2", severity: "ERROR", principle: "A22-MULTILEVEL-CONTINUITY", elementIds: ["STAIR-LOBBY-N2", "HALL-N2"], observation: "The N2 stair landing and upper circulation are separated by an unmodeled gap.", correction: "Extend or relocate the upper hall so the stair landing connects to the bedroom circulation." });
-  if (plan.routes[0]?.roomIds.some((id, index, ids) => index > 0 && !geometricAdjacency(byId.get(ids[index - 1])?.footprint ?? { minX: 0, minY: 0, maxX: 0, maxY: 0 }, byId.get(id)?.footprint ?? { minX: 0, minY: 0, maxX: 0, maxY: 0 }))) diagnostics.push({ id: "ROUTE-CONTINUITY-01", severity: "ERROR", principle: "A20-CIRCULATION-EVIDENCE", elementIds: plan.routes[0]?.roomIds ?? [], observation: "The proposed route contains declared room sequence edges that are not continuous geometry.", correction: "Resolve each missing edge, then validate accessible route and egress separately." });
+  if (plan.routes[0]?.roomIds.some((id, index, ids) => {
+    if (index === 0) return false;
+    const previous = byId.get(ids[index - 1]);
+    const current = byId.get(id);
+    if (!previous || !current || previous.levelId !== current.levelId) return false;
+    return !geometricAdjacency(previous.footprint, current.footprint);
+  })) diagnostics.push({ id: "ROUTE-CONTINUITY-01", severity: "ERROR", principle: "A20-CIRCULATION-EVIDENCE", elementIds: plan.routes[0]?.roomIds ?? [], observation: "The proposed route contains declared room sequence edges that are not continuous geometry.", correction: "Resolve each missing edge, then validate accessible route and egress separately." });
   return diagnostics;
+}
+
+export function generateResolvedCustomHouseDesign(): ResidentialPlan {
+  const base = generateCustomHouseDesign();
+  const rooms = base.rooms
+    .filter((item) => item.id !== "STAIR-LOBBY-N2")
+    .map((item) => item.id === "HALL-N2" ? { ...item, footprint: { minX: 4, minY: 0, maxX: 6.5, maxY: 10 }, areaM2: 25, targetAreaM2: 25 } :
+      item.id === "BEDROOM-3-N2" ? { ...item, footprint: { minX: 6.5, minY: 5, maxX: 10, maxY: 8 }, areaM2: 10.5, targetAreaM2: 10.5 } :
+      item.id === "BATH-SHARED-N2" ? { ...item, footprint: { minX: 6.5, minY: 8, maxX: 8, maxY: 10 }, areaM2: 3, targetAreaM2: 3 } : item);
+  const openings = base.openings.map((opening) => opening.id === "DOOR-N2-STAIR"
+    ? { ...opening, fromRoomId: "STAIR-CORE-CONTINUOUS", toRoomId: "HALL-N2" }
+    : opening);
+  const routes = [{ ...base.routes[0], roomIds: ["HALL-N1", "STAIR-LOBBY-N1", "STAIR-CORE-CONTINUOUS", "HALL-N2", "MASTER-N2"] }];
+  const adjacency = base.adjacency.filter((edge) => edge.from !== "HALL-N2" || edge.to !== "STAIR-LOBBY-N2");
+  return { ...base, alternativeId: "HOUSE-CUSTOM-B-ADJACENCY-REPAIRED", rooms, openings, routes, adjacency, validation: { ...base.validation, checks: [...base.validation.checks, "corrected N2 circulation adjacency"] } };
 }
