@@ -1124,5 +1124,24 @@
     "asi_g1_geometry_count": "Bounded architectural spaces",
     "asi_g1_actual_area": "Actual area",
     "asi_g1_no_geometry": "No explicit architectural-space geometry observed. Semantic-only state is preserved."
+  },
+  "learning": {
+    "title": "Школа ARKI · Урок L00–L08",
+    "subtitle": "Видимый пилот архитектурного обучения, трассируемости и проверки человеком.",
+    "pilot": "Пилот HOUSE-A21",
+    "cycle": "Педагогический цикл",
+    "evidence": "Каноническое свидетельство",
+    "practice": "Практики",
+    "topology": "Топологические гипотезы",
+    "human_gate": "Контроль человека",
+    "human_gate_text": "Оценка не повышает зрелость знаний и не выбирает решение автоматически. Архитектор должен подтвердить, исправить или отклонить результат.",
+    "maturity": "Текущая зрелость",
+    "unknowns": "Сохранённые неизвестные",
+    "not_mature": "ИМПОРТИРОВАННЫЕ УЧЕБНЫЕ ЗНАНИЯ · НЕ ЗРЕЛЫЕ",
+    "application": "Применение",
+    "non_application": "Неприменение",
+    "transfer": "Перенос",
+    "review_pending": "ТРЕБУЕТСЯ ПРОВЕРКА ЧЕЛОВЕКОМ",
+    "back": "Вернуться к проекту"
   }
 }

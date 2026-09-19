@@ -1124,5 +1124,24 @@
     "asi_g1_geometry_count": "Bounded architectural spaces",
     "asi_g1_actual_area": "Actual area",
     "asi_g1_no_geometry": "No explicit architectural-space geometry observed. Semantic-only state is preserved."
+  },
+  "learning": {
+    "title": "ARKI 学院 · L00–L08 课程",
+    "subtitle": "展示建筑教学、可追溯性与人工复核的受控试点。",
+    "pilot": "HOUSE-A21 试点",
+    "cycle": "教学循环",
+    "evidence": "规范证据",
+    "practice": "实践",
+    "topology": "拓扑假设",
+    "human_gate": "人工关口",
+    "human_gate_text": "评估不会自动提升知识成熟度，也不会自动选择方案。建筑师必须确认、纠正或拒绝结果。",
+    "maturity": "当前成熟度",
+    "unknowns": "保留的未知项",
+    "not_mature": "已导入课程知识 · 尚未成熟",
+    "application": "应用",
+    "non_application": "不适用",
+    "transfer": "迁移",
+    "review_pending": "需要人工复核",
+    "back": "返回项目"
   }
 }

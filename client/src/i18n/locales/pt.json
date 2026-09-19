@@ -1124,5 +1124,24 @@
     "asi_g1_geometry_count": "Bounded architectural spaces",
     "asi_g1_actual_area": "Actual area",
     "asi_g1_no_geometry": "No explicit architectural-space geometry observed. Semantic-only state is preserved."
+  },
+  "learning": {
+    "title": "Escola ARKI · Lição L00–L08",
+    "subtitle": "Piloto visível de ensino arquitetônico, rastreabilidade e revisão humana.",
+    "pilot": "Piloto HOUSE-A21",
+    "cycle": "Ciclo pedagógico",
+    "evidence": "Evidência canônica",
+    "practice": "Práticas",
+    "topology": "Hipóteses topológicas",
+    "human_gate": "Porta humana",
+    "human_gate_text": "A avaliação não promove conhecimento nem seleciona uma solução automaticamente. O arquiteto deve confirmar, corrigir ou rejeitar.",
+    "maturity": "Maturidade atual",
+    "unknowns": "Desconhecidos preservados",
+    "not_mature": "CONHECIMENTO CURRICULAR IMPORTADO · NÃO MADURO",
+    "application": "Aplicação",
+    "non_application": "Não aplicação",
+    "transfer": "Transferência",
+    "review_pending": "REVISÃO HUMANA NECESSÁRIA",
+    "back": "Voltar ao projeto"
   }
 }

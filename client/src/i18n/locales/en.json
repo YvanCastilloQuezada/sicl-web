@@ -1124,5 +1124,24 @@
     "asi_g1_geometry_count": "Bounded architectural spaces",
     "asi_g1_actual_area": "Actual area",
     "asi_g1_no_geometry": "No explicit architectural-space geometry observed. Semantic-only state is preserved."
+  },
+  "learning": {
+    "title": "ARKI School · L00–L08 Lesson",
+    "subtitle": "Visible pilot for architectural teaching, traceability and human review.",
+    "pilot": "HOUSE-A21 pilot",
+    "cycle": "Pedagogical cycle",
+    "evidence": "Canonical evidence",
+    "practice": "Practices",
+    "topology": "Topology hypotheses",
+    "human_gate": "Human gate",
+    "human_gate_text": "The assessment does not promote knowledge or select a solution automatically. The architect must confirm, correct or reject it.",
+    "maturity": "Current maturity",
+    "unknowns": "Preserved unknowns",
+    "not_mature": "IMPORTED CURRICULAR KNOWLEDGE · NOT MATURE",
+    "application": "Application",
+    "non_application": "Non-application",
+    "transfer": "Transfer",
+    "review_pending": "HUMAN REVIEW REQUIRED",
+    "back": "Back to project"
   }
 }
