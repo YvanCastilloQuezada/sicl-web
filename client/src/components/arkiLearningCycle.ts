@@ -1,6 +1,10 @@
 import {
+  ARKI_L00_L08_PRACTICES,
   ARKI_CANONICAL_KNOWLEDGE_UNITS,
+  buildL08ControlledFixture,
   type CanonicalKnowledgeUnit,
+  validateCanonicalPracticeRegistry,
+  validateL08Fixture,
 } from "./arkiCanonicalKnowledgeOperationalization";
 
 export type LearningPhase =
@@ -26,11 +30,13 @@ export type LearningContext = {
 
 export type LearningPractice = {
   practiceId: string;
+  canonicalPracticeId: string;
   type: "APPLICATION" | "NON_APPLICATION" | "INTEGRATED" | "TRANSFER";
   prompt: string;
   expectedTrace: string[];
   context: LearningContext;
   sourceRefs: string[];
+  fixtureRefs: string[];
   humanReviewRequired: true;
 };
 
@@ -84,6 +90,7 @@ export type ArkiLearningCycle = {
   principle: { phase: "PRINCIPLE"; sourceRefs: string[]; epistemicState: "IMPORTED_CURRICULAR_KNOWLEDGE" };
   explanation: LearningAttempt | null;
   practices: LearningPractice[];
+  topologyEvidence: { fixtureId: string; hypothesisIds: string[]; validated: boolean } | null;
   attempts: LearningAttempt[];
   assessment: LearningAssessment | null;
   correction: LearningCorrection | null;
@@ -100,7 +107,7 @@ const byIds = (ids: string[]) => ids.map((id) => ARKI_CANONICAL_KNOWLEDGE_UNITS.
 
 const unique = (values: string[]) => Array.from(new Set(values));
 
-export function createLearningCycle(input: { cycleId: string; knowledgeUnitIds: string[]; practices: LearningPractice[] }): ArkiLearningCycle {
+export function createLearningCycle(input: { cycleId: string; knowledgeUnitIds: string[]; practices: LearningPractice[]; topologyEvidence?: ArkiLearningCycle["topologyEvidence"] }): ArkiLearningCycle {
   const knowledgeUnits = byIds(input.knowledgeUnitIds);
   if (knowledgeUnits.length !== input.knowledgeUnitIds.length) {
     throw new Error("Learning cycle references an unknown canonical knowledge unit");
@@ -113,6 +120,7 @@ export function createLearningCycle(input: { cycleId: string; knowledgeUnitIds: 
     principle: { phase: "PRINCIPLE", sourceRefs: unique(knowledgeUnits.flatMap((unit) => unit.sourceRefs)), epistemicState: "IMPORTED_CURRICULAR_KNOWLEDGE" },
     explanation: null,
     practices: input.practices,
+    topologyEvidence: input.topologyEvidence ?? null,
     attempts: [],
     assessment: null,
     correction: null,
@@ -172,19 +180,23 @@ export function reviewLearningCycle(cycle: ArkiLearningCycle, action: "CONFIRM" 
 }
 
 export function buildL00L08HouseLearningPilot(): ArkiLearningCycle {
+  const fixture = buildL08ControlledFixture();
+  if (!validateCanonicalPracticeRegistry() || !validateL08Fixture(fixture)) throw new Error("Canonical L00-L08 practice registry or topology fixture is invalid");
   const residential: LearningContext = { projectId: "HOUSE-A21", spatialScope: "edificacion", typology: "residential", designStage: "schematic design", description: "House program with social, private, service and courtyard hypotheses" };
   const smallNonResidential: LearningContext = { projectId: "PAVILION-TRANSFER-01", spatialScope: "edificacion", typology: "small non-residential", designStage: "concept", description: "Small pavilion using the same principles under different users and flows" };
   const practices: LearningPractice[] = [
-    { practiceId: "L00-L02-L05-L08:APPLICATION", type: "APPLICATION", prompt: "Build activities, multidimensional relationships and three topology hypotheses for HOUSE-A21.", expectedTrace: ["activity", "relationship", "topology"], context: residential, sourceRefs: ["L08-controlled-fixture", "HOUSE-A21"], humanReviewRequired: true },
-    { practiceId: "L00-L02-L05-L08:NON_APPLICATION", type: "NON_APPLICATION", prompt: "Explain why a room label, a line or adjacency alone cannot prove activity, circulation or access.", expectedTrace: ["non-application", "unknown"], context: residential, sourceRefs: ["ARKI negative controls"], humanReviewRequired: true },
-    { practiceId: "L00-L02-L05-L08:TRANSFER", type: "TRANSFER", prompt: "Rebuild the reasoning for a small pavilion without copying the house solution.", expectedTrace: ["changed users", "changed flows", "changed topology"], context: smallNonResidential, sourceRefs: ["ARKI transfer protocol"], humanReviewRequired: true },
+    { practiceId: "L00-L02-L05-L08:APPLICATION", canonicalPracticeId: "P-L02-01", type: "APPLICATION", prompt: "Build activities, multidimensional relationships and three topology hypotheses for HOUSE-A21.", expectedTrace: ["activity", "relationship", "topology"], context: residential, sourceRefs: ["L08-controlled-fixture", "HOUSE-A21"], fixtureRefs: fixture.hypotheses.map((hypothesis) => hypothesis.id), humanReviewRequired: true },
+    { practiceId: "L00-L02-L05-L08:NON_APPLICATION", canonicalPracticeId: "P-L05-01", type: "NON_APPLICATION", prompt: "Explain why a room label, a line or adjacency alone cannot prove activity, circulation or access.", expectedTrace: ["non-application", "unknown"], context: residential, sourceRefs: ["ARKI negative controls"], fixtureRefs: ["REL-ARRIVAL-SOCIAL", "REL-SOCIAL-OUTDOOR"], humanReviewRequired: true },
+    { practiceId: "L00-L02-L05-L08:TRANSFER", canonicalPracticeId: "P-L08-03", type: "TRANSFER", prompt: "Rebuild the reasoning for a small pavilion without copying the house solution.", expectedTrace: ["changed users", "changed flows", "changed topology"], context: smallNonResidential, sourceRefs: ["ARKI transfer protocol"], fixtureRefs: fixture.hypotheses.map((hypothesis) => hypothesis.id), humanReviewRequired: true },
   ];
-  return createLearningCycle({ cycleId: "ARKI-PILOT-L00-L02-L05-L08-HOUSE", knowledgeUnitIds: ["KU-L00-001", "KU-L02-001", "KU-L05-001", "KU-L08-001"], practices });
+  return createLearningCycle({ cycleId: "ARKI-PILOT-L00-L02-L05-L08-HOUSE", knowledgeUnitIds: ["KU-L00-001", "KU-L02-001", "KU-L05-001", "KU-L08-001"], practices, topologyEvidence: { fixtureId: "L08-controlled-fixture", hypothesisIds: fixture.hypotheses.map((hypothesis) => hypothesis.id), validated: true } });
 }
 
 export function validateLearningCycle(cycle: ArkiLearningCycle): boolean {
   return cycle.knowledgeUnits.length === cycle.knowledgeUnitIds.length
     && cycle.knowledgeUnits.every((unit) => unit.importedKnowledge && unit.practiceRequired && unit.transferRequired && unit.humanReviewRequired)
+    && cycle.practices.every((practice) => ARKI_L00_L08_PRACTICES.some((registered) => registered.id === practice.canonicalPracticeId) && practice.fixtureRefs.length > 0)
+    && (!cycle.topologyEvidence || (cycle.topologyEvidence.validated && cycle.topologyEvidence.hypothesisIds.length >= 3))
     && cycle.practices.every((practice) => practice.humanReviewRequired)
     && cycle.humanAuthority === "PRESERVED"
     && cycle.noAutomaticPromotion && cycle.noAutomaticDecision && cycle.noAutomaticWinner;

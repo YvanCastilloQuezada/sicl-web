@@ -17,6 +17,8 @@ describe("ARKI canonical learning cycle pilot", () => {
     expect(validateLearningCycle(pilot)).toBe(true);
     expect(pilot.knowledgeUnitIds).toEqual(["KU-L00-001", "KU-L02-001", "KU-L05-001", "KU-L08-001"]);
     expect(pilot.practices.map((practice) => practice.type)).toEqual(["APPLICATION", "NON_APPLICATION", "TRANSFER"]);
+    expect(pilot.practices.map((practice) => practice.canonicalPracticeId)).toEqual(["P-L02-01", "P-L05-01", "P-L08-03"]);
+    expect(pilot.topologyEvidence).toMatchObject({ fixtureId: "L08-controlled-fixture", validated: true, hypothesisIds: ["L08-TOPOLOGY-A", "L08-TOPOLOGY-B", "L08-TOPOLOGY-C"] });
     expect(pilot.maturity).toBe("IMPORTED_CURRICULAR_KNOWLEDGE");
     expect(pilot.currentPhase).toBe("PRINCIPLE");
   });
