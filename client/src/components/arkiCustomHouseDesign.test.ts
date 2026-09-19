@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { generateCustomHouseDesign } from "./arkiCustomHouseDesign";
+import { diagnoseCustomHouseDesign, generateCustomHouseDesign } from "./arkiCustomHouseDesign";
 
 describe("custom two-level house design", () => {
   it("realizes the requested residential program on a 300m2 site", () => {
@@ -27,5 +27,14 @@ describe("custom two-level house design", () => {
     expect(plan.openings.filter((opening) => opening.kind === "DOOR").length).toBeGreaterThanOrEqual(12);
     expect(plan.validation.humanReviewRequired).toBe(true);
     expect(plan.validation.constructionDocumentation).toBe("NOT_GENERATED");
+  });
+
+  it("reports architectural gaps instead of falsely claiming circulation success", () => {
+    const diagnostics = diagnoseCustomHouseDesign();
+    expect(diagnostics.length).toBeGreaterThan(0);
+    expect(diagnostics.some((item) => item.principle === "A21-GEOMETRIC-ADJACENCY")).toBe(true);
+    expect(diagnostics.some((item) => item.principle === "A22-MULTILEVEL-CONTINUITY")).toBe(true);
+    expect(diagnostics.some((item) => item.principle === "A20-CIRCULATION-EVIDENCE")).toBe(true);
+    expect(diagnostics.every((item) => item.correction.length > 0 && item.observation.length > 0)).toBe(true);
   });
 });

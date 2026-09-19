@@ -101,3 +101,38 @@ export function generateCustomHouseDesign(): ResidentialPlan {
     validation: { state: conflicts.length ? "CONFLICTING" : "PARTIAL", checks: ["33-program rooms represented", "300m2 site boundary", "200m2 gross covered target", "same-level non-overlap", "door endpoint graph", "continuous stair core", "continuous service duct", "two-level route"], conflicts, humanReviewRequired: true, constructionDocumentation: "NOT_GENERATED" },
   };
 }
+
+export type CustomHouseDiagnostic = {
+  id: string;
+  severity: "ERROR" | "WARNING";
+  principle: string;
+  elementIds: string[];
+  observation: string;
+  correction: string;
+};
+
+function geometricAdjacency(a: Rect, b: Rect): boolean {
+  const horizontalTouch = (a.maxX === b.minX || b.maxX === a.minX) && Math.min(a.maxY, b.maxY) > Math.max(a.minY, b.minY);
+  const verticalTouch = (a.maxY === b.minY || b.maxY === a.minY) && Math.min(a.maxX, b.maxX) > Math.max(a.minX, b.minX);
+  return horizontalTouch || verticalTouch;
+}
+
+export function diagnoseCustomHouseDesign(plan: ResidentialPlan = generateCustomHouseDesign()): CustomHouseDiagnostic[] {
+  const byId = new Map(plan.rooms.map((item) => [item.id, item]));
+  const diagnostics: CustomHouseDiagnostic[] = [];
+  for (const edge of plan.adjacency) {
+    const from = byId.get(edge.from);
+    const to = byId.get(edge.to);
+    if (from && to && from.levelId === to.levelId && !geometricAdjacency(from.footprint, to.footprint)) {
+      diagnostics.push({ id: `ADJACENCY-${edge.from}-${edge.to}`, severity: "ERROR", principle: "A21-GEOMETRIC-ADJACENCY", elementIds: [edge.from, edge.to], observation: `The declared ${edge.from} → ${edge.to} relationship has an opening record but the room boundaries do not touch.`, correction: "Move or reshape the circulation/room boundaries until a real shared boundary and door connection exist; then re-evaluate." });
+    }
+  }
+  const stairN1 = byId.get("STAIR-LOBBY-N1");
+  const stairN2 = byId.get("STAIR-LOBBY-N2");
+  const hallN1 = byId.get("HALL-N1");
+  const hallN2 = byId.get("HALL-N2");
+  if (stairN1 && hallN1 && !geometricAdjacency(stairN1.footprint, hallN1.footprint)) diagnostics.push({ id: "VERTICAL-CORE-N1", severity: "ERROR", principle: "A22-MULTILEVEL-CONTINUITY", elementIds: ["HALL-N1", "STAIR-LOBBY-N1"], observation: "The N1 circulation and stair landing are not geometrically connected despite the declared door.", correction: "Create a continuous landing and circulation edge before claiming vertical continuity." });
+  if (stairN2 && hallN2 && !geometricAdjacency(stairN2.footprint, hallN2.footprint)) diagnostics.push({ id: "VERTICAL-CORE-N2", severity: "ERROR", principle: "A22-MULTILEVEL-CONTINUITY", elementIds: ["STAIR-LOBBY-N2", "HALL-N2"], observation: "The N2 stair landing and upper circulation are separated by an unmodeled gap.", correction: "Extend or relocate the upper hall so the stair landing connects to the bedroom circulation." });
+  if (plan.routes[0]?.roomIds.some((id, index, ids) => index > 0 && !geometricAdjacency(byId.get(ids[index - 1])?.footprint ?? { minX: 0, minY: 0, maxX: 0, maxY: 0 }, byId.get(id)?.footprint ?? { minX: 0, minY: 0, maxX: 0, maxY: 0 }))) diagnostics.push({ id: "ROUTE-CONTINUITY-01", severity: "ERROR", principle: "A20-CIRCULATION-EVIDENCE", elementIds: plan.routes[0]?.roomIds ?? [], observation: "The proposed route contains declared room sequence edges that are not continuous geometry.", correction: "Resolve each missing edge, then validate accessible route and egress separately." });
+  return diagnostics;
+}
