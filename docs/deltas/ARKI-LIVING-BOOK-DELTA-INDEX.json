@@ -22,6 +22,42 @@
       "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
       "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
       "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
+    },
+    {
+      "delta_id": "PASTED-CONTENT-477-V6_1",
+      "source_name": "pasted_content_477.txt",
+      "sha256": "7d4f6c75327f8bcddd0513a7e1c990648799859897a323506d2ccee77042180b",
+      "received_at": "2026-09-19",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "EXECUTED / PARTIAL / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "OBSERVED_NEGATIVE_RESULT / NOT_LEARNED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record.",
+      "execution": {
+        "execution_state": "EXECUTED / PARTIAL / PASS_WITH_OBSERVATIONS",
+        "strategy_generation": "NOT_DEMONSTRATED",
+        "candidate_generation": "NOT_DEMONSTRATED",
+        "synthesis": "NOT_DEMONSTRATED",
+        "reevaluation": "NOT_DEMONSTRATED",
+        "comparison": "PARTIAL",
+        "positive_transfer": "PARTIAL",
+        "transfer_restraint": "DEMONSTRATED",
+        "persistence": "NOT_DEMONSTRATED",
+        "generalization": "NOT_DEMONSTRATED",
+        "triple_propagation": "DEMONSTRATED",
+        "runtime_curriculum_book_consistency": "DEMONSTRATED",
+        "human_authority": "DEMONSTRATED",
+        "focused_tests": "12/12 PASS",
+        "full_regression": "PASS",
+        "typecheck": "PASS",
+        "build": "PASS",
+        "capability_gap": "Generic unseeded strategy synthesis and canonical candidate generation are not available without a domain-specific patch.",
+        "report": "docs/ARKI-V6.1-CONTROLLED-SYNTHESIS-TRANSFER-LEARNING-PROOF-2026-09-19.md",
+        "human_review": "REQUIRED"
+      }
     }
   ]
 }

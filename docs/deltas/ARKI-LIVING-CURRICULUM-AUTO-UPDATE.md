@@ -52,3 +52,32 @@ HUMAN_AUTHORITY = FINAL
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-477-V6_1 -->
+## PASTED-CONTENT-477-V6_1 — pasted_content_477.txt
+
+- **Fecha de recepción:** 2026-09-19
+- **Hash SHA-256:** `7d4f6c75327f8bcddd0513a7e1c990648799859897a323506d2ccee77042180b`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** sin elementos legibles en la vista previa
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- V6.1-EXECUTION-RESULT -->
+## v6.1 — Resultado experimental A–F
+
+- **Estado:** `EXECUTED / PARTIAL / PASS_WITH_OBSERVATIONS`
+- **Evidencia:** `docs/ARKI-V6.1-CONTROLLED-SYNTHESIS-TRANSFER-LEARNING-PROOF-2026-09-19.md`
+- **L5 generación de estrategias:** `NOT_DEMONSTRATED`.
+- **L6 generación de candidatos:** `NOT_DEMONSTRATED`.
+- **L7 síntesis/mutación general:** `NOT_DEMONSTRATED`.
+- **L8 reevaluación:** `NOT_DEMONSTRATED` porque no hubo candidatos generados.
+- **L9 comparación:** `PARTIAL`; se compararon condiciones de transferencia, no candidatos generados.
+- **L10 generalización:** `NOT_DEMONSTRATED`.
+- **Transferencia positiva:** `PARTIAL`; hospital requiere adaptación y no copia geométrica.
+- **Restraint:** `DEMONSTRATED`; se rechazó transferir una realización de restaurante a biosafety/laboratorio.
+- **Regresión:** suite focalizada 12/12, regresión completa PASS, typecheck PASS y build PASS.
+- **Aprendizaje:** no promovido; el resultado negativo es evidencia conservada, no conocimiento canonizado.
+- **Requisito docente:** enseñar la diferencia entre contrato implementado, prueba ejecutada, estrategia generada y generalización demostrada.

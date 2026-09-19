@@ -1,0 +1,1096 @@
+MACROORDEN ARKI v6.1
+CONTROLLED SYNTHESIS, TRANSFER & LEARNING PROOF
+
+MODO:
+EJECUCIÓN CONTROLADA SOBRE LA ARQUITECTURA v6.0 EXISTENTE.
+
+NO realizar investigación arquitectónica nueva salvo que una prueba revele
+un UNKNOWN de conocimiento que impida continuar.
+
+NO diseñar arquitectura nueva de software antes de demostrar que la
+arquitectura v6.0 existente es insuficiente.
+
+============================================================
+0. BASELINE OBLIGATORIO
+============================================================
+
+Baseline funcional y epistemológico:
+
+ARKI v6.0 = INTEGRATED / PASS_WITH_OBSERVATIONS
+
+Estado esperado de partida:
+
+CAUSE MODEL = IMPLEMENTED AS CONTRACT
+DESIGN MOVE CONTRACT = IMPLEMENTED
+K0→K1 LEARNING LEDGER = IMPLEMENTED
+TRANSFER RESTRAINT = IMPLEMENTED AS CONTROLLED CONTRACT
+
+GENERAL STRATEGY GENERATION = NOT GENERALLY DEMONSTRATED
+GENERIC CROSS-TYPOLOGY MUTATION = NOT DEMONSTRATED
+GENERALIZATION = NOT DEMONSTRATED
+AUTOMATIC CANONIZATION = PROHIBITED
+AUTOMATIC WINNER = PROHIBITED
+HUMAN AUTHORITY = PRESERVED
+
+Antes de modificar:
+
+1. leer AGENTS.md;
+2. confirmar repository;
+3. confirmar branch;
+4. confirmar HEAD SHA;
+5. confirmar remote;
+6. confirmar worktree;
+7. localizar implementación real v6.0;
+8. localizar automatización existente:
+   DELTA → ARKI
+         → CURRÍCULO DE ENSEÑANZA
+         → LIBRO DIGITAL.
+
+No asumir nombres de archivos.
+
+Descubrirlos en el repositorio.
+
+============================================================
+1. OBJETIVO v6.1
+============================================================
+
+v6.1 NO tiene como objetivo crear nuevos contratos.
+
+Tiene como objetivo intentar demostrar experimentalmente:
+
+L5 — GENERATES STRATEGIES
+L6 — GENERATES CANDIDATES
+L7 — MUTATES / SYNTHESIZES
+L8 — REEVALUATES
+L9 — COMPARES
+L10 — GENERALIZES
+
+L10 sólo podrá declararse si existe evidencia suficiente.
+
+La pregunta experimental central es:
+
+CAN ARKI SOLVE A STRUCTURALLY NEW CASE
+USING PRIOR KNOWLEDGE
+WITHOUT A DOMAIN-SPECIFIC REPAIR RULE,
+WHILE EXPLAINING:
+
+WHAT IT ALREADY KNEW
+WHAT IT RECEIVED
+WHAT IT REUSED
+WHAT IT EXECUTED
+WHAT IT ADAPTED
+WHAT IT INFERRED
+WHAT IT LEARNED
+WHAT IT GENERALIZED
+WHAT IT REJECTED
+WHAT REMAINS UNKNOWN?
+
+============================================================
+2. REGLA ANTI-HARDCODING
+============================================================
+
+Ésta es una prueba de ARKI, no una prueba de la capacidad de Manus
+para programar seis respuestas.
+
+PROHIBIDO introducir lógica del tipo:
+
+IF restaurant waste deficit → add waste room
+IF hospital dirty flow → add dirty corridor
+IF laboratory waste → containment room
+IF public realm accessibility → modify sidewalk
+IF mixed use peak → add capacity
+
+o equivalentes semánticos.
+
+PROHIBIDO crear:
+
+RestaurantRepairEngine
+HospitalRepairEngine
+LaboratoryRepairEngine
+PublicRealmRepairEngine
+MixedUseRepairEngine
+
+o cualquier engine específico creado para superar el test.
+
+Si una prueba NO puede resolverse sin hardcoding específico:
+
+STOP THAT CAPABILITY.
+
+Reportar:
+
+CAPABILITY GAP DETECTED
+
+y explicar:
+
+WHAT IS MISSING
+WHY CURRENT CORE CANNOT DO IT
+WHAT MINIMUM GENERAL CAPABILITY WOULD BE REQUIRED.
+
+NO implementar silenciosamente la respuesta.
+
+A FAILED GENERALIZATION TEST IS A VALID SCIENTIFIC RESULT.
+
+============================================================
+3. PRUEBA A — RESTAURANT SOURCE CASE
+============================================================
+
+Problema fuente:
+
+incompatibilidad entre dirty-return/service journey
+y condiciones públicas/operativas del restaurante.
+
+IMPORTANTE:
+
+No entregar como input:
+
+"crear zona de residuos"
+"15 m²"
+"crear corredor"
+ni la solución v5.
+
+Input debe describir el PROBLEMA, no la SOLUCIÓN.
+
+ARKI debe intentar producir:
+
+DEFICIT
+→ CAUSE HYPOTHESES
+→ REQUIRED CAPABILITY
+→ RESOLUTION TARGET
+→ STRATEGY FAMILIES.
+
+Cuando sean genuinamente viables, buscar más de una familia, por ejemplo:
+
+SPATIAL
+TOPOLOGICAL
+TEMPORAL
+CONTROL
+ALLOCATIVE
+HYBRID
+
+No es obligatorio que todas sean viables.
+
+Registrar cuáles fueron generadas y cuáles rechazadas.
+
+CRITERIO L5:
+
+Las estrategias deben provenir del razonamiento general existente,
+no de una lista fixture específica para restaurante.
+
+============================================================
+4. PRUEBA B — RESTAURANT VARIANT
+============================================================
+
+Crear una variante materialmente diferente del caso fuente.
+
+Cambiar al menos:
+
+GEOMETRY
++
+CAPACITY / DEMAND
++
+TEMPORAL OR OPERATING CONDITION.
+
+Objetivo:
+
+comprobar si ARKI ADAPTA.
+
+No debe simplemente recuperar la geometría anterior.
+
+Comparar:
+
+SOURCE SOLUTION
+vs
+VARIANT SOLUTION.
+
+Determinar:
+
+RETRIEVAL
+ADAPTATION
+NEW REASONING
+PARAMETRIC VARIATION
+STRATEGIC VARIATION.
+
+CRITERIO:
+
+SAME TYPOLOGY
+≠
+SAME SOLUTION.
+
+============================================================
+5. PRUEBA C — HOSPITAL POSITIVE TRANSFER
+============================================================
+
+Crear un problema hospitalario estructuralmente relacionado con
+journeys incompatibles.
+
+NO decir a ARKI:
+
+"usa lo aprendido en restaurante".
+
+ARKI debe descubrir si existe conocimiento estructural reutilizable.
+
+Debe reportar:
+
+SOURCE DOMAIN
+TARGET DOMAIN
+
+STRUCTURAL MATCH
+
+CRITICAL DIFFERENCES
+
+TRANSFER UNIT
+
+ADAPTATION BURDEN
+
+TRANSFER DECISION.
+
+Resultado aceptable:
+
+TRANSFER
+o
+ADAPT
+
+si está sustentado.
+
+La geometría/realización del restaurante NO debe copiarse.
+
+Queremos comprobar:
+
+SUCCESSFUL TRANSFER MAY PRESERVE REASONING
+WHILE CHANGING REALIZATION.
+
+============================================================
+6. PRUEBA D — LABORATORY TRANSFER RESTRAINT
+============================================================
+
+Crear un caso laboratory/biosafety con similitud superficial:
+
+dirty/waste/flow/separation.
+
+Pero introducir diferencias críticas reales:
+
+HAZARD
+CONTAINMENT
+CONTROL
+PROCESS
+SPECIALIST DOMAIN.
+
+Objetivo:
+
+comprobar si ARKI sabe NO transferir una realización inadecuada.
+
+Resultado esperado puede ser:
+
+GENERAL PRINCIPLE = TRANSFER
+
+pero:
+
+SPECIFIC REALIZATION = ADAPT
+
+o:
+
+DO_NOT_TRANSFER.
+
+También puede terminar:
+
+REQUIRES_SPECIALIST
+UNKNOWN
+
+si corresponde.
+
+CRITERIO:
+
+SIMILAR LABEL
+≠
+TRANSFERABILITY.
+
+Ésta es una prueba crítica de L10.
+
+============================================================
+7. PRUEBA E — PUBLIC REALM / AUTHORITY
+============================================================
+
+Crear un déficit de accessible journey donde una dependencia relevante
+esté fuera del control directo del proyecto.
+
+Ejemplo conceptual:
+
+building access
+→ project boundary
+→ external public realm dependency
+→ destination.
+
+ARKI debe razonar sobre toda la journey.
+
+Pero debe identificar authority scope.
+
+Posibles estrategias:
+
+modify project-controlled interface
+alternative journey
+request external intervention
+external coordination
+retain unresolved dependency.
+
+PROHIBIDO:
+
+mutar automáticamente geometría externa sin autoridad.
+
+Debe demostrar:
+
+ANALYTICAL BOUNDARY
+≠
+AUTHORITY BOUNDARY.
+
+============================================================
+8. PRUEBA F — MIXED-USE / SHARED CAPACITY
+============================================================
+
+Crear un problema de:
+
+SHARED CAPACITY
++
+OVERLAPPING DEMAND
++
+CONCURRENCY.
+
+No plantearlo como déficit de habitación.
+
+ARKI debe considerar, cuando sean aplicables:
+
+SPATIAL
+ALLOCATIVE
+TEMPORAL
+CONTROL
+OPERATIONAL
+RESOURCE
+
+strategies.
+
+Objetivo:
+
+demostrar:
+
+OPERATIONAL DEFICIT
+≠
+AUTOMATIC SPATIAL DEFICIT.
+
+Si ARKI siempre responde ADD SPACE:
+
+GENERALIZATION FAIL.
+
+============================================================
+9. ADVERSARIAL TEST
+============================================================
+
+Ejecutar al menos un caso con:
+
+HIGH SUPERFICIAL SIMILARITY
++
+CRITICAL SEMANTIC DIFFERENCE.
+
+HAZARD es candidato preferente.
+
+ARKI debe impedir que una similitud agregada compense una diferencia
+semántica crítica.
+
+Required result:
+
+CRITICAL SEMANTIC GATE
+before
+SIMILARITY / RETRIEVAL RANKING.
+
+============================================================
+10. STRATEGY GENERATION PROOF
+============================================================
+
+Para cada prueba indicar exactamente:
+
+STRATEGIES PROVIDED AS INPUT =
+STRATEGIES RETRIEVED =
+STRATEGIES GENERATED =
+STRATEGIES REJECTED =
+WHY =
+
+Si la lista de estrategias fue suministrada por fixture:
+
+L5 = NOT DEMONSTRATED.
+
+Si el fixture selecciona directamente el candidato:
+
+L6 = NOT DEMONSTRATED.
+
+Si la mutación está codificada específicamente para el caso:
+
+L7 GENERAL SYNTHESIS = NOT DEMONSTRATED.
+
+No maquillar estas diferencias.
+
+============================================================
+11. CANDIDATE GENERATION
+============================================================
+
+Cuando el Core pueda hacerlo genuinamente:
+
+STRATEGY
+→ DESIGN MOVE
+→ OPERATORS
+→ MUTATIONS
+→ CANDIDATE.
+
+Cada candidato debe conservar:
+
+parent
+lineage
+intent
+strategy
+design move
+operators
+mutations
+provenance
+epistemic status.
+
+No modificar el baseline original.
+
+============================================================
+12. STRATEGIC DIVERSITY
+============================================================
+
+Distinguir:
+
+STRATEGIC DIVERSITY
+TOPOLOGICAL DIVERSITY
+GEOMETRIC DIVERSITY
+PARAMETRIC DIVERSITY.
+
+Tres desplazamientos del mismo muro:
+
+≠ three strategies.
+
+Si sólo existe una estrategia:
+
+reportarlo.
+
+No inventar alternativas artificiales sólo para satisfacer el test.
+
+============================================================
+13. REEVALUATION
+============================================================
+
+Después de cada mutation:
+
+DEPENDENCY-SCOPED REEVALUATION.
+
+Reevaluar únicamente el scope relevante pero permitir propagación.
+
+Reportar:
+
+DIRECT EFFECTS
+DEPENDENCY EFFECTS
+POSSIBLE EFFECTS
+UNKNOWN EFFECTS.
+
+Luego:
+
+EXPECTED EFFECTS
+ACTUAL EFFECTS
+UNEXPECTED EFFECTS.
+
+Un candidato que resuelve el déficit inicial pero crea otro déficit
+NO es automáticamente exitoso.
+
+============================================================
+14. HARD GATES
+============================================================
+
+Orden obligatorio:
+
+HARD CONSTRAINTS
+→ FEASIBLE SET
+→ PERFORMANCE EVALUATION
+→ NON-DOMINATED / TRADE-OFF SET
+→ HUMAN DECISION.
+
+No:
+
+weighted score compensates mandatory failure.
+
+INVALID ≠ LOW SCORE.
+
+UNKNOWN ≠ PENALTY.
+
+UNKNOWN ≠ PASS.
+
+UNKNOWN ≠ FAIL.
+
+============================================================
+15. LEARNING PROOF
+============================================================
+
+Después de los casos A–F construir explícitamente:
+
+K0
+INPUT
+RETRIEVED
+EXECUTED
+ADAPTED
+OBSERVED
+LEARNING CANDIDATE
+K1.
+
+Prohibido declarar como aprendizaje:
+
+supplied information;
+existing rule execution;
+retrieval;
+hardcoded strategy;
+fixture knowledge;
+previously known invariant.
+
+Para cualquier Learning Candidate:
+
+declare:
+
+LEARNING CLASS:
+L1 PARAMETER
+L2 RELATIONSHIP
+L3 STRUCTURAL
+L4 REASONING PATTERN.
+
+Y:
+
+DELTA TYPE:
+ADD
+REFINE
+GENERALIZE
+SPECIALIZE
+REVISE
+RETIRE.
+
+============================================================
+16. PERSISTENCE TEST
+============================================================
+
+No basta con obtener K1 dentro de la misma ejecución.
+
+Después de producir un learning candidate válido:
+
+persistir únicamente mediante el mecanismo autorizado existente.
+
+Después iniciar una evaluación separada/nueva.
+
+Comprobar:
+
+CAN ARKI RETRIEVE THE KNOWLEDGE LATER?
+
+Si no:
+
+PERSISTENT LEARNING = NOT DEMONSTRATED.
+
+Si sí:
+
+RETENTION = DEMONSTRATED
+
+pero:
+
+RETENTION ≠ GENERALIZATION.
+
+============================================================
+17. GENERALIZATION PROOF
+============================================================
+
+Para cambiar:
+
+GENERALIZATION =
+NOT_DEMONSTRATED
+
+a:
+
+DEMONSTRATED
+
+debe existir, como mínimo:
+
+1. source case;
+2. materially changed variant;
+3. positive cross-typology transfer;
+4. adaptation rather than blind copying;
+5. invalid-transfer restraint;
+6. counterexample/adversarial test;
+7. persistence;
+8. no domain-specific repair engine;
+9. provenance;
+10. no knowledge/reasoning regression.
+
+Si falta cualquiera:
+
+GENERALIZATION remains:
+NONE / POSSIBLE / PARTIAL
+
+según evidencia.
+
+No forzar DEMONSTRATED.
+
+============================================================
+18. REGRESSION
+============================================================
+
+Evaluar separadamente:
+
+SOFTWARE REGRESSION
+KNOWLEDGE REGRESSION
+REASONING REGRESSION
+GEOMETRY REGRESSION
+EPISTEMIC REGRESSION
+REGULATORY REGRESSION.
+
+Especial atención:
+
+¿nuevo conocimiento hace que ARKI aplique peor conocimiento anterior?
+
+¿precedent retrieval produce fixation?
+
+¿UNKNOWN fue convertido indebidamente?
+
+¿regulación fue generalizada entre jurisdicciones?
+
+============================================================
+19. FIXATION TEST
+============================================================
+
+Después de almacenar el caso fuente, comprobar si los siguientes casos
+colapsan sistemáticamente hacia la misma realización.
+
+Reportar:
+
+SOURCE PRECEDENT INFLUENCE
+STRATEGY FAMILIES CONSIDERED
+ALTERNATIVES REJECTED
+FORM/TOPOLOGY SIMILARITY
+REASON FOR SIMILARITY.
+
+REASONING REUSE puede ser correcto.
+
+BLIND FORM REUSE no.
+
+============================================================
+20. UNKNOWN
+============================================================
+
+Todo UNKNOWN debe clasificarse:
+
+PROJECT_DATA
+ARCHITECTURAL_KNOWLEDGE
+REGULATORY
+SPECIALIST
+IMPLEMENTATION
+EVIDENCE
+HUMAN_DECISION.
+
+Y debe incluir:
+
+WHY UNKNOWN
+WHAT IS MISSING
+RESOLUTION PATH
+WHO/WHAT CAN RESOLVE
+WHAT WILL BE REEVALUATED.
+
+UNKNOWN WITHOUT RESOLUTION PATH
+= INCOMPLETE DIAGNOSIS.
+
+============================================================
+21. PROTOCOLO A–AV
+============================================================
+
+Cada uno de los casos A–F debe producir el V6EvaluationReport completo
+A–AV.
+
+No crear un resumen sustituto.
+
+El contrato permanente v6.0 es la fuente de verdad.
+
+Al final generar también:
+
+MANDATORY LEARNING MATRIX
+
+y
+
+MANDATORY TRANSFER MATRIX.
+
+============================================================
+22. AUTONOMY EVIDENCE
+============================================================
+
+Evaluar:
+
+L0 RECEIVES
+L1 REPRESENTS
+L2 DETECTS
+L3 DIAGNOSES
+L4 EVALUATES
+L5 GENERATES STRATEGIES
+L6 GENERATES CANDIDATES
+L7 MUTATES / SYNTHESIZES
+L8 REEVALUATES
+L9 COMPARES
+L10 GENERALIZES.
+
+Para cada nivel:
+
+DEMONSTRATED
+PARTIAL
+NOT_DEMONSTRATED
+
++
+evidence.
+
+No inferir niveles superiores automáticamente.
+
+============================================================
+23. TRIPLE KNOWLEDGE PROPAGATION
+============================================================
+
+La automatización existente:
+
+DELTA
+→ ARKI
+→ CURRÍCULO DE ENSEÑANZA
+→ LIBRO DIGITAL
+
+forma parte del alcance de v6.1.
+
+NO crear otro pipeline.
+
+Auditar y reutilizar el existente.
+
+Después de obtener los resultados v6.1:
+
+A. ARKI RUNTIME / KNOWLEDGE
+
+Actualizar sólo conocimiento cuya promoción esté permitida por su
+estado epistemológico.
+
+B. CURRÍCULO DE ENSEÑANZA
+
+Actualizar lo que ARKI debe aprender/enseñar distinguiendo:
+
+RESEARCHED
+TEACHABLE
+IMPLEMENTED
+TESTED
+GENERALIZED.
+
+No enseñar como capacidad demostrada aquello que sólo es investigación
+o contrato.
+
+C. LIBRO DIGITAL ARKI
+
+Registrar:
+
+qué se intentó;
+qué funcionó;
+qué falló;
+qué fue transferible;
+qué fue rechazado;
+qué permaneció UNKNOWN;
+qué cambió de K0 a K1;
+qué límites se descubrieron.
+
+El Libro Digital debe conservar también resultados negativos.
+
+FAILED TEST
+≠
+DELETE FROM BOOK.
+
+============================================================
+24. CONSISTENCY GATE
+============================================================
+
+Después de la propagación automática comprobar:
+
+RUNTIME CLAIM
+CURRICULUM CLAIM
+BOOK CLAIM
+
+No deben contradecirse.
+
+Ejemplo prohibido:
+
+RUNTIME:
+GENERALIZATION = NOT_DEMONSTRATED
+
+CURRICULUM:
+GENERALIZATION = MASTERED
+
+BOOK:
+ARKI GENERALIZES AUTONOMOUSLY.
+
+Crear un consistency audit:
+
+RUNTIME
+↔ CURRICULUM
+↔ DIGITAL BOOK.
+
+Si divergen:
+
+FAIL CONSISTENCY GATE.
+
+============================================================
+25. TEACHABILITY
+============================================================
+
+La actualización curricular debe poder contestar:
+
+WHAT ARKI KNOWS
+WHAT ARKI CAN EXECUTE
+WHAT ARKI CAN EXPLAIN
+WHAT ARKI CAN GENERATE
+WHAT ARKI HAS DEMONSTRATED
+WHAT ARKI HAS NOT DEMONSTRATED.
+
+TEACHABLE
+≠
+IMPLEMENTED.
+
+IMPLEMENTED
+≠
+TESTED.
+
+TESTED
+≠
+GENERALIZED.
+
+============================================================
+26. DIGITAL BOOK PROVENANCE
+============================================================
+
+Cada entrada nueva derivada de v6.1 debe conservar:
+
+DELTA ID
+SOURCE TEST
+K0
+OBSERVATION
+K1
+EVIDENCE
+COUNTEREVIDENCE
+GENERALIZATION STATUS
+IMPLEMENTATION STATUS
+HUMAN REVIEW STATUS.
+
+No convertir el Libro Digital en narrativa promocional.
+
+Debe ser registro intelectual auditable.
+
+============================================================
+27. NO CANONIZATION BY PIPELINE
+============================================================
+
+La automatización de actualización NO autoriza canonización automática.
+
+DELTA ACCEPTED
+≠
+KNOWLEDGE CANONICAL.
+
+El pipeline puede registrar:
+
+OBSERVED
+CANDIDATE
+SUPPORTED
+TRANSFER_TESTED
+GENERALIZED_CANDIDATE
+
+según evidencia.
+
+CANONICAL/HUMAN_CONFIRMED permanece sujeto a las reglas de autoridad
+existentes.
+
+============================================================
+28. IMPLEMENTATION RULE
+============================================================
+
+Primero intenta ejecutar toda la batería utilizando v6.0 tal como está.
+
+Sólo si aparece una brecha GENERAL:
+
+1. demostrarla;
+2. documentarla;
+3. diseñar el mínimo delta general;
+4. implementar;
+5. repetir la prueba.
+
+NO implementar una capacidad después de observar sólo un caso
+si únicamente sirve para ese caso.
+
+GENERAL CAPABILITY
+before
+DOMAIN PATCH.
+
+============================================================
+29. STOP CONDITIONS
+============================================================
+
+Detener una línea de implementación si:
+
+- requiere engine específico;
+- requiere hardcodear respuesta;
+- viola CanonicalBuildingModel;
+- crea segunda ontología;
+- convierte UNKNOWN en valor inventado;
+- necesita relajar silenciosamente hard constraint;
+- requiere afirmar normativa no verificada;
+- necesita asumir autoridad inexistente;
+- exige canonización automática;
+- sólo puede pasar copiando precedente.
+
+Reportar el bloqueo.
+
+============================================================
+30. SOFTWARE VALIDATION
+============================================================
+
+Ejecutar:
+
+focused v6.1 tests
+existing v6.0 tests
+full regression
+TypeScript/typecheck
+build
+git diff --check.
+
+Además:
+
+verify baseline immutability
+verify no second engine
+verify no domain repair engine
+verify knowledge history preserved
+verify triple-propagation consistency.
+
+============================================================
+31. FINAL REPORT
+============================================================
+
+El informe final debe responder claramente:
+
+1. What ARKI knew at K0.
+2. What inputs were supplied.
+3. What ARKI retrieved.
+4. What ARKI merely executed.
+5. What ARKI inferred.
+6. What strategies ARKI generated itself.
+7. What candidates it generated.
+8. What mutations occurred.
+9. What consequences propagated.
+10. What new deficits appeared.
+11. What transfer succeeded.
+12. What transfer required adaptation.
+13. What transfer ARKI rejected.
+14. What learning candidates emerged.
+15. What persisted.
+16. What changed K0→K1.
+17. What was generalized.
+18. What was NOT generalized.
+19. What remains UNKNOWN.
+20. How those UNKNOWNs can be resolved.
+21. What software regressions occurred.
+22. What knowledge regressions occurred.
+23. What reasoning regressions occurred.
+24. What autonomy level was demonstrated.
+25. What still requires human authority.
+26. What was propagated to ARKI.
+27. What was propagated to the curriculum.
+28. What was propagated to the Digital Book.
+29. Whether all three remain epistemically consistent.
+30. Final epistemic status.
+
+============================================================
+32. REQUIRED FINAL STATUS
+============================================================
+
+Do NOT return simply:
+
+V6.1 = PASS.
+
+Return independently:
+
+STRATEGY_GENERATION =
+CANDIDATE_GENERATION =
+SYNTHESIS =
+REEVALUATION =
+COMPARISON =
+POSITIVE_TRANSFER =
+TRANSFER_RESTRAINT =
+PERSISTENCE =
+GENERALIZATION =
+KNOWLEDGE_REGRESSION =
+REASONING_REGRESSION =
+TRIPLE_PROPAGATION =
+RUNTIME_CURRICULUM_BOOK_CONSISTENCY =
+HUMAN_AUTHORITY =
+
+Possible statuses:
+
+DEMONSTRATED
+PARTIAL
+NOT_DEMONSTRATED
+BLOCKED
+NOT_APPLICABLE
+
+with evidence.
+
+============================================================
+33. GIT
+============================================================
+
+If and only if:
+
+implementation is coherent,
+tests pass,
+regression passes,
+consistency audit passes,
+
+then:
+
+commit locally
+push current branch
+verify LOCAL_HEAD = REMOTE_HEAD
+verify WORKTREE = CLEAN.
+
+Do not:
+
+merge
+deploy
+publish production
+change branch unnecessarily.
+
+Report:
+
+REPOSITORY
+BRANCH
+BASELINE_SHA
+FINAL_SHA
+PUSH
+LOCAL_REMOTE_MATCH
+WORKTREE
+PR
+MERGE
+DEPLOY.
+
+============================================================
+34. FINAL PRINCIPLE
+============================================================
+
+DO NOT MAKE THE TEST PASS.
+
+MAKE ARKI ATTEMPT THE TEST.
+
+IF ARKI CANNOT DO IT,
+MEASURE EXACTLY WHY.
+
+A truthful:
+
+NOT_DEMONSTRATED
+
+is more valuable than a hardcoded:
+
+PASS.
+
+Proceed.
