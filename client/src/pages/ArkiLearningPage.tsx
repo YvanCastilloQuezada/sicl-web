@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buildL00L08HouseLearningPilot, evaluateLearningCycle, recordControlledEducationalProof, recordExplanation, recordPractice } from "@/components/arkiLearningCycle";
+import { buildHouseKnowledgeAcquisitionLedger } from "@/components/arkiKnowledgeAcquisitionLedger";
 
 const phases = ["PRINCIPLE", "EXPLANATION", "PRACTICE", "EVALUATION", "CORRECTION", "TRANSFER", "HUMAN_REVIEW"] as const;
 
@@ -17,9 +18,9 @@ export default function ArkiLearningPage() {
     const practiced = recordPractice(explained, { attemptId: "visible-practice", statement: "HOUSE-A21 keeps three independent topology hypotheses before coordinates.", evidenceRefs: pilot.topologyEvidence?.hypothesisIds ?? [], unknowns: ["service route", "structural feasibility"], contradictions: ["openness versus privacy"], epistemicState: "HYPOTHESIS" });
     const evaluated = evaluateLearningCycle(practiced);
     const acquired = recordControlledEducationalProof(evaluated, { proofId: "L09-L32-sample-01", level: "L09", principleApplied: "functional unit is not a room", nonApplicationDeclared: "reference dimensions are not project requirements", transferDeclared: "transfer to a small non-residential context with changed users", evidenceRefs: ["P-L09-01", "synthetic-fixture"], unknowns: ["real project evidence", "jurisdiction"], result: "PASS_WITH_OBSERVATIONS", dataClass: "SYNTHETIC_CONTROLLED_EDUCATIONAL_PROOF", reviewer: "PRODUCT_OWNER_DELEGATED" });
-    return { pilot, evaluated: acquired };
+    return { pilot, evaluated: acquired, ledger: buildHouseKnowledgeAcquisitionLedger(acquired) };
   }, []);
-  const { pilot, evaluated } = lesson;
+  const { pilot, evaluated, ledger } = lesson;
 
   return <div className="space-y-6">
     <div className="flex flex-wrap items-end justify-between gap-4">
@@ -48,5 +49,6 @@ export default function ArkiLearningPage() {
     </div>
 
     <Card className="border-[#d07b4a] bg-[#fff4ed] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">{t("learning.human_gate")}</CardTitle></CardHeader><CardContent><p className="text-sm leading-6 text-[#6f3d23]">{t("learning.human_gate_text")}</p><div className="mt-4 flex flex-wrap gap-2"><Badge className="bg-[#d07b4a] text-white">{evaluated.assessment?.outcome}</Badge><Badge variant="outline">{evaluated.assessment?.missingEvidence.length ? `${evaluated.assessment.missingEvidence.length} missing evidence` : "evidence traced"}</Badge></div></CardContent></Card>
+    <Card className="border-[#d4d8d0] bg-[#fbfaf6] shadow-none"><CardHeader><CardTitle className="font-serif text-xl">Acquisition trace</CardTitle></CardHeader><CardContent className="grid gap-3 text-sm md:grid-cols-4"><div><p className="text-xs uppercase tracking-wide text-[#718078]">Activities</p><p className="mt-1 font-medium">{ledger.traces[0].activityRefs.length} linked</p></div><div><p className="text-xs uppercase tracking-wide text-[#718078]">Relationships</p><p className="mt-1 font-medium">{ledger.traces[0].relationshipRefs.length} linked</p></div><div><p className="text-xs uppercase tracking-wide text-[#718078]">Topology</p><p className="mt-1 font-medium">{ledger.traces[0].topologyRefs.length} hypotheses</p></div><div><p className="text-xs uppercase tracking-wide text-[#718078]">Geometry</p><p className="mt-1 font-medium">SEMANTIC TRACE ONLY</p></div></CardContent></Card>
   </div>;
 }
