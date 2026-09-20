@@ -1,11 +1,10 @@
 import React from "react";
-import { Activity, Camera, Mic, Monitor, Moon, Sun } from "lucide-react";
+import { Camera, Mic, Monitor, Moon, ScanLine, Sun } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "@/components/LanguageSelector";
 import HelpButton from "@/components/HelpButton";
 import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef } from "react";
 
 export default function AppHeader() {
@@ -44,14 +43,13 @@ export default function AppHeader() {
           <div className="flex items-center gap-1 border border-border bg-card p-1" role="group" aria-label="Entrada conversacional ARKI">
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} aria-pressed={voiceActive} className={cn("inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", voiceActive && "animate-pulse rounded-full bg-[#fbe5d6] text-[#a94524] ring-2 ring-[#d07b4a]")}><Mic className={cn("h-4 w-4", voiceActive && "animate-bounce")} /></button>
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "camera" } }))} title={t("header.camera", "Añadir contexto visual")} aria-label={t("header.camera", "Añadir contexto visual")} className="inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Camera className="h-4 w-4" /></button>
+            <button type="button" onClick={() => window.location.assign("/spatial")} title="Abrir realidad aumentada" aria-label="Abrir realidad aumentada" className="inline-flex h-8 items-center justify-center gap-1 px-1.5 text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><ScanLine className="h-4 w-4" /><span className="text-[10px] font-semibold tracking-wide">AR</span></button>
           </div>
           <div role="group" aria-label={t("theme.system")} className="flex items-center border border-border bg-card p-1 text-xs text-foreground">
             <button type="button" onClick={() => setThemePreference("system")} aria-pressed={preference === "system"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "system" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Monitor className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.system")}</span></button>
             <button type="button" onClick={() => setThemePreference("light")} aria-pressed={preference === "light"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "light" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Sun className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.light")}</span></button>
             <button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "dark" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.dark")}</span></button>
           </div>
-          <Badge variant="outline" className="hidden border-border bg-secondary text-secondary-foreground md:inline-flex">{t("header.version")}</Badge>
-          <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex"><Activity className="h-4 w-4" /> {t("header.traceable")}</div>
         </div>
         <p className="max-w-5xl text-xs leading-5 text-muted-foreground lg:col-span-2 md:text-sm">{t("header.identity_line3")}</p>
       </div>
