@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { BookOpen, CheckCircle2, ChevronDown, Command, Download, History, Info, Loader2, Search, Settings2, Terminal, XCircle } from "lucide-react";
+import { BookOpen, Camera, CheckCircle2, ChevronDown, Command, Download, History, Info, Loader2, MessageSquare, Mic, Search, Send, Settings2, Terminal, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import catalog from "@/content/commands-catalog.json";
 import aliasRegistry from "@/content/command-aliases.json";
@@ -44,6 +44,9 @@ export type CommandContext = {
   actors?: string[];
   projectId?: string;
 };
+
+type ConversationMode = "brief" | "voice" | "camera";
+type SpeechRecognitionLike = { lang: string; interimResults: boolean; continuous: boolean; onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onerror: (() => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 
 export const COMMAND_HISTORY_KEY = "sims-dei-command-history";
 export const COMMAND_LANGUAGE_KEY = "sims-dei-command-language";
@@ -181,8 +184,16 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const [preferredLocale, setPreferredLocale] = useState(() => readPreferredLocale() ?? activeLocale());
   const [languageSaved, setLanguageSaved] = useState(false);
   const [experienceMode, setExperienceMode] = useState<ExperienceMode>(() => localStorage.getItem(GUIDED_MODE_KEY) === "expert" ? "expert" : "guided");
+  const [conversationMode, setConversationMode] = useState<ConversationMode>("brief");
+  const [conversationOpen, setConversationOpen] = useState(false);
+  const [briefText, setBriefText] = useState("");
+  const [briefDraft, setBriefDraft] = useState<{ extracted: string[]; unknowns: string[] } | null>(null);
+  const [mediaName, setMediaName] = useState<string | null>(null);
+  const [isListening, setIsListening] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const aliasSearchRef = useRef<HTMLInputElement>(null);
+  const conversationFileRef = useRef<HTMLInputElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   const locale = activeLocale();
 
@@ -233,6 +244,18 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  useEffect(() => {
+    const handleConversation = (event: Event) => {
+      const mode = (event as CustomEvent<{ mode?: ConversationMode }>).detail?.mode ?? "brief";
+      setOpen(true);
+      setConversationOpen(true);
+      setConversationMode(mode);
+      window.setTimeout(() => { if (mode === "camera") conversationFileRef.current?.click(); }, 0);
+    };
+    window.addEventListener("arki:open-conversation", handleConversation);
+    return () => window.removeEventListener("arki:open-conversation", handleConversation);
+  }, []);
+
   useEffect(() => setSelected(0), [input]);
 
   const close = () => {
@@ -243,6 +266,50 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     setPendingCanonical(null);
     setAliasSearch("");
     setSettingsOpen(false);
+    setConversationOpen(false);
+    setBriefDraft(null);
+    setMediaName(null);
+    recognitionRef.current?.stop();
+    setIsListening(false);
+  };
+
+  const interpretBrief = () => {
+    const value = briefText.trim();
+    if (!value) return;
+    const extracted: string[] = [];
+    if (/\b(casa|vivienda|residenc|house)\b/i.test(value)) extracted.push("Tipología residencial detectada");
+    if (/\b(hospital|cl[ií]nica|clinic|healthcare)\b/i.test(value)) extracted.push("Tipología de atención detectada");
+    if (/\b(restaurante|restaurant|colegio|escuela|hotel|oficina|laboratorio)\b/i.test(value)) extracted.push("Tipología no residencial detectada");
+    const dimensions = value.match(/\b\d+(?:[.,]\d+)?\s*(?:x|×|por)\s*\d+(?:[.,]\d+)?\s*(?:m|metros)?\b/i);
+    if (dimensions) extracted.push(`Dimensiones del sitio: ${dimensions[0]}`);
+    const levels = value.match(/\b(?:dos|tres|cuatro|2|3|4)\s*(?:pisos|niveles|plantas)\b/i);
+    if (levels) extracted.push(`Niveles: ${levels[0]}`);
+    if (/\b\d+\s*(?:habitacion|dormitorio|cuarto|bedroom)/i.test(value)) extracted.push("Programa de dormitorios detectado");
+    if (/\b(patio|jard[ií]n|terraza|piscina|cochera|garaje)/i.test(value)) extracted.push("Espacios exteriores o de apoyo detectados");
+    setBriefDraft({ extracted, unknowns: ["Acceso y orientación", "Usuarios y área objetivo", "Normativa y restricciones del sitio"] });
+  };
+
+  const toggleListening = () => {
+    const browser = window as unknown as { SpeechRecognition?: new () => SpeechRecognitionLike; webkitSpeechRecognition?: new () => SpeechRecognitionLike };
+    const SpeechRecognition = browser.SpeechRecognition ?? browser.webkitSpeechRecognition;
+    if (!SpeechRecognition) { setStatus({ type: "error", message: "El dictado no está disponible en este navegador; puedes escribir el encargo." }); return; }
+    if (isListening) { recognitionRef.current?.stop(); setIsListening(false); return; }
+    const recognition = new SpeechRecognition();
+    recognition.lang = i18n.language?.split("-")[0] ?? "es";
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.onresult = (event) => { const transcript = Array.from(event.results).map((result) => result[0]?.transcript ?? "").join(" "); setBriefText((current) => `${current} ${transcript}`.trim()); };
+    recognition.onerror = () => { setIsListening(false); setStatus({ type: "error", message: "No se pudo completar el dictado. El texto escrito sigue disponible." }); };
+    recognition.onend = () => setIsListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  };
+
+  const openConversation = (mode: ConversationMode) => {
+    setConversationOpen(true);
+    setConversationMode(mode);
+    if (mode === "camera") window.setTimeout(() => conversationFileRef.current?.click(), 0);
   };
 
   const exportAliasesCsv = () => {
@@ -350,7 +417,8 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     {!open && <button type="button" onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#f2c300] px-4 py-3 text-sm font-semibold text-[#1d2925] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-[#d4a017] hover:text-[#fbfaf6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8bc34a]" aria-label={t("command_bar.open_button")}><Command className="h-4 w-4" /> <span className="hidden sm:inline">SICL</span><kbd className="hidden rounded bg-white/15 px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd></button>}
     {open && <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl px-3 pb-3 sm:px-6" role="dialog" aria-label={t("command_bar.title")}>
       <div className="overflow-hidden rounded-lg border-2 border-[#f2c300] bg-[#fbfaf6] shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
-        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">{t("command_bar.hint")} · {t("command_bar.alias_search_shortcut")} (Ctrl/Cmd+Shift+L)</p></div><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
+        <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">SICL commands and architectural brief intake coexist.</p></div><Button type="button" variant={conversationOpen ? "default" : "outline"} size="sm" onClick={() => openConversation("brief")} aria-label="Abrir intérprete conversacional"><MessageSquare className="mr-1 h-4 w-4" /> Encargo</Button><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
+        {conversationOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="mb-2 flex flex-wrap items-center gap-2"><span className="text-xs font-semibold uppercase tracking-wide text-[#385348]">Intérprete Conversacional de Encargos Arquitectónicos</span><Button type="button" size="sm" variant={conversationMode === "brief" ? "default" : "outline"} onClick={() => setConversationMode("brief")} className="h-7 px-2 text-xs"><MessageSquare className="mr-1 h-3.5 w-3.5" />Texto</Button><Button type="button" size="sm" variant={conversationMode === "voice" ? "default" : "outline"} onClick={() => { setConversationMode("voice"); toggleListening(); }} className="h-7 px-2 text-xs"><Mic className="mr-1 h-3.5 w-3.5" />{isListening ? "Escuchando…" : "Micrófono"}</Button><Button type="button" size="sm" variant="outline" onClick={() => openConversation("camera")} className="h-7 px-2 text-xs"><Camera className="mr-1 h-3.5 w-3.5" />Cámara</Button><input ref={conversationFileRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={(event) => setMediaName(event.target.files?.[0]?.name ?? null)} /></div><textarea value={briefText} onChange={(event) => setBriefText(event.target.value)} placeholder="Describe el encargo: tipología, terreno, usuarios, programa, restricciones y prioridades…" className="min-h-20 w-full rounded border border-[#8bc34a] bg-[#fbfaf6] p-2 text-sm text-[#1d2925] outline-none focus:ring-2 focus:ring-[#8bc34a]" aria-label="Encargo arquitectónico" />{mediaName && <p className="mt-2 text-xs text-[#52645a]">Referencia visual adjunta: <strong>{mediaName}</strong>. Se conserva como evidencia pendiente de revisión.</p>}<div className="mt-2 flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-[#718078]">ARKI extrae datos preliminares, separa UNKNOWN y pregunta antes de registrar.</span><Button type="button" size="sm" onClick={interpretBrief} disabled={!briefText.trim()} className="h-8 bg-[#385348] text-xs text-[#fbfaf6]"><Send className="mr-1 h-3.5 w-3.5" />Procesar borrador</Button></div>{briefDraft && <div className="mt-3 grid gap-2 border-t border-[#d7d8cf] pt-3 text-xs md:grid-cols-2"><div><p className="font-semibold text-[#385348]">Detectado — revisión requerida</p>{briefDraft.extracted.length ? briefDraft.extracted.map((item) => <p key={item} className="mt-1 text-[#52645a]">• {item}</p>) : <p className="mt-1 text-[#a94524]">No se detectaron campos estructurados todavía.</p>}</div><div><p className="font-semibold text-[#a94524]">Falta confirmar</p>{briefDraft.unknowns.map((item) => <p key={item} className="mt-1 text-[#718078]">• {item}</p>)}</div></div>}</div>}
         <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div><div className="relative sm:col-span-2"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={aliasSearchRef} aria-label={t("command_bar.search_aliases")} value={aliasSearch} onChange={(event) => setAliasSearch(event.target.value)} placeholder={t("command_bar.search_aliases")} className="border border-[#d7d8cf] bg-[#fbfaf6] pl-9 text-xs text-[#1d2925]" /></div><Button type="button" variant="outline" size="sm" onClick={exportAliasesCsv} aria-label={t("command_bar.export_aliases_csv")} className="h-9 border-[#385348] text-xs text-[#385348]"><Download className="mr-1 h-3.5 w-3.5" />{t("command_bar.export_aliases_csv")}</Button></div>
         {settingsOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="flex flex-wrap items-center gap-2"><label htmlFor="command-language" className="text-xs font-semibold text-[#385348]">{t("command_bar.language_preference")}</label><select id="command-language" aria-label={t("command_bar.language_preference")} value={preferredLocale} onChange={(event) => setPreferredLocale(event.target.value)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]">{LANGUAGE_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><Button type="button" size="sm" onClick={savePreferredLanguage} className="h-7 bg-[#385348] px-2 text-xs text-[#fbfaf6]">{t("command_bar.save_language")}</Button>{languageSaved && <span className="text-xs text-[#385348]">{t("command_bar.language_saved")}</span>}<span className="ml-3 text-xs font-semibold text-[#385348]">{t("command_bar.experience_mode")}</span><select aria-label={t("command_bar.experience_mode")} value={experienceMode} onChange={(event) => saveExperienceMode(event.target.value as ExperienceMode)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]"><option value="guided">{t("command_bar.beginner_mode")}</option><option value="expert">{t("command_bar.expert_mode")}</option></select></div></div>}
         {aliasSearch && <div className="max-h-36 overflow-y-auto border-b border-[#e2e4de] bg-[#fbfaf6] p-2">{aliasResults.slice(0, 24).map((entry) => <div key={`${entry.locale}-${entry.alias}`} title={entry.canonical} className="flex items-center justify-between rounded px-3 py-1.5 font-mono text-xs text-[#1d2925] hover:bg-[#e9ede5]"><span title={entry.canonical}>{entry.alias}</span><span className="text-[10px] text-[#718078]">{entry.canonical}</span></div>)}</div>}
