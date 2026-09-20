@@ -1,9 +1,10 @@
 /** @vitest-environment jsdom */
 import React from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { Router } from "wouter";
 import ArkiBookPage, { BOOK_VOLUMES } from "@/pages/ArkiBookPage";
+import { buildVisualResultsPdfDocument } from "@/components/CommandBar";
 
 afterEach(() => cleanup());
 
@@ -58,5 +59,21 @@ describe("ARKI Living Book", () => {
     expect(screen.getByRole("button", { name: "Añadir contexto visual" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Enviar por correo" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Compartir por WhatsApp" })).toBeTruthy();
+  });
+
+  it("shows the listening indicator when ARKI voice recognition is active", async () => {
+    renderBook();
+    window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: true } }));
+    await waitFor(() => expect(screen.getByText("Escuchando")).toBeTruthy());
+    window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: false } }));
+    await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
+  });
+
+  it("builds a printable PDF report without promoting visual observations to facts", () => {
+    const html = buildVisualResultsPdfDocument([{ evidence_id: "EVD-1", observation_class: "PLAN_DIMENSION_ANNOTATION_VISIBLE", description: "Cota visible de forma aproximada", qualifier: "APPROXIMATE", uncertainty: "La imagen no permite confirmar la escala", status: "AI_PROPOSED" }], "ABC-DEF-123-456");
+    expect(html).toContain("Guardar como PDF");
+    expect(html).toContain("AI_PROPOSED");
+    expect(html).toContain("Requieren revisión humana");
+    expect(html).toContain("ABC-DEF-123-456");
   });
 });

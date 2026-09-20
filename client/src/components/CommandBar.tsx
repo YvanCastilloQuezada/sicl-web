@@ -47,6 +47,15 @@ export type CommandContext = {
   projectId?: string;
 };
 
+function escapePdfText(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] ?? character);
+}
+
+export function buildVisualResultsPdfDocument(proposals: VisualFieldProposal[], projectId: string): string {
+  const rows = proposals.map((proposal) => `<article><h2>${escapePdfText(proposal.observation_class)}</h2><p>${escapePdfText(proposal.description)}</p><dl><dt>Calificador</dt><dd>${escapePdfText(proposal.qualifier)}</dd><dt>Incertidumbre</dt><dd>${escapePdfText(proposal.uncertainty || "UNKNOWN")}</dd><dt>Estado</dt><dd>AI_PROPOSED · requiere revisión humana</dd></dl></article>`).join("");
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>ARKI · Informe visual</title><style>body{font-family:Arial,sans-serif;color:#172536;max-width:900px;margin:40px auto;line-height:1.5}h1{color:#0b3553;border-bottom:3px solid #7bc6d5;padding-bottom:12px}h2{font-size:16px;color:#174c68;margin-bottom:4px}article{border:1px solid #b8cbd8;padding:14px 18px;margin:14px 0;break-inside:avoid}dl{display:grid;grid-template-columns:150px 1fr;font-size:12px;color:#536878}dt{font-weight:bold}dd{margin:0}@media print{body{margin:20mm}button{display:none}}</style></head><body><h1>ARKI · Informe de análisis visual</h1><p><strong>Proyecto:</strong> ${escapePdfText(projectId || "Sin ID")}</p><p><strong>Fecha:</strong> ${escapePdfText(new Date().toLocaleString())}</p><p>Observaciones provisionales derivadas de una imagen o documento. No constituyen hechos verificados, cumplimiento normativo ni decisión de diseño. Requieren revisión humana.</p>${rows || "<p>No hay observaciones visuales.</p>"}<button onclick="window.print()">Guardar como PDF</button></body></html>`;
+}
+
 type ConversationMode = "brief" | "voice" | "camera";
 type SpeechRecognitionLike = { lang: string; interimResults: boolean; continuous: boolean; onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onerror: (() => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 
@@ -320,6 +329,18 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     } finally { setVisualLoading(false); }
   };
 
+  const exportVisualResultsPdf = () => {
+    const reportWindow = window.open("", "_blank", "noopener,noreferrer");
+    if (!reportWindow) {
+      setStatus({ type: "error", message: "El navegador bloqueó la ventana del informe. Permite ventanas emergentes para exportar el PDF." });
+      return;
+    }
+    reportWindow.document.write(buildVisualResultsPdfDocument(visualProposals, projectId));
+    reportWindow.document.close();
+    reportWindow.focus();
+    window.setTimeout(() => reportWindow.print(), 250);
+  };
+
   const updateMissingField = (key: keyof typeof missingFields, value: string) => setMissingFields((current) => ({ ...current, [key]: value }));
 
   const toggleListening = () => {
@@ -457,7 +478,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
           <textarea value={briefText} onChange={(event) => setBriefText(event.target.value)} placeholder="Describe el encargo: tipología, terreno, usuarios, programa, restricciones y prioridades…" className="min-h-20 w-full rounded border border-[#8bc34a] bg-[#fbfaf6] p-2 text-sm text-[#1d2925] outline-none focus:ring-2 focus:ring-[#8bc34a]" aria-label="Encargo arquitectónico" />
           {mediaName && <div className="mt-2 flex items-center gap-3 rounded border border-[#8bc34a]/50 bg-[#fbfaf6] p-2 text-xs text-[#52645a]">{mediaDataUrl && <img src={mediaDataUrl} alt="Vista previa de la referencia" className="h-14 w-20 rounded object-cover" />}<div className="min-w-0 flex-1"><p>Referencia: <strong>{mediaName}</strong></p><p className="text-[11px]">La visión artificial leerá contexto, terreno, planos o texto legible como observaciones provisionales.</p></div><Button type="button" size="sm" variant="outline" onClick={() => void analyzeVisualReference()} disabled={!mediaDataUrl || visualLoading} className="h-8 shrink-0 text-xs">{visualLoading ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Camera className="mr-1 h-3.5 w-3.5" />}{visualLoading ? "Analizando…" : "Analizar"}</Button></div>}
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-[#718078]">ARKI extrae datos preliminares, separa UNKNOWN y pregunta antes de registrar.</span><Button type="button" size="sm" onClick={interpretBrief} disabled={!briefText.trim()} className="h-8 bg-[#385348] text-xs text-[#fbfaf6]"><Send className="mr-1 h-3.5 w-3.5" />Procesar borrador</Button></div>
-          {(briefDraft || visualProposals.length > 0) && <div className="mt-3 space-y-3 border-t border-[#d7d8cf] pt-3"><div className="rounded border border-[#8bc34a]/60 bg-[#fbfaf6] p-3"><div className="flex items-center justify-between gap-2"><p className="font-semibold text-[#385348]">Resumen editable — revisar antes de procesar</p><span className="text-[10px] uppercase tracking-wide text-[#a94524]">HYPOTHESIS / AI_PROPOSED</span></div>{briefDraft?.extracted.map((item, index) => <Input key={`extract-${index}`} value={item} onChange={(event) => setBriefDraft((current) => current ? { ...current, extracted: current.extracted.map((entry, entryIndex) => entryIndex === index ? event.target.value : entry) } : current)} className="mt-2 h-8 bg-white text-xs" aria-label={`Dato extraído ${index + 1}`} />)}{visualProposals.map((proposal, index) => <Input key={proposal.evidence_id} value={proposal.description} onChange={(event) => setVisualProposals((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, description: event.target.value } : entry))} className="mt-2 h-8 bg-white text-xs" aria-label={`Observación visual ${index + 1}`} />)}</div>
+          {(briefDraft || visualProposals.length > 0) && <div className="mt-3 space-y-3 border-t border-[#d7d8cf] pt-3"><div className="rounded border border-[#8bc34a]/60 bg-[#fbfaf6] p-3"><div className="flex flex-wrap items-center justify-between gap-2"><p className="font-semibold text-[#385348]">Resumen editable — revisar antes de procesar</p><div className="flex items-center gap-2"><span className="text-[10px] uppercase tracking-wide text-[#a94524]">HYPOTHESIS / AI_PROPOSED</span>{visualProposals.length > 0 && <Button type="button" size="sm" variant="outline" onClick={exportVisualResultsPdf} className="h-7 border-[#385348] px-2 text-[11px] text-[#385348]" aria-label="Exportar análisis visual a PDF"><Download className="mr-1 h-3.5 w-3.5" />PDF</Button>}</div></div>{briefDraft?.extracted.map((item, index) => <Input key={`extract-${index}`} value={item} onChange={(event) => setBriefDraft((current) => current ? { ...current, extracted: current.extracted.map((entry, entryIndex) => entryIndex === index ? event.target.value : entry) } : current)} className="mt-2 h-8 bg-white text-xs" aria-label={`Dato extraído ${index + 1}`} />)}{visualProposals.map((proposal, index) => <Input key={proposal.evidence_id} value={proposal.description} onChange={(event) => setVisualProposals((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, description: event.target.value } : entry))} className="mt-2 h-8 bg-white text-xs" aria-label={`Observación visual ${index + 1}`} />)}</div>
             <div className="rounded border border-[#d07b4a]/50 bg-[#fffaf5] p-3"><p className="font-semibold text-[#a94524]">Completar información faltante</p><div className="mt-2 grid gap-2 sm:grid-cols-2">{([["access", "Acceso y frente libre"], ["orientation", "Orientación / norte"], ["users", "Usuarios y aforo"], ["area", "Área objetivo"], ["regulations", "Normativa / jurisdicción"]] as const).map(([key, label]) => <label key={key} className="text-[11px] text-[#718078]">{label}<Input value={missingFields[key]} onChange={(event) => updateMissingField(key, event.target.value)} placeholder="UNKNOWN — completar" className="mt-1 h-8 bg-white text-xs" /></label>)}</div><p className="mt-2 text-[10px] text-[#718078]">Estos datos permanecen en edición local hasta que el usuario decida registrarlos en SICL.</p></div>
           </div>}
         </div>}
