@@ -1,0 +1,1328 @@
+MACROORDEN ARKI
+
+M1 — EDWARD T. WHITE
+SYSTEMATIC ARCHITECTURAL KNOWLEDGE ACQUISITION
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+MODO:
+VERIFY → SOURCE AUDIT → INVENTORY → EXTRACT → CLASSIFY
+→ NORMALIZE → ABSTRACT → RELATE → GENERATE
+→ RETRIEVE → CHALLENGE → VALIDATE
+→ MANUAL → ANEXO I → CHECKPOINT
+
+AUTORIDAD FINAL:
+ARQUITECTO HUMANO / PRODUCT OWNER
+
+SISTEMA:
+ARKI
+
+============================================================
+0. CONTEXTO
+============================================================
+
+P10 está cerrado experimentalmente.
+
+Último estado reportado:
+
+Delta 494
+
+Final commit:
+83aa7eb5ba2397a8dd5c77f825c27066591ae23c
+
+Branch:
+feat/spatial-pilot-media-studio-v1
+
+P10_K_BEFORE =
+K2_CANDIDATE
+
+P10_K_AFTER =
+K2_CANDIDATE
+
+P10_GENERALIZATION_LEVEL =
+G1
+
+P10_SYSTEM_AUTONOMY =
+L10_DEMONSTRATED
+
+L10_GENERALIZATION =
+PROCESS_DEMONSTRATED;
+KNOWLEDGE_NOT_UNIVERSALIZED
+
+ANEXO_I_STATUS =
+IMPLEMENTED
+
+HUMAN_AUTHORITY =
+REQUIRED / FINAL
+
+DO NOT assume these values.
+
+Verify repository truth before writing.
+
+============================================================
+1. PURPOSE
+============================================================
+
+Begin systematic acquisition of architectural knowledge for:
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+using Edward T. White as the first major documented corpus.
+
+Primary candidate source:
+
+Edward T. White
+Concept Sourcebook:
+A Vocabulary of Architectural Forms
+
+Exact edition MUST be identified from the actual source.
+
+The purpose is NOT to digitize or reproduce the book.
+
+The purpose is to construct traceable architectural knowledge that
+ARKI can:
+
+RETRIEVE
+ABSTRACT
+RELATE
+TRANSFORM
+RECOMBINE
+GENERATE FROM
+COMPARE
+CRITIQUE
+ADAPT
+
+without treating source examples as templates.
+
+============================================================
+2. CRITICAL SOURCE GATE
+============================================================
+
+Before implementation determine whether the actual primary source is
+available in the workspace/repository/authorized project materials.
+
+Required:
+
+SOURCE_TITLE
+AUTHOR
+EDITION
+PUBLICATION DATA
+SOURCE LOCATION
+PAGE STRUCTURE
+SOURCE ACCESS STATUS
+
+Classify:
+
+PRIMARY_SOURCE_AVAILABLE
+
+PRIMARY_SOURCE_PARTIAL
+
+PRIMARY_SOURCE_NOT_AVAILABLE
+
+If PRIMARY_SOURCE_NOT_AVAILABLE:
+
+DO NOT reconstruct White from memory.
+
+DO NOT infer the complete contents from previous ARKI notes.
+
+DO NOT use web summaries as substitute for exhaustive source coverage.
+
+DO NOT claim source completeness.
+
+Proceed only with:
+
+M1 ARCHITECTURE / SCHEMA / INGESTION PIPELINE PREPARATION
+
+and return:
+
+M1_SOURCE_BLOCKED =
+PRIMARY_SOURCE_REQUIRED
+
+Then STOP before content population.
+
+If PRIMARY_SOURCE_PARTIAL:
+
+only ingest the verified available portion.
+
+Coverage must explicitly remain PARTIAL.
+
+============================================================
+3. FUNDAMENTAL SEPARATIONS
+============================================================
+
+Preserve:
+
+SOURCE
+≠
+ARKI INTERPRETATION.
+
+SOURCE-DOCUMENTED
+≠
+SOURCE-DERIVED.
+
+SOURCE-DERIVED
+≠
+ARKI-DERIVED.
+
+ARKI-DERIVED
+≠
+ARKI-GENERATED.
+
+ARKI-GENERATED
+≠
+ARKI-DISCOVERED.
+
+IMAGE
+≠
+ARCHITECTURAL KNOWLEDGE.
+
+SEEING
+≠
+UNDERSTANDING.
+
+FORM
+≠
+ORGANIZATION.
+
+FORM
+≠
+TOPOLOGY.
+
+FORM
+≠
+PARTI.
+
+PARTI
+≠
+DIAGRAM.
+
+PARTI
+≠
+TEMPLATE.
+
+FORM FAMILY
+≠
+PROJECT SOLUTION.
+
+VOCABULARY
+≠
+ANSWER.
+
+PRECEDENT
+≠
+REFERENCE.
+
+REFERENCE
+≠
+ANALOGY.
+
+ANALOGY
+≠
+COPYING.
+
+VISUAL RESEMBLANCE
+≠
+TRANSFERABILITY.
+
+GEOMETRIC SIMILARITY
+≠
+GENERATIVE EQUIVALENCE.
+
+SOURCE SPACE
+≠
+KNOWLEDGE SPACE
+≠
+GENERATIVE SPACE.
+
+SOURCE ACQUISITION
+≠
+PROJECT DISCOVERY
+≠
+LEARNING.
+
+COMBINATORIAL ABUNDANCE
+≠
+CREATIVE INTELLIGENCE.
+
+============================================================
+4. COPYRIGHT / SOURCE REPRESENTATION RULE
+============================================================
+
+Do not reproduce the book as a substitute publication.
+
+Do not bulk-copy source text.
+
+Do not bulk-copy source illustrations into ARKI.
+
+Preserve bibliographic and page/figure provenance.
+
+Where visual representation is needed, prefer:
+
+SOURCE REFERENCE
+        ↓
+SEMANTIC INTERPRETATION
+        ↓
+ABSTRACT ARCHITECTURAL REPRESENTATION
+        ↓
+ARKI-GENERATED DIAGRAM
+
+ARKI-generated diagrams must not falsely claim to be White's
+original illustrations.
+
+Keep:
+
+SOURCE FIGURE
+≠
+ARKI DIAGRAM.
+
+============================================================
+5. EXISTING ARCHITECTURE AUDIT
+============================================================
+
+Before creating new structures inspect:
+
+arkiRPartiManual
+R-PARTI knowledge structures
+Manual fixtures
+form primitives
+form families
+transformations
+relationships
+spatial organizations
+precedent/reference structures
+retrieval R0-R4
+provenance structures
+knowledge ledger
+learning ledger
+DesignMemory
+P10 transfer mechanisms
+ANEXO I
+Delta registry
+Curriculum
+Living Book
+
+Produce:
+
+REUSE
+EXTEND
+CREATE
+
+map.
+
+Rule:
+
+REUSE BEFORE EXTEND.
+EXTEND BEFORE CREATE.
+
+No parallel Manual.
+
+No White-specific reasoning engine.
+
+No White-specific geometry engine.
+
+No White-specific learning engine.
+
+============================================================
+6. M1 INTERNAL SEQUENCE
+============================================================
+
+Execute:
+
+M1.0  BASELINE
+M1.1  SOURCE AUDIT
+M1.2  SOURCE INVENTORY
+M1.3  CONCEPT INVENTORY
+M1.4  SOURCE-DOCUMENTED EXTRACTION
+M1.5  SEMANTIC CLASSIFICATION
+M1.6  NORMALIZATION
+M1.7  RELATIONSHIP EXTRACTION
+M1.8  GENERATIVE ABSTRACTION
+M1.9  FORM LINEAGE
+M1.10 CROSS-REFERENCE GRAPH
+M1.11 RETRIEVAL TEST
+M1.12 ANTI-TEMPLATE TEST
+M1.13 GENERATIVE TEST
+M1.14 TRANSFER / ADAPT TEST
+M1.15 COVERAGE AUDIT
+M1.16 MANUAL INTEGRATION
+M1.17 ANEXO I
+M1.18 REGRESSION
+M1.19 CHECKPOINT
+
+Do not skip source audit.
+
+============================================================
+M1.0 — BASELINE
+============================================================
+
+Verify:
+
+repo
+branch
+HEAD
+remote HEAD
+worktree
+latest Delta
+P10
+R-PARTI
+P9
+ANEXO I
+Manual current state.
+
+No write before baseline verification.
+
+============================================================
+M1.1 — SOURCE AUDIT
+============================================================
+
+Identify exact White source.
+
+Do not infer edition.
+
+Record:
+
+sourceId
+author
+title
+edition
+publisher
+publicationYear
+ISBN if present
+language
+pageCount
+sourceFormat
+sourceLocation
+sourceCompleteness
+sourceCondition
+
+Also distinguish:
+
+PRIMARY_SOURCE
+SECONDARY_SOURCE
+ARKI_PRIOR_KNOWLEDGE.
+
+Only PRIMARY_SOURCE can support:
+
+SOURCE_DOCUMENTED
+
+for exhaustive M1 ingestion.
+
+============================================================
+M1.2 — SOURCE INVENTORY
+============================================================
+
+Build a structural inventory of the actual source.
+
+Capture, where present:
+
+sections
+chapters
+headings
+subheadings
+concept groups
+figures
+diagram groups
+indexes
+cross-references
+page ranges.
+
+Do NOT interpret deeply yet.
+
+This is the documentary map.
+
+Produce machine-readable:
+
+WHITE_SOURCE_INVENTORY.
+
+Every later entry must be traceable to it.
+
+============================================================
+M1.3 — CONCEPT INVENTORY
+============================================================
+
+Identify every architecturally relevant concept represented in the
+available source.
+
+Do not limit inventory to visually obvious shapes.
+
+Potential knowledge dimensions include, when actually supported by
+the source:
+
+FUNCTIONAL GROUPING / ZONING
+ARCHITECTURAL SPACE
+CIRCULATION
+BUILDING FORM
+CONTEXT RESPONSE
+BUILDING ENVELOPE
+FORM RELATIONSHIPS
+ACCESS
+VERTICAL RELATIONSHIPS
+SYSTEMS
+BUILDING IMAGE
+PLAN RELATIONSHIPS
+ELEVATION RELATIONSHIPS
+
+Do not force these categories if exact source differs.
+
+Source controls inventory.
+
+============================================================
+M1.4 — SOURCE-DOCUMENTED EXTRACTION
+============================================================
+
+For each verified concept create a source record.
+
+Minimum:
+
+entryId
+sourceId
+sourcePage
+sourceFigure if identifiable
+sourceHeading
+sourceConcept
+sourceContext
+sourceEvidence
+sourceStatus
+
+Allowed sourceStatus:
+
+SOURCE_DOCUMENTED
+SOURCE_AMBIGUOUS
+SOURCE_INCOMPLETE
+UNKNOWN.
+
+Do not silently resolve ambiguity.
+
+============================================================
+M1.5 — SEMANTIC CLASSIFICATION
+============================================================
+
+Classify each entry using shared ARKI ontology where justified.
+
+Possible categories:
+
+PRIMITIVE
+FORM_FAMILY
+SPATIAL_ORGANIZATION
+SPATIAL_RELATIONSHIP
+CIRCULATION
+MASS_VOID
+SECTION
+ENVELOPE
+SITE_RESPONSE
+CONTEXT_RESPONSE
+TRANSFORMATION
+GENERATION_OPERATOR
+ACCESS
+THRESHOLD
+SYSTEM_RELATIONSHIP
+EXPERIENTIAL_RELATIONSHIP
+OTHER
+UNKNOWN.
+
+One source entry may belong to multiple categories.
+
+Do not force exclusive classification.
+
+============================================================
+M1.6 — NORMALIZATION
+============================================================
+
+Detect semantic duplicates.
+
+Example conceptual rule:
+
+same architectural relation
+appearing on multiple pages
+≠
+multiple independent concepts.
+
+Preserve:
+
+SOURCE OCCURRENCES
+
+separately from:
+
+NORMALIZED KNOWLEDGE ENTITY.
+
+Therefore:
+
+SOURCE_ENTRY
+        many-to-many
+KNOWLEDGE_ENTITY.
+
+Do not destroy source granularity.
+
+============================================================
+M1.7 — RELATIONSHIP EXTRACTION
+============================================================
+
+Extract supported relationships.
+
+Examples only when source supports them:
+
+PART_OF
+RELATED_TO
+TRANSFORMS_TO
+CONTRASTS_WITH
+CAN_COMBINE_WITH
+CAN_REPEAT
+CAN_ENCLOSE
+CAN_CONNECT
+CAN_SEPARATE
+CAN_ORIENT
+CAN_BRANCH
+CAN_CLUSTER
+CAN_CENTRALIZE
+CAN_LINEARIZE.
+
+Do not attribute ARKI-derived relationships to White.
+
+Every relationship gets:
+
+relationshipId
+sourceSupport
+epistemicOrigin.
+
+Origin:
+
+SOURCE_DOCUMENTED
+SOURCE_DERIVED
+ARKI_INTERPRETATION
+ARKI_DERIVED.
+
+============================================================
+M1.8 — GENERATIVE ABSTRACTION
+============================================================
+
+Only after source extraction.
+
+Ask:
+
+What transferable architectural operation can be abstracted from this
+entry?
+
+Represent conceptually:
+
+SOURCE EXAMPLE
+      ↓
+ABSTRACT RELATION
+      ↓
+POSSIBLE OPERATOR
+      ↓
+GENERATIVE POSSIBILITY.
+
+Do not geometrize unsupported implications.
+
+Status must remain:
+
+ARKI_DERIVED
+
+unless source explicitly documents operation.
+
+============================================================
+M1.9 — FORM LINEAGE
+============================================================
+
+Build a graph, NOT a rigid tree.
+
+Concept:
+
+PARENT
++
+OPERATOR
+→
+CHILD.
+
+Potential primitives already under consideration include:
+
+POINT
+LINE
+BAR
+PLANE
+RECTANGLE
+POLYGON
+CIRCLE
+ARC
+CORE
+RING
+RADIAL_ARM
+GRID
+CLUSTER
+
+Potential transformations already under consideration include:
+
+ADD
+SUBTRACT
+CUT
+SPLIT
+EXTEND
+BEND
+ROTATE
+SHIFT
+OFFSET
+MIRROR
+REPEAT
+ARRAY
+INTERLOCK
+OVERLAP
+ENCLOSE
+OPEN
+PERFORATE
+CONNECT
+SEPARATE
+TAPER
+STEP
+TERRACE
+
+IMPORTANT:
+
+These are ARKI candidate vocabulary.
+
+Do NOT attribute them wholesale to White.
+
+Audit which are:
+
+WHITE_DOCUMENTED
+WHITE_DERIVED
+ARKI_PREEXISTING
+ARKI_DERIVED.
+
+A form may have multiple parents.
+
+A transformation may produce multiple children.
+
+A child may arise through multiple trajectories.
+
+Therefore use graph semantics.
+
+============================================================
+M1.10 — CROSS-REFERENCE GRAPH
+============================================================
+
+Manual must not become a flat catalog.
+
+Construct relationships among:
+
+SOURCE
+FORM
+ORGANIZATION
+RELATIONSHIP
+CIRCULATION
+SPACE
+SITE
+CONTEXT
+OPERATOR
+TRANSFORMATION
+PARTI
+PRECEDENT
+PROBLEM
+DESIGN INTENT.
+
+Example conceptual graph:
+
+COURTYARD
+├── possible FORM FAMILY
+├── possible MASS/VOID relationship
+├── possible ORGANIZATION
+├── possible CIRCULATION relationship
+├── related precedents
+└── transformations
+
+No equivalence implied.
+
+COURTYARD FORM
+≠
+COURTYARD PARTI.
+
+============================================================
+M1.11 — RETRIEVAL TEST
+============================================================
+
+Test whether ARKI can retrieve White-derived knowledge from an
+architectural condition without using typology → fixed form lookup.
+
+Test:
+
+PROJECT CONDITION
+→ RETRIEVAL QUERY
+→ RELEVANT KNOWLEDGE SET.
+
+Require multiple alternatives where evidence supports them.
+
+Retrieval must expose:
+
+WHY RETRIEVED
+SOURCE
+RELATIONSHIP
+POSSIBLE RELEVANCE
+LIMITATIONS.
+
+No recommendation/winner.
+
+============================================================
+M1.12 — ANTI-TEMPLATE TEST
+============================================================
+
+Critical.
+
+Demonstrate:
+
+SAME WHITE ENTRY
+→ multiple possible project uses.
+
+and:
+
+SAME PROJECT CONDITION
+→ multiple possible retrieved entries.
+
+Reject architecture:
+
+TYPOLOGY
+→ WHITE FORM
+→ PROJECT SOLUTION.
+
+Test:
+
+FORM POSSIBILITY
+≠
+PROJECT APPROPRIATENESS.
+
+============================================================
+M1.13 — GENERATIVE TEST
+============================================================
+
+Use a small controlled subset.
+
+Do NOT generate thousands of shapes.
+
+Test whether ARKI can:
+
+retrieve
+→ abstract
+→ transform
+→ recombine
+→ generate
+
+at least multiple traceably different formal possibilities.
+
+Every generated possibility requires lineage:
+
+SOURCE KNOWLEDGE
+→ ABSTRACT RELATION
+→ OPERATOR
+→ TRANSFORMATION
+→ GENERATED POSSIBILITY.
+
+Classify:
+
+ARKI_GENERATED.
+
+Not:
+
+WHITE_FORM.
+
+============================================================
+M1.14 — TRANSFER / ADAPT TEST
+============================================================
+
+Reuse P10 transfer discipline.
+
+For selected White-derived knowledge test:
+
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER
+UNKNOWN.
+
+Verify:
+
+visual resemblance alone cannot force transfer.
+
+Structural relationship matters.
+
+Preserve:
+
+VISUAL RESEMBLANCE
+≠
+ANALOGICAL TRANSFER.
+
+============================================================
+M1.15 — COVERAGE AUDIT
+============================================================
+
+This is mandatory.
+
+Report:
+
+TOTAL_SOURCE_SECTIONS
+SECTIONS_INVENTORIED
+TOTAL_RELEVANT_SOURCE_ENTRIES
+ENTRIES_EXTRACTED
+ENTRIES_NORMALIZED
+AMBIGUOUS_ENTRIES
+UNKNOWN_ENTRIES
+SOURCE-DOCUMENTED ENTRIES
+SOURCE-DERIVED ENTRIES
+ARKI-INTERPRETED ENTRIES
+ARKI-DERIVED ENTRIES
+ARKI-GENERATED TEST ITEMS.
+
+Calculate documentary coverage only where denominator is genuinely
+known.
+
+Do not claim:
+
+WHITE = 100%
+
+unless the actual complete source has been audited.
+
+Distinguish:
+
+SOURCE COVERAGE
+SEMANTIC COVERAGE
+IMPLEMENTATION COVERAGE
+TEST COVERAGE.
+
+============================================================
+M1.16 — MANUAL INTEGRATION
+============================================================
+
+Integrate into:
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+not a new White database.
+
+White is a source/corpus within the Manual.
+
+Conceptual architecture:
+
+MANUAL
+│
+├── SOURCE CORPORA
+│   └── EDWARD T. WHITE
+│
+├── NORMALIZED KNOWLEDGE
+│
+├── FORM VOCABULARY
+│
+├── ORGANIZATIONS
+│
+├── RELATIONSHIPS
+│
+├── TRANSFORMATIONS
+│
+├── GENERATIVE OPERATORS
+│
+├── PRECEDENTS / REFERENCES
+│
+├── EXPERIMENTAL KNOWLEDGE
+│
+└── ARKI-DERIVED KNOWLEDGE.
+
+No source owns the normalized architectural concept.
+
+Multiple sources may support the same concept.
+
+============================================================
+M1.17 — ANEXO I
+============================================================
+
+Use existing ANEXO I contract.
+
+Do not create another annex system.
+
+Create/register:
+
+ANEXO I — M1 EDWARD T. WHITE
+SYSTEMATIC ARCHITECTURAL KNOWLEDGE ACQUISITION
+
+ANEXO I references:
+
+source audit
+source inventory
+coverage
+machine-readable knowledge
+proof
+tests
+retrieval results
+anti-template results
+generative tests
+transfer tests
+UNKNOWN
+ambiguities
+provenance
+regression.
+
+The source book itself is NOT ANEXO I.
+
+The Manual knowledge is NOT ANEXO I.
+
+ANEXO I proves how the acquisition occurred.
+
+============================================================
+M1.18 — REGRESSION
+============================================================
+
+Verify no regression in:
+
+R-PARTI
+P9
+P10
+Project B
+Manual
+learning
+transfer
+CanonicalBuildingModel
+existing geometry
+ANEXO I.
+
+Report separately:
+
+KNOWLEDGE_REGRESSION
+REASONING_REGRESSION
+SOFTWARE_REGRESSION.
+
+============================================================
+M1.19 — CHECKPOINT
+============================================================
+
+Determine actual next Delta from repository.
+
+Do not assume 495.
+
+Update according to existing governance:
+
+DELTA
+→ ARKI
+→ CURRÍCULO
+→ LIBRO VIVO.
+
+Preserve epistemic provenance.
+
+Do not propagate ARKI interpretation as White-authored fact.
+
+============================================================
+7. MANUAL ENTRY CONTRACT
+============================================================
+
+Reuse existing structures where possible.
+
+Conceptually every Manual entry should be capable of expressing:
+
+IDENTITY
+SOURCE
+PROVENANCE
+EPISTEMIC ORIGIN
+ARCHITECTURAL SEMANTICS
+GENERATIVE SEMANTICS
+APPLICABILITY
+LIMITATIONS
+RELATIONSHIPS
+CROSS-REFERENCES
+UNKNOWN.
+
+Do not blindly implement a giant interface if current architecture
+already expresses these through composable structures.
+
+============================================================
+8. EPISTEMIC ORIGIN
+============================================================
+
+Every knowledge claim introduced by M1 must identify origin.
+
+At minimum:
+
+SOURCE_DOCUMENTED
+SOURCE_DERIVED
+ARKI_INTERPRETATION
+ARKI_DERIVED
+ARKI_GENERATED.
+
+If current enums differ, map rather than duplicate.
+
+Future states may include:
+
+ARKI_DISCOVERED_CANDIDATE
+HUMAN_CONFIRMED
+
+but do not create/promote them unless required.
+
+============================================================
+9. CRITICAL TESTS
+============================================================
+
+At minimum verify:
+
+M1-T01
+Primary source identity is explicit.
+
+M1-T02
+No source entry without provenance.
+
+M1-T03
+Source statement separated from ARKI interpretation.
+
+M1-T04
+Form separated from organization.
+
+M1-T05
+Form separated from parti.
+
+M1-T06
+Source entry separated from normalized entity.
+
+M1-T07
+One concept can have multiple source occurrences.
+
+M1-T08
+One concept can have multiple source corpora.
+
+M1-T09
+One form can have multiple generative lineages.
+
+M1-T10
+One lineage can generate multiple possibilities.
+
+M1-T11
+Retrieval returns rationale.
+
+M1-T12
+Retrieval does not automatically select winner.
+
+M1-T13
+Typology cannot directly resolve to fixed White form.
+
+M1-T14
+Visual similarity cannot force transfer.
+
+M1-T15
+Generated geometry is not labeled White-authored.
+
+M1-T16
+ARKI-derived relation is distinguishable from source claim.
+
+M1-T17
+UNKNOWN survives incomplete source evidence.
+
+M1-T18
+Coverage cannot claim completeness without complete source.
+
+M1-T19
+P10 transfer semantics are reused.
+
+M1-T20
+ANEXO I references evidence without duplicating source.
+
+M1-T21
+R-PARTI replay remains valid.
+
+M1-T22
+Project B remains reproducible.
+
+M1-T23
+P9 remains valid.
+
+M1-T24
+P10 remains valid.
+
+============================================================
+10. SUCCESS DOES NOT REQUIRE FULL INGESTION
+============================================================
+
+Possible valid result:
+
+M1_SOURCE =
+PRIMARY_SOURCE_NOT_AVAILABLE
+
+M1_ARCHITECTURE =
+READY
+
+M1_CONTENT =
+BLOCKED_BY_PRIMARY_SOURCE
+
+This is SUCCESSFUL RESTRAINT.
+
+Another valid result:
+
+PRIMARY_SOURCE_PARTIAL
++
+PARTIAL INGESTION
++
+PARTIAL COVERAGE.
+
+Do not fake completeness.
+
+============================================================
+11. REQUIRED FINAL REPORT
+============================================================
+
+Return:
+
+# ARKI — M1 Edward T. White Knowledge Acquisition Report
+
+## 1. Baseline
+repo
+branch
+HEAD
+Delta
+worktree
+
+## 2. Source
+author
+title
+edition
+publisher
+year
+format
+location
+completeness
+
+## 3. Source Inventory
+sections
+pages
+figures
+concept groups
+
+## 4. Knowledge Inventory
+source entries
+normalized entries
+relationships
+operators
+forms
+organizations
+unknowns
+
+## 5. Provenance
+documented
+derived
+ARKI interpreted
+ARKI derived
+ARKI generated
+
+## 6. Form Vocabulary
+families
+relationships
+lineages
+
+## 7. Spatial Organization
+organizations
+relations to forms
+many-to-many evidence
+
+## 8. Generative Vocabulary
+operators
+transformations
+lineages
+
+## 9. Retrieval Test
+query
+retrieved items
+rationale
+limitations
+
+## 10. Anti-Template Test
+results
+
+## 11. Generative Test
+source
+abstraction
+operation
+generated possibilities
+lineage
+
+## 12. Transfer Test
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER
+UNKNOWN
+
+## 13. Coverage
+source coverage
+semantic coverage
+implementation coverage
+test coverage
+
+## 14. Manual Integration
+created
+extended
+reused
+
+## 15. ANEXO I
+status
+manifest
+evidence references
+
+## 16. Regression
+R-PARTI
+P9
+P10
+Project B
+Manual
+software
+
+## 17. Validation
+focused tests
+full suite
+TypeScript
+build
+git diff --check
+
+## 18. Git
+Delta
+commit
+remote HEAD
+worktree
+
+## 19. Final States
+
+Return:
+
+M1_SOURCE_STATUS =
+M1_SOURCE_COVERAGE =
+M1_KNOWLEDGE_ENTRIES =
+M1_NORMALIZED_ENTITIES =
+M1_FORM_FAMILIES =
+M1_ORGANIZATIONS =
+M1_RELATIONSHIPS =
+M1_OPERATORS =
+M1_GENERATIVE_LINEAGES =
+M1_RETRIEVAL =
+M1_ANTI_TEMPLATE =
+M1_GENERATIVE_TEST =
+M1_TRANSFER_TEST =
+M1_MANUAL_INTEGRATION =
+M1_ANEXO_I =
+M1_REGRESSION =
+M1_HUMAN_AUTHORITY =
+
+and:
+
+M1_NEXT_STEP =
+
+exactly one:
+
+READY_FOR_FULL_SOURCE_INGESTION
+READY_FOR_NEXT_CORPUS
+BLOCKED_BY_PRIMARY_SOURCE
+BLOCKED_BY_ARCHITECTURE
+BLOCKED_BY_REGRESSION
+
+============================================================
+12. STOP
+============================================================
+
+After report:
+
+STOP.
+
+Do not start Ching.
+Do not start Clark & Pause.
+Do not bulk populate other sources.
+Do not invent missing White content.
+Do not canonize ARKI derivations as White knowledge.
+Do not merge.
+Do not deploy.
+
+PROCEDE.

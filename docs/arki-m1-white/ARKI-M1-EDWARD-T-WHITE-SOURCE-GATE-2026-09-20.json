@@ -1,0 +1,109 @@
+{
+  "experimentId": "M1-EDWARD-T-WHITE-SYSTEMATIC-ACQUISITION",
+  "baseline": {
+    "repository": "YvanCastilloQuezada/sicl-web",
+    "branch": "feat/spatial-pilot-media-studio-v1",
+    "head": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
+    "remoteHead": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
+    "worktree": "CLEAN",
+    "delta": "PASTED-CONTENT-495-V495"
+  },
+  "source": {
+    "sourceId": "WHITE-CONCEPT-SOURCEBOOK",
+    "author": "Edward T. White",
+    "title": "Concept Sourcebook: A Vocabulary of Architectural Forms",
+    "edition": "UNKNOWN",
+    "publicationData": "UNKNOWN",
+    "sourceLocation": "NOT_PRESENT_IN_WORKSPACE_OR_REPOSITORY",
+    "pageStructure": "UNKNOWN",
+    "sourceAccessStatus": "PRIMARY_SOURCE_NOT_AVAILABLE",
+    "sourceStatus": "PRIMARY_SOURCE_NOT_AVAILABLE",
+    "completeness": "NOT_ASSESSED",
+    "sourceCondition": "UNKNOWN",
+    "allowedWork": "ARCHITECTURE_SCHEMA_AND_INGESTION_PIPELINE_PREPARATION",
+    "prohibitedWork": [
+      "RECONSTRUCT_WHITE_FROM_MEMORY",
+      "BULK_COPY_SOURCE_TEXT",
+      "BULK_COPY_SOURCE_ILLUSTRATIONS",
+      "CLAIM_SOURCE_COMPLETENESS",
+      "CANONIZE_ARKI_DERIVATION_AS_WHITE_KNOWLEDGE"
+    ]
+  },
+  "architectureMap": {
+    "reuse": [
+      "arkiRPartiManual",
+      "R-PARTI provenance states",
+      "arkiLearningContract",
+      "DesignMemory",
+      "P10 transfer semantics",
+      "ANEXO I manifest",
+      "delta registry",
+      "curriculum and Living Book indices"
+    ],
+    "extend": [
+      "Manual entry contract with source origin and coverage",
+      "source inventory and extraction records",
+      "many-to-many source-to-knowledge graph",
+      "retrieval rationale and anti-template checks"
+    ],
+    "create": [
+      "M1 source audit gate",
+      "M1 source inventory schema",
+      "M1 reproducibility report"
+    ],
+    "parallelSystems": false
+  },
+  "coverage": {
+    "source": "NOT_STARTED",
+    "semantic": "NOT_STARTED",
+    "implementation": "SCHEMA_READY",
+    "tests": "GATE_ONLY"
+  },
+  "inventory": {
+    "sourceEntries": 0,
+    "normalizedEntities": 0,
+    "formFamilies": 0,
+    "organizations": 0,
+    "relationships": 0,
+    "operators": 0,
+    "generativeLineages": 0,
+    "unknowns": [
+      "edition",
+      "publisher",
+      "publication year",
+      "ISBN",
+      "language",
+      "page count",
+      "source location",
+      "source completeness"
+    ]
+  },
+  "manualIntegration": {
+    "status": "PREPARED_NOT_POPULATED",
+    "reused": [
+      "existing Manual and provenance ontology"
+    ],
+    "extended": [
+      "source gate and future source-entry contract"
+    ],
+    "created": [
+      "no White content entries"
+    ]
+  },
+  "annexI": {
+    "status": "IMPLEMENTED",
+    "mode": "SOURCE_GATE_ONLY",
+    "manifest": "docs/annex-i/manifest.json",
+    "noSourceDuplication": true
+  },
+  "regression": {
+    "rParti": "NOT_RUN_IN_M1_GATE",
+    "p9": "NOT_RUN_IN_M1_GATE",
+    "p10": "NOT_RUN_IN_M1_GATE",
+    "projectB": "NOT_RUN_IN_M1_GATE",
+    "manual": "NO_CONTENT_CHANGE",
+    "software": "PENDING_VALIDATION"
+  },
+  "humanAuthority": true,
+  "nextStep": "BLOCKED_BY_PRIMARY_SOURCE"
+}

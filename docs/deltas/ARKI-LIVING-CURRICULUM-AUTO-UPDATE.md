@@ -355,3 +355,20 @@ Formalized the reusable ANEXO I evidence manifest. This is metadata/reference in
 ## PASTED-CONTENT-494-V492 — P10 Knowledge Transfer
 
 P10 tested the Project-B K2 candidate through bounded abstraction, near/cross-project/cross-typology transfer, adversarial non-transfer and counterexample scope refinement. The system process reached L10_DEMONSTRATED while knowledge remained K2_CANDIDATE; no universal rule was promoted.
+
+<!-- PASTED-CONTENT-495-V494 -->
+## PASTED-CONTENT-495-V494 — pasted_content_495.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `e2407f0f9fc6cad6e9500e229963583a58b9ba6a06c05bbbd578a42f0f00fff9`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — M1 Edward T. White Knowledge Acquisition Report, 1. Baseline, 2. Source, 3. Source Inventory, 4. Knowledge Inventory, 5. Provenance, 6. Form Vocabulary, 7. Spatial Organization
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-495-V494-M1 -->
+## PASTED-CONTENT-495-V494 — M1 Edward T. White
+
+The primary-source gate found no Edward T. White corpus in the workspace or repository. Architecture/schema preparation is ready, but content ingestion is blocked; no White content was invented or canonized.

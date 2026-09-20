@@ -137,6 +137,55 @@
         "CURRICULUM",
         "LIVING_BOOK"
       ]
+    },
+    {
+      "anexoId": "ANEXO-I-M1-EDWARD-T-WHITE-SOURCE-GATE",
+      "title": "ANEXO I — M1 Edward T. White Source Gate",
+      "experimentId": "M1-EDWARD-T-WHITE-SYSTEMATIC-ACQUISITION",
+      "checkpointId": "M1.1 SOURCE AUDIT",
+      "deltaId": "PASTED-CONTENT-495-V494",
+      "baselineSha": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
+      "finalSha": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
+      "humanReport": "docs/arki-m1-white/ARKI-M1-EDWARD-T-WHITE-SOURCE-GATE-2026-09-20.md",
+      "structuredReport": "docs/arki-m1-white/ARKI-M1-EDWARD-T-WHITE-SOURCE-GATE-2026-09-20.json",
+      "executableProof": "client/src/components/arkiM1WhiteSourceGate.ts",
+      "tests": [
+        "client/src/components/arkiM1WhiteSourceGate.test.ts"
+      ],
+      "experimentalArtifacts": [],
+      "replayOrGenerator": "scripts/generate_arki_m1_white_report.ts",
+      "provenance": [
+        "docs/deltas/inbox/PASTED-CONTENT-495-V495/pasted_content_495.txt",
+        "docs/annex-i/ANEXO-I-CONTRACT.md",
+        "docs/deltas/ARKI-DELTA-REGISTRY.json"
+      ],
+      "epistemicStatus": "PRIMARY_SOURCE_NOT_AVAILABLE / SCHEMA_READY",
+      "unknowns": [
+        "edition",
+        "publisher",
+        "publication year",
+        "ISBN",
+        "language",
+        "page count",
+        "source location",
+        "source completeness"
+      ],
+      "blocked": [
+        "source inventory",
+        "concept extraction",
+        "normalization",
+        "generative tests",
+        "Manual content population"
+      ],
+      "coverage": "Source gate only; zero content entries",
+      "regressionStatus": "PENDING_FULL_SUITE",
+      "humanAuthorityRequired": true,
+      "propagationRefs": [
+        "DELTA_495",
+        "ARKI",
+        "CURRICULUM",
+        "LIVING_BOOK"
+      ]
     }
   ]
 }
