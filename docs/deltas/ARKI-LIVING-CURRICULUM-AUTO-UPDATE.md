@@ -253,3 +253,20 @@ HUMAN_AUTHORITY = FINAL
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
 
 - **P9.0 Project B:** blind execution and post-hoc evaluation completed; observation-only, no K1, geometry not executed.
+
+<!-- PASTED-CONTENT-488-V1 -->
+## PASTED-CONTENT-488-V1 — pasted_content_488.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `b6b1d52c08b5c031c3d17de4616805aa2facb67761df638462ba5e48b95bf98d`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P9.3, PROJECT B — MULTI-SCENARIO ADVERSARIAL ARCHITECTURAL EVALUATION, Frozen Dual Candidates → Active Topology → Journeys → Conflicts, → Bottlenecks → Dependencies → Deficits → Trade-offs → Human Deliberation
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+
+## Delta 488 / P9.3 — Multi-scenario adversarial architectural evaluation
+
+Nueva lección propagada a los tres volúmenes: evaluar dos hipótesis arquitectónicas congeladas bajo operación normal, alta demanda, reparación/servicio y emergencia sin mutar geometría, inventar hechos, fabricar cumplimiento ni crear un ganador. Distinciones enseñadas: grafo geométrico ≠ grafo activo; journey ≠ route; flow ≠ corridor; interface ≠ door; capacidad estática ≠ capacidad de servicio; pass individual ≠ pass concurrente; topología normal ≠ topología de emergencia; exploración humana ≠ preferencia humana. El resultado P9.3 permanece como evidencia de ejecución y no como conocimiento canónico; K1 no creado.

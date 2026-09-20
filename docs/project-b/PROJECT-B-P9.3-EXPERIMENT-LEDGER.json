@@ -1,0 +1,377 @@
+{
+  "phase": "P9.3",
+  "candidates": [
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01",
+      "modelVersion": "ARKI-P9-PROJECT-B-GEOMETRY-1",
+      "sourcePlanId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:CONCEPTUAL-PLAN",
+      "elementFingerprint": "fnv1a:d6053c66",
+      "parentGeometryHash": "fnv1a:1e0e815f",
+      "immutable": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02",
+      "modelVersion": "ARKI-P9-PROJECT-B-GEOMETRY-1",
+      "sourcePlanId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:CONCEPTUAL-PLAN",
+      "elementFingerprint": "fnv1a:60814151",
+      "parentGeometryHash": "fnv1a:efc8979a",
+      "immutable": true
+    }
+  ],
+  "cells": [
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "scenario": "S0_NORMAL_DAILY",
+      "activeTopology": "PASS_CONCEPTUAL",
+      "journey": "PASS_CONCEPTUAL",
+      "flowConflicts": [],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "RELATIONAL_PROXY",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "scenario": "S1_HIGH_DEMAND_EVENT",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [
+        "Public, learning and support/service interactions require operational control; conflict is conditional, not verified."
+      ],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [
+        "Potential scenario-dependent separation/control deficit; evidence is relational proxy only."
+      ],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "scenario": "S2_REPAIR_MAKER_SERVICE",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [
+        "Public, learning and support/service interactions require operational control; conflict is conditional, not verified."
+      ],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [
+        "Potential scenario-dependent separation/control deficit; evidence is relational proxy only."
+      ],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "scenario": "S3_EMERGENCY_SAFE_EXIT",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        },
+        {
+          "what": "Egress and fire-engineering evidence",
+          "why": "Only conceptual topology is represented.",
+          "blocks": "Evacuation compliance and safe-exit certification",
+          "resolution": "Provide code-based egress analysis and fire-engineering evidence",
+          "authority": "Qualified fire/life-safety specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "scenario": "S0_NORMAL_DAILY",
+      "activeTopology": "PASS_CONCEPTUAL",
+      "journey": "PASS_CONCEPTUAL",
+      "flowConflicts": [],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "RELATIONAL_PROXY",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "scenario": "S1_HIGH_DEMAND_EVENT",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [
+        "Public, learning and support/service interactions require operational control; conflict is conditional, not verified."
+      ],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [
+        "Potential scenario-dependent separation/control deficit; evidence is relational proxy only."
+      ],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "scenario": "S2_REPAIR_MAKER_SERVICE",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [
+        "Public, learning and support/service interactions require operational control; conflict is conditional, not verified."
+      ],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [
+        "Potential scenario-dependent separation/control deficit; evidence is relational proxy only."
+      ],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "scenario": "S3_EMERGENCY_SAFE_EXIT",
+      "activeTopology": "CONDITIONAL",
+      "journey": "CONDITIONAL",
+      "flowConflicts": [],
+      "interfaceConflicts": [
+        "Shared thresholds and door interfaces may become bottlenecks under changed demand; width/control data is absent."
+      ],
+      "bottlenecks": [
+        "Single represented public route is a potential common-mode dependency; capacity is not asserted."
+      ],
+      "deficits": [],
+      "dependencies": [
+        "Route availability",
+        "Door/interface control",
+        "Capacity parameters",
+        "Specialist/regulatory evidence"
+      ],
+      "unknowns": [
+        {
+          "what": "Occupancy, cycle time and service rate",
+          "why": "No operational numeric inputs were supplied.",
+          "blocks": "Static/service/throughput capacity claims",
+          "resolution": "Provide measured or agreed scenario parameters",
+          "authority": "Human architect plus operator/specialist evidence"
+        },
+        {
+          "what": "Regulatory applicability and limits",
+          "why": "Jurisdiction and applicable code parameters are absent from Project B.",
+          "blocks": "Compliance and permit conclusions",
+          "resolution": "Provide jurisdiction, code edition and specialist review",
+          "authority": "Human architect and qualified regulator/code specialist"
+        },
+        {
+          "what": "Egress and fire-engineering evidence",
+          "why": "Only conceptual topology is represented.",
+          "blocks": "Evacuation compliance and safe-exit certification",
+          "resolution": "Provide code-based egress analysis and fire-engineering evidence",
+          "authority": "Qualified fire/life-safety specialist"
+        }
+      ],
+      "specialistDependency": "SPECIALIST_INPUT_REQUIRED",
+      "evidenceSufficiency": "INSUFFICIENT",
+      "humanDecisionRequired": true
+    }
+  ],
+  "crossScenario": {
+    "B-CANDIDATE-01": "SCENARIO_SENSITIVE",
+    "B-CANDIDATE-02": "SCENARIO_SENSITIVE"
+  },
+  "preferenceReversal": "NONE_OBSERVED",
+  "dominance": "INCOMPARABLE_DUE_TO_UNKNOWN",
+  "automaticWinner": "NONE",
+  "automaticRecommendation": "NONE",
+  "learningCandidate": "NONE",
+  "k1": "NOT_CREATED"
+}

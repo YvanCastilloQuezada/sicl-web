@@ -1,0 +1,10 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { evaluateProjectBP93, p93Markdown, validateP93Evaluation } from "../client/src/components/arkiP93MultiScenarioEvaluation";
+const out = "docs/project-b";
+mkdirSync(out, { recursive: true });
+const result = evaluateProjectBP93();
+if (!validateP93Evaluation(result)) throw new Error("P9.3 validation failed");
+writeFileSync(`${out}/PROJECT-B-P9.3-ADVERSARIAL-EVALUATION.md`, p93Markdown(result));
+writeFileSync(`${out}/PROJECT-B-P9.3-EXPERIMENT-LEDGER.json`, JSON.stringify(result, null, 2) + "\n");
+writeFileSync(`${out}/PROJECT-B-P9.3-HUMAN-DELIBERATION-PACKET.md`, `# Project B — P9.3 Human Deliberation Packet\n\nP9.3 evaluates both frozen candidates under S0 normal daily operation, S1 high-demand community event, S2 repair/maker/service operation and S3 emergency/safe-exit condition.\n\nNo winner or recommendation was produced. The evidence is relational/topological proxy only. Accessibility, capacity, regulatory applicability, fire/life-safety compliance and specialist calculations remain unresolved.\n\n## Human actions\n\nA. Select B-CANDIDATE-01 for further development.\n\nB. Select B-CANDIDATE-02 for further development.\n\nC. Retain both and request targeted evidence.\n\nD. Authorize mutation of one or both.\n\nE. Reject both and reopen synthesis.\n\nF. Request a new candidate family.\n\nThe packet intentionally does not recommend an option.\n`);
+console.log(JSON.stringify({ phase: result.phase, cells: result.cells.length, winner: result.automaticWinner, k1: result.k1 }, null, 2));

@@ -727,6 +727,62 @@
           ]
         }
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-488-V1",
+      "source_name": "pasted_content_488.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_488.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-488-V1/pasted_content_488.txt",
+      "sha256": "b6b1d52c08b5c031c3d17de4616805aa2facb67761df638462ba5e48b95bf98d",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P9.3",
+        "PROJECT B — MULTI-SCENARIO ADVERSARIAL ARCHITECTURAL EVALUATION",
+        "Frozen Dual Candidates → Active Topology → Journeys → Conflicts",
+        "→ Bottlenecks → Dependencies → Deficits → Trade-offs → Human Deliberation"
+      ],
+      "preview_count": 1162,
+      "status": "EXECUTED / PARTIAL_WITH_UNKNOWN / HUMAN_DECISION_REQUIRED",
+      "knowledge_state": "OBSERVED_EXECUTION_RESULT / NOT_CANONIZED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "p93_result": {
+        "status": "COMPLETED_WITH_UNKNOWN_AND_HUMAN_DECISION_REQUIRED",
+        "candidate_scenario_cells": 8,
+        "candidate_geometry_mutated": false,
+        "automatic_winner": "NONE",
+        "automatic_recommendation": "NONE",
+        "learning_candidate": "NONE",
+        "k1": "NOT_CREATED",
+        "evidence": "RELATIONAL_TOPOLOGICAL_PROXY",
+        "specialist_dependency": "SPECIALIST_INPUT_REQUIRED",
+        "human_deliberation": "REQUIRED",
+        "unknowns_preserved": true,
+        "anti_oracle": true,
+        "anti_project_id_dispatch": true,
+        "reports": [
+          "docs/project-b/PROJECT-B-P9.3-ADVERSARIAL-EVALUATION.md",
+          "docs/project-b/PROJECT-B-P9.3-EXPERIMENT-LEDGER.json",
+          "docs/project-b/PROJECT-B-P9.3-HUMAN-DELIBERATION-PACKET.md"
+        ]
+      }
     }
   ]
 }

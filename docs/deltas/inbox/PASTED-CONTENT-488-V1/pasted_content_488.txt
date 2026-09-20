@@ -1,0 +1,1162 @@
+# ARKI — P9.3
+## PROJECT B — MULTI-SCENARIO ADVERSARIAL ARCHITECTURAL EVALUATION
+## Frozen Dual Candidates → Active Topology → Journeys → Conflicts
+## → Bottlenecks → Dependencies → Deficits → Trade-offs → Human Deliberation
+
+MODE =
+CONTROLLED MULTI-SCENARIO ADVERSARIAL EXECUTION
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+REPORTED BASELINE =
+68bc38c81cdfbb66d7d7a774faed5beb0e7bb071
+
+PROJECT =
+PROJECT-B-COASTAL-MAKER-REFUGE-001
+
+CANDIDATES =
+B-CANDIDATE-01
+B-CANDIDATE-02
+
+============================================================
+0. VERIFY BEFORE EXECUTION
+============================================================
+
+Verify:
+
+repository
+branch
+local HEAD
+remote HEAD
+worktree status.
+
+Expected:
+
+LOCAL_HEAD = REMOTE_HEAD =
+68bc38c81cdfbb66d7d7a774faed5beb0e7bb071
+
+WORKTREE = CLEAN.
+
+If actual repository state differs:
+
+STOP and report exact discrepancy.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+1. PHASE GOVERNANCE
+============================================================
+
+Record explicitly:
+
+P9.0 =
+BLIND EXPERIMENTAL PROTOCOL
+COMPLETE / FROZEN
+
+P9.1 =
+PROJECT B BLIND SEMANTIC SYNTHESIS
+EXECUTED
+
+P9.2 =
+HUMAN-AUTHORIZED DUAL GEOMETRIC EXPLORATION
+EXECUTED
+
+P9.3 =
+MULTI-SCENARIO ADVERSARIAL EVALUATION
+CURRENT.
+
+Do not silently rewrite P9.0/P9.1/P9.2.
+
+Preserve their historical evidence.
+
+============================================================
+2. PURPOSE
+============================================================
+
+Evaluate both frozen Project B candidates under multiple operational
+states/scenarios.
+
+The purpose is NOT to choose a winner.
+
+The purpose is to discover how each architectural hypothesis behaves
+when:
+
+state changes
+demand changes
+activities overlap
+flows interact
+controls change
+routes become constrained
+dependencies become active
+evidence becomes insufficient.
+
+We want to expose:
+
+CONFLICTS
+BOTTLENECKS
+DEPENDENCIES
+NEW DEFICITS
+FAILURE MODES
+UNKNOWN
+TRADE-OFFS.
+
+============================================================
+3. DO NOT SOLVE DURING EVALUATION
+============================================================
+
+P9.3 is primarily an evaluation stage.
+
+Do NOT mutate either candidate merely because a weakness is detected.
+
+Do NOT improve B-CANDIDATE-01 during evaluation.
+
+Do NOT improve B-CANDIDATE-02 during evaluation.
+
+Do NOT create B-CANDIDATE-03 unless a later human decision explicitly
+authorizes new synthesis.
+
+Freeze evaluated geometry.
+
+============================================================
+4. CANDIDATE IMMUTABILITY
+============================================================
+
+Verify both candidates correspond to the P9.2 frozen artifacts.
+
+Record:
+
+candidateId
+canonical model reference
+geometry/version reference
+semantic lineage
+source candidate
+hash/version where available.
+
+Evaluation must not alter the parent artifacts.
+
+Preserve:
+
+PARENT CANDIDATE
+≠
+EVALUATION RESULT
+≠
+FUTURE MUTATED CHILD.
+
+============================================================
+5. NO ANSWER KEY
+============================================================
+
+There is no expected winner.
+
+There is no expected best topology.
+
+There is no expected deficit.
+
+There is no expected bottleneck.
+
+There is no expected failure mode.
+
+There is no expected learning rule.
+
+Tests may verify reasoning integrity.
+
+Tests must not require a predetermined architectural conclusion.
+
+============================================================
+6. REQUIRED SCENARIOS
+============================================================
+
+Evaluate both candidates under the SAME four scenario families:
+
+S0 =
+NORMAL DAILY OPERATION
+
+S1 =
+HIGH-DEMAND COMMUNITY EVENT
+
+S2 =
+REPAIR / MAKER / SERVICE OPERATION
+
+S3 =
+EMERGENCY / SAFE-EXIT CONDITION.
+
+These are scenario families, not fabricated project facts.
+
+============================================================
+7. SCENARIO FACT DISCIPLINE
+============================================================
+
+Do NOT invent:
+
+occupancy
+exact event attendance
+equipment quantities
+fire loads
+travel-distance limits
+exit widths
+soil conditions
+wind loads
+flood levels
+regulatory limits
+specialist calculations.
+
+Where information is absent:
+
+UNKNOWN.
+
+Where conditional reasoning is legitimate:
+
+use explicit parameters.
+
+Example:
+
+IF occupancy = X
+THEN ...
+
+Do not silently convert X into project fact.
+
+============================================================
+8. PARAMETRIC CONDITIONAL REASONING
+============================================================
+
+When a missing numeric value prevents definitive evaluation, ARKI may
+produce conditional reasoning such as:
+
+IF demand exceeds threshold T
+THEN interface I becomes potential bottleneck.
+
+But:
+
+T must remain UNKNOWN unless supported.
+
+Distinguish:
+
+PROJECT FACT
+PARAMETER
+ASSUMPTION
+CONDITIONAL VARIABLE
+REGULATORY LIMIT
+UNKNOWN.
+
+============================================================
+9. SUBJECTS AND STATES
+============================================================
+
+For each scenario identify only subjects supported by Project B inputs
+or legitimate derivation.
+
+Evaluate subject states where evidence supports them.
+
+Do not fabricate demographic or operational details.
+
+Required principle:
+
+STATE MUST BELONG TO SUBJECT.
+
+============================================================
+10. ACTIVE TOPOLOGY
+============================================================
+
+For each:
+
+CANDIDATE × SCENARIO
+
+derive the active operational topology from the frozen canonical
+geometry and available controls/state.
+
+Preserve:
+
+GEOMETRIC GRAPH
+≠
+ACTIVE GRAPH.
+
+PHYSICAL CONNECTIVITY
+≠
+OPERATIONAL CONNECTIVITY.
+
+ACTIVE TOPOLOGY =
+function(
+geometry,
+subject state,
+scenario,
+control,
+availability
+).
+
+Do NOT create a second geometry engine.
+
+============================================================
+11. JOURNEYS
+============================================================
+
+Evaluate relevant journeys for each scenario.
+
+Do not reduce journey to room sequence.
+
+Preserve:
+
+JOURNEY
+≠
+ROUTE.
+
+A journey may include:
+
+purpose
+subject
+state
+sequence
+interfaces
+controls
+waiting
+transition
+destination
+return/recovery where applicable.
+
+============================================================
+12. FLOWS
+============================================================
+
+Evaluate relevant flows separately.
+
+Do not equate:
+
+FLOW
+with
+CORRIDOR.
+
+Check possible interactions among:
+
+public/community
+learning
+repair/service
+support/storage
+arrival
+departure
+emergency movement
+
+only where supported by Project B semantics.
+
+============================================================
+13. CONCURRENCY
+============================================================
+
+Explicitly test whether individually valid operations remain valid
+when concurrent.
+
+Preserve:
+
+INDIVIDUAL SCENARIO PASS
+≠
+CONCURRENT SCENARIO PASS.
+
+Where meaningful, test overlap such as:
+
+community event + support operation
+
+learning + repair activity
+
+arrival + departure
+
+normal activity + emergency transition.
+
+Do not invent concurrency if the operating model excludes it.
+
+============================================================
+14. INTERFACES
+============================================================
+
+Treat interfaces explicitly.
+
+An interface may become a bottleneck even if adjacent spaces are
+individually adequate.
+
+Preserve:
+
+INTERFACE
+≠
+DOOR.
+
+Evaluate:
+
+transition
+control
+crossing
+shared threshold
+access point
+transfer point
+service/public interaction
+
+where represented.
+
+============================================================
+15. BOTTLENECK DETECTION
+============================================================
+
+Detect potential bottlenecks from relational/topological evidence.
+
+Do not require a numeric capacity claim where capacity is unknown.
+
+Classify bottlenecks as appropriate:
+
+OBSERVED_RELATIONAL
+CONDITIONAL
+SUPPORTED
+UNKNOWN
+REQUIRES_CAPACITY_DATA
+REQUIRES_SPECIALIST_EVIDENCE.
+
+Do not call something a verified capacity failure without evidence.
+
+============================================================
+16. CAPACITY
+============================================================
+
+Preserve:
+
+STATIC CAPACITY
+≠
+SERVICE CAPACITY
+≠
+THROUGHPUT.
+
+And:
+
+RESOURCE COUNT
+≠
+CAPABILITY CAPACITY.
+
+If occupancy/cycle-time/service-rate evidence is missing:
+
+do not fabricate capacity.
+
+Record resolution path.
+
+============================================================
+17. DEFICIT DETECTION
+============================================================
+
+Reuse D7.6.
+
+Do not supply expected deficits.
+
+For every detected deficit report:
+
+required state
+actual/derived state
+scenario
+subject/capability affected
+evidence
+epistemic state
+resolution path.
+
+Preserve:
+
+OBSERVED CONDITION
+≠
+DEFICIT.
+
+============================================================
+18. CAUSE DIAGNOSIS
+============================================================
+
+Reuse D7.7 where a genuine deficit exists.
+
+Do not diagnose merely because evaluation is incomplete.
+
+Distinguish:
+
+DEFICIT
+CAUSE
+MISSING EVIDENCE
+EXTERNAL DEPENDENCY.
+
+Generate multiple causal hypotheses where evidence permits.
+
+Retain unsupported and UNKNOWN causes appropriately.
+
+============================================================
+19. DEPENDENCY PROPAGATION
+============================================================
+
+For every significant deficit evaluate downstream dependency effects.
+
+Use:
+
+DIRECTLY_AFFECTED
+DEPENDENCY_AFFECTED
+POSSIBLY_AFFECTED
+UNKNOWN_IMPACT
+
+or existing canonical equivalents.
+
+Do not assume local deficit implies local solution.
+
+============================================================
+20. NEW DEFICITS
+============================================================
+
+Check whether a scenario activates deficits not visible under normal
+operation.
+
+Especially inspect whether:
+
+a shared threshold becomes critical
+a meeting area becomes operational filter
+support separation creates longer dependency chains
+a route becomes unavailable
+concurrent activities create incompatibility
+emergency topology differs materially from normal topology.
+
+These are investigation questions.
+
+They are NOT expected answers.
+
+============================================================
+21. EMERGENCY SCENARIO BOUNDARY
+============================================================
+
+S3 is architectural/topological reasoning only unless sufficient
+regulatory/specialist evidence exists.
+
+Do not claim:
+
+code compliance
+safe evacuation certification
+fire-engineering verification
+permit compliance.
+
+Preserve:
+
+CONCEPTUAL SAFE-EXIT REASONING
+≠
+EVACUATION COMPLIANCE.
+
+============================================================
+22. FAILURE / RECOVERY
+============================================================
+
+Where the model permits, challenge one relevant connection/interface
+as unavailable.
+
+Do not invent physical destruction.
+
+Test operational consequence of loss of availability.
+
+Evaluate:
+
+can journey continue?
+is alternate connection represented?
+which capability becomes unavailable?
+is redundancy real or apparent?
+what remains UNKNOWN?
+
+Preserve:
+
+REDUNDANCY
+≠
+DUPLICATE OBJECTS.
+
+============================================================
+23. COMMON-MODE CAUTION
+============================================================
+
+If two apparent alternatives depend on the same critical interface,
+do not call them independent redundancy.
+
+Preserve:
+
+COMMON-MODE FAILURE
+CAN DEFEAT APPARENT REDUNDANCY.
+
+============================================================
+24. CANDIDATE-BY-SCENARIO MATRIX
+============================================================
+
+Produce a matrix:
+
+                B-01             B-02
+S0 NORMAL       ...              ...
+S1 EVENT        ...              ...
+S2 REPAIR       ...              ...
+S3 EMERGENCY    ...              ...
+
+For each cell include:
+
+ACTIVE_TOPOLOGY_STATUS
+JOURNEY_STATUS
+FLOW_CONFLICTS
+INTERFACE_CONFLICTS
+BOTTLENECKS
+DEFICITS
+DEPENDENCIES
+UNKNOWN
+EVIDENCE_SUFFICIENCY
+SPECIALIST_DEPENDENCY
+HUMAN_DECISION_DEPENDENCY.
+
+============================================================
+25. NO SCALAR WINNER
+============================================================
+
+Do NOT calculate an overall score.
+
+Do NOT calculate:
+
+B-01 = 78
+B-02 = 84.
+
+Do NOT weight criteria to manufacture a winner.
+
+Preserve:
+
+MULTIOBJECTIVE COMPARISON
+≠
+SCALAR RANKING.
+
+============================================================
+26. HARD CONSTRAINTS
+============================================================
+
+If a genuinely supported hard constraint is violated:
+
+record it separately.
+
+Do not compensate a hard failure with strengths elsewhere.
+
+Preserve:
+
+INVALID
+≠
+LOW SCORE.
+
+============================================================
+27. TRADE-OFF ANALYSIS
+============================================================
+
+After all scenarios are evaluated, compare candidates.
+
+For each meaningful difference report:
+
+CANDIDATE
+SCENARIO
+BENEFIT
+COST
+RISK
+EVIDENCE
+UNKNOWN
+DEPENDENCY
+REVERSIBILITY if relevant.
+
+No recommendation.
+
+No winner.
+
+============================================================
+28. CROSS-SCENARIO ROBUSTNESS
+============================================================
+
+Assess whether each candidate's behavior is:
+
+STABLE
+CONDITIONALLY_STABLE
+SCENARIO_SENSITIVE
+INSUFFICIENT_EVIDENCE
+or canonical equivalent.
+
+Do not turn robustness into a universal architectural value.
+
+============================================================
+29. REVERSAL TEST
+============================================================
+
+Look for preference reversal.
+
+Example structure only:
+
+B-01 may appear stronger under S0
+but weaker under S2.
+
+B-02 may appear stronger under S2
+but weaker under S1.
+
+Do not force reversal.
+
+If none exists:
+
+NONE_OBSERVED.
+
+============================================================
+30. DOMINANCE
+============================================================
+
+Determine whether evidence supports:
+
+DOMINATED
+NON_DOMINATED
+INCOMPARABLE_DUE_TO_UNKNOWN
+INSUFFICIENT_EVIDENCE.
+
+Preserve:
+
+PARETO NON-DOMINATED
+≠
+ARCHITECTURALLY PREFERRED.
+
+============================================================
+31. UNKNOWN ACCOUNTING
+============================================================
+
+Every material UNKNOWN must include:
+
+WHAT IS UNKNOWN
+WHY IT MATTERS
+WHAT IT BLOCKS
+RESOLUTION PATH
+RESOLVER/AUTHORITY.
+
+Preserve:
+
+UNKNOWN WITHOUT RESOLUTION PATH
+=
+INCOMPLETE DIAGNOSIS.
+
+============================================================
+32. SPECIALIST DEPENDENCY
+============================================================
+
+Reuse P8.2 semantics.
+
+For every specialist dependency distinguish:
+
+CAPABILITY EXISTS / INPUT MISSING
+
+from
+
+CAPABILITY MISSING.
+
+Return:
+
+SPECIALIST_INPUT_REQUIRED
+
+or
+
+CAPABILITY_FAILURE
+
+based on actual evidence.
+
+============================================================
+33. REGULATORY BOUNDARY
+============================================================
+
+Reuse regulatoryApplicabilityFoundation.
+
+Preserve:
+
+RNE_SOURCE_VERIFIED
+≠
+PROJECT_COMPLIANCE_VERIFIED
+≠
+PERMIT_APPROVED.
+
+No fabricated regulatory pass.
+
+============================================================
+34. PERFORMANCE EVIDENCE
+============================================================
+
+Preserve:
+
+MEASURED
+SIMULATED
+PROXY
+SOURCE_STATEMENT
+UNKNOWN.
+
+Do not upgrade proxy evidence.
+
+If this experiment only supports relational/topological proxy:
+
+say so.
+
+============================================================
+35. HUMAN DELIBERATION OUTPUT
+============================================================
+
+At completion prepare a new human deliberation packet.
+
+It must NOT ask only:
+
+"Which candidate do you prefer?"
+
+It must show:
+
+candidate behavior by scenario
+trade-offs
+scenario sensitivity
+hard constraints if any
+unknowns
+specialist dependencies
+reversals
+failure/recovery observations
+evidence strength.
+
+Then offer human actions such as:
+
+A. select B-01 for further development
+B. select B-02 for further development
+C. retain both and request targeted evidence
+D. authorize mutation of one or both
+E. reject both and reopen synthesis
+F. request new candidate family.
+
+No automatic recommendation.
+
+============================================================
+36. LEARNING OBSERVATION — CRITICAL
+============================================================
+
+After evaluation, inspect whether any observation appears to be new.
+
+DO NOT create K1 yet.
+
+For every possible novelty classify:
+
+ALREADY_KNOWN
+SUPPLIED_AS_INPUT
+RETRIEVED
+INFERRED_FROM_K0
+DIRECT_EXECUTION_RESULT
+NOVEL_CANDIDATE
+UNKNOWN.
+
+Use the frozen P9 K0.
+
+============================================================
+37. NOVEL ARCHITECTURAL OBSERVATION
+============================================================
+
+A possible learning candidate must satisfy ALL existing P9 criteria:
+
+not in K0
+not supplied
+not simple retrieval
+not fixture oracle
+not merely direct execution result
+architecturally meaningful
+traceable to evidence.
+
+If none qualifies:
+
+LEARNING_CANDIDATE = NONE.
+
+This is a valid result.
+
+============================================================
+38. NO K1 IN P9.3
+============================================================
+
+Even if a learning candidate appears:
+
+DO NOT PROMOTE TO K1 IN THIS ORDER.
+
+Freeze it as:
+
+LEARNING_CANDIDATE_PENDING_CHALLENGE.
+
+The challenge belongs to a subsequent stage.
+
+============================================================
+39. NO FIXTURE REPAIR
+============================================================
+
+If P9.3 reveals a real capability gap:
+
+do not silently patch Project B to make the test pass.
+
+Classify the gap.
+
+If minimal general repair is clearly required, report it first.
+
+Do not create:
+
+Project-B-specific engine
+coastal engine
+maker-refuge engine
+candidate-01 special logic
+candidate-02 special logic.
+
+============================================================
+40. REQUIRED ADVERSARIAL TESTS
+============================================================
+
+At minimum test:
+
+same candidate / different scenario
+different candidate / same scenario
+concurrent activity condition
+missing capacity data
+missing specialist evidence
+unavailable interface
+unknown regulatory requirement
+single-path dependency
+possible common-mode dependency
+human-decision boundary.
+
+Verify no predetermined result is encoded.
+
+============================================================
+41. ANTI-ORACLE
+============================================================
+
+Tests may assert:
+
+a deficit has provenance
+UNKNOWN is preserved
+evaluation does not mutate geometry
+candidate IDs are not used as reasoning dispatch
+no automatic winner exists.
+
+Tests may NOT assert:
+
+B-01 must win S0
+B-02 must win S2
+B-01 must contain deficit X
+B-02 must contain bottleneck Y.
+
+============================================================
+42. ANTI-FIXATION
+============================================================
+
+Do not interpret P9.2 human authorization to explore both as preference
+for either.
+
+HUMAN AUTHORIZATION TO EXPLORE
+≠
+HUMAN DESIGN PREFERENCE.
+
+============================================================
+43. EXPERIMENT LEDGER
+============================================================
+
+Update the P9 ledger with:
+
+SCENARIO
+STATE
+ACTIVE_TOPOLOGY
+JOURNEY
+FLOW
+INTERFACE
+BOTTLENECK
+DEFICIT
+CAUSE
+DEPENDENCY
+UNKNOWN
+SPECIALIST_DEPENDENCY
+EXPECTED_EFFECT if any
+OBSERVED_EFFECT
+COMPARISON
+HUMAN_DECISION_REQUIRED
+LEARNING_CANDIDATE if any.
+
+Maintain provenance.
+
+============================================================
+44. REQUIRED FINAL REPORT
+============================================================
+
+Return at minimum:
+
+REPOSITORY =
+BRANCH =
+BASELINE =
+FINAL_HEAD =
+
+P9.0 STATUS =
+P9.1 STATUS =
+P9.2 STATUS =
+P9.3 STATUS =
+
+B-01 IMMUTABLE =
+B-02 IMMUTABLE =
+
+S0 B-01 =
+S0 B-02 =
+
+S1 B-01 =
+S1 B-02 =
+
+S2 B-01 =
+S2 B-02 =
+
+S3 B-01 =
+S3 B-02 =
+
+CONCURRENCY FINDINGS =
+INTERFACE FINDINGS =
+BOTTLENECK FINDINGS =
+DEPENDENCY FINDINGS =
+FAILURE/RECOVERY FINDINGS =
+COMMON-MODE FINDINGS =
+
+B-01 CROSS-SCENARIO STATUS =
+B-02 CROSS-SCENARIO STATUS =
+
+PREFERENCE REVERSAL =
+DOMINANCE STATUS =
+
+HARD CONSTRAINT FAILURES =
+UNKNOWN COUNT / MATERIAL UNKNOWNS =
+SPECIALIST INPUT REQUIRED =
+REGULATORY STATUS =
+PERFORMANCE EVIDENCE STATUS =
+
+AUTOMATIC WINNER =
+AUTOMATIC RECOMMENDATION =
+
+HUMAN DELIBERATION =
+REQUIRED / NOT_REQUIRED
+
+LEARNING CANDIDATE =
+K1 =
+
+============================================================
+45. ACCEPTANCE
+============================================================
+
+P9.3 succeeds if ARKI can evaluate the same architectural hypotheses
+under materially different operational conditions without:
+
+changing their frozen geometry,
+inventing missing facts,
+using an answer key,
+fabricating compliance,
+fabricating specialist evidence,
+selecting a winner,
+or falsely claiming learning.
+
+The experiment may legitimately end with:
+
+PARTIAL
+UNKNOWN
+SPECIALIST_INPUT_REQUIRED
+HUMAN_DECISION_REQUIRED
+NO_FEASIBLE_RESULT
+or
+CAPABILITY_GAP.
+
+Do not force PASS.
+
+============================================================
+46. REGRESSION
+============================================================
+
+Verify:
+
+P8 frozen baseline preserved
+P9.0 protocol preserved
+P9.1 blind evidence preserved
+P9.2 candidate geometries preserved
+K0 preserved
+K1 not created
+human authority preserved
+UNKNOWN preserved
+regulatory separation preserved
+specialist boundary preserved
+no automatic winner
+no automatic recommendation
+no second engine
+anti-typology dispatch
+anti-project-ID dispatch
+anti-oracle
+full regression
+typecheck
+build
+git diff --check.
+
+============================================================
+47. TRIPLE PROPAGATION
+============================================================
+
+Propagate accepted reasoning lessons to:
+
+ARKI
+CURRICULUM
+DIGITAL BOOK.
+
+Do not canonize Project B geometry as architectural knowledge.
+
+Teach distinctions including:
+
+GEOMETRIC GRAPH ≠ ACTIVE GRAPH
+JOURNEY ≠ ROUTE
+FLOW ≠ CORRIDOR
+INTERFACE ≠ DOOR
+STATIC CAPACITY ≠ SERVICE CAPACITY
+INDIVIDUAL SCENARIO PASS ≠ CONCURRENT SCENARIO PASS
+NORMAL TOPOLOGY ≠ EMERGENCY TOPOLOGY
+REDUNDANCY ≠ DUPLICATION
+PARETO NON-DOMINATED ≠ ARCHITECTURALLY PREFERRED
+HUMAN EXPLORATION AUTHORIZATION ≠ HUMAN PREFERENCE.
+
+============================================================
+48. GIT
+============================================================
+
+After successful validation:
+
+commit
+push current branch
+verify LOCAL_HEAD = REMOTE_HEAD
+verify WORKTREE = CLEAN.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+49. STOP RULES
+============================================================
+
+STOP rather than fabricate if:
+
+candidate geometry cannot be recovered reproducibly;
+P9.2 candidates were silently mutated;
+K0 cannot be reconstructed;
+evaluation requires project facts not available;
+a major capability gap requires architectural redesign of ARKI;
+the only way to obtain comparison is an answer key;
+or a second reasoning engine would be required.
+
+Report exact blocker.
+
+============================================================
+50. FINAL PRINCIPLE
+============================================================
+
+P9.2 ASKED:
+
+CAN TWO SEMANTIC ARCHITECTURAL HYPOTHESES
+BE REALIZED GEOMETRICALLY WITHOUT CHOOSING A WINNER?
+
+P9.3 ASKS:
+
+HOW DO THOSE SAME ARCHITECTURES BEHAVE
+WHEN THE BUILDING IS REQUIRED TO OPERATE
+UNDER DIFFERENT STATES, DEMANDS AND FAILURES?
+
+DO NOT ASK WHICH FORM LOOKS BETTER.
+
+ASK WHAT EACH CONFIGURATION ENABLES,
+WHAT IT PREVENTS,
+WHAT IT DEPENDS ON,
+WHERE IT FAILS,
+WHAT REMAINS UNKNOWN,
+AND WHAT THE ARCHITECT MUST DECIDE.
+
+Proceed.

@@ -380,11 +380,25 @@
       "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
       "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
       "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
+    },
+    {
+      "delta_id": "PASTED-CONTENT-488-V1",
+      "source_name": "pasted_content_488.txt",
+      "sha256": "b6b1d52c08b5c031c3d17de4616805aa2facb67761df638462ba5e48b95bf98d",
+      "received_at": "2026-09-20",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
     }
   ],
   "project_b_execution": {
     "project_id": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
-    "status": "OBSERVATION_ONLY",
+    "status": "P9.3_EVALUATED_HUMAN_DECISION_REQUIRED",
     "k1_created": false,
     "geometry": "NOT_EXECUTED",
     "report": "docs/project-b/PROJECT-B-P9.0-REPORT.md",
@@ -394,6 +408,11 @@
     "geometry_reports": [
       "docs/project-b/B-CANDIDATE-01-CONCEPTUAL-PLAN.svg",
       "docs/project-b/B-CANDIDATE-02-CONCEPTUAL-PLAN.svg"
-    ]
+    ],
+    "p93_report": "docs/project-b/PROJECT-B-P9.3-ADVERSARIAL-EVALUATION.md",
+    "p93_ledger": "docs/project-b/PROJECT-B-P9.3-EXPERIMENT-LEDGER.json",
+    "p93_human_packet": "docs/project-b/PROJECT-B-P9.3-HUMAN-DELIBERATION-PACKET.md",
+    "p93_cells": 8,
+    "recommendation_created": false
   }
 }
