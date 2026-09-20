@@ -1,5 +1,5 @@
 import React from "react";
-import { Camera, Copy, Mail, MessageCircle, Mic, Monitor, Moon, ScanLine, Sun } from "lucide-react";
+import { Camera, ChevronDown, Copy, Mail, MessageCircle, Mic, Monitor, Moon, Plus, ScanLine, Search, Sun } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "@/components/LanguageSelector";
 import HelpButton from "@/components/HelpButton";
@@ -8,6 +8,23 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import { ensureProjectId } from "@/lib/project-id";
 import { trpc } from "@/lib/trpc";
+
+function projectName(project: unknown): string {
+  const value = project as { name?: unknown };
+  return typeof value.name === "string" && value.name.trim() ? value.name : "Proyecto sin nombre";
+}
+
+function projectDate(project: unknown): string {
+  const value = project as { updatedAt?: unknown; updated_at?: unknown; createdAt?: unknown; created_at?: unknown };
+  const raw = value.updatedAt ?? value.updated_at ?? value.createdAt ?? value.created_at;
+  if (!raw) return "Fecha no disponible";
+  const date = new Date(String(raw));
+  return Number.isNaN(date.getTime()) ? "Fecha no disponible" : `Modificado ${date.toLocaleDateString()}`;
+}
+
+function projectInitials(project: unknown): string {
+  return projectName(project).split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase() ?? "P").join("");
+}
 
 export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
@@ -21,6 +38,8 @@ export default function AppHeader() {
   });
   const [projectVersion, setProjectVersion] = React.useState(() => localStorage.getItem("arki-project-version") ?? "v1");
   const [copyStatus, setCopyStatus] = React.useState("");
+  const [projectMenuOpen, setProjectMenuOpen] = React.useState(false);
+  const [projectSearch, setProjectSearch] = React.useState("");
   const projects = trpc.projects.list.useQuery(undefined, { retry: false });
 
   useEffect(() => {
@@ -80,6 +99,17 @@ export default function AppHeader() {
   };
   const emailProjectReference = () => { window.location.href = `mailto:?subject=${encodeURIComponent(projectShareText)}&body=${encodeURIComponent(`${projectShareText}\n\nAbrir proyecto: ${window.location.href}`)}`; };
   const projectOptions = Array.from(new Map([{ projectId: projectCode, name: "Proyecto activo" }, ...(projects.data ?? [])].map((project) => [project.projectId, project])).values());
+  const filteredProjects = projectOptions.filter((project) => `${project.projectId} ${projectName(project)}`.toLowerCase().includes(projectSearch.toLowerCase().trim()));
+  const createNewProject = () => {
+    const nextCode = ensureProjectId();
+    setProjectCode(nextCode);
+    setProjectVersion("v1");
+    localStorage.setItem("arki-active-project-id", nextCode);
+    localStorage.setItem(`arki-project-version:${nextCode}`, "v1");
+    setProjectSearch("");
+    setProjectMenuOpen(false);
+    window.dispatchEvent(new CustomEvent("arki:create-project", { detail: { projectId: nextCode } }));
+  };
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-5 py-3 backdrop-blur md:px-10">
@@ -102,7 +132,7 @@ export default function AppHeader() {
             <button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "dark" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.dark")}</span></button>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2 border border-border bg-card px-2 py-1.5 text-xs text-foreground lg:col-start-2 lg:justify-self-end" aria-label="Código y versión del proyecto"><span className="text-muted-foreground">Proyecto</span><select aria-label="Seleccionar proyecto almacenado" value={projectCode} onChange={(event) => selectProject(event.target.value)} className="max-w-[15rem] bg-transparent font-mono font-semibold tracking-[0.08em] outline-none"><option value={projectCode}>{projectCode}</option>{projectOptions.filter((project) => project.projectId !== projectCode).map((project) => <option key={project.projectId} value={project.projectId}>{project.projectId} · {project.name}</option>)}</select><span className="text-muted-foreground">· versión</span><strong>{projectVersion}</strong><button type="button" onClick={() => void copyProjectReference()} title="Copiar código y versión" aria-label="Copiar código y versión" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Copy className="h-3.5 w-3.5" /></button><button type="button" onClick={emailProjectReference} title="Enviar por correo" aria-label="Enviar por correo" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Mail className="h-3.5 w-3.5" /></button><button type="button" onClick={() => void shareProjectReference()} title="Compartir por WhatsApp o sistema" aria-label="Compartir por WhatsApp o sistema" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><MessageCircle className="h-3.5 w-3.5" /></button>{copyStatus && <span role="status" className="text-[11px] text-primary">{copyStatus}</span>}</div>
+        <div className="relative flex flex-wrap items-center justify-end gap-2 border border-border bg-card px-2 py-1.5 text-xs text-foreground lg:col-start-2 lg:justify-self-end" aria-label="Código y versión del proyecto"><span className="text-muted-foreground">Proyecto</span><button type="button" onClick={() => setProjectMenuOpen((open) => !open)} aria-expanded={projectMenuOpen} aria-haspopup="listbox" className="inline-flex max-w-[15rem] items-center gap-1 font-mono font-semibold tracking-[0.08em] hover:bg-secondary"><span className="truncate">{projectCode}</span><ChevronDown className="h-3.5 w-3.5 shrink-0" /></button><span className="text-muted-foreground">· versión</span><strong>{projectVersion}</strong><button type="button" onClick={() => void copyProjectReference()} title="Copiar código y versión" aria-label="Copiar código y versión" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Copy className="h-3.5 w-3.5" /></button><button type="button" onClick={emailProjectReference} title="Enviar por correo" aria-label="Enviar por correo" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Mail className="h-3.5 w-3.5" /></button><button type="button" onClick={() => void shareProjectReference()} title="Compartir por WhatsApp o sistema" aria-label="Compartir por WhatsApp o sistema" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><MessageCircle className="h-3.5 w-3.5" /></button>{copyStatus && <span role="status" className="text-[11px] text-primary">{copyStatus}</span>}{projectMenuOpen && <div role="listbox" aria-label="Proyectos almacenados" className="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-2rem))] rounded-md border border-border bg-card p-2 text-foreground shadow-xl"><div className="relative"><Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" /><input autoFocus value={projectSearch} onChange={(event) => setProjectSearch(event.target.value)} placeholder="Buscar por código o nombre" aria-label="Buscar proyectos" className="h-8 w-full rounded border border-border bg-background pl-7 pr-2 text-xs outline-none focus:ring-2 focus:ring-ring" /></div><div className="mt-2 max-h-64 space-y-1 overflow-y-auto">{filteredProjects.map((project) => <button type="button" role="option" aria-selected={project.projectId === projectCode} key={project.projectId} onClick={() => { selectProject(project.projectId); setProjectMenuOpen(false); }} className={cn("flex w-full items-center gap-2 rounded p-2 text-left hover:bg-secondary", project.projectId === projectCode && "bg-secondary")}><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-primary text-[10px] font-bold text-primary-foreground">{projectInitials(project)}</span><span className="min-w-0 flex-1"><span className="block truncate font-mono text-xs font-semibold">{project.projectId}</span><span className="block truncate text-[11px] text-muted-foreground">{projectName(project)} · {projectDate(project)}</span></span>{project.projectId === projectCode && <span className="text-[10px] text-primary">Activo</span>}</button>)}{filteredProjects.length === 0 && <p className="p-3 text-center text-xs text-muted-foreground">No se encontraron proyectos.</p>}</div><button type="button" onClick={createNewProject} className="mt-2 flex w-full items-center gap-2 border-t border-border px-2 pt-2 text-left text-xs font-semibold text-primary hover:text-primary/80"><Plus className="h-3.5 w-3.5" />Crear nuevo proyecto</button></div>}</div>
         {t("header.identity_line3") && <p className="max-w-5xl text-xs leading-5 text-muted-foreground lg:col-span-2 md:text-sm">{t("header.identity_line3")}</p>}
       </div>
     </header>
