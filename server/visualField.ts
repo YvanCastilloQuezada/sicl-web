@@ -17,6 +17,8 @@ export type VisualProposal = {
   value?: unknown;
   uncertainty?: string;
   provider_explanation?: string;
+  epistemic_status: "AI_PROPOSED";
+  human_review_required: true;
 };
 
 const allowed = new Set<string>(VISUAL_OBSERVATION_CLASSES);
@@ -58,7 +60,7 @@ function safeProposal(raw: unknown): VisualProposal | null {
   const qualifier = ["EXACT", "APPROXIMATE", "RANGE", "UNKNOWN"].includes(String(item.qualifier)) ? String(item.qualifier) as VisualQualifier : "UNKNOWN";
   const description = String(item.description ?? "").trim();
   if (!description) return null;
-  return { observation_class: observationClass as VisualProposal["observation_class"], description, qualifier, ...(item.value !== undefined ? { value: item.value } : {}), uncertainty: String(item.uncertainty ?? "UNKNOWN"), provider_explanation: String(item.provider_explanation ?? "") };
+  return { observation_class: observationClass as VisualProposal["observation_class"], description, qualifier, ...(item.value !== undefined ? { value: item.value } : {}), uncertainty: String(item.uncertainty ?? "UNKNOWN"), provider_explanation: String(item.provider_explanation ?? ""), epistemic_status: "AI_PROPOSED", human_review_required: true };
 }
 
 export async function analyzeVisualPhoto(imageDataUrl: string, context: { spatialScope: string; mediaId?: string }) {

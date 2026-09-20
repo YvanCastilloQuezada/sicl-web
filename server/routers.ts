@@ -8,6 +8,8 @@ import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject 
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
+import { extractOcr, classifyDocumentStructure, type OcrInputKind } from "./arkiOcr";
+import { storagePut } from "./storage";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
@@ -50,6 +52,20 @@ export const appRouter = router({
       const analysis = await analyzeVisualPhoto(input.imageDataUrl, { spatialScope: input.spatialScope });
       return { projectId: input.projectId, mediaId: null, proposals: analysis.observations.map((observation, index) => ({ evidence_id: `VAI-${Date.now().toString(36).toUpperCase()}-${index + 1}`, ...observation, status: "AI_PROPOSED", provider: analysis.provider, model: analysis.model })), decisionCreated: false, humanReviewRequired: true };
     }),
+    ingest: protectedProcedure.input(z.object({ projectId: z.string().min(1), fileName: z.string().trim().min(1), mimeType: z.string().min(1), dataUrl: z.string().startsWith("data:"), sourceType: z.enum(["CAMERA_SOURCE", "PHOTO_SOURCE", "SITE_SOURCE", "DOCUMENT_SOURCE", "BOOK_SOURCE", "DRAWING_SOURCE", "PLAN_SOURCE", "TABLE_SOURCE", "MAP_SOURCE", "USER_PROVIDED_SOURCE"]), spatialScope: z.string().default("PROJECT"), ocrKind: z.enum(["IMAGE", "PDF", "SCANNED_PDF", "PLAN", "BOOK_PAGE", "TABLE", "PHOTO_OF_DOCUMENT"]).default("IMAGE"), language: z.string().default("eng"), runOcr: z.boolean().default(true), analyzeVisual: z.boolean().default(false), note: z.string().optional() })).mutation(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const sourceId = `SRC-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+      const base64 = input.dataUrl.split(",", 2)[1];
+      if (!base64) fail("Media data is not valid base64");
+      const media = await storagePut(`projects/${input.projectId}/sources/${input.fileName}`, Buffer.from(base64, "base64"), input.mimeType);
+      const ocr = input.runOcr ? await extractOcr({ sourceId, dataUrl: input.dataUrl, kind: input.ocrKind as OcrInputKind, language: input.language }) : [];
+      const visual = input.analyzeVisual && input.mimeType.startsWith("image/") ? await analyzeVisualPhoto(input.dataUrl, { spatialScope: input.spatialScope, mediaId: media.key }) : null;
+      const sourceRecord = { id: sourceId, name: input.fileName, status: "SOURCE_INGESTED", provenance: [`MEDIA:${media.key}`, `PROJECT:${input.projectId}`, `CAPTURE_TYPE:${input.sourceType}`], data: { sourceType: input.sourceType, mimeType: input.mimeType, mediaUrl: media.url, mediaKey: media.key, captureTimestamp: new Date().toISOString(), note: input.note ?? "", ocr: ocr as unknown as string, visual: visual ? JSON.stringify(visual) : "", documentStructure: ocr[0] ? JSON.stringify(classifyDocumentStructure(ocr.map((item) => item.normalizedText).join("\n"))) : "" } } as unknown as SiclRecord;
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const next = siclCorePort.appendRecord(snapshot, "sources", sourceRecord, event(ctx.user.id, "MULTIMODAL_SOURCE_INGESTED", sourceId, { observedVersion: project.version, sourceType: input.sourceType, ocrCount: ocr.length, visualCount: visual?.observations.length ?? 0, humanReviewRequired: true }));
+      const saved = await saveNext(ctx.user.id, input.projectId, project.version, next, "ACTIVE");
+      return { projectId: input.projectId, sourceId, media, ocr, visual, version: saved.version, humanReviewRequired: true, promotion: "PROMOTION_NOT_REQUESTED" };
+    }),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -70,6 +86,12 @@ export const appRouter = router({
       const parsedCanonical = siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot));
       const snapshot = { ...parsedCanonical, spatialScope: parsedCanonical.spatialScope ?? localContext.spatialScope, temporalScope: parsedCanonical.temporalScope ?? localContext.temporalScope };
       return { ...project, snapshot };
+    }),
+    sources: protectedProcedure.input(z.object({ projectId: z.string().min(1), sourceType: z.string().optional() })).query(async ({ ctx, input }) => {
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const sources = input.sourceType ? snapshot.sources.filter((source) => String((source.data as Record<string, unknown> | undefined)?.sourceType ?? "") === input.sourceType) : snapshot.sources;
+      return { projectId: project.projectId, version: project.version, sources, humanReviewRequired: sources.some((source) => source.status === "SOURCE_INGESTED" || source.status === "AI_PROPOSED") };
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
       requireCanonicalCoreOrExplicitLocal();

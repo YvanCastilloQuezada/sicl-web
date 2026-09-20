@@ -5,7 +5,7 @@ import catalog from "@/content/commands-catalog.json";
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
-import { analyzeVisualField, type VisualFieldProposal } from "@/api/visual-field";
+import { analyzeVisualField, ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -321,9 +321,10 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     if (!projectId.trim()) { setStatus({ type: "error", message: "Indica primero el ID del proyecto para vincular la evidencia visual." }); return; }
     setVisualLoading(true);
     try {
+      const ingested = await ingestVisualSource({ projectId: projectId.trim(), fileName: mediaName ?? "camera-source", mimeType: mediaDataUrl.match(/^data:([^;,]+)/)?.[1] ?? "image/jpeg", dataUrl: mediaDataUrl });
       const result = await analyzeVisualField({ projectId: projectId.trim(), spatialScope: "PROJECT_SITE", imageDataUrl: mediaDataUrl });
       setVisualProposals(result.proposals);
-      setStatus({ type: "success", message: `${result.proposals.length} observaciones provisionales recibidas; requieren revisión humana.` });
+      setStatus({ type: "success", message: `${result.proposals.length} observaciones provisionales recibidas; fuente ${ingested.sourceId} guardada y requiere revisión humana.` });
     } catch (error) {
       setStatus({ type: "error", message: error instanceof Error ? error.message : "No se pudo analizar la referencia visual." });
     } finally { setVisualLoading(false); }
