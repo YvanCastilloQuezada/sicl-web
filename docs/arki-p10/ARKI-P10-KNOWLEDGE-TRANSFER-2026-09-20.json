@@ -1,0 +1,428 @@
+{
+  "experimentId": "P10-KNOWLEDGE-TRANSFER-GENERALIZATION",
+  "baseline": {
+    "repository": "YvanCastilloQuezada/sicl-web",
+    "branch": "feat/spatial-pilot-media-studio-v1",
+    "baselineHead": "a34efbd3a4c944685bd7e29064d21ebd15645e7e",
+    "remoteHead": "a34efbd3a4c944685bd7e29064d21ebd15645e7e",
+    "worktree": "CLEAN",
+    "latestDelta": "PASTED-CONTENT-494-V492"
+  },
+  "k2": {
+    "knowledgeId": "P9.4-CAPACITY-ROUTE-DEPENDENCY",
+    "stateBefore": "K2_CANDIDATE",
+    "originalObservation": "Within Project B, the same represented route changes from conditional to unknown when the occupancy scenario rises above the bounded fixture.",
+    "projectScope": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+    "evidence": [
+      "P9.4-E-001",
+      "P9.4-V-01"
+    ],
+    "counterexample": "The exact common-mode route explanation weakens; capacity remains relevant but its spatial manifestation changes.",
+    "unknowns": [
+      "B-unknown-regulation",
+      "route width",
+      "specialist life-safety review"
+    ],
+    "supplied": [
+      "P9.4 protocol",
+      "synthetic capacity fixture"
+    ],
+    "calculated": [
+      "36-person conditional result",
+      "60-person UNKNOWN result"
+    ],
+    "observed": [
+      "Within Project B, the same represented route changes from conditional to unknown when the occupancy scenario rises above the bounded fixture."
+    ],
+    "inferred": [
+      "single represented route may be a common-mode dependency, still HYPOTHESIZED"
+    ]
+  },
+  "abstraction": {
+    "caseMemory": "Project B geometry, identifiers, 36/60 values and schematic labels",
+    "candidate": "An occupancy demand profile may expose a dependency of a represented public interface when the interface is a common-mode route; applicability depends on route organization and evidence-bounded demand.",
+    "removed": [
+      "Project B identifiers",
+      "specific threshold",
+      "geometry template"
+    ],
+    "retained": [
+      "occupancy demand",
+      "represented interface",
+      "route organization",
+      "bounded evidence"
+    ],
+    "rationale": "Preserve the causal/relational structure without converting a case into a generic form template.",
+    "epistemicStatus": "HYPOTHESIS"
+  },
+  "initialScope": {
+    "appliesWhen": [
+      "scenario demand is explicit",
+      "a represented public interface exists",
+      "route organization is evidenced"
+    ],
+    "mayApplyWhen": [
+      "another project has a structurally comparable public route"
+    ],
+    "doesNotApplyWhen": [
+      "visual similarity is the only evidence",
+      "regulatory compliance is inferred",
+      "geometry is copied"
+    ],
+    "unknownWhen": [
+      "jurisdiction, width or demand evidence is absent"
+    ]
+  },
+  "nearVariants": [
+    {
+      "testId": "P10-T04",
+      "source": "Project B",
+      "target": "B-CANDIDATE-01 nearby occupancy",
+      "contextDistance": "NEAR",
+      "structuralSimilarity": "HIGH",
+      "surfaceSimilarity": "HIGH",
+      "contextCompatibility": "COMPATIBLE",
+      "transferability": "MEDIUM",
+      "adaptationBurden": "LOW",
+      "expected": "PERSISTS",
+      "actual": "PERSISTS",
+      "evidence": [
+        "P9.4-E-001",
+        "existing route representation"
+      ],
+      "unknown": [
+        "route width",
+        "code"
+      ],
+      "counterexample": [],
+      "decision": "PERSISTS"
+    },
+    {
+      "testId": "P10-T05",
+      "source": "Project B",
+      "target": "B-CANDIDATE-02 separated support",
+      "contextDistance": "NEAR",
+      "structuralSimilarity": "MEDIUM",
+      "surfaceSimilarity": "LOW",
+      "contextCompatibility": "PARTIAL",
+      "transferability": "MEDIUM",
+      "adaptationBurden": "MEDIUM",
+      "expected": "ADAPTS",
+      "actual": "ADAPTS",
+      "evidence": [
+        "P9.4-V-02",
+        "R-PARTI B-CANDIDATE-02"
+      ],
+      "unknown": [
+        "threshold"
+      ],
+      "counterexample": [
+        "common-mode route explanation weakens"
+      ],
+      "decision": "ADAPTS"
+    }
+  ],
+  "transferMatrix": [
+    {
+      "testId": "P10-T04",
+      "source": "Project B",
+      "target": "B-CANDIDATE-01 nearby occupancy",
+      "contextDistance": "NEAR",
+      "structuralSimilarity": "HIGH",
+      "surfaceSimilarity": "HIGH",
+      "contextCompatibility": "COMPATIBLE",
+      "transferability": "MEDIUM",
+      "adaptationBurden": "LOW",
+      "expected": "PERSISTS",
+      "actual": "PERSISTS",
+      "evidence": [
+        "P9.4-E-001",
+        "existing route representation"
+      ],
+      "unknown": [
+        "route width",
+        "code"
+      ],
+      "counterexample": [],
+      "decision": "PERSISTS"
+    },
+    {
+      "testId": "P10-T05",
+      "source": "Project B",
+      "target": "B-CANDIDATE-02 separated support",
+      "contextDistance": "NEAR",
+      "structuralSimilarity": "MEDIUM",
+      "surfaceSimilarity": "LOW",
+      "contextCompatibility": "PARTIAL",
+      "transferability": "MEDIUM",
+      "adaptationBurden": "MEDIUM",
+      "expected": "ADAPTS",
+      "actual": "ADAPTS",
+      "evidence": [
+        "P9.4-V-02",
+        "R-PARTI B-CANDIDATE-02"
+      ],
+      "unknown": [
+        "threshold"
+      ],
+      "counterexample": [
+        "common-mode route explanation weakens"
+      ],
+      "decision": "ADAPTS"
+    },
+    {
+      "testId": "P10-T06",
+      "source": "Project B",
+      "target": "existing restaurant evaluation fixture",
+      "contextDistance": "MEDIUM",
+      "structuralSimilarity": "MEDIUM",
+      "surfaceSimilarity": "LOW",
+      "contextCompatibility": "PARTIAL",
+      "transferability": "LOW",
+      "adaptationBurden": "HIGH",
+      "expected": "ADAPTS",
+      "actual": "ADAPTS",
+      "evidence": [
+        "arkiRestaurantV4Evaluation",
+        "P9.4 transfer record"
+      ],
+      "unknown": [
+        "RNE aforo",
+        "restaurant route evidence"
+      ],
+      "counterexample": [
+        "Project-B threshold does not transfer"
+      ],
+      "decision": "ADAPTS"
+    },
+    {
+      "testId": "P10-T07",
+      "source": "Project B",
+      "target": "healthcare typology fixture",
+      "contextDistance": "FAR",
+      "structuralSimilarity": "LOW",
+      "surfaceSimilarity": "LOW",
+      "contextCompatibility": "UNKNOWN",
+      "transferability": "UNKNOWN",
+      "adaptationBurden": "HIGH",
+      "expected": "UNKNOWN",
+      "actual": "UNKNOWN",
+      "evidence": [
+        "arkiTypologyFunctionalKnowledge"
+      ],
+      "unknown": [
+        "care flow",
+        "specialist code",
+        "route semantics"
+      ],
+      "counterexample": [],
+      "decision": "UNKNOWN"
+    },
+    {
+      "testId": "P10-T08",
+      "source": "Project B",
+      "target": "distributed redundant route challenge",
+      "contextDistance": "MEDIUM",
+      "structuralSimilarity": "LOW",
+      "surfaceSimilarity": "LOW",
+      "contextCompatibility": "INCOMPATIBLE",
+      "transferability": "LOW",
+      "adaptationBurden": "HIGH",
+      "expected": "DO_NOT_TRANSFER",
+      "actual": "DO_NOT_TRANSFER",
+      "evidence": [
+        "adversarial route-interface challenge"
+      ],
+      "unknown": [],
+      "counterexample": [
+        "single common-mode route assumption is removed"
+      ],
+      "decision": "DO_NOT_TRANSFER"
+    },
+    {
+      "testId": "P10-T11",
+      "source": "Project B",
+      "target": "visually similar plan",
+      "contextDistance": "MEDIUM",
+      "structuralSimilarity": "LOW",
+      "surfaceSimilarity": "HIGH",
+      "contextCompatibility": "UNKNOWN",
+      "transferability": "UNKNOWN",
+      "adaptationBurden": "UNKNOWN",
+      "expected": "DO_NOT_TRANSFER",
+      "actual": "DO_NOT_TRANSFER",
+      "evidence": [
+        "surface similarity control"
+      ],
+      "unknown": [
+        "structural relation"
+      ],
+      "counterexample": [
+        "visual resemblance cannot establish causal relation"
+      ],
+      "decision": "DO_NOT_TRANSFER"
+    }
+  ],
+  "scopeAfter": {
+    "appliesWhen": [
+      "bounded occupancy scenario and represented route are jointly evaluated"
+    ],
+    "mayApplyWhen": [
+      "a new project supplies its own occupancy, route and code evidence; adaptation is explicit"
+    ],
+    "doesNotApplyWhen": [
+      "Project B threshold is copied",
+      "single route is assumed universally unsafe",
+      "counterexample is ignored"
+    ],
+    "unknownWhen": [
+      "route width, code, typology-specific flow or demand are unresolved"
+    ]
+  },
+  "promotion": {
+    "stateBefore": "K2_CANDIDATE",
+    "stateAfter": "K2_CANDIDATE",
+    "learningClass": "L2_RELATIONSHIP",
+    "reason": "Near transfer adapts, cross-typology remains UNKNOWN, adversarial cases produce DO_NOT_TRANSFER, and regulatory evidence is absent.",
+    "humanConfirmationRequired": true
+  },
+  "autonomy": {
+    "l10Process": "L10_DEMONSTRATED",
+    "evidence": [
+      "reconstructed K2",
+      "abstracted without form copying",
+      "scope before transfer",
+      "near/cross-project/cross-typology tests",
+      "adversarial non-transfer",
+      "counterexample scope refinement",
+      "promotion restraint"
+    ],
+    "knowledgeGeneralization": "G1"
+  },
+  "antiContamination": {
+    "result": "PASS",
+    "classifications": {
+      "K0": "RETRIEVED",
+      "P94_FIXTURE": "SUPPLIED",
+      "P10_MATRIX": "CALCULATED",
+      "P9_OBSERVATION": "RETRIEVED"
+    },
+    "p94Reexecuted": false
+  },
+  "regression": {
+    "knowledge": "PASS",
+    "reasoning": "PASS",
+    "software": "PASS"
+  },
+  "annexI": {
+    "status": "IMPLEMENTED",
+    "manifest": "docs/annex-i/manifest.json",
+    "referencedPackages": [
+      "ANEXO-I-RPARTI-I0-I11",
+      "ANEXO-I-P94-P9X"
+    ]
+  },
+  "battery": [
+    {
+      "id": "P10-T01",
+      "result": "PASS",
+      "evidence": "K2 reconstructed from P9.4 structured evidence"
+    },
+    {
+      "id": "P10-T02",
+      "result": "PASS",
+      "evidence": "case memory separated from relational hypothesis"
+    },
+    {
+      "id": "P10-T03",
+      "result": "PASS",
+      "evidence": "scope recorded before transfer"
+    },
+    {
+      "id": "P10-T04",
+      "result": "PASS",
+      "evidence": "near variant can preserve relationship"
+    },
+    {
+      "id": "P10-T05",
+      "result": "PASS",
+      "evidence": "near variant changes spatial manifestation"
+    },
+    {
+      "id": "P10-T06",
+      "result": "PASS",
+      "evidence": "cross-project transfer evaluated, not assumed"
+    },
+    {
+      "id": "P10-T07",
+      "result": "PASS",
+      "evidence": "cross-typology uncertainty preserved"
+    },
+    {
+      "id": "P10-T08",
+      "result": "PASS",
+      "evidence": "adversarial non-transfer recognized"
+    },
+    {
+      "id": "P10-T09",
+      "result": "PASS",
+      "evidence": "counterexample changes scope"
+    },
+    {
+      "id": "P10-T10",
+      "result": "PASS",
+      "evidence": "failed transfer preserved"
+    },
+    {
+      "id": "P10-T11",
+      "result": "PASS",
+      "evidence": "surface similarity cannot force transfer"
+    },
+    {
+      "id": "P10-T12",
+      "result": "PASS",
+      "evidence": "structural relevance without form copying"
+    },
+    {
+      "id": "P10-T13",
+      "result": "PASS",
+      "evidence": "promotion retains explicit scope"
+    },
+    {
+      "id": "P10-T14",
+      "result": "PASS",
+      "evidence": "K-state follows evidence"
+    },
+    {
+      "id": "P10-T15",
+      "result": "PASS",
+      "evidence": "system refrains from promotion"
+    },
+    {
+      "id": "P10-T16",
+      "result": "PASS",
+      "evidence": "no automatic universalization"
+    },
+    {
+      "id": "P10-T17",
+      "result": "PASS",
+      "evidence": "human authority preserved"
+    },
+    {
+      "id": "P10-T18",
+      "result": "PASS",
+      "evidence": "UNKNOWN preserved"
+    },
+    {
+      "id": "P10-T19",
+      "result": "PASS",
+      "evidence": "ANEXO I references reproducible evidence"
+    },
+    {
+      "id": "P10-T20",
+      "result": "PASS",
+      "evidence": "historical R-PARTI/P9 evidence remains referenced"
+    }
+  ],
+  "humanAuthority": true
+}

@@ -1,0 +1,1213 @@
+MACROORDEN ARKI
+P10 — KNOWLEDGE TRANSFER & GENERALIZATION CHALLENGE
+K2 → CHALLENGE → TRANSFER → COUNTEREXAMPLE → SCOPE → K3/K4? → L10?
+
+MODO:
+VERIFY → FREEZE → IDENTIFY K2 → ABSTRACT → CHALLENGE
+→ NEAR TRANSFER → CROSS-PROJECT → CROSS-TYPOLOGY
+→ ADVERSARIAL → COUNTEREXAMPLE → SCOPE
+→ PROMOTION DECISION → AUTONOMY AUDIT
+→ ANEXO I → CHECKPOINT → REPORT
+
+AUTORIDAD:
+PRODUCT OWNER / ARQUITECTO HUMANO
+
+SISTEMA:
+ARKI
+
+============================================================
+0. CONTEXTO
+============================================================
+
+Último estado reportado:
+
+Delta 492
+Commit:
+92c577b9dc176589bc91586277b6631249de4407
+
+Branch:
+feat/spatial-pilot-media-studio-v1
+
+P9_EVIDENCE_ACQUISITION =
+RESOLVED_FOR_EXPERIMENT
+
+P9_PROJECT_DISCOVERY =
+PROJECT_DISCOVERY / PROJECT_ONLY
+
+P9_LEARNING_CANDIDATE =
+K2_CANDIDATE
+
+P9_TRANSFER =
+ADAPT_ONLY
+
+P9_COUNTEREXAMPLE =
+SCOPE_REFINED
+
+P9_GENERALIZATION =
+G1
+
+P9_AUTONOMY =
+L9_COMPARISON
+
+L10_GENERALIZATION =
+NOT_DEMONSTRATED
+
+GEOMETRY_MUTATED =
+NO
+
+REGULATORY_COMPLIANCE =
+UNKNOWN / SPECIALIST_REQUIRED
+
+HUMAN_REVIEW =
+REQUIRED
+
+The K2 candidate concerns a Project-B-specific observed relationship
+between occupancy and dependency on the public route.
+
+DO NOT assume this summary is repository truth.
+
+Verify it.
+
+============================================================
+1. PRIMARY RESEARCH QUESTION
+============================================================
+
+Can ARKI take a PROJECT_ONLY K2 knowledge candidate and determine,
+through controlled challenges, where it:
+
+- persists;
+- requires adaptation;
+- fails;
+- reverses;
+- becomes irrelevant;
+- remains UNKNOWN;
+
+and use that evidence to define its legitimate scope without
+overgeneralizing?
+
+Secondary question:
+
+Can ARKI demonstrate runtime behavior consistent with L10
+generalization while preserving epistemic restraint?
+
+============================================================
+2. IMPORTANT: DO NOT TRY TO “ACHIEVE L10”
+============================================================
+
+The objective is NOT:
+
+MAKE L10 PASS.
+
+The objective is:
+
+TEST WHETHER L10 IS JUSTIFIED.
+
+Valid outcomes include:
+
+K2 → CONTEXT_SPECIFIC
+
+K2 → REFINED_K2
+
+K2 → K3_SUPPORTED
+
+K2 → K4_TRANSFER_TESTED
+
+K2 → REJECTED
+
+K2 → CONFLICTED
+
+K2 → SUPERSEDED
+
+K2 → UNKNOWN
+
+Any of these may be the correct result.
+
+A fabricated K3/K4/L10 is FAILURE.
+
+============================================================
+3. FROZEN INVARIANTS
+============================================================
+
+EXECUTION ≠ LEARNING.
+
+RETRIEVAL ≠ LEARNING.
+
+ADAPTATION ≠ LEARNING.
+
+TRANSFER ≠ GENERALIZATION.
+
+POSITIVE TRANSFER ≠ UNIVERSAL RULE.
+
+ONE SUCCESS ≠ GENERALIZATION.
+
+ONE FAILURE ≠ UNIVERSAL INVALIDATION.
+
+PROJECT DISCOVERY ≠ GENERAL ARCHITECTURAL KNOWLEDGE.
+
+SIMILARITY ≠ TRANSFERABILITY.
+
+GEOMETRIC SIMILARITY ≠ GENERATIVE EQUIVALENCE.
+
+CONTEXT DIFFERENCE MATTERS.
+
+COUNTEREXAMPLE MUST NOT BE HIDDEN.
+
+GENERALIZATION REQUIRES POSITIVE TRANSFER + RESTRAINT.
+
+FAILED TRANSFER IS KNOWLEDGE.
+
+DO_NOT_TRANSFER IS A VALID INTELLIGENT RESULT.
+
+UNKNOWN IS A VALID RESULT.
+
+HUMAN SELECTION ≠ GENERAL RULE.
+
+HUMAN AUTHORITY remains outside autonomy ladder.
+
+============================================================
+4. ARCHITECTURAL CONSTRAINT
+============================================================
+
+The candidate must NOT be abstracted immediately into:
+
+“more occupants require more circulation”
+
+or another trivial/universal-looking statement.
+
+That would destroy the architectural content of the experiment.
+
+Preserve the actual relational structure discovered in Project B.
+
+Before transfer, reconstruct exactly:
+
+CONTEXT
++
+SUBJECT
++
+STATE
++
+DEMAND
++
+CAPABILITY
++
+ROUTE/INTERFACE DEPENDENCY
++
+SPATIAL ORGANIZATION
++
+OBSERVED CONSEQUENCE
++
+EVIDENCE
++
+LIMITATIONS.
+
+Only then may abstraction occur.
+
+============================================================
+5. SEQUENCE
+============================================================
+
+Execute exactly:
+
+P10.0  BASELINE / ANEXO I AUDIT
+↓
+P10.1  K2 RECONSTRUCTION
+↓
+P10.2  KNOWLEDGE ABSTRACTION
+↓
+P10.3  SCOPE HYPOTHESIS
+↓
+P10.4  NEAR-VARIANT TEST
+↓
+P10.5  CROSS-PROJECT TEST
+↓
+P10.6  CROSS-TYPOLOGY TEST
+↓
+P10.7  ADVERSARIAL TEST
+↓
+P10.8  COUNTEREXAMPLE ANALYSIS
+↓
+P10.9  TRANSFER MATRIX
+↓
+P10.10 SCOPE REFINEMENT
+↓
+P10.11 KNOWLEDGE PROMOTION DECISION
+↓
+P10.12 L10 AUTONOMY TEST
+↓
+P10.13 REGRESSION / CONTAMINATION AUDIT
+↓
+P10.14 ANEXO I
+↓
+P10.15 CHECKPOINT / COMMIT / REPORT
+
+Each stage has a gate.
+
+============================================================
+P10.0 — BASELINE + ANEXO I AUDIT
+============================================================
+
+READ ONLY FIRST.
+
+Verify:
+
+repository
+branch
+HEAD
+remote HEAD
+worktree
+latest Delta
+Delta 492
+P9.4 report
+P9 structured JSON
+K2 candidate
+learning ledger
+DesignMemory
+transfer mechanisms
+R-PARTI
+Manual
+Project B
+tests
+
+Expected reported baseline:
+
+92c577b9dc176589bc91586277b6631249de4407
+
+Verify actual state.
+
+Also verify whether:
+
+ANEXO I — EVIDENCIA EXPERIMENTAL Y REPRODUCIBILIDAD ARKI
+
+has already been formally implemented.
+
+Classify:
+
+ANEXO_I =
+IMPLEMENTED
+PARTIAL
+NOT_IMPLEMENTED
+
+If PARTIAL or NOT_IMPLEMENTED:
+
+do NOT create a parallel subsystem.
+
+Formalize the minimal reusable contract during P10.14 using existing
+reports, JSON, proofs, tests, provenance and registry mechanisms.
+
+-------------------------
+GATE P10.0
+-------------------------
+
+Baseline must be known.
+
+Otherwise STOP.
+
+============================================================
+P10.1 — K2 RECONSTRUCTION
+============================================================
+
+Retrieve the actual Delta-492 learning candidate.
+
+Do not rewrite it from this order.
+
+Repository state is source of truth.
+
+Produce:
+
+KNOWLEDGE_ID
+K_STATE
+KNOWLEDGE_KIND
+LEARNING_CLASS
+PROJECT_SCOPE
+OBSERVATION
+CONTEXT
+TRIGGER
+SUBJECT
+STATE
+RELATIONSHIPS
+DEPENDENCIES
+EVIDENCE
+COUNTEREXAMPLE
+KNOWN_LIMITS
+UNKNOWN
+PROVENANCE
+
+Identify exactly what was:
+
+SUPPLIED
+CALCULATED
+OBSERVED
+DISCOVERED
+INFERRED.
+
+-------------------------
+GATE P10.1
+-------------------------
+
+If K2 cannot be reconstructed independently from repository evidence:
+
+STOP.
+
+============================================================
+P10.2 — KNOWLEDGE ABSTRACTION
+============================================================
+
+Create an abstraction candidate from the project-specific observation.
+
+Required separation:
+
+CASE MEMORY
+≠
+ABSTRACT KNOWLEDGE.
+
+The abstraction must remove accidental Project B identifiers while
+preserving architectural causal/relational meaning.
+
+Example conceptual transformation:
+
+PROJECT B CASE
+→
+RELATIONAL PATTERN
+
+not:
+
+PROJECT B GEOMETRY
+→
+GENERIC FORM TEMPLATE.
+
+Record:
+
+WHAT WAS REMOVED
+WHAT WAS RETAINED
+WHY
+WHAT MAY NOT BE GENERALIZED.
+
+The abstraction remains:
+
+HYPOTHESIS.
+
+============================================================
+P10.3 — SCOPE HYPOTHESIS
+============================================================
+
+Before testing, predict where the knowledge might apply.
+
+Create explicit provisional scope across:
+
+PURPOSE
+SUBJECT
+STATE
+HAZARD
+PROCESS
+CAPABILITY
+CONTROL
+SCALE
+TIME
+REGULATORY_DOMAIN
+CONTEXT
+SPATIAL_ORGANIZATION
+DEMAND_PROFILE.
+
+Do not maximize scope.
+
+Prefer smallest defensible scope.
+
+============================================================
+P10.4 — NEAR-VARIANT TEST
+============================================================
+
+Test T2 / G1 robustness.
+
+Use Project B variants.
+
+Change one meaningful variable at a time where possible.
+
+Examples:
+
+occupancy
+staff count
+demand profile
+route availability
+interface availability
+spatial arrangement
+
+Use actual architecture and existing mechanisms.
+
+For each:
+
+PERSISTS
+ADAPTS
+FAILS
+REVERSES
+IRRELEVANT
+UNKNOWN.
+
+Record expected vs actual.
+
+No hardcoding to expected result.
+
+============================================================
+P10.5 — CROSS-PROJECT TEST
+============================================================
+
+Now test outside Project B.
+
+First inspect repository for an existing suitable project/case.
+
+REUSE before creating fixture.
+
+The target should share some relevant structural conditions but not
+be a renamed Project B.
+
+Record compatibility:
+
+PURPOSE
+SUBJECT
+STATE
+PROCESS
+CAPABILITY
+SCALE
+TIME
+CONTEXT
+ORGANIZATION.
+
+Test:
+
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER
+UNKNOWN.
+
+A successful ADAPT is not equal to direct transfer.
+
+============================================================
+P10.6 — CROSS-TYPOLOGY TEST
+============================================================
+
+Only proceed if P10.5 gives enough evidence to make this meaningful.
+
+Use an existing different typology if available.
+
+Do NOT construct a fake typology whose only purpose is to make the
+knowledge pass.
+
+Ask:
+
+Is the relation tied to Project B's typology?
+
+Or does it concern a more general architectural dependency?
+
+Possible outcomes:
+
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER
+UNKNOWN.
+
+If DO_NOT_TRANSFER:
+
+this can be a successful experiment.
+
+============================================================
+P10.7 — ADVERSARIAL TEST
+============================================================
+
+Construct/select a case designed to challenge the candidate.
+
+Change a condition expected to break the relationship.
+
+Examples conceptually:
+
+alternate route
+distributed access
+different demand state
+different topology
+temporal separation
+redundant interface
+
+Choose based on the actual K2 structure.
+
+Do not choose arbitrary geometry.
+
+Question:
+
+Can ARKI recognize when the knowledge SHOULD NOT be applied?
+
+This is a central intelligence test.
+
+============================================================
+P10.8 — COUNTEREXAMPLE ANALYSIS
+============================================================
+
+Collect all counterexamples.
+
+For each determine:
+
+Does it:
+
+INVALIDATE
+REFINE
+SPECIALIZE
+CONTEXTUALIZE
+REVERSE
+or
+NOT_AFFECT
+
+the candidate?
+
+Required:
+
+COUNTEREXAMPLE
+→ SCOPE CHANGE
+
+where justified.
+
+Never erase counterexamples.
+
+Store provenance.
+
+============================================================
+P10.9 — TRANSFER MATRIX
+============================================================
+
+Produce machine-readable transfer matrix.
+
+Minimum columns:
+
+TEST_ID
+SOURCE
+TARGET
+CONTEXT_DISTANCE
+STRUCTURAL_SIMILARITY
+SURFACE_SIMILARITY
+CONTEXT_COMPATIBILITY
+TRANSFERABILITY
+ADAPTATION_BURDEN
+EXPECTED
+ACTUAL
+DECISION
+EVIDENCE
+UNKNOWN
+COUNTEREXAMPLE
+
+Do not turn these into a universal weighted score.
+
+No “best transfer target”.
+
+============================================================
+P10.10 — SCOPE REFINEMENT
+============================================================
+
+Using all tests, derive the narrowest defensible scope.
+
+Compare:
+
+SCOPE_BEFORE
+vs
+SCOPE_AFTER.
+
+Explicitly record:
+
+APPLIES_WHEN
+MAY_APPLY_WHEN
+DOES_NOT_APPLY_WHEN
+UNKNOWN_WHEN.
+
+This is critical.
+
+Knowledge without scope must not be promoted.
+
+============================================================
+P10.11 — KNOWLEDGE PROMOTION DECISION
+============================================================
+
+Use existing K-state implementation.
+
+Conceptually:
+
+K0 ABSENT
+K1 OBSERVED
+K2 CANDIDATE
+K3 SUPPORTED
+K4 TRANSFER_TESTED
+K5 GENERALIZED_CANDIDATE
+K6 CANONICAL_CANDIDATE
+K7 CANONICAL/HUMAN_CONFIRMED
+
+plus:
+
+REJECTED
+SUPERSEDED
+CONFLICTED
+CONTEXT_SPECIFIC
+UNKNOWN.
+
+Determine evidence-based final state.
+
+Do not assume promotion.
+
+Required promotion questions:
+
+1. Was it novel relative to K0?
+2. Was it contaminated by fixtures?
+3. Did nearby variants support it?
+4. Did another project support it?
+5. Did another typology support it?
+6. Did adversarial testing challenge it?
+7. Were counterexamples incorporated?
+8. Is scope explicit?
+9. Is transfer positive or adaptation-only?
+10. Is human confirmation required?
+
+If evidence only supports K2:
+
+keep K2.
+
+If evidence supports K3:
+
+promote to K3.
+
+If genuine transfer has been demonstrated:
+
+consider K4.
+
+Do not jump directly to K5/K6/K7.
+
+============================================================
+P10.12 — L10 AUTONOMY TEST
+============================================================
+
+Now test the SYSTEM, not only the knowledge item.
+
+L10 requires ARKI to demonstrate runtime ability to:
+
+1. abstract from project-specific observation;
+2. hypothesize scope;
+3. challenge the hypothesis;
+4. test variants;
+5. attempt transfer;
+6. detect non-transfer;
+7. incorporate counterexamples;
+8. refine scope;
+9. decide whether promotion is justified;
+10. refrain from promotion when evidence is insufficient.
+
+Important:
+
+L10 ≠ “knowledge became universal”.
+
+L10 is demonstrated if the generalization process itself operates
+correctly with bounded claims.
+
+However, distinguish:
+
+L10_PARTIAL
+L10_DEMONSTRATED
+L10_NOT_DEMONSTRATED
+
+according to existing ARKI conventions.
+
+Do not invent a new autonomy ladder if one already exists.
+
+============================================================
+P10.13 — CONTAMINATION + REGRESSION AUDIT
+============================================================
+
+Check whether expected conclusions were already encoded in:
+
+K0
+Delta 492
+tests
+fixtures
+Manual
+comments
+constants
+transfer rules
+Project B
+target project
+typology knowledge
+learning contracts.
+
+If the supposedly learned conclusion is explicitly encoded:
+
+NOT DISCOVERED.
+
+Classify correctly as:
+
+SUPPLIED
+RETRIEVED
+ENCODED
+CALCULATED.
+
+Then replay:
+
+R-PARTI
+P9.0–P9.3
+P9.4
+Project B
+learning contracts
+Manual integration.
+
+Report:
+
+KNOWLEDGE_REGRESSION
+REASONING_REGRESSION
+SOFTWARE_REGRESSION.
+
+============================================================
+P10.14 — ANEXO I
+============================================================
+
+Formalize/use:
+
+ANEXO I — EVIDENCIA EXPERIMENTAL Y REPRODUCIBILIDAD ARKI.
+
+ANEXO I is NOT one file.
+
+It is the traceable evidence package associated with this experiment.
+
+Required conceptual sections:
+
+A. Identity
+B. Human-readable report
+C. Machine-readable report
+D. Executable proof
+E. Automated tests
+F. Experimental artifacts
+G. Replay/generator
+H. Epistemic state
+I. UNKNOWN/BLOCKED/Coverage
+J. Regression
+K. Provenance
+L. Propagation references
+
+Required identity:
+
+anexoId
+anexoType = ANEXO_I
+title
+experimentId
+checkpointId
+deltaId
+baselineSha
+finalSha
+version
+
+Required evidence references:
+
+humanReport
+structuredReport
+executableProof
+tests
+experimentalArtifacts
+replayOrGenerator
+provenance
+epistemicStatus
+unknowns
+blocked
+coverage
+regressionStatus
+humanAuthorityRequired
+propagationRefs
+
+IMPORTANT:
+
+REUSE existing files.
+
+Do not duplicate evidence merely to put it inside an “anexo” folder.
+
+Prefer manifest/index/references.
+
+ANEXO I ≠ REPORT.
+ANEXO I ≠ DELTA.
+ANEXO I ≠ CHECKPOINT.
+ANEXO I ≠ KNOWLEDGE.
+ANEXO I ≠ LEARNING EVENT.
+
+It is the reproducibility/evidence package.
+
+Also, if feasible without rewriting history, register the existing
+R-PARTI I0–I11 and Delta 492 evidence packages under the same ANEXO I
+contract by reference.
+
+Do not duplicate their files.
+
+============================================================
+P10.15 — CHECKPOINT
+============================================================
+
+Determine actual next Delta.
+
+Do not assume 493.
+
+Propagate according to existing governance:
+
+DELTA
+→ ARKI
+→ CURRÍCULO
+→ LIBRO VIVO
+
+If learning item changes K-state, preserve exact epistemic state in
+all propagated representations.
+
+No textbook-style statement may exceed evidence.
+
+============================================================
+6. TEST BATTERY
+============================================================
+
+Create/execute a focused P10 battery.
+
+At minimum prove:
+
+P10-T01
+K2 reconstructed from repository evidence.
+
+P10-T02
+Case memory separated from abstraction.
+
+P10-T03
+Scope exists before transfer.
+
+P10-T04
+Near variant can preserve relationship.
+
+P10-T05
+Near variant can alter relationship.
+
+P10-T06
+Cross-project transfer is evaluated, not assumed.
+
+P10-T07
+Cross-typology transfer is evaluated, not assumed.
+
+P10-T08
+Adversarial case can produce DO_NOT_TRANSFER.
+
+P10-T09
+Counterexample changes scope when justified.
+
+P10-T10
+Failed transfer is preserved.
+
+P10-T11
+Surface similarity cannot force transfer.
+
+P10-T12
+Structural relevance can exist without form copying.
+
+P10-T13
+Knowledge cannot promote without scope.
+
+P10-T14
+K-state promotion follows evidence.
+
+P10-T15
+ARKI can refrain from promotion.
+
+P10-T16
+No automatic universalization.
+
+P10-T17
+Human authority preserved.
+
+P10-T18
+UNKNOWN preserved.
+
+P10-T19
+ANEXO I references reproducible evidence.
+
+P10-T20
+Historical Project B / R-PARTI / P9 replay remains valid.
+
+No test may PASS solely because an enum/type exists.
+
+Runtime evidence where required.
+
+============================================================
+7. MANUAL DE FORMAS ARQUITECTÓNICAS
+============================================================
+
+Do NOT bulk populate the Manual.
+
+However, P10 may expose the first legitimate structure for
+experimental learned knowledge.
+
+If useful, support a reference from the Manual to:
+
+EXPERIMENTAL KNOWLEDGE CANDIDATE
+
+but keep it outside stable/canonical architectural knowledge.
+
+Potential state:
+
+MANUAL_EXPERIMENTAL_CANDIDATE
+
+only if compatible with existing architecture.
+
+Do not create a second learning registry.
+
+The learning ledger remains source of epistemic truth.
+
+============================================================
+8. IMPORTANT DISTINCTION
+============================================================
+
+At the end we need THREE separate answers:
+
+A.
+Did the KNOWLEDGE ITEM generalize?
+
+B.
+Did the SYSTEM demonstrate a generalization PROCESS?
+
+C.
+Should the knowledge be promoted?
+
+These answers may differ.
+
+Example legitimate result:
+
+KNOWLEDGE_GENERALIZATION = G1
+SYSTEM_AUTONOMY = L10_DEMONSTRATED
+KNOWLEDGE_PROMOTION = K3_ONLY
+
+because the system may demonstrate that it knows how to test
+generalization and correctly refuses excessive promotion.
+
+Do not conflate these.
+
+============================================================
+9. VALIDATION
+============================================================
+
+Run repository-native:
+
+P10 focused tests
+P9 tests
+R-PARTI tests
+learning tests
+transfer tests
+Project B tests
+relevant typology tests
+full regression
+pnpm check
+build
+git diff --check
+
+Report exact counts.
+
+No silent skips.
+
+============================================================
+10. COMMIT / PUSH
+============================================================
+
+If coherent and validation passes:
+
+commit
+push current branch.
+
+No PR.
+No merge.
+No deploy.
+
+One coherent Delta preferred.
+
+============================================================
+11. REQUIRED FINAL REPORT
+============================================================
+
+Return:
+
+# ARKI — P10 Knowledge Transfer & Generalization Challenge
+
+## 1. Baseline
+Repository
+Branch
+Baseline HEAD
+Baseline Delta
+Worktree
+
+## 2. K2 Source Candidate
+ID
+Original observation
+K-state
+Project scope
+Evidence
+Counterexample
+Unknowns
+
+## 3. Abstraction
+Case-specific representation
+Abstract candidate
+Removed details
+Retained relations
+Rationale
+
+## 4. Initial Scope
+Applies when
+May apply
+Does not apply
+Unknown
+
+## 5. Near Variants
+Table:
+variant / changed condition / expected / actual / decision
+
+## 6. Cross-Project
+Target
+Compatibility
+Differences
+Adaptation burden
+Result
+
+## 7. Cross-Typology
+Target typology
+Structural similarity
+Surface similarity
+Context differences
+Result
+
+## 8. Adversarial
+Challenge
+Expected failure mode
+Actual
+Decision
+
+## 9. Counterexamples
+Counterexample
+Impact
+Scope effect
+
+## 10. Transfer Matrix
+Full matrix.
+
+## 11. Scope Refinement
+Before
+After
+Applies when
+Does not apply
+Unknown
+
+## 12. Knowledge Decision
+K before
+K after
+Learning class
+Learning delta
+G-level
+Evidence
+Reason
+
+## 13. L10 Audit
+Abstraction
+Scope hypothesis
+Variant challenge
+Transfer
+Non-transfer detection
+Counterexample
+Scope refinement
+Promotion restraint
+Highest autonomy level
+
+## 14. Anti-Contamination
+K0
+fixtures
+tests
+Manual
+constants
+historical cases
+Result
+
+## 15. ANEXO I
+Status
+Manifest/index
+Referenced artifacts
+Reproducibility
+Historical packages registered
+
+## 16. Regression
+Knowledge
+Reasoning
+Software
+R-PARTI
+P9
+Project B
+
+## 17. Validation
+Focused tests
+Full tests
+TypeScript
+Build
+git diff --check
+
+## 18. Git
+Delta
+Commit
+Remote HEAD
+Worktree
+
+## 19. Required Final States
+
+Return:
+
+P10_KNOWLEDGE_SOURCE =
+P10_K_BEFORE =
+P10_K_AFTER =
+P10_NEAR_VARIANT =
+P10_CROSS_PROJECT =
+P10_CROSS_TYPOLOGY =
+P10_ADVERSARIAL =
+P10_COUNTEREXAMPLE =
+P10_SCOPE_REFINEMENT =
+P10_TRANSFER_DECISION =
+P10_GENERALIZATION_LEVEL =
+P10_KNOWLEDGE_PROMOTION =
+P10_SYSTEM_AUTONOMY =
+L10_GENERALIZATION =
+ANEXO_I_STATUS =
+HUMAN_AUTHORITY =
+REGRESSION =
+NEXT_STEP =
+
+For NEXT_STEP return exactly one:
+
+READY_FOR_NEXT_EXPERIMENT
+
+or
+
+BLOCKED
+
+with reason.
+
+============================================================
+12. STOP CONDITIONS
+============================================================
+
+STOP rather than bypass if:
+
+- K2 cannot be reconstructed;
+- transfer target is artificial;
+- conclusion is already hardcoded;
+- second learning engine would be required;
+- second transfer engine would be required;
+- historical evidence must be rewritten;
+- tests require predetermined learning result;
+- generalization requires ignoring counterexample;
+- K-state must be promoted merely to satisfy order.
+
+============================================================
+13. FINAL STOP
+============================================================
+
+After report:
+
+STOP.
+
+Do not start another experiment.
+Do not bulk populate Manual.
+Do not canonize K2/K3/K4 automatically.
+Do not merge.
+Do not deploy.
+
+PROCEDE.

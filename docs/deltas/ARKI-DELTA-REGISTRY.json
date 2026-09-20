@@ -982,6 +982,58 @@
       "regression_status": "PASS",
       "human_authority_required": true,
       "next_step": "STOP_AFTER_FORMALIZATION"
+    },
+    {
+      "delta_id": "PASTED-CONTENT-494-V492",
+      "source_name": "pasted_content_494.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_494.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-494-V492/pasted_content_494.txt",
+      "sha256": "72013379d084982f9f32fabad911cd115bc0a03b63840e7799b9ed6ff7e3de1d",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P10 Knowledge Transfer & Generalization Challenge",
+        "1. Baseline",
+        "2. K2 Source Candidate",
+        "3. Abstraction",
+        "4. Initial Scope",
+        "5. Near Variants",
+        "6. Cross-Project",
+        "7. Cross-Typology"
+      ],
+      "preview_count": 1213,
+      "status": "EXECUTED / PASS_WITH_OBSERVATIONS / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "K2_RETAINED / G1_PROCESS_ONLY / NOT_UNIVERSALIZED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "p10_status": "PASS_WITH_OBSERVATIONS",
+      "p10_report": "docs/arki-p10/ARKI-P10-KNOWLEDGE-TRANSFER-2026-09-20.md",
+      "p10_structured_report": "docs/arki-p10/ARKI-P10-KNOWLEDGE-TRANSFER-2026-09-20.json",
+      "p10_proof": "client/src/components/arkiP10KnowledgeTransferChallenge.ts",
+      "p10_tests": "client/src/components/arkiP10KnowledgeTransferChallenge.test.ts",
+      "anexo_i_manifest": "docs/annex-i/manifest.json",
+      "knowledge_promotion": "K2_CANDIDATE",
+      "l10_generalization": "L10_DEMONSTRATED",
+      "human_authority_required": true,
+      "p94_reexecuted": false,
+      "regression_status": "PASS",
+      "next_step": "READY_FOR_NEXT_EXPERIMENT"
     }
   ]
 }

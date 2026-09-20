@@ -338,3 +338,20 @@ Capacity UNKNOWN was resolved for a synthetic experiment only. The result is a P
 ## PASTED-CONTENT-493-V491 — ANEXO I
 
 Formalized the reusable ANEXO I evidence manifest. This is metadata/reference infrastructure, not a learning event; existing R-PARTI and P9.4 results remain unchanged.
+
+<!-- PASTED-CONTENT-494-V492 -->
+## PASTED-CONTENT-494-V492 — pasted_content_494.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `72013379d084982f9f32fabad911cd115bc0a03b63840e7799b9ed6ff7e3de1d`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P10 Knowledge Transfer & Generalization Challenge, 1. Baseline, 2. K2 Source Candidate, 3. Abstraction, 4. Initial Scope, 5. Near Variants, 6. Cross-Project, 7. Cross-Typology
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-494-V492-P10 -->
+## PASTED-CONTENT-494-V492 — P10 Knowledge Transfer
+
+P10 tested the Project-B K2 candidate through bounded abstraction, near/cross-project/cross-typology transfer, adversarial non-transfer and counterexample scope refinement. The system process reached L10_DEMONSTRATED while knowledge remained K2_CANDIDATE; no universal rule was promoted.
