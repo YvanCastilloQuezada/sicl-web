@@ -1,0 +1,409 @@
+{
+  "phase": "I0-I11",
+  "baseline": {
+    "repository": "YvanCastilloQuezada/sicl-web",
+    "branch": "feat/spatial-pilot-media-studio-v1",
+    "head": "9a8675961074db476288a22740d851d5ee749080",
+    "remoteHead": "9a8675961074db476288a22740d851d5ee749080",
+    "worktree": "CLEAN",
+    "baselineMatchesHistorical": false
+  },
+  "rpMatrix": [
+    {
+      "id": "RP-01",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "seed plurality preserved",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-02",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "parti hypotheses preserved",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-03",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "family has three runtime realizations",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-04",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "intent is separate from form",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-05",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "architectural/computational seed remain separate",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-06",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "S1 hard gates reused",
+      "remainingGap": "regulatory evidence remains UNKNOWN"
+    },
+    {
+      "id": "RP-07",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "relation-first retrieval",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-08",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "R3/R4 remain exploratory",
+      "remainingGap": "transferability UNKNOWN"
+    },
+    {
+      "id": "RP-09",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "human rejection recorded",
+      "remainingGap": "reason remains UNKNOWN"
+    },
+    {
+      "id": "RP-10",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "mutation/backtrack evidence preserved",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-11",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "DesignMemory branches preserved",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-12",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "fixation warning from repeated history",
+      "remainingGap": "human decides"
+    },
+    {
+      "id": "RP-13",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "backtrack is non-destructive",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-14",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "reframe level exists",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-15",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "project-only learning boundary",
+      "remainingGap": "no promotion"
+    },
+    {
+      "id": "RP-16",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "canonical view identity",
+      "remainingGap": "section detail remains limited"
+    },
+    {
+      "id": "RP-17",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "provenance separated",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-18",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "manual-derived semantic trajectory",
+      "remainingGap": "geometry effect is bounded"
+    },
+    {
+      "id": "RP-19",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "historical P9.3 remains callable",
+      "remainingGap": "none"
+    },
+    {
+      "id": "RP-20",
+      "previous": "PASS",
+      "final": "PASS",
+      "evidence": "three distinct geometry signatures",
+      "remainingGap": "accessibility/capacity UNKNOWN"
+    }
+  ],
+  "integrationMap": [
+    {
+      "capability": "Seed → Parti → Family",
+      "component": "arkiRPartiManual",
+      "disposition": "REUSE",
+      "files": [
+        "client/src/components/arkiRPartiManual.ts"
+      ]
+    },
+    {
+      "capability": "Multiple geometry realizations",
+      "component": "Project B canonical geometry adapter",
+      "disposition": "EXTEND",
+      "files": [
+        "client/src/components/arkiP9ProjectBGeometry.ts"
+      ]
+    },
+    {
+      "capability": "Functional gates",
+      "component": "S1/R-PARTI hard constraints + D7.6",
+      "disposition": "REUSE",
+      "files": [
+        "client/src/components/arkiRPartiManual.ts",
+        "client/src/components/arkiD76AutonomousDeficitDetection.ts"
+      ]
+    },
+    {
+      "capability": "Mutation/backtrack",
+      "component": "S2/D6.4 + DesignMemory",
+      "disposition": "REUSE",
+      "files": [
+        "client/src/components/arkiD64ClosedLoop.ts",
+        "client/src/components/a21DesignMemory.ts"
+      ]
+    },
+    {
+      "capability": "Manual retrieval",
+      "component": "R0–R4 relation-first retrieval",
+      "disposition": "EXTEND",
+      "files": [
+        "client/src/components/arkiRPartiManual.ts"
+      ]
+    },
+    {
+      "capability": "Representation resolution",
+      "component": "Canonical authoring + R-PARTI identity",
+      "disposition": "REUSE",
+      "files": [
+        "client/src/components/arkiBuildingAuthoring.ts",
+        "client/src/components/arkiRPartiManual.ts"
+      ]
+    },
+    {
+      "capability": "Learning audit",
+      "component": "K0/K1 boundary + P8.2",
+      "disposition": "REUSE",
+      "files": [
+        "client/src/components/arkiLearningContract.ts",
+        "client/src/components/arkiP82SemanticGate.ts"
+      ]
+    }
+  ],
+  "parti": {
+    "seedId": "P9:SEED:COASTAL-MAKER-REFUGE",
+    "partiId": "P9:PARTI:LEARNING-GATHERING-SUPPORT",
+    "familyId": "P9:FAMILY:LEARNING-GATHERING",
+    "invariant": "shared threshold + learning/gathering relation + distinct support interface",
+    "realizationIds": [
+      "B-CANDIDATE-01",
+      "B-CANDIDATE-02",
+      "B-CANDIDATE-03"
+    ],
+    "distinctGeometry": true,
+    "runtimeGenerated": true,
+    "notTemplate": true
+  },
+  "functional": [
+    {
+      "candidateId": "B-CANDIDATE-01",
+      "gate": "PROJECT_B_GEOMETRIC_HARD_GATE",
+      "result": "PASS_WITH_OBSERVATIONS",
+      "coverage": "ROOM_CONTAINMENT, ROOM_NON_OVERLAP, DOOR_CONNECTION, PUBLIC_ROUTE",
+      "unknown": [
+        "ACCESSIBILITY_COMPLIANCE",
+        "CAPACITY",
+        "REGULATORY_COMPLIANCE"
+      ],
+      "evidence": [
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:SPACE:ENTRY",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:SPACE:LEARNING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:SPACE:GATHERING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:SPACE:SUPPORT",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:DOOR:entry-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:DOOR:learning-gathering",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:DOOR:support-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:ROUTE:PUBLIC"
+      ]
+    },
+    {
+      "candidateId": "B-CANDIDATE-02",
+      "gate": "PROJECT_B_GEOMETRIC_HARD_GATE",
+      "result": "PASS_WITH_OBSERVATIONS",
+      "coverage": "ROOM_CONTAINMENT, ROOM_NON_OVERLAP, DOOR_CONNECTION, PUBLIC_ROUTE",
+      "unknown": [
+        "ACCESSIBILITY_COMPLIANCE",
+        "CAPACITY",
+        "REGULATORY_COMPLIANCE"
+      ],
+      "evidence": [
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:SPACE:ENTRY",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:SPACE:GATHERING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:SPACE:LEARNING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:SPACE:SUPPORT",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:DOOR:entry-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:DOOR:learning-gathering",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:DOOR:support-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:ROUTE:PUBLIC"
+      ]
+    },
+    {
+      "candidateId": "B-CANDIDATE-03",
+      "gate": "PROJECT_B_GEOMETRIC_HARD_GATE",
+      "result": "PASS_WITH_OBSERVATIONS",
+      "coverage": "ROOM_CONTAINMENT, ROOM_NON_OVERLAP, DOOR_CONNECTION, PUBLIC_ROUTE",
+      "unknown": [
+        "ACCESSIBILITY_COMPLIANCE",
+        "CAPACITY",
+        "REGULATORY_COMPLIANCE"
+      ],
+      "evidence": [
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:SPACE:ENTRY",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:SPACE:LEARNING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:SPACE:GATHERING",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:SPACE:SUPPORT",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:DOOR:entry-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:DOOR:learning-gathering",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:DOOR:support-learning",
+        "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-03:ROUTE:PUBLIC"
+      ]
+    }
+  ],
+  "mutationBacktrack": {
+    "failure": "B-CANDIDATE-03 route removed for controlled failure",
+    "mutation": "bounded route repair is represented as a candidate operation; evidence is not discarded",
+    "mutationExecuted": true,
+    "backtrackLevel": "B0_GEOMETRY→B2_REALIZATION_FAMILY",
+    "evidenceRetained": [
+      "candidate:B-CANDIDATE-03",
+      "PUBLIC_ROUTE gate",
+      "parent geometry signature retained"
+    ],
+    "partiOutcome": "RETAINED",
+    "humanDecisionRequired": true
+  },
+  "manual": {
+    "control": [
+      "B-CANDIDATE-01",
+      "B-CANDIDATE-02"
+    ],
+    "retrievals": [
+      {
+        "fixtureId": "RPF-02",
+        "distance": "R0",
+        "transferability": "ADAPT_REQUIRED",
+        "adaptation": "LOW"
+      },
+      {
+        "fixtureId": "RPF-02",
+        "distance": "R2",
+        "transferability": "UNKNOWN",
+        "adaptation": "UNKNOWN"
+      },
+      {
+        "fixtureId": "RPF-02",
+        "distance": "R3",
+        "transferability": "UNKNOWN",
+        "adaptation": "UNKNOWN"
+      },
+      {
+        "fixtureId": "RPF-04",
+        "distance": "R4",
+        "transferability": "UNKNOWN",
+        "adaptation": "UNKNOWN"
+      }
+    ],
+    "newTrajectory": true,
+    "copiedForm": false,
+    "hardConstraintsUnchanged": true,
+    "expansion": "PASS_WITH_OBSERVATIONS",
+    "unknown": [
+      "whether manual trajectory is architecturally preferable",
+      "regulatory and accessibility consequences"
+    ]
+  },
+  "humanFeedback": {
+    "rejectionRecorded": true,
+    "reason": "UNKNOWN / NOT_YET_EXPLICIT",
+    "replayed": true,
+    "fixationWarning": true,
+    "automaticAestheticJudgment": false
+  },
+  "representation": {
+    "sourceResolution": "CONCEPTUAL_PLAN",
+    "identityPass": true,
+    "allowed": [
+      "space organization",
+      "conceptual adjacency",
+      "candidate route presence"
+    ],
+    "blocked": [
+      "permit compliance",
+      "construction detail",
+      "precise accessibility clearance",
+      "specialist engineering"
+    ],
+    "unknownPreserved": true
+  },
+  "adversarial": {
+    "changedCondition": "orientation/project condition changed to NORTH",
+    "behaviorChanged": true,
+    "hardcodingDetected": false,
+    "sameIntentPreserved": true,
+    "result": "PASS_WITH_OBSERVATIONS"
+  },
+  "replay": {
+    "p82Status": "INTEGRATED_CHAIN_DEMONSTRATED_WITH_EXTERNAL_DEPENDENCIES; specialist=SPECIALIST_INPUT_REQUIRED",
+    "projectBHistorical": "REPRODUCIBLE",
+    "knowledgeRegression": "NONE",
+    "reasoningRegression": "NONE",
+    "softwareRegression": "NONE"
+  },
+  "learning": {
+    "newConfigurations": [
+      "B-CANDIDATE-03"
+    ],
+    "novelObservations": [
+      "same parti supports three non-identical spatial organizations",
+      "conceptual route presence does not establish capacity or compliance"
+    ],
+    "projectDiscoveries": [
+      "manual retrieval can annotate a generated realization trajectory without copying form"
+    ],
+    "learningCandidate": "PROJECT_ONLY_CANDIDATE",
+    "promotion": "NOT_PROMOTED",
+    "generalization": "PARTIAL",
+    "finalEpistemicState": "HYPOTHESIS / PROJECT_ONLY / HUMAN_REVIEW_REQUIRED"
+  },
+  "validation": {
+    "focused": "PASS",
+    "full": "PASS",
+    "check": "PASS",
+    "build": "PASS",
+    "diffCheck": "PASS"
+  },
+  "autonomy": "Controlled synthesis, bounded mutation, replay, and reporting with human authority; no autonomous architectural approval.",
+  "p94Readiness": "P9.4_READY_TO_REVIEW_FOR_RESUMPTION"
+}

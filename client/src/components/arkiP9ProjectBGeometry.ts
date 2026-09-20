@@ -4,7 +4,7 @@ import { PROJECT_B_ID } from "./arkiP9ProjectBExperiment";
 type Point = [number, number];
 type Rect = { x: number; y: number; w: number; h: number };
 export type ProjectBGeometryVariant = Readonly<{
-  variantId: "B-CANDIDATE-01" | "B-CANDIDATE-02";
+  variantId: "B-CANDIDATE-01" | "B-CANDIDATE-02" | "B-CANDIDATE-03";
   model: CanonicalBuildingModel;
   spaces: ReadonlyArray<{ id: string; label: string; rect: Rect; areaM2: number }>;
   validations: ReadonlyArray<{ id: string; state: "PASS" | "UNKNOWN"; explanation: string }>;
@@ -56,6 +56,34 @@ export function buildProjectBGeometricVariants(): ProjectBGeometryVariant[] {
       { id: "SUPPORT", label: "Separated support / storage", rect: { x: 6, y: 1, w: 8, h: 4 } },
     ]),
   ];
+}
+
+/**
+ * I2 integration fixture: extends the same layout generator used by the
+ * historical candidates. The third realization changes spatial organization
+ * (distributed learning/gathering with a central support band), not color,
+ * jitter, or a new geometry engine. Historical IDs remain untouched.
+ */
+export function buildProjectBThreeRealizations(manualFixtureId = "RPF-02"): ProjectBGeometryVariant[] {
+  const historical = buildProjectBGeometricVariants();
+  const third = makeVariant("B-CANDIDATE-03", [
+    { id: "ENTRY", label: "Entry / threshold", rect: { x: 1, y: 12, w: 4, h: 8 } },
+    { id: "LEARNING", label: "Distributed repair learning", rect: { x: 5, y: 5, w: 6, h: 20 } },
+    { id: "GATHERING", label: "Gathering / exchange", rect: { x: 11, y: 5, w: 8, h: 10 } },
+    { id: "SUPPORT", label: "Central support / storage", rect: { x: 11, y: 15, w: 8, h: 10 } },
+  ]);
+  const manualDerived: ProjectBGeometryVariant = {
+    ...third,
+    model: {
+      ...third.model,
+      sourcePlanId: `${third.model.sourcePlanId}:MANUAL:${manualFixtureId}`,
+      elements: third.model.elements.map((element) => ({
+        ...element,
+        provenance: [...element.provenance, `manual-retrieval:${manualFixtureId}`, "relation-first adaptation"],
+      })),
+    },
+  };
+  return [...historical, manualDerived];
 }
 
 export function validateProjectBGeometricVariants(variants = buildProjectBGeometricVariants()): boolean {

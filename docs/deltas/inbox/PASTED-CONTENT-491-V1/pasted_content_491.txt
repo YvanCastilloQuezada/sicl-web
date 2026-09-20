@@ -1,0 +1,1317 @@
+MACROORDEN ARKI
+R-PARTI-I1 → I4
+GENERATIVE INTEGRATION / MULTIPLE REALIZATIONS / EVALUATION / HUMAN FEEDBACK
+
+MODO:
+VERIFY → MAP → INTEGRATE → GENERATE → TEST → CHALLENGE → REPORT
+
+AUTORIDAD:
+PRODUCT OWNER / ARQUITECTO HUMANO
+
+SISTEMA:
+ARKI
+
+BASELINE REPORTADO:
+Repository: YvanCastilloQuezada/sicl-web
+Branch: feat/spatial-pilot-media-studio-v1
+Commit reportado:
+5a7490eb305a3508316a4f5ecae049b7ba1df6b6
+
+R-PARTI:
+PASS_WITH_OBSERVATIONS
+
+P9.4:
+HOLD
+
+============================================================
+0. OBJETIVO DE LA MACROORDEN
+============================================================
+
+Esta macroorden debe convertir R-PARTI desde:
+
+SEMANTIC CONTRACTS / REPRESENTATIONAL CAPABILITY
+
+hacia una demostración integrada de:
+
+PROJECT CONDITIONS
+→ ARCHITECTURAL SEED
+→ PARTI HYPOTHESIS
+→ REALIZATION FAMILY
+→ MULTIPLE REALIZATIONS
+→ REAL GEOMETRIC CANDIDATES
+→ HARD FUNCTIONAL GATES
+→ EVALUATION
+→ MUTATE / REJECT / BACKTRACK
+→ DESIGN MEMORY
+
+y demostrar de forma controlada si:
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+puede:
+
+EXPAND ACCESSIBLE DESIGN SPACE
+
+sin:
+
+- copiar precedentes;
+- relajar hard constraints;
+- sustituir razonamiento arquitectónico;
+- introducir templates;
+- crear motores paralelos;
+- fabricar aprendizaje;
+- fabricar creatividad;
+- fabricar PASS.
+
+La macroorden debe tener secuencia interna obligatoria.
+
+NO ejecutar todas las fases ciegamente.
+
+Cada fase tiene GATE.
+
+Si un GATE crítico falla:
+
+STOP en ese punto,
+preservar trabajo válido anterior,
+documentar causa,
+no simular capacidades posteriores.
+
+============================================================
+1. REGLAS ABSOLUTAS
+============================================================
+
+1. READ / VERIFY BEFORE WRITE.
+
+2. REUSE BEFORE EXTEND.
+   EXTEND BEFORE CREATE.
+
+3. NO SECOND DESIGN ENGINE.
+
+4. NO SECOND GEOMETRY MODEL.
+
+5. NO SECOND TRANSFER ENGINE.
+
+6. NO SECOND LEARNING ENGINE.
+
+7. NO SECOND DESIGN MEMORY.
+
+8. NO PARALLEL PROJECT B MODEL.
+
+9. NO HARDCODE PROJECT B OUTCOMES.
+
+10. NO HARDCODE RP TEST RESULTS.
+
+11. NO TEMPLATE DISGUISED AS PARTI.
+
+12. NO RANDOMNESS DISGUISED AS ARCHITECTURAL REASONING.
+
+13. NO BEAUTY SCORE.
+
+14. NO CREATIVITY SCORE.
+
+15. NO AUTOMATIC WINNER.
+
+16. NO AUTOMATIC ARCHITECTURAL APPROVAL.
+
+17. NO AUTOMATIC PROFESSIONAL APPROVAL.
+
+18. NO AUTOMATIC REGULATORY APPROVAL.
+
+19. UNKNOWN MUST REMAIN UNKNOWN.
+
+20. BLOCKED IS PREFERABLE TO FALSE PASS.
+
+21. Human architect retains final authority.
+
+22. Existing historical P9 results must remain reproducible.
+
+23. P9.4 remains HOLD throughout this macroorder.
+
+24. Do not merge.
+
+25. Do not deploy.
+
+============================================================
+2. INTERNAL SEQUENCE
+============================================================
+
+Execute in this exact order:
+
+I0  BASELINE + BLOCKER RECONCILIATION
+↓
+I1  EXISTING ENGINE INTEGRATION MAP
+↓
+I2  PARTI → MULTIPLE REALIZATIONS PROOF
+↓
+I3  FUNCTIONAL GATES + MUTATION + BACKTRACK
+↓
+I4  MANUAL → ACCESSIBLE DESIGN SPACE PROOF
+↓
+I5  HUMAN FEEDBACK + FIXATION
+↓
+I6  REPRESENTATION RESOLUTION GATE
+↓
+I7  ADVERSARIAL / ANTI-HARDCODING TEST
+↓
+I8  FULL RP-01..RP-20 REPLAY
+↓
+I9  PROJECT B REGRESSION
+↓
+I10 LEARNING / EPISTEMIC AUDIT
+↓
+I11 FINAL CHECKPOINT + REPORT
+
+Do not skip stages.
+
+============================================================
+I0 — BASELINE + BLOCKER RECONCILIATION
+============================================================
+
+READ ONLY FIRST.
+
+Verify:
+
+repository
+branch
+HEAD
+remote HEAD
+worktree
+latest Delta
+latest checkpoint
+R-PARTI files
+Project B files
+P9.0–P9.3 state
+test baseline
+
+Confirm whether baseline is exactly:
+
+5a7490eb305a3508316a4f5ecae049b7ba1df6b6
+
+If not:
+report actual HEAD and inspect delta before continuing.
+
+Then reconcile the previous report.
+
+Previous summary stated:
+
+12 PASS
+8 BLOCKED
+0 FALSE PASS
+
+But the copied visible table was truncated.
+
+Produce authoritative matrix:
+
+RP-01
+...
+RP-20
+
+with exactly:
+
+PASS
+BLOCKED
+FAIL
+NOT_APPLICABLE
+
+and one-line technical cause for every non-PASS.
+
+Explicitly identify all 8 blockers.
+
+Recover the complete RP-20 description.
+
+Do not infer the missing blocker from this order.
+
+Read actual checkpoint/test artifacts.
+
+SOURCE OF TRUTH:
+repository artifacts,
+not copied/truncated chat text.
+
+-------------------------
+GATE I0
+-------------------------
+
+PASS if:
+
+- repository baseline known;
+- exact 20-test matrix recovered;
+- all blockers identified;
+- no unexplained discrepancy.
+
+If baseline or matrix cannot be reconstructed:
+
+STOP.
+
+============================================================
+I1 — EXISTING ENGINE INTEGRATION MAP
+============================================================
+
+Map the actual implementation path from:
+
+ArchitecturalSeed
+PartiHypothesis
+RealizationFamily
+Candidate
+CanonicalBuildingModel
+geometry generation
+evaluation
+hard constraints
+DesignMemory
+learning
+transfer
+Manual retrieval
+
+Identify actual symbols/files.
+
+For every required capability classify:
+
+REUSE
+EXTEND
+MISSING
+CONFLICT
+
+Do not create implementation yet if an existing mechanism can perform the role.
+
+Special attention:
+
+GDI
+A21
+S1
+S2
+
+must be inspected as potential existing generation/mutation infrastructure.
+
+Determine whether multiple realization generation can be implemented by extending those mechanisms.
+
+Also identify the existing functional evaluation/hard-constraint mechanism.
+
+-------------------------
+GATE I1
+-------------------------
+
+PASS only if there is one coherent integration path.
+
+If implementing R-PARTI requires a parallel engine:
+
+STOP
+and report architectural conflict.
+
+============================================================
+I2 — PARTI → MULTIPLE REALIZATIONS PROOF
+============================================================
+
+This is the central experiment.
+
+Use Project B as controlled experimental case.
+
+Preserve historical IDs.
+
+Do not destructively rename:
+
+B-CANDIDATE-01
+B-CANDIDATE-02
+
+Where compatible, attach semantic interpretation:
+
+PARTI_HYPOTHESIS
+
+without rewriting historical evidence.
+
+Select ONE Project B parti hypothesis.
+
+Call it through existing IDs/references.
+
+The experiment must demonstrate:
+
+SAME PARTI
+→ MULTIPLE REALIZATIONS
+
+Generate at least:
+
+R-A
+R-B
+R-C
+
+Three distinct realizations.
+
+They must share the same parti invariant/core.
+
+They must differ in meaningful architectural realization.
+
+Not merely:
+
+- coordinate jitter;
+- random dimensions;
+- cosmetic differences;
+- material changes;
+- color;
+- tiny offsets.
+
+Acceptable differences may involve, where supported:
+
+- spatial organization realization;
+- arrangement;
+- orientation;
+- section;
+- mass/void;
+- circulation realization;
+- interface configuration;
+- placement;
+- relationship implementation;
+- formal family;
+- topology-compatible alternative.
+
+Each realization must preserve traceability:
+
+PROJECT
+→ SEED
+→ PARTI
+→ REALIZATION FAMILY
+→ CANDIDATE
+→ GEOMETRY
+
+Record:
+
+WHY this realization belongs to the same parti.
+
+Record:
+
+HOW it differs from the other realizations.
+
+-------------------------
+GATE I2
+-------------------------
+
+PASS only if ARKI actually produces >=3 meaningfully distinct realizations of one parti.
+
+If the implementation merely stores three manually authored objects:
+
+FAIL.
+
+If only parameters differ without architectural distinction:
+
+FAIL.
+
+If each geometry requires a different parti:
+
+FAIL.
+
+If generation cannot yet do this:
+
+BLOCKED.
+
+Do not fake PASS.
+
+============================================================
+I3 — FUNCTIONAL GATES + MUTATION + BACKTRACK
+============================================================
+
+Take R-A / R-B / R-C.
+
+Connect them to the real existing evaluation/hard-constraint system.
+
+Do not build a fake evaluator solely for the RP test.
+
+For each candidate evaluate only what current evidence/runtime legitimately supports.
+
+Possible states:
+
+PASS
+FAIL
+NOT_APPLICABLE
+UNKNOWN
+NOT_EVALUATED
+
+Preserve:
+
+PASS WITHOUT COVERAGE
+≠
+COMPLETE VERIFICATION.
+
+Then deliberately create or select a realization with a repairable failure.
+
+Test:
+
+GEOMETRIC / REALIZATION FAILURE
+→ MUTATE
+
+without necessarily rejecting the parti.
+
+Required proof:
+
+CANDIDATE FAILURE
+≠
+PARTI FAILURE.
+
+Then test a condition where local repair is insufficient.
+
+ARKI may produce:
+
+REOPEN_HIGHER_LEVEL_HYPOTHESIS
+
+or equivalent advisory state.
+
+It must NOT automatically declare:
+
+BAD PARTI.
+
+Implement/use:
+
+BACKTRACK
+
+while preserving:
+
+- evidence;
+- rejected branch;
+- prior candidate;
+- cause hypothesis;
+- retained knowledge.
+
+BACKTRACK ≠ UNDO.
+
+-------------------------
+GATE I3
+-------------------------
+
+PASS if:
+
+- real candidates enter real gates;
+- at least one mutation is connected to actual geometry/candidate generation;
+- backtrack preserves evidence;
+- parti is not automatically rejected by local failure.
+
+This should resolve or materially advance:
+
+RP-06
+RP-10.
+
+============================================================
+I4 — MANUAL → ACCESSIBLE DESIGN SPACE PROOF
+============================================================
+
+Now connect the minimal Manual corpus.
+
+Do NOT expand the corpus yet.
+
+Use existing 5 fixtures only unless one additional fixture is strictly required.
+
+Establish CONTROL:
+
+Project B
++
+same K0
++
+Manual retrieval OFF
+
+Record generated/explored alternatives.
+
+Then experimental conditions:
+
+A:
+R0/R1 precedent/near retrieval
+
+B:
+R2 cross-typology retrieval
+
+C:
+R3 distant architectural retrieval
+
+D:
+R4 cross-domain retrieval
+
+Do not require every retrieval level to generate a valid candidate.
+
+UNKNOWN / NO_TRANSFER may be correct.
+
+For any transfer:
+
+REFERENCE
+→ ABSTRACT RELATION
+→ CONTEXT TEST
+→ ADAPTATION
+→ SEED / STRATEGY / REALIZATION EFFECT
+
+No:
+
+REFERENCE
+→ COPY FORM.
+
+Measure/record qualitatively and structurally:
+
+- new seed?
+- new parti?
+- new realization family?
+- new candidate?
+- duplicate?
+- rejected?
+- adaptation burden?
+- transferability?
+- constraint violation?
+- UNKNOWN?
+
+Do NOT calculate:
+
+CREATIVITY SCORE.
+
+The question is:
+
+DID THE MANUAL EXPAND ACCESSIBLE DESIGN SPACE?
+
+not:
+
+DID IT CREATE MORE RANDOM SHAPES?
+
+Hard constraints must remain unchanged between control and experimental conditions.
+
+-------------------------
+GATE I4
+-------------------------
+
+PASS if at least one Manual-derived retrieval creates a traceably distinct justified design trajectory not present in control, while preserving hard constraints and avoiding form copying.
+
+If Manual merely retrieves text but does not influence generation:
+
+BLOCKED.
+
+If it copies fixture geometry:
+
+FAIL.
+
+If it relaxes constraints:
+
+FAIL.
+
+This should resolve or materially advance:
+
+RP-18.
+
+============================================================
+I5 — HUMAN FEEDBACK + FIXATION
+============================================================
+
+Implement the minimum valid human-feedback event needed for RP-09.
+
+Required scenario:
+
+Human architect rejects candidate for architectural/aesthetic judgment.
+
+If no reason is supplied:
+
+decision:
+REJECT
+
+reason:
+UNKNOWN / NOT_YET_EXPLICIT
+
+judgmentClass:
+HUMAN_ARCHITECTURAL_JUDGMENT
+
+Do NOT invent:
+
+bad proportion
+bad hierarchy
+ugly
+poor composition
+
+unless human evidence actually states it.
+
+ARKI may generate:
+
+CAUSE_HYPOTHESES
+
+but hypotheses must remain hypotheses.
+
+Then implement/test fixation history.
+
+Fixation detection must be based on recorded exploration history, not a beauty judgment.
+
+Potential evidence:
+
+- repeated local mutations;
+- same parti retained despite repeated failure;
+- rising adaptation burden;
+- repeated constraint conflicts;
+- decreasing meaningful diversity;
+- intent progressively diluted.
+
+Do not assume all these are required.
+
+Use actual available evidence.
+
+Output:
+
+FIXATION_WARNING
+
+not:
+
+PARTI_IS_BAD.
+
+The warning may recommend:
+
+RECONSIDER_HIGHER_LEVEL_HYPOTHESIS?
+
+Human decides.
+
+-------------------------
+GATE I5
+-------------------------
+
+PASS if:
+
+- human rejection can be recorded without invented reason;
+- replay preserves it;
+- fixation warning uses history/evidence;
+- no automatic aesthetic judgment;
+- no automatic parti rejection.
+
+This should resolve or materially advance:
+
+RP-09
+RP-12.
+
+============================================================
+I6 — REPRESENTATION RESOLUTION GATE
+============================================================
+
+Integrate the principle:
+
+EVALUATION CLAIM MUST NOT EXCEED REPRESENTATION RESOLUTION.
+
+Do not create an entirely new evaluator architecture.
+
+Extend shared evaluation metadata/gates where possible.
+
+Representation examples:
+
+RELATIONSHIP_DIAGRAM
+PARTI_DIAGRAM
+MASSING
+PLAN
+SECTION
+DETAILED_MODEL
+SIMULATION
+
+Do not assume this exact enum if existing representation levels already exist.
+
+Map to current architecture.
+
+Test at least:
+
+A low-resolution representation cannot produce unsupported high-resolution verification.
+
+Example:
+
+PARTI_DIAGRAM
+
+may support:
+organizational reasoning
+
+but cannot by itself verify:
+detailed accessibility,
+construction detail,
+precise clearance,
+complete regulatory compliance,
+etc.
+
+The exact tests must follow current ARKI capabilities.
+
+Preserve:
+
+GEOMETRIC PRECISION MUST NOT EXCEED KNOWLEDGE PRECISION.
+
+DESIGN RESOLUTION SHALL NOT OUTRUN EVIDENCE RESOLUTION.
+
+-------------------------
+GATE I6
+-------------------------
+
+PASS if unsupported evaluation claims are blocked or UNKNOWN rather than falsely verified.
+
+This should resolve or materially advance:
+
+RP-16.
+
+============================================================
+I7 — ADVERSARIAL / ANTI-HARDCODING TEST
+============================================================
+
+Now challenge the implementation.
+
+Do not test only Project B happy path.
+
+Create/use at least one controlled variant:
+
+PROJECT B'
+
+with one meaningful changed condition.
+
+Examples only:
+
+orientation constraint
+site proportion
+required relationship
+capacity
+entry condition
+
+Choose a change compatible with current test infrastructure.
+
+Do not create a new typology merely to satisfy test count.
+
+Replay:
+
+SEED
+PARTI
+REALIZATION
+MANUAL RETRIEVAL
+GATES
+
+Check whether system adapts.
+
+Also test:
+
+same abstract form
++
+different architectural intent
+
+must preserve different semantic provenance.
+
+And:
+
+same parti
++
+different computational seed
+
+must not change architectural WHY.
+
+-------------------------
+GATE I7
+-------------------------
+
+PASS if behavior follows semantic conditions rather than Project B constants.
+
+If outcomes depend on hardcoded Project B IDs/geometry:
+
+FAIL.
+
+============================================================
+I8 — FULL RP-01..RP-20 REPLAY
+============================================================
+
+Run the complete RP matrix.
+
+For every test return:
+
+ID
+PREVIOUS STATUS
+CURRENT STATUS
+EVIDENCE
+CHANGE
+REMAINING GAP
+
+Allowed statuses:
+
+PASS
+FAIL
+BLOCKED
+NOT_APPLICABLE
+
+Do not reinterpret BLOCKED as PASS because a type/schema exists.
+
+Distinguish:
+
+SCHEMA SUPPORT
+SEMANTIC SUPPORT
+RUNTIME SUPPORT
+INTEGRATED PROOF
+
+A test requiring runtime generation cannot PASS from schema support alone.
+
+-------------------------
+GATE I8
+-------------------------
+
+No required number of PASS.
+
+Truthfulness is the gate.
+
+0 FALSE PASS required.
+
+============================================================
+I9 — PROJECT B REGRESSION
+============================================================
+
+Replay historical Project B evidence.
+
+Verify:
+
+P9.0
+P9.1
+P9.2
+P9.3
+
+remain historically reproducible.
+
+New semantic interpretation must not rewrite historical evidence.
+
+Compare:
+
+before R-PARTI
+vs
+after R-PARTI integration.
+
+Report:
+
+KNOWLEDGE REGRESSION
+REASONING REGRESSION
+SOFTWARE REGRESSION
+
+separately.
+
+-------------------------
+GATE I9
+-------------------------
+
+Historical regression:
+
+NONE
+
+unless explicitly explained and approved.
+
+If unexplained regression occurs:
+
+STOP.
+
+============================================================
+I10 — LEARNING / EPISTEMIC AUDIT
+============================================================
+
+Inspect whether this experiment produced:
+
+NEW CONFIGURATIONS
+
+NEW OBSERVATIONS
+
+PROJECT DISCOVERIES
+
+LEARNING CANDIDATES
+
+Do not collapse them.
+
+Required distinctions:
+
+GENERATED CONFIGURATION
+≠
+OBSERVATION
+
+OBSERVATION
+≠
+KNOWLEDGE
+
+KNOWLEDGE CANDIDATE
+≠
+GENERALIZED KNOWLEDGE
+
+PROJECT DISCOVERY
+≠
+GENERAL ARCHITECTURAL RULE.
+
+If a novel observation appears from representation/generation:
+
+record it at the appropriate state.
+
+Do not automatically promote to K1+ unless existing learning contracts genuinely justify it.
+
+Use existing learning ladder.
+
+If no valid learning occurred:
+
+state:
+
+NO VALID LEARNING EVENT
+
+This is acceptable.
+
+============================================================
+I11 — FINAL CHECKPOINT
+============================================================
+
+If previous stages are valid, create/update the next checkpoint according to existing repository conventions.
+
+Do not assume Delta number.
+
+Determine next actual Delta from repository.
+
+Checkpoint must record:
+
+- baseline;
+- R-PARTI integration level;
+- resolved blockers;
+- remaining blockers;
+- Project B experiment;
+- Manual integration;
+- anti-hardcoding result;
+- regression result;
+- learning result;
+- autonomy level demonstrated;
+- epistemic state;
+- whether P9.4 is technically ready.
+
+============================================================
+3. EXPECTED BLOCKER RESOLUTION TARGET
+============================================================
+
+This macroorder SHOULD attempt to address all previously blocked RP tests, but not force them to PASS.
+
+Primary targets:
+
+RP-06
+hard functional gate integration
+
+RP-09
+human architectural feedback
+
+RP-10
+geometry mutation/backtrack
+
+RP-12
+fixation history
+
+RP-16
+representation-resolution enforcement
+
+RP-18
+Manual → generator integration
+
+RP-20
+same parti → multiple generated realizations
+
+PLUS:
+the eighth blocker recovered from repository source of truth.
+
+If any requires architecture not yet legitimately available:
+
+BLOCKED
++
+exact dependency
++
+minimum next step.
+
+============================================================
+4. MANUAL SCOPE
+============================================================
+
+DO NOT populate the Manual beyond minimal experimental needs.
+
+No mass ingestion.
+
+No scraping.
+
+No bulk images.
+
+No copyrighted corpus copying.
+
+No Atrium ingestion yet.
+
+No White/Ching bulk ingestion yet.
+
+No historical encyclopedia ingestion yet.
+
+No automatic internet ingestion.
+
+The Manual remains:
+
+MINIMAL CONTROLLED CORPUS.
+
+Its purpose in this macroorder is to prove architecture, not quantity.
+
+============================================================
+5. PROJECT B — HUMAN AUTHORITY
+============================================================
+
+Do not select an architectural winner.
+
+Do not rank partis globally.
+
+Do not declare:
+
+BEST DESIGN.
+
+System may compare:
+
+hard constraints
+scenario behavior
+performance
+coverage
+known trade-offs
+unknowns
+
+Human architect remains responsible for:
+
+architectural preference
+aesthetic judgment
+parti selection
+final project direction.
+
+============================================================
+6. SUCCESS CRITERIA
+============================================================
+
+FULL SUCCESS does NOT mean:
+
+20/20 PASS.
+
+FULL SUCCESS means:
+
+- truthful RP matrix;
+- no false PASS;
+- no parallel engine;
+- multiple real realizations demonstrated if technically possible;
+- functional gates integrated;
+- Manual influences exploration without copying;
+- backtrack preserves evidence;
+- human feedback remains human;
+- fixation warning is evidential;
+- representation limits evaluation claims;
+- Project B historical replay preserved;
+- no fabricated learning;
+- no hardcoding;
+- tests/build/check pass;
+- worktree clean after commit.
+
+============================================================
+7. STOP CONDITIONS
+============================================================
+
+STOP immediately if:
+
+A. parallel engine is required;
+
+B. CanonicalBuildingModel would need duplication;
+
+C. historical Project B evidence would need rewriting;
+
+D. RNE/permit contracts would be weakened;
+
+E. tests require hardcoded PASS;
+
+F. Manual requires copying source forms as templates;
+
+G. learning would need fabricated novelty;
+
+H. architectural judgment would need automatic beauty scoring;
+
+I. unresolved architectural contradiction appears.
+
+Report instead of bypassing.
+
+============================================================
+8. VALIDATION
+============================================================
+
+Run:
+
+focused R-PARTI tests
+existing relevant generation tests
+learning tests
+transfer tests
+Project B tests
+P9 tests
+full regression
+pnpm check
+build
+git diff --check
+
+Use repository-native commands.
+
+Do not invent success if environment prevents execution.
+
+============================================================
+9. COMMIT / PUSH
+============================================================
+
+If implementation is coherent and validations pass:
+
+commit
++
+push
+
+to current branch.
+
+No PR.
+No merge.
+No deploy.
+
+If repository conventions use one Delta for this coherent macroorder, use one Delta.
+
+Do not artificially split into micro-Deltas.
+
+If architecture genuinely requires separation, document reason before doing so.
+
+============================================================
+10. FINAL REPORT — REQUIRED FORMAT
+============================================================
+
+Return one consolidated report:
+
+# ARKI — R-PARTI Integration Proof
+
+## 1. Baseline
+Repository:
+Branch:
+Baseline HEAD:
+Baseline Delta:
+Worktree:
+
+## 2. Previous RP Matrix Reconciliation
+20 rows:
+RP ID / previous status / exact blocker
+
+Explicitly explain the previously missing/truncated eighth blocker.
+
+## 3. Integration Map
+Capability
+Existing component
+REUSE / EXTEND / MISSING / CONFLICT
+Files
+
+## 4. Parti → Multiple Realizations
+Parti:
+Shared invariant:
+R-A:
+R-B:
+R-C:
+Meaningful differences:
+Generation provenance:
+
+State explicitly whether:
+
+PARTI ≠ TEMPLATE
+
+was demonstrated at runtime.
+
+## 5. Functional Evaluation
+Candidate
+Gate
+Result
+Coverage
+UNKNOWN
+Evidence
+
+## 6. Mutation / Backtrack
+Failure:
+Failure location:
+Cause hypothesis:
+Mutation:
+Backtrack level:
+Evidence retained:
+Parti retained/reopened/rejected:
+Human decision required:
+
+## 7. Manual Integration
+Control alternatives:
+R0/R1:
+R2:
+R3:
+R4:
+New justified trajectories:
+Duplicates:
+Rejected transfers:
+UNKNOWN:
+Hard constraints unchanged: YES/NO
+
+State whether:
+
+ACCESSIBLE DESIGN SPACE EXPANSION
+
+was actually demonstrated.
+
+## 8. Human Feedback
+Human rejection fixture:
+Reason:
+UNKNOWN handling:
+Replay:
+Fixation evidence:
+Fixation warning:
+
+## 9. Representation Gate
+Representation:
+Allowed evaluations:
+Blocked evaluations:
+UNKNOWN preserved:
+
+## 10. Adversarial Variant
+Changed condition:
+Behavior change:
+Hardcoding detected:
+Transfer/adaptation result:
+
+## 11. RP-01..RP-20 Final Matrix
+ID
+Previous
+Final
+Evidence
+Remaining gap
+
+## 12. Regression
+Knowledge regression:
+Reasoning regression:
+Software regression:
+Project B historical regression:
+
+## 13. Learning Audit
+New configuration:
+Novel observation:
+Project discovery:
+Learning candidate:
+Promotion:
+Generalization:
+Final epistemic state:
+
+## 14. Validation
+Focused tests:
+Full tests:
+pnpm check:
+build:
+git diff --check:
+
+## 15. Git
+Final Delta:
+Final commit:
+Remote HEAD:
+Worktree:
+
+## 16. Remaining BLOCKED
+For each:
+cause
+dependency
+minimum next action
+
+## 17. Autonomy Demonstrated
+State highest level actually demonstrated.
+Do not infer from schema.
+
+## 18. P9.4 Readiness
+
+Return exactly one:
+
+P9.4_READY_TO_REVIEW_FOR_RESUMPTION
+
+or
+
+P9.4_NOT_READY
+
+This does NOT authorize execution of P9.4.
+
+============================================================
+11. FINAL STOP
+============================================================
+
+After report:
+
+STOP.
+
+Do not execute P9.4.
+Do not populate Manual.
+Do not start another research cycle.
+Do not merge.
+Do not deploy.

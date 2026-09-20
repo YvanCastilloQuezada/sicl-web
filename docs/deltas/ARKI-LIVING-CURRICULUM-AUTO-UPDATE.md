@@ -294,3 +294,15 @@ Nueva lección propagada a los tres volúmenes: evaluar dos hipótesis arquitect
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-491-V1 -->
+## PASTED-CONTENT-491-V1 — pasted_content_491.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `565b2172a035d70a80c1f223842f4c3203f97d4670c24a9d67260bd45b8f15c8`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — R-PARTI Integration Proof, 1. Baseline, 2. Previous RP Matrix Reconciliation, 3. Integration Map, 4. Parti → Multiple Realizations, 5. Functional Evaluation, 6. Mutation / Backtrack, 7. Manual Integration
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.

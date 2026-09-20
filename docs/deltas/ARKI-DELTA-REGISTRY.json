@@ -849,6 +849,46 @@
         "MUTATE_PROJECT",
         "PUSH_WITHOUT_AUTHORIZATION"
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-491-V1",
+      "source_name": "pasted_content_491.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_491.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-491-V1/pasted_content_491.txt",
+      "sha256": "565b2172a035d70a80c1f223842f4c3203f97d4670c24a9d67260bd45b8f15c8",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — R-PARTI Integration Proof",
+        "1. Baseline",
+        "2. Previous RP Matrix Reconciliation",
+        "3. Integration Map",
+        "4. Parti → Multiple Realizations",
+        "5. Functional Evaluation",
+        "6. Mutation / Backtrack",
+        "7. Manual Integration"
+      ],
+      "preview_count": 1317,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
     }
   ]
 }
