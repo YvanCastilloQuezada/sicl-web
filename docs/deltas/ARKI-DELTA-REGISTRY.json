@@ -889,6 +889,59 @@
         "MUTATE_PROJECT",
         "PUSH_WITHOUT_AUTHORIZATION"
       ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-492-V492",
+      "source_name": "pasted_content_492.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_492.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-492-V492/pasted_content_492.txt",
+      "sha256": "987ab3d49090e1106c4900e28ce3744baa3b1d997b63332745a27f8defeb79d3",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P9.4→P9.x Evidence-to-Learning Experimental Report",
+        "1. Baseline",
+        "2. Selected UNKNOWN",
+        "3. Evidence Acquired",
+        "4. Impact Classification",
+        "5. Dependency Propagation",
+        "6. Re-evaluation",
+        "7. New Observable"
+      ],
+      "preview_count": 1348,
+      "status": "EXECUTED / PASS_WITH_OBSERVATIONS / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "K2_CANDIDATE / PROJECT_ONLY / NOT_GENERALIZED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "curriculum_status": "UPDATED_WITH_EXPERIMENTAL_RESULT",
+      "book_status": "UPDATED_WITH_EPISTEMIC_BOUNDARY",
+      "execution": "P9.4-0 through P9.12",
+      "selected_unknown": "B-unknown-capacity",
+      "evidence": "SYNTHETIC_EXPERIMENTAL_EVIDENCE",
+      "impact": "EVALUATION_ONLY",
+      "geometry_mutated": false,
+      "project_discovery": "PROJECT_ONLY",
+      "transfer": "ADAPT_ONLY",
+      "generalization": "G1",
+      "autonomy": "L9_COMPARES",
+      "next_step": "NEXT_STEP_READY",
+      "report": "docs/arki-p94/ARKI-P94-EVIDENCE-TO-LEARNING-EXPERIMENT-2026-09-20.md"
     }
   ]
 }

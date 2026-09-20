@@ -1,0 +1,1348 @@
+MACROORDEN ARKI
+P9.4 → P9.x
+EVIDENCE ACQUISITION → PROJECT DISCOVERY → LEARNING CHALLENGE
+
+MODO:
+VERIFY → FREEZE BASELINE → SELECT UNKNOWN → ACQUIRE EVIDENCE
+→ CLASSIFY → PROPAGATE → RE-EVALUATE → OBSERVE
+→ DISCOVER → CHALLENGE → TRANSFER → LEARNING DECISION
+→ REGRESSION → CHECKPOINT → REPORT
+
+AUTORIDAD:
+PRODUCT OWNER / ARQUITECTO HUMANO
+
+SISTEMA:
+ARKI
+
+============================================================
+0. CONTEXTO Y BASELINE
+============================================================
+
+R-PARTI I0–I11 ha sido ejecutado.
+
+Baseline previo:
+9a8675961074db476288a22740d851d5ee749080
+
+Commit final reportado de integración R-PARTI:
+56f0bda88a9bcc9cded6cf62fdd6d37f490f45ae
+
+Estado reportado:
+
+R_PARTI_CONTRACTUAL_STATUS =
+PASS
+
+R_PARTI_INTEGRATION_STATUS =
+PASS_WITH_OBSERVATIONS
+
+PARTI_TO_3_REALIZATIONS =
+PASS
+
+MANUAL_ACCESSIBLE_DESIGN_SPACE_EXPANSION =
+PASS_WITH_OBSERVATIONS
+
+ANTI_HARDCODING =
+PASS
+
+PROJECT_B_REGRESSION =
+REPRODUCIBLE
+
+VALID_LEARNING_EVENT =
+PROJECT_ONLY_CANDIDATE
+
+GENERAL_KNOWLEDGE_PROMOTION =
+NOT_PROMOTED
+
+P9.4 =
+READY_TO_REVIEW_FOR_RESUMPTION
+
+R-PARTI queda FROZEN como baseline contractual/experimental.
+
+No modificar R-PARTI salvo que esta macroorden descubra una
+contradicción real que impida continuar.
+
+============================================================
+1. PREGUNTA CENTRAL
+============================================================
+
+Esta macroorden debe investigar:
+
+¿Puede ARKI adquirir evidencia que no estaba disponible en K0,
+resolver o refinar UNKNOWNs, determinar correctamente qué nivel
+del proyecto queda afectado, re-evaluar el diseño y distinguir:
+
+A. actualización de datos del proyecto;
+B. resolución de UNKNOWN;
+C. nueva observación;
+D. descubrimiento específico del proyecto;
+E. candidato de aprendizaje;
+F. conocimiento transferible;
+G. conocimiento generalizable?
+
+NO se debe asumir que adquirir evidencia produce aprendizaje.
+
+EVIDENCE ACQUISITION
+≠
+LEARNING.
+
+============================================================
+2. HIPÓTESIS EXPERIMENTAL
+============================================================
+
+La cadena que se desea poner a prueba es:
+
+K0
+↓
+UNKNOWN
+↓
+RESOLUTION PATH
+↓
+TARGETED EVIDENCE ACQUISITION
+↓
+NEW EVIDENCE
+↓
+EVIDENCE VALIDATION
+↓
+IMPACT CLASSIFICATION
+↓
+DEPENDENCY PROPAGATION
+↓
+RE-EVALUATION
+↓
+NEW OBSERVABLE?
+↓
+PROJECT DISCOVERY?
+↓
+LEARNING CANDIDATE?
+↓
+CHALLENGE
+↓
+COUNTEREXAMPLE
+↓
+TRANSFER TEST
+↓
+PROMOTION DECISION
+
+No omitir pasos epistemológicos.
+
+============================================================
+3. REGLAS ABSOLUTAS
+============================================================
+
+1. READ / VERIFY BEFORE WRITE.
+
+2. REUSE BEFORE EXTEND.
+   EXTEND BEFORE CREATE.
+
+3. No segundo motor de diseño.
+
+4. No segundo modelo geométrico.
+
+5. No segundo sistema de evidencia.
+
+6. No segundo motor de aprendizaje.
+
+7. No segundo DesignMemory.
+
+8. No segundo sistema de transferencia.
+
+9. No reescribir historia P9.0–P9.3.
+
+10. No reescribir R-PARTI para hacer pasar P9.4.
+
+11. UNKNOWN ≠ FAIL.
+
+12. UNKNOWN ≠ PASS.
+
+13. UNKNOWN ≠ LICENSE TO INVENT.
+
+14. UNKNOWN WITHOUT RESOLUTION PATH =
+    INCOMPLETE DIAGNOSIS.
+
+15. NEW DATA ≠ NEW KNOWLEDGE.
+
+16. NEW CONFIGURATION ≠ NEW KNOWLEDGE.
+
+17. NEW OBSERVATION ≠ GENERAL RULE.
+
+18. PROJECT DISCOVERY ≠ GENERAL ARCHITECTURAL KNOWLEDGE.
+
+19. ONE SUCCESS ≠ GENERALIZATION.
+
+20. ONE FAILURE ≠ GENERAL RULE.
+
+21. RETRIEVAL ≠ LEARNING.
+
+22. ADAPTATION ≠ LEARNING.
+
+23. HUMAN SELECTION ≠ UNIVERSAL RULE.
+
+24. CORRELATION ≠ CAUSALITY.
+
+25. PATTERN ≠ RULE.
+
+26. RULE ≠ UNIVERSAL LAW.
+
+27. No automatic K1 promotion.
+
+28. No automatic winner.
+
+29. No automatic architectural approval.
+
+30. No automatic regulatory approval.
+
+31. No automatic professional approval.
+
+32. No beauty score.
+
+33. No creativity score.
+
+34. No silent relaxation of constraints.
+
+35. Human authority remains final.
+
+36. BLOCKED is preferable to fabricated evidence.
+
+============================================================
+4. SECUENCIA INTERNA OBLIGATORIA
+============================================================
+
+Execute:
+
+P9.4-0  BASELINE VERIFICATION
+↓
+P9.4-1  UNKNOWN INVENTORY
+↓
+P9.4-2  EVIDENCE TARGET SELECTION
+↓
+P9.4-3  RESOLUTION PATH
+↓
+P9.4-4  CONTROLLED EVIDENCE ACQUISITION
+↓
+P9.4-5  EVIDENCE VALIDATION
+↓
+P9.4-6  IMPACT CLASSIFICATION
+↓
+P9.4-7  DEPENDENCY PROPAGATION
+↓
+P9.4-8  RE-EVALUATION
+↓
+P9.4-9  REPRESENTATION / NEW OBSERVABLE
+↓
+P9.5    PROJECT DISCOVERY TEST
+↓
+P9.6    CAUSE / ALTERNATIVE EXPLANATION TEST
+↓
+P9.7    VARIANT CHALLENGE
+↓
+P9.8    TRANSFER TEST
+↓
+P9.9    COUNTEREXAMPLE / RESTRAINT TEST
+↓
+P9.10   LEARNING DECISION
+↓
+P9.11   REGRESSION + AUTONOMY AUDIT
+↓
+P9.12   CHECKPOINT / REPORT
+
+Every stage has a GATE.
+
+Do not jump forward if evidence does not justify it.
+
+============================================================
+P9.4-0 — BASELINE VERIFICATION
+============================================================
+
+READ ONLY.
+
+Verify:
+
+repository
+branch
+HEAD
+remote HEAD
+worktree
+latest Delta
+R-PARTI checkpoint
+P9.0
+P9.1
+P9.2
+P9.3
+Project B
+learning contracts
+evidence contracts
+DesignMemory
+dependency propagation
+regulatory foundation
+S1/S2
+GDI/A21
+
+Expected final R-PARTI commit:
+
+56f0bda88a9bcc9cded6cf62fdd6d37f490f45ae
+
+Do not assume it.
+
+Verify actual repository state.
+
+Determine next Delta from repository history.
+
+Do not assume Delta 492.
+
+-------------------------
+GATE P9.4-0
+-------------------------
+
+PASS if baseline is coherent and reproducible.
+
+Otherwise STOP.
+
+============================================================
+P9.4-1 — UNKNOWN INVENTORY
+============================================================
+
+Create an authoritative inventory of unresolved Project B UNKNOWNs.
+
+Do not invent new UNKNOWNs merely to create an experiment.
+
+Search existing project state/evidence.
+
+Classify each UNKNOWN using existing taxonomy where possible:
+
+PROJECT_DATA
+ARCHITECTURAL_KNOWLEDGE
+REGULATORY
+SPECIALIST
+IMPLEMENTATION
+EVIDENCE
+HUMAN_DECISION
+
+For every UNKNOWN record:
+
+UNKNOWN_ID
+QUESTION
+WHY_UNKNOWN
+WHAT_DEPENDS_ON_IT
+RESOLVER_TYPE
+POSSIBLE_RESOLUTION_PATH
+CURRENT_EVIDENCE
+EPISTEMIC_STATE
+PROJECT_IMPACT_IF_RESOLVED
+
+Examples already known may include:
+
+ACCESSIBILITY_COMPLIANCE
+CAPACITY
+REGULATORY_COMPLIANCE
+
+but do not assume these are the only or best experimental targets.
+
+-------------------------
+GATE P9.4-1
+-------------------------
+
+PASS if at least one legitimate existing UNKNOWN has:
+
+- meaningful architectural dependency;
+- identifiable resolution path;
+- evidence not already present in K0.
+
+============================================================
+P9.4-2 — EVIDENCE TARGET SELECTION
+============================================================
+
+Select a SMALL number of UNKNOWNs.
+
+Preferred:
+
+1 primary UNKNOWN
+
+and optionally:
+
+1 secondary/control UNKNOWN.
+
+Do not attempt to resolve every Project B uncertainty.
+
+Selection criteria:
+
+- affects architecture meaningfully;
+- can be resolved or materially refined with legitimate evidence;
+- has traceable dependencies;
+- is not merely a coding fixture;
+- does not require pretending specialist/professional approval;
+- can produce observable consequences.
+
+Document WHY selected.
+
+Do not select a target because it guarantees learning.
+
+-------------------------
+GATE P9.4-2
+-------------------------
+
+Human approval is NOT required for experimental target selection
+unless current governance contracts explicitly require it.
+
+If target would constitute a real professional/project decision,
+mark HUMAN_DECISION_REQUIRED and select another experimental target.
+
+============================================================
+P9.4-3 — RESOLUTION PATH
+============================================================
+
+Before acquiring evidence, explicitly predict:
+
+WHAT evidence would resolve/refine the UNKNOWN?
+
+WHO/WHAT can legitimately provide it?
+
+Possible resolver classes:
+
+PROJECT_SOURCE
+MEASUREMENT
+SITE_DATA
+DOCUMENT
+REGULATORY_SOURCE
+SPECIALIST
+SIMULATION
+REPRESENTATION
+HUMAN_ARCHITECT
+TEST
+DERIVED_ANALYSIS
+
+Do not fabricate external evidence.
+
+If actual external authoritative evidence is unavailable in the
+runtime, use a clearly declared CONTROLLED EXPERIMENTAL EVIDENCE
+fixture only if the purpose is testing the reasoning architecture.
+
+Such fixture must be labeled:
+
+SYNTHETIC_EXPERIMENTAL_EVIDENCE
+
+and must never be reported as real Project B evidence.
+
+-------------------------
+GATE P9.4-3
+-------------------------
+
+PASS if resolution path is explicit before evidence acquisition.
+
+============================================================
+P9.4-4 — CONTROLLED EVIDENCE ACQUISITION
+============================================================
+
+Acquire/import the selected evidence through existing mechanisms.
+
+Every evidence object must include:
+
+source
+source type
+scope
+date/version where applicable
+provenance
+reliability/status
+what claim it supports
+what it does NOT support
+affected UNKNOWN
+resolution status
+
+Possible resolution states:
+
+UNRESOLVED
+PARTIALLY_RESOLVED
+RESOLVED_FOR_EXPERIMENT
+RESOLVED
+CONFLICTED
+
+Do not allow:
+
+SOURCE_VERIFIED
+to become automatically:
+PROJECT_COMPLIANCE_VERIFIED.
+
+Preserve:
+
+RNE_SOURCE_VERIFIED
+≠
+PROJECT_COMPLIANCE_VERIFIED
+≠
+PERMIT_APPROVED.
+
+-------------------------
+GATE P9.4-4
+-------------------------
+
+Evidence must be traceable and scope-bounded.
+
+Otherwise STOP.
+
+============================================================
+P9.4-5 — EVIDENCE VALIDATION
+============================================================
+
+Before propagation ask:
+
+Is evidence relevant?
+Is it current enough?
+Does it apply to this context?
+Is its scope sufficient?
+Does it conflict with existing evidence?
+Does it resolve the UNKNOWN completely or partially?
+Does representation resolution support the claim?
+
+Classify:
+
+VALID_FOR_SCOPE
+PARTIAL
+CONFLICTED
+INSUFFICIENT
+NOT_APPLICABLE
+UNKNOWN
+
+Evidence rejected here must NOT propagate as truth.
+
+============================================================
+P9.4-6 — IMPACT CLASSIFICATION
+============================================================
+
+This is a critical experiment.
+
+ARKI must determine what level the new evidence can legitimately affect.
+
+Possible impact levels:
+
+PROJECT_FRAME
+PROJECT_CONDITION
+DESIGN_PREMISE
+ARCHITECTURAL_SEED
+PARTI
+STRATEGY
+REALIZATION_FAMILY
+CANDIDATE
+GEOMETRY
+TOPOLOGY
+PERFORMANCE
+REGULATORY_STATUS
+EVALUATION_ONLY
+NO_DESIGN_CHANGE
+
+Do not assume new evidence requires redesign.
+
+For every impact claim record:
+
+evidence
+affected entity
+impact type
+rationale
+confidence/epistemic state
+human decision requirement
+
+Critical rule:
+
+NEW EVIDENCE
+≠
+AUTOMATIC PARTI CHANGE.
+
+============================================================
+P9.4-7 — DEPENDENCY PROPAGATION
+============================================================
+
+Use existing dependency mechanisms.
+
+Propagate only through actual registered dependencies.
+
+Do not manually hardcode:
+
+if evidence X → change candidate Y.
+
+Required distinction:
+
+DIRECT_EFFECT
+INDIRECT_EFFECT
+NO_EFFECT
+UNKNOWN_EFFECT
+
+Record:
+
+BEFORE
+EVIDENCE
+PROPAGATION PATH
+AFTER
+
+If evidence affects only evaluation:
+
+do not mutate geometry.
+
+If evidence invalidates geometry:
+
+allow bounded repair.
+
+If evidence challenges realization family:
+
+backtrack accordingly.
+
+If evidence challenges parti:
+
+reopen parti hypothesis.
+
+If evidence challenges problem framing:
+
+REFRAME may be required.
+
+Human authority remains preserved.
+
+============================================================
+P9.4-8 — RE-EVALUATION
+============================================================
+
+Re-run only relevant evaluators plus required dependency checks.
+
+Compare:
+
+EXPECTED EFFECT
+vs
+ACTUAL EFFECT.
+
+Use protocol fields:
+
+R EXPECTED VS ACTUAL EFFECTS
+Q NEW DEFICITS CREATED
+S COVERAGE
+T EVIDENCE
+U UNKNOWN
+V UNKNOWN RESOLUTION PATH
+
+Check whether resolving one UNKNOWN creates another.
+
+Required invariant:
+
+RESOLVING ONE DEFICIT
+MAY CREATE OR REVEAL ANOTHER DEFICIT.
+
+Do not hide this.
+
+============================================================
+P9.4-9 — REPRESENTATION / NEW OBSERVABLE
+============================================================
+
+Now determine whether the evidence-driven change or representation
+creates an observable property not available in K0.
+
+Distinguish:
+
+PRE-EXISTING FACT NOW LOADED
+NEWLY CALCULATED VALUE
+NEWLY VISIBLE RELATIONSHIP
+NEW PROJECT-SPECIFIC OBSERVATION
+NEW ARCHITECTURAL HYPOTHESIS
+
+Only the latter categories may proceed toward project discovery.
+
+Required:
+
+NEW DESIGN REPRESENTATION
+→ POSSIBLE NEW OBSERVABLE
+
+but:
+
+NEW OBSERVABLE
+≠
+NEW GENERAL KNOWLEDGE.
+
+-------------------------
+GATE P9.4-9
+-------------------------
+
+If no novel observation exists:
+
+record:
+
+NO_NOVEL_OBSERVATION
+
+and continue only with project-state reporting.
+
+Do NOT manufacture P9.5 learning.
+
+This is a valid experimental result.
+
+============================================================
+P9.5 — PROJECT DISCOVERY TEST
+============================================================
+
+If a legitimate new observation exists, ask:
+
+Was this proposition explicitly present in K0?
+
+Was it supplied as input?
+
+Was it retrieved from Manual?
+
+Was it directly encoded as a rule?
+
+Was it simply calculated?
+
+Or did it emerge from interaction among:
+
+project conditions
++
+parti
++
+realization
++
+geometry
++
+scenario
++
+evaluation/evidence?
+
+Only the last case is a strong candidate for:
+
+PROJECT_DISCOVERY.
+
+Record exact derivation.
+
+PROJECT_DISCOVERY must remain:
+
+PROJECT_ONLY
+
+at this stage.
+
+============================================================
+P9.6 — CAUSE / ALTERNATIVE EXPLANATION TEST
+============================================================
+
+For every discovery candidate create competing explanations.
+
+Example structure:
+
+OBSERVATION:
+X occurred.
+
+H1:
+caused by relationship A.
+
+H2:
+caused by geometry B.
+
+H3:
+caused by capacity C.
+
+H4:
+artifact of fixture/evaluator.
+
+H5:
+coincidental within tested case.
+
+States:
+
+OBSERVED
+HYPOTHESIZED
+SUPPORTED
+VERIFIED
+
+Do not promote causal claims from observation alone.
+
+============================================================
+P9.7 — VARIANT CHALLENGE
+============================================================
+
+Create/use controlled Project B variant(s).
+
+Change ONE meaningful condition at a time where practical.
+
+Test whether the discovery:
+
+PERSISTS
+CHANGES
+DISAPPEARS
+REVERSES
+BECOMES_UNKNOWN
+
+This is not yet cross-typology transfer.
+
+Purpose:
+
+test robustness inside nearby project conditions.
+
+Map to:
+
+G0 → possible G1.
+
+============================================================
+P9.8 — TRANSFER TEST
+============================================================
+
+Only if candidate survives P9.7 sufficiently to justify transfer.
+
+Test on a context not identical to Project B.
+
+Prefer existing ARKI case/fixture if suitable.
+
+Do not create an entire fake typology merely to force transfer.
+
+Evaluate compatibility:
+
+PURPOSE
+SUBJECT
+STATE
+HAZARD
+PROCESS
+CAPABILITY
+CONTROL
+SCALE
+TIME
+REGULATORY_DOMAIN
+CONTEXT
+
+Decision:
+
+TRANSFER
+ADAPT
+DO_NOT_TRANSFER
+UNKNOWN
+
+Record:
+
+TRANSFER SOURCE
+TRANSFER TARGET
+CONTEXT DIFFERENCES
+ADAPTATION BURDEN
+TRANSFER RESULT.
+
+Positive transfer alone is insufficient.
+
+============================================================
+P9.9 — COUNTEREXAMPLE / RESTRAINT TEST
+============================================================
+
+Attempt to find/create a legitimate counterexample.
+
+Ask:
+
+Under what condition does the candidate rule stop working?
+
+A successful learning system must demonstrate restraint.
+
+Possible result:
+
+SUPPORTED_WITH_SCOPE
+
+is stronger epistemically than an unjustified:
+
+UNIVERSAL.
+
+Required invariant:
+
+GENERALIZATION REQUIRES
+POSITIVE TRANSFER
++
+RESTRAINT.
+
+If counterexample invalidates candidate:
+
+REFINE
+SPECIALIZE
+REVISE
+or
+REJECT.
+
+Do not hide failed learning candidates.
+
+============================================================
+P9.10 — LEARNING DECISION
+============================================================
+
+Classify using existing learning states.
+
+K0 ABSENT
+K1 OBSERVED
+K2 CANDIDATE
+K3 SUPPORTED
+K4 TRANSFER_TESTED
+K5 GENERALIZED_CANDIDATE
+K6 CANONICAL_CANDIDATE
+K7 CANONICAL / HUMAN_CONFIRMED
+
+plus:
+
+REJECTED
+SUPERSEDED
+CONFLICTED
+CONTEXT_SPECIFIC
+UNKNOWN
+
+Use existing repo implementation as source of truth if naming differs.
+
+Also classify learning class:
+
+L1 PARAMETER
+L2 RELATIONSHIP
+L3 STRUCTURAL
+L4 REASONING_PATTERN
+
+and delta:
+
+ADD
+REFINE
+GENERALIZE
+SPECIALIZE
+REVISE
+RETIRE
+
+No promotion merely because experiment succeeded.
+
+Any canonical/human-confirmed promotion requiring human authority:
+
+STOP AT CANDIDATE
++
+HUMAN_REVIEW_REQUIRED.
+
+============================================================
+P9.11 — REGRESSION + AUTONOMY AUDIT
+============================================================
+
+Replay:
+
+R-PARTI
+Project B P9.0–P9.3
+P9.4 integration
+Manual integration
+learning contracts
+relevant S1/S2/GDI/A21
+
+Report separately:
+
+KNOWLEDGE_REGRESSION
+REASONING_REGRESSION
+SOFTWARE_REGRESSION
+
+Then report autonomy using established ladder:
+
+L0 receives
+L1 represents
+L2 detects
+L3 diagnoses
+L4 evaluates
+L5 strategies
+L6 candidates
+L7 mutates/synthesizes
+L8 reevaluates
+L9 compares
+L10 generalizes
+
+Do not infer autonomy from schema existence.
+
+Only runtime evidence counts.
+
+If transfer/generalization is incomplete:
+
+do not claim L10.
+
+Human acceptance remains outside ladder.
+
+============================================================
+P9.12 — FINAL CHECKPOINT
+============================================================
+
+Create one coherent checkpoint using repository conventions.
+
+Determine actual Delta number.
+
+Do not assume.
+
+Update required propagation surfaces according to current governance:
+
+DELTA
+→ ARKI
+→ CURRÍCULO
+→ LIBRO DIGITAL / LIBRO VIVO
+
+Preserve epistemic state in all propagation.
+
+Do not turn experimental discovery into textbook fact.
+
+============================================================
+5. CRITICAL EXPERIMENTAL QUESTION
+============================================================
+
+Final report MUST answer separately:
+
+Q1.
+Did ARKI resolve/refine a legitimate pre-existing UNKNOWN?
+
+Q2.
+Did new evidence change the project state?
+
+Q3.
+Did it change geometry/design, or evaluation only?
+
+Q4.
+Did a new observable emerge?
+
+Q5.
+Was that observable absent from K0?
+
+Q6.
+Was it supplied/retrieved/calculated, or genuinely discovered
+through project interaction?
+
+Q7.
+Did it become PROJECT_DISCOVERY?
+
+Q8.
+Did it become a LEARNING_CANDIDATE?
+
+Q9.
+Did it survive a nearby variant?
+
+Q10.
+Did it transfer?
+
+Q11.
+Did a counterexample refine its scope?
+
+Q12.
+What is its final K-state?
+
+Q13.
+What learning class L1–L4 applies?
+
+Q14.
+What generalization level G0–G5 was actually demonstrated?
+
+Q15.
+Did ARKI demonstrate L10 autonomy?
+
+Q16.
+What still requires human architectural authority?
+
+============================================================
+6. SUCCESS CONDITIONS
+============================================================
+
+SUCCESS does NOT require a learning event.
+
+Possible legitimate successful outcomes include:
+
+A.
+EVIDENCE_ACQUIRED
++
+UNKNOWN_RESOLVED
++
+NO_NOVEL_OBSERVATION.
+
+B.
+PROJECT_DISCOVERY
++
+NO_GENERALIZATION.
+
+C.
+LEARNING_CANDIDATE
++
+TRANSFER_FAILED.
+
+D.
+LEARNING_CANDIDATE
++
+COUNTEREXAMPLE_FOUND
++
+SCOPE_REFINED.
+
+E.
+TRANSFER_TESTED
++
+GENERALIZED_CANDIDATE.
+
+All are scientifically useful.
+
+A fabricated K1/K5/L10 is failure.
+
+============================================================
+7. SPECIAL ANTI-CONTAMINATION TEST
+============================================================
+
+Before claiming discovery, inspect whether the proposition already existed in:
+
+- K0;
+- R-PARTI fixtures;
+- Manual fixtures;
+- test expectations;
+- hardcoded constants;
+- Project B historical files;
+- learning contracts;
+- comments/documentation used by runtime;
+- evaluator rule definitions.
+
+If yes:
+
+classify as:
+
+RETRIEVED
+SUPPLIED
+ENCODED
+or
+CALCULATED
+
+as appropriate.
+
+Do NOT classify as discovered.
+
+============================================================
+8. MANUAL DE FORMAS ARQUITECTÓNICAS
+============================================================
+
+Keep Manual corpus frozen/minimal during this experiment unless one
+specific missing knowledge item is required to test evidence impact.
+
+Do not bulk-populate.
+
+If a Manual item contributes:
+
+record whether it is:
+
+RETRIEVED_KNOWLEDGE
+REFERENCE
+PRECEDENT
+ANALOGY
+or
+TRANSFER_SOURCE.
+
+Manual contribution itself is not learning.
+
+============================================================
+9. EXTERNAL / REGULATORY EVIDENCE
+============================================================
+
+Do not use invented regulations.
+
+Do not claim real regulatory compliance from synthetic evidence.
+
+If real external source acquisition is outside current environment:
+
+use:
+
+BLOCKED_BY_EXTERNAL_EVIDENCE
+
+or a clearly labeled:
+
+SYNTHETIC_EXPERIMENTAL_EVIDENCE
+
+for architecture testing only.
+
+Never blur the two.
+
+============================================================
+10. VALIDATION
+============================================================
+
+Run repository-native:
+
+focused P9.4–P9.x tests
+R-PARTI tests
+Project B tests
+learning tests
+transfer tests
+S1/S2 relevant tests
+full regression
+pnpm check
+build
+git diff --check
+
+Report exact counts.
+
+No silent skipped tests.
+
+============================================================
+11. COMMIT / PUSH
+============================================================
+
+If coherent and validation passes:
+
+commit
+push current branch.
+
+No PR.
+No merge.
+No deploy.
+
+Prefer one coherent Delta for the macroexperiment unless repository
+architecture requires otherwise.
+
+Do not manufacture multiple Deltas merely because this order contains
+multiple internal gates.
+
+============================================================
+12. REQUIRED FINAL REPORT
+============================================================
+
+Return:
+
+# ARKI — P9.4→P9.x Evidence-to-Learning Experimental Report
+
+## 1. Baseline
+Repository
+Branch
+Baseline HEAD
+Baseline Delta
+Worktree
+
+## 2. Selected UNKNOWN
+ID
+Type
+Why unknown
+Dependencies
+Resolution path
+
+## 3. Evidence Acquired
+Evidence ID
+Real/Synthetic
+Source
+Scope
+Provenance
+Supports
+Does not support
+Validation status
+
+## 4. Impact Classification
+Affected level
+Rationale
+Direct/indirect
+Human authority
+
+## 5. Dependency Propagation
+Before
+Path
+After
+New deficits
+
+## 6. Re-evaluation
+Expected effect
+Actual effect
+Coverage
+Remaining UNKNOWN
+
+## 7. New Observable
+Description
+Representation that exposed it
+Was it in K0?
+Was it supplied?
+Was it retrieved?
+Was it encoded?
+Was it calculated?
+Novelty classification
+
+## 8. Project Discovery
+Candidate
+Derivation
+Project-specific scope
+
+## 9. Cause Hypotheses
+H1...
+H2...
+Alternative explanations
+Evidence status
+
+## 10. Variant Challenge
+Variant
+Changed condition
+Result
+
+## 11. Transfer Test
+Source
+Target
+Compatibility
+Adaptation burden
+Decision
+Result
+
+## 12. Counterexample
+Counterexample
+Effect
+Scope refinement
+
+## 13. Learning Decision
+Knowledge item
+K before
+K after
+Learning class
+Learning delta
+Generalization level
+Epistemic status
+Human review
+
+## 14. Anti-Contamination Audit
+K0
+Manual
+fixtures
+tests
+constants
+historical Project B
+runtime rules
+Result
+
+## 15. Autonomy
+Highest demonstrated L-level
+Runtime evidence
+Why next level was/not demonstrated
+
+## 16. Regression
+Knowledge
+Reasoning
+Software
+R-PARTI
+Project B
+
+## 17. Validation
+Focused tests
+Full regression
+TypeScript
+Build
+git diff --check
+
+## 18. Git
+Final Delta
+Commit
+Remote HEAD
+Worktree
+
+## 19. Critical Answers
+Q1–Q16 individually.
+
+## 20. Final State
+
+Return:
+
+P9_EVIDENCE_ACQUISITION =
+P9_PROJECT_DISCOVERY =
+P9_LEARNING_CANDIDATE =
+P9_TRANSFER =
+P9_COUNTEREXAMPLE =
+P9_GENERALIZATION =
+P9_AUTONOMY =
+P9_EPISTEMIC_STATE =
+
+and exactly one:
+
+NEXT_STEP_READY
+
+or
+
+NEXT_STEP_BLOCKED
+
+with reason.
+
+============================================================
+13. STOP
+============================================================
+
+After checkpoint/report:
+
+STOP.
+
+Do not start the next experiment.
+Do not populate Manual.
+Do not promote knowledge beyond evidence.
+Do not merge.
+Do not deploy.
+
+PROCEDE.

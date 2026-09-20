@@ -1,0 +1,313 @@
+{
+  "deltaId": "PASTED-CONTENT-492-V492",
+  "baseline": {
+    "repository": "YvanCastilloQuezada/sicl-web",
+    "branch": "feat/spatial-pilot-media-studio-v1",
+    "head": "56f0bda88a9bcc9cded6cf62fdd6d37f490f45ae",
+    "remoteHead": "56f0bda88a9bcc9cded6cf62fdd6d37f490f45ae",
+    "worktree": "CLEAN",
+    "rPartiFrozen": true
+  },
+  "unknownInventory": [
+    {
+      "id": "B-unknown-capacity",
+      "question": "¿Cuál es el perfil de ocupación y demanda de uso?",
+      "type": "PROJECT_DATA",
+      "dependsOn": [
+        "ACT-LEARN",
+        "ACT-GATHER",
+        "ACT-EXIT",
+        "ROUTE:PUBLIC"
+      ],
+      "resolverType": "SYNTHETIC_EXPERIMENTAL_EVIDENCE",
+      "resolutionPath": "Controlled scenario fixture with occupancy, staffing, equipment and event profile; never treated as real project fact.",
+      "currentEvidence": [
+        "K0 frozen",
+        "PROJECT-B-EXPERIMENT-LEDGER"
+      ],
+      "epistemicState": "UNKNOWN",
+      "projectImpactIfResolved": "Refine capacity and flow evaluation; does not automatically change parti or geometry."
+    },
+    {
+      "id": "B-unknown-regulation",
+      "question": "¿Qué jurisdicción y requisitos de seguridad aplican?",
+      "type": "REGULATORY",
+      "dependsOn": [
+        "ACT-EXIT",
+        "REGULATORY_COMPLIANCE"
+      ],
+      "resolverType": "SPECIALIST",
+      "resolutionPath": "Obtain jurisdiction, current code edition and qualified life-safety review.",
+      "currentEvidence": [
+        "No jurisdiction supplied"
+      ],
+      "epistemicState": "UNKNOWN",
+      "projectImpactIfResolved": "May affect regulatory evaluation; cannot be resolved by synthetic fixture."
+    }
+  ],
+  "selectedUnknown": {
+    "id": "B-unknown-capacity",
+    "question": "¿Cuál es el perfil de ocupación y demanda de uso?",
+    "type": "PROJECT_DATA",
+    "dependsOn": [
+      "ACT-LEARN",
+      "ACT-GATHER",
+      "ACT-EXIT",
+      "ROUTE:PUBLIC"
+    ],
+    "resolverType": "SYNTHETIC_EXPERIMENTAL_EVIDENCE",
+    "resolutionPath": "Controlled scenario fixture with occupancy, staffing, equipment and event profile; never treated as real project fact.",
+    "currentEvidence": [
+      "K0 frozen",
+      "PROJECT-B-EXPERIMENT-LEDGER"
+    ],
+    "epistemicState": "UNKNOWN",
+    "projectImpactIfResolved": "Refine capacity and flow evaluation; does not automatically change parti or geometry."
+  },
+  "evidence": {
+    "evidenceId": "P9.4-E-001",
+    "realOrSynthetic": "SYNTHETIC_EXPERIMENTAL_EVIDENCE",
+    "source": "Controlled Project B capacity fixture",
+    "sourceType": "CONTROLLED_FIXTURE",
+    "scope": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+    "version": "P9.4-v1",
+    "provenance": [
+      "P9.4 controlled experimental protocol",
+      "K0:PROJECT-B-COASTAL-MAKER-REFUGE-001"
+    ],
+    "reliability": "EXPERIMENTAL_ONLY",
+    "supports": [
+      "36 participants",
+      "2 staff",
+      "repair-learning equipment zone",
+      "high-demand event profile"
+    ],
+    "doesNotSupport": [
+      "real occupancy fact",
+      "regulatory compliance",
+      "permit approval",
+      "safe egress certification",
+      "universal architectural rule"
+    ],
+    "affectedUnknown": "B-unknown-capacity",
+    "resolutionStatus": "RESOLVED_FOR_EXPERIMENT"
+  },
+  "validation": {
+    "relevance": "VALID_FOR_SCOPE",
+    "currentEnough": "VALID_FOR_SCOPE",
+    "context": "VALID_FOR_SCOPE",
+    "scope": "VALID_FOR_SCOPE",
+    "conflict": "UNKNOWN",
+    "representation": "PARTIAL",
+    "overall": "VALID_FOR_SCOPE"
+  },
+  "impact": {
+    "level": "EVALUATION_ONLY",
+    "rationale": "The fixture refines capacity evaluation and route dependency; no registered dependency authorizes a parti or geometry mutation.",
+    "effect": "DIRECT_EFFECT",
+    "humanDecisionRequired": true
+  },
+  "propagation": {
+    "before": "CAPACITY=UNKNOWN; route compliance=UNKNOWN; geometry frozen",
+    "path": [
+      "P9.4-E-001",
+      "B-unknown-capacity",
+      "ACT-GATHER/ACT-LEARN/ACT-EXIT",
+      "P93 scenario evaluator"
+    ],
+    "after": "CAPACITY=RESOLVED_FOR_EXPERIMENT; route compliance=UNKNOWN; geometry unchanged",
+    "newDeficits": [
+      "Route width and egress capacity remain unknown",
+      "Regulatory applicability remains specialist-dependent"
+    ]
+  },
+  "reevaluation": {
+    "expectedEffect": "Capacity cells become conditionally evaluable without changing geometry.",
+    "actualEffect": "36-person scenario=CONDITIONAL; 60-person nearby variant=UNKNOWN; geometry unchanged.",
+    "coverage": [
+      "capacity scenario",
+      "route dependency",
+      "variant sensitivity"
+    ],
+    "remainingUnknown": [
+      "B-unknown-regulation",
+      "route width",
+      "specialist life-safety review"
+    ],
+    "newDeficits": [
+      "Higher demand converts conditional evaluation to UNKNOWN rather than producing a false pass."
+    ]
+  },
+  "newObservable": {
+    "description": "Within Project B, the same represented route changes from conditional to unknown when the occupancy scenario rises above the bounded fixture.",
+    "representation": "Scenario × geometry evaluation matrix over existing CanonicalBuildingModel routes and spaces.",
+    "classification": "NEW_PROJECT_SPECIFIC_OBSERVATION",
+    "absentFromK0": true,
+    "supplied": false,
+    "retrieved": false,
+    "encoded": false
+  },
+  "discovery": {
+    "candidate": "Occupancy profile is a project-specific dependency of the represented public route under the tested Project B scenarios.",
+    "derivation": "Interaction among frozen project activities, existing route geometry, synthetic occupancy evidence and P9.4 reevaluation.",
+    "scope": "PROJECT_ONLY",
+    "status": "PROJECT_DISCOVERY"
+  },
+  "causes": [
+    {
+      "id": "H1",
+      "explanation": "Occupancy demand exceeds the evidence-bounded scenario envelope.",
+      "status": "SUPPORTED"
+    },
+    {
+      "id": "H2",
+      "explanation": "The single represented route is a common-mode dependency.",
+      "status": "HYPOTHESIZED"
+    },
+    {
+      "id": "H3",
+      "explanation": "Missing route width and code data make the result unknown, not necessarily unsafe.",
+      "status": "SUPPORTED"
+    },
+    {
+      "id": "H4",
+      "explanation": "Evaluator artifact or fixture encoding produced the change.",
+      "status": "UNKNOWN"
+    }
+  ],
+  "variantChallenge": {
+    "changedCondition": "Increase occupancy from 36 to 60 persons while keeping the project and geometry family nearby.",
+    "result": "CHANGES",
+    "scope": "The observation persists as a capacity dependency but the exact threshold is not generalized."
+  },
+  "transfer": {
+    "source": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+    "target": "Existing restaurant evaluation fixture",
+    "decision": "ADAPT",
+    "result": "The dependency concept may be adapted as an evaluation prompt, but Project B's threshold and route evidence do not transfer; restaurant-specific aforo and RNE evidence are required."
+  },
+  "counterexample": {
+    "condition": "Use B-CANDIDATE-02/B-CANDIDATE-03 with separated support and a different spatial organization.",
+    "result": "The exact common-mode route explanation weakens; capacity remains relevant but its spatial manifestation changes.",
+    "scopeRefinement": "Supported only as a project-specific relationship between an occupancy scenario and represented route evaluation; not a universal route rule."
+  },
+  "learning": {
+    "item": "P9.4-CAPACITY-ROUTE-DEPENDENCY",
+    "before": "K0_ABSENT",
+    "after": "K2_CANDIDATE",
+    "class": "L2_RELATIONSHIP",
+    "delta": "ADD",
+    "generalization": "G1",
+    "epistemicStatus": "PROJECT_ONLY_CANDIDATE",
+    "humanReviewRequired": true
+  },
+  "antiContamination": {
+    "k0": "ABSENT",
+    "manual": "ABSENT",
+    "fixtures": "CHECKED",
+    "tests": "CHECKED",
+    "constants": "CHECKED",
+    "historicalProjectB": "CHECKED",
+    "runtimeRules": "CHECKED",
+    "result": "PASS"
+  },
+  "autonomy": {
+    "highestLevel": "L9_COMPARES",
+    "runtimeEvidence": [
+      "selected UNKNOWN",
+      "evidence validation",
+      "dependency propagation",
+      "re-evaluation",
+      "variant comparison",
+      "counterexample restraint"
+    ],
+    "l10Demonstrated": false
+  },
+  "learningReadModel": {
+    "experiences": [],
+    "candidates": [
+      {
+        "candidateId": "P9.4-CAPACITY-ROUTE-DEPENDENCY",
+        "claim": "For this Project B schematic scenario, applying an occupancy profile makes the represented public route a capacity dependency; this is not a universal rule.",
+        "source": "SIMULATION_RESULT",
+        "provenance": {
+          "sourceClass": "SIMULATION_RESULT",
+          "sourceRefs": [
+            "P9.4-SYNTHETIC-CAPACITY-FIXTURE"
+          ],
+          "capturedBy": "SYSTEM",
+          "capturedAt": "2026-09-20T00:00:00.000Z",
+          "evidenceRefs": [
+            "P9.4-E-001"
+          ],
+          "humanReviewState": "PENDING"
+        },
+        "context": {
+          "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+          "spatialScope": "edificacion",
+          "typology": "community facility",
+          "designStage": "schematic"
+        },
+        "assumptions": [
+          "36 participants, 2 staff, one high-demand event profile",
+          "route width and code compliance remain unknown"
+        ],
+        "supportingEvidence": [
+          "P9.4-E-001",
+          "P9.4-V-01"
+        ],
+        "contradictingEvidence": [
+          "P9.4-V-02 separated support scenario"
+        ],
+        "epistemicStatus": "KNOWLEDGE_CANDIDATE",
+        "validationState": "NOT_VALIDATED",
+        "reuseState": "CANDIDATE",
+        "noAutomaticPromotion": true
+      }
+    ],
+    "contradictions": [],
+    "projectMemory": {
+      "memoryId": "design-memory:PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "activeBranchId": "branch-main",
+      "branches": [
+        {
+          "branchId": "branch-main",
+          "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+          "label": "Main design branch",
+          "status": "CANDIDATE",
+          "changedParameters": [],
+          "changedRelations": [],
+          "changedZones": [],
+          "changedCirculation": [],
+          "newUnknowns": [],
+          "resolvedUnknowns": [],
+          "provenance": [
+            "A21.createDesignMemory"
+          ]
+        }
+      ],
+      "entries": [],
+      "tradeoffs": [],
+      "decisions": [],
+      "openQuestions": [],
+      "unknowns": [],
+      "provenance": [
+        "A21 DesignMemory",
+        "Human Authority preserved"
+      ],
+      "noAutomaticDecision": true,
+      "noAutomaticRecommendation": true,
+      "noAutomaticWinner": true
+    },
+    "sourceAuthority": {
+      "sourceExists": false,
+      "applicable": "UNKNOWN",
+      "authoritative": "UNKNOWN",
+      "supportsClaim": "UNKNOWN"
+    },
+    "noAutomaticPromotion": true,
+    "noAutomaticDecision": true,
+    "noAutomaticWinner": true
+  }
+}

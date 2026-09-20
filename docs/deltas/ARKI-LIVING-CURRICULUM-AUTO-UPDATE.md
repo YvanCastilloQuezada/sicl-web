@@ -306,3 +306,19 @@ Nueva lección propagada a los tres volúmenes: evaluar dos hipótesis arquitect
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-492-V492 -->
+## PASTED-CONTENT-492-V492 — pasted_content_492.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `987ab3d49090e1106c4900e28ce3744baa3b1d997b63332745a27f8defeb79d3`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P9.4→P9.x Evidence-to-Learning Experimental Report, 1. Baseline, 2. Selected UNKNOWN, 3. Evidence Acquired, 4. Impact Classification, 5. Dependency Propagation, 6. Re-evaluation, 7. New Observable
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+## PASTED-CONTENT-492-V492 — P9.4→P9.x
+
+Capacity UNKNOWN was resolved for a synthetic experiment only. The result is a PROJECT_ONLY K2 candidate, evaluation-only impact, G1 generalization, no automatic promotion, and human review required.
