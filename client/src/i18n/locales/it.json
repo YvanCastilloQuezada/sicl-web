@@ -2,12 +2,12 @@
   "header": {
     "title": "ARKI",
     "subtitle": "ARKI · SICL",
-    "tagline": "Progetta, analizza, genera, simula e confronta alternative attraverso le scale spaziali, dall’oggetto al paese.",
+    "tagline": "",
     "version": "ARKI 2.2",
     "navigation": "Navigazione principale",
     "traceable": "Spazio tracciabile",
     "identity_line2": "Sistema di Intelligenza per la Progettazione Spaziale Multiscalare",
-    "identity_line3": "Progetta, analizza, genera, simula e confronta alternative attraverso le scale spaziali, dall’oggetto al paese."
+    "identity_line3": ""
   },
   "nav": {
     "project": "Progetto",

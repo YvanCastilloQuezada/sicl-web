@@ -7,19 +7,21 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import { ensureProjectId } from "@/lib/project-id";
+import { trpc } from "@/lib/trpc";
 
 export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
   const headerRef = useRef<HTMLElement>(null);
   const [voiceActive, setVoiceActive] = React.useState(false);
-  const [projectCode] = React.useState(() => {
+  const [projectCode, setProjectCode] = React.useState(() => {
     const code = ensureProjectId(localStorage.getItem("arki-active-project-id"));
     localStorage.setItem("arki-active-project-id", code);
     return code;
   });
   const [projectVersion, setProjectVersion] = React.useState(() => localStorage.getItem("arki-project-version") ?? "v1");
   const [copyStatus, setCopyStatus] = React.useState("");
+  const projects = trpc.projects.list.useQuery(undefined, { retry: false });
 
   useEffect(() => {
     const header = headerRef.current;
@@ -47,6 +49,23 @@ export default function AppHeader() {
     return () => window.removeEventListener("arki:project-version", handleVersion);
   }, []);
 
+  useEffect(() => {
+    const stored = localStorage.getItem("arki-active-project-id");
+    const first = projects.data?.[0]?.projectId;
+    if (!stored && first) {
+      setProjectCode(first);
+      localStorage.setItem("arki-active-project-id", first);
+      setProjectVersion(localStorage.getItem(`arki-project-version:${first}`) ?? "v1");
+    }
+  }, [projects.data]);
+
+  const selectProject = (projectId: string) => {
+    setProjectCode(projectId);
+    localStorage.setItem("arki-active-project-id", projectId);
+    setProjectVersion(localStorage.getItem(`arki-project-version:${projectId}`) ?? "v1");
+    window.dispatchEvent(new CustomEvent("arki:project-selected", { detail: { projectId } }));
+  };
+
   const projectShareText = `Proyecto ARKI ${projectCode} · ${projectVersion}`;
   const copyProjectReference = async () => {
     try { await navigator.clipboard.writeText(projectShareText); setCopyStatus("Copiado"); }
@@ -60,6 +79,7 @@ export default function AppHeader() {
     window.open(`https://wa.me/?text=${encodeURIComponent(`${projectShareText} ${window.location.href}`)}`, "_blank", "noopener,noreferrer");
   };
   const emailProjectReference = () => { window.location.href = `mailto:?subject=${encodeURIComponent(projectShareText)}&body=${encodeURIComponent(`${projectShareText}\n\nAbrir proyecto: ${window.location.href}`)}`; };
+  const projectOptions = Array.from(new Map([{ projectId: projectCode, name: "Proyecto activo" }, ...(projects.data ?? [])].map((project) => [project.projectId, project])).values());
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-5 py-3 backdrop-blur md:px-10">
@@ -82,8 +102,8 @@ export default function AppHeader() {
             <button type="button" onClick={() => setThemePreference("dark")} aria-pressed={preference === "dark"} className={cn("inline-flex items-center gap-1 px-2 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", preference === "dark" ? "bg-primary text-primary-foreground" : "hover:bg-secondary")}><Moon className="h-3.5 w-3.5" /><span className="hidden sm:inline">{t("theme.dark")}</span></button>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2 border border-border bg-card px-2 py-1.5 text-xs text-foreground lg:col-start-2 lg:justify-self-end" aria-label="Código y versión del proyecto"><span className="text-muted-foreground">Proyecto</span><code className="font-mono font-semibold tracking-[0.14em]">{projectCode}</code><span className="text-muted-foreground">· versión</span><strong>{projectVersion}</strong><button type="button" onClick={() => void copyProjectReference()} title="Copiar código y versión" aria-label="Copiar código y versión" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Copy className="h-3.5 w-3.5" /></button><button type="button" onClick={emailProjectReference} title="Enviar por correo" aria-label="Enviar por correo" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Mail className="h-3.5 w-3.5" /></button><button type="button" onClick={() => void shareProjectReference()} title="Compartir por WhatsApp o sistema" aria-label="Compartir por WhatsApp o sistema" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><MessageCircle className="h-3.5 w-3.5" /></button>{copyStatus && <span role="status" className="text-[11px] text-primary">{copyStatus}</span>}</div>
-        <p className="max-w-5xl text-xs leading-5 text-muted-foreground lg:col-span-2 md:text-sm">{t("header.identity_line3")}</p>
+        <div className="flex flex-wrap items-center justify-end gap-2 border border-border bg-card px-2 py-1.5 text-xs text-foreground lg:col-start-2 lg:justify-self-end" aria-label="Código y versión del proyecto"><span className="text-muted-foreground">Proyecto</span><select aria-label="Seleccionar proyecto almacenado" value={projectCode} onChange={(event) => selectProject(event.target.value)} className="max-w-[15rem] bg-transparent font-mono font-semibold tracking-[0.08em] outline-none"><option value={projectCode}>{projectCode}</option>{projectOptions.filter((project) => project.projectId !== projectCode).map((project) => <option key={project.projectId} value={project.projectId}>{project.projectId} · {project.name}</option>)}</select><span className="text-muted-foreground">· versión</span><strong>{projectVersion}</strong><button type="button" onClick={() => void copyProjectReference()} title="Copiar código y versión" aria-label="Copiar código y versión" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Copy className="h-3.5 w-3.5" /></button><button type="button" onClick={emailProjectReference} title="Enviar por correo" aria-label="Enviar por correo" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><Mail className="h-3.5 w-3.5" /></button><button type="button" onClick={() => void shareProjectReference()} title="Compartir por WhatsApp o sistema" aria-label="Compartir por WhatsApp o sistema" className="inline-flex h-7 w-7 items-center justify-center hover:bg-secondary"><MessageCircle className="h-3.5 w-3.5" /></button>{copyStatus && <span role="status" className="text-[11px] text-primary">{copyStatus}</span>}</div>
+        {t("header.identity_line3") && <p className="max-w-5xl text-xs leading-5 text-muted-foreground lg:col-span-2 md:text-sm">{t("header.identity_line3")}</p>}
       </div>
     </header>
   );

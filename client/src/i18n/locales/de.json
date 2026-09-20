@@ -2,12 +2,12 @@
   "header": {
     "title": "ARKI",
     "subtitle": "ARKI · SICL",
-    "tagline": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land.",
+    "tagline": "",
     "version": "ARKI 2.2",
     "navigation": "Hauptnavigation",
     "traceable": "Nachvollziehbarer Arbeitsbereich",
     "identity_line2": "Multiskalares räumliches Design-Intelligenzsystem",
-    "identity_line3": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land."
+    "identity_line3": ""
   },
   "nav": {
     "project": "Projekt",

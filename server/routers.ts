@@ -10,6 +10,7 @@ import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { generateProjectId } from "@shared/project-id";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -71,7 +72,7 @@ export const appRouter = router({
     }),
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
       requireCanonicalCoreOrExplicitLocal();
-      const projectId = input.projectId ?? `SICL-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+      const projectId = input.projectId ?? generateProjectId();
       if (hasCoreUrl()) {
         const canonical = await createCoreProject(projectId, input.name, { spatialScope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporalScope: { horizon: input.temporalHorizon } });
         const snapshot = { ...canonical.snapshot, spatial_scope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporal_scope: { horizon: input.temporalHorizon } };

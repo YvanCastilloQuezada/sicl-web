@@ -2,12 +2,12 @@
   "header": {
     "title": "ARKI",
     "subtitle": "ARKI · SICL",
-    "tagline": "Design, analyze, generate, simulate, and compare alternatives across spatial scales, from object to country.",
+    "tagline": "",
     "version": "ARKI 2.2",
     "navigation": "Main navigation",
     "traceable": "Traceable workspace",
     "identity_line2": "Multiscale Spatial Design Intelligence System",
-    "identity_line3": "Design, analyze, generate, simulate, and compare alternatives across spatial scales, from object to country."
+    "identity_line3": ""
   },
   "nav": {
     "project": "Project",
