@@ -26,6 +26,14 @@ function projectInitials(project: unknown): string {
   return projectName(project).split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase() ?? "P").join("");
 }
 
+type ProjectSummary = { projectId: string; name?: string; updatedAt?: string | Date; updated_at?: string | Date; createdAt?: string | Date; created_at?: string | Date };
+
+function ProjectListLoader({ enabled, onProjects }: { enabled: boolean; onProjects: (projects: ProjectSummary[]) => void }) {
+  const projects = trpc.projects.list.useQuery(undefined, { retry: false, enabled });
+  useEffect(() => { onProjects((projects.data ?? []) as ProjectSummary[]); }, [projects.data, onProjects]);
+  return null;
+}
+
 export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
@@ -40,7 +48,8 @@ export default function AppHeader() {
   const [copyStatus, setCopyStatus] = React.useState("");
   const [projectMenuOpen, setProjectMenuOpen] = React.useState(false);
   const [projectSearch, setProjectSearch] = React.useState("");
-  const projects = trpc.projects.list.useQuery(undefined, { retry: false });
+  const [projects, setProjects] = React.useState<ProjectSummary[]>([]);
+  const handleProjects = React.useCallback((items: ProjectSummary[]) => setProjects(items), []);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -70,13 +79,13 @@ export default function AppHeader() {
 
   useEffect(() => {
     const stored = localStorage.getItem("arki-active-project-id");
-    const first = projects.data?.[0]?.projectId;
+    const first = projects[0]?.projectId;
     if (!stored && first) {
       setProjectCode(first);
       localStorage.setItem("arki-active-project-id", first);
       setProjectVersion(localStorage.getItem(`arki-project-version:${first}`) ?? "v1");
     }
-  }, [projects.data]);
+  }, [projects]);
 
   const selectProject = (projectId: string) => {
     setProjectCode(projectId);
@@ -98,7 +107,7 @@ export default function AppHeader() {
     window.open(`https://wa.me/?text=${encodeURIComponent(`${projectShareText} ${window.location.href}`)}`, "_blank", "noopener,noreferrer");
   };
   const emailProjectReference = () => { window.location.href = `mailto:?subject=${encodeURIComponent(projectShareText)}&body=${encodeURIComponent(`${projectShareText}\n\nAbrir proyecto: ${window.location.href}`)}`; };
-  const projectOptions = Array.from(new Map([{ projectId: projectCode, name: "Proyecto activo" }, ...(projects.data ?? [])].map((project) => [project.projectId, project])).values());
+  const projectOptions = Array.from(new Map<ProjectSummary["projectId"], ProjectSummary>([{ projectId: projectCode, name: "Proyecto activo" }, ...projects].map((project) => [project.projectId, project])).values());
   const filteredProjects = projectOptions.filter((project) => `${project.projectId} ${projectName(project)}`.toLowerCase().includes(projectSearch.toLowerCase().trim()));
   const createNewProject = () => {
     const nextCode = ensureProjectId();
@@ -113,6 +122,7 @@ export default function AppHeader() {
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-5 py-3 backdrop-blur md:px-10">
+      {projectMenuOpen && <ProjectListLoader enabled onProjects={handleProjects} />}
       <div className="mx-auto grid max-w-[1500px] gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div className="min-w-0">
           <div className="flex items-baseline gap-3"><h1 className="font-serif text-3xl leading-none tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1><span className="text-sm font-medium text-muted-foreground md:text-base">· by SICL</span></div>

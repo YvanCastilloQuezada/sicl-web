@@ -11,6 +11,7 @@ import { analyzeVisualPhoto } from "./visualField";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
+import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -113,6 +114,16 @@ export const appRouter = router({
       const snapshot = canonical && "snapshot" in canonical ? siclCorePort.parseSnapshot(JSON.stringify(canonical.snapshot)) : siclCorePort.parseSnapshot(project.snapshot);
       const version = canonical && "observed_version" in canonical ? canonical.observed_version : project.version;
       return { projectId: project.projectId, version, ...siclCorePort.analysisView(snapshot) };
+    }),
+    reasoningExecute: protectedProcedure.input(versionInput.extend({ executionId: z.string().min(1), brief: z.string().trim().min(10), context: z.record(z.string(), z.unknown()), constraints: z.array(z.string()), knownFacts: z.array(z.string()).optional(), unknowns: z.array(z.string()).optional(), requestedReasoningDepth: z.enum(["MINIMUM", "STANDARD", "DEEP"]), seed: z.string().optional(), perturbations: z.array(z.object({ id: z.string().min(1), statement: z.string().min(1), changes: z.record(z.string(), z.unknown()).optional() })).optional(), failures: z.array(z.object({ id: z.string().min(1), statement: z.string().min(1), affectedElement: z.string().optional() })).optional(), counterexamples: z.array(z.object({ id: z.string().min(1), claim: z.string().min(1), observation: z.string().min(1) })).optional() })).mutation(async ({ ctx, input }) => {
+      if (hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "L2 reasoning requires a canonical reasoning-write endpoint; no remote write is guessed or emulated." });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before reasoning" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const result = executeArchitecturalReasoning({ executionId: input.executionId, projectId: input.projectId, brief: input.brief, context: input.context, constraints: input.constraints, knownFacts: input.knownFacts, unknowns: input.unknowns, requestedReasoningDepth: input.requestedReasoningDepth, seed: input.seed, perturbations: input.perturbations, failures: input.failures, counterexamples: input.counterexamples }, snapshot, project.version, "ARKI-L2-TRANSFER-1.0");
+      const next = { ...snapshot, reasoningExecutions: [...snapshot.reasoningExecutions, result.execution], events: [...snapshot.events, event(ctx.user.id, "ARCHITECTURAL_REASONING_EXECUTED", result.execution.executionId, { observedVersion: input.expectedVersion, transferCount: result.transferDecisions.length, strategyCount: result.strategies.length, humanReviewRequired: true })] };
+      const saved = await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+      return { ...result, version: saved.version, persistence: "PASS", humanAuthority: "FINAL", promotion: "HUMAN_REVIEW_REQUIRED" };
     }),
     recommendationCreate: protectedProcedure.input(versionInput.extend({ recommendationId: z.string().min(1), alternativeId: z.string().min(1), reason: z.string().trim().min(10), basedOn: z.string().min(1), basedOnKind: z.enum(["BINARY", "MULTI_CRITERIA", "COUNCIL_FINDING", "COUNCIL_ASSESSMENT", "COLLECTIVE_AGGREGATE"]), source: z.literal("ANALYTICAL") })).mutation(async ({ ctx, input }) => {
       if (hasCoreUrl()) return createCoreRecommendation(input.projectId, { recommendation_id: input.recommendationId, alternative_id: input.alternativeId, based_on: input.basedOn, based_on_kind: input.basedOnKind, reason: input.reason, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });

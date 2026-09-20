@@ -79,6 +79,19 @@ export type SiclKnowledgeValidation = {
   evidenceHash: string;
 };
 
+export type SiclReasoningExecution = {
+  executionId: string;
+  projectId: string;
+  brief: string;
+  coreKnowledgeVersion: number;
+  retrievalQuery: string;
+  retrievedKnowledgeIds: string[];
+  trace: Record<string, unknown>;
+  output: Record<string, unknown>;
+  createdAt: string;
+  runtimeVersion: string;
+};
+
 export type SiclSnapshot = {
   sources: SiclRecord[];
   evidence: SiclRecord[];
@@ -97,13 +110,14 @@ export type SiclSnapshot = {
   events: SiclEvent[];
   knowledge: SiclKnowledgeRecord[];
   knowledgeValidations: SiclKnowledgeValidation[];
+  reasoningExecutions: SiclReasoningExecution[];
   spatialScope?: SpatialScope;
   temporalScope?: TemporalScope;
 };
 
 export const emptySnapshot = (): SiclSnapshot => ({
   sources: [], evidence: [], requirements: [], objectives: [], constraints: [], preferences: [], alternatives: [],
-  evaluations: [], comparisons: [], multiComparisons: [], decisionConditions: [], recommendations: [], humanReviews: [], decisions: [], events: [], knowledge: [], knowledgeValidations: [],
+  evaluations: [], comparisons: [], multiComparisons: [], decisionConditions: [], recommendations: [], humanReviews: [], decisions: [], events: [], knowledge: [], knowledgeValidations: [], reasoningExecutions: [],
 });
 
 function collection(value: unknown): SiclRecord[] {
@@ -126,7 +140,7 @@ export function parseSnapshot(raw: string): SiclSnapshot {
     const project = source.project && typeof source.project === "object" ? source.project as Record<string, unknown> : {};
     const metadata = { ...source, ...project };
     const aliases: Record<keyof SiclSnapshot, string[]> = {
-      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], preferences: ["preferences"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], decisionConditions: ["decisionConditions", "decision_conditions"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], knowledge: ["knowledge", "knowledge_records"], knowledgeValidations: ["knowledgeValidations", "knowledge_validations"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
+      sources: ["sources"], evidence: ["evidence"], requirements: ["requirements"], objectives: ["objectives"], constraints: ["constraints"], preferences: ["preferences"], alternatives: ["alternatives"], evaluations: ["evaluations"], comparisons: ["comparisons"], multiComparisons: ["multiComparisons", "multi_comparisons"], decisionConditions: ["decisionConditions", "decision_conditions"], recommendations: ["recommendations"], humanReviews: ["humanReviews", "human_reviews"], decisions: ["decisions"], events: ["events"], knowledge: ["knowledge", "knowledge_records"], knowledgeValidations: ["knowledgeValidations", "knowledge_validations"], reasoningExecutions: ["reasoningExecutions", "reasoning_executions"], spatialScope: ["spatialScope", "spatial_scope"], temporalScope: ["temporalScope", "temporal_scope"],
     };
     for (const key of Object.keys(aliases) as (keyof SiclSnapshot)[]) {
       if (key === "spatialScope") { const scope = aliases[key].map((alias) => normalizeSpatialScope(metadata[alias])).find(Boolean); if (scope) snapshot.spatialScope = scope; continue; }
