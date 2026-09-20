@@ -1,9 +1,9 @@
 {
   "header": {
-    "title": "SiMS-DeI",
-    "subtitle": "SiMS-DeI · SICL",
+    "title": "ARKI",
+    "subtitle": "ARKI · SICL",
     "tagline": "Design, analyze, generate, simulate, and compare alternatives across spatial scales, from object to country.",
-    "version": "SiMS-DeI 2.2",
+    "version": "ARKI 2.2",
     "navigation": "Main navigation",
     "traceable": "Traceable workspace",
     "identity_line2": "Multiscale Spatial Design Intelligence System",
