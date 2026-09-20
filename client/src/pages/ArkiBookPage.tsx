@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { BookOpen, ChevronDown, ChevronRight, FileLock, Filter, Layers3, Search, Sparkles, Users, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,7 +42,7 @@ const profileNotes: Record<BookProfile, { label: string; description: string; le
   CRAZY: { label: "CRAZY", description: "Explorar posibilidades radicales sin abandonar las restricciones duras.", lens: "Hipótesis formales, transformación y límites." },
 };
 
-const volumes: Volume[] = [
+export const BOOK_VOLUMES: Volume[] = [
   {
     id: "I",
     label: "VOLUMEN I",
@@ -112,14 +112,14 @@ export default function ArkiBookPage() {
   const [query, setQuery] = useState("");
   const [openChapter, setOpenChapter] = useState<string | null>("III-01");
 
-  const filteredVolumes = useMemo(() => volumes.map((item) => ({ ...item, chapters: item.chapters.filter((chapter) => {
+  const filteredVolumes = useMemo(() => BOOK_VOLUMES.map((item) => ({ ...item, chapters: item.chapters.filter((chapter) => {
     const haystack = `${chapter.title} ${chapter.subtitle} ${chapter.summary} ${chapter.topics.join(" ")}`.toLowerCase();
     return (volume === "ALL" || item.id === volume) && chapter.access === access && chapter.levels.includes(profile) && (audience === "ALL" || chapter.audiences.includes(audience)) && (!query.trim() || haystack.includes(query.toLowerCase().trim()));
   }) })).filter((item) => item.chapters.length > 0), [access, audience, profile, query, volume]);
 
   const visibleCount = filteredVolumes.reduce((total, item) => total + item.chapters.length, 0);
-  const publicTotal = volumes.flatMap((item) => item.chapters).filter((chapter) => chapter.access === "PUBLIC").length;
-  const internalTotal = volumes.flatMap((item) => item.chapters).filter((chapter) => chapter.access === "INTERNAL_ONLY").length;
+  const publicTotal = BOOK_VOLUMES.flatMap((item) => item.chapters).filter((chapter) => chapter.access === "PUBLIC").length;
+  const internalTotal = BOOK_VOLUMES.flatMap((item) => item.chapters).filter((chapter) => chapter.access === "INTERNAL_ONLY").length;
 
   return <div className="min-h-[calc(100vh-4rem)] overflow-hidden bg-[#071426] text-[#edf4ff]">
     <div className="relative isolate">
