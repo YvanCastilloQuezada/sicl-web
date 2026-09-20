@@ -1,0 +1,200 @@
+ORDEN ARKI — FORMALIZACIÓN DEL “ANEXO I”
+
+No crear un sistema nuevo.
+
+Tomar la infraestructura de evidencia reproducible ya implementada en
+R-PARTI I0–I11 / Delta 491 y formalizarla como contrato reutilizable:
+
+“ANEXO I — EVIDENCIA EXPERIMENTAL Y REPRODUCIBILIDAD ARKI”.
+
+OBJETIVO
+
+El término “anexos” utilizado en R-PARTI debe quedar normalizado como:
+
+ANEXO I
+
+No significa un único archivo.
+
+ANEXO I es el paquete formal de evidencia asociado a un experimento,
+checkpoint o delta ARKI.
+
+Debe agrupar/referenciar, según disponibilidad:
+
+A. Identidad y baseline
+B. Informe humano Markdown
+C. Resultado estructurado JSON
+D. Proof ejecutable
+E. Tests
+F. Artefactos experimentales
+G. Generador/replay
+H. Estado epistemológico
+I. UNKNOWN/BLOCKED/coverage
+J. Registros de propagación
+   DELTA → ARKI → CURRÍCULO → LIBRO VIVO
+
+REGLAS
+
+1. REUSE BEFORE EXTEND.
+2. No duplicar los artefactos existentes.
+3. No crear segundo sistema de evidencia.
+4. No mover archivos si rompe imports, historial o provenance.
+5. Preferir manifest/index/references sobre duplicación física.
+6. Preservar hashes y lineage.
+7. Preservar Delta 491.
+8. Preservar replay R-PARTI.
+9. Preservar commit histórico.
+10. No modificar resultados experimentales.
+11. No convertir UNKNOWN en PASS.
+12. No cambiar estados epistemológicos.
+13. No reabrir R-PARTI.
+14. No ejecutar P9.4 todavía como parte de esta corrección.
+15. No PR, merge ni deploy.
+
+NOMENCLATURA CANÓNICA
+
+ANEXO I — EVIDENCIA EXPERIMENTAL Y REPRODUCIBILIDAD ARKI
+
+Crear únicamente la mínima estructura necesaria para que futuros
+experimentos puedan declarar:
+
+anexoType = "ANEXO_I"
+
+y referenciar su paquete de evidencia.
+
+Para R-PARTI I0–I11:
+
+ANEXO I debe referenciar los artefactos existentes, incluyendo:
+
+- ARKI-RPARTI-INTEGRATION-PROOF-I0-I11.md
+- ARKI-RPARTI-INTEGRATION-PROOF-I0-I11.json
+- arkiRPartiIntegrationProof.ts
+- arkiRPartiIntegrationProof.test.ts
+- arkiP9ProjectBGeometry.ts
+- generate_arki_rparti_integration_report.ts
+- fuente Delta 491
+- Delta Registry
+- Living Curriculum
+- Living Book index
+
+NO duplicarlos.
+
+Crear manifest/index machine-readable si no existe un mecanismo
+equivalente reutilizable.
+
+El manifest debe permitir como mínimo:
+
+anexoId
+anexoType
+title
+experimentId
+checkpointId
+deltaId
+baselineSha
+finalSha
+humanReport
+structuredReport
+executableProof
+tests
+experimentalArtifacts
+replayOrGenerator
+provenance
+epistemicStatus
+unknowns
+blocked
+coverage
+regressionStatus
+humanAuthorityRequired
+propagationRefs
+version
+
+IMPORTANTE:
+
+ANEXO I ≠ INFORME.
+
+ANEXO I contiene o referencia el informe.
+
+ANEXO I ≠ DELTA.
+
+ANEXO I está asociado al delta.
+
+ANEXO I ≠ CHECKPOINT.
+
+ANEXO I conserva evidencia del checkpoint.
+
+ANEXO I ≠ KNOWLEDGE.
+
+ANEXO I conserva evidencia que puede soportar o refutar claims de
+conocimiento.
+
+ANEXO I ≠ LEARNING EVENT.
+
+ANEXO I puede contener evidencia de un learning candidate.
+
+La estructura futura será:
+
+EXPERIMENTO
+    ↓
+CHECKPOINT / DELTA
+    ↓
+ANEXO I
+    ├── HUMAN READABLE
+    ├── MACHINE READABLE
+    ├── EXECUTABLE
+    ├── TESTABLE
+    ├── REPRODUCIBLE
+    └── EPISTEMICALLY TRACEABLE
+    ↓
+PROPAGACIÓN
+ARKI → CURRÍCULO → LIBRO VIVO
+
+COMPATIBILIDAD FUTURA
+
+La macroorden P9.4→P9.x debe utilizar este mismo contrato.
+
+No crear:
+
+“P9 evidence appendix”
+ni
+“learning appendix”
+ni otro sistema paralelo.
+
+Debe generar:
+
+ANEXO I — P9.4→P9.x
+
+usando la misma infraestructura.
+
+VALIDAR
+
+- tests existentes
+- R-PARTI replay
+- TypeScript
+- build
+- git diff --check
+
+Si la formalización puede realizarse solamente mediante metadata,
+manifest y documentación, preferir esa solución.
+
+COMMIT/PUSH si todas las validaciones pasan.
+
+No PR.
+No merge.
+No deploy.
+
+REPORTAR:
+
+ANEXO_I_STATUS =
+ANEXO_I_CONTRACT =
+R_PARTI_ARTIFACTS_REUSED =
+FILES_CREATED =
+FILES_MODIFIED =
+DUPLICATED_ARTIFACTS =
+R_PARTI_REGRESSION =
+DELTA =
+COMMIT =
+HEAD_REMOTE_MATCH =
+WORKTREE =
+
+Después:
+
+STOP.

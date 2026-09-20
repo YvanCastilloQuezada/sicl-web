@@ -942,6 +942,46 @@
       "autonomy": "L9_COMPARES",
       "next_step": "NEXT_STEP_READY",
       "report": "docs/arki-p94/ARKI-P94-EVIDENCE-TO-LEARNING-EXPERIMENT-2026-09-20.md"
+    },
+    {
+      "delta_id": "PASTED-CONTENT-493-V491",
+      "source_name": "pasted_content_493.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_493.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-493-V491/pasted_content_493.txt",
+      "sha256": "45a17d694462990050ae44ae8445862dbcdcb0324c19744cd290b61f73d1cafb",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [],
+      "preview_count": 200,
+      "status": "EXECUTED / PASS_WITH_OBSERVATIONS",
+      "knowledge_state": "METADATA_CONTRACT / NOT_LEARNING",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "annex_i_status": "IMPLEMENTED / REFERENCE_ONLY",
+      "annex_i_contract": "docs/annex-i/ANEXO-I-CONTRACT.md",
+      "annex_i_manifest": "docs/annex-i/manifest.json",
+      "duplicated_artifacts": false,
+      "r_parti_artifacts_reused": true,
+      "p94_reexecuted": false,
+      "regression_status": "PASS",
+      "human_authority_required": true,
+      "next_step": "STOP_AFTER_FORMALIZATION"
     }
   ]
 }

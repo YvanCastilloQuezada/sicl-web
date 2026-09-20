@@ -322,3 +322,19 @@ Nueva lección propagada a los tres volúmenes: evaluar dos hipótesis arquitect
 ## PASTED-CONTENT-492-V492 — P9.4→P9.x
 
 Capacity UNKNOWN was resolved for a synthetic experiment only. The result is a PROJECT_ONLY K2 candidate, evaluation-only impact, G1 generalization, no automatic promotion, and human review required.
+
+<!-- PASTED-CONTENT-493-V491 -->
+## PASTED-CONTENT-493-V491 — pasted_content_493.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `45a17d694462990050ae44ae8445862dbcdcb0324c19744cd290b61f73d1cafb`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** sin elementos legibles en la vista previa
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+## PASTED-CONTENT-493-V491 — ANEXO I
+
+Formalized the reusable ANEXO I evidence manifest. This is metadata/reference infrastructure, not a learning event; existing R-PARTI and P9.4 results remain unchanged.
