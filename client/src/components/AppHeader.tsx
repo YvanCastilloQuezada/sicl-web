@@ -25,15 +25,13 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-6 py-4 backdrop-blur md:px-10">
-      <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-5">
-        <div>
-          <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground"><span className="h-2 w-2 rounded-full bg-accent" /> {t("header.subtitle")}</div>
-          <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1>
-          <p className="mt-1 text-sm font-medium text-foreground">{t("header.identity_line2")}</p>
-          <p className="mt-1 max-w-3xl text-sm text-muted-foreground">{t("header.identity_line3")}</p>
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-5 py-3 backdrop-blur md:px-10">
+      <div className="mx-auto grid max-w-[1500px] gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-3"><h1 className="font-serif text-3xl leading-none tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1><span className="text-sm font-medium text-muted-foreground md:text-base">· by SICL</span></div>
+          <p className="mt-1 text-xs font-semibold leading-4 text-foreground md:text-sm">{t("header.identity_line2")}</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           <LanguageSelector />
           <HelpButton />
           <div role="group" aria-label={t("theme.system")} className="flex items-center border border-border bg-card p-1 text-xs text-foreground">
@@ -44,6 +42,7 @@ export default function AppHeader() {
           <Badge variant="outline" className="hidden border-border bg-secondary text-secondary-foreground md:inline-flex">{t("header.version")}</Badge>
           <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex"><Activity className="h-4 w-4" /> {t("header.traceable")}</div>
         </div>
+        <p className="max-w-5xl text-xs leading-5 text-muted-foreground lg:col-span-2 md:text-sm">{t("header.identity_line3")}</p>
       </div>
     </header>
   );
