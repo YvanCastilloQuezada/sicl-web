@@ -7,6 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
+import { analyzeVisualPhoto } from "./visualField";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 
@@ -41,6 +42,13 @@ async function saveNext(ownerId: number, projectId: string, expectedVersion: num
 
 export const appRouter = router({
   system: systemRouter,
+  visualField: router({
+    analyze: protectedProcedure.input(z.object({ projectId: z.string().min(1), spatialScope: z.string().min(1), imageDataUrl: z.string().startsWith("data:image/") })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      const analysis = await analyzeVisualPhoto(input.imageDataUrl, { spatialScope: input.spatialScope });
+      return { projectId: input.projectId, mediaId: null, proposals: analysis.observations.map((observation, index) => ({ evidence_id: `VAI-${Date.now().toString(36).toUpperCase()}-${index + 1}`, ...observation, status: "AI_PROPOSED", provider: analysis.provider, model: analysis.model })), decisionCreated: false, humanReviewRequired: true };
+    }),
+  }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),

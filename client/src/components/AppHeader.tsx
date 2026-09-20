@@ -12,6 +12,7 @@ export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
   const headerRef = useRef<HTMLElement>(null);
+  const [voiceActive, setVoiceActive] = React.useState(false);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -22,6 +23,12 @@ export default function AppHeader() {
     const observer = new ResizeObserver(updateHeaderHeight);
     observer.observe(header);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVoiceState = (event: Event) => setVoiceActive(Boolean((event as CustomEvent<{ active?: boolean }>).detail?.active));
+    window.addEventListener("arki:voice-state", handleVoiceState);
+    return () => window.removeEventListener("arki:voice-state", handleVoiceState);
   }, []);
 
   return (
@@ -35,7 +42,7 @@ export default function AppHeader() {
           <LanguageSelector />
           <HelpButton />
           <div className="flex items-center gap-1 border border-border bg-card p-1" role="group" aria-label="Entrada conversacional ARKI">
-            <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} className="inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Mic className="h-4 w-4" /></button>
+            <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} aria-pressed={voiceActive} className={cn("inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", voiceActive && "animate-pulse rounded-full bg-[#fbe5d6] text-[#a94524] ring-2 ring-[#d07b4a]")}><Mic className={cn("h-4 w-4", voiceActive && "animate-bounce")} /></button>
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "camera" } }))} title={t("header.camera", "Añadir contexto visual")} aria-label={t("header.camera", "Añadir contexto visual")} className="inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Camera className="h-4 w-4" /></button>
           </div>
           <div role="group" aria-label={t("theme.system")} className="flex items-center border border-border bg-card p-1 text-xs text-foreground">

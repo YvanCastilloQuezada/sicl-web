@@ -5,6 +5,7 @@ import catalog from "@/content/commands-catalog.json";
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
+import { analyzeVisualField, type VisualFieldProposal } from "@/api/visual-field";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -189,6 +190,10 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const [briefText, setBriefText] = useState("");
   const [briefDraft, setBriefDraft] = useState<{ extracted: string[]; unknowns: string[] } | null>(null);
   const [mediaName, setMediaName] = useState<string | null>(null);
+  const [mediaDataUrl, setMediaDataUrl] = useState<string | null>(null);
+  const [visualProposals, setVisualProposals] = useState<VisualFieldProposal[]>([]);
+  const [visualLoading, setVisualLoading] = useState(false);
+  const [missingFields, setMissingFields] = useState({ access: "", orientation: "", users: "", area: "", regulations: "" });
   const [isListening, setIsListening] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const aliasSearchRef = useRef<HTMLInputElement>(null);
@@ -250,6 +255,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
       setOpen(true);
       setConversationOpen(true);
       setConversationMode(mode);
+      if (mode === "voice") window.setTimeout(() => toggleListening(), 0);
       window.setTimeout(() => { if (mode === "camera") conversationFileRef.current?.click(); }, 0);
     };
     window.addEventListener("arki:open-conversation", handleConversation);
@@ -269,6 +275,8 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     setConversationOpen(false);
     setBriefDraft(null);
     setMediaName(null);
+    setMediaDataUrl(null);
+    setVisualProposals([]);
     recognitionRef.current?.stop();
     setIsListening(false);
   };
@@ -289,21 +297,46 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     setBriefDraft({ extracted, unknowns: ["Acceso y orientación", "Usuarios y área objetivo", "Normativa y restricciones del sitio"] });
   };
 
+  const handleConversationFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setMediaName(file.name);
+    const reader = new FileReader();
+    reader.onload = () => setMediaDataUrl(typeof reader.result === "string" ? reader.result : null);
+    reader.readAsDataURL(file);
+  };
+
+  const analyzeVisualReference = async () => {
+    if (!mediaDataUrl) return;
+    if (!projectId.trim()) { setStatus({ type: "error", message: "Indica primero el ID del proyecto para vincular la evidencia visual." }); return; }
+    setVisualLoading(true);
+    try {
+      const result = await analyzeVisualField({ projectId: projectId.trim(), spatialScope: "PROJECT_SITE", imageDataUrl: mediaDataUrl });
+      setVisualProposals(result.proposals);
+      setStatus({ type: "success", message: `${result.proposals.length} observaciones provisionales recibidas; requieren revisión humana.` });
+    } catch (error) {
+      setStatus({ type: "error", message: error instanceof Error ? error.message : "No se pudo analizar la referencia visual." });
+    } finally { setVisualLoading(false); }
+  };
+
+  const updateMissingField = (key: keyof typeof missingFields, value: string) => setMissingFields((current) => ({ ...current, [key]: value }));
+
   const toggleListening = () => {
     const browser = window as unknown as { SpeechRecognition?: new () => SpeechRecognitionLike; webkitSpeechRecognition?: new () => SpeechRecognitionLike };
     const SpeechRecognition = browser.SpeechRecognition ?? browser.webkitSpeechRecognition;
     if (!SpeechRecognition) { setStatus({ type: "error", message: "El dictado no está disponible en este navegador; puedes escribir el encargo." }); return; }
-    if (isListening) { recognitionRef.current?.stop(); setIsListening(false); return; }
+    if (isListening) { recognitionRef.current?.stop(); setIsListening(false); window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: false } })); return; }
     const recognition = new SpeechRecognition();
     recognition.lang = i18n.language?.split("-")[0] ?? "es";
     recognition.interimResults = true;
     recognition.continuous = false;
     recognition.onresult = (event) => { const transcript = Array.from(event.results).map((result) => result[0]?.transcript ?? "").join(" "); setBriefText((current) => `${current} ${transcript}`.trim()); };
-    recognition.onerror = () => { setIsListening(false); setStatus({ type: "error", message: "No se pudo completar el dictado. El texto escrito sigue disponible." }); };
-    recognition.onend = () => setIsListening(false);
+    recognition.onerror = () => { setIsListening(false); window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: false } })); setStatus({ type: "error", message: "No se pudo completar el dictado. El texto escrito sigue disponible." }); };
+    recognition.onend = () => { setIsListening(false); window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: false } })); };
     recognitionRef.current = recognition;
     recognition.start();
     setIsListening(true);
+    window.dispatchEvent(new CustomEvent("arki:voice-state", { detail: { active: true } }));
   };
 
   const openConversation = (mode: ConversationMode) => {
@@ -418,7 +451,15 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     {open && <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-4xl px-3 pb-3 sm:px-6" role="dialog" aria-label={t("command_bar.title")}>
       <div className="overflow-hidden rounded-lg border-2 border-[#f2c300] bg-[#fbfaf6] shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
         <div className="flex items-center gap-3 border-b border-[#d7d8cf] px-4 py-3"><Terminal className="h-5 w-5 text-[#e67e22]" /><div className="min-w-0 flex-1"><p className="text-sm font-semibold text-[#385348]">{t("command_bar.title")}</p><p className="text-xs text-[#718078]">SICL commands and architectural brief intake coexist.</p></div><Button type="button" variant={conversationOpen ? "default" : "outline"} size="sm" onClick={() => openConversation("brief")} aria-label="Abrir intérprete conversacional"><MessageSquare className="mr-1 h-4 w-4" /> Encargo</Button><Button type="button" variant="ghost" size="icon" onClick={() => setSettingsOpen((value) => !value)} aria-label={t("command_bar.settings")}><Settings2 className="h-4 w-4" /></Button><Button variant="ghost" size="icon" onClick={close} aria-label={t("command_bar.close")}><XCircle className="h-4 w-4" /></Button></div>
-        {conversationOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="mb-2 flex flex-wrap items-center gap-2"><span className="text-xs font-semibold uppercase tracking-wide text-[#385348]">Intérprete Conversacional de Encargos Arquitectónicos</span><Button type="button" size="sm" variant={conversationMode === "brief" ? "default" : "outline"} onClick={() => setConversationMode("brief")} className="h-7 px-2 text-xs"><MessageSquare className="mr-1 h-3.5 w-3.5" />Texto</Button><Button type="button" size="sm" variant={conversationMode === "voice" ? "default" : "outline"} onClick={() => { setConversationMode("voice"); toggleListening(); }} className="h-7 px-2 text-xs"><Mic className="mr-1 h-3.5 w-3.5" />{isListening ? "Escuchando…" : "Micrófono"}</Button><Button type="button" size="sm" variant="outline" onClick={() => openConversation("camera")} className="h-7 px-2 text-xs"><Camera className="mr-1 h-3.5 w-3.5" />Cámara</Button><input ref={conversationFileRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={(event) => setMediaName(event.target.files?.[0]?.name ?? null)} /></div><textarea value={briefText} onChange={(event) => setBriefText(event.target.value)} placeholder="Describe el encargo: tipología, terreno, usuarios, programa, restricciones y prioridades…" className="min-h-20 w-full rounded border border-[#8bc34a] bg-[#fbfaf6] p-2 text-sm text-[#1d2925] outline-none focus:ring-2 focus:ring-[#8bc34a]" aria-label="Encargo arquitectónico" />{mediaName && <p className="mt-2 text-xs text-[#52645a]">Referencia visual adjunta: <strong>{mediaName}</strong>. Se conserva como evidencia pendiente de revisión.</p>}<div className="mt-2 flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-[#718078]">ARKI extrae datos preliminares, separa UNKNOWN y pregunta antes de registrar.</span><Button type="button" size="sm" onClick={interpretBrief} disabled={!briefText.trim()} className="h-8 bg-[#385348] text-xs text-[#fbfaf6]"><Send className="mr-1 h-3.5 w-3.5" />Procesar borrador</Button></div>{briefDraft && <div className="mt-3 grid gap-2 border-t border-[#d7d8cf] pt-3 text-xs md:grid-cols-2"><div><p className="font-semibold text-[#385348]">Detectado — revisión requerida</p>{briefDraft.extracted.length ? briefDraft.extracted.map((item) => <p key={item} className="mt-1 text-[#52645a]">• {item}</p>) : <p className="mt-1 text-[#a94524]">No se detectaron campos estructurados todavía.</p>}</div><div><p className="font-semibold text-[#a94524]">Falta confirmar</p>{briefDraft.unknowns.map((item) => <p key={item} className="mt-1 text-[#718078]">• {item}</p>)}</div></div>}</div>}
+        {conversationOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3">
+          <div className="mb-2 flex flex-wrap items-center gap-2"><span className="text-xs font-semibold uppercase tracking-wide text-[#385348]">Intérprete Conversacional de Encargos Arquitectónicos</span><Button type="button" size="sm" variant={conversationMode === "brief" ? "default" : "outline"} onClick={() => setConversationMode("brief")} className="h-7 px-2 text-xs"><MessageSquare className="mr-1 h-3.5 w-3.5" />Texto</Button><Button type="button" size="sm" variant={conversationMode === "voice" ? "default" : "outline"} onClick={() => { setConversationMode("voice"); toggleListening(); }} className={cn("h-7 px-2 text-xs", isListening && "animate-pulse ring-2 ring-[#d07b4a] ring-offset-1")}><Mic className={cn("mr-1 h-3.5 w-3.5", isListening && "animate-pulse text-[#d07b4a]")} />{isListening ? "Escuchando…" : "Micrófono"}</Button><Button type="button" size="sm" variant="outline" onClick={() => openConversation("camera")} className="h-7 px-2 text-xs"><Camera className="mr-1 h-3.5 w-3.5" />Cámara / documento</Button><input ref={conversationFileRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleConversationFile} /></div>
+          <textarea value={briefText} onChange={(event) => setBriefText(event.target.value)} placeholder="Describe el encargo: tipología, terreno, usuarios, programa, restricciones y prioridades…" className="min-h-20 w-full rounded border border-[#8bc34a] bg-[#fbfaf6] p-2 text-sm text-[#1d2925] outline-none focus:ring-2 focus:ring-[#8bc34a]" aria-label="Encargo arquitectónico" />
+          {mediaName && <div className="mt-2 flex items-center gap-3 rounded border border-[#8bc34a]/50 bg-[#fbfaf6] p-2 text-xs text-[#52645a]">{mediaDataUrl && <img src={mediaDataUrl} alt="Vista previa de la referencia" className="h-14 w-20 rounded object-cover" />}<div className="min-w-0 flex-1"><p>Referencia: <strong>{mediaName}</strong></p><p className="text-[11px]">La visión artificial leerá contexto, terreno, planos o texto legible como observaciones provisionales.</p></div><Button type="button" size="sm" variant="outline" onClick={() => void analyzeVisualReference()} disabled={!mediaDataUrl || visualLoading} className="h-8 shrink-0 text-xs">{visualLoading ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Camera className="mr-1 h-3.5 w-3.5" />}{visualLoading ? "Analizando…" : "Analizar"}</Button></div>}
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-[#718078]">ARKI extrae datos preliminares, separa UNKNOWN y pregunta antes de registrar.</span><Button type="button" size="sm" onClick={interpretBrief} disabled={!briefText.trim()} className="h-8 bg-[#385348] text-xs text-[#fbfaf6]"><Send className="mr-1 h-3.5 w-3.5" />Procesar borrador</Button></div>
+          {(briefDraft || visualProposals.length > 0) && <div className="mt-3 space-y-3 border-t border-[#d7d8cf] pt-3"><div className="rounded border border-[#8bc34a]/60 bg-[#fbfaf6] p-3"><div className="flex items-center justify-between gap-2"><p className="font-semibold text-[#385348]">Resumen editable — revisar antes de procesar</p><span className="text-[10px] uppercase tracking-wide text-[#a94524]">HYPOTHESIS / AI_PROPOSED</span></div>{briefDraft?.extracted.map((item, index) => <Input key={`extract-${index}`} value={item} onChange={(event) => setBriefDraft((current) => current ? { ...current, extracted: current.extracted.map((entry, entryIndex) => entryIndex === index ? event.target.value : entry) } : current)} className="mt-2 h-8 bg-white text-xs" aria-label={`Dato extraído ${index + 1}`} />)}{visualProposals.map((proposal, index) => <Input key={proposal.evidence_id} value={proposal.description} onChange={(event) => setVisualProposals((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, description: event.target.value } : entry))} className="mt-2 h-8 bg-white text-xs" aria-label={`Observación visual ${index + 1}`} />)}</div>
+            <div className="rounded border border-[#d07b4a]/50 bg-[#fffaf5] p-3"><p className="font-semibold text-[#a94524]">Completar información faltante</p><div className="mt-2 grid gap-2 sm:grid-cols-2">{([["access", "Acceso y frente libre"], ["orientation", "Orientación / norte"], ["users", "Usuarios y aforo"], ["area", "Área objetivo"], ["regulations", "Normativa / jurisdicción"]] as const).map(([key, label]) => <label key={key} className="text-[11px] text-[#718078]">{label}<Input value={missingFields[key]} onChange={(event) => updateMissingField(key, event.target.value)} placeholder="UNKNOWN — completar" className="mt-1 h-8 bg-white text-xs" /></label>)}</div><p className="mt-2 text-[10px] text-[#718078]">Estos datos permanecen en edición local hasta que el usuario decida registrarlos en SICL.</p></div>
+          </div>}
+        </div>}
         <div className="grid gap-2 border-b border-[#e2e4de] p-3 sm:grid-cols-[13rem_1fr]"><Input aria-label={t("command_bar.project_id")} value={projectId} onChange={(event) => setProjectId(event.target.value)} placeholder={t("command_bar.project_id_placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] text-xs text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={inputRef} autoFocus aria-label={t("command_bar.input")} value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} placeholder={t("command_bar.placeholder")} className="border-2 border-[#8bc34a] bg-[#b8e26a] pl-9 font-mono text-sm text-[#1d2925] placeholder:text-[#52645a] focus-visible:border-[3px] focus-visible:border-[#8bc34a]" /></div><div className="relative sm:col-span-2"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718078]" /><Input ref={aliasSearchRef} aria-label={t("command_bar.search_aliases")} value={aliasSearch} onChange={(event) => setAliasSearch(event.target.value)} placeholder={t("command_bar.search_aliases")} className="border border-[#d7d8cf] bg-[#fbfaf6] pl-9 text-xs text-[#1d2925]" /></div><Button type="button" variant="outline" size="sm" onClick={exportAliasesCsv} aria-label={t("command_bar.export_aliases_csv")} className="h-9 border-[#385348] text-xs text-[#385348]"><Download className="mr-1 h-3.5 w-3.5" />{t("command_bar.export_aliases_csv")}</Button></div>
         {settingsOpen && <div className="border-b border-[#e2e4de] bg-[#f3f5ef] p-3"><div className="flex flex-wrap items-center gap-2"><label htmlFor="command-language" className="text-xs font-semibold text-[#385348]">{t("command_bar.language_preference")}</label><select id="command-language" aria-label={t("command_bar.language_preference")} value={preferredLocale} onChange={(event) => setPreferredLocale(event.target.value)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]">{LANGUAGE_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><Button type="button" size="sm" onClick={savePreferredLanguage} className="h-7 bg-[#385348] px-2 text-xs text-[#fbfaf6]">{t("command_bar.save_language")}</Button>{languageSaved && <span className="text-xs text-[#385348]">{t("command_bar.language_saved")}</span>}<span className="ml-3 text-xs font-semibold text-[#385348]">{t("command_bar.experience_mode")}</span><select aria-label={t("command_bar.experience_mode")} value={experienceMode} onChange={(event) => saveExperienceMode(event.target.value as ExperienceMode)} className="rounded border border-[#8bc34a] bg-[#fbfaf6] px-2 py-1 text-xs text-[#1d2925]"><option value="guided">{t("command_bar.beginner_mode")}</option><option value="expert">{t("command_bar.expert_mode")}</option></select></div></div>}
         {aliasSearch && <div className="max-h-36 overflow-y-auto border-b border-[#e2e4de] bg-[#fbfaf6] p-2">{aliasResults.slice(0, 24).map((entry) => <div key={`${entry.locale}-${entry.alias}`} title={entry.canonical} className="flex items-center justify-between rounded px-3 py-1.5 font-mono text-xs text-[#1d2925] hover:bg-[#e9ede5]"><span title={entry.canonical}>{entry.alias}</span><span className="text-[10px] text-[#718078]">{entry.canonical}</span></div>)}</div>}
