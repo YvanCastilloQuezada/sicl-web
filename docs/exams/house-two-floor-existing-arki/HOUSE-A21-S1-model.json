@@ -1,0 +1,2434 @@
+{
+  "id": "HOUSE-A21-S1-CONCEPTUAL-FLOOR-PLAN",
+  "projectId": "HOUSE-A21",
+  "status": "HYPOTHESIS",
+  "representationKind": "CONCEPTUAL_FLOOR_PLAN",
+  "levels": [
+    "N1",
+    "N2"
+  ],
+  "spaces": [
+    {
+      "id": "S1:N1:ACCESS",
+      "programItemId": "ACCESS",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              1,
+              8
+            ],
+            [
+              3.5,
+              8
+            ],
+            [
+              3.5,
+              10
+            ],
+            [
+              1,
+              10
+            ],
+            [
+              1,
+              8
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 5,
+      "actualAreaM2": 5,
+      "areaToleranceM2": 0.01,
+      "zoneId": "ACCESS",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N1:GROUND_CIRCULATION",
+      "programItemId": "GROUND_CIRCULATION",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              3.5,
+              8
+            ],
+            [
+              10.5,
+              8
+            ],
+            [
+              10.5,
+              10
+            ],
+            [
+              3.5,
+              10
+            ],
+            [
+              3.5,
+              8
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 14,
+      "actualAreaM2": 14,
+      "areaToleranceM2": 0.01,
+      "zoneId": "TRANSITION",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N1:LIVING_DINING",
+      "programItemId": "LIVING_DINING",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              3.5,
+              2
+            ],
+            [
+              10.5,
+              2
+            ],
+            [
+              10.5,
+              8
+            ],
+            [
+              3.5,
+              8
+            ],
+            [
+              3.5,
+              2
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 42,
+      "actualAreaM2": 42,
+      "areaToleranceM2": 0.01,
+      "zoneId": "PUBLIC",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N1:KITCHEN",
+      "programItemId": "KITCHEN",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              10.5,
+              2
+            ],
+            [
+              15,
+              2
+            ],
+            [
+              15,
+              5
+            ],
+            [
+              10.5,
+              5
+            ],
+            [
+              10.5,
+              2
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 13.5,
+      "actualAreaM2": 13.5,
+      "areaToleranceM2": 0.01,
+      "zoneId": "SERVICE",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N1:SOCIAL_BATH",
+      "programItemId": "SOCIAL_BATH",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              10.5,
+              5
+            ],
+            [
+              13,
+              5
+            ],
+            [
+              13,
+              7
+            ],
+            [
+              10.5,
+              7
+            ],
+            [
+              10.5,
+              5
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 5,
+      "actualAreaM2": 5,
+      "areaToleranceM2": 0.01,
+      "zoneId": "SERVICE",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N1:PATIO",
+      "programItemId": "PATIO",
+      "levelId": "N1",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              3.5,
+              10
+            ],
+            [
+              10.5,
+              10
+            ],
+            [
+              10.5,
+              13
+            ],
+            [
+              3.5,
+              13
+            ],
+            [
+              3.5,
+              10
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 21,
+      "actualAreaM2": 21,
+      "areaToleranceM2": 0.01,
+      "zoneId": "OUTDOOR",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N2:UPPER_CIRCULATION",
+      "programItemId": "UPPER_CIRCULATION",
+      "levelId": "N2",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              3.5,
+              8
+            ],
+            [
+              10.5,
+              8
+            ],
+            [
+              10.5,
+              10
+            ],
+            [
+              3.5,
+              10
+            ],
+            [
+              3.5,
+              8
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 14,
+      "actualAreaM2": 14,
+      "areaToleranceM2": 0.01,
+      "zoneId": "TRANSITION",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N2:MAIN_BEDROOM",
+      "programItemId": "MAIN_BEDROOM",
+      "levelId": "N2",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              3.5,
+              2
+            ],
+            [
+              8.5,
+              2
+            ],
+            [
+              8.5,
+              7
+            ],
+            [
+              3.5,
+              7
+            ],
+            [
+              3.5,
+              2
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 25,
+      "actualAreaM2": 25,
+      "areaToleranceM2": 0.01,
+      "zoneId": "PRIVATE",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N2:BEDROOM_2",
+      "programItemId": "BEDROOM_2",
+      "levelId": "N2",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              8.5,
+              2
+            ],
+            [
+              13.5,
+              2
+            ],
+            [
+              13.5,
+              7
+            ],
+            [
+              8.5,
+              7
+            ],
+            [
+              8.5,
+              2
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 25,
+      "actualAreaM2": 25,
+      "areaToleranceM2": 0.01,
+      "zoneId": "PRIVATE",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    },
+    {
+      "id": "S1:N2:PRIVATE_BATH",
+      "programItemId": "PRIVATE_BATH",
+      "levelId": "N2",
+      "boundary": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              14,
+              2
+            ],
+            [
+              16.5,
+              2
+            ],
+            [
+              16.5,
+              4.5
+            ],
+            [
+              14,
+              4.5
+            ],
+            [
+              14,
+              2
+            ]
+          ]
+        ]
+      },
+      "targetAreaM2": 6.25,
+      "actualAreaM2": 6.25,
+      "areaToleranceM2": 0.01,
+      "zoneId": "SERVICE",
+      "epistemicState": "HYPOTHESIS",
+      "provenance": [
+        "A21 program",
+        "A21-P2 zoning",
+        "A21-P3 circulation intent",
+        "ARKI-S1 deterministic constructive spatial generation"
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:ACCESS:0",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          1,
+          8
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:ACCESS:1",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:ACCESS:2",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          1,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:ACCESS:3",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:GROUND_CIRCULATION:0",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:GROUND_CIRCULATION:1",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          10.5,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:GROUND_CIRCULATION:2",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          10
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:GROUND_CIRCULATION:3",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:LIVING_DINING:0",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          3.5,
+          2
+        ],
+        [
+          10.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:LIVING_DINING:1",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          10.5,
+          2
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:LIVING_DINING:2",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:LIVING_DINING:3",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          3.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:KITCHEN:0",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          10.5,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:KITCHEN:1",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          15,
+          2
+        ],
+        [
+          15,
+          5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:KITCHEN:2",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          15,
+          5
+        ],
+        [
+          10.5,
+          5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:KITCHEN:3",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          10.5,
+          5
+        ],
+        [
+          10.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:SOCIAL_BATH:0",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          10.5,
+          5
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:SOCIAL_BATH:1",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          13,
+          5
+        ],
+        [
+          13,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:SOCIAL_BATH:2",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          13,
+          7
+        ],
+        [
+          10.5,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N1:SOCIAL_BATH:3",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          10.5,
+          7
+        ],
+        [
+          10.5,
+          5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:UPPER_CIRCULATION:0",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:UPPER_CIRCULATION:1",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          10.5,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:UPPER_CIRCULATION:2",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          10
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:UPPER_CIRCULATION:3",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:MAIN_BEDROOM:0",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          3.5,
+          2
+        ],
+        [
+          8.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:MAIN_BEDROOM:1",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          8.5,
+          2
+        ],
+        [
+          8.5,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:MAIN_BEDROOM:2",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          8.5,
+          7
+        ],
+        [
+          3.5,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:MAIN_BEDROOM:3",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          3.5,
+          7
+        ],
+        [
+          3.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:BEDROOM_2:0",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          8.5,
+          2
+        ],
+        [
+          13.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:BEDROOM_2:1",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          13.5,
+          2
+        ],
+        [
+          13.5,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:BEDROOM_2:2",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          13.5,
+          7
+        ],
+        [
+          8.5,
+          7
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:BEDROOM_2:3",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          8.5,
+          7
+        ],
+        [
+          8.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:PRIVATE_BATH:0",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          14,
+          2
+        ],
+        [
+          16.5,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:PRIVATE_BATH:1",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          16.5,
+          2
+        ],
+        [
+          16.5,
+          4.5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:PRIVATE_BATH:2",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          16.5,
+          4.5
+        ],
+        [
+          14,
+          4.5
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PERIMETER:S1:N2:PRIVATE_BATH:3",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          14,
+          4.5
+        ],
+        [
+          14,
+          2
+        ]
+      ],
+      "role": "PERIMETER",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    }
+  ],
+  "partitions": [
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:ACCESS:0",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          1,
+          8
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:ACCESS:1",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:ACCESS:2",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          1,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:ACCESS:3",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "segment": [
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:0",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:1",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          10.5,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:2",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          10
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:3",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:LIVING_DINING:0",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          3.5,
+          2
+        ],
+        [
+          10.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:LIVING_DINING:1",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          10.5,
+          2
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:LIVING_DINING:2",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:LIVING_DINING:3",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          3.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:KITCHEN:0",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          10.5,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:KITCHEN:1",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          15,
+          2
+        ],
+        [
+          15,
+          5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:KITCHEN:2",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          15,
+          5
+        ],
+        [
+          10.5,
+          5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:KITCHEN:3",
+      "hostSpaceId": "S1:N1:KITCHEN",
+      "segment": [
+        [
+          10.5,
+          5
+        ],
+        [
+          10.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:0",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          10.5,
+          5
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:1",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          13,
+          5
+        ],
+        [
+          13,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:2",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          13,
+          7
+        ],
+        [
+          10.5,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:3",
+      "hostSpaceId": "S1:N1:SOCIAL_BATH",
+      "segment": [
+        [
+          10.5,
+          7
+        ],
+        [
+          10.5,
+          5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:0",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          8
+        ],
+        [
+          10.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:1",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          8
+        ],
+        [
+          10.5,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:2",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          10.5,
+          10
+        ],
+        [
+          3.5,
+          10
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:3",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "segment": [
+        [
+          3.5,
+          10
+        ],
+        [
+          3.5,
+          8
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:0",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          3.5,
+          2
+        ],
+        [
+          8.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:1",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          8.5,
+          2
+        ],
+        [
+          8.5,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:2",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          8.5,
+          7
+        ],
+        [
+          3.5,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:3",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "segment": [
+        [
+          3.5,
+          7
+        ],
+        [
+          3.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:BEDROOM_2:0",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          8.5,
+          2
+        ],
+        [
+          13.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:BEDROOM_2:1",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          13.5,
+          2
+        ],
+        [
+          13.5,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:BEDROOM_2:2",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          13.5,
+          7
+        ],
+        [
+          8.5,
+          7
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:BEDROOM_2:3",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "segment": [
+        [
+          8.5,
+          7
+        ],
+        [
+          8.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:0",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          14,
+          2
+        ],
+        [
+          16.5,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:1",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          16.5,
+          2
+        ],
+        [
+          16.5,
+          4.5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:2",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          16.5,
+          4.5
+        ],
+        [
+          14,
+          4.5
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:3",
+      "hostSpaceId": "S1:N2:PRIVATE_BATH",
+      "segment": [
+        [
+          14,
+          4.5
+        ],
+        [
+          14,
+          2
+        ]
+      ],
+      "role": "PARTITION",
+      "closure": "CLOSED_BOUNDARY_MEMBER",
+      "epistemicState": "HYPOTHESIS"
+    }
+  ],
+  "openings": [
+    {
+      "id": "S1:DOOR:access-circulation",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N1:ACCESS",
+      "relatedSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "levelId": "N1",
+      "position": [
+        [
+          3,
+          8.75
+        ],
+        [
+          3.5,
+          8.75
+        ]
+      ],
+      "semanticRole": "PASSAGE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:circulation-living",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N1:GROUND_CIRCULATION",
+      "relatedSpaceId": "S1:N1:LIVING_DINING",
+      "levelId": "N1",
+      "position": [
+        [
+          6,
+          8
+        ],
+        [
+          6.75,
+          8
+        ]
+      ],
+      "semanticRole": "PASSAGE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:living-kitchen",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "relatedSpaceId": "S1:N1:KITCHEN",
+      "levelId": "N1",
+      "position": [
+        [
+          10.5,
+          3
+        ],
+        [
+          10.5,
+          3.75
+        ]
+      ],
+      "semanticRole": "PASSAGE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:living-bath",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "relatedSpaceId": "S1:N1:SOCIAL_BATH",
+      "levelId": "N1",
+      "position": [
+        [
+          10.5,
+          5.5
+        ],
+        [
+          10.5,
+          6
+        ]
+      ],
+      "semanticRole": "SERVICE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:upper-main",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "relatedSpaceId": "S1:N2:MAIN_BEDROOM",
+      "levelId": "N2",
+      "position": [
+        [
+          6,
+          8
+        ],
+        [
+          6.75,
+          8
+        ]
+      ],
+      "semanticRole": "PASSAGE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:upper-bedroom",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N2:UPPER_CIRCULATION",
+      "relatedSpaceId": "S1:N2:BEDROOM_2",
+      "levelId": "N2",
+      "position": [
+        [
+          8.5,
+          8.5
+        ],
+        [
+          9.25,
+          8.5
+        ]
+      ],
+      "semanticRole": "PASSAGE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:DOOR:bedroom-bath",
+      "type": "DOOR",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "relatedSpaceId": "S1:N2:PRIVATE_BATH",
+      "levelId": "N2",
+      "position": [
+        [
+          13.5,
+          3
+        ],
+        [
+          14,
+          3
+        ]
+      ],
+      "semanticRole": "SERVICE",
+      "traversability": "TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WINDOW:living-patio",
+      "type": "WINDOW",
+      "hostSpaceId": "S1:N1:LIVING_DINING",
+      "levelId": "N1",
+      "position": [
+        [
+          6,
+          8
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "semanticRole": "VISUAL",
+      "traversability": "NON_TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WINDOW:main-exterior",
+      "type": "WINDOW",
+      "hostSpaceId": "S1:N2:MAIN_BEDROOM",
+      "levelId": "N2",
+      "position": [
+        [
+          3.5,
+          4
+        ],
+        [
+          3.5,
+          5
+        ]
+      ],
+      "semanticRole": "VISUAL",
+      "traversability": "NON_TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:WINDOW:bedroom-exterior",
+      "type": "WINDOW",
+      "hostSpaceId": "S1:N2:BEDROOM_2",
+      "levelId": "N2",
+      "position": [
+        [
+          13.5,
+          4
+        ],
+        [
+          13.5,
+          5
+        ]
+      ],
+      "semanticRole": "VISUAL",
+      "traversability": "NON_TRAVERSABLE",
+      "boundaryConnection": "EXPLICIT",
+      "epistemicState": "HYPOTHESIS"
+    }
+  ],
+  "stair": {
+    "id": "S1:STAIR:CORE",
+    "footprint": {
+      "type": "polygon",
+      "coordinates": [
+        [
+          [
+            7.25,
+            8
+          ],
+          [
+            9.25,
+            8
+          ],
+          [
+            9.25,
+            11
+          ],
+          [
+            7.25,
+            11
+          ],
+          [
+            7.25,
+            8
+          ]
+        ]
+      ]
+    },
+    "run": 12,
+    "landing": {
+      "type": "polygon",
+      "coordinates": [
+        [
+          [
+            7.25,
+            10
+          ],
+          [
+            9.25,
+            10
+          ],
+          [
+            9.25,
+            11
+          ],
+          [
+            7.25,
+            11
+          ],
+          [
+            7.25,
+            10
+          ]
+        ]
+      ]
+    },
+    "direction": "UP",
+    "fromLevel": "N1",
+    "toLevel": "N2",
+    "occupiedSpatialRegion": "HYPOTHESIS",
+    "epistemicState": "HYPOTHESIS"
+  },
+  "shafts": [
+    {
+      "id": "S1:ELEVATOR:SHAFT",
+      "kind": "ELEVATOR",
+      "levelIds": [
+        "N1",
+        "N2"
+      ],
+      "shaft": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              8
+            ],
+            [
+              11.5,
+              8
+            ],
+            [
+              11.5,
+              10
+            ],
+            [
+              9.5,
+              10
+            ],
+            [
+              9.5,
+              8
+            ]
+          ]
+        ]
+      },
+      "lobby": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              7
+            ],
+            [
+              11.5,
+              7
+            ],
+            [
+              11.5,
+              8
+            ],
+            [
+              9.5,
+              8
+            ],
+            [
+              9.5,
+              7
+            ]
+          ]
+        ]
+      },
+      "pitReservation": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              8
+            ],
+            [
+              11.5,
+              8
+            ],
+            [
+              11.5,
+              10
+            ],
+            [
+              9.5,
+              10
+            ],
+            [
+              9.5,
+              8
+            ]
+          ]
+        ]
+      },
+      "overheadReservation": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              8
+            ],
+            [
+              11.5,
+              8
+            ],
+            [
+              11.5,
+              10
+            ],
+            [
+              9.5,
+              10
+            ],
+            [
+              9.5,
+              8
+            ]
+          ]
+        ]
+      },
+      "equipmentReservation": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              10
+            ],
+            [
+              11.5,
+              10
+            ],
+            [
+              11.5,
+              11
+            ],
+            [
+              9.5,
+              11
+            ],
+            [
+              9.5,
+              10
+            ]
+          ]
+        ]
+      },
+      "dimensions": "UNKNOWN",
+      "continuity": "CONTINUOUS_CONCEPTUAL_RESERVATION",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:SERVICE:SHAFT",
+      "kind": "SERVICE",
+      "levelIds": [
+        "N1",
+        "N2"
+      ],
+      "shaft": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            [
+              13.5,
+              5
+            ],
+            [
+              14.5,
+              5
+            ],
+            [
+              14.5,
+              6.5
+            ],
+            [
+              13.5,
+              6.5
+            ],
+            [
+              13.5,
+              5
+            ]
+          ]
+        ]
+      },
+      "dimensions": "UNKNOWN",
+      "continuity": "CONTINUOUS_CONCEPTUAL_RESERVATION",
+      "epistemicState": "HYPOTHESIS"
+    }
+  ],
+  "routes": [
+    {
+      "id": "S1:ROUTE:ACCESSIBLE:N1",
+      "levelId": "N1",
+      "kind": "ACCESSIBLE",
+      "path": {
+        "type": "line",
+        "coordinates": [
+          [
+            1,
+            9
+          ],
+          [
+            3.5,
+            9
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7.25,
+            8
+          ]
+        ]
+      },
+      "connectedSpaceIds": [
+        "S1:N1:ACCESS",
+        "S1:N1:GROUND_CIRCULATION",
+        "S1:N1:LIVING_DINING"
+      ],
+      "continuity": "CONTINUOUS",
+      "compliance": "NOT_ASSESSED",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:ROUTE:VERTICAL",
+      "levelId": "N2",
+      "kind": "ACCESSIBLE",
+      "path": {
+        "type": "line",
+        "coordinates": [
+          [
+            8.25,
+            9.5
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "connectedSpaceIds": [
+        "S1:N2:UPPER_CIRCULATION",
+        "S1:N2:MAIN_BEDROOM"
+      ],
+      "continuity": "CONTINUOUS",
+      "compliance": "NOT_ASSESSED",
+      "epistemicState": "HYPOTHESIS"
+    },
+    {
+      "id": "S1:ROUTE:TECHNICAL",
+      "levelId": "N1",
+      "kind": "TECHNICAL",
+      "path": {
+        "type": "line",
+        "coordinates": [
+          [
+            14,
+            5.75
+          ],
+          [
+            13.5,
+            5.75
+          ],
+          [
+            13.5,
+            8
+          ],
+          [
+            10.5,
+            8
+          ]
+        ]
+      },
+      "connectedSpaceIds": [
+        "S1:N1:KITCHEN",
+        "S1:N1:SOCIAL_BATH"
+      ],
+      "continuity": "UNKNOWN",
+      "compliance": "NOT_ASSESSED",
+      "epistemicState": "HYPOTHESIS"
+    }
+  ],
+  "validations": [
+    {
+      "id": "ROOM_CONTAINMENT",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:N1:ACCESS",
+        "S1:N1:GROUND_CIRCULATION",
+        "S1:N1:LIVING_DINING",
+        "S1:N1:KITCHEN",
+        "S1:N1:SOCIAL_BATH",
+        "S1:N1:PATIO",
+        "S1:N2:UPPER_CIRCULATION",
+        "S1:N2:MAIN_BEDROOM",
+        "S1:N2:BEDROOM_2",
+        "S1:N2:PRIVATE_BATH"
+      ],
+      "explanation": "Every conceptual room boundary is contained within the synthetic site envelope.",
+      "unknown": false
+    },
+    {
+      "id": "ROOM_NON_OVERLAP",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:N1:ACCESS",
+        "S1:N1:GROUND_CIRCULATION",
+        "S1:N1:LIVING_DINING",
+        "S1:N1:KITCHEN",
+        "S1:N1:SOCIAL_BATH",
+        "S1:N1:PATIO",
+        "S1:N2:UPPER_CIRCULATION",
+        "S1:N2:MAIN_BEDROOM",
+        "S1:N2:BEDROOM_2",
+        "S1:N2:PRIVATE_BATH"
+      ],
+      "explanation": "Rooms do not overlap within the same level; different levels may share aligned footprints.",
+      "unknown": false
+    },
+    {
+      "id": "TARGET_AREA_TOLERANCE",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:N1:ACCESS",
+        "S1:N1:GROUND_CIRCULATION",
+        "S1:N1:LIVING_DINING",
+        "S1:N1:KITCHEN",
+        "S1:N1:SOCIAL_BATH",
+        "S1:N1:PATIO",
+        "S1:N2:UPPER_CIRCULATION",
+        "S1:N2:MAIN_BEDROOM",
+        "S1:N2:BEDROOM_2",
+        "S1:N2:PRIVATE_BATH"
+      ],
+      "explanation": "Generated rectangular boundaries satisfy their deterministic target areas within tolerance.",
+      "unknown": false
+    },
+    {
+      "id": "ADJACENCY_GEOMETRY",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:N1:LIVING_DINING",
+        "S1:N1:KITCHEN"
+      ],
+      "explanation": "Declared key adjacencies have a shared geometric boundary.",
+      "unknown": false
+    },
+    {
+      "id": "DOOR_CONNECTION",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:DOOR:access-circulation",
+        "S1:DOOR:circulation-living",
+        "S1:DOOR:living-kitchen",
+        "S1:DOOR:living-bath",
+        "S1:DOOR:upper-main",
+        "S1:DOOR:upper-bedroom",
+        "S1:DOOR:bedroom-bath"
+      ],
+      "explanation": "Every generated internal door connects two declared spaces and is traversable as a hypothesis.",
+      "unknown": false
+    },
+    {
+      "id": "WALL_CLOSURE",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:WALL:PARTITION:S1:N1:ACCESS:0",
+        "S1:WALL:PARTITION:S1:N1:ACCESS:1",
+        "S1:WALL:PARTITION:S1:N1:ACCESS:2",
+        "S1:WALL:PARTITION:S1:N1:ACCESS:3",
+        "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:0",
+        "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:1",
+        "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:2",
+        "S1:WALL:PARTITION:S1:N1:GROUND_CIRCULATION:3",
+        "S1:WALL:PARTITION:S1:N1:LIVING_DINING:0",
+        "S1:WALL:PARTITION:S1:N1:LIVING_DINING:1",
+        "S1:WALL:PARTITION:S1:N1:LIVING_DINING:2",
+        "S1:WALL:PARTITION:S1:N1:LIVING_DINING:3",
+        "S1:WALL:PARTITION:S1:N1:KITCHEN:0",
+        "S1:WALL:PARTITION:S1:N1:KITCHEN:1",
+        "S1:WALL:PARTITION:S1:N1:KITCHEN:2",
+        "S1:WALL:PARTITION:S1:N1:KITCHEN:3",
+        "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:0",
+        "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:1",
+        "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:2",
+        "S1:WALL:PARTITION:S1:N1:SOCIAL_BATH:3",
+        "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:0",
+        "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:1",
+        "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:2",
+        "S1:WALL:PARTITION:S1:N2:UPPER_CIRCULATION:3",
+        "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:0",
+        "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:1",
+        "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:2",
+        "S1:WALL:PARTITION:S1:N2:MAIN_BEDROOM:3",
+        "S1:WALL:PARTITION:S1:N2:BEDROOM_2:0",
+        "S1:WALL:PARTITION:S1:N2:BEDROOM_2:1",
+        "S1:WALL:PARTITION:S1:N2:BEDROOM_2:2",
+        "S1:WALL:PARTITION:S1:N2:BEDROOM_2:3",
+        "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:0",
+        "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:1",
+        "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:2",
+        "S1:WALL:PARTITION:S1:N2:PRIVATE_BATH:3"
+      ],
+      "explanation": "Every generated space has a closed polygon boundary represented by wall/partition members.",
+      "unknown": false
+    },
+    {
+      "id": "CIRCULATION_CONTINUITY",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:ROUTE:ACCESSIBLE:N1",
+        "S1:ROUTE:VERTICAL"
+      ],
+      "explanation": "Accessible route geometry is continuous at conceptual level; compliance remains separate.",
+      "unknown": false
+    },
+    {
+      "id": "STAIR_LEVEL_CONNECTION",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:STAIR:CORE"
+      ],
+      "explanation": "Stair footprint, run, landing and direction connect N1 to N2 geometrically.",
+      "unknown": false
+    },
+    {
+      "id": "SHAFT_CONTINUITY",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:ELEVATOR:SHAFT",
+        "S1:SERVICE:SHAFT"
+      ],
+      "explanation": "Elevator and service shafts are aligned conceptual reservations across both levels; dimensions remain unknown.",
+      "unknown": false
+    },
+    {
+      "id": "ACCESSIBLE_ROUTE_CONTINUITY",
+      "state": "PASS",
+      "subjectIds": [
+        "S1:ROUTE:ACCESSIBLE:N1",
+        "S1:ROUTE:VERTICAL"
+      ],
+      "explanation": "Accessible route geometry is explicitly represented, while code compliance is not assessed.",
+      "unknown": false
+    },
+    {
+      "id": "UNKNOWN_PRESERVATION",
+      "state": "UNKNOWN",
+      "subjectIds": [
+        "A21-UNKNOWN-RELATIONSHIPS",
+        "ENGINEERING-DIMENSIONS",
+        "REGULATORY-COMPLIANCE"
+      ],
+      "explanation": "Unresolved A21 relations, engineering dimensions and regulatory compliance remain unknown.",
+      "unknown": true
+    }
+  ],
+  "lineage": {
+    "parentConfigurationId": "HOUSE-A21-CONFIG-A",
+    "parentImmutable": true,
+    "sourceIntent": [
+      "A21-P1 program",
+      "A21-P2 relationships and zoning",
+      "A21-P3 circulation intent",
+      "A21-P4 configuration hypothesis"
+    ]
+  },
+  "preservedUnknowns": [
+    "Regulatory compliance",
+    "Accessible-route compliance",
+    "Wall thickness and construction assemblies",
+    "Door/window schedules",
+    "Elevator manufacturer dimensions",
+    "Engineering performance",
+    "Fire and egress certification"
+  ],
+  "constructionDocumentation": "NOT_CLAIMED",
+  "permitReady": false,
+  "constructionReady": false,
+  "noAutomaticDecision": true,
+  "humanReviewRequired": true,
+  "provenance": [
+    "ARKI-S1",
+    "A21 reused without geometry reconstruction from HOUSE-001",
+    "Conceptual floor plan only"
+  ]
+}
