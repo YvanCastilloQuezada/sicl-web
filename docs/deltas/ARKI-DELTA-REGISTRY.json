@@ -783,6 +783,72 @@
           "docs/project-b/PROJECT-B-P9.3-HUMAN-DELIBERATION-PACKET.md"
         ]
       }
+    },
+    {
+      "delta_id": "PASTED-CONTENT-489-V1",
+      "source_name": "pasted_content_489.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_489.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-489-V1/pasted_content_489.txt",
+      "sha256": "35fc9fa0b640eb644b8c172d26c9c71148d10af8d638d3bfbfd5a5a4943c385c",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P9.4",
+        "PROJECT B — EVIDENCE ACQUISITION &",
+        "DISCRIMINATIVE UNKNOWN RESOLUTION"
+      ],
+      "preview_count": 755,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-490-V488",
+      "source_name": "pasted_content_490.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_490.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-490-V488/pasted_content_490.txt",
+      "sha256": "dcdd89b2ac209df4e5317de183e97ad05e547712115e96886bed62e8dfc0551b",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [],
+      "preview_count": 905,
+      "status": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ]
     }
   ]
 }

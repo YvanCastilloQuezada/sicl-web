@@ -1,0 +1,122 @@
+export type RPartiProvenanceState = "SOURCE_DOCUMENTED" | "SOURCE_DERIVED" | "ARKI_INTERPRETATION" | "ARKI_DERIVED" | "ARKI_GENERATED" | "ARKI_DISCOVERED_CANDIDATE" | "HUMAN_CONFIRMED";
+export type RPartiRetrievalMode = "PRECEDENT" | "REFERENCE" | "ANALOGICAL_EXPLORATORY";
+export type RPartiDistance = "R0" | "R1" | "R2" | "R3" | "R4";
+export type RPartiDesignLayer = "VISUAL_MEMORY" | "CASE_MEMORY" | "ABSTRACT_ARCHITECTURAL_KNOWLEDGE";
+export type RPartiDesignSpaceState = "AVAILABLE" | "ACCESSIBLE" | "EXPLORED";
+
+export type RPartiEntry = {
+  id: string;
+  title: string;
+  layer: RPartiDesignLayer;
+  kind: "FORM" | "ORGANIZATION" | "RELATION" | "PRECEDENT" | "REFERENCE" | "ANALOGY" | "PARTI" | "OPERATOR" | "COUNTEREXAMPLE";
+  description: string;
+  provenanceState: RPartiProvenanceState;
+  sourceRefs: string[];
+  derivedFrom: string[];
+  authorIntent: "DOCUMENTED" | "UNKNOWN" | "NOT_APPLICABLE";
+  humanReviewRequired: true;
+};
+
+export type RPartiDesignSpace = {
+  available: string[];
+  accessible: string[];
+  explored: string[];
+};
+
+export type RPartiArchitecturalSeed = {
+  seedId: string;
+  conditions: string[];
+  references: string[];
+  intents: string[];
+  rationale: string;
+  provenance: string[];
+  architecturalSeed: true;
+  computationalSeed?: string;
+};
+
+export type RPartiHypothesis = {
+  partiId: string;
+  seedId: string;
+  organizingHypothesis: string;
+  relations: string[];
+  formInterpretations: string[];
+  realizationFamilyIds: string[];
+  provenance: string[];
+  status: "HYPOTHESIS" | "HUMAN_CONFIRMED" | "REJECTED";
+  noAutomaticWinner: true;
+};
+
+export type RPartiRealizationFamily = {
+  familyId: string;
+  partiId: string;
+  realizationIds: string[];
+  notTemplate: true;
+};
+
+export type RPartiBranchEvent = {
+  type: "BACKTRACK" | "REFRAME";
+  fromLevel: "B0_GEOMETRY" | "B1_CANDIDATE" | "B2_REALIZATION_FAMILY" | "B3_PARTI" | "B4_ARCHITECTURAL_SEED" | "B5_GENERATOR" | "B6_PROBLEM_FRAME";
+  toLevel: string;
+  preservedEvidence: string[];
+  reason: string;
+  humanReviewRequired: true;
+};
+
+export type RPartiRetrievalResult = {
+  entryId: string;
+  mode: RPartiRetrievalMode;
+  distance: RPartiDistance;
+  structuralSimilarity: string[];
+  surfaceSimilarity: string[];
+  contextCompatibility: "COMPATIBLE" | "PARTIAL" | "UNKNOWN" | "INCOMPATIBLE";
+  transferability: "POSSIBLE" | "ADAPT_REQUIRED" | "UNKNOWN" | "NOT_SUPPORTED";
+  adaptationBurden: "LOW" | "MODERATE" | "HIGH" | "UNKNOWN";
+  fixationRisk: "LOW" | "MODERATE" | "HIGH" | "UNKNOWN";
+  relationFirst: true;
+  noFormCopying: true;
+};
+
+export const R_PARTI_MANUAL_ID = "ARKI-MANUAL-FORMAS-ARQUITECTONICAS";
+export const R_PARTI_MANUAL_VERSION = "0.1.0-CHECKPOINT";
+
+export const R_PARTI_FIXTURES: RPartiEntry[] = [
+  { id: "RPF-01", title: "Patio como vacío relacional", layer: "ABSTRACT_ARCHITECTURAL_KNOWLEDGE", kind: "RELATION", description: "El vacío organiza proximidad, luz y secuencia; no prescribe una planta.", provenanceState: "SOURCE_DERIVED", sourceRefs: ["R-PARTI checkpoint / M03"], derivedFrom: [], authorIntent: "UNKNOWN", humanReviewRequired: true },
+  { id: "RPF-02", title: "Barra + espina de circulación", layer: "ABSTRACT_ARCHITECTURAL_KNOWLEDGE", kind: "ORGANIZATION", description: "Una organización lineal potencial que requiere validación programática y contextual.", provenanceState: "ARKI_INTERPRETATION", sourceRefs: ["R-PARTI checkpoint / M02-M03"], derivedFrom: [], authorIntent: "UNKNOWN", humanReviewRequired: true },
+  { id: "RPF-03", title: "Casa patio de referencia", layer: "CASE_MEMORY", kind: "PRECEDENT", description: "Caso de referencia para recuperar relaciones, no para copiar forma.", provenanceState: "SOURCE_DOCUMENTED", sourceRefs: ["R-PARTI fixture case / source required"], derivedFrom: [], authorIntent: "DOCUMENTED", humanReviewRequired: true },
+  { id: "RPF-04", title: "Ramificación de un sistema natural", layer: "VISUAL_MEMORY", kind: "ANALOGY", description: "Analogía cross-domain cuyo valor depende de la relación transferida, no de la apariencia.", provenanceState: "ARKI_INTERPRETATION", sourceRefs: ["R-PARTI checkpoint / R4"], derivedFrom: [], authorIntent: "NOT_APPLICABLE", humanReviewRequired: true },
+  { id: "RPF-05", title: "Interfaz limpia/sucia", layer: "ABSTRACT_ARCHITECTURAL_KNOWLEDGE", kind: "COUNTEREXAMPLE", description: "Contraejemplo de transferencia indiscriminada: una separación puede ser necesaria en un contexto y no en otro.", provenanceState: "ARKI_DERIVED", sourceRefs: ["R-PARTI checkpoint / I20"], derivedFrom: ["RPF-02"], authorIntent: "UNKNOWN", humanReviewRequired: true },
+];
+
+export function createArchitecturalSeed(input: Omit<RPartiArchitecturalSeed, "architecturalSeed">): RPartiArchitecturalSeed {
+  return { ...input, architecturalSeed: true };
+}
+
+export function createPartiHypothesis(input: Omit<RPartiHypothesis, "noAutomaticWinner">): RPartiHypothesis {
+  return { ...input, noAutomaticWinner: true };
+}
+
+export function createRealizationFamily(input: Omit<RPartiRealizationFamily, "notTemplate">): RPartiRealizationFamily {
+  return { ...input, notTemplate: true };
+}
+
+export function retrieveManualEntry(entry: RPartiEntry, mode: RPartiRetrievalMode, distance: RPartiDistance): RPartiRetrievalResult {
+  const contextCompatibility = mode === "PRECEDENT" && distance === "R0" ? "COMPATIBLE" : "UNKNOWN";
+  const transferability = distance === "R0" || distance === "R1" ? "ADAPT_REQUIRED" : "UNKNOWN";
+  return { entryId: entry.id, mode, distance, structuralSimilarity: [], surfaceSimilarity: [], contextCompatibility, transferability, adaptationBurden: distance === "R0" ? "LOW" : "UNKNOWN", fixationRisk: mode === "REFERENCE" ? "MODERATE" : "UNKNOWN", relationFirst: true, noFormCopying: true };
+}
+
+export function validateRPartiEntry(entry: RPartiEntry): boolean {
+  return Boolean(entry.id && entry.description && entry.provenanceState && entry.sourceRefs.length > 0 && entry.humanReviewRequired && (entry.provenanceState !== "SOURCE_DOCUMENTED" || entry.authorIntent === "DOCUMENTED"));
+}
+
+export function validateDesignSpace(space: RPartiDesignSpace): boolean {
+  return Array.isArray(space.available) && Array.isArray(space.accessible) && Array.isArray(space.explored) && space.explored.every((item) => space.accessible.includes(item));
+}
+
+export function validateRPartiInvariants(seed: RPartiArchitecturalSeed, parti: RPartiHypothesis, family: RPartiRealizationFamily): boolean {
+  return seed.architecturalSeed && parti.seedId === seed.seedId && family.partiId === parti.partiId && family.notTemplate && parti.noAutomaticWinner && parti.status !== "HUMAN_CONFIRMED";
+}
+
+export function classifyBacktrackOrReframe(event: RPartiBranchEvent): "BACKTRACK" | "REFRAME" {
+  return event.type;
+}

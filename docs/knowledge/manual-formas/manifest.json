@@ -1,0 +1,15 @@
+{
+  "manualId": "ARKI-MANUAL-FORMAS-ARQUITECTONICAS",
+  "version": "0.1.0-CHECKPOINT",
+  "system": "ARKI",
+  "layerModel": ["VISUAL_MEMORY", "CASE_MEMORY", "ABSTRACT_ARCHITECTURAL_KNOWLEDGE"],
+  "retrievalDistances": ["R0", "R1", "R2", "R3", "R4"],
+  "fixtures": ["RPF-01", "RPF-02", "RPF-03", "RPF-04", "RPF-05"],
+  "humanReviewRequired": true,
+  "automaticWinner": false,
+  "beautyScore": false,
+  "creativityScore": false,
+  "massIngestion": false,
+  "canonicalLocation": "docs/knowledge/manual-formas/",
+  "machineReadableSibling": "client/src/components/arkiRPartiManual.ts"
+}

@@ -1,0 +1,905 @@
+ORDEN ARKI — R-PARTI RESEARCH CHECKPOINT + MANUAL DE FORMAS ARQUITECTÓNICAS
+MODO: AUDIT → FORMALIZE → MINIMAL IMPLEMENTATION → TEST → REPORT
+AUTORIDAD: PRODUCT OWNER / ARQUITECTO HUMANO
+P9.4: HOLD
+
+CONTEXTO
+
+La investigación arquitectónica R-PARTI ha alcanzado estado:
+
+RESEARCH SUFFICIENT TO FREEZE
+
+No continuar investigación bibliográfica abierta.
+No reabrir decisiones conceptuales salvo contradicción concreta encontrada en el repositorio o en pruebas.
+
+IMPORTANTE:
+El sistema se llama ARKI.
+No usar Vitruvio.
+
+El libro/corpus se llama:
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+BASELINE HISTÓRICO CONOCIDO:
+Delta 488
+HEAD conocido:
+96eda49ff86afbc99fbad6b25416fa90d1c4906b
+
+PERO NO ASUMIR QUE SIGUE SIENDO EL HEAD ACTUAL.
+Verificar primero repositorio, rama, HEAD, worktree y numeración real de Delta.
+
+==================================================
+0. REGLAS ABSOLUTAS
+==================================================
+
+1. READ / AUDIT BEFORE WRITE.
+
+2. No crear un motor cognitivo paralelo.
+
+3. No crear un segundo CanonicalBuildingModel.
+
+4. No crear un segundo sistema de aprendizaje.
+
+5. No crear un segundo sistema de transferencia.
+
+6. No crear un segundo generador geométrico si el existente puede extenderse.
+
+7. REUSE BEFORE EXTEND.
+   EXTEND BEFORE CREATE.
+
+8. No hardcodear Project B.
+
+9. No convertir ejemplos del Manual en templates obligatorios.
+
+10. No implementar beauty score.
+
+11. No implementar creativity score.
+
+12. No implementar automatic winner.
+
+13. No autoaprobar partidos, arquitectura, regulación ni cumplimiento profesional.
+
+14. No convertir precedentes en soluciones.
+
+15. No atribuir a un arquitecto una intención que no esté documentada.
+
+16. No promover automáticamente una observación de proyecto a conocimiento arquitectónico general.
+
+17. UNKNOWN debe permanecer UNKNOWN cuando corresponda.
+
+18. El arquitecto humano conserva:
+    - selección;
+    - rechazo;
+    - juicio arquitectónico;
+    - juicio estético;
+    - canonización;
+    - decisiones irreducibles.
+
+19. P9.4 permanece HOLD.
+
+20. No continuar a otras fases de P9 durante esta orden.
+
+==================================================
+1. PRIMERA FASE — READ-ONLY REPOSITORY AUDIT
+==================================================
+
+Antes de modificar archivos:
+
+A. Confirmar:
+- repository;
+- branch;
+- HEAD SHA;
+- worktree status;
+- último Delta real;
+- últimos checkpoints P8/P9;
+- ubicación de Project B;
+- estado actual de tests.
+
+B. Localizar y leer, como mínimo, los artefactos existentes relacionados con:
+
+- CanonicalBuildingModel;
+- arkiBuildingAuthoring.ts;
+- GDI;
+- A21;
+- S1;
+- S2;
+- arkiTypologyFunctionalKnowledge.ts;
+- regulatoryApplicabilityFoundation.ts;
+- permit orchestration;
+- learning cycle;
+- acquisition ledger;
+- transfer source/target;
+- DesignMemory o equivalente;
+- candidate generation;
+- strategy generation;
+- provenance;
+- epistemic status;
+- UNKNOWN handling;
+- Project B;
+- P9.0–P9.3;
+- Delta 488.
+
+C. Buscar explícitamente si ya existen conceptos equivalentes a:
+
+ArchitecturalSeed
+Parti
+DesignIntent
+DesignPremise
+DesignMemory
+DesignBranch
+RealizationFamily
+Backtrack
+Reframe
+Precedent
+Reference
+Analogy
+FormFamily
+FormVocabulary
+DesignSpace
+Retrieval
+
+NO asumir que no existen por no usar exactamente esos nombres.
+
+Buscar semántica equivalente.
+
+==================================================
+2. ENTREGAR INTERNAMENTE UN DELTA AUDIT
+==================================================
+
+Para cada concepto R-PARTI clasificar:
+
+REUSE
+EXTEND
+MISSING
+CONFLICT
+NOT_APPLICABLE
+
+No escribir código todavía.
+
+Debe quedar claro qué parte de la arquitectura existente puede absorber R-PARTI.
+
+Si aparece una contradicción contractual con v6.0/v6.1/P8/P9:
+
+STOP.
+
+Reportar:
+- contradicción;
+- archivo;
+- símbolo;
+- contrato afectado;
+- alternativas mínimas.
+
+No resolver silenciosamente.
+
+==================================================
+3. DECISIÓN DE ARQUITECTURA DEL MANUAL
+==================================================
+
+Decisión inicial aprobada para auditoría:
+
+MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+
+debe ser:
+
+SEPARATE KNOWLEDGE CORPUS / MODULE
++
+SAME ARKI REASONING ENGINE
+
+NO:
+- nuevo producto;
+- nuevo motor;
+- nueva inteligencia;
+- nuevo CanonicalBuildingModel;
+- nuevo sistema de aprendizaje.
+
+Preferencia:
+
+mantenerlo dentro del repositorio ARKI como corpus/módulo versionado.
+
+La ruta exacta NO está preimpuesta.
+
+Inspeccionar convenciones existentes y proponer la ruta más coherente.
+
+Ejemplo conceptual solamente:
+
+docs/knowledge/manual-formas/
+o
+knowledge/manual-formas/
+o equivalente compatible con el repo.
+
+Si se necesita representación machine-readable, debe convivir con la representación humana y compartir identidad/provenance.
+
+ONE KNOWLEDGE SOURCE.
+MULTIPLE REPRESENTATIONS.
+
+No crear repositorio independiente salvo impedimento técnico concreto y demostrado.
+
+==================================================
+4. R-PARTI CANONICAL CHECKPOINT
+==================================================
+
+Crear checkpoint versionado siguiendo las convenciones existentes del repositorio.
+
+NO inventar nomenclatura si ya existe una convención.
+
+El checkpoint debe formalizar al menos:
+
+A. ARCHITECTURAL CULTURAL REPERTOIRE
+
+Tres capas:
+
+VISUAL MEMORY
+CASE MEMORY
+ABSTRACT ARCHITECTURAL KNOWLEDGE
+
+No equivalen entre sí.
+
+B. DESIGN SPACE
+
+AVAILABLE DESIGN SPACE
+≠
+ACCESSIBLE DESIGN SPACE
+≠
+EXPLORED DESIGN SPACE
+
+AVAILABLE:
+lo permitido por condiciones/restricciones.
+
+ACCESSIBLE:
+lo que ARKI puede concebir/recuperar.
+
+EXPLORED:
+lo efectivamente explorado.
+
+C. ARCHITECTURAL SEED
+
+Definición:
+
+Representación compacta, generativa y revisable de una selección o interpretación de condiciones, referencias, intenciones, relaciones o posibilidades desde la cual puede iniciarse una trayectoria proyectual.
+
+Debe ser diferente de:
+
+COMPUTATIONAL SEED.
+
+D. PARTI / PARTIDO ARQUITECTÓNICO
+
+Definición:
+
+Hipótesis organizadora integral y revisable mediante la cual se sintetizan determinantes, interpretaciones e intenciones relevantes del proyecto en una posición arquitectónica capaz de orientar coherentemente relaciones espaciales, funcionales, formales, contextuales y, cuando corresponda, tectónicas.
+
+No imponer que todo proceso tenga un único parti explícito.
+
+Permitir:
+- multiple parti hypotheses;
+- parti emerging through exploration;
+- parti/form/problem co-evolution.
+
+E. REALIZATION FAMILY
+
+Un mismo parti debe poder tener múltiples realizaciones.
+
+PARTI ≠ TEMPLATE.
+
+F. DESIGN MEMORY
+
+Debe preservar:
+- seeds;
+- partis;
+- branches;
+- candidates;
+- mutations;
+- rejections;
+- observations;
+- human judgments;
+- backtracks;
+- reframes;
+- failed explorations.
+
+DESIGN MEMORY ≠ ARCHITECTURAL KNOWLEDGE.
+
+G. BACKTRACK
+
+Retorno a un nivel anterior del proceso conservando evidencia válida adquirida.
+
+BACKTRACK ≠ UNDO.
+
+H. REFRAME
+
+Cambio del entendimiento/modelo del problema.
+
+BACKTRACK ≠ REFRAME.
+
+Pueden ocurrir juntos.
+
+==================================================
+5. INVARIANTES R-PARTI
+==================================================
+
+Formalizar sin duplicar invariantes existentes:
+
+ARCHITECTURAL_SEED ≠ COMPUTATIONAL_SEED.
+
+SEED ≠ PARTI.
+
+PARTI ≠ STRATEGY.
+
+PARTI ≠ FORM.
+
+PARTI ≠ CANDIDATE.
+
+FORM ≠ ORGANIZATION ≠ TOPOLOGY.
+
+REFERENCE ≠ PRECEDENT ≠ ANALOGY.
+
+OBSERVED FORM ≠ DOCUMENTED DESIGN INTENT.
+
+ARKI INTERPRETATION ≠ AUTHOR INTENT.
+
+SAME PROJECT CONDITIONS MAY SUPPORT MULTIPLE LEGITIMATE PARTIS.
+
+SAME PARTI MAY SUPPORT MULTIPLE REALIZATIONS.
+
+SAME FORM MAY EMBODY DIFFERENT PARTIS.
+
+GEOMETRIC SIMILARITY ≠ GENERATIVE EQUIVALENCE.
+
+GENERATIVE DIVERSITY ≠ RANDOM VARIATION.
+
+RANDOMNESS MAY VARY A JUSTIFIED DESIGN TRAJECTORY;
+IT MUST NOT MASQUERADE AS ARCHITECTURAL REASONING.
+
+VOCABULARY ≠ ANSWER.
+
+PRECEDENT RETRIEVAL ≠ FORM COPYING.
+
+AVAILABLE DESIGN SPACE ≠ ACCESSIBLE DESIGN SPACE ≠ EXPLORED DESIGN SPACE.
+
+COMBINATORIAL ABUNDANCE ≠ CREATIVE INTELLIGENCE.
+
+FUNCTIONAL ESSENTIAL FAILURE CANNOT BE COMPENSATED BY AESTHETIC QUALITY.
+
+COMPOSITIONAL ANALYSIS ≠ BEAUTY SCORE.
+
+HUMAN AESTHETIC REJECTION ≠ COMPUTED BEAUTY FAILURE.
+
+EVALUATION CLAIM MUST NOT EXCEED REPRESENTATION RESOLUTION.
+
+ABSENCE OF DETECTED FAILURE AT LOW REPRESENTATIONAL RESOLUTION
+≠
+VERIFIED ABSENCE OF FAILURE.
+
+REJECTED ≠ DELETED.
+
+BACKTRACK ≠ UNDO.
+
+BACKTRACK ≠ REFRAME.
+
+FAILED CANDIDATE ≠ FAILED PARTI.
+
+FAILED PARTI ≠ FAILED SEED.
+
+PROJECT-SPECIFIC NEGATIVE KNOWLEDGE
+≠
+GENERAL ARCHITECTURAL NEGATIVE KNOWLEDGE.
+
+DESIGN MEMORY ≠ ARCHITECTURAL KNOWLEDGE.
+
+NEW CONFIGURATION ≠ NEW KNOWLEDGE.
+
+GENERATED CASE ≠ LEARNING.
+
+REPETITION ≠ CAUSALITY.
+
+PATTERN ≠ RULE.
+
+RULE ≠ UNIVERSAL LAW.
+
+==================================================
+6. MANUAL DE FORMAS ARQUITECTÓNICAS — ARKI
+==================================================
+
+NO poblar todavía una biblioteca masiva.
+
+Primero implementar únicamente la arquitectura mínima que permita que el Manual crezca correctamente.
+
+El Manual debe soportar conceptualmente:
+
+- fundamentos formales;
+- formas primarias;
+- familias formales;
+- organizaciones espaciales;
+- relaciones espaciales;
+- circulación;
+- vacío/masa;
+- sección;
+- envolvente;
+- estructura/forma;
+- luz;
+- materialidad;
+- sitio/paisaje;
+- transformaciones;
+- operadores generativos;
+- partidos;
+- precedentes;
+- historia;
+- movimientos;
+- escuelas;
+- arquitectura vernácula;
+- arquitectura anónima;
+- problemas arquitectónicos;
+- analogías;
+- referencias;
+- formas derivadas por ARKI;
+- familias descubiertas por ARKI;
+- contraejemplos;
+- fracasos.
+
+NO implementar 25 motores/módulos.
+
+Esta es una taxonomía intelectual.
+
+==================================================
+7. PROVENANCE DEL MANUAL
+==================================================
+
+Distinguir obligatoriamente:
+
+SOURCE-DOCUMENTED
+
+SOURCE-DERIVED
+
+ARKI-INTERPRETATION
+
+ARKI-DERIVED
+
+ARKI-GENERATED
+
+ARKI-DISCOVERED-CANDIDATE
+
+HUMAN-CONFIRMED
+
+cuando las convenciones existentes permitan mapear estos estados sin duplicación.
+
+Una forma derivada de una fuente NO pertenece automáticamente al autor/fuente.
+
+Ejemplo:
+
+WHITE SOURCE CONCEPT
++
+ARKI TRANSFORMATION
+=
+ARKI DERIVED CONCEPT
+
+Nunca:
+
+ARKI DERIVED CONCEPT
+=
+WHITE CONCEPT
+
+==================================================
+8. RETRIEVAL
+==================================================
+
+Reutilizar la arquitectura de transferencia existente.
+
+No crear retrieval engine paralelo si ya existe infraestructura compatible.
+
+Distinguir:
+
+PRECEDENT RETRIEVAL
+REFERENCE RETRIEVAL
+ANALOGICAL / EXPLORATORY RETRIEVAL
+
+Distancia conceptual experimental:
+
+R0 SAME DOMAIN / CASE
+R1 NEAR ARCHITECTURAL
+R2 CROSS-TYPOLOGY
+R3 DISTANT ARCHITECTURAL
+R4 CROSS-DOMAIN
+
+IMPORTANTE:
+
+R4 ≠ MORE CREATIVE.
+R0 ≠ LESS CREATIVE.
+
+La distancia no es quality score ni creativity score.
+
+Conservar, cuando sea aplicable:
+
+structural similarity
+surface similarity
+context compatibility
+transferability
+adaptation burden
+fixation risk
+
+Priorizar transferencia de RELACIONES sobre semejanza superficial.
+
+VISUAL RESEMBLANCE ≠ ANALOGICAL TRANSFER.
+
+==================================================
+9. FORMA / FUNCIÓN
+==================================================
+
+No canonizar:
+
+FORM FOLLOWS FUNCTION
+
+como ley universal.
+
+No canonizar:
+
+FUNCTION FOLLOWS FORM
+
+como ley universal.
+
+Modelar relación co-evolutiva cuando corresponda:
+
+FUNCTION ↔ SPACE ↔ FORM ↔ STRUCTURE ↔ ENVELOPE ↔ CONTEXT ↔ EXPERIENCE ↔ TIME
+
+Pero mantener como gate del proyecto:
+
+ESSENTIAL FUNCTIONAL FAILURE
+=
+HARD FAILURE
+
+No permitir compensación por puntuación estética.
+
+==================================================
+10. HUMAN ARCHITECTURAL JUDGMENT
+==================================================
+
+No implementar BEAUTY SCORE.
+
+ARKI puede analizar propiedades como:
+
+proportion
+rhythm
+hierarchy
+scale
+mass/void
+sequence
+alignment
+balance
+contrast
+fragmentation
+etc.
+
+Pero:
+
+COMPOSITIONAL PROPERTY
+≠
+AESTHETIC VALUE.
+
+Si el arquitecto rechaza:
+
+REJECTED_BY_HUMAN
+
+y no explica por qué:
+
+reason:
+UNKNOWN / NOT_YET_EXPLICIT
+
+No inventar causalidad.
+
+ARKI puede generar CAUSE HYPOTHESES o preguntas diagnósticas.
+
+No puede convertirlas en causa confirmada sin evidencia/humano.
+
+==================================================
+11. REPRESENTATION AS EPISTEMIC INSTRUMENT
+==================================================
+
+Formalizar el principio:
+
+REPRESENTATION IS AN EPISTEMIC INSTRUMENT.
+
+Diferentes representaciones permiten observar diferentes propiedades:
+
+relationship diagram
+organizational diagram
+parti diagram
+massing
+plan
+section
+3D
+simulation
+
+No exigir resolución geométrica superior a conocimiento/evidencia disponible.
+
+Preservar invariantes existentes:
+
+GEOMETRIC PRECISION MUST NOT EXCEED KNOWLEDGE PRECISION.
+
+DESIGN RESOLUTION SHALL NOT OUTRUN EVIDENCE RESOLUTION.
+
+Agregar/mapejar:
+
+EVALUATION CLAIM MUST NOT EXCEED REPRESENTATION RESOLUTION.
+
+==================================================
+12. BACKTRACK / FAILURE
+==================================================
+
+Modelo experimental de niveles:
+
+B0 GEOMETRY
+B1 CANDIDATE
+B2 REALIZATION FAMILY
+B3 PARTI
+B4 ARCHITECTURAL SEED
+B5 GENERATOR / PREMISE
+B6 PROBLEM FRAME
+
+NO canonizar esta escalera como verdad arquitectónica universal.
+
+Es ARKI_REASONING_MODEL / EXPERIMENTAL.
+
+Proceso:
+
+OBSERVED FAILURE
+→ FAILURE LOCATION
+→ CAUSE HYPOTHESES
+→ FAILURE LEVEL
+→
+MUTATE / REJECT / BACKTRACK / REFRAME / UNKNOWN
+→ REOPEN SEARCH
+
+FAILURE LOCATION ≠ CAUSE LOCATION.
+
+No auto-rechazar un parti por repeated local failures.
+
+Puede producir:
+
+FIXATION WARNING
+or
+REOPEN HIGHER-LEVEL HYPOTHESIS?
+
+Human authority remains.
+
+==================================================
+13. PROJECT B
+==================================================
+
+No renombrar destructivamente artefactos históricos.
+
+B-CANDIDATE-01
+B-CANDIDATE-02
+
+deben conservar sus IDs históricos.
+
+Puede agregarse semántica:
+
+semanticInterpretation:
+PARTI_HYPOTHESIS
+
+si la arquitectura existente lo permite.
+
+No alterar resultados históricos.
+
+La prueba crítica futura:
+
+un mismo Project B parti debe producir múltiples realizaciones.
+
+Si solo puede producir una:
+
+PARTI HAS COLLAPSED INTO TEMPLATE.
+
+Reportar FAIL.
+
+==================================================
+14. RP TEST MATRIX
+==================================================
+
+Implementar/adaptar siguiendo test conventions existentes:
+
+RP-01
+same K0 → multiple justified seeds
+
+RP-02
+same seed → multiple parti hypotheses
+
+RP-03
+same parti → >=2 realizations
+
+RP-04
+same form → different parti/intents
+
+RP-05
+computational seed changes variation,
+not architectural rationale
+
+RP-06
+essential functional failure gates candidate
+
+RP-07
+near precedent retrieval does not copy form
+
+RP-08
+distant analogy transfers relationship,
+not appearance
+
+RP-09
+human aesthetic rejection with unknown cause
+preserves UNKNOWN
+
+RP-10
+geometry rejection may retain parti
+
+RP-11
+parti rejection preserves evidence
+
+RP-12
+repeated local repair raises fixation warning,
+not automatic rejection
+
+RP-13
+backtrack preserves acquired knowledge
+
+RP-14
+reframe changes problem model explicitly
+
+RP-15
+single failed case does not become general rule
+
+RP-16
+representation-resolution gate
+
+RP-17
+author intent and ARKI interpretation remain separate
+
+RP-18
+Manual expands accessible alternatives
+without relaxing hard constraints
+
+RP-19
+Project B historical replay unchanged
+
+RP-20
+one Project B parti produces multiple realizations
+without becoming a template
+
+Cada test:
+
+PASS
+FAIL
+BLOCKED
+NOT_APPLICABLE
+
+No false PASS.
+
+==================================================
+15. IMPLEMENTACIÓN DEL MANUAL — ALCANCE MÍNIMO
+==================================================
+
+En esta orden NO construir la biblioteca completa.
+
+Crear solamente:
+
+A. schema/model compatible con arquitectura existente;
+
+B. provenance;
+
+C. cross-reference capability;
+
+D. retrieval hooks mínimos;
+
+E. 3–5 fixtures representativos suficientes para probar:
+
+- documented source concept;
+- ARKI interpretation;
+- ARKI derived concept;
+- precedent;
+- distant analogy;
+
+F. test de que el Manual amplía alternativas sin modificar hard constraints.
+
+No descargar ni incorporar miles de imágenes.
+
+No scraping masivo.
+
+No copyrighted image corpus.
+
+No implementar ingestion pipeline masivo todavía.
+
+==================================================
+16. NO REGRESSION
+==================================================
+
+Ejecutar:
+
+existing tests
++
+RP tests
++
+Project B replay
+
+Verificar por separado:
+
+ARCHITECTURAL KNOWLEDGE REGRESSION
+REASONING REGRESSION
+SOFTWARE REGRESSION
+
+Preservar:
+
+RNE_SOURCE_VERIFIED
+≠
+PROJECT_COMPLIANCE_VERIFIED
+≠
+PERMIT_APPROVED.
+
+Preservar permitReady/constructionReady semantics.
+
+==================================================
+17. DELTA / VERSIONING
+==================================================
+
+NO asumir que el siguiente Delta es 489.
+
+Después del repository audit:
+
+determinar el siguiente número real según la secuencia del repositorio.
+
+Crear un único Delta coherente para esta implementación salvo que el tamaño real justifique explícitamente separación.
+
+No inventar múltiples micro-Deltas innecesarios.
+
+==================================================
+18. COMMIT / PUSH
+==================================================
+
+Si:
+
+- audit completo;
+- no contradicción contractual;
+- implementación mínima completa;
+- tests existentes pasan;
+- RP tests pasan o BLOCKED está explícitamente justificado;
+- Project B no presenta regresión;
+
+entonces:
+
+commit en la rama actual
++
+push al remoto existente.
+
+NO:
+PR
+merge
+deploy
+P9.4
+
+==================================================
+19. INFORME FINAL OBLIGATORIO
+==================================================
+
+Responder solamente con un informe técnico conciso que contenga:
+
+1. Repository
+2. Branch
+3. Baseline HEAD
+4. Baseline Delta
+5. Final HEAD
+6. Final Delta
+7. Worktree status
+8. Files created
+9. Files modified
+10. Existing components reused
+11. Components extended
+12. New components
+13. Manual canonical location
+14. R-PARTI checkpoint location
+15. RP-01..RP-20 result table
+16. Existing test result
+17. Project B regression result
+18. Architectural knowledge regression
+19. Reasoning regression
+20. Software regression
+21. UNKNOWN / BLOCKED
+22. Architectural contradictions discovered
+23. Whether P9.4 is now technically ready to resume
+
+Do NOT begin P9.4.
+
+STOP.

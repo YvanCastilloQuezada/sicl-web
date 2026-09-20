@@ -270,3 +270,27 @@ HUMAN_AUTHORITY = FINAL
 ## Delta 488 / P9.3 — Multi-scenario adversarial architectural evaluation
 
 Nueva lección propagada a los tres volúmenes: evaluar dos hipótesis arquitectónicas congeladas bajo operación normal, alta demanda, reparación/servicio y emergencia sin mutar geometría, inventar hechos, fabricar cumplimiento ni crear un ganador. Distinciones enseñadas: grafo geométrico ≠ grafo activo; journey ≠ route; flow ≠ corridor; interface ≠ door; capacidad estática ≠ capacidad de servicio; pass individual ≠ pass concurrente; topología normal ≠ topología de emergencia; exploración humana ≠ preferencia humana. El resultado P9.3 permanece como evidencia de ejecución y no como conocimiento canónico; K1 no creado.
+
+<!-- PASTED-CONTENT-489-V1 -->
+## PASTED-CONTENT-489-V1 — pasted_content_489.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `35fc9fa0b640eb644b8c172d26c9c71148d10af8d638d3bfbfd5a5a4943c385c`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P9.4, PROJECT B — EVIDENCE ACQUISITION &, DISCRIMINATIVE UNKNOWN RESOLUTION
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-490-V488 -->
+## PASTED-CONTENT-490-V488 — pasted_content_490.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `dcdd89b2ac209df4e5317de183e97ad05e547712115e96886bed62e8dfc0551b`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** sin elementos legibles en la vista previa
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.

@@ -1,0 +1,755 @@
+# ARKI — P9.4
+## PROJECT B — EVIDENCE ACQUISITION &
+## DISCRIMINATIVE UNKNOWN RESOLUTION
+
+MODE =
+CONTROLLED EVIDENCE-GAP ANALYSIS
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+BASELINE =
+96eda49ff86afbc99fbad6b25416fa90d1c4906b
+
+PROJECT =
+PROJECT-B-COASTAL-MAKER-REFUGE-001
+
+HUMAN DECISION =
+RETAIN BOTH CANDIDATES AND REQUEST TARGETED EVIDENCE
+
+============================================================
+0. GOVERNANCE
+============================================================
+
+Verify:
+
+repository
+branch
+LOCAL_HEAD
+REMOTE_HEAD
+worktree.
+
+Expected baseline:
+
+96eda49ff86afbc99fbad6b25416fa90d1c4906b
+
+If mismatch:
+
+STOP and report.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+1. RECORD HUMAN DECISION
+============================================================
+
+Record explicitly:
+
+HUMAN_DECISION =
+RETAIN_BOTH_AND_REQUEST_TARGETED_EVIDENCE
+
+Reason:
+
+current candidates are
+INCOMPARABLE_DUE_TO_UNKNOWN.
+
+This is a human procedural decision.
+
+It is NOT:
+
+selection of B-01
+selection of B-02
+architectural winner
+design preference
+K1
+architectural knowledge.
+
+============================================================
+2. FREEZE P9.3
+============================================================
+
+Preserve:
+
+B-CANDIDATE-01
+B-CANDIDATE-02
+their geometry
+P9.3 scenario results
+P9.3 deficits
+P9.3 unknowns
+P9.3 specialist dependencies.
+
+Do not mutate either candidate.
+
+============================================================
+3. PURPOSE
+============================================================
+
+Determine which missing evidence is actually capable of changing
+architectural reasoning between B-01 and B-02.
+
+Do NOT simply collect more information.
+
+Distinguish:
+
+UNKNOWN
+
+from
+
+DECISION-RELEVANT UNKNOWN
+
+from
+
+DISCRIMINATIVE UNKNOWN
+
+from
+
+NON-DISCRIMINATIVE UNKNOWN.
+
+============================================================
+4. CORE QUESTION
+============================================================
+
+For every material UNKNOWN ask:
+
+IF THIS UNKNOWN WERE RESOLVED,
+COULD IT:
+
+A. eliminate a candidate?
+B. expose a hard constraint?
+C. change active topology?
+D. change journey validity?
+E. change flow compatibility?
+F. change capacity interpretation?
+G. change specialist dependency?
+H. change regulatory applicability?
+I. create preference reversal?
+J. change the human trade-off?
+
+If NONE:
+
+it may not be necessary before the next architectural decision.
+
+============================================================
+5. UNKNOWN INVENTORY
+============================================================
+
+Build the complete P9.3 material UNKNOWN inventory.
+
+For each:
+
+UNKNOWN_ID
+DESCRIPTION
+SOURCE
+AFFECTED_SCENARIOS
+AFFECTED_CANDIDATES
+AFFECTED_CAPABILITIES
+WHY_IT_MATTERS
+CURRENT_BLOCK
+RESOLUTION_PATH
+RESOLVER.
+
+Do not invent missing values.
+
+============================================================
+6. UNKNOWN CLASSIFICATION
+============================================================
+
+Classify each as:
+
+PROJECT_DATA_UNKNOWN
+
+REGULATORY_UNKNOWN
+
+SPECIALIST_UNKNOWN
+
+OPERATIONAL_UNKNOWN
+
+PERFORMANCE_UNKNOWN
+
+HUMAN_DECISION_UNKNOWN
+
+ARCHITECTURAL_KNOWLEDGE_UNKNOWN
+
+IMPLEMENTATION_UNKNOWN
+
+EVIDENCE_UNKNOWN
+
+or existing canonical equivalent.
+
+============================================================
+7. DECISION RELEVANCE
+============================================================
+
+Add:
+
+DECISION_RELEVANCE =
+
+NONE
+LOW
+MODERATE
+HIGH
+CRITICAL
+UNKNOWN.
+
+This is not a preference score.
+
+It describes potential influence on the next decision.
+
+============================================================
+8. DISCRIMINATIVE POWER
+============================================================
+
+For every UNKNOWN evaluate whether resolving it could differentiate
+B-01 from B-02.
+
+Classify:
+
+NON_DISCRIMINATIVE
+
+POTENTIALLY_DISCRIMINATIVE
+
+DISCRIMINATIVE
+
+UNKNOWN_DISCRIMINATIVE_POWER.
+
+Do not pretend to know the future evidence result.
+
+============================================================
+9. EXAMPLE OF CORRECT REASONING
+============================================================
+
+If both candidates require the same missing soil investigation and
+no current evidence suggests it differentiates their conceptual
+organization:
+
+SOIL DATA may be:
+
+IMPORTANT
+but
+CURRENTLY_NON_DISCRIMINATIVE.
+
+If occupancy demand could cause one shared interface to fail while
+the other candidate remains operational:
+
+OCCUPANCY / DEMAND may be:
+
+POTENTIALLY_DISCRIMINATIVE.
+
+These are examples only.
+
+Do not encode them as Project B answers.
+
+============================================================
+10. VALUE OF INFORMATION
+============================================================
+
+Implement/reuse a NON-SCALAR evidence priority assessment.
+
+Do not create a universal numeric score.
+
+Evaluate dimensions such as:
+
+decision relevance
+scenario coverage
+candidate differentiation
+hard-constraint exposure
+dependency impact
+cost/burden of acquisition
+authority required
+reversibility of proceeding without it.
+
+Produce qualitative evidence priority.
+
+============================================================
+11. PRIORITY CLASSES
+============================================================
+
+Use/reuse minimal semantics such as:
+
+REQUIRED_BEFORE_NEXT_DECISION
+
+HIGH_VALUE_TO_RESOLVE
+
+USEFUL_BUT_NOT_BLOCKING
+
+DEFER_TO_LATER_PHASE
+
+SPECIALIST_REQUIRED
+
+REGULATORY_SOURCE_REQUIRED
+
+HUMAN_CLARIFICATION_REQUIRED.
+
+Do not multiply enums unnecessarily.
+
+============================================================
+12. MINIMUM EVIDENCE SET
+============================================================
+
+Identify the smallest defensible evidence package that would permit
+a materially better B-01/B-02 deliberation.
+
+Call it:
+
+MINIMUM_DISCRIMINATIVE_EVIDENCE_SET.
+
+This does NOT mean minimum evidence for:
+
+permit
+construction
+professional certification
+complete design.
+
+It means:
+
+minimum evidence needed for the NEXT architectural decision.
+
+============================================================
+13. INFORMATION DEPENDENCY GRAPH
+============================================================
+
+Represent:
+
+UNKNOWN
+→ EVALUATION IT ENABLES
+→ SCENARIO
+→ CAPABILITY
+→ CANDIDATE CONSEQUENCE
+→ HUMAN DECISION.
+
+Reuse existing dependency architecture where possible.
+
+Do not create a second graph engine.
+
+============================================================
+14. EVIDENCE ACQUISITION PLAN
+============================================================
+
+For each item in the minimum evidence set identify:
+
+WHAT IS NEEDED
+WHY
+SOURCE TYPE
+WHO CAN PROVIDE IT
+WHAT ARKI CAN DO WITH IT
+WHAT ARKI STILL CANNOT CLAIM.
+
+Potential source types include:
+
+CLIENT
+ARCHITECT
+SURVEY
+SPECIALIST
+REGULATORY AUTHORITY/SOURCE
+MEASUREMENT
+OPERATIONAL BRIEF
+SITE EVIDENCE.
+
+Do not fabricate actual evidence.
+
+============================================================
+15. HUMAN-PROVIDED INFORMATION
+============================================================
+
+Distinguish:
+
+CLIENT FACT
+from
+HUMAN DESIGN DECISION.
+
+Example:
+
+"maximum expected occupancy is X"
+may be client/project input if legitimately supplied.
+
+"prefer B-01"
+is human preference/decision.
+
+Do not mix them.
+
+============================================================
+16. SPECIALIST INPUT
+============================================================
+
+Reuse P8.2.
+
+For every specialist evidence request record:
+
+DISCIPLINE
+QUESTION
+REQUIRED_EVIDENCE
+AFFECTED_CAPABILITY
+AFFECTED_SCENARIO
+WHAT REMAINS UNKNOWN.
+
+Do not ask specialists to choose the architecture.
+
+============================================================
+17. REGULATORY EVIDENCE
+============================================================
+
+Identify regulatory questions that must be resolved before meaningful
+comparison.
+
+Preserve:
+
+SOURCE IDENTIFICATION
+≠
+APPLICABILITY
+≠
+REQUIREMENT VERIFICATION
+≠
+PROJECT COMPLIANCE.
+
+Do not perform false compliance.
+
+============================================================
+18. CONDITIONAL ENVELOPES
+============================================================
+
+Where useful, reason parametrically before evidence arrives.
+
+Example structure:
+
+IF demand < T1:
+both candidates remain relationally viable.
+
+IF demand > T2:
+candidate/interface consequences diverge.
+
+But if T1/T2 are unknown:
+
+keep them symbolic.
+
+Do not fabricate thresholds.
+
+============================================================
+19. SENSITIVITY
+============================================================
+
+Determine which UNKNOWN variables appear capable of producing the
+largest qualitative change in architectural conclusions.
+
+This is sensitivity analysis of reasoning.
+
+It is NOT optimization.
+
+It is NOT a numeric ranking of candidates.
+
+============================================================
+20. ROBUST CONCLUSIONS
+============================================================
+
+Also identify conclusions that remain unchanged across plausible
+unknown states.
+
+Classify them as:
+
+ROBUST_TO_CURRENT_UNKNOWN
+
+or
+
+CONDITIONAL_ON_UNKNOWN.
+
+This prevents unnecessary evidence gathering.
+
+============================================================
+21. STOPPING RULE
+============================================================
+
+Do not seek all possible project information.
+
+Stop when the minimum evidence set needed for the NEXT architectural
+decision has been identified.
+
+Preserve:
+
+MORE DATA
+≠
+BETTER REASONING.
+
+============================================================
+22. NO MUTATION
+============================================================
+
+P9.4 must NOT:
+
+change B-01 geometry
+change B-02 geometry
+create B-03
+select a candidate
+optimize candidates
+create winner.
+
+This is evidence planning.
+
+============================================================
+23. NO LEARNING CLAIM
+============================================================
+
+Evidence-gap analysis is not learning.
+
+K1 = NOT_CREATED.
+
+Do not promote a rule.
+
+============================================================
+24. POSSIBLE LEARNING OBSERVATION
+============================================================
+
+If the analysis itself reveals an apparently new architectural
+relationship:
+
+classify through existing P9 novelty filter.
+
+Do not create K1.
+
+At most:
+
+LEARNING_CANDIDATE_PENDING_CHALLENGE.
+
+============================================================
+25. ADVERSARIAL TEST — IMPORTANT
+============================================================
+
+Test at least:
+
+A.
+an UNKNOWN that is important but affects both candidates equally
+→ should NOT automatically become discriminative priority.
+
+B.
+an UNKNOWN that could invalidate only one candidate
+→ potentially high discriminative value.
+
+C.
+an UNKNOWN needed only for later permit documentation
+→ should not necessarily block current conceptual decision.
+
+D.
+missing specialist evidence
+→ SPECIALIST_INPUT_REQUIRED, not CAPABILITY_FAILURE.
+
+E.
+human preference unknown
+→ HUMAN_DECISION_REQUIRED, not project-data gap.
+
+F.
+more evidence available but irrelevant to current decision
+→ should not be prioritized merely because it exists.
+
+============================================================
+26. ANTI-BIAS
+============================================================
+
+Do not prioritize evidence because it favors B-01 or B-02.
+
+Evidence priority must be candidate-neutral.
+
+============================================================
+27. ANTI-ORACLE
+============================================================
+
+Tests must not encode:
+
+which candidate should benefit
+which unknown should resolve in which direction
+which candidate should ultimately win.
+
+============================================================
+28. OUTPUT — UNKNOWN MATRIX
+============================================================
+
+Produce:
+
+UNKNOWN
+TYPE
+SCENARIOS
+B-01 IMPACT
+B-02 IMPACT
+DECISION RELEVANCE
+DISCRIMINATIVE POWER
+RESOLVER
+EVIDENCE NEEDED
+PRIORITY
+CAN PROCEED WITHOUT IT?
+
+============================================================
+29. OUTPUT — MINIMUM EVIDENCE SET
+============================================================
+
+Return:
+
+MINIMUM_DISCRIMINATIVE_EVIDENCE_SET =
+
+For each item:
+
+ID
+QUESTION
+WHY NOW
+SOURCE
+AUTHORITY
+SCENARIOS UNLOCKED
+COMPARISON UNLOCKED
+WHAT REMAINS UNKNOWN.
+
+============================================================
+30. OUTPUT — DEFERRED EVIDENCE
+============================================================
+
+Also report:
+
+DEFERRED_EVIDENCE =
+
+and explain why it is not required for the next decision.
+
+============================================================
+31. OUTPUT — ROBUST FINDINGS
+============================================================
+
+Report:
+
+ROBUST_FINDINGS_DESPITE_UNKNOWN =
+
+These are conclusions P9.3 supports regardless of unresolved
+information.
+
+Do not overstate certainty.
+
+============================================================
+32. OUTPUT — NEXT HUMAN ACTION
+============================================================
+
+At completion present the architect with a targeted request.
+
+Not:
+
+"provide more information."
+
+Instead:
+
+"To make the next B-01/B-02 decision meaningfully better,
+the minimum missing evidence is X, Y, Z."
+
+Where an item requires specialist work:
+
+say so.
+
+Where the user can answer directly:
+
+ask the precise question.
+
+============================================================
+33. P9.4 STATUS
+============================================================
+
+Possible states:
+
+EVIDENCE_SET_IDENTIFIED
+
+PARTIAL_EVIDENCE_SET
+
+BLOCKED_BY_UNKNOWN_RESOLUTION_PATH
+
+CAPABILITY_GAP.
+
+Do not force success.
+
+============================================================
+34. REGRESSION
+============================================================
+
+Verify:
+
+P9.0 preserved
+P9.1 preserved
+P9.2 preserved
+P9.3 preserved
+candidate geometry immutable
+K0 preserved
+K1 not created
+UNKNOWN preserved
+specialist semantics preserved
+human authority preserved
+no winner
+no recommendation
+no second engine
+anti-oracle
+anti-candidate-bias
+full regression
+typecheck
+build
+git diff --check.
+
+============================================================
+35. TRIPLE PROPAGATION
+============================================================
+
+Propagate reasoning lessons to:
+
+ARKI
+CURRICULUM
+DIGITAL BOOK.
+
+Teach:
+
+UNKNOWN
+≠
+EQUALLY IMPORTANT UNKNOWN
+
+IMPORTANT UNKNOWN
+≠
+DISCRIMINATIVE UNKNOWN
+
+MORE EVIDENCE
+≠
+BETTER DECISION
+
+PROJECT COMPLETENESS
+≠
+EVIDENCE SUFFICIENCY FOR NEXT DECISION
+
+EVIDENCE PRIORITY
+≠
+CANDIDATE PREFERENCE.
+
+Do not canonize Project B-specific conclusions.
+
+============================================================
+36. GIT
+============================================================
+
+After validation:
+
+commit
+push current branch
+verify LOCAL_HEAD = REMOTE_HEAD
+verify WORKTREE = CLEAN.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+37. FINAL PRINCIPLE
+============================================================
+
+P9.3 SHOWED THAT THE CANDIDATES CANNOT YET BE
+RESPONSIBLY DIFFERENTIATED.
+
+P9.4 MUST NOT RESPOND BY COLLECTING EVERYTHING.
+
+IT MUST DETERMINE:
+
+WHAT DO WE NEED TO KNOW NEXT,
+WHY DO WE NEED TO KNOW IT,
+WHO CAN RESOLVE IT,
+AND WHETHER THAT INFORMATION CAN ACTUALLY CHANGE
+THE ARCHITECTURAL DECISION?
+
+Proceed.
