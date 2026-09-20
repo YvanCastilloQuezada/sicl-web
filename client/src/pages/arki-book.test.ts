@@ -20,6 +20,18 @@ describe("ARKI Living Book", () => {
     expect(BOOK_VOLUMES.flatMap((volume) => volume.chapters).some((chapter) => chapter.access === "INTERNAL_ONLY")).toBe(true);
   });
 
+  it("provides a dedicated living chapter for every supported building typology", () => {
+    const typologyChapters = BOOK_VOLUMES[2].chapters.filter((chapter) => chapter.id.startsWith("III-T-"));
+    expect(typologyChapters.length).toBe(23);
+    expect(typologyChapters.map((chapter) => chapter.title)).toEqual(expect.arrayContaining([
+      "Vivienda: funcionamiento y diseño",
+      "Restaurante: funcionamiento y diseño",
+      "Salud: funcionamiento y diseño",
+      "Espacio urbano público: funcionamiento y diseño",
+    ]));
+    expect(typologyChapters.every((chapter) => chapter.status === "LIVING" && chapter.access === "PUBLIC")).toBe(true);
+  });
+
   it("shows public reading by default and exposes internal ARKI material only through its filter", () => {
     renderBook();
     expect(screen.getByRole("heading", { name: /Arquitectura como conocimiento/ })).toBeTruthy();
@@ -38,5 +50,13 @@ describe("ARKI Living Book", () => {
     fireEvent.click(screen.getByRole("button", { name: "Aumentar tamaño del texto" }));
     fireEvent.click(screen.getByRole("button", { name: "Cambiar a tema papel" }));
     expect(document.querySelector(".arki-book-paper")).toBeTruthy();
+  });
+
+  it("exposes voice, camera, email, and WhatsApp actions", () => {
+    renderBook();
+    expect(screen.getByRole("button", { name: "Dictar encargo" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Añadir contexto visual" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Enviar por correo" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Compartir por WhatsApp" })).toBeTruthy();
   });
 });
