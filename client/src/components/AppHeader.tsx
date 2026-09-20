@@ -6,12 +6,26 @@ import HelpButton from "@/components/HelpButton";
 import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useRef } from "react";
 
 export default function AppHeader() {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const updateHeaderHeight = () => document.documentElement.style.setProperty("--app-header-height", `${header.getBoundingClientRect().height}px`);
+    updateHeaderHeight();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 px-6 py-4 backdrop-blur md:px-10">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-6 py-4 backdrop-blur md:px-10">
       <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-5">
         <div>
           <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground"><span className="h-2 w-2 rounded-full bg-accent" /> {t("header.subtitle")}</div>
