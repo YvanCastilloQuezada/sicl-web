@@ -1,0 +1,733 @@
+{
+  "schema": "ARKI-D6.2-M-MINIMAL-BRIDGE-0.1",
+  "baseline": {
+    "projectId": "ARKICE-123-456",
+    "coreVersion": 4
+  },
+  "filesReused": [
+    "server/arkiD62ReasoningHarness.ts",
+    "server/siclCore.ts"
+  ],
+  "bridgeImplemented": "KNOWLEDGE_TO_TOPOLOGY_ONLY",
+  "coreRetrievalUsed": "PASS",
+  "microcaseInput": {
+    "executionId": "D62M-MICRO-001",
+    "projectId": "ARKICE-123-456",
+    "brief": "A small civic consultation service with a public orientation activity and a staff intake activity.",
+    "typology": "CIVIC_CONSULTATION_UNIT",
+    "activities": [
+      {
+        "id": "public-orientation",
+        "label": "public orientation",
+        "subjects": [
+          "visitor"
+        ],
+        "capacity": 8,
+        "frequency": "daily",
+        "duration": "short",
+        "temporalOverlap": true,
+        "privacy": "shared"
+      },
+      {
+        "id": "staff-intake",
+        "label": "staff intake",
+        "subjects": [
+          "staff"
+        ],
+        "capacity": 3,
+        "frequency": "daily",
+        "duration": "medium",
+        "temporalOverlap": true,
+        "accessControl": "staff",
+        "privacy": "controlled"
+      }
+    ],
+    "subjects": [
+      "visitor",
+      "staff"
+    ],
+    "relationships": [
+      {
+        "id": "r1",
+        "from": "public-orientation",
+        "to": "staff-intake",
+        "relation": "controlled service interface",
+        "subjects": [
+          "visitor",
+          "staff"
+        ],
+        "state": "open",
+        "frequency": "daily",
+        "time": "business-hours",
+        "control": "staff-mediated"
+      }
+    ],
+    "conditions": [
+      "visitor and staff activities may overlap",
+      "staff controls service intake"
+    ],
+    "constraints": [
+      "Do not infer rooms, dimensions or geometry from the brief."
+    ],
+    "unknowns": [
+      "capacity of the service process after peak demand is not supplied"
+    ],
+    "perturbation": {
+      "id": "p1",
+      "statement": "Staff-mediated control is unavailable during the peak period.",
+      "changes": {
+        "control": "unavailable"
+      }
+    }
+  },
+  "retrievedKnowledge": [
+    {
+      "id": "KN-000001",
+      "kind": "INVARIANT",
+      "title": "Source is not knowledge",
+      "statement": "SOURCE ≠ KNOWLEDGE.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "ADAPT",
+      "rationale": "False attribution and false authority.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000002",
+      "kind": "INVARIANT",
+      "title": "Program is not a room list",
+      "statement": "PROGRAM ≠ ROOM LIST ≠ AREA TABLE ≠ DESIGN.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Template fixation and missing capabilities.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000003",
+      "kind": "INVARIANT",
+      "title": "Strategy is not realization",
+      "statement": "STRATEGY ≠ REALIZATION; many-to-many.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Premature geometry fixation.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000004",
+      "kind": "INVARIANT",
+      "title": "Unknown requires resolution path",
+      "statement": "UNKNOWN WITHOUT RESOLUTION PATH = INCOMPLETE DIAGNOSIS.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "False completeness.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000005",
+      "kind": "INVARIANT",
+      "title": "Role differs from necessity",
+      "statement": "SYSTEM ROLE ≠ FUNCTIONAL NECESSITY.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Support systems may be incorrectly treated as optional.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000006",
+      "kind": "INVARIANT",
+      "title": "Local deficit is not local solution scope",
+      "statement": "LOCAL DEFICIT ≠ LOCAL SOLUTION SCOPE.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Symptom treatment; unnecessary geometry growth.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000007",
+      "kind": "INVARIANT",
+      "title": "Graphical precision differs from epistemic precision",
+      "statement": "GRAPHICAL PRECISION ≠ EPISTEMIC PRECISION.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "False certainty from detailed geometry.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000009",
+      "kind": "INVARIANT",
+      "title": "Learn rationale, not configuration",
+      "statement": "LEARN THE REASON FOR THE CONFIGURATION, NOT THE CONFIGURATION ITSELF.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Form copying and poor transfer.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000010",
+      "kind": "INVARIANT",
+      "title": "Capability depends on dependencies",
+      "statement": "ALL COMPONENTS PASS ≠ END-TO-END CAPABILITY PASS.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "ADAPT",
+      "rationale": "False functional verification.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "PR-ACTIVITY",
+      "kind": "DOMAIN_PRIMITIVE",
+      "title": "ACTIVITY",
+      "statement": "Action performed by a subject/resource under conditions.",
+      "epistemicStatus": "HYPOTHESIS",
+      "promotionState": "PROPOSED_CANONICAL",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "rationale": "Do not equate with room.",
+      "version": 1
+    },
+    {
+      "id": "TYP-HOSPITALITY",
+      "kind": "TYPOLOGY",
+      "title": "HOTEL",
+      "statement": "Accommodation/service/support",
+      "epistemicStatus": "UNKNOWN",
+      "promotionState": "PROVISIONAL",
+      "scopeId": "TYPOLOGY_PARTIAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "applicability": "PARTIAL",
+      "transferability": "UNKNOWN",
+      "unknown": "Capability systems, actors, processes and flows require further decomposition.",
+      "version": 1
+    },
+    {
+      "id": "TYP-TRANSPORT",
+      "kind": "TYPOLOGY",
+      "title": "TERMINAL",
+      "statement": "Transfer/transport/service",
+      "epistemicStatus": "UNKNOWN",
+      "promotionState": "PROVISIONAL",
+      "scopeId": "TYPOLOGY_PARTIAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "applicability": "PARTIAL",
+      "transferability": "UNKNOWN",
+      "unknown": "Capability systems, actors, processes and flows require further decomposition.",
+      "version": 1
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-REL-r1",
+      "type": "SPATIAL_REQUIREMENT",
+      "from": "public-orientation",
+      "to": "staff-intake",
+      "category": "CONTROLLED_ROUTE_REQUIRED",
+      "subject": [
+        "visitor",
+        "staff"
+      ],
+      "resource": "controlled service interface",
+      "state": "open",
+      "frequency": "daily",
+      "time": "business-hours",
+      "urgency": "UNKNOWN",
+      "capacity": "UNKNOWN",
+      "hazard": "UNKNOWN",
+      "control": "staff-mediated",
+      "performanceRequirement": "UNKNOWN",
+      "unknown": [],
+      "rationale": "Derived from functional relation controlled service interface; no geometry is implied.",
+      "provenance": [
+        "PROJECT_INPUT:relationship:r1"
+      ],
+      "relatedActivities": [
+        "public orientation",
+        "staff intake"
+      ]
+    },
+    {
+      "id": "REQ-ACT-public-orientation",
+      "type": "ALLOCATION_REQUIREMENT",
+      "activityId": "public-orientation",
+      "category": "SHARED_POSSIBLE",
+      "subjects": [
+        "visitor"
+      ],
+      "capacity": 8,
+      "frequency": "daily",
+      "duration": "short",
+      "temporalOverlap": true,
+      "environmentalConditions": [],
+      "equipment": [],
+      "accessControl": "UNKNOWN",
+      "privacy": "shared",
+      "hazard": "UNKNOWN",
+      "serviceDependencies": [],
+      "setupReset": "UNKNOWN",
+      "storage": "UNKNOWN",
+      "availability": "UNKNOWN",
+      "unknown": [],
+      "rationale": "Allocation requirement precedes any spatial entity; dedicated does not mean ROOM.",
+      "provenance": [
+        "PROJECT_INPUT:activity:public-orientation"
+      ]
+    },
+    {
+      "id": "REQ-ACT-staff-intake",
+      "type": "ALLOCATION_REQUIREMENT",
+      "activityId": "staff-intake",
+      "category": "INSUFFICIENT_INFORMATION",
+      "subjects": [
+        "staff"
+      ],
+      "capacity": 3,
+      "frequency": "daily",
+      "duration": "medium",
+      "temporalOverlap": true,
+      "environmentalConditions": [],
+      "equipment": [],
+      "accessControl": "staff",
+      "privacy": "controlled",
+      "hazard": "UNKNOWN",
+      "serviceDependencies": [],
+      "setupReset": "UNKNOWN",
+      "storage": "UNKNOWN",
+      "availability": "UNKNOWN",
+      "unknown": [],
+      "rationale": "Allocation requirement precedes any spatial entity; dedicated does not mean ROOM.",
+      "provenance": [
+        "PROJECT_INPUT:activity:staff-intake"
+      ]
+    }
+  ],
+  "unknown": [
+    {
+      "id": "UNK-PROJECT-1",
+      "statement": "capacity of the service process after peak demand is not supplied",
+      "status": "UNKNOWN",
+      "resolutionPath": "Collect project-specific evidence before increasing design resolution.",
+      "authority": "HUMAN_ARCHITECT"
+    }
+  ],
+  "deficits": [
+    {
+      "id": "DEFICIT-INPUT-COMPLETENESS",
+      "statement": "Project information is insufficient for some operational and spatial requirements.",
+      "evidence": [
+        "capacity of the service process after peak demand is not supplied"
+      ],
+      "provenance": [
+        "PROJECT_INPUT",
+        "INFERENCE"
+      ]
+    }
+  ],
+  "causeHypotheses": [
+    {
+      "id": "CAUSE-INSUFFICIENT-PROJECT-DATA",
+      "statement": "Missing state, time, capacity or control data may alter the required relationship.",
+      "addresses": [
+        "DEFICIT-INPUT-COMPLETENESS"
+      ],
+      "epistemicStatus": "HYPOTHESIS",
+      "provenance": [
+        "INFERENCE:UNKNOWN"
+      ]
+    }
+  ],
+  "strategies": [
+    {
+      "strategyId": "BR-STR-A-D62M-MICRO-001",
+      "addressesDeficit": [
+        "DEFICIT-INPUT-COMPLETENESS"
+      ],
+      "causeHypothesis": [
+        "CAUSE-INSUFFICIENT-PROJECT-DATA"
+      ],
+      "designIntent": "ORGANIZE_FUNCTIONAL_RELATIONSHIPS",
+      "expectedEffect": "Reduce the diagnosed interaction or make it controllable without assuming a corridor or room.",
+      "costOrTradeoff": "May increase operational coordination or distance.",
+      "risk": "Compatibility and capacity remain partly unknown.",
+      "knowledgeUsed": [
+        "KN-000001",
+        "KN-000002",
+        "KN-000003",
+        "KN-000004",
+        "KN-000005",
+        "KN-000006",
+        "KN-000007",
+        "KN-000009",
+        "KN-000010",
+        "PR-ACTIVITY",
+        "TYP-HOSPITALITY",
+        "TYP-TRANSPORT"
+      ],
+      "unknownDependencies": [
+        "capacity of the service process after peak demand is not supplied"
+      ],
+      "provenance": [
+        "INFERENCE:requirements+deficits+causes"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    },
+    {
+      "strategyId": "BR-STR-B-D62M-MICRO-001",
+      "addressesDeficit": [
+        "DEFICIT-INPUT-COMPLETENESS"
+      ],
+      "causeHypothesis": [
+        "CAUSE-INSUFFICIENT-PROJECT-DATA"
+      ],
+      "designIntent": "TIME_STATE_OR_CONTROL_SEPARATION",
+      "expectedEffect": "Use state, timing or controlled interfaces to preserve sharing when spatial separation is not demonstrated.",
+      "costOrTradeoff": "Depends on operational discipline and control reliability.",
+      "risk": "May fail if temporal overlap or control assumptions are false.",
+      "knowledgeUsed": [
+        "KN-000001",
+        "KN-000002",
+        "KN-000003",
+        "KN-000004",
+        "KN-000005",
+        "KN-000006",
+        "KN-000007",
+        "KN-000009",
+        "KN-000010",
+        "PR-ACTIVITY",
+        "TYP-HOSPITALITY",
+        "TYP-TRANSPORT"
+      ],
+      "unknownDependencies": [
+        "capacity of the service process after peak demand is not supplied"
+      ],
+      "provenance": [
+        "INFERENCE:requirements+deficits+causes"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    }
+  ],
+  "realizations": [
+    {
+      "realizationId": "BR-REAL-1-A",
+      "strategyId": "BR-STR-A-D62M-MICRO-001",
+      "family": "DISTINCT_ROUTE_SYSTEMS",
+      "mechanism": "Represent separate conceptual route relations where incompatibility is evidenced.",
+      "provenance": [
+        "REALIZATION_FROM:BR-STR-A-D62M-MICRO-001"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    },
+    {
+      "realizationId": "BR-REAL-1-B",
+      "strategyId": "BR-STR-A-D62M-MICRO-001",
+      "family": "BUFFER_OR_FILTER",
+      "mechanism": "Represent a buffer relationship between activities.",
+      "provenance": [
+        "REALIZATION_FROM:BR-STR-A-D62M-MICRO-001"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    },
+    {
+      "realizationId": "BR-REAL-2-A",
+      "strategyId": "BR-STR-B-D62M-MICRO-001",
+      "family": "CONTROLLED_INTERFACE",
+      "mechanism": "Represent a controlled or temporal interface without assuming a wall or door.",
+      "provenance": [
+        "REALIZATION_FROM:BR-STR-B-D62M-MICRO-001"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    },
+    {
+      "realizationId": "BR-REAL-2-B",
+      "strategyId": "BR-STR-B-D62M-MICRO-001",
+      "family": "TEMPORAL_SEPARATION",
+      "mechanism": "Represent state/time separation as a topological condition.",
+      "provenance": [
+        "REALIZATION_FROM:BR-STR-B-D62M-MICRO-001"
+      ],
+      "epistemicStatus": "HYPOTHESIS"
+    }
+  ],
+  "topology": {
+    "nodes": [
+      {
+        "id": "public-orientation",
+        "kind": "ACTIVITY",
+        "label": "public orientation",
+        "provenance": [
+          "PROJECT_INPUT:activity:public-orientation"
+        ]
+      },
+      {
+        "id": "staff-intake",
+        "kind": "ACTIVITY",
+        "label": "staff intake",
+        "provenance": [
+          "PROJECT_INPUT:activity:staff-intake"
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "public-orientation",
+        "to": "staff-intake",
+        "relationType": "CONTROLLED_ROUTE_REQUIRED",
+        "rationale": "Derived from functional relation controlled service interface; no geometry is implied.",
+        "sourceStrategy": "BR-STR-A-D62M-MICRO-001",
+        "requirementAddressed": "REQ-REL-r1",
+        "unknown": [],
+        "provenance": [
+          "PROJECT_INPUT:relationship:r1",
+          "STRATEGY:BR-STR-A-D62M-MICRO-001"
+        ]
+      }
+    ],
+    "activeConditions": [
+      "visitor and staff activities may overlap",
+      "staff controls service intake"
+    ],
+    "control": [
+      "staff-mediated"
+    ],
+    "flowRequirements": [
+      "REQ-REL-r1"
+    ],
+    "unknown": [
+      "UNK-PROJECT-1"
+    ],
+    "traceability": [
+      {
+        "derivedElement": "public-orientation->staff-intake",
+        "realization": "BR-REAL-1-A",
+        "strategy": "BR-STR-A-D62M-MICRO-001",
+        "deficit": "DEFICIT-INPUT-COMPLETENESS",
+        "cause": "CAUSE-INSUFFICIENT-PROJECT-DATA",
+        "requirement": "REQ-REL-r1",
+        "source": "PROJECT_INPUT:relationship:r1|STRATEGY:BR-STR-A-D62M-MICRO-001",
+        "why": "Derived from functional relation controlled service interface; no geometry is implied."
+      }
+    ]
+  },
+  "traceability": [
+    {
+      "derivedElement": "public-orientation->staff-intake",
+      "realization": "BR-REAL-1-A",
+      "strategy": "BR-STR-A-D62M-MICRO-001",
+      "deficit": "DEFICIT-INPUT-COMPLETENESS",
+      "cause": "CAUSE-INSUFFICIENT-PROJECT-DATA",
+      "requirement": "REQ-REL-r1",
+      "source": "PROJECT_INPUT:relationship:r1|STRATEGY:BR-STR-A-D62M-MICRO-001",
+      "why": "Derived from functional relation controlled service interface; no geometry is implied."
+    }
+  ],
+  "perturbation": {
+    "id": "p1",
+    "statement": "Staff-mediated control is unavailable during the peak period.",
+    "changedConditions": {
+      "control": "unavailable"
+    },
+    "affectedRequirementIds": [
+      "REQ-REL-r1"
+    ],
+    "preservedRequirementIds": [
+      "REQ-ACT-public-orientation",
+      "REQ-ACT-staff-intake"
+    ],
+    "status": "PARTIAL_REEVALUATION_REQUIRED",
+    "unknown": [
+      {
+        "id": "UNK-PERT-p1",
+        "statement": "Perturbation impact requires project-specific evidence.",
+        "status": "UNKNOWN",
+        "resolutionPath": "Collect project-specific evidence before increasing design resolution.",
+        "authority": "HUMAN_ARCHITECT"
+      }
+    ],
+    "provenance": [
+      "PROJECT_INPUT:perturbation:p1"
+    ]
+  },
+  "dependencyReevaluation": "ONLY_DECLARED_PERTURBATION_DEPENDENCIES_REEVALUATED",
+  "geometry": "NOT_IMPLEMENTED_BY_DELTA",
+  "humanAuthority": "FINAL",
+  "finalStatus": "PASS"
+}

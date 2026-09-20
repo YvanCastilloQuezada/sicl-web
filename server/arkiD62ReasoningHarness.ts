@@ -196,3 +196,226 @@ export function executeArchitecturalReasoning(input: ArchitecturalReasoningInput
 export function replayArchitecturalReasoning(execution: SiclReasoningExecution, input: ArchitecturalReasoningInput, snapshot: SiclSnapshot, coreKnowledgeVersion: number, runtimeVersion: string): "PASS" | "FAIL" {
   return executeArchitecturalReasoning(input, snapshot, coreKnowledgeVersion, runtimeVersion).replayFingerprint === fingerprint({ input, execution: { ...execution, createdAt: undefined } }) ? "PASS" : "FAIL";
 }
+
+
+export type BridgeActivity = {
+  id: string;
+  label: string;
+  subjects?: string[];
+  capacity?: number;
+  frequency?: string;
+  duration?: string;
+  temporalOverlap?: boolean;
+  environmentalConditions?: string[];
+  equipment?: string[];
+  accessControl?: string;
+  privacy?: string;
+  hazard?: string;
+  serviceDependencies?: string[];
+  setupReset?: string;
+  storage?: string;
+  availability?: string;
+};
+
+export type BridgeRelationship = {
+  id: string;
+  from: string;
+  to: string;
+  relation: string;
+  subjects?: string[];
+  state?: string;
+  frequency?: string;
+  time?: string;
+  urgency?: string;
+  capacity?: string;
+  hazard?: string;
+  control?: string;
+  performanceRequirement?: string;
+};
+
+export type BridgeProjectInput = {
+  executionId: string;
+  projectId: string;
+  brief: string;
+  typology: string;
+  activities: BridgeActivity[];
+  subjects: string[];
+  relationships: BridgeRelationship[];
+  conditions: string[];
+  constraints?: string[];
+  unknowns: string[];
+  perturbation?: { id: string; statement: string; changes: Record<string, unknown> };
+};
+
+export type BridgeTrace = {
+  derivedElement: string;
+  realization: string;
+  strategy: string;
+  deficit: string;
+  cause: string;
+  requirement: string;
+  source: string;
+  why: string;
+};
+
+export type BridgeTopology = {
+  nodes: Array<{ id: string; kind: "ACTIVITY" | "SUBJECT"; label: string; provenance: string[] }>;
+  relationships: Array<{ from: string; to: string; relationType: string; rationale: string; sourceStrategy: string; requirementAddressed: string; unknown: string[]; provenance: string[] }>;
+  activeConditions: string[];
+  control: string[];
+  flowRequirements: string[];
+  unknown: string[];
+  traceability: BridgeTrace[];
+};
+
+export type BridgeResult = {
+  input: BridgeProjectInput;
+  retrievedKnowledge: SiclKnowledgeRecord[];
+  requirements: Array<Record<string, unknown>>;
+  unknown: Array<Record<string, unknown>>;
+  deficits: Array<Record<string, unknown>>;
+  causeHypotheses: Array<Record<string, unknown>>;
+  strategies: Array<Record<string, unknown>>;
+  realizations: Array<Record<string, unknown>>;
+  topology: BridgeTopology;
+  perturbation: Record<string, unknown>;
+  reasoningExecutionId: string;
+  status: "PASS" | "PARTIAL";
+};
+
+function bridgeUnknown(id: string, statement: string, authority = "HUMAN_ARCHITECT") {
+  return { id, statement, status: "UNKNOWN", resolutionPath: "Collect project-specific evidence before increasing design resolution.", authority };
+}
+
+function deriveRelationshipRequirement(relationship: BridgeRelationship, activities: Map<string, BridgeActivity>) {
+  const missing: string[] = [];
+  const from = activities.get(relationship.from);
+  const to = activities.get(relationship.to);
+  if (!relationship.state) missing.push("STATE");
+  if (!relationship.time) missing.push("TIME");
+  if (!relationship.control) missing.push("CONTROL");
+  if (!relationship.subjects?.length) missing.push("SUBJECT");
+  const relationLower = relationship.relation.toLowerCase();
+  let category = "UNKNOWN";
+  if (/separ|incompat|risk|hazard/.test(relationLower) || relationship.hazard) category = "SEPARATION_REQUIRED";
+  else if (/control|access/.test(relationLower) || relationship.control) category = "CONTROLLED_ROUTE_REQUIRED";
+  else if (/direct|interface|exchange/.test(relationLower)) category = "DIRECT_INTERFACE_RELEVANT";
+  else if (/near|proxim|adjacent/.test(relationLower)) category = "PROXIMITY_RELEVANT";
+  else if (/connect|flow|route/.test(relationLower)) category = "ROUTE_REQUIRED";
+  return {
+    id: `REQ-REL-${relationship.id}`,
+    type: "SPATIAL_REQUIREMENT",
+    from: relationship.from,
+    to: relationship.to,
+    category: missing.length ? "UNKNOWN" : category,
+    subject: relationship.subjects ?? [],
+    resource: relationship.relation,
+    state: relationship.state ?? "UNKNOWN",
+    frequency: relationship.frequency ?? "UNKNOWN",
+    time: relationship.time ?? "UNKNOWN",
+    urgency: relationship.urgency ?? "UNKNOWN",
+    capacity: relationship.capacity ?? "UNKNOWN",
+    hazard: relationship.hazard ?? "UNKNOWN",
+    control: relationship.control ?? "UNKNOWN",
+    performanceRequirement: relationship.performanceRequirement ?? "UNKNOWN",
+    unknown: missing.map((field) => bridgeUnknown(`UNK-REL-${relationship.id}-${field}`, `${field} is not supplied for relationship ${relationship.id}`)),
+    rationale: `Derived from functional relation ${relationship.relation}; no geometry is implied.`,
+    provenance: [`PROJECT_INPUT:relationship:${relationship.id}`],
+    relatedActivities: [from?.label, to?.label].filter(Boolean),
+  };
+}
+
+function deriveActivityAllocation(activity: BridgeActivity) {
+  const missing = [
+    activity.capacity === undefined ? "CAPACITY" : undefined,
+    activity.frequency ? undefined : "FREQUENCY",
+    activity.duration ? undefined : "DURATION",
+    activity.temporalOverlap === undefined ? "TEMPORAL_OVERLAP" : undefined,
+  ].filter(Boolean) as string[];
+  let category = "INSUFFICIENT_INFORMATION";
+  if (!missing.length && activity.temporalOverlap === false) category = "TEMPORAL_SHARING_POSSIBLE";
+  else if (!missing.length && activity.temporalOverlap === true && activity.privacy === "shared") category = "SHARED_POSSIBLE";
+  else if (!missing.length && activity.privacy === "dedicated") category = "DEDICATED_ALLOCATION_RELEVANT";
+  return {
+    id: `REQ-ACT-${activity.id}`,
+    type: "ALLOCATION_REQUIREMENT",
+    activityId: activity.id,
+    category,
+    subjects: activity.subjects ?? [],
+    capacity: activity.capacity ?? "UNKNOWN",
+    frequency: activity.frequency ?? "UNKNOWN",
+    duration: activity.duration ?? "UNKNOWN",
+    temporalOverlap: activity.temporalOverlap ?? "UNKNOWN",
+    environmentalConditions: activity.environmentalConditions ?? [],
+    equipment: activity.equipment ?? [],
+    accessControl: activity.accessControl ?? "UNKNOWN",
+    privacy: activity.privacy ?? "UNKNOWN",
+    hazard: activity.hazard ?? "UNKNOWN",
+    serviceDependencies: activity.serviceDependencies ?? [],
+    setupReset: activity.setupReset ?? "UNKNOWN",
+    storage: activity.storage ?? "UNKNOWN",
+    availability: activity.availability ?? "UNKNOWN",
+    unknown: missing.map((field) => bridgeUnknown(`UNK-ACT-${activity.id}-${field}`, `${field} is not supplied for activity ${activity.id}`)),
+    rationale: "Allocation requirement precedes any spatial entity; dedicated does not mean ROOM.",
+    provenance: [`PROJECT_INPUT:activity:${activity.id}`],
+  };
+}
+
+function bridgeStrategies(project: BridgeProjectInput, requirements: Array<Record<string, unknown>>, deficits: Array<Record<string, unknown>>, causes: Array<Record<string, unknown>>, retrieved: SiclKnowledgeRecord[]) {
+  const derivedFrom = retrieved.map((item) => item.id);
+  const primary = requirements.some((item) => item.category === "SEPARATION_REQUIRED") ? "SEPARATE_OR_CONTROL_INTERACTION" : "ORGANIZE_FUNCTIONAL_RELATIONSHIPS";
+  return [
+    { strategyId: `BR-STR-A-${project.executionId}`, addressesDeficit: deficits.map((item) => item.id), causeHypothesis: causes.map((item) => item.id), designIntent: primary, expectedEffect: "Reduce the diagnosed interaction or make it controllable without assuming a corridor or room.", costOrTradeoff: "May increase operational coordination or distance.", risk: "Compatibility and capacity remain partly unknown.", knowledgeUsed: derivedFrom, unknownDependencies: project.unknowns, provenance: ["INFERENCE:requirements+deficits+causes"], epistemicStatus: "HYPOTHESIS" },
+    { strategyId: `BR-STR-B-${project.executionId}`, addressesDeficit: deficits.map((item) => item.id), causeHypothesis: causes.map((item) => item.id), designIntent: "TIME_STATE_OR_CONTROL_SEPARATION", expectedEffect: "Use state, timing or controlled interfaces to preserve sharing when spatial separation is not demonstrated.", costOrTradeoff: "Depends on operational discipline and control reliability.", risk: "May fail if temporal overlap or control assumptions are false.", knowledgeUsed: derivedFrom, unknownDependencies: project.unknowns, provenance: ["INFERENCE:requirements+deficits+causes"], epistemicStatus: "HYPOTHESIS" },
+  ];
+}
+
+function bridgeRealizations(strategies: Array<Record<string, unknown>>) {
+  return strategies.flatMap((strategy, index) => [
+    { realizationId: `BR-REAL-${index + 1}-A`, strategyId: strategy.strategyId, family: index === 0 ? "DISTINCT_ROUTE_SYSTEMS" : "CONTROLLED_INTERFACE", mechanism: index === 0 ? "Represent separate conceptual route relations where incompatibility is evidenced." : "Represent a controlled or temporal interface without assuming a wall or door.", provenance: [`REALIZATION_FROM:${strategy.strategyId}`], epistemicStatus: "HYPOTHESIS" },
+    { realizationId: `BR-REAL-${index + 1}-B`, strategyId: strategy.strategyId, family: index === 0 ? "BUFFER_OR_FILTER" : "TEMPORAL_SEPARATION", mechanism: index === 0 ? "Represent a buffer relationship between activities." : "Represent state/time separation as a topological condition.", provenance: [`REALIZATION_FROM:${strategy.strategyId}`], epistemicStatus: "HYPOTHESIS" },
+  ]);
+}
+
+function topologyFrom(project: BridgeProjectInput, requirements: Array<Record<string, unknown>>, strategies: Array<Record<string, unknown>>, realizations: Array<Record<string, unknown>>, unknown: Array<Record<string, unknown>>): BridgeTopology {
+  const nodes = project.activities.map((activity) => ({ id: activity.id, kind: "ACTIVITY" as const, label: activity.label, provenance: [`PROJECT_INPUT:activity:${activity.id}`] }));
+  const relationships = project.relationships.map((relationship) => {
+    const requirement = requirements.find((item) => item.id === `REQ-REL-${relationship.id}`);
+    const sourceStrategy = String(strategies[0]?.strategyId ?? "UNKNOWN");
+    const relationType = String(requirement?.category ?? "UNKNOWN");
+    const relationUnknown = Array.isArray(requirement?.unknown) ? requirement.unknown.map((item) => String((item as Record<string, unknown>).id)) : [];
+    return { from: relationship.from, to: relationship.to, relationType, rationale: String(requirement?.rationale ?? "Functional relation requires further evidence."), sourceStrategy, requirementAddressed: String(requirement?.id ?? "UNKNOWN"), unknown: relationUnknown, provenance: [`PROJECT_INPUT:relationship:${relationship.id}`, `STRATEGY:${sourceStrategy}`] };
+  });
+  return {
+    nodes,
+    relationships,
+    activeConditions: [...project.conditions],
+    control: project.relationships.map((item) => item.control ?? "UNKNOWN"),
+    flowRequirements: requirements.filter((item) => ["ROUTE_REQUIRED", "CONTROLLED_ROUTE_REQUIRED"].includes(String(item.category))).map((item) => String(item.id)),
+    unknown: unknown.map((item) => String(item.id)),
+    traceability: relationships.flatMap((relationship) => realizations.slice(0, 1).map((realization) => ({ derivedElement: `${relationship.from}->${relationship.to}`, realization: String(realization.realizationId), strategy: String(realization.strategyId), deficit: "DEFICIT-INPUT-COMPLETENESS", cause: "CAUSE-INSUFFICIENT-PROJECT-DATA", requirement: relationship.requirementAddressed, source: relationship.provenance.join("|"), why: relationship.rationale }))),
+  };
+}
+
+export function executeReasoningToTopology(project: BridgeProjectInput, snapshot: SiclSnapshot, coreKnowledgeVersion: number, runtimeVersion: string): BridgeResult {
+  const base = executeArchitecturalReasoning({ executionId: project.executionId, projectId: project.projectId, brief: project.brief, context: { typology: project.typology, activities: project.activities.map((item) => item.label), geometryRequired: false }, constraints: project.constraints ?? [], knownFacts: [], unknowns: project.unknowns, requestedReasoningDepth: "DEEP" }, snapshot, coreKnowledgeVersion, runtimeVersion);
+  const activityMap = new Map(project.activities.map((activity) => [activity.id, activity]));
+  const requirements = [...project.relationships.map((item) => deriveRelationshipRequirement(item, activityMap)), ...project.activities.map(deriveActivityAllocation)];
+  const unknown = [...project.unknowns.map((item, index) => bridgeUnknown(`UNK-PROJECT-${index + 1}`, item)), ...requirements.flatMap((item) => Array.isArray(item.unknown) ? item.unknown : [])];
+  const deficits = [{ id: "DEFICIT-INPUT-COMPLETENESS", statement: "Project information is insufficient for some operational and spatial requirements.", evidence: project.unknowns, provenance: ["PROJECT_INPUT", "INFERENCE"] }];
+  const causeHypotheses = [{ id: "CAUSE-INSUFFICIENT-PROJECT-DATA", statement: "Missing state, time, capacity or control data may alter the required relationship.", addresses: deficits.map((item) => item.id), epistemicStatus: "HYPOTHESIS", provenance: ["INFERENCE:UNKNOWN"] }];
+  const strategies = bridgeStrategies(project, requirements, deficits, causeHypotheses, base.retrieved);
+  const realizations = bridgeRealizations(strategies);
+  const topology = topologyFrom(project, requirements, strategies, realizations, unknown);
+  const perturbation = project.perturbation ? {
+    id: project.perturbation.id,
+    statement: project.perturbation.statement,
+    changedConditions: project.perturbation.changes,
+    affectedRequirementIds: requirements.filter((item) => Object.keys(project.perturbation!.changes).some((key) => key.toLowerCase() in item)).map((item) => String(item.id)),
+    preservedRequirementIds: requirements.filter((item) => !Object.keys(project.perturbation!.changes).some((key) => key.toLowerCase() in item)).map((item) => String(item.id)),
+    status: "PARTIAL_REEVALUATION_REQUIRED",
+    unknown: [bridgeUnknown(`UNK-PERT-${project.perturbation.id}`, "Perturbation impact requires project-specific evidence.")],
+    provenance: [`PROJECT_INPUT:perturbation:${project.perturbation.id}`],
+  } : { status: "NO_PERTURBATION" };
+  return { input: project, retrievedKnowledge: base.retrieved, requirements, unknown, deficits, causeHypotheses, strategies, realizations, topology, perturbation, reasoningExecutionId: base.execution.executionId, status: "PASS" };
+}
