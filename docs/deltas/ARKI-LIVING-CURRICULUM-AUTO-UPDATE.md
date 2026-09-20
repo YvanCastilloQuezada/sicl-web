@@ -239,3 +239,15 @@ HUMAN_AUTHORITY = FINAL
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+<!-- PASTED-CONTENT-487-V1 -->
+## PASTED-CONTENT-487-V1 — pasted_content_487.txt
+
+- **Fecha de recepción:** 2026-09-20
+- **Hash SHA-256:** `45e2c2d6b858a479a7e88896cf146de44733b01634af172cbd9100f5a2d253ae`
+- **Estado de conocimiento:** `SUPPLIED_INPUT / NOT_LEARNED / HUMAN_REVIEW_REQUIRED`
+- **Integración curricular:** registro automático pendiente de revisión humana; no reemplaza capítulos ni módulos anteriores.
+- **Vista previa detectada:** ARKI — P9.0, BLIND UNSEEN PROJECT EXPERIMENTAL PROTOCOL, PREPARATION FOR PROJECT B
+- **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
+- **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
+- **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.

@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-DELTA-REGISTRY-0.1",
   "title": "ARKI — Registro automático de deltas",
-  "last_updated": "2026-09-19",
+  "last_updated": "2026-09-20",
   "human_authority": "FINAL",
   "automatic_ingestion": "ENABLED",
   "knowledge_claim_policy": "SUPPLIED_INPUT_IS_NOT_LEARNING",
@@ -639,6 +639,67 @@
             "capability_present_input_absent": "SPECIALIST_INPUT_REQUIRED",
             "capability_absent_input_present": "CAPABILITY_FAILURE"
           }
+        }
+      ]
+    },
+    {
+      "delta_id": "PASTED-CONTENT-487-V1",
+      "source_name": "pasted_content_487.txt",
+      "source_path_at_ingest": "/home/ubuntu/upload/pasted_content_487.txt",
+      "destination": "docs/deltas/inbox/PASTED-CONTENT-487-V1/pasted_content_487.txt",
+      "sha256": "45e2c2d6b858a479a7e88896cf146de44733b01634af172cbd9100f5a2d253ae",
+      "received_at": "2026-09-20",
+      "format": "txt",
+      "preview_items": [
+        "ARKI — P9.0",
+        "BLIND UNSEEN PROJECT EXPERIMENTAL PROTOCOL",
+        "PREPARATION FOR PROJECT B"
+      ],
+      "preview_count": 678,
+      "status": "EXECUTED / P9.0_READY_FOR_PROJECT_B / PROJECT_B_NOT_CREATED",
+      "knowledge_state": "EXPERIMENTAL_PROTOCOL / NOT_ARCHITECTURAL_KNOWLEDGE / NOT_LEARNED",
+      "curriculum_targets": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "automatic_actions": [
+        "REGISTER_SOURCE",
+        "UPDATE_CURRICULUM_INDEX",
+        "UPDATE_DELTA_REGISTRY",
+        "PRESERVE_PROVENANCE"
+      ],
+      "prohibited_automatic_actions": [
+        "CANONIZE",
+        "CLAIM_LEARNING",
+        "CREATE_WINNER",
+        "MUTATE_PROJECT",
+        "PUSH_WITHOUT_AUTHORIZATION"
+      ],
+      "follow_up_executions": [
+        {
+          "execution_state": "EXECUTED / P9.0_READY_FOR_PROJECT_B / PROJECT_B_NOT_CREATED",
+          "p8_baseline": "FROZEN_AT_2814BE085F1E75C12C9EE7CBFDC780AF11341720",
+          "k0": "DEFINED_AND_FROZEN_BEFORE_PROJECT_B",
+          "project_b": "NOT_CREATED",
+          "project_c": "NOT_CREATED",
+          "input_contract": "PASS",
+          "project_isolation": "PASS_METHOD_DEFINED",
+          "oracle_separation": "PASS",
+          "blind_posthoc_separation": "PASS",
+          "novelty_filter": "PASS",
+          "k1": "NOT_CREATED",
+          "specialist_boundary": "P8.2_REUSED",
+          "human_authority": "PRESERVED",
+          "second_engine": "NOT_CREATED",
+          "focused_tests": "5/5 PASS",
+          "typecheck": "PASS",
+          "full_regression": "PASS",
+          "build": "PASS",
+          "git_diff_check": "PASS",
+          "triple_propagation": "PASS",
+          "report": "docs/ARKI-P9.0-BLIND-UNSEEN-PROJECT-PROTOCOL-2026-09-19.md",
+          "next_precise_work": "Select and execute Project B only under a new authorized delta; do not infer a solution from this protocol."
         }
       ]
     }

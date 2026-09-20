@@ -1,0 +1,678 @@
+# ARKI — P9.0
+## BLIND UNSEEN PROJECT EXPERIMENTAL PROTOCOL
+## PREPARATION FOR PROJECT B
+
+MODE = EXPERIMENTAL GOVERNANCE / MINIMAL IMPLEMENTATION
+
+REPOSITORY =
+YvanCastilloQuezada/sicl-web
+
+BRANCH =
+feat/spatial-pilot-media-studio-v1
+
+REPORTED BASELINE =
+2814be085f1e75c12c9ee7cbfdc780af11341720
+
+VERIFY ACTUAL HEAD / REMOTE / WORKTREE FIRST.
+
+============================================================
+1. PURPOSE
+============================================================
+
+P8 is complete as a bounded integrated-practice checkpoint.
+
+Do not extend P8 merely to improve scores or maturity labels.
+
+Prepare ARKI for a genuinely unseen architectural project in which:
+
+- the solution is unknown;
+- deficits are not supplied;
+- causes are not supplied;
+- strategies are not supplied;
+- candidates are not supplied;
+- preferred geometry is not supplied;
+- expected learning is not supplied.
+
+This stage prepares the experimental protocol.
+
+DO NOT DESIGN PROJECT B YET.
+
+============================================================
+2. PRIMARY PRINCIPLE
+============================================================
+
+P9 SHALL TEST ARKI AGAINST A PROBLEM.
+
+IT SHALL NOT TEST ARKI AGAINST A PREWRITTEN ANSWER.
+
+Therefore:
+
+NO ARCHITECTURAL ANSWER KEY.
+
+NO EXPECTED DEFICIT.
+
+NO EXPECTED CAUSE.
+
+NO EXPECTED STRATEGY.
+
+NO EXPECTED CANDIDATE.
+
+NO EXPECTED GEOMETRY.
+
+NO EXPECTED WINNER.
+
+NO EXPECTED LEARNING RULE.
+
+============================================================
+3. FREEZE P8
+============================================================
+
+Record the validated P8 capability baseline.
+
+Do not silently modify its historical results.
+
+P8 becomes historical evidence.
+
+Any future improvement must be a new delta.
+
+============================================================
+4. K0 FREEZE
+============================================================
+
+Define a reproducible K0 snapshot immediately before Project B begins.
+
+K0 must include enough information to determine later whether an
+observation was:
+
+ALREADY_KNOWN
+SUPPLIED_AS_INPUT
+RETRIEVED
+DIRECT_EXECUTION_RESULT
+INFERRED_FROM_K0
+NOVEL_CANDIDATE
+UNKNOWN.
+
+Do not create K1.
+
+============================================================
+5. PROJECT B ISOLATION
+============================================================
+
+Project B must receive a new project identifier never previously used
+in ARKI artifacts.
+
+Before execution search repository/persistent knowledge for that exact
+identifier and project-specific facts.
+
+Required result:
+
+NO PRIOR PROJECT-SPECIFIC SOLUTION KNOWLEDGE.
+
+If contamination is found:
+
+PROJECT B IS INVALID AS A CLEAN TEST.
+
+============================================================
+6. PROJECT B INPUT CONTRACT
+============================================================
+
+Allow only legitimate project inputs:
+
+CLIENT_FACT
+SITE_FACT
+PROJECT_OBJECTIVE
+HARD_CONSTRAINT
+PREFERENCE
+REGULATORY_SOURCE
+KNOWN_CONTEXT
+UNKNOWN
+HUMAN_DECISION.
+
+Each item requires provenance.
+
+No solution fields.
+
+============================================================
+7. INPUT FREEZE
+============================================================
+
+Once Project B begins:
+
+freeze initial input snapshot.
+
+Any later information must be recorded as:
+
+NEW_EXTERNAL_EVIDENCE
+SPECIALIST_INPUT
+HUMAN_DECISION
+REGULATORY_EVIDENCE
+MEASUREMENT
+OBSERVATION
+or equivalent canonical category.
+
+No silent fixture enrichment.
+
+============================================================
+8. ORACLE SEPARATION
+============================================================
+
+Tests may verify:
+
+schema integrity
+provenance
+traceability
+invariants
+authority
+status semantics
+no contamination
+no hardcoding
+no false compliance
+no false learning.
+
+Tests must NOT require:
+
+a particular room arrangement
+a particular strategy
+a particular candidate
+a particular topology
+a particular geometry
+a particular architectural winner.
+
+============================================================
+9. ARCHITECTURAL VALIDITY WITHOUT ANSWER KEY
+============================================================
+
+Project B evaluation must use constraints and evidence rather than
+similarity to a predefined solution.
+
+Examples of legitimate evaluation:
+
+required capability satisfied?
+required relationship active?
+hard constraint respected?
+journey valid?
+capacity evidence sufficient?
+authority respected?
+regulatory applicability known?
+unknown preserved?
+dependency unresolved?
+design intent traceable?
+
+Not:
+
+does output equal expected architecture?
+
+============================================================
+10. FAILURE IS VALID EVIDENCE
+============================================================
+
+ARKI must be allowed to produce:
+
+NO FEASIBLE SOLUTION
+
+INSUFFICIENT_EVIDENCE
+
+SPECIALIST_INPUT_REQUIRED
+
+HUMAN_DECISION_REQUIRED
+
+CAPABILITY_GAP
+
+UNKNOWN
+
+PARTIAL_PROJECT.
+
+These are legitimate outcomes.
+
+Do not repair them during the blind run merely to obtain PASS.
+
+============================================================
+11. BLIND RUN SEPARATION
+============================================================
+
+Project B shall have at least two phases:
+
+PHASE A — BLIND EXECUTION
+
+ARKI receives only legitimate project input.
+
+No evaluator may inject architectural answer knowledge.
+
+Freeze result.
+
+PHASE B — POST-HOC EVALUATION
+
+Only after Phase A is frozen may independent evaluation examine:
+
+traceability
+constraint satisfaction
+deficits
+unknowns
+reasoning quality
+cross-domain consequences
+comparison quality.
+
+Evaluation must not retroactively change Phase A.
+
+============================================================
+12. LEARNING OBSERVATION
+============================================================
+
+Do not ask ARKI to learn.
+
+Observe whether Project B produces a candidate event satisfying:
+
+NOT PRESENT IN K0
+NOT SUPPLIED
+NOT DIRECT EXECUTION RESULT
+NOT SIMPLE RETRIEVAL
+NOT FIXTURE ORACLE
+ARCHITECTURALLY MEANINGFUL
+TRACEABLE TO EVIDENCE.
+
+Only then:
+
+LEARNING_CANDIDATE.
+
+============================================================
+13. NOVELTY IS NOT ENOUGH
+============================================================
+
+Preserve:
+
+NOVEL
+≠
+TRUE
+
+NOVEL
+≠
+GENERALIZABLE
+
+NOVEL
+≠
+K1.
+
+A novel observation must still be challenged.
+
+============================================================
+14. CHALLENGE PROTOCOL
+============================================================
+
+Any learning candidate must undergo:
+
+REPETITION
+VARIANT
+COUNTEREXAMPLE.
+
+Where applicable also:
+
+TRANSFER
+FIXATION CHECK.
+
+Do not optimize the challenge cases to make the candidate survive.
+
+============================================================
+15. K1 GATE
+============================================================
+
+K1 may be created only if the existing learning contract legitimately
+permits it after challenge.
+
+Otherwise:
+
+REJECT
+REFINE
+SPECIALIZE
+UNKNOWN
+or
+OBSERVATION_ONLY.
+
+Do not promote because P9 needs a learning result.
+
+============================================================
+16. REINITIALIZATION
+============================================================
+
+If a valid K1 is eventually created:
+
+persist it using the existing learning architecture.
+
+Then terminate/reinitialize the relevant project reasoning context.
+
+Fresh session/context must not receive the original discovery trace as
+an implicit answer.
+
+============================================================
+17. INDEPENDENT RETRIEVAL
+============================================================
+
+After reinitialization test whether K1 can be:
+
+retrieved
+recognized as relevant
+adapted
+used
+
+without supplying its expected identity.
+
+============================================================
+18. PROJECT C
+============================================================
+
+Do NOT create Project C in P9.0.
+
+But preserve the future requirement:
+
+true generalization evidence eventually requires a structurally
+different target context.
+
+Project B alone cannot prove broad generalization.
+
+============================================================
+19. FIXATION CONTROL
+============================================================
+
+Future transfer must test whether learned knowledge:
+
+helps when applicable
+
+AND
+
+is rejected when critically incompatible.
+
+Preserve:
+
+SUCCESSFUL REUSE WITHOUT RESTRAINT
+≠
+GENERALIZATION.
+
+============================================================
+20. PROJECT B SELECTION CRITERIA
+============================================================
+
+Define criteria, not the actual project.
+
+Project B should differ materially from historical UPAO fixtures in
+several dimensions such as:
+
+purpose
+operating model
+actors
+actor states
+temporal profile
+functional relationships
+site/context
+climate
+capacity logic
+hazards
+authority boundaries
+lifecycle
+dependency structure.
+
+Do not require arbitrary difference in every dimension.
+
+============================================================
+21. COMPLEXITY
+============================================================
+
+Project B must be rich enough to activate multiple ARKI capabilities
+but bounded enough that causal provenance remains auditable.
+
+Avoid:
+
+trivial toy problem
+
+and
+
+full professional construction-document project.
+
+Target:
+
+ARCHITECTURAL CONCEPT / CONTROLLED SCHEMATIC DESIGN SCALE.
+
+============================================================
+22. SPECIALIST BOUNDARY
+============================================================
+
+Project B may expose multidisciplinary dependencies.
+
+ARKI must not fabricate specialist answers.
+
+Use P8.2 semantics:
+
+SPECIALIST_INPUT_REQUIRED
+≠
+CAPABILITY_FAILURE.
+
+============================================================
+23. HUMAN AUTHORITY
+============================================================
+
+Project B may reach human decision points.
+
+That is legitimate.
+
+Do not inject human preference in advance merely to make the chain
+continue.
+
+Freeze the decision point if human input is required.
+
+============================================================
+24. ANTI-CONTAMINATION TEST
+============================================================
+
+Before Project B begins verify:
+
+PROJECT IDENTIFIER SEARCH = CLEAN
+
+PROJECT-SPECIFIC PROGRAM SEARCH = CLEAN
+
+PROJECT-SPECIFIC GEOMETRY SEARCH = CLEAN
+
+PROJECT-SPECIFIC STRATEGY SEARCH = CLEAN
+
+PROJECT-SPECIFIC EXPECTED RESULT SEARCH = CLEAN.
+
+General architectural knowledge is allowed.
+
+Project-specific prior solution knowledge is not.
+
+============================================================
+25. ANTI-HARDCODING
+============================================================
+
+No dispatch by:
+
+project name
+typology label alone
+fixture ID
+expected output
+test name.
+
+Core reasoning must operate through architectural semantics.
+
+============================================================
+26. EXPERIMENT LEDGER
+============================================================
+
+Prepare a ledger capable of recording:
+
+K0
+INPUT
+UNKNOWN
+DERIVATIONS
+RETRIEVALS
+DEFICITS
+CAUSES
+STRATEGIES
+CANDIDATES
+MUTATIONS
+OBSERVATIONS
+EXPECTED EFFECTS
+ACTUAL EFFECTS
+DEPENDENCIES
+NEW DEFICITS
+HUMAN DECISIONS
+SPECIALIST DEPENDENCIES
+LEARNING CANDIDATES
+REJECTIONS
+COUNTEREXAMPLES
+K1 IF ANY.
+
+============================================================
+27. REQUIRED ACCOUNTING
+============================================================
+
+Preserve permanently:
+
+WHAT ARKI KNEW
+
+WHAT ARKI RECEIVED
+
+WHAT ARKI RETRIEVED
+
+WHAT ARKI DERIVED
+
+WHAT ARKI GENERATED
+
+WHAT ARKI EXECUTED
+
+WHAT ARKI OBSERVED
+
+WHAT ARKI LEARNED
+
+WHAT ARKI DID NOT KNOW.
+
+============================================================
+28. P9.0 ACCEPTANCE
+============================================================
+
+P9.0 passes if ARKI has a reproducible protocol for running an unseen
+project without architectural answer leakage and for distinguishing
+new observation from actual learning.
+
+P9.0 does NOT require:
+
+Project B execution
+K1
+learning
+generalization
+new geometry.
+
+============================================================
+29. REQUIRED TESTS
+============================================================
+
+Test at minimum:
+
+K0_FREEZE
+PROJECT_ID_CONTAMINATION_CHECK
+INPUT_FREEZE
+NO_SOLUTION_FIELDS
+NO_EXPECTED_DEFICIT
+NO_EXPECTED_CAUSE
+NO_EXPECTED_STRATEGY
+NO_EXPECTED_CANDIDATE
+NO_EXPECTED_GEOMETRY
+ORACLE_SEPARATION
+BLIND_RUN_IMMUTABILITY
+POST_HOC_EVALUATION_SEPARATION
+NOVELTY_FILTER
+NO_FALSE_K1
+SPECIALIST_BOUNDARY
+HUMAN_AUTHORITY
+ANTI_TYPOLOGY_DISPATCH
+NO_SECOND_ENGINE
+TRIPLE_PROPAGATION_CONSISTENCY.
+
+Then:
+
+FULL REGRESSION
+TYPECHECK
+BUILD
+GIT DIFF --CHECK.
+
+============================================================
+30. OUTPUT
+============================================================
+
+Return:
+
+P8 FROZEN BASELINE =
+K0 SNAPSHOT METHOD =
+PROJECT B ISOLATION METHOD =
+PROJECT B INPUT CONTRACT =
+ORACLE SEPARATION METHOD =
+BLIND RUN METHOD =
+POST-HOC EVALUATION METHOD =
+NOVELTY DETECTION METHOD =
+LEARNING CANDIDATE GATE =
+CHALLENGE METHOD =
+K1 GATE =
+REINITIALIZATION METHOD =
+INDEPENDENT RETRIEVAL METHOD =
+FUTURE TRANSFER METHOD =
+FIXATION CONTROL =
+SPECIALIST BOUNDARY =
+HUMAN AUTHORITY BOUNDARY =
+
+P9.0 STATUS =
+READY_FOR_PROJECT_B
+or
+BLOCKED_<reason>.
+
+============================================================
+31. TRIPLE PROPAGATION
+============================================================
+
+Propagate the experimental protocol appropriately to:
+
+ARKI
+CURRICULUM
+DIGITAL BOOK.
+
+Do not represent experimental protocol as architectural knowledge.
+
+============================================================
+32. GIT
+============================================================
+
+If implementation/report changes are required:
+
+commit
+push current branch
+verify local == remote
+verify worktree clean.
+
+NO PR.
+NO MERGE.
+NO DEPLOY.
+
+============================================================
+33. STOP RULE
+============================================================
+
+If the existing architecture cannot isolate Project B from answer
+leakage without major redesign:
+
+STOP.
+
+Report the exact gap.
+
+Do not build a second reasoning or learning system.
+
+============================================================
+34. FINAL PRINCIPLE
+============================================================
+
+P8 ASKED:
+
+CAN ARKI CONNECT ITS CAPABILITIES?
+
+P9 WILL ASK:
+
+WHAT DOES ARKI DO WHEN THE ARCHITECTURAL ANSWER IS NOT KNOWN?
+
+P9.0 MUST MAKE THAT QUESTION EXPERIMENTALLY LEGITIMATE.
+
+Proceed.

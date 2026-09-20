@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-LIVING-BOOK-DELTA-INDEX-0.1",
   "title": "ARKI — Libro Vivo: índice automático de deltas",
-  "last_updated": "2026-09-19",
+  "last_updated": "2026-09-20",
   "human_authority": "FINAL",
   "volumes": [
     "VOLUME_I",
@@ -358,6 +358,20 @@
       "source_name": "pasted_content_486.txt",
       "sha256": "e87815030828fffee4a3c0032b20823a671c293a694e9e9b4a7e6c4a50ecbc6c",
       "received_at": "2026-09-19",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
+    },
+    {
+      "delta_id": "PASTED-CONTENT-487-V1",
+      "source_name": "pasted_content_487.txt",
+      "sha256": "45e2c2d6b858a479a7e88896cf146de44733b01634af172cbd9100f5a2d253ae",
+      "received_at": "2026-09-20",
       "curriculum_reflection": [
         "VOLUME_I",
         "VOLUME_II",
