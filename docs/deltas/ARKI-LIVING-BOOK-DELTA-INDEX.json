@@ -478,6 +478,20 @@
       "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
       "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
       "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
+    },
+    {
+      "delta_id": "PASTED-CONTENT-495-V494",
+      "source_name": "pasted_content_495.txt",
+      "sha256": "e2407f0f9fc6cad6e9500e229963583a58b9ba6a06c05bbbd578a42f0f00fff9",
+      "received_at": "2026-09-20",
+      "curriculum_reflection": [
+        "VOLUME_I",
+        "VOLUME_II",
+        "VOLUME_III"
+      ],
+      "editorial_state": "REGISTERED / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "SUPPLIED_INPUT / NOT_LEARNED",
+      "next_editorial_action": "Create examples, exercises, transfer tests and human-reviewed promotion record."
     }
   ],
   "project_b_execution": {

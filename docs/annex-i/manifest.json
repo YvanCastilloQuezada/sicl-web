@@ -145,7 +145,7 @@
       "checkpointId": "M1.1 SOURCE AUDIT",
       "deltaId": "PASTED-CONTENT-495-V494",
       "baselineSha": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
-      "finalSha": "83aa7eb5ba2397a8dd5c77f825c27066591ae23c",
+      "finalSha": "04377c5f7205fe0f8c8b0884a7d19d923afebb19",
       "humanReport": "docs/arki-m1-white/ARKI-M1-EDWARD-T-WHITE-SOURCE-GATE-2026-09-20.md",
       "structuredReport": "docs/arki-m1-white/ARKI-M1-EDWARD-T-WHITE-SOURCE-GATE-2026-09-20.json",
       "executableProof": "client/src/components/arkiM1WhiteSourceGate.ts",
