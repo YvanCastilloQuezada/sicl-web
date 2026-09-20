@@ -149,6 +149,24 @@ function Scene({ representation, selectedId, onSelect, controlsRef }: { represen
   </>;
 }
 
+/** WebXR scene adapter: reuses the same derived masses and element IDs as the desktop 3D viewer. */
+export function RealityScene({ representation, scaleFactor = 1, rotationY = 0 }: { representation: SpatialRepresentation; scaleFactor?: number; rotationY?: number }) {
+  const bounds = useMemo(() => boundsFor(representation), [representation]);
+  const masses = useMemo(() => deriveMasses(representation), [representation]);
+  const site = representation.elements.find((element) => element.element_type === "SiteBoundary");
+  const zones = representation.elements.filter((element) => element.element_type === "SpatialZone");
+  const centerX = (bounds.minX + bounds.maxX) / 2; const centerY = (bounds.minY + bounds.maxY) / 2;
+  return <>
+    <ambientLight intensity={1.8} />
+    <directionalLight position={[20, 40, 20]} intensity={1.2} />
+    <group position={[-centerX, 0, centerY]} scale={[scaleFactor, scaleFactor, scaleFactor]} rotation={[0, rotationY, 0]}>
+      {site && <RenderableShape ring={ringFromElement(site)} color="#dbeafe" opacity={0.35} y={-0.03} spatialId={site.id} />}
+      {zones.map((zone) => <RenderableShape key={zone.id} ring={ringFromElement(zone)} color="#22c55e" opacity={0.12} y={0.03} spatialId={zone.id} />)}
+      {masses.map((mass) => <MassMesh key={mass.element.id} mass={mass} selected={false} onSelect={() => undefined} />)}
+    </group>
+  </>;
+}
+
 class Viewer3DErrorBoundary extends Component<{ fallback: React.ReactNode; children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
