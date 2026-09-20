@@ -1,0 +1,96 @@
+[
+  {
+    "variantId": "B-CANDIDATE-01",
+    "modelVersion": "ARKI-P9-PROJECT-B-GEOMETRY-1",
+    "modelProjectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01",
+    "sourcePlanId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-01:CONCEPTUAL-PLAN",
+    "elementCount": 25,
+    "validations": [
+      {
+        "id": "ROOM_CONTAINMENT",
+        "state": "PASS",
+        "explanation": "All conceptual spaces lie inside the 20m × 30m analytical envelope."
+      },
+      {
+        "id": "ROOM_NON_OVERLAP",
+        "state": "PASS",
+        "explanation": "Spaces are separated in the same-level schematic layout."
+      },
+      {
+        "id": "DOOR_CONNECTION",
+        "state": "PASS",
+        "explanation": "Each declared door connects named candidate spaces."
+      },
+      {
+        "id": "PUBLIC_ROUTE",
+        "state": "PASS",
+        "explanation": "A continuous conceptual public route is represented."
+      },
+      {
+        "id": "ACCESSIBILITY_COMPLIANCE",
+        "state": "UNKNOWN",
+        "explanation": "Route width, slopes, turning clearances and local compliance are not verified."
+      },
+      {
+        "id": "CAPACITY",
+        "state": "UNKNOWN",
+        "explanation": "Occupancy and event profile remain unknown."
+      },
+      {
+        "id": "REGULATORY_COMPLIANCE",
+        "state": "UNKNOWN",
+        "explanation": "Jurisdiction and applicable code edition remain unknown."
+      }
+    ],
+    "permitReady": false,
+    "constructionReady": false,
+    "humanReviewRequired": true
+  },
+  {
+    "variantId": "B-CANDIDATE-02",
+    "modelVersion": "ARKI-P9-PROJECT-B-GEOMETRY-1",
+    "modelProjectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02",
+    "sourcePlanId": "PROJECT-B-COASTAL-MAKER-REFUGE-001:B-CANDIDATE-02:CONCEPTUAL-PLAN",
+    "elementCount": 25,
+    "validations": [
+      {
+        "id": "ROOM_CONTAINMENT",
+        "state": "PASS",
+        "explanation": "All conceptual spaces lie inside the 20m × 30m analytical envelope."
+      },
+      {
+        "id": "ROOM_NON_OVERLAP",
+        "state": "PASS",
+        "explanation": "Spaces are separated in the same-level schematic layout."
+      },
+      {
+        "id": "DOOR_CONNECTION",
+        "state": "PASS",
+        "explanation": "Each declared door connects named candidate spaces."
+      },
+      {
+        "id": "PUBLIC_ROUTE",
+        "state": "PASS",
+        "explanation": "A continuous conceptual public route is represented."
+      },
+      {
+        "id": "ACCESSIBILITY_COMPLIANCE",
+        "state": "UNKNOWN",
+        "explanation": "Route width, slopes, turning clearances and local compliance are not verified."
+      },
+      {
+        "id": "CAPACITY",
+        "state": "UNKNOWN",
+        "explanation": "Occupancy and event profile remain unknown."
+      },
+      {
+        "id": "REGULATORY_COMPLIANCE",
+        "state": "UNKNOWN",
+        "explanation": "Jurisdiction and applicable code edition remain unknown."
+      }
+    ],
+    "permitReady": false,
+    "constructionReady": false,
+    "humanReviewRequired": true
+  }
+]

@@ -38,3 +38,17 @@ Repetition, variant and counterexample runs are **pending a separately authorize
 ## Honest conclusion
 
 Project B passed as a clean experimental execution with semantic design hypotheses and explicit unresolved dependencies. It did not prove a final architectural design, geometric realization, regulatory compliance, generalization or learning. The next legitimate action is a new authorized delta for challenge runs and, separately, a human-approved geometric realization if desired.
+
+## Human deliberation — exploration of both candidates
+
+The architect authorized exploration of both semantic candidates. This is a human action authorizing a bounded comparison, not a selection of a winner. Two conceptual geometric variants were generated from the same `CanonicalBuildingModel` contract and version: `B-CANDIDATE-01` and `B-CANDIDATE-02`.
+
+Both variants preserve explicit spaces, walls, doors and a conceptual public route. Accessibility compliance, capacity, code applicability, structural performance, construction assemblies and permit readiness remain **UNKNOWN** or **NOT_ASSESSED**. Both variants remain `HYPOTHESIS`, `permitReady = false`, `constructionReady = false`, and require human review.
+
+The geometric exploration therefore demonstrates a comparable design state, not an approved design. No automatic winner, recommendation, K1 learning event or professional validation was created.
+
+## Geometry artifacts
+
+- `B-CANDIDATE-01-CONCEPTUAL-PLAN.svg`
+- `B-CANDIDATE-02-CONCEPTUAL-PLAN.svg`
+- `PROJECT-B-GEOMETRIC-DELIBERATION.json`

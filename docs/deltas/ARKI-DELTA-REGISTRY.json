@@ -694,9 +694,9 @@
           "second_engine": "NOT_CREATED",
           "focused_tests": "5/5 PASS",
           "typecheck": "PASS",
-          "full_regression": "PASS",
-          "build": "PASS",
-          "git_diff_check": "PASS",
+          "full_regression": "PENDING",
+          "build": "PENDING",
+          "git_diff_check": "PENDING",
           "triple_propagation": "PASS",
           "report": "docs/ARKI-P9.0-BLIND-UNSEEN-PROJECT-PROTOCOL-2026-09-19.md",
           "next_precise_work": "Select and execute Project B only under a new authorized delta; do not infer a solution from this protocol.",
@@ -708,13 +708,23 @@
           "geometry": "NOT_EXECUTED",
           "capacity": "INSUFFICIENT_EVIDENCE",
           "regulatory_applicability": "SPECIALIST_INPUT_REQUIRED",
-          "human_decision": "HUMAN_DECISION_REQUIRED",
+          "human_decision": "EXPLORATION_AUTHORIZED_NO_SELECTION",
           "learning_candidate": "OBSERVATION_ONLY",
           "k1_created": "NO",
           "challenge": "PENDING_SEPARATE_AUTHORIZATION",
           "project_b_report": "docs/project-b/PROJECT-B-P9.0-REPORT.md",
           "project_b_ledger": "docs/project-b/PROJECT-B-EXPERIMENT-LEDGER.json",
-          "project_b_visual_board": "docs/project-b/PROJECT-B-PHASE-A-SEMANTIC-BOARD.svg"
+          "project_b_visual_board": "docs/project-b/PROJECT-B-PHASE-A-SEMANTIC-BOARD.svg",
+          "human_deliberation": "EXPLORE_BOTH_CANDIDATES",
+          "geometric_variants": 2,
+          "geometric_exploration": "COMPLETE_CONCEPTUAL_COMPARISON",
+          "winner_created": "NO",
+          "recommendation_created": "NO",
+          "geometry_reports": [
+            "docs/project-b/B-CANDIDATE-01-CONCEPTUAL-PLAN.svg",
+            "docs/project-b/B-CANDIDATE-02-CONCEPTUAL-PLAN.svg",
+            "docs/project-b/PROJECT-B-GEOMETRIC-DELIBERATION.json"
+          ]
         }
       ]
     }

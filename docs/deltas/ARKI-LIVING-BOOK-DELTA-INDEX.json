@@ -387,6 +387,13 @@
     "status": "OBSERVATION_ONLY",
     "k1_created": false,
     "geometry": "NOT_EXECUTED",
-    "report": "docs/project-b/PROJECT-B-P9.0-REPORT.md"
+    "report": "docs/project-b/PROJECT-B-P9.0-REPORT.md",
+    "human_deliberation": "EXPLORE_BOTH_CANDIDATES",
+    "geometric_variants": 2,
+    "winner_created": false,
+    "geometry_reports": [
+      "docs/project-b/B-CANDIDATE-01-CONCEPTUAL-PLAN.svg",
+      "docs/project-b/B-CANDIDATE-02-CONCEPTUAL-PLAN.svg"
+    ]
   }
 }
