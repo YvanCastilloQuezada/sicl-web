@@ -31,7 +31,7 @@ describe("i18n core", () => {
   it("falls back to Spanish for an unsupported language", async () => {
     await i18n.changeLanguage("xx");
     expect(i18n.language).toBe("es");
-    expect(i18n.t("header.title")).toBe("SiMS-DeI Command Center");
+    expect(i18n.t("header.title")).toBe("SiMS-DeI");
   });
 
   it("normalizes browser regional language codes", () => {

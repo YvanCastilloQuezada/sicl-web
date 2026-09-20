@@ -33,6 +33,8 @@ jobs:
         run: pnpm check
 
       - name: Run tests
+        env:
+          SICL_CORE_SERVICE_TOKEN: ci-test-token
         run: pnpm test -- --run
 
       - name: Build production bundle

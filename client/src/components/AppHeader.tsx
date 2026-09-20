@@ -16,7 +16,8 @@ export default function AppHeader() {
         <div>
           <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground"><span className="h-2 w-2 rounded-full bg-accent" /> {t("header.subtitle")}</div>
           <h1 className="font-serif text-3xl tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1>
-          <p className="mt-1 text-sm text-muted-foreground">{t("header.tagline")}</p>
+          <p className="mt-1 text-sm font-medium text-foreground">{t("header.identity_line2")}</p>
+          <p className="mt-1 max-w-3xl text-sm text-muted-foreground">{t("header.identity_line3")}</p>
         </div>
         <div className="flex items-center gap-3">
           <LanguageSelector />

@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Decisiones de proyecto basadas en evidencia, con autoridad humana preservada en el límite.",
+    "tagline": "Diseña, analiza, genera, simula y compara alternativas a través de las escalas espaciales, desde el objeto hasta el país.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Navegación principal",
-    "traceable": "Espacio trazable"
+    "traceable": "Espacio trazable",
+    "identity_line2": "Sistema de Inteligencia de Diseño Espacial Multiescala",
+    "identity_line3": "Diseña, analiza, genera, simula y compara alternativas a través de las escalas espaciales, desde el objeto hasta el país."
   },
   "nav": {
     "project": "Proyecto",
@@ -527,5 +529,52 @@
     "command_required": "obligatorio",
     "command_optional": "opcional",
     "command_tab": "Tabulación"
+  },
+  "solar": {
+    "layer": "Capa ambiental",
+    "title": "Análisis solar temporal",
+    "description": "Explora la posición solar y los datos horarios de radiación para la geometría educativa A/B/C. La astronomía y la meteorología se mantienen separadas.",
+    "educational": "Solo educativo",
+    "date": "Fecha",
+    "time": "Hora local",
+    "pause": "Pausar",
+    "play": "Reproducir día",
+    "step": "Siguiente hora",
+    "direction": "Dirección solar",
+    "azimuth": "Azimut",
+    "elevation": "Elevación",
+    "environmentalReference": "Referencia ambiental:",
+    "sourceData": "Datos fuente:",
+    "disclosure": "Divulgación:",
+    "proxyDisclosure": "Trujillo es un proxy educativo; no es un sitio UPAO medido.",
+    "sourceUnavailable": "La fuente ambiental no está disponible.",
+    "unavailable": "Análisis no disponible.",
+    "capability": "Aplicabilidad multiescala",
+    "capabilityUnavailable": "No se pudo resolver la aplicabilidad",
+    "capabilityStates": {
+      "AVAILABLE": "DISPONIBLE",
+      "REQUIRES_DATA": "REQUIERE DATOS",
+      "NOT_AVAILABLE": "NO DISPONIBLE",
+      "NOT_APPLICABLE": "NO APLICA"
+    }
+  },
+  "location": {
+    "title": "Ubicación del proyecto",
+    "description": "Propón una ubicación y confirma explícitamente antes de guardarla.",
+    "longitude": "Longitud",
+    "latitude": "Latitud",
+    "label": "Etiqueta",
+    "label_placeholder": "Ej. Trujillo, parcela piloto",
+    "preview": "Previsualizar ubicación",
+    "preview_title": "Candidato sin confirmar",
+    "preview_note": "Revisa el punto. La ubicación no se guarda hasta que una autoridad humana la confirme.",
+    "confirm": "Confirmar ubicación",
+    "saving": "Guardando…",
+    "confirmed": "Ubicación confirmada y registrada en el historial.",
+    "current": "Ubicación actual:",
+    "invalid_coordinates": "Introduce coordenadas válidas en longitud y latitud.",
+    "missing_title": "Datos pendientes",
+    "missing_summary": "{{count}} variables requieren datos o una fuente explícita.",
+    "human_authority": "La confirmación humana conserva la trazabilidad."
   }
 }

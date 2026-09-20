@@ -1,11 +1,13 @@
 {
   "header": {
-    "title": "SiMS-DeI Command Center",
+    "title": "SiMS-DeI",
     "subtitle": "SiMS-DeI · SICL",
-    "tagline": "Evidenzbasierte Projektentscheidungen mit gewahrter menschlicher Autorität an der Grenze.",
+    "tagline": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land.",
     "version": "SiMS-DeI 2.2",
     "navigation": "Hauptnavigation",
-    "traceable": "Nachvollziehbarer Arbeitsbereich"
+    "traceable": "Nachvollziehbarer Arbeitsbereich",
+    "identity_line2": "Multiskalares räumliches Design-Intelligenzsystem",
+    "identity_line3": "Entwirft, analysiert, generiert, simuliert und vergleicht Alternativen über räumliche Maßstäbe hinweg – vom Objekt bis zum Land."
   },
   "nav": {
     "project": "Projekt",
@@ -527,5 +529,52 @@
     "command_required": "erforderlich",
     "command_optional": "optional",
     "command_tab": "Tabulator"
+  },
+  "solar": {
+    "layer": "Umweltebene",
+    "title": "Zeitliche Solaranalyse",
+    "description": "Untersuchen Sie Sonnenstand und stündliche Strahlungsdaten für die pädagogische A/B/C-Geometrie. Astronomie und Meteorologie bleiben getrennt.",
+    "educational": "Nur zu Bildungszwecken",
+    "date": "Datum",
+    "time": "Ortszeit",
+    "pause": "Pausieren",
+    "play": "Tag abspielen",
+    "step": "Nächste Stunde",
+    "direction": "Sonnenrichtung",
+    "azimuth": "Azimut",
+    "elevation": "Höhe",
+    "environmentalReference": "Umweltreferenz:",
+    "sourceData": "Quelldaten:",
+    "disclosure": "Hinweis:",
+    "proxyDisclosure": "Trujillo ist ein Bildungskontext und kein vermessener UPAO-Standort.",
+    "sourceUnavailable": "Die Umweltquelle ist nicht verfügbar.",
+    "unavailable": "Analyse nicht verfügbar.",
+    "capability": "Multiskalige Anwendbarkeit",
+    "capabilityUnavailable": "Anwendbarkeit konnte nicht ermittelt werden",
+    "capabilityStates": {
+      "AVAILABLE": "VERFÜGBAR",
+      "REQUIRES_DATA": "DATEN ERFORDERLICH",
+      "NOT_AVAILABLE": "NICHT VERFÜGBAR",
+      "NOT_APPLICABLE": "NICHT ANWENDBAR"
+    }
+  },
+  "location": {
+    "title": "Projektstandort",
+    "description": "Schlagen Sie einen Standort vor und bestätigen Sie ihn ausdrücklich vor dem Speichern.",
+    "longitude": "Längengrad",
+    "latitude": "Breitengrad",
+    "label": "Bezeichnung",
+    "label_placeholder": "z. B. Trujillo, Pilotparzelle",
+    "preview": "Standortvorschau",
+    "preview_title": "Unbestätigter Kandidat",
+    "preview_note": "Prüfen Sie den Punkt. Er wird erst nach menschlicher Bestätigung gespeichert.",
+    "confirm": "Standort bestätigen",
+    "saving": "Speichern…",
+    "confirmed": "Standort bestätigt und im Verlauf protokolliert.",
+    "current": "Aktueller Standort:",
+    "invalid_coordinates": "Geben Sie gültige Längen- und Breitengrade ein.",
+    "missing_title": "Fehlende Daten",
+    "missing_summary": "{{count}} Variablen benötigen Daten oder eine explizite Quelle.",
+    "human_authority": "Die menschliche Bestätigung bewahrt die Nachvollziehbarkeit."
   }
 }
