@@ -14,6 +14,31 @@ Cada entrada registra la fuente, el hash, el estado epistemológico, los objetiv
 6. Los deltas anteriores no se eliminan porque un delta nuevo no los repita.
 7. La autoridad humana permanece final para canonización, decisiones de diseño, ganadores y aprobación profesional.
 
+## Regla editorial de destino
+
+La recepción de nueva investigación no implica que deba convertirse en un capítulo de la trilogía. Antes de crear o modificar contenido se debe identificar la función del libro y su lector principal:
+
+| Destino | Función | Lectores principales |
+|---|---|---|
+| Volumen I — Fundamentos de Arquitectura | Enseñar fundamentos espaciales, funcionales, humanos y arquitectónicos | Estudiantes y personas que se inician en arquitectura |
+| Volumen II — Enseñar Arquitectura | Explicar cómo estudiar, practicar y enseñar arquitectura | Estudiantes avanzados, docentes y tutores |
+| Volumen III — El caso ARKI | Presentar el caso arquitectónico, intelectual y experimental de ARKI en un nivel comprensible para estudiantes, docentes e investigadores | Estudiantes, docentes e investigadores |
+| Documentación interna ARKI | Operar, auditar, probar y mantener el sistema | Equipo del sistema, agentes y arquitecto humano responsable |
+
+Los siguientes temas son **INTERNAL_ONLY** y no deben convertirse automáticamente en capítulos de la trilogía: equivalencia entre forma, organización, topología y parti; espacio fuente y espacio de conocimiento; UNKNOWN y no invención; provenance; referencia/analogía/transferencia/copia; contraejemplos; revisión humana interna; diferencia entre capacidad implementada y demostrada; P9.4; P10; ANEXO I; L10; M1; persistencia y regresión del conocimiento; y límites entre conocimiento arquitectónico y software. Pueden citarse o resumirse en el Volumen III solo cuando sea necesario para explicar el caso ARKI, pero sus protocolos, contratos, matrices, gates y detalles de implementación pertenecen a la documentación interna.
+
+La regla de decisión es:
+
+```text
+INVESTIGACIÓN NUEVA
+→ FUNCIÓN DEL LIBRO
+→ PERFIL DEL LECTOR
+→ VALOR PEDAGÓGICO O DOCUMENTAL
+→ DESTINO: VOLUMEN I / II / III / INTERNAL_ONLY
+```
+
+No se crearán capítulos por acumulación técnica ni se trasladarán contratos internos al currículo general sin una justificación editorial explícita.
+
 ## Flujo automático
 
 ```text
