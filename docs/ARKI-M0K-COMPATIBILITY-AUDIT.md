@@ -2,9 +2,9 @@
 
 ## Estado de la orden
 
-**Estado:** `PARTIALLY_IMPLEMENTED`
+**Estado:** `LOCAL_INGESTION_COMPLETE_CORE_PERSISTENCE_BLOCKED`
 
-M0-K implementa una base tipada, aditiva y reutilizable para representar el corpus sin crear un segundo motor de conocimiento, tipología, aprendizaje, provenance o modelo canónico. El workbook permanece como `RESEARCH_BASELINE / NOT_CANONICAL_IMPLEMENTATION`.
+M0-K implementa una base tipada, aditiva y reutilizable para representar el corpus sin crear un segundo motor de conocimiento, tipología, aprendizaje, provenance o modelo canónico. El workbook fue ingerido localmente como paquete trazable. La persistencia remota en SICL Core permanece bloqueada porque esta sesión no tiene `SICL_CORE_URL` ni `SICL_CORE_SERVICE_TOKEN`.
 
 ## A. Repository state
 
@@ -49,11 +49,11 @@ El workbook define explícitamente límites de derechos: accesibilidad pública 
 
 ### New additive structure
 
-`shared/arkiKnowledgeCorpusFoundation.ts` provides typed records and pure validation helpers for the missing cross-layer contract. It includes source/evidence/knowledge separation, scope, rationale edges, strategy/realization many-to-many links, transfer modes, counterexamples, unknown resolution paths, learning promotion gates and hazard non-canonization status.
+`shared/arkiKnowledgeCorpusFoundation.ts` provides typed records and pure validation helpers for the missing cross-layer contract. It includes source/evidence/knowledge separation, scope, rationale edges, strategy/realization many-to-many links, transfer modes, counterexamples, unknown resolution paths, learning promotion gates and hazard non-canonization status. The ingestion bundle is `docs/arki-m0k/corpus-ingestion.json`; the human promotion review is `docs/arki-m0k/human-promotion-review.json`.
 
 ### Explicitly not implemented
 
-Mass ingestion of White, Neufert or Plazola; a complete Manual of Forms database; automatic regulatory canonization; automatic selection of the best architecture; new UI; new 3D/BIM/IFC/DWG work; destructive persistence migrations; and any automatic human decision.
+Remote persistence in SICL Core until the connector is configured; a complete Manual of Forms database; automatic regulatory canonization; automatic selection of the best architecture; new UI; new 3D/BIM/IFC/DWG work; destructive persistence migrations; and any automatic human decision.
 
 ## D. Corpus coverage after M0-K foundation
 
@@ -112,10 +112,10 @@ M0-K must be registered in ANEXO I only as experimental/reproducibility evidence
 
 ## J. Remaining gaps
 
-The current result is a foundation, not a complete corpus implementation. Persistent storage, UI projection, full source registry reconciliation and broader transfer/counterexample fixtures remain future bounded work. No claim of complete architectural knowledge ingestion is made.
+The current result is a complete local ingestion bundle, not a complete remote Core projection. Persistent storage in SICL Core, UI projection, full source registry reconciliation and broader transfer/counterexample fixtures remain future bounded work. Nine K3-supported invariants were promoted to `FACT`/`K7_CANONICAL_HUMAN_CONFIRMED` under the user's explicit human-authority instruction; one K2 pattern remains `HYPOTHESIS`.
 
 ## Final epistemic state
 
-`PARTIALLY_IMPLEMENTED`
+`LOCAL_INGESTION_COMPLETE_CORE_PERSISTENCE_BLOCKED`
 
 `HUMAN ARCHITECT = FINAL AUTHORITY`
