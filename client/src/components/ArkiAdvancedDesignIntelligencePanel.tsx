@@ -23,7 +23,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
   const s1 = runS1Proof();
   const s2 = runS2Proof();
   const [alternativeId, setAlternativeId] = useState(exploration.alternatives[0].alternativeId);
-  const [mode, setMode] = useState<ArkiDesignMode>("ARCHITECT");
+  const [mode, setMode] = useState<ArkiDesignMode>("SENIOR");
   const modeState = modeView(gdi.continuum, mode);
   const modeProfile = getModeProfile(mode);
   const selected = exploration.alternatives.find((alternative) => alternative.alternativeId === alternativeId) ?? exploration.alternatives[0];
@@ -40,7 +40,7 @@ export function ArkiAdvancedDesignIntelligencePanel() {
       <p className="text-sm font-semibold">Architectural design mode</p>
       <p className="mt-1 text-xs text-muted-foreground">One shared engine; mode changes exploration depth, not truth status or authority.</p>
       <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Architectural design mode">
-        {(["JUNIOR", "ARCHITECT", "MASTER", "CRAZY"] as const).map((item) => <button key={item} type="button" role="radio" aria-checked={item === mode} onClick={() => setMode(item)} className="rounded-md border border-border px-3 py-2 text-xs hover:bg-accent/10">{item}</button>)}
+        {(["JUNIOR", "SENIOR", "MASTER", "CRAZY"] as const).map((item) => <button key={item} type="button" role="radio" aria-checked={item === mode} onClick={() => setMode(item)} className="rounded-md border border-border px-3 py-2 text-xs hover:bg-accent/10">{item}</button>)}
       </div>
       <p className="mt-3 text-xs">Depth {modeProfile.reasoningDepth} · novelty {modeProfile.noveltyTolerance} · alternatives {modeState.alternatives.length} · human selection required</p>
     </div>

@@ -80,7 +80,7 @@ Se adoptaron las escalas espaciales desde objeto y espacio hasta país. La repre
 
 ### 3.2 Generación y diseño arquitectónico
 
-Se implementaron los modos `JUNIOR`, `ARCHITECT`, `MASTER` y `CRAZY`, junto con gramática arquitectónica, gramática tipológica, parti causal, evaluación heurística, razonamiento de masa/void, relaciones verticales y crítica de diseño.
+Se implementaron los modos `JUNIOR`, `SENIOR`, `MASTER` y `CRAZY`, junto con gramática arquitectónica, gramática tipológica, parti causal, evaluación heurística, razonamiento de masa/void, relaciones verticales y crítica de diseño. `SENIOR` reemplaza la etiqueta anterior `ARCHITECT` como segundo nivel de exploración; no modifica el rol del arquitecto humano responsable ni las referencias a `ARCHITECT` usadas como rol profesional o revisor.
 
 La generación dejó de tratarse como una lista de rectángulos. El sistema ahora puede conservar una intención arquitectónica, una estrategia de parti, una traza de conocimiento y una explicación de fortalezas, problemas y unknowns.
 

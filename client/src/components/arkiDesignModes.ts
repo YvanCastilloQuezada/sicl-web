@@ -1,7 +1,7 @@
 import type { GDIContinuum } from "./arkiGenerativeDesignContinuum";
 import type { IntegratedProductFoundation } from "./arkiIntegratedProductFoundation";
 
-export type ArkiDesignMode = "JUNIOR" | "ARCHITECT" | "MASTER" | "CRAZY";
+export type ArkiDesignMode = "JUNIOR" | "SENIOR" | "MASTER" | "CRAZY";
 export type ArkiIntensity = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 export type ModeProfile = {
   mode: ArkiDesignMode;
@@ -22,12 +22,12 @@ export type ModeProfile = {
 
 const profiles: Record<ArkiDesignMode, Omit<ModeProfile, "mode">> = {
   JUNIOR: { intent: "Fast, clear, conservative and educational exploration.", reasoningDepth: 1, alternativeBudget: 1, designSpaceBreadth: 1, critiqueDepth: 1, knowledgePerspectives: 2, counterfactualBudget: 0, mutationAmplitude: "LOW", noveltyTolerance: "LOW", explanationDepth: 3, technicalCoordinationDepth: 1, environmentalReasoningDepth: 1, preserves: ["TRUTH", "EVIDENCE", "HUMAN_AUTHORITY", "HARD_CONSTRAINTS", "UNKNOWN"] },
-  ARCHITECT: { intent: "Balanced professional architectural design exploration.", reasoningDepth: 2, alternativeBudget: 3, designSpaceBreadth: 2, critiqueDepth: 2, knowledgePerspectives: 4, counterfactualBudget: 1, mutationAmplitude: "MEDIUM", noveltyTolerance: "BALANCED", explanationDepth: 3, technicalCoordinationDepth: 2, environmentalReasoningDepth: 2, preserves: ["TRUTH", "EVIDENCE", "HUMAN_AUTHORITY", "HARD_CONSTRAINTS", "UNKNOWN"] },
+  SENIOR: { intent: "Balanced professional architectural design exploration.", reasoningDepth: 2, alternativeBudget: 3, designSpaceBreadth: 2, critiqueDepth: 2, knowledgePerspectives: 4, counterfactualBudget: 1, mutationAmplitude: "MEDIUM", noveltyTolerance: "BALANCED", explanationDepth: 3, technicalCoordinationDepth: 2, environmentalReasoningDepth: 2, preserves: ["TRUTH", "EVIDENCE", "HUMAN_AUTHORITY", "HARD_CONSTRAINTS", "UNKNOWN"] },
   MASTER: { intent: "Deep multi-domain architectural exploration and self-critique.", reasoningDepth: 4, alternativeBudget: 3, designSpaceBreadth: 4, critiqueDepth: 4, knowledgePerspectives: 6, counterfactualBudget: 3, mutationAmplitude: "HIGH", noveltyTolerance: "HIGH", explanationDepth: 4, technicalCoordinationDepth: 4, environmentalReasoningDepth: 4, preserves: ["TRUTH", "EVIDENCE", "HUMAN_AUTHORITY", "HARD_CONSTRAINTS", "UNKNOWN"] },
   CRAZY: { intent: "Controlled radical speculation with explicit soft-constraint proposals.", reasoningDepth: 5, alternativeBudget: 3, designSpaceBreadth: 5, critiqueDepth: 5, knowledgePerspectives: 6, counterfactualBudget: 5, mutationAmplitude: "RADICAL_BOUNDED", noveltyTolerance: "RADICAL_BOUNDED", explanationDepth: 5, technicalCoordinationDepth: 4, environmentalReasoningDepth: 4, preserves: ["TRUTH", "EVIDENCE", "HUMAN_AUTHORITY", "HARD_CONSTRAINTS", "UNKNOWN"] },
 };
 
-export function getModeProfile(mode: ArkiDesignMode = "ARCHITECT"): ModeProfile { return { mode, ...profiles[mode] }; }
+export function getModeProfile(mode: ArkiDesignMode = "SENIOR"): ModeProfile { return { mode, ...profiles[mode] }; }
 export function getIntensity(value: number): ArkiIntensity { const bounded = Math.max(0, Math.min(100, Math.round(value / 10) * 10)); return bounded as ArkiIntensity; }
 export function modeView(continuum: GDIContinuum, mode: ArkiDesignMode, intensity: ArkiIntensity = 50) {
   const profile = getModeProfile(mode);
