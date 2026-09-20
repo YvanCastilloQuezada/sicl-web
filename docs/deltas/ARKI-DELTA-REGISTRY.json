@@ -656,8 +656,8 @@
         "PREPARATION FOR PROJECT B"
       ],
       "preview_count": 678,
-      "status": "EXECUTED / P9.0_READY_FOR_PROJECT_B / PROJECT_B_NOT_CREATED",
-      "knowledge_state": "EXPERIMENTAL_PROTOCOL / NOT_ARCHITECTURAL_KNOWLEDGE / NOT_LEARNED",
+      "status": "EXECUTED / P9.0_PROJECT_B_COMPLETE / OBSERVATION_ONLY / HUMAN_REVIEW_REQUIRED",
+      "knowledge_state": "PROJECT_B_OBSERVATION / NOT_LEARNED / K1_NOT_CREATED",
       "curriculum_targets": [
         "VOLUME_I",
         "VOLUME_II",
@@ -680,8 +680,8 @@
         {
           "execution_state": "EXECUTED / P9.0_READY_FOR_PROJECT_B / PROJECT_B_NOT_CREATED",
           "p8_baseline": "FROZEN_AT_2814BE085F1E75C12C9EE7CBFDC780AF11341720",
-          "k0": "DEFINED_AND_FROZEN_BEFORE_PROJECT_B",
-          "project_b": "NOT_CREATED",
+          "k0": "FROZEN",
+          "project_b": "EXECUTED_PHASE_A_AND_PHASE_B",
           "project_c": "NOT_CREATED",
           "input_contract": "PASS",
           "project_isolation": "PASS_METHOD_DEFINED",
@@ -699,7 +699,22 @@
           "git_diff_check": "PASS",
           "triple_propagation": "PASS",
           "report": "docs/ARKI-P9.0-BLIND-UNSEEN-PROJECT-PROTOCOL-2026-09-19.md",
-          "next_precise_work": "Select and execute Project B only under a new authorized delta; do not infer a solution from this protocol."
+          "next_precise_work": "Select and execute Project B only under a new authorized delta; do not infer a solution from this protocol.",
+          "project_b_id": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+          "project_b_isolation": "CLEAN",
+          "phase_a": "BLIND_EXECUTION_FROZEN",
+          "phase_b": "POST_HOC_EVALUATION_COMPLETE",
+          "semantic_candidates": 2,
+          "geometry": "NOT_EXECUTED",
+          "capacity": "INSUFFICIENT_EVIDENCE",
+          "regulatory_applicability": "SPECIALIST_INPUT_REQUIRED",
+          "human_decision": "HUMAN_DECISION_REQUIRED",
+          "learning_candidate": "OBSERVATION_ONLY",
+          "k1_created": "NO",
+          "challenge": "PENDING_SEPARATE_AUTHORIZATION",
+          "project_b_report": "docs/project-b/PROJECT-B-P9.0-REPORT.md",
+          "project_b_ledger": "docs/project-b/PROJECT-B-EXPERIMENT-LEDGER.json",
+          "project_b_visual_board": "docs/project-b/PROJECT-B-PHASE-A-SEMANTIC-BOARD.svg"
         }
       ]
     }

@@ -1,0 +1,577 @@
+{
+  "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+  "phaseA": {
+    "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+    "boundary": {
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "historicalFixtureIds": [],
+      "inputs": [
+        {
+          "id": "B-client-purpose",
+          "kind": "CLIENT_FACT",
+          "statement": "The client wants a public community facility for repair learning, mutual aid and ordinary community use.",
+          "state": "PROJECT_FACT",
+          "sourceRefs": [
+            "project-b-client-brief"
+          ]
+        },
+        {
+          "id": "B-site-condition",
+          "kind": "SITE_FACT",
+          "statement": "The site is in a coastal settlement; exact survey, orientation and soil data are not supplied.",
+          "state": "PROJECT_FACT",
+          "sourceRefs": [
+            "project-b-site-brief"
+          ]
+        },
+        {
+          "id": "B-objective",
+          "kind": "OBJECTIVE",
+          "statement": "Support learning, repair, gathering and safe exit for changing groups of users.",
+          "state": "HUMAN_CONFIRMED",
+          "sourceRefs": [
+            "project-b-client-brief"
+          ]
+        },
+        {
+          "id": "B-hard-boundary",
+          "kind": "HARD_CONSTRAINT",
+          "statement": "The proposal must remain at controlled schematic-design scale and must not claim permit or construction readiness.",
+          "state": "HUMAN_CONFIRMED",
+          "sourceRefs": [
+            "p9-experimental-governance"
+          ]
+        },
+        {
+          "id": "B-unknown-capacity",
+          "kind": "UNKNOWN",
+          "statement": "Peak occupancy, staffing, equipment inventory and event profile are unknown.",
+          "state": "UNKNOWN",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        },
+        {
+          "id": "B-unknown-regulation",
+          "kind": "UNKNOWN",
+          "statement": "Jurisdiction, applicable regulatory edition and specialist life-safety requirements are unknown.",
+          "state": "UNKNOWN",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        }
+      ],
+      "excludedSolutionFields": [
+        "preferredParti",
+        "expectedZoning",
+        "desiredGeometry",
+        "expectedDeficit",
+        "expectedCause",
+        "preferredAlternative",
+        "answerKey"
+      ],
+      "state": "CLEAN_BOUNDARY",
+      "provenance": [
+        "P8.1 clean project boundary",
+        "Historical fixtures excluded",
+        "Solution leakage controls active"
+      ]
+    },
+    "inputContract": {
+      "valid": true,
+      "accepted": [
+        "CLIENT_FACT",
+        "SITE_FACT",
+        "OBJECTIVE",
+        "HARD_CONSTRAINT",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "rejected": [],
+      "provenanceComplete": true,
+      "solutionFieldsDetected": []
+    },
+    "isolation": {
+      "isolated": true,
+      "matches": [],
+      "status": "CLEAN"
+    },
+    "k0": {
+      "snapshotId": "K0:PROJECT-B-COASTAL-MAKER-REFUGE-001:368",
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "createdAt": "P9-PREPROJECT-UTC",
+      "entries": [
+        {
+          "id": "K0-general-architecture",
+          "bucket": "ALREADY_KNOWN",
+          "statement": "General architectural and functional reasoning exists before Project B.",
+          "sourceRefs": [
+            "P9-K0-baseline"
+          ]
+        },
+        {
+          "id": "K0-project-inputs",
+          "bucket": "SUPPLIED_AS_INPUT",
+          "statement": "Only the frozen Project B input contract is supplied.",
+          "sourceRefs": [
+            "project-b-input-freeze"
+          ]
+        },
+        {
+          "id": "K0-project-solution",
+          "bucket": "UNKNOWN",
+          "statement": "Project B solution, strategy, candidate and geometry are unknown.",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        },
+        {
+          "id": "K0-learning",
+          "bucket": "UNKNOWN",
+          "statement": "No Project B learning event is known before execution.",
+          "sourceRefs": [
+            "p9-learning-boundary"
+          ]
+        }
+      ],
+      "frozen": true,
+      "k1Created": false,
+      "provenance": [
+        "P9.0 K0 freeze",
+        "Created before Project B",
+        "No Project B facts included"
+      ]
+    },
+    "ledger": [
+      {
+        "id": "B-L1",
+        "kind": "K0",
+        "bucket": "ALREADY_KNOWN",
+        "statement": "K0 frozen before blind execution.",
+        "sourceRefs": [
+          "K0:PROJECT-B-COASTAL-MAKER-REFUGE-001"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L2",
+        "kind": "INPUT",
+        "bucket": "SUPPLIED_AS_INPUT",
+        "statement": "Client, site, objective, hard boundary and unknowns received.",
+        "sourceRefs": [
+          "project-b-client-brief",
+          "project-b-site-brief",
+          "project-b-client-brief",
+          "p9-experimental-governance",
+          "project-b-unknown-ledger",
+          "project-b-unknown-ledger"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L3",
+        "kind": "DERIVATION",
+        "bucket": "INFERRED_FROM_K0",
+        "statement": "Activities and relational requirements derived without selecting a geometry.",
+        "sourceRefs": [
+          "B-L2",
+          "P9-general-functional-reasoning"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L4",
+        "kind": "CANDIDATE",
+        "bucket": "NOVEL_CANDIDATE",
+        "statement": "Two schematic topology hypotheses generated for human review.",
+        "sourceRefs": [
+          "B-L3"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L5",
+        "kind": "UNKNOWN",
+        "bucket": "UNKNOWN",
+        "statement": "Capacity, jurisdiction, exact site geometry, engineering and compliance remain unknown.",
+        "sourceRefs": [
+          "B-L2"
+        ],
+        "phase": "BLIND_EXECUTION"
+      }
+    ],
+    "semanticProgram": [
+      {
+        "id": "ACT-LEARN",
+        "activity": "repair and learn",
+        "requiredEvidence": [
+          "equipment and group size",
+          "safe movement",
+          "daylight/ventilation context"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-GATHER",
+        "activity": "gather and exchange",
+        "requiredEvidence": [
+          "occupancy and event profile",
+          "acoustic expectations",
+          "accessible arrival"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-SUPPORT",
+        "activity": "staff, storage and support",
+        "requiredEvidence": [
+          "service sequence",
+          "storage demand",
+          "waste and delivery conditions"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-EXIT",
+        "activity": "ordinary and emergency exit",
+        "requiredEvidence": [
+          "jurisdiction",
+          "occupancy load",
+          "egress and fire specialist review"
+        ],
+        "state": "UNKNOWN"
+      }
+    ],
+    "candidateTopologies": [
+      {
+        "id": "B-CANDIDATE-01",
+        "relations": [
+          "arrival→shared threshold",
+          "shared threshold→learning",
+          "learning↔gathering",
+          "support→learning: controlled",
+          "exit→all public zones"
+        ],
+        "state": "HYPOTHESIS",
+        "humanReviewRequired": true
+      },
+      {
+        "id": "B-CANDIDATE-02",
+        "relations": [
+          "arrival→gathering",
+          "gathering→learning",
+          "support→learning: separated",
+          "support→storage",
+          "exit→all public zones"
+        ],
+        "state": "HYPOTHESIS",
+        "humanReviewRequired": true
+      }
+    ],
+    "geometry": {
+      "state": "NOT_EXECUTED",
+      "reason": "P9 Phase A produces semantic candidates; no preferred geometry or construction-ready claim is authorized."
+    },
+    "decision": "HUMAN_DECISION_REQUIRED",
+    "k1Created": false,
+    "automaticWinner": "NONE"
+  },
+  "phaseB": {
+    "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+    "boundary": {
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "historicalFixtureIds": [],
+      "inputs": [
+        {
+          "id": "B-client-purpose",
+          "kind": "CLIENT_FACT",
+          "statement": "The client wants a public community facility for repair learning, mutual aid and ordinary community use.",
+          "state": "PROJECT_FACT",
+          "sourceRefs": [
+            "project-b-client-brief"
+          ]
+        },
+        {
+          "id": "B-site-condition",
+          "kind": "SITE_FACT",
+          "statement": "The site is in a coastal settlement; exact survey, orientation and soil data are not supplied.",
+          "state": "PROJECT_FACT",
+          "sourceRefs": [
+            "project-b-site-brief"
+          ]
+        },
+        {
+          "id": "B-objective",
+          "kind": "OBJECTIVE",
+          "statement": "Support learning, repair, gathering and safe exit for changing groups of users.",
+          "state": "HUMAN_CONFIRMED",
+          "sourceRefs": [
+            "project-b-client-brief"
+          ]
+        },
+        {
+          "id": "B-hard-boundary",
+          "kind": "HARD_CONSTRAINT",
+          "statement": "The proposal must remain at controlled schematic-design scale and must not claim permit or construction readiness.",
+          "state": "HUMAN_CONFIRMED",
+          "sourceRefs": [
+            "p9-experimental-governance"
+          ]
+        },
+        {
+          "id": "B-unknown-capacity",
+          "kind": "UNKNOWN",
+          "statement": "Peak occupancy, staffing, equipment inventory and event profile are unknown.",
+          "state": "UNKNOWN",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        },
+        {
+          "id": "B-unknown-regulation",
+          "kind": "UNKNOWN",
+          "statement": "Jurisdiction, applicable regulatory edition and specialist life-safety requirements are unknown.",
+          "state": "UNKNOWN",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        }
+      ],
+      "excludedSolutionFields": [
+        "preferredParti",
+        "expectedZoning",
+        "desiredGeometry",
+        "expectedDeficit",
+        "expectedCause",
+        "preferredAlternative",
+        "answerKey"
+      ],
+      "state": "CLEAN_BOUNDARY",
+      "provenance": [
+        "P8.1 clean project boundary",
+        "Historical fixtures excluded",
+        "Solution leakage controls active"
+      ]
+    },
+    "inputContract": {
+      "valid": true,
+      "accepted": [
+        "CLIENT_FACT",
+        "SITE_FACT",
+        "OBJECTIVE",
+        "HARD_CONSTRAINT",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "rejected": [],
+      "provenanceComplete": true,
+      "solutionFieldsDetected": []
+    },
+    "isolation": {
+      "isolated": true,
+      "matches": [],
+      "status": "CLEAN"
+    },
+    "k0": {
+      "snapshotId": "K0:PROJECT-B-COASTAL-MAKER-REFUGE-001:368",
+      "projectId": "PROJECT-B-COASTAL-MAKER-REFUGE-001",
+      "createdAt": "P9-PREPROJECT-UTC",
+      "entries": [
+        {
+          "id": "K0-general-architecture",
+          "bucket": "ALREADY_KNOWN",
+          "statement": "General architectural and functional reasoning exists before Project B.",
+          "sourceRefs": [
+            "P9-K0-baseline"
+          ]
+        },
+        {
+          "id": "K0-project-inputs",
+          "bucket": "SUPPLIED_AS_INPUT",
+          "statement": "Only the frozen Project B input contract is supplied.",
+          "sourceRefs": [
+            "project-b-input-freeze"
+          ]
+        },
+        {
+          "id": "K0-project-solution",
+          "bucket": "UNKNOWN",
+          "statement": "Project B solution, strategy, candidate and geometry are unknown.",
+          "sourceRefs": [
+            "project-b-unknown-ledger"
+          ]
+        },
+        {
+          "id": "K0-learning",
+          "bucket": "UNKNOWN",
+          "statement": "No Project B learning event is known before execution.",
+          "sourceRefs": [
+            "p9-learning-boundary"
+          ]
+        }
+      ],
+      "frozen": true,
+      "k1Created": false,
+      "provenance": [
+        "P9.0 K0 freeze",
+        "Created before Project B",
+        "No Project B facts included"
+      ]
+    },
+    "ledger": [
+      {
+        "id": "B-L1",
+        "kind": "K0",
+        "bucket": "ALREADY_KNOWN",
+        "statement": "K0 frozen before blind execution.",
+        "sourceRefs": [
+          "K0:PROJECT-B-COASTAL-MAKER-REFUGE-001"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L2",
+        "kind": "INPUT",
+        "bucket": "SUPPLIED_AS_INPUT",
+        "statement": "Client, site, objective, hard boundary and unknowns received.",
+        "sourceRefs": [
+          "project-b-client-brief",
+          "project-b-site-brief",
+          "project-b-client-brief",
+          "p9-experimental-governance",
+          "project-b-unknown-ledger",
+          "project-b-unknown-ledger"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L3",
+        "kind": "DERIVATION",
+        "bucket": "INFERRED_FROM_K0",
+        "statement": "Activities and relational requirements derived without selecting a geometry.",
+        "sourceRefs": [
+          "B-L2",
+          "P9-general-functional-reasoning"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L4",
+        "kind": "CANDIDATE",
+        "bucket": "NOVEL_CANDIDATE",
+        "statement": "Two schematic topology hypotheses generated for human review.",
+        "sourceRefs": [
+          "B-L3"
+        ],
+        "phase": "BLIND_EXECUTION"
+      },
+      {
+        "id": "B-L5",
+        "kind": "UNKNOWN",
+        "bucket": "UNKNOWN",
+        "statement": "Capacity, jurisdiction, exact site geometry, engineering and compliance remain unknown.",
+        "sourceRefs": [
+          "B-L2"
+        ],
+        "phase": "BLIND_EXECUTION"
+      }
+    ],
+    "semanticProgram": [
+      {
+        "id": "ACT-LEARN",
+        "activity": "repair and learn",
+        "requiredEvidence": [
+          "equipment and group size",
+          "safe movement",
+          "daylight/ventilation context"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-GATHER",
+        "activity": "gather and exchange",
+        "requiredEvidence": [
+          "occupancy and event profile",
+          "acoustic expectations",
+          "accessible arrival"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-SUPPORT",
+        "activity": "staff, storage and support",
+        "requiredEvidence": [
+          "service sequence",
+          "storage demand",
+          "waste and delivery conditions"
+        ],
+        "state": "DERIVED"
+      },
+      {
+        "id": "ACT-EXIT",
+        "activity": "ordinary and emergency exit",
+        "requiredEvidence": [
+          "jurisdiction",
+          "occupancy load",
+          "egress and fire specialist review"
+        ],
+        "state": "UNKNOWN"
+      }
+    ],
+    "candidateTopologies": [
+      {
+        "id": "B-CANDIDATE-01",
+        "relations": [
+          "arrival→shared threshold",
+          "shared threshold→learning",
+          "learning↔gathering",
+          "support→learning: controlled",
+          "exit→all public zones"
+        ],
+        "state": "HYPOTHESIS",
+        "humanReviewRequired": true
+      },
+      {
+        "id": "B-CANDIDATE-02",
+        "relations": [
+          "arrival→gathering",
+          "gathering→learning",
+          "support→learning: separated",
+          "support→storage",
+          "exit→all public zones"
+        ],
+        "state": "HYPOTHESIS",
+        "humanReviewRequired": true
+      }
+    ],
+    "geometry": {
+      "state": "NOT_EXECUTED",
+      "reason": "P9 Phase A produces semantic candidates; no preferred geometry or construction-ready claim is authorized."
+    },
+    "decision": "HUMAN_DECISION_REQUIRED",
+    "k1Created": false,
+    "automaticWinner": "NONE",
+    "postHoc": {
+      "phase": "POST_HOC_EVALUATION",
+      "inputFreeze": "PASS",
+      "noAnswerKey": "PASS",
+      "publicServiceRelationship": "PASS_WITH_OBSERVATIONS",
+      "hardConstraint": "PASS_WITH_OBSERVATIONS",
+      "capacity": "INSUFFICIENT_EVIDENCE",
+      "regulatoryApplicability": "SPECIALIST_INPUT_REQUIRED",
+      "geometry": "NOT_EXECUTED",
+      "humanAuthority": "PASS",
+      "learningCandidate": "OBSERVATION_ONLY",
+      "acceptance": "OBSERVATION_ONLY_NO_K1"
+    }
+  },
+  "challenge": {
+    "repetition": "PENDING_NEXT_AUTHORIZED_RUN",
+    "variant": "PENDING_NEXT_AUTHORIZED_RUN",
+    "counterexample": "PENDING_NEXT_AUTHORIZED_RUN",
+    "transfer": "NOT_RUN_IN_P9.0",
+    "fixationCheck": "NOT_RUN_IN_P9.0",
+    "candidateStatus": "OBSERVATION_ONLY",
+    "k1Created": false
+  }
+}

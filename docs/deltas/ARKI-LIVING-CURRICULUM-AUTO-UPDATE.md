@@ -251,3 +251,5 @@ HUMAN_AUTHORITY = FINAL
 - **Acción automática realizada:** fuente registrada, delta indexada y conexión preparada para Volúmenes I, II y III.
 - **Acción no automática:** no se canoniza, no se declara aprendizaje, no se modifica una decisión de diseño y no se promueve madurez sin pruebas K0→K1.
 - **Próxima evidencia:** análisis del delta, caso positivo, contraejemplo, transferencia y validación humana.
+
+- **P9.0 Project B:** blind execution and post-hoc evaluation completed; observation-only, no K1, geometry not executed.
