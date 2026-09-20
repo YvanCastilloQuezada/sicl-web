@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GUIDED_MODE_KEY, type ExperienceMode } from "@/components/GuidedShell";
+import { ensureProjectId } from "@/lib/project-id";
 
 type LocalizedAlias = {
   locale: string;
@@ -174,7 +175,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [projectId, setProjectId] = useState(() => context.projectId ?? localStorage.getItem("sims-dei-project-id") ?? "");
+  const [projectId, setProjectId] = useState(() => ensureProjectId(context.projectId ?? localStorage.getItem("sims-dei-project-id")));
   const [history, setHistory] = useState<string[]>(readHistory);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [selected, setSelected] = useState(0);

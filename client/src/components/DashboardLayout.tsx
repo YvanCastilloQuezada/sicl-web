@@ -87,6 +87,7 @@ export default function DashboardLayout({
           >
             {t("gate.sign_in")}
           </Button>
+          <a href="/spatial?mode=3d" className="text-sm font-medium text-primary underline-offset-4 hover:underline">Ver el proyecto espacial</a>
         </div>
       </div>
     );
