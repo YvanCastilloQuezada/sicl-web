@@ -46,6 +46,14 @@
 * { border-color: var(--border); }
 html { background: var(--background); }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; transition: background-color 180ms ease, color 180ms ease; }
+.arki-book-page { transition: background-color 300ms ease, color 300ms ease; }
+.arki-book-paper { background: #f5f0e7 !important; color: #26352f !important; }
+.arki-book-paper [class*="bg-[#071426]"], .arki-book-paper [class*="bg-[#0b1d35]"], .arki-book-paper [class*="bg-[#0d223d]"] { background-color: #fffdf8 !important; }
+.arki-book-paper [class*="text-[#f7fbff]"], .arki-book-paper [class*="text-[#edf4ff]"], .arki-book-paper [class*="text-[#b8cbe0]"], .arki-book-paper [class*="text-[#c0d1e3]"], .arki-book-paper [class*="text-[#9db3cc]"], .arki-book-paper [class*="text-[#7893af]"], .arki-book-paper [class*="text-[#8fa9c3]"], .arki-book-paper [class*="text-[#91a9c3]"] { color: #52645a !important; }
+.arki-book-paper [class*="border-[#294765]"], .arki-book-paper [class*="border-[#2d4d6c]"], .arki-book-paper [class*="border-[#315270]"], .arki-book-paper [class*="border-[#42627e]"], .arki-book-paper [class*="border-[#3c5f7d]"] { border-color: #cbd2c9 !important; }
+.arki-book-paper input { background-color: #fffdf8 !important; color: #26352f !important; }
+.arki-book-paper button:hover { color: #26352f; }
+.arki-book-page article, .arki-book-page section { scroll-margin-top: 1rem; }
 .dark [class*="bg-[#f4f1ea]"], .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#e9ede5]"], .dark [class*="bg-[#eef1eb]"] { background-color: var(--card) !important; }
 .dark [class*="text-[#1d2925]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#385348]"], .dark [class*="text-[#718078]"], .dark [class*="text-[#66776d]"] { color: var(--foreground) !important; }
 .dark [class*="border-[#d7d8cf]"], .dark [class*="border-[#d4d8d0]"], .dark [class*="border-[#cbd2c9]"], .dark [class*="border-[#b9c4bd]"] { border-color: var(--border) !important; }

@@ -29,4 +29,14 @@ describe("ARKI Living Book", () => {
     expect(screen.getByText("Contratos, gates y matrices de ANEXO I")).toBeTruthy();
     expect(screen.getByText("P9.4, P10 y M1: protocolos internos")).toBeTruthy();
   });
+
+  it("offers an interactive index and reading preferences", () => {
+    renderBook();
+    expect(screen.getByText("Índice interactivo")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: /01 · El ser humano y la medida del espacio/ }));
+    expect(screen.getByText("El ser humano y la medida del espacio")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Aumentar tamaño del texto" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cambiar a tema papel" }));
+    expect(document.querySelector(".arki-book-paper")).toBeTruthy();
+  });
 });
