@@ -16,6 +16,7 @@ import {
   validateRPartiInvariants,
 } from "./arkiRPartiManual";
 import { generateHouseA21S1FloorPlan } from "./arkiConstructiveSpatialGeneration";
+import { materializeRPartiRealizations, validateRPartiMaterialization } from "./arkiRPartiGeometricMaterialization";
 
 type RpStatus = "PASS" | "BLOCKED" | "NOT_APPLICABLE";
 type RpResult = { id: string; status: RpStatus; reason: string };
@@ -41,7 +42,7 @@ export function runRPartiRpMatrix(): RpResult[] {
     { id: "RP-17", status: "PASS", reason: "Source-documented intent and ARKI interpretation have distinct provenance states." },
     { id: "RP-18", status: "PASS", reason: "Semantic alternatives preserve supplied hard constraints and remain candidates without a winner." },
     { id: "RP-19", status: "PASS", reason: "Existing P9.3 historical replay tests remain available and are not modified by the Manual." },
-    { id: "RP-20", status: "BLOCKED", reason: "Distinct geometric realizations of the same parti in Project B still require a dedicated controlled geometry phase; this checkpoint refuses to simulate them." },
+    { id: "RP-20", status: "PASS", reason: "Two conceptual geometries with shared parti lineage are materialized, distinct, hard-constraint checked and left for human review." },
   ];
 }
 
@@ -60,7 +61,9 @@ describe("R-PARTI Manual checkpoint", () => {
     const parti = createPartiHypothesis({ partiId: "parti:test", seedId: seed.seedId, organizingHypothesis: "courtyard spine", relations: ["social↔courtyard"], formInterpretations: ["L or U"], realizationFamilyIds: ["family:test"], provenance: ["test"], status: "HYPOTHESIS" });
     const family = createRealizationFamily({ familyId: "family:test", partiId: parti.partiId, realizationIds: ["realization:01", "realization:02"] });
     expect(validateRPartiInvariants(seed, parti, family)).toBe(true);
-    expect(summarizeRealizationFamily(family).status).toBe("REQUIRES_GEOMETRIC_MATERIALIZATION");
+    const materialization = materializeRPartiRealizations(parti);
+    expect(validateRPartiMaterialization(materialization)).toBe(true);
+    expect(summarizeRealizationFamily(family, materialization).status).toBe("SUPPORTED");
   });
 
   it("consumes S1 hard constraints without upgrading regulatory UNKNOWN", () => {
@@ -109,6 +112,6 @@ describe("R-PARTI Manual checkpoint", () => {
     const matrix = runRPartiRpMatrix();
     expect(matrix).toHaveLength(20);
     expect(matrix.every((item) => item.reason.length > 0)).toBe(true);
-    expect(matrix.filter((item) => item.status === "BLOCKED")).toHaveLength(1);
+    expect(matrix.filter((item) => item.status === "BLOCKED")).toHaveLength(0);
   });
 });

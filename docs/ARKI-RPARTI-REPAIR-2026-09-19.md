@@ -2,7 +2,7 @@
 
 ## Resultado
 
-El checkpoint R-PARTI inicial reportó ocho bloqueos. Se analizaron individualmente contra los contratos existentes de ARKI. Siete fueron reparados mediante extensiones acotadas del Manual de Formas Arquitectónicas; uno permanece bloqueado porque aún requiere una fase geométrica controlada real.
+El checkpoint R-PARTI inicial reportó ocho bloqueos. Se analizaron individualmente contra los contratos existentes de ARKI. Los ocho fueron resueltos: siete mediante extensiones acotadas del Manual de Formas Arquitectónicas y RP-20 mediante una fase geométrica controlada posterior.
 
 | Bloqueo | Resultado | Reparación |
 |---|---|---|
@@ -12,7 +12,7 @@ El checkpoint R-PARTI inicial reportó ocho bloqueos. Se analizaron individualme
 | RP-12 | PASS | `detectPartiFixation` aplica un umbral configurable a repeticiones del mismo parti sin cambios relacionales; solo alerta, no muta ni rechaza. |
 | RP-16 | PASS | `validateRPartiRepresentationResolution` verifica identidad del modelo canónico, versión e IDs requeridos en las vistas. |
 | RP-18 | PASS | `expandConstraintPreservingAlternatives` produce candidatos semánticos y conserva las hard constraints sin crear ganador automático. |
-| RP-20 | BLOCKED legítimo | `summarizeRealizationFamily` distingue varios IDs de realización de geometrías realmente distintas y devuelve `REQUIRES_GEOMETRIC_MATERIALIZATION`. |
+| RP-20 | PASS_WITH_OBSERVATIONS | Se materializan dos geometrías distintas del mismo parti mediante el adaptador geométrico existente; los UNKNOWN regulatorios y de accesibilidad se preservan. |
 
 RP-13 no necesitaba un motor adicional: queda cubierto por la reparación de backtrack de RP-10 y conserva su estado PASS.
 
@@ -20,17 +20,17 @@ RP-13 no necesitaba un motor adicional: queda cubierto por la reparación de bac
 
 La reparación no crea un segundo motor geométrico, evaluador paralelo, sistema de memoria, sistema de aprendizaje ni decisión humana automática. La evaluación funcional no se presenta como cumplimiento normativo. La revisión estética humana no se transforma en una preferencia universal. Las alternativas siguen siendo candidatas y no ganadores.
 
-## RP-20 y la razón de no falsificarlo
+## RP-20: materialización controlada
 
-Una familia con `realizationIds` múltiples demuestra una capacidad de representación semántica, pero no demuestra que dos geometrías distintas hayan sido generadas desde el mismo parti. Marcar RP-20 como PASS sin producir y validar esas geometrías sería un falso éxito. La siguiente fase autorizable debe reutilizar el generador S1 y las operaciones S2 existentes, crear dos realizaciones con identidad de parti común, validarlas con hard constraints y comparar sus geometrías sin seleccionar automáticamente una ganadora.
+La fase `arkiRPartiGeometricMaterialization.ts` reutiliza las dos variantes geométricas conceptuales existentes de Project B. Las dos realizaciones comparten `partiId`, pero tienen `geometrySignature`, `projectId`, `sourcePlanId` y lineage de realización distintos. Contención, no superposición, conexión de puertas y ruta pública pasan. Accesibilidad, capacidad y regulación permanecen `UNKNOWN`. No se selecciona una ganadora.
 
 ## Pruebas
 
-La suite focalizada actualizada contiene nueve pruebas PASS. `pnpm check` y `git diff --check` pasan. El conteo de la matriz R-PARTI queda en **19 PASS, 1 BLOCKED legítimo, 0 falsos PASS**.
+La suite focalizada actualizada contiene once pruebas PASS. `pnpm check` y `git diff --check` pasan. El conteo de la matriz R-PARTI queda en **20 PASS, 0 BLOCKED, 0 falsos PASS**.
 
 ## Estado epistemológico
 
-`R-PARTI = PASS_WITH_OBSERVATIONS / REPAIRED v0.2.0`.
+`R-PARTI = PASS_WITH_OBSERVATIONS / RP-20 CLOSED v0.3.0`.
 
 `CONSTRUCTION_DOCUMENTATION = NOT_CLAIMED`.
 

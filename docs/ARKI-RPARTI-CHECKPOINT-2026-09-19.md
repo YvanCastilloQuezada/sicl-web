@@ -2,7 +2,7 @@
 
 ## Resultado ejecutivo
 
-**R-PARTI = PASS_WITH_OBSERVATIONS / REPAIRED v0.2.0**.
+**R-PARTI = PASS_WITH_OBSERVATIONS / RP-20 CLOSED v0.3.0**.
 
 Se incorporó un corpus mínimo y trazable del Manual de Formas Arquitectónicas — ARKI. La implementación usa los contratos existentes de ARKI y no crea un segundo motor de diseño, un segundo sistema de memoria, un segundo motor de transferencia ni un segundo modelo geométrico.
 
@@ -17,6 +17,7 @@ Se incorporó un corpus mínimo y trazable del Manual de Formas Arquitectónicas
 | Espacio de diseño | `AVAILABLE`, `ACCESSIBLE`, `EXPLORED` |
 | R0–R4 | Hook de recuperación relation-first con bloqueo explícito de copia formal |
 | Seed → Parti → RealizationFamily | Contratos separados y testeados |
+| Materialización geométrica RP-20 | Dos realizaciones conceptuales del mismo parti, con geometría distinta, lineage común y sin ganador automático |
 | Backtrack / Reframe | Eventos semánticos con evidencia preservada y revisión humana |
 | Fixtures | 5 representativos; no constituyen una biblioteca masiva ni verdad de diseño |
 
@@ -43,9 +44,9 @@ Se incorporó un corpus mínimo y trazable del Manual de Formas Arquitectónicas
 | RP-17 | PASS | Provenance de fuente documentada e interpretación ARKI son distintas. |
 | RP-18 | PASS | Se generan alternativas semánticas que conservan hard constraints y no crean ganador automático. |
 | RP-19 | PASS | El replay histórico P9.3 sigue disponible y no fue alterado. |
-| RP-20 | BLOCKED | Se mantiene bloqueado honestamente: aún no se demuestra geometría distinta del mismo parti en Project B. |
+| RP-20 | PASS | Dos geometrías conceptuales distintas del mismo parti fueron materializadas y verificadas; cumplimiento normativo y accesibilidad siguen UNKNOWN. |
 
-**Conteo actualizado:** 19 PASS, 1 BLOCKED, 0 falsos PASS. El único bloqueo restante exige una fase geométrica controlada; no se simula como PASS.
+**Conteo actualizado:** 20 PASS, 0 BLOCKED, 0 falsos PASS. RP-20 se cerró mediante materialización geométrica controlada, sin selección automática.
 
 ## Relación con los deltas recientes
 
@@ -66,8 +67,12 @@ El checkpoint no demuestra que ARKI haya aprendido a diseñar de forma autónoma
 - TypeScript `pnpm check`: **PASS**.
 - `git diff --check`: **PASS**.
 
-## Reparación v0.2.0
+## Reparación v0.3.0
 
 Se repararon RP-06, RP-09, RP-10, RP-12, RP-16 y RP-18 mediante extensiones del Manual que reutilizan S1, el modelo canónico y la identidad de vistas existentes. RP-13 queda cubierto por el backtrack reparado. La reparación no crea un segundo motor geométrico, evaluador paralelo, sistema de memoria ni proceso de decisión humana automática.
 
 RP-20 no se marca como PASS porque una familia con varios `realizationIds` todavía no prueba que existan geometrías diferentes. El contrato ahora informa explícitamente `REQUIRES_GEOMETRIC_MATERIALIZATION`, preservando la autoridad humana y evitando un falso éxito.
+
+### Cierre RP-20
+
+Se generaron dos realizaciones conceptuales desde el adaptador geométrico existente de Project B. Ambas comparten `partiId`, pero tienen `geometrySignature`, `projectId`, `sourcePlanId` y lineage de realización distintos. Las validaciones de contención, no superposición, conexión de puertas y ruta pública pasan. Accesibilidad, capacidad y regulación permanecen `UNKNOWN`. `AUTOMATIC_WINNER = NONE` y `HUMAN_REVIEW_REQUIRED = true`.

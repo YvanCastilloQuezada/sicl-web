@@ -141,6 +141,7 @@ export function expandConstraintPreservingAlternatives(partiId: string, relation
   return relationOptions.filter((relations) => relations.length > 0).map((relations, index) => ({ candidateId: `${partiId}:ALT:${index + 1}`, partiId, changedRelations: relations, preservedConstraints: [...hardConstraints], status: "CANDIDATE", noAutomaticWinner: true }));
 }
 
-export function summarizeRealizationFamily(family: RPartiRealizationFamily): { status: "SUPPORTED" | "REQUIRES_GEOMETRIC_MATERIALIZATION"; realizationCount: number; distinctGeometryProven: false } {
-  return { status: family.realizationIds.length > 1 ? "REQUIRES_GEOMETRIC_MATERIALIZATION" : "SUPPORTED", realizationCount: family.realizationIds.length, distinctGeometryProven: false };
+export function summarizeRealizationFamily(family: RPartiRealizationFamily, materialization?: { geometricallyDistinct: boolean; status: "PASS" | "BLOCKED" }): { status: "SUPPORTED" | "REQUIRES_GEOMETRIC_MATERIALIZATION"; realizationCount: number; distinctGeometryProven: boolean } {
+  const distinctGeometryProven = materialization?.status === "PASS" && materialization.geometricallyDistinct;
+  return { status: family.realizationIds.length <= 1 || distinctGeometryProven ? "SUPPORTED" : "REQUIRES_GEOMETRIC_MATERIALIZATION", realizationCount: family.realizationIds.length, distinctGeometryProven };
 }
