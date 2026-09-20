@@ -14,7 +14,7 @@ El frontend mostraba `Failed to fetch` al intentar consumir el Core remoto. La c
 
 ## 2. Objetivo
 
-Definir una integración reproducible entre SiMS-DeI Web y SICL Core que use una única URL server-side, mantenga el token fuera del navegador, produzca errores diagnosticables y falle cerrado cuando el Core sea obligatorio.
+Definir una integración reproducible entre ARKI Web y SICL Core que use una única URL server-side, mantenga el token fuera del navegador, produzca errores diagnosticables y falle cerrado cuando el Core sea obligatorio.
 
 RFC-023 no cambia entidades ontológicas, no añade autoridad al frontend y no convierte una Recommendation en Decision.
 
@@ -107,7 +107,7 @@ La Fase A consiste en confirmar el servicio real y registrar `SICL_CORE_URL` ser
 ## References
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-core "SICL Core repository"
-[2]: https://github.com/YvanCastilloQuezada/sicl-web "SiMS-DeI Web repository"
+[2]: https://github.com/YvanCastilloQuezada/sicl-web "ARKI Web repository"
 [3]: https://fastapi.tiangolo.com/advanced/middleware/ "FastAPI middleware documentation"
 
 ## Apéndice A — Regla de despliegue

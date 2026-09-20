@@ -25,7 +25,7 @@ export default function HelpPage() {
   return (
     <section className="mx-auto w-full max-w-5xl">
       <div className="mb-8 border-b border-[#d7d8cf] pb-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">SiMS-DeI</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d07b4a]">ARKI</p>
         <h1 className="mt-2 font-serif text-4xl tracking-[-0.04em]">{t("help.title")}</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-[#718078]">{t("help.subtitle")}</p>
       </div>

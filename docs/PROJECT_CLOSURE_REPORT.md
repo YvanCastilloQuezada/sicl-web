@@ -1,4 +1,4 @@
-# Informe final de cierre — SiMS-DeI / SICL
+# Informe final de cierre — ARKI / SICL
 
 **Fecha:** 16 de septiembre de 2026
 **Repositorio:** `YvanCastilloQuezada/sicl-web`
@@ -7,7 +7,7 @@
 
 ## 1. Conclusión ejecutiva
 
-El proyecto frontend de SiMS-DeI/SICL queda técnicamente consolidado en GitHub y verificado en el preview WebDev. La experiencia web incluye navegación por módulos, modo guiado, modo experto, internacionalización en ocho idiomas, Command Bar, Help System, visualizaciones, formularios de Fase A y documentación sincronizada.
+El proyecto frontend de ARKI/SICL queda técnicamente consolidado en GitHub y verificado en el preview WebDev. La experiencia web incluye navegación por módulos, modo guiado, modo experto, internacionalización en ocho idiomas, Command Bar, Help System, visualizaciones, formularios de Fase A y documentación sincronizada.
 
 La suite actual registra **118 tests pasando**. El typecheck, el build de producción y `git diff --check` también pasan. La comprobación de enlaces internos de la documentación revisó 30 documentos y no detectó enlaces relativos rotos. El único asunto operativo pendiente es el dominio público `siclcc-cxip7sy.manus.space`, que continúa respondiendo HTTP 404 aunque el preview WebDev responde HTTP 200.
 
@@ -15,7 +15,7 @@ La suite actual registra **118 tests pasando**. El typecheck, el build de produc
 
 ### Fase fundacional y de contrato
 
-Se consolidó la separación entre SiMS-DeI como sistema de inteligencia de diseño espacial multiescala y SICL como lenguaje formal del Core. La interfaz respeta la separación entre Recommendation, HumanReview y Decision, conserva la distinción entre Fact, Assumption y Preference y no presenta autoridad implícita en el navegador.
+Se consolidó la separación entre ARKI como sistema de inteligencia de diseño espacial multiescala y SICL como lenguaje formal del Core. La interfaz respeta la separación entre Recommendation, HumanReview y Decision, conserva la distinción entre Fact, Assumption y Preference y no presenta autoridad implícita en el navegador.
 
 El frontend se adaptó al contrato HTTP `/v1/...` del Core remoto, manteniendo el token de servicio exclusivamente server-side y evitando fallbacks silenciosos cuando el Core remoto es obligatorio.
 
@@ -51,8 +51,8 @@ Se consolidó la paleta de alto contraste de la Command Bar: amarillo Caterpilla
 
 La documentación técnica y operativa está sincronizada con la experiencia actual. Se actualizaron `HELP_SYSTEM.md`, `COMMAND_BAR.md`, los manuales incrustados y los PDFs correspondientes. Además, se añadieron:
 
-- `docs/SIMS_DEI_FRONTEND_ARCHITECTURE.md`, con capas, responsabilidades, modos de experiencia, límites y reglas de verificación.
-- `docs/SIMS_DEI_AND_SICL_FOUNDATIONS.md`, con la definición de SiMS-DeI, SICL, su relación y sus invariantes constitucionales.
+- `docs/ARKI_FRONTEND_ARCHITECTURE.md`, con capas, responsabilidades, modos de experiencia, límites y reglas de verificación.
+- `docs/ARKI_AND_SICL_FOUNDATIONS.md`, con la definición de ARKI, SICL, su relación y sus invariantes constitucionales.
 - `docs/PROJECT_CLOSURE_REPORT.md`, este informe de cierre.
 
 El documento maestro del Core permanece en el repositorio `sicl-core`; el frontend no lo duplica ni lo sustituye. Esta decisión evita divergencias entre el contrato canónico del Core y la documentación de interacción.
@@ -88,7 +88,7 @@ El único bloqueo no resuelto es externo al código: la publicación del dominio
 
 ## Referencias
 
-[1]: https://github.com/YvanCastilloQuezada/sicl-web "Repositorio GitHub de sims-dei-web"
+[1]: https://github.com/YvanCastilloQuezada/sicl-web "Repositorio GitHub de sicl-web"
 [2]: manus-webdev://4d62f9a9 "Checkpoint WebDev de cierre"
 
 
@@ -108,4 +108,4 @@ La conexión productiva requiere configurar server-side `SICL_CORE_URL` y `SICL_
 
 ## Auditoría RFC-015–026
 
-La matriz vigente del Core se encuentra en `sicl-core/docs/SIMS_DEI_CURRENT_ARCHITECTURE_v2.11.md`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.
+La matriz vigente del Core se encuentra en `SICL Core current architecture matrix`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.

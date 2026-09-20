@@ -1,10 +1,10 @@
-# RFC-015 — Frontend v2 funcional de SiMS-DeI / SICL
+# RFC-015 — Frontend v2 funcional de ARKI / SICL
 
 **Estado:** FASE A IMPLEMENTED — Evidence, Source, Evaluation y Comparison; layout alineado con Home
 
 **Criterio rector:** funcionalidad mínima, no estética.
 
-**Sistema:** SiMS-DeI — Sistema de Inteligencia de Diseño Espacial Multiescala.
+**Sistema:** ARKI — Sistema de Inteligencia de Diseño Espacial Multiescala.
 
 **Lenguaje formal:** SICL — Spatial Intelligence Command Language.
 
@@ -16,7 +16,7 @@
 
 ## 1. Objetivo y alcance
 
-RFC-015 define el contrato funcional para que una persona pueda operar desde el navegador las entidades del Core SiMS-DeI 2.1. El objetivo es cubrir crear, listar y ver detalles de las entidades, usando datos del Core real y la superficie HTTP `/v1/...` existente.
+RFC-015 define el contrato funcional para que una persona pueda operar desde el navegador las entidades del Core ARKI 2.1. El objetivo es cubrir crear, listar y ver detalles de las entidades, usando datos del Core real y la superficie HTTP `/v1/...` existente.
 
 El frontend v2 debe priorizar **mínimo esfuerzo y máxima funcionalidad**. Cada página puede ser una tabla simple con un formulario básico y una vista de detalle. No se busca un producto visual definitivo. Las páginas de Fase A reutilizan ahora un shell compartido con el mismo header, sidebar, paleta, tipografía y spacing del Command Center de Home.
 
@@ -40,7 +40,7 @@ El frontend v1 tiene Command Center, autenticación, layout de dashboard, navega
 
 Sus módulos visibles principales son Project, Context, Objectives, Alternatives, Council, Decision & Audit y Governance. También conserva los flujos existentes y las pruebas Vitest del repositorio.
 
-La limitación principal es de cobertura de interfaz: el Core 2.1 tiene entidades que todavía no tienen página funcional en `sims-dei-web`. La brecha se resolverá por fases, sin presentar mocks como datos reales.
+La limitación principal es de cobertura de interfaz: el Core 2.1 tiene entidades que todavía no tienen página funcional en `sicl-web`. La brecha se resolverá por fases, sin presentar mocks como datos reales.
 
 ## 4. Entidades operables por Frontend v2
 
@@ -193,7 +193,7 @@ La navegación será una sidebar con todos los módulos. Se prioriza que cada p�
 
 No se requiere búsqueda avanzada. No se requieren breadcrumbs complejos. Puede existir un breadcrumb simple si ayuda a volver al proyecto.
 
-El header mostrará `SiMS-DeI` y `2.1`. No se requiere branding visual, logotipo nuevo ni sistema de diseño definitivo.
+El header mostrará `ARKI` y `2.1`. No se requiere branding visual, logotipo nuevo ni sistema de diseño definitivo.
 
 ## 8. Paleta visual mínima
 
@@ -264,9 +264,9 @@ Los nuevos accesos de navegación son Evidence, Evaluations y Comparisons. La fa
 ## 13. Referencias
 
 - RFC-001 a RFC-014.
-- SiMS-DeI 2.0 — Master Architecture.
-- User Manual de SiMS-DeI y SICL.
-- Glosario de SiMS-DeI y SICL.
+- ARKI 2.0 — Master Architecture.
+- User Manual de ARKI y SICL.
+- Glosario de ARKI y SICL.
 - CO-003 — Frontend v2 funcional, no definitivo.
 
 **FIN DEL RFC-015 — FUNCTIONAL DEFINITION ONLY**

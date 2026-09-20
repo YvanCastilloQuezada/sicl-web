@@ -2,7 +2,7 @@
 
 ## Propósito
 
-La Command Bar ofrece una interfaz de teclado para usuarios avanzados de SiMS-DeI. Permite ejecutar comandos SICL contra el Core remoto sin abandonar la vista actual, manteniendo la distinción entre la interfaz de operación y la autoridad del dominio: la barra solo envía comandos; no toma decisiones por el usuario.
+La Command Bar ofrece una interfaz de teclado para usuarios avanzados de ARKI. Permite ejecutar comandos SICL contra el Core remoto sin abandonar la vista actual, manteniendo la distinción entre la interfaz de operación y la autoridad del dominio: la barra solo envía comandos; no toma decisiones por el usuario.
 
 ## Apertura y cierre
 

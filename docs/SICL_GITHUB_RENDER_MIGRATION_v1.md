@@ -1,8 +1,8 @@
 # SICL 0.6 — Migración a GitHub CI/CD + Render
 
-**Versión:** 1.0  
-**Estado:** PREPARADO — NO DESPLEGADO  
-**Fecha:** 2026-09-14  
+**Versión:** 1.0
+**Estado:** PREPARADO — NO DESPLEGADO
+**Fecha:** 2026-09-14
 **Objetivo:** sustituir la dependencia operativa de un Cloud Computer por GitHub como centro de control y una plataforma gestionada para ejecutar `sicl-core-http`.
 
 ## 1. Decisión arquitectónica
@@ -30,7 +30,7 @@ Render Web Service
   └── Persistent Disk para SQLite
           │
           ▼
-sims-dei-web / tRPC
+sicl-web / tRPC
   ├── SICL_CORE_URL server-side
   └── SICL_CORE_SERVICE_TOKEN server-side
 ```
@@ -78,7 +78,7 @@ Antes de ejecutar el despliegue se debe disponer de:
 2. El commit exacto `2ef49aba2136` accesible en ese repositorio.
 3. Un repositorio que contenga el `Dockerfile` de `sicl-core-http`, o una ruta inequívoca dentro de un monorepo.
 4. Una cuenta Render con permisos para crear un Web Service.
-5. Un secreto server-to-server para autenticar `sims-dei-web` contra el Core.
+5. Un secreto server-to-server para autenticar `sicl-web` contra el Core.
 6. La decisión de si el servicio será público con token o privado dentro de una red compatible.
 7. La ruta de datos persistentes, recomendada como `/data/sicl` dentro del contenedor.
 
@@ -252,7 +252,7 @@ Reglas:
 - Confirmar eventos y versiones.
 - Guardar evidencia.
 
-### Fase 5 — Configurar `sims-dei-web`
+### Fase 5 — Configurar `sicl-web`
 
 - Registrar `SICL_CORE_URL` server-side.
 - Registrar `SICL_CORE_SERVICE_TOKEN` server-side.

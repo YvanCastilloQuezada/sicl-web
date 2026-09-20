@@ -1,10 +1,10 @@
 import type { CommandData, CoreProject } from "./sicl-client";
 
-const MOCK_PROJECT_ID = "MOCK-SIMS-DEI-001";
+const MOCK_PROJECT_ID = "MOCK-ARKI-001";
 
 let mockProject: CoreProject = {
   project_id: MOCK_PROJECT_ID,
-  name: "Proyecto demostración SiMS-DeI",
+  name: "Proyecto demostración ARKI",
   stage: "OPEN",
   version: 3,
   objectives: { energy: "MAXIMIZE", cost: "MINIMIZE" },

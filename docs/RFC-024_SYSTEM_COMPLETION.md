@@ -1,14 +1,14 @@
-# RFC-024 — SiMS-DeI System Completion
+# RFC-024 — ARKI System Completion
 
 **Estado:** IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED
-**Tipo:** Integración final, operación y cierre de release  
-**Fecha:** 16 de septiembre de 2026  
-**Autor:** Manus AI  
+**Tipo:** Integración final, operación y cierre de release
+**Fecha:** 16 de septiembre de 2026
+**Autor:** Manus AI
 **Dependencias:** RFC-017, RFC-018, RFC-019, RFC-020, RFC-021, RFC-022 y RFC-023
 
 ## 1. Resumen
 
-RFC-024 define las capacidades que todavía faltan para considerar SiMS-DeI operable como un sistema integrado. No introduce una nueva ontología por defecto. Su propósito es cerrar la distancia entre un frontend funcional, un Core versionado y un flujo remoto verificable con autoridad humana explícita.
+RFC-024 define las capacidades que todavía faltan para considerar ARKI operable como un sistema integrado. No introduce una nueva ontología por defecto. Su propósito es cerrar la distancia entre un frontend funcional, un Core versionado y un flujo remoto verificable con autoridad humana explícita.
 
 La propuesta se centra en cinco resultados: un Core remoto disponible, una integración autenticada y observable, una ejecución E2E reproducible del Camino A, una demostración operativa para usuarios y un proceso de release que permita declarar con precisión qué está implementado y qué sigue bloqueado.
 
@@ -24,7 +24,7 @@ El proyecto necesita además un criterio único para diferenciar entre una capac
 
 ## 3. Objetivo
 
-El objetivo de RFC-024 es establecer un plan verificable para completar la operación integrada de SiMS-DeI sin debilitar sus invariantes constitucionales.
+El objetivo de RFC-024 es establecer un plan verificable para completar la operación integrada de ARKI sin debilitar sus invariantes constitucionales.
 
 La implementación eventual deberá permitir que un actor autorizado pueda abrir el frontend, conectarse al Core remoto real, ejecutar el Camino A, revisar los resultados y verificar el registro de auditoría. Cada etapa deberá conservar la distinción entre hechos, supuestos, preferencias, recomendaciones, revisiones humanas y decisiones.
 
@@ -194,16 +194,16 @@ También existe riesgo de exposición de credenciales durante la configuración.
 
 ## 15. Resultado esperado
 
-Al completar RFC-024, SiMS-DeI deberá demostrar de forma reproducible que la interfaz guiada y el Core remoto operan como un sistema único, que los errores de infraestructura se muestran honestamente y que ninguna automatización suplanta la autoridad humana.
+Al completar RFC-024, ARKI deberá demostrar de forma reproducible que la interfaz guiada y el Core remoto operan como un sistema único, que los errores de infraestructura se muestran honestamente y que ninguna automatización suplanta la autoridad humana.
 
 El criterio de cierre será una cadena verificable desde la entrada del usuario hasta el evento de auditoría, con separación ontológica, control de autoridad y evidencia suficiente para repetir la prueba.
 
 ## 16. Firma y estado
 
 **Estado actual:** `IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED`
-**Implementación:** fase operativa inicial implementada; E2E remoto pendiente  
-**Cambios de código autorizados:** fase inicial autorizada explícitamente por el Product Owner  
-**Despliegue autorizado por este documento:** ninguno  
+**Implementación:** fase operativa inicial implementada; E2E remoto pendiente
+**Cambios de código autorizados:** fase inicial autorizada explícitamente por el Product Owner
+**Despliegue autorizado por este documento:** ninguno
 **Revisión requerida:** Product Owner / arquitecto para desbloquear el E2E remoto
 
 ## 17. Registro de implementación inicial
@@ -244,7 +244,7 @@ Si `SICL_CORE_URL` falta, el health check debe devolver `503 CORE_UNAVAILABLE`. 
 ## References
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-core "SICL Core repository"
-[2]: https://github.com/YvanCastilloQuezada/sicl-web "SiMS-DeI Web repository"
+[2]: https://github.com/YvanCastilloQuezada/sicl-web "ARKI Web repository"
 [3]: https://fastapi.tiangolo.com/ "FastAPI documentation"
 [4]: https://owasp.org/www-project-application-security-verification-standard/ "OWASP Application Security Verification Standard"
 [5]: https://12factor.net/config "The Twelve-Factor App: Config"
@@ -301,8 +301,8 @@ Mientras RFC-024 permanezca en estado `DRAFT`, no se crearán nuevas entidades, 
 
 ## Apéndice J — Firma de la propuesta
 
-**Manus AI:** redacción inicial.  
-**Product Owner / arquitecto:** aprobación pendiente.  
+**Manus AI:** redacción inicial.
+**Product Owner / arquitecto:** aprobación pendiente.
 **Estado:** `IMPLEMENTED — LOCAL/MOCK VALIDATED; REMOTE E2E BLOCKED`.
 
-**Fin de RFC-024 — SiMS-DeI System Completion.**
+**Fin de RFC-024 — ARKI System Completion.**

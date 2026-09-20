@@ -2,8 +2,8 @@
 
 ## Estado
 
-**Aprobado conceptualmente por el Product Owner:** 24/08/2026  
-**Naturaleza:** Contrato de aceptación del producto; no sustituye ni modifica el SICL Core Contract.  
+**Aprobado conceptualmente por el Product Owner:** 24/08/2026
+**Naturaleza:** Contrato de aceptación del producto; no sustituye ni modifica el SICL Core Contract.
 **Caso de validación:** UPAO Plaza Center, utilizado como laboratorio controlado y no como solución arquitectónica atribuida al software.
 
 ## 1. Propósito

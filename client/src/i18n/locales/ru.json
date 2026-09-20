@@ -61,7 +61,7 @@
   "help": {
     "button": "Помощь",
     "title": "Центр помощи",
-    "subtitle": "Операционные руководства и каноническая справка SiMS-DeI.",
+    "subtitle": "Операционные руководства и каноническая справка ARKI.",
     "user": {
       "title": "Руководство пользователя",
       "description": "Концепции, основные процессы и конституционные правила."
@@ -122,9 +122,9 @@
   },
   "workspace": {
     "eyebrow": "КАНОНИЧЕСКОЕ REST-РАБОЧЕЕ ПРОСТРАНСТВО",
-    "title": "SiMS-DeI Core v2.2",
+    "title": "ARKI Core v2.2",
     "description": "Проект, результат команды и панель ниже читаются из FastAPI Core. Токен браузера не используется.",
-    "bridge_title": "REST-мост SiMS-DeI Core v2.2",
+    "bridge_title": "REST-мост ARKI Core v2.2",
     "bridge_description": "REST API является каноническим источником этого пространства. Существующие модули tRPC доступны только когда мост не настроен.",
     "configured": "НАСТРОЕНО",
     "vite_required": "ТРЕБУЕТСЯ VITE_API_URL",

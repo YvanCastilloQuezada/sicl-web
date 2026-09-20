@@ -71,7 +71,7 @@ describe("help system", () => {
     await i18n.changeLanguage("es");
     renderWithProviders(React.createElement(HelpArticlePage, { manualId: "user" }));
     expect(screen.getByRole("link", { name: "Volver al índice" })).toBeTruthy();
-    expect(screen.getByRole("heading", { name: /Manual de Usuario de SiMS-DeI y SICL/ })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /Manual de Usuario de ARKI y SICL/ })).toBeTruthy();
   });
 
   it("keeps help labels translated across all supported languages", async () => {

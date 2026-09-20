@@ -1,23 +1,23 @@
-# Manual de Usuario de SiMS-DeI y SICL
+# Manual de Usuario de ARKI y SICL
 
-**Sistema:** SiMS-DeI — Sistema de Inteligencia de Diseño Espacial Multiescala  
-**Lenguaje formal:** SICL — Spatial Intelligence Command Language  
+**Sistema:** ARKI — Sistema de Inteligencia de Diseño Espacial Multiescala
+**Lenguaje formal:** SICL — Spatial Intelligence Command Language
 **Versión documental:** 2.2
 **Audiencia:** arquitectos, urbanistas, analistas y responsables de proyecto
 
 ## 1. Introducción
 
-### 1.1 Qué es SiMS-DeI
+### 1.1 Qué es ARKI
 
-SiMS-DeI es un sistema para organizar, documentar y analizar decisiones de diseño espacial en múltiples escalas. Puede trabajar con un edificacion, una parcela, un barrio, una ciudad, una región o un país cuando la escala se declara de forma explícita.
+ARKI es un sistema para organizar, documentar y analizar decisiones de diseño espacial en múltiples escalas. Puede trabajar con un edificacion, una parcela, un barrio, una ciudad, una región o un país cuando la escala se declara de forma explícita.
 
 El sistema conserva el contexto del proyecto, registra fuentes y evidencia, separa hechos de supuestos, ejecuta análisis reproducibles y deja una trazabilidad de las operaciones realizadas.
 
-SiMS-DeI está pensado para apoyar conversaciones profesionales. No sustituye el criterio del arquitecto, la revisión normativa profesional ni la responsabilidad de quien adopta una decisión.
+ARKI está pensado para apoyar conversaciones profesionales. No sustituye el criterio del arquitecto, la revisión normativa profesional ni la responsabilidad de quien adopta una decisión.
 
 ### 1.2 Qué es SICL
 
-SICL es el lenguaje formal que permite operar sobre el Core de SiMS-DeI. Sus comandos representan operaciones como crear un proyecto, registrar un hecho, definir un objetivo, evaluar una alternativa o registrar una decisión humana.
+SICL es el lenguaje formal que permite operar sobre el Core de ARKI. Sus comandos representan operaciones como crear un proyecto, registrar un hecho, definir un objetivo, evaluar una alternativa o registrar una decisión humana.
 
 SICL puede utilizarse mediante el intérprete CLI o mediante la API REST canónica `/v1`. Ambas superficies deben respetar las mismas reglas del dominio.
 
@@ -503,7 +503,7 @@ GET  /v1/projects/{project_id}/positions/{position_id}
 
 El User Copilot es una capacidad de asistencia, no una autoridad. Puede explicar, traducir lenguaje natural a comandos propuestos y señalar datos faltantes. No ejecuta comandos sin confirmación, no afirma sin fuente, no crea decisiones y no convierte recomendaciones en decisiones. La integración LLM de RFC-014 permanece definida como contrato y no debe interpretarse como una autorización para usar un modelo no configurado.
 
-## 7. Capacidades incorporadas en SiMS-DeI 2.1 y 2.2
+## 7. Capacidades incorporadas en ARKI 2.1 y 2.2
 
 ### 7.1 Generación de diseño
 
@@ -563,7 +563,7 @@ Los estados deben aparecer explícitamente en snapshots, respuestas y explicacio
 
 ## 9. Escalas
 
-SiMS-DeI utiliza nueve escalas espaciales:
+ARKI utiliza nueve escalas espaciales:
 
 1. `pais` — país.
 2. `region` — región.
@@ -723,7 +723,7 @@ Cualquier persona que necesite comprender el sistema, pero las operaciones decis
 ## 13. Referencias
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/SICL_CORE_CONTRACT_v1.0.md "SICL Core Contract v1.0"
-[2]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md "SiMS-DeI Master Architecture v2"
+[2]: https://github.com/YvanCastilloQuezada/sicl-core/tree/main/docs "ARKI Master Architecture v2"
 [3]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-002_EVIDENCE_HTTP.md "RFC-002 Evidence HTTP"
 [4]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-005_EVALUATION_COMPARISON_HTTP.md "RFC-005 Evaluation and Comparison HTTP"
 [5]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-006_SIMULATION_CONTRACT.md "RFC-006 Simulation Contract"

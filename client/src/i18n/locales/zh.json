@@ -61,7 +61,7 @@
   "help": {
     "button": "帮助",
     "title": "帮助中心",
-    "subtitle": "使用 SiMS-DeI 的操作手册与规范参考。",
+    "subtitle": "使用 ARKI 的操作手册与规范参考。",
     "user": {
       "title": "用户手册",
       "description": "概念、主要流程与宪法性规则。"
@@ -122,9 +122,9 @@
   },
   "workspace": {
     "eyebrow": "规范 REST 工作区",
-    "title": "SiMS-DeI Core v2.2",
+    "title": "ARKI Core v2.2",
     "description": "项目、命令结果和下方仪表板均读取自 FastAPI Core。不使用浏览器令牌。",
-    "bridge_title": "SiMS-DeI Core v2.2 REST 桥接",
+    "bridge_title": "ARKI Core v2.2 REST 桥接",
     "bridge_description": "REST API 是此工作区的规范数据源。仅在桥接未配置时保留现有 tRPC 模块。",
     "configured": "已配置",
     "vite_required": "需要 VITE_API_URL",

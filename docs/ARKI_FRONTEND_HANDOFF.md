@@ -1,4 +1,4 @@
-# Handoff operativo del frontend SiMS-DeI
+# Handoff operativo del frontend ARKI
 
 **Repositorio:** `YvanCastilloQuezada/sicl-web`
 **Main fusionado:** `f74bf6e7637fa1483b0e1e27a7efa23664858735`
@@ -6,7 +6,7 @@
 
 ## Propósito
 
-El frontend es la capa de interacción de SiMS-DeI. Su prioridad es reducir la curva de aprendizaje y conservar visibles las fronteras de autoridad. Guided Mode es el modo inicial. Expert Mode es una preferencia configurable.
+El frontend es la capa de interacción de ARKI. Su prioridad es reducir la curva de aprendizaje y conservar visibles las fronteras de autoridad. Guided Mode es el modo inicial. Expert Mode es una preferencia configurable.
 
 ## Capacidades entregadas
 
@@ -81,7 +81,7 @@ El frontend puede ayudar a aprender SICL, pero el comando canónico y la validac
 
 ## Referencias
 
-- `docs/SIMS_DEI_FIRST_CONTACT_MANUAL.md`.
+- `docs/ARKI_FIRST_CONTACT_MANUAL.md`.
 - `docs/DOCUMENTATION_COHERENCE_2.11.md`.
 - `docs/HELP_SYSTEM.md`.
 - `docs/RFC-023_CORE_CONNECTIVITY_AND_DEPLOYMENT.md`.
@@ -93,4 +93,4 @@ El frontend puede ayudar a aprender SICL, pero el comando canónico y la validac
 ## References
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-core "SICL Core repository"
-[2]: https://github.com/YvanCastilloQuezada/sicl-web "SiMS-DeI web repository"
+[2]: https://github.com/YvanCastilloQuezada/sicl-web "ARKI web repository"

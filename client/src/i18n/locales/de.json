@@ -61,7 +61,7 @@
   "help": {
     "button": "Hilfe",
     "title": "Hilfezentrum",
-    "subtitle": "Betriebshandbücher und kanonische Referenz für SiMS-DeI.",
+    "subtitle": "Betriebshandbücher und kanonische Referenz für ARKI.",
     "user": {
       "title": "Benutzerhandbuch",
       "description": "Konzepte, Hauptabläufe und Verfassungsregeln."
@@ -122,9 +122,9 @@
   },
   "workspace": {
     "eyebrow": "KANONISCHER REST-ARBEITSBEREICH",
-    "title": "SiMS-DeI Core v2.2",
+    "title": "ARKI Core v2.2",
     "description": "Projekt, Befehlsergebnis und Dashboard werden aus dem FastAPI-Core gelesen. Es wird kein Browser-Token verwendet.",
-    "bridge_title": "SiMS-DeI Core v2.2 REST-Brücke",
+    "bridge_title": "ARKI Core v2.2 REST-Brücke",
     "bridge_description": "Die REST-API ist die kanonische Quelle dieses Arbeitsbereichs. Vorhandene tRPC-Module sind nur verfügbar, wenn die Brücke nicht konfiguriert ist.",
     "configured": "KONFIGURIERT",
     "vite_required": "VITE_API_URL ERFORDERLICH",

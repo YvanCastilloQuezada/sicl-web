@@ -61,7 +61,7 @@
   "help": {
     "button": "Aide",
     "title": "Centre d’aide",
-    "subtitle": "Manuels opérationnels et référence canonique pour SiMS-DeI.",
+    "subtitle": "Manuels opérationnels et référence canonique pour ARKI.",
     "user": {
       "title": "Manuel utilisateur",
       "description": "Concepts, flux principaux et règles constitutionnelles."
@@ -122,9 +122,9 @@
   },
   "workspace": {
     "eyebrow": "ESPACE DE TRAVAIL REST CANONIQUE",
-    "title": "SiMS-DeI Core v2.2",
+    "title": "ARKI Core v2.2",
     "description": "Le projet, le résultat de la commande et le tableau de bord sont lus depuis le Core FastAPI. Aucun jeton navigateur n’est utilisé.",
-    "bridge_title": "Pont REST de SiMS-DeI Core v2.2",
+    "bridge_title": "Pont REST de ARKI Core v2.2",
     "bridge_description": "L’API REST est la source canonique de cet espace. Les modules tRPC restent disponibles uniquement lorsque le pont n’est pas configuré.",
     "configured": "CONFIGURÉ",
     "vite_required": "VITE_API_URL REQUIS",

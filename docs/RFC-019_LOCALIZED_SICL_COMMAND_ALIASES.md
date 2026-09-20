@@ -1,13 +1,13 @@
 # RFC-019 — Localized SICL Command Aliases
 
-**Estado:** DRAFT — PENDING PRODUCT OWNER APPROVAL  
-**Tipo:** RFC de lenguaje, interfaz y compatibilidad  
-**Alcance:** Alias localizados para los comandos SICL en el frontend  
-**Baseline:** SiMS-DeI / SICL 2.2  
-**Catálogo de referencia:** 67 comandos  
-**Idiomas iniciales:** español, inglés, portugués, italiano, francés, alemán, ruso y chino  
-**Fecha:** 16 de septiembre de 2026  
-**Autor de la propuesta:** Manus AI  
+**Estado:** DRAFT — PENDING PRODUCT OWNER APPROVAL
+**Tipo:** RFC de lenguaje, interfaz y compatibilidad
+**Alcance:** Alias localizados para los comandos SICL en el frontend
+**Baseline:** ARKI / SICL 2.2
+**Catálogo de referencia:** 67 comandos
+**Idiomas iniciales:** español, inglés, portugués, italiano, francés, alemán, ruso y chino
+**Fecha:** 16 de septiembre de 2026
+**Autor de la propuesta:** Manus AI
 **Decisión requerida:** Aprobar, modificar o rechazar la política de alias localizados antes de implementar cambios de ejecución.
 
 > Este documento propone una capa de alias para la interfaz. No modifica por sí solo el contrato del Core, la sintaxis canónica de SICL ni la autoridad humana requerida para registrar decisiones.
@@ -16,7 +16,7 @@
 
 ## 1. Resumen ejecutivo
 
-RFC-019 propone que el Command Bar permita a cada usuario trabajar con comandos visibles en el idioma seleccionado en SiMS-DeI. El usuario podría descubrir y escribir un alias como `/PROYECTO CREAR`, `/PROJETO CRIAR`, `/PROJET CRÉER` o `/项目 创建`, mientras que el frontend normalizaría esa entrada a `/PROJECT CREATE` antes de enviarla al Core.
+RFC-019 propone que el Command Bar permita a cada usuario trabajar con comandos visibles en el idioma seleccionado en ARKI. El usuario podría descubrir y escribir un alias como `/PROYECTO CREAR`, `/PROJETO CRIAR`, `/PROJET CRÉER` o `/项目 创建`, mientras que el frontend normalizaría esa entrada a `/PROJECT CREATE` antes de enviarla al Core.
 
 La propuesta adopta un **modelo híbrido**. La experiencia de usuario se localiza, pero el protocolo ejecutado permanece canónico. El Core seguirá recibiendo comandos SICL en su forma formal actual, con el mismo endpoint, los mismos argumentos técnicos y las mismas invariantes constitucionales. La traducción será una capacidad de presentación y normalización, no una segunda gramática independiente del Core.
 
@@ -641,7 +641,7 @@ Hasta que el RFC sea aprobado, el Command Bar debe conservar el comportamiento a
 ## 28. Firma del baseline
 
 ```text
-Sistema: SiMS-DeI
+Sistema: ARKI
 Lenguaje formal: SICL
 RFC: RFC-019 — Localized SICL Command Aliases
 Estado: DRAFT — PENDING PRODUCT OWNER APPROVAL

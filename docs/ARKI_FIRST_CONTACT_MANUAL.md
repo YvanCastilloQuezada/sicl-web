@@ -1,14 +1,14 @@
-# Manual de presentación de SiMS-DeI
+# Manual de presentación de ARKI
 
 ## El primer minuto
 
-SiMS-DeI es un espacio de trabajo para convertir una pregunta de diseño espacial en un proceso trazable. El sistema no reemplaza al arquitecto, al urbanista ni a la autoridad competente. Organiza el contexto, separa hechos de supuestos, compara alternativas y deja claro qué debe revisar una persona.
+ARKI es un espacio de trabajo para convertir una pregunta de diseño espacial en un proceso trazable. El sistema no reemplaza al arquitecto, al urbanista ni a la autoridad competente. Organiza el contexto, separa hechos de supuestos, compara alternativas y deja claro qué debe revisar una persona.
 
 > **La promesa:** cada recomendación muestra de dónde viene, qué supone y qué todavía debe decidir un humano.
 
 ## El momento WOW
 
-Escriba una petición en lenguaje natural o use el modo guiado. Si el Copiloto está conectado, SiMS-DeI propone un comando SICL en una vista previa. El sistema muestra el comando canónico, su explicación y su confianza. Nada se ejecuta automáticamente.
+Escriba una petición en lenguaje natural o use el modo guiado. Si el Copiloto está conectado, ARKI propone un comando SICL en una vista previa. El sistema muestra el comando canónico, su explicación y su confianza. Nada se ejecuta automáticamente.
 
 Después, el usuario puede recorrer el Camino A:
 
@@ -37,7 +37,7 @@ Cuando desee aprender el lenguaje, abra la **Command Bar** con su botón visible
 
 ## Qué puede hacer hoy
 
-SiMS-DeI puede trabajar con once escalas espaciales, evidencia y fuentes, simulaciones, factibilidad, Pareto, generación de alternativas, memoria institucional, actores, ciclos temporales, corpus normativo de prueba, IFC, GIS/OGC y Copiloto local. El sistema mantiene la trazabilidad en SQLite y usa eventos append-only para proteger el historial.
+ARKI puede trabajar con once escalas espaciales, evidencia y fuentes, simulaciones, factibilidad, Pareto, generación de alternativas, memoria institucional, actores, ciclos temporales, corpus normativo de prueba, IFC, GIS/OGC y Copiloto local. El sistema mantiene la trazabilidad en SQLite y usa eventos append-only para proteger el historial.
 
 ## Conexiones avanzadas
 
@@ -60,9 +60,9 @@ Para una demostración de cinco minutos, cree un proyecto sintético, registre u
 
 ## Mensaje final
 
-SiMS-DeI no promete eliminar la complejidad del diseño. Promete hacerla visible, ordenada y revisable. El usuario conserva la autoridad; el sistema conserva la memoria.
+ARKI no promete eliminar la complejidad del diseño. Promete hacerla visible, ordenada y revisable. El usuario conserva la autoridad; el sistema conserva la memoria.
 
 ## References
 
 [1]: https://github.com/YvanCastilloQuezada/sicl-core "SICL Core repository"
-[2]: https://github.com/YvanCastilloQuezada/sicl-web "SiMS-DeI web repository"
+[2]: https://github.com/YvanCastilloQuezada/sicl-web "ARKI web repository"

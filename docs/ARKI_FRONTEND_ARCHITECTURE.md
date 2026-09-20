@@ -1,14 +1,14 @@
-# SiMS-DeI / SICL — Arquitectura del Frontend
+# ARKI / SICL — Arquitectura del Frontend
 
 **Versión documental:** 2.2 + Guided UX
 
 ## 1. Propósito
 
-El frontend `sims-dei-web` es la interfaz operativa de SiMS-DeI. Presenta el contexto del proyecto, guía el recorrido mínimo Camino A, consulta el Core remoto y expone herramientas de ayuda para aprender SICL. No es la autoridad del dominio y no sustituye la validación del Core.
+El frontend `sicl-web` es la interfaz operativa de ARKI. Presenta el contexto del proyecto, guía el recorrido mínimo Camino A, consulta el Core remoto y expone herramientas de ayuda para aprender SICL. No es la autoridad del dominio y no sustituye la validación del Core.
 
 ## 2. Distinción fundamental
 
-**SiMS-DeI** es el sistema de inteligencia de diseño espacial multiescala. Define el contexto de decisión, la organización de entidades, la trazabilidad y la relación entre escalas.
+**ARKI** es el sistema de inteligencia de diseño espacial multiescala. Define el contexto de decisión, la organización de entidades, la trazabilidad y la relación entre escalas.
 
 **SICL** es el Spatial Intelligence Command Language. Define la sintaxis formal de las operaciones que el usuario puede enviar al Core. La Command Bar traduce la interacción de la interfaz en comandos canónicos; no traduce ni modifica la semántica del protocolo.
 

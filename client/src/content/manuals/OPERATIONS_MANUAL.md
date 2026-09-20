@@ -1,8 +1,8 @@
-# SiMS-DeI / SICL — Manual operativo desde cero
+# ARKI / SICL — Manual operativo desde cero
 
 **Estado:** documento operativo independiente
 
-**Sistema:** SiMS-DeI — Sistema de Inteligencia de Diseño Espacial Multiescala
+**Sistema:** ARKI — Sistema de Inteligencia de Diseño Espacial Multiescala
 
 **Lenguaje:** SICL — Spatial Intelligence Command Language
 
@@ -609,7 +609,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 
 ```text
 /ACTOR ADD MUNICIPALITY ROLE "Municipalidad" PUBLIC
-/POSITION ADD MUNICIPALITY ALTERNATIVE CONVENCIONAL_A SUPPORTS "Cumple el plan" 
+/POSITION ADD MUNICIPALITY ALTERNATIVE CONVENCIONAL_A SUPPORTS "Cumple el plan"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/actors` y `POST /v1/projects/{project_id}/positions`.

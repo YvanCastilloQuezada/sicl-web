@@ -1,6 +1,6 @@
 # SICL — Readiness local previa al despliegue
 
-**Fecha:** 2026-08-24  
+**Fecha:** 2026-08-24
 **Alcance:** comprobación no invasiva antes de disponer de Cloud Computer
 
 ## Conclusión

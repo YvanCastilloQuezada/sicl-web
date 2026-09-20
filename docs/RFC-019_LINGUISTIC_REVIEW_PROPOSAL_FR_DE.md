@@ -1,10 +1,10 @@
 # RFC-019 — Propuesta formal de revisión lingüística para francés y alemán
 
-**Estado:** PROPOSED — PENDING REVIEWER ASSIGNMENT  
-**Alcance:** Alias de los seis comandos esenciales de la Fase 1A  
-**Idiomas:** Français (`fr`) y Deutsch (`de`)  
-**Catálogo inicial:** `/PROJECT CREATE`, `/PROJECT OPEN`, `/PROJECT SHOW`, `/PROJECT LIST`, `/STATUS`, `/HISTORY`  
-**Fecha:** 16 de septiembre de 2026  
+**Estado:** PROPOSED — PENDING REVIEWER ASSIGNMENT
+**Alcance:** Alias de los seis comandos esenciales de la Fase 1A
+**Idiomas:** Français (`fr`) y Deutsch (`de`)
+**Catálogo inicial:** `/PROJECT CREATE`, `/PROJECT OPEN`, `/PROJECT SHOW`, `/PROJECT LIST`, `/STATUS`, `/HISTORY`
+**Fecha:** 16 de septiembre de 2026
 **Dependencia:** RFC-019 — Localized SICL Command Aliases
 
 > Esta propuesta solicita una revisión humana especializada. No marca ningún alias como `ACTIVE` y no autoriza su ejecución contra el Core.

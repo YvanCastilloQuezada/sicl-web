@@ -1,11 +1,11 @@
 # SICL — Contrato HTTP esperado por el cliente TypeScript
 
-**Fuente:** `server/coreHttpClient.ts`, `server/routers.ts` y `SICL_HTTP_ADAPTER_CONTRACT.md` del repositorio `sims-dei-web`.
+**Fuente:** `server/coreHttpClient.ts`, `server/routers.ts` y `SICL_HTTP_ADAPTER_CONTRACT.md` del repositorio `sicl-web`.
 **Propósito:** documentar lo que el gateway web espera del Core Python; no constituye una implementación del Core.
 
 ## 1. Arquitectura y límites
 
-El repositorio `sims-dei-web` contiene el frontend React, el servidor TypeScript/tRPC y un cliente HTTP server-side. El Core Python no está incluido en este repositorio. El cliente HTTP obtiene la URL desde `SICL_CORE_URL` y el token exclusivamente desde `SICL_CORE_SERVICE_TOKEN`.
+El repositorio `sicl-web` contiene el frontend React, el servidor TypeScript/tRPC y un cliente HTTP server-side. El Core Python no está incluido en este repositorio. El cliente HTTP obtiene la URL desde `SICL_CORE_URL` y el token exclusivamente desde `SICL_CORE_SERVICE_TOKEN`.
 
 El navegador no recibe el token. Las llamadas al Core salen desde el servidor TypeScript mediante `fetch` y llevan:
 
@@ -495,4 +495,4 @@ Un Core candidato solo debe considerarse compatible cuando:
 - confirma una única versión del contrato HTTP.
 ```
 
-**Conclusión:** `sims-dei-web` define una interfaz cliente razonablemente precisa para el Core, pero esa interfaz no permite reconstruir de forma segura la lógica Python faltante.
+**Conclusión:** `sicl-web` define una interfaz cliente razonablemente precisa para el Core, pero esa interfaz no permite reconstruir de forma segura la lógica Python faltante.

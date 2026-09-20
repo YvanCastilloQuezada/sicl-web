@@ -73,4 +73,4 @@ export const getEventColor = eventColor;
 export const clampValue = clamp;
 export const tooltipStyles = tooltipStyle;
 export const d3Configured = true;
-  
+

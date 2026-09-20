@@ -109,9 +109,9 @@ La conexión productiva requiere configurar server-side `SICL_CORE_URL` y `SICL_
 
 ## Manual de primer contacto
 
-La guía `SIMS_DEI_FIRST_CONTACT_MANUAL.md` está destinada a las primeras sesiones de usuarios nuevos. Presenta el momento inicial, el Camino A, las tres reglas epistemológicas y el límite entre recomendación y decisión.
+La guía `ARKI_FIRST_CONTACT_MANUAL.md` está destinada a las primeras sesiones de usuarios nuevos. Presenta el momento inicial, el Camino A, las tres reglas epistemológicas y el límite entre recomendación y decisión.
 
 
 ## Auditoría RFC-015–026
 
-La matriz vigente del Core se encuentra en `sicl-core/docs/SIMS_DEI_CURRENT_ARCHITECTURE_v2.11.md`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.
+La matriz vigente del Core se encuentra en `SICL Core current architecture matrix`. En particular, `monte_carlo_v1`, el filtro `feasible_pareto_front`, la generación evolutiva, las variables por escala, el corpus RNE y el Design Knowledge Agent deben presentarse como capacidades analíticas o de consulta, nunca como decisiones automáticas. RFC-019 de alias localizados es independiente del RFC-019 de escalas del Core.

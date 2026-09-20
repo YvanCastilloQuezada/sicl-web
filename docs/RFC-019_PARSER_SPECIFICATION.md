@@ -1,11 +1,11 @@
 # RFC-019 — Especificación técnica del parser de alias localizados
 
-**Estado:** DRAFT — complemento técnico de RFC-019  
-**Alcance:** Corrección lingüística de alias en francés y alemán; parser localizado para ocho idiomas  
-**Catálogo:** 67 comandos canónicos  
-**Idiomas:** `es`, `en`, `pt`, `it`, `fr`, `de`, `ru`, `zh`  
-**Regla de ejecución:** el Core recibe la forma canónica SICL  
-**Dependencia:** RFC-019 — Localized SICL Command Aliases  
+**Estado:** DRAFT — complemento técnico de RFC-019
+**Alcance:** Corrección lingüística de alias en francés y alemán; parser localizado para ocho idiomas
+**Catálogo:** 67 comandos canónicos
+**Idiomas:** `es`, `en`, `pt`, `it`, `fr`, `de`, `ru`, `zh`
+**Regla de ejecución:** el Core recibe la forma canónica SICL
+**Dependencia:** RFC-019 — Localized SICL Command Aliases
 **Fecha:** 16 de septiembre de 2026
 
 > Esta especificación no habilita por sí sola la ejecución de alias. Define la implementación que deberá revisarse y aprobarse antes de activar estados `ACTIVE`.
@@ -537,11 +537,11 @@ Presentar matriz corregida, informe de colisiones, resultados de pruebas y decis
 
 ## 17. Estado de la especificación
 
-**Estado:** DRAFT.  
-**Revisión lingüística francesa:** pendiente.  
-**Revisión lingüística alemana:** pendiente.  
-**Validación automática de colisiones:** especificada, no integrada aún.  
-**Ejecución de alias localizados:** no habilitada.  
+**Estado:** DRAFT.
+**Revisión lingüística francesa:** pendiente.
+**Revisión lingüística alemana:** pendiente.
+**Validación automática de colisiones:** especificada, no integrada aún.
+**Ejecución de alias localizados:** no habilitada.
 **Cambios en el Core:** ninguno autorizado por esta especificación.
 
 ---

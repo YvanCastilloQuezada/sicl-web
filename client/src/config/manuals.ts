@@ -13,7 +13,7 @@ export const MANUALS: ManualDefinition[] = [
   {
     id: "user",
     title: "Manual de Usuario",
-    description: "Conceptos, flujos principales y reglas constitucionales de SiMS-DeI.",
+    description: "Conceptos, flujos principales y reglas constitucionales de ARKI.",
     path: "/help/user",
     pdfUrl: "/manuals/user-manual.pdf",
     githubUrl: "https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/USER_MANUAL.md",

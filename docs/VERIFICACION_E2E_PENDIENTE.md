@@ -1,4 +1,4 @@
-# Verificación funcional pendiente — SiMS-DeI Command Center
+# Verificación funcional pendiente — ARKI Command Center
 
 ## Estado actual
 

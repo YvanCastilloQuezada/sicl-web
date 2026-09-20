@@ -1,12 +1,12 @@
-# SiMS-DeI Command Center
+# ARKI Command Center
 
-SiMS-DeI Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos espaciales: contexto, evidencia, objetivos, restricciones, alternativas, evaluaciones, recomendaciones, revisión humana y decisión.
+ARKI Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos espaciales: contexto, evidencia, objetivos, restricciones, alternativas, evaluaciones, recomendaciones, revisión humana y decisión.
 
 ## Estado actual
 
 **Frontend:** SICL 0.6, React 19 + TypeScript + tRPC.
 
-**Integración REST:** disponible para conectar con SiMS-DeI Core v2.2 mediante `VITE_API_URL`. Cuando esa variable está configurada, el workspace REST usa el Core como fuente canónica para crear proyectos, ejecutar comandos y refrescar el dashboard. Cuando no está configurada, se conserva el modo compatible local/tRPC; este modo no debe interpretarse como Core remoto.
+**Integración REST:** disponible para conectar con ARKI Core v2.2 mediante `VITE_API_URL`. Cuando esa variable está configurada, el workspace REST usa el Core como fuente canónica para crear proyectos, ejecutar comandos y refrescar el dashboard. Cuando no está configurada, se conserva el modo compatible local/tRPC; este modo no debe interpretarse como Core remoto.
 
 **Verificación local reciente:** TypeScript sin errores, 69 pruebas Vitest aprobadas y build de producción aprobado.
 
@@ -19,7 +19,7 @@ SiMS-DeI Command Center es la interfaz web de SICL 0.6 para trabajar con proyect
 ## Instalación local
 
 ```bash
-cd sims-dei-web
+cd sicl-web
 pnpm install
 ```
 

@@ -2,7 +2,7 @@
 
 ## Estado
 
-Este runbook publica el checkpoint `754718d0` del proyecto `sims-dei-web` en el dominio público `https://siclcc-cxipx7sy.manus.space`. No modifica el frontend ni el Core Contract. Debe ejecutarlo un operador con acceso al panel WebDev y permisos de publicación del proyecto `CXipx7sYZTwJNC2YkzrMGY`.
+Este runbook publica el checkpoint `754718d0` del proyecto `sicl-web` en el dominio público `https://siclcc-cxipx7sy.manus.space`. No modifica el frontend ni el Core Contract. Debe ejecutarlo un operador con acceso al panel WebDev y permisos de publicación del proyecto `CXipx7sYZTwJNC2YkzrMGY`.
 
 ## Bloqueo identificado
 
@@ -12,7 +12,7 @@ No se debe afirmar publicación exitosa hasta comprobar el dominio público, aut
 
 ## Precondiciones
 
-1. Confirmar que el proyecto seleccionado es `sims-dei-web` y que el checkpoint activo es `754718d0`.
+1. Confirmar que el proyecto seleccionado es `sicl-web` y que el checkpoint activo es `754718d0`.
 2. Confirmar que el repositorio está limpio y que no se aplican cambios de `SICL_FRONTEND_SPEC_v1.md` al release 0.6.
 3. Confirmar que los secretos, si son necesarios, están registrados como variables server-side y nunca como variables `VITE_*`.
 4. No activar `SICL_ALLOW_LOCAL_CORE=true` en producción.
@@ -20,7 +20,7 @@ No se debe afirmar publicación exitosa hasta comprobar el dominio público, aut
 
 ## Procedimiento en el panel WebDev
 
-1. Abrir el proyecto `sims-dei-web`.
+1. Abrir el proyecto `sicl-web`.
 2. Abrir la sección de checkpoints/versiones.
 3. Seleccionar exactamente `754718d0`.
 4. Revisar el diff y confirmar que corresponde al flujo UPAO-001 ya probado.

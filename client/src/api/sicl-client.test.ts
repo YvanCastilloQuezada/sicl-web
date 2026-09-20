@@ -14,9 +14,9 @@ describe("siclClient REST bridge", () => {
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
     const projects = await siclClient.listProjects();
-    expect(projects[0]).toMatchObject({ project_id: "MOCK-SIMS-DEI-001" });
-    await expect(siclClient.getProject("MOCK-SIMS-DEI-001")).resolves.toMatchObject({ stage: "OPEN" });
-    await siclClient.executeCommand("MOCK-SIMS-DEI-001", "/HISTORY");
+    expect(projects[0]).toMatchObject({ project_id: "MOCK-ARKI-001" });
+    await expect(siclClient.getProject("MOCK-ARKI-001")).resolves.toMatchObject({ stage: "OPEN" });
+    await siclClient.executeCommand("MOCK-ARKI-001", "/HISTORY");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 

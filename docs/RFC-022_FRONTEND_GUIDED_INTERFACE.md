@@ -4,7 +4,7 @@
 
 ## 1. Objetivo
 
-RFC-022 define una interfaz guiada para SiMS-DeI que reduzca la curva de aprendizaje sin alterar la ontología de SICL ni transferir autoridad decisoria al frontend. El modo guiado es la experiencia inicial; el modo experto permanece disponible como preferencia explícita.
+RFC-022 define una interfaz guiada para ARKI que reduzca la curva de aprendizaje sin alterar la ontología de SICL ni transferir autoridad decisoria al frontend. El modo guiado es la experiencia inicial; el modo experto permanece disponible como preferencia explícita.
 
 ## 2. Alcance
 
