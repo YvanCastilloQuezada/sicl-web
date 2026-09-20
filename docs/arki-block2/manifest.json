@@ -1,0 +1,26 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-EKNOW-BLOCK-2-SPATIAL-SEMANTICS-2026-09-20",
+  "experiment": "E-KNOW-BLOCK-2",
+  "scope": "SPACE_ROOM_AND_SPATIAL_BOUNDARY_WALL",
+  "executionMode": "IMPLEMENTATION_WITH_HUMAN_REVIEW_GATE",
+  "epistemicStatus": "HYPOTHESIS",
+  "knowledgeState": "K2_CANDIDATE",
+  "promotionDecision": "HUMAN_REVIEW_REQUIRED",
+  "coreModified": false,
+  "remotePersistence": false,
+  "rules": [
+    "ARKI-B2-K-SPACE-ROOM-001",
+    "ARKI-B2-K-BOUNDARY-WALL-001",
+    "ARKI-B2-K-BOUNDARY-WALL-002"
+  ],
+  "implementation": {
+    "module": "shared/arkiSpatialSemantics.ts",
+    "tests": "client/src/arkiSpatialSemantics.test.ts",
+    "focusedTests": "6/6 PASS",
+    "focusedTypecheck": "PASS",
+    "diffCheck": "PASS"
+  },
+  "globalValidationNote": "Full project typecheck remains blocked by a pre-existing merge conflict in client/src/App.tsx; no conflict marker was introduced by this package.",
+  "humanAuthority": "REQUIRED_BEFORE_FACT_PROMOTION"
+}
