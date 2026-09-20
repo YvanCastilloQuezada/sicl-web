@@ -101,7 +101,7 @@
       "checkpointId": "P10.15",
       "deltaId": "PASTED-CONTENT-494-V492",
       "baselineSha": "a34efbd3a4c944685bd7e29064d21ebd15645e7e",
-      "finalSha": "a34efbd3a4c944685bd7e29064d21ebd15645e7e",
+      "finalSha": "ff9b4bc8442dc4e25fc6d933a201ba49981bfdeb",
       "humanReport": "docs/arki-p10/ARKI-P10-KNOWLEDGE-TRANSFER-2026-09-20.md",
       "structuredReport": "docs/arki-p10/ARKI-P10-KNOWLEDGE-TRANSFER-2026-09-20.json",
       "executableProof": "client/src/components/arkiP10KnowledgeTransferChallenge.ts",
