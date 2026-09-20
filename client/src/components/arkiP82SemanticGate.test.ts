@@ -31,4 +31,14 @@ describe("P8.2 applicability, sufficiency and legitimate non-plurality", () => {
     expect(cases.capabilityGap.result).toBe("CAPABILITY_FAILURE");
     expect(cases.humanDecisionRequired.result).toBe("HUMAN_DECISION_REQUIRED");
   });
+
+  it("separates missing specialist input from an absent coordination capability", () => {
+    const cases = runP82AdversarialCases();
+    expect(cases.specialistBoundaryWithCapability.result).toBe("SPECIALIST_INPUT_REQUIRED");
+    expect(cases.specialistBoundaryWithCapability.capabilityAvailable).toBe(true);
+    expect(cases.specialistBoundaryWithoutCapability.result).toBe("CAPABILITY_FAILURE");
+    expect(cases.specialistBoundaryWithoutCapability.capabilityAvailable).toBe(false);
+    expect(cases.specialistBoundaryWithCapability.nextResolutionPath.join(" ")).toContain("Supply project-specific specialist data");
+    expect(cases.specialistBoundaryWithoutCapability.nextResolutionPath.join(" ")).toContain("missing coordination representation capability");
+  });
 });

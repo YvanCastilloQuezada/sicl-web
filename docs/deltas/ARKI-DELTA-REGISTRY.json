@@ -624,7 +624,7 @@
           "strategy_expansion": "NONE",
           "candidate_fabrication": "NONE",
           "specialist_evidence_fabrication": "NONE",
-          "focused_tests": "6/6 PASS",
+          "focused_tests": "7/7 PASS",
           "p81_preservation_tests": "3/3 PASS",
           "full_regression": "PASS",
           "typecheck": "PASS",
@@ -633,7 +633,12 @@
           "triple_propagation": "PASS",
           "report": "docs/ARKI-P8.2-APPLICABILITY-SUFFICIENCY-REPLAY-2026-09-19.md",
           "human_review": "REQUIRED",
-          "next_precise_work": "Supply project-specific specialist evidence and explicit human architectural decision; keep semantic trace gap visible."
+          "next_precise_work": "Supply project-specific specialist evidence and explicit human architectural decision; keep semantic trace gap visible.",
+          "adversarial_specialist_boundary": "PASS",
+          "adversarial_cases": {
+            "capability_present_input_absent": "SPECIALIST_INPUT_REQUIRED",
+            "capability_absent_input_present": "CAPABILITY_FAILURE"
+          }
         }
       ]
     }

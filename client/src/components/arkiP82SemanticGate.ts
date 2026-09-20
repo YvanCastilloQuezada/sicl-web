@@ -123,6 +123,28 @@ export function classifyP82Coordination(proof: P81ProofResult): P82GateAssessmen
   };
 }
 
+export function classifyP82SpecialistBoundary(input: { capabilityAvailable: boolean; specialistInputAvailable: boolean }): P82GateAssessment {
+  const missingInput = !input.specialistInputAvailable;
+  const capabilityFailure = !input.capabilityAvailable;
+  return {
+    operation: "multidisciplinary coordination boundary",
+    applicability: "APPLICABLE",
+    requiredInput: ["project-specific specialist model", "specialist calculations", "coordination representation capability"],
+    availableInput: [input.capabilityAvailable ? "coordination capability" : "no coordination capability", input.specialistInputAvailable ? "specialist/project input" : "no specialist/project input"],
+    evidenceSufficiency: capabilityFailure || missingInput ? "INSUFFICIENT" : "SUFFICIENT",
+    capabilityAvailable: input.capabilityAvailable,
+    result: capabilityFailure ? "CAPABILITY_FAILURE" : missingInput ? "SPECIALIST_INPUT_REQUIRED" : "DEMONSTRATED",
+    terminationReason: capabilityFailure ? "CAPABILITY_GAP" : missingInput ? "SPECIALIST_INPUT_REQUIRED" : "SUCCESS",
+    nextResolutionPath: capabilityFailure
+      ? ["Implement or authorize the missing coordination representation capability.", "Do not classify absent specialist data as the cause of this result."]
+      : missingInput
+        ? ["Supply project-specific specialist data.", "Do not classify missing external input as an ARKI capability failure."]
+        : ["Continue with independent specialist review."],
+    humanOrSpecialistAuthority: "SPECIALIST_REQUIRED",
+    provenance: ["P8.2 adversarial specialist boundary", "Capability/input dimensions held separately", "No failure relabeling"],
+  };
+}
+
 export function classifyP82Performance(proof: P81ProofResult): P82GateAssessment {
   const classes = proof.performance.evidence.map((item) => item.evidenceClass);
   const proxyOnly = classes.length > 0 && classes.every((item) => item === "PROXY" || item === "SIMULATED");
@@ -194,6 +216,8 @@ export function runP82AdversarialCases() {
     comparisonNotApplicable: { result: "NOT_APPLICABLE" as const, reason: "Only one feasible candidate exists." },
     specialistInputRequired: { result: "SPECIALIST_INPUT_REQUIRED" as const, reason: "Coordination capability exists but project specialist data is absent." },
     capabilityGap: { result: "CAPABILITY_FAILURE" as const, reason: "Required representation capability does not exist." },
+    specialistBoundaryWithCapability: classifyP82SpecialistBoundary({ capabilityAvailable: true, specialistInputAvailable: false }),
+    specialistBoundaryWithoutCapability: classifyP82SpecialistBoundary({ capabilityAvailable: false, specialistInputAvailable: true }),
     humanDecisionRequired: { result: "HUMAN_DECISION_REQUIRED" as const, reason: "Architectural trade-off reached without explicit human selection." },
   };
 }

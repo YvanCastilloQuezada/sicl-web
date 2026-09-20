@@ -136,3 +136,17 @@ La regresión completa, build y `git diff --check` deben completarse antes de si
 ## 12. Límites preservados
 
 P8.2 no crea K1, no canoniza conocimiento, no crea un score universal, no agrega estrategias artificiales, no fabrica evidencia multidisciplinaria, no toma decisiones humanas, no declara cumplimiento normativo y no convierte un proxy en desempeño verificado.
+
+
+## 13. Caso adversarial adicional — especialista frente a falla real
+
+Se añadió una prueba de frontera con dos escenarios que mantienen constante el tipo de operación y varían únicamente la disponibilidad de la capacidad y del insumo externo:
+
+| Capacidad de coordinación | Datos especialistas | Resultado correcto | Interpretación |
+|---|---|---|---|
+| Disponible | Ausentes | `SPECIALIST_INPUT_REQUIRED` | ARKI puede coordinar, pero no puede completar el análisis sin información externa del proyecto |
+| Ausente | Disponibles | `CAPABILITY_FAILURE` | La información existe, pero el sistema carece de la representación o capacidad necesaria |
+
+El caso evita el error de tratar toda coordinación incompleta como falla del sistema. También evita el error inverso de atribuir a especialistas una brecha que realmente pertenece a ARKI.
+
+La prueba verifica además que cada estado produce una ruta de resolución distinta: suministro de modelo/cálculos especialistas en el primer caso y revisión autorizada de implementación de capacidad en el segundo.
