@@ -9,6 +9,8 @@ import { useEffect, useRef } from "react";
 import { ensureProjectId } from "@/lib/project-id";
 import { trpc } from "@/lib/trpc";
 
+export const ARKI_CONTROL_CENTER_PATH = "/control-center";
+
 function projectName(project: unknown): string {
   const value = project as { name?: unknown };
   return typeof value.name === "string" && value.name.trim() ? value.name : "Proyecto sin nombre";
@@ -130,7 +132,7 @@ export default function AppHeader() {
         </div>
         <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           <LanguageSelector />
-          <button type="button" onClick={() => window.location.assign("/control-center")} title="Abrir ARKI Control Center" aria-label="Abrir ARKI Control Center" className="inline-flex items-center gap-1.5 border border-[#294765] bg-[#071426] px-3 py-2 text-xs font-semibold text-[#edf4ff] transition-colors hover:border-[#7bc6d5] hover:bg-[#0b1d35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7bc6d5]"><Network className="h-3.5 w-3.5 text-[#7bc6d5]" /><span className="hidden sm:inline">Control Center</span></button>
+          <button type="button" onClick={() => window.location.assign(ARKI_CONTROL_CENTER_PATH)} title="Abrir ARKI Control Center" aria-label="Abrir ARKI Control Center" className="inline-flex items-center gap-1.5 border border-[#294765] bg-[#071426] px-3 py-2 text-xs font-semibold text-[#edf4ff] transition-colors hover:border-[#7bc6d5] hover:bg-[#0b1d35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7bc6d5]"><Network className="h-3.5 w-3.5 text-[#7bc6d5]" /><span className="hidden sm:inline">Control Center</span></button>
           <HelpButton />
           <div className="flex items-center gap-1 border border-border bg-card p-1" role="group" aria-label="Entrada conversacional ARKI">
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} aria-pressed={voiceActive} className={cn("inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", voiceActive && "animate-pulse rounded-full bg-[#fbe5d6] text-[#a94524] ring-2 ring-[#d07b4a]")}><Mic className={cn("h-4 w-4", voiceActive && "animate-bounce")} /></button>

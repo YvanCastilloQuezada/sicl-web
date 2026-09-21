@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { BrainCircuit, Building2, CalendarDays, FileText, GitBranch, History, LayoutDashboard, LockKeyhole, Network, Search, ShieldAlert, Sparkles, Users, Workflow } from "lucide-react";
 import { Cell, Pie, PieChart } from "recharts";
+import React from "react";
 import { useMemo, useState } from "react";
 
 type RegistryItem = { id: string; title: string; category: string; status: string; version?: string; date?: string; source: string; detail: string; relation?: string; frozen?: boolean; implemented?: boolean; demonstrated?: boolean };
