@@ -40,6 +40,10 @@ The machine-readable manifest with SHA-256 hashes is [`package-manifest-v1.0.jso
 
 The package is registered read-only under **Knowledge → Preserved Registers** and **Documents**. The Control Center exposes metadata and repository paths only; it does not duplicate workbook contents into the database.
 
+## External evaluation evidence
+
+The external evaluation **DS-EVAL-01 / EXTERNAL_EVALUATION_EVIDENCE_001** is preserved separately under [`external-evaluations/DS-EVAL-01/`](external-evaluations/DS-EVAL-01/). The workbook is attributed to **DeepSeek** with `CONSULTATIVE ONLY` authority and `REVIEWED / DISPOSITIONED` status. It is indexed in the Control Center as **External Evaluation Evidence #001 — DS-EVAL-01**. The original external report was not provided and remains `NOT PROVIDED / UNKNOWN`; no finding, candidate constitutional rule or research package is automatically canonized or implemented.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
