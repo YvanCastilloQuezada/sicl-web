@@ -12,12 +12,13 @@ describe("ARKI parametric exchange", () => {
     expect(architecturalAssimilation(parsed)).toMatchObject({ status: "PROPOSAL_IMPORTED", architecturalRole: "VOLUMETRIC_PROPOSAL", humanReviewRequired: true, noAutomaticDecision: true });
   });
 
-  it("generates Dynamo and Grasshopper exchange artifacts plus ARK manifest", () => {
+  it("generates Dynamo, Grasshopper and IFC semantic bridge artifacts plus ARK manifest", () => {
     const packageResult = exchangePackage({ projectId: "ABC-DEF-123-456", name: "casa_yvan", geometry: { kind: "COURTYARD_MASS", width: 20, depth: 12, height: 3.2, floors: 2, courtyardRatio: 0.25 }, graph });
-    expect(packageResult.files.map((file) => file.fileName)).toEqual(["casa_yvan.ark", "casa_yvan.dyn", "casa_yvan.ghx"]);
+    expect(packageResult.files.map((file) => file.fileName)).toEqual(["casa_yvan.ark", "casa_yvan.dyn", "casa_yvan.ghx", "casa_yvan.ifc.json"]);
     expect(packageResult.files.find((file) => file.format === "DYN")?.content).toContain("ARKI");
     expect(packageResult.files.find((file) => file.format === "GHX")?.content).toContain("Archive");
-    expect(packageResult.manifest).toMatchObject({ nativeRevit: "HOST_REQUIRED", nativeRhino: "HOST_REQUIRED", humanReviewRequired: true });
+    expect(packageResult.files.find((file) => file.format === "IFC4_SEMANTIC_BRIDGE")?.content).toContain("ARKI IFC compatibility bridge");
+    expect(packageResult.manifest).toMatchObject({ nativeRevit: "HOST_REQUIRED", nativeRhino: "HOST_REQUIRED", ifcSemanticBridge: "PREPARED_WITH_ADAPTER_VALIDATION", humanReviewRequired: true });
   });
 
   it("rejects .ark files without the governed contract", () => {

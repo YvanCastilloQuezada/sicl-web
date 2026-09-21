@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, Box, ExternalLink, FileUp, ShieldCheck, UploadCloud } from "lucide-react";
+import { AlertTriangle, Box, ExternalLink, FileUp, Ruler, ShieldCheck, UploadCloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +27,7 @@ export default function ArkiBimViewerPage() {
   const inspect = trpc.bimViewer.inspect.useMutation({ onSuccess: setInspection });
   const clashes = trpc.bimViewer.clashes.useMutation();
   const [clashResult, setClashResult] = useState<Awaited<ReturnType<typeof clashes.mutateAsync>> | null>(null);
+  const predimensioning = trpc.transversal.predimensioning.useMutation();
 
   const previewBoxes = useMemo(() => SAMPLE_MODELS[0].elements.map((element, index) => ({ ...element, x: 92 + index * 180, y: 145 - index * 22 })), []);
   const projectId = "BIM-DEMO-001";
@@ -40,6 +41,10 @@ export default function ArkiBimViewerPage() {
   async function runClashCheck() {
     const result = await clashes.mutateAsync({ projectId, models: SAMPLE_MODELS, tolerance: 0.001 });
     setClashResult(result);
+  }
+
+  async function runPredimensioning() {
+    await predimensioning.mutateAsync({ projectId, use: "HOUSE", floors: 2, typicalSpanM: 5, floorToFloorM: 3, structuralSystem: "REINFORCED_CONCRETE_FRAME", columnWidthM: 0.3, columnDepthM: 0.3, beamDepthM: 0.4, slabThicknessM: 0.15, wetAreaCount: 4, electricalRoomCount: 1, hvacRequired: false, healthcareCritical: false, serviceShaftCount: 1 });
   }
 
   return <main className="min-h-screen bg-background px-5 py-8 text-foreground md:px-10">
@@ -61,6 +66,7 @@ export default function ArkiBimViewerPage() {
       </div>
 
       <Card><CardHeader><CardTitle className="flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-amber-500" />Interferencias</CardTitle></CardHeader><CardContent><div className="flex flex-wrap items-center gap-3"><Button onClick={() => void runClashCheck()} disabled={clashes.isPending}><AlertTriangle className="mr-2 h-4 w-4" />{clashes.isPending ? "Analizando…" : "Ejecutar detección de interferencias"}</Button><Button variant="outline" asChild><a href="/arki-parametric-runtime"><ShieldCheck className="mr-2 h-4 w-4" />Abrir runtime paramétrico</a></Button></div>{clashResult && <div className="mt-5 grid gap-4 md:grid-cols-3"><div className="rounded-lg border border-border p-4"><p className="text-xs text-muted-foreground">Estado</p><p className="mt-1 font-semibold">{clashResult.status}</p></div><div className="rounded-lg border border-border p-4"><p className="text-xs text-muted-foreground">Pares revisados</p><p className="mt-1 font-semibold">{clashResult.checkedPairs}</p></div><div className="rounded-lg border border-border p-4"><p className="text-xs text-muted-foreground">Incidencias abiertas</p><p className="mt-1 font-semibold text-amber-600">{clashResult.interferences.length}</p></div>{clashResult.interferences.map((issue) => <div className="md:col-span-3 rounded-lg border border-amber-500/40 bg-amber-500/5 p-4" key={issue.id}><div className="flex flex-wrap items-center justify-between gap-2"><strong>{issue.id} · {issue.severity}</strong><Badge variant="outline">{issue.status}</Badge></div><p className="mt-2 text-sm">{issue.leftElementId} ↔ {issue.rightElementId} · {issue.disciplines.join(" / ")}</p><p className="mt-1 text-xs text-muted-foreground">{issue.reason}</p></div>)}</div>}</CardContent></Card>
+      <Card><CardHeader><CardTitle className="flex items-center gap-2"><Ruler className="h-5 w-5 text-[#d07b4a]" />Predimensionamiento transversal</CardTitle></CardHeader><CardContent><p className="max-w-3xl text-sm text-muted-foreground">Antes de coordinar interferencias, ARKI revisa preliminarmente columnas, vigas, losas, shafts sanitarios, cuartos eléctricos y requisitos HVAC. El resultado orienta el diseño y no sustituye el cálculo firmado.</p><Button className="mt-4 bg-[#d07b4a] text-white hover:bg-[#b8653d]" onClick={() => void runPredimensioning()} disabled={predimensioning.isPending}><Ruler className="mr-2 h-4 w-4" />{predimensioning.isPending ? "Revisando…" : "Ejecutar predimensionamiento de ejemplo"}</Button>{predimensioning.data && <div className="mt-4 grid gap-3 md:grid-cols-3"><div className="rounded-lg border border-border p-3"><p className="text-xs text-muted-foreground">Estado</p><p className="mt-1 font-semibold">{predimensioning.data.status}</p></div><div className="rounded-lg border border-border p-3"><p className="text-xs text-muted-foreground">Comprobaciones</p><p className="mt-1 font-semibold">{predimensioning.data.checks.length}</p></div><div className="rounded-lg border border-border p-3"><p className="text-xs text-muted-foreground">Gate siguiente</p><p className="mt-1 text-sm font-semibold">{predimensioning.data.downstreamGate}</p></div><div className="md:col-span-3 space-y-2">{predimensioning.data.checks.map((check) => <div className="rounded border border-border p-3 text-sm" key={check.id}><div className="flex flex-wrap justify-between gap-2"><strong>{check.id} · {check.title}</strong><Badge variant="outline">{check.status}</Badge></div><p className="mt-1 text-muted-foreground">{check.finding}</p><p className="mt-1 text-xs text-muted-foreground">{check.recommendedAction}</p></div>)}</div></div>}</CardContent></Card>
     </div>
   </main>;
 }

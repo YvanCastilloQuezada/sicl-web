@@ -34,6 +34,7 @@ import { ENV } from "./_core/env";
 import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntelligence";
 import { arkiEtiBimContract } from "./arkiEtiBim";
 import { arkiBimViewerContract, detectBimInterferences, inspectBimArtifact, type BimViewerModel } from "./arkiBimViewer";
+import { runPreliminaryPredimensioning, transversalKnowledgeContract } from "./arkiTransversalEngineering";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -174,6 +175,10 @@ export const appRouter = router({
       await ownedProject(ctx.user.id, input.projectId);
       return detectBimInterferences(input.models as BimViewerModel[], input.tolerance);
     }),
+  }),
+  transversal: router({
+    contract: publicProcedure.query(() => transversalKnowledgeContract()),
+    predimensioning: protectedProcedure.input(z.object({ projectId: z.string().min(1), use: z.string().min(1), floors: z.number().int().min(1).max(200), typicalSpanM: z.number().positive(), maxSpanM: z.number().positive().optional(), floorToFloorM: z.number().positive(), structuralSystem: z.enum(["REINFORCED_CONCRETE_FRAME", "STEEL_FRAME", "MASONRY", "TIMBER", "UNKNOWN"]), columnWidthM: z.number().positive().optional(), columnDepthM: z.number().positive().optional(), beamDepthM: z.number().positive().optional(), slabThicknessM: z.number().positive().optional(), wetAreaCount: z.number().int().min(0).optional(), electricalRoomCount: z.number().int().min(0).optional(), hvacRequired: z.boolean().optional(), healthcareCritical: z.boolean().optional(), serviceShaftCount: z.number().int().min(0).optional() })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return runPreliminaryPredimensioning(input); }),
   }),
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),
