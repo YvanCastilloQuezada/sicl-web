@@ -73,6 +73,14 @@ const trpcClient = trpc.createClient({
   ],
 });
 
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    void navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch((error) => {
+      console.warn("[ARKI_PWA_REGISTRATION_FAILED]", error);
+    });
+  });
+}
+
 createRoot(document.getElementById("root")!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>

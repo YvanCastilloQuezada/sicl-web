@@ -574,3 +574,9 @@
 - [x] Crear README y documentación del corpus, diferenciando ejemplo repetible de ejecución real.
 - [x] Crear `tools/validate_parametric_examples.mjs` y verificar 67/67 ejemplos, IDs únicos, archivos presentes y paquete geométrico completo.
 - [x] Validar build de producción y mantener la autoridad humana y los límites de hosts externos.
+
+## ARKI_ACCESS_EXPERIENCE_V1 — precedencia ejecutiva 2026-09-21
+- [x] `pasted_content_536.txt` y las dos propuestas anteriores de First Contact/AR quedan documentadas como `SUPERSEDED_BY: ARKI_ACCESS_EXPERIENCE_V1` y `DO_NOT_EXECUTE_SEPARATELY`.
+- [x] Se conserva y reutiliza el trabajo válido de PWA, First Contact, Parametric Runtime y Field Mode.
+- [x] Se completa la macroorden consolidada sobre una sola aplicación ARKI Web App, sin crear una aplicación paralela.
+- [x] Se mantienen un solo Project State, Command Resolver, catálogo canónico, historial y modelo de autoridad humana.

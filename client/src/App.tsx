@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
+import ArkiFirstContact from "./components/ArkiFirstContact";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
@@ -23,6 +24,7 @@ const ArkiControlCenterPage = lazy(() => import("./pages/ArkiControlCenterPage")
 const ParametricFilesPage = lazy(() => import("./pages/ParametricFilesPage"));
 const ArkiOperationsPage = lazy(() => import("./pages/ArkiOperationsPage"));
 import ArkiParametricRuntimePage from "./pages/ArkiParametricRuntimePage";
+import FieldModePage from "./pages/FieldModePage";
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -56,6 +58,7 @@ function Router() {
     <Suspense fallback={<PageLoadingFallback />}>
     <Switch>
       <Route path={"/"}>{() => <HashWorkspaceRoute />}</Route>
+      <Route path={"/arki"}>{() => <HashWorkspaceRoute />}</Route>
       <Route path={"/evidence"} component={EvidencePage} />
       <Route path={"/evaluations"} component={EvaluationsPage} />
       <Route path={"/comparisons"} component={ComparisonsPage} />
@@ -67,7 +70,8 @@ function Router() {
       <Route path={"/control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><ArkiControlCenterPage /></DashboardLayout>}</Route>
       <Route path={"/parametric-files"}>{() => <DashboardLayout><ParametricFilesPage /></DashboardLayout>}</Route>
       <Route path={"/arki-operations"}>{() => <DashboardLayout><ArkiOperationsPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-parametric-runtime"}>{() => <DashboardLayout><ArkiParametricRuntimePage /></DashboardLayout>}</Route>
+      <Route path={"/arki-parametric-runtime"}>{() => <ArkiParametricRuntimePage />}</Route>
+      <Route path={"/field"} component={FieldModePage} />
       <Route path={"/audit"}>{() => <AuditRoute />}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
@@ -96,6 +100,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
+            <ArkiFirstContact />
             <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
           </TooltipProvider>
