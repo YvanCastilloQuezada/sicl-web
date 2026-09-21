@@ -16,6 +16,7 @@ import { generateProjectId } from "@shared/project-id";
 import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
 import { generateArkiPhotorealisticVisual, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 import { executeProjectBrainWave1 } from "./arkiProjectBrain";
+import { commercialApiContract, handleCommercialApiRequest } from "./arkiCommercialApi";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -82,6 +83,11 @@ export const appRouter = router({
       await ownedProject(ctx.user.id, input.projectId);
       return executeProjectBrainWave1(input as never);
     }),
+  }),
+  commercialApi: router({
+    contract: publicProcedure.query(() => commercialApiContract()),
+    capabilities: publicProcedure.query(() => handleCommercialApiRequest({ apiVersion: "v1", tenantId: "public", actorId: "catalog", plan: "EVALUATION", operation: "CAPABILITIES", idempotencyKey: "catalog" }).result),
+    register: protectedProcedure.input(z.object({ tenantId: z.string().min(1), plan: z.enum(["EVALUATION", "PROFESSIONAL", "ENTERPRISE"]), operation: z.enum(["CAPABILITIES", "ARCHITECTURE_PLAN", "EXPORT_REQUEST"]), idempotencyKey: z.string().min(1) })).mutation(({ ctx, input }) => handleCommercialApiRequest({ apiVersion: "v1", tenantId: input.tenantId, actorId: String(ctx.user.id), plan: input.plan, operation: input.operation, idempotencyKey: input.idempotencyKey })),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
