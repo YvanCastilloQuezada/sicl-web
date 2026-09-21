@@ -56,6 +56,8 @@ The original DG-01 applicability specification is preserved under [`demonstratio
 
 The typed `PARTI-CONTRACT-1.0` is implemented in [`server/arkiPartiContract.ts`](../../server/arkiPartiContract.ts) and documented in [`arki-parti/PARTI_CONTRACT_REPORT.md`](../../arki-parti/PARTI_CONTRACT_REPORT.md). It records the organizing hypothesis and its provenance, topology and geometry lineage without creating a new design engine. The focused proof covers three parti hypotheses, an adversarial functional rejection, mutation/backtracking and bounded typology adaptation; functional validity remains subject to human review.
 
+The assembled `ARKI-INTEGRATED-ARCHITECT-1.0` cycle is documented in [`arki-integrated-architect/ARKI_INTEGRATED_ARCHITECT_CYCLE.md`](../../arki-integrated-architect/ARKI_INTEGRATED_ARCHITECT_CYCLE.md). It reuses the existing ingestion, knowledge, D6.2, PARTI, topology, D6.3 geometry, evaluation and Human Authority boundaries. Its claim is limited to bounded conceptual architectural synthesis.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
