@@ -37,9 +37,9 @@ export const ARKI_TRIAD_CONTRACT: TriadComponentContract[] = [
     name: "ARKI-ETI-BIM",
     mission: "Mantener la continuidad informacional del expediente técnico desde requisitos hasta operación.",
     inputs: ["PROJECT_STATE", "OIR_AIR_PIR_EIR", "BEP", "CDE", "SEMANTIC_BIM", "COSTS", "SCHEDULE", "SPECIALIST_INPUTS"],
-    outputs: ["BIM_INFORMATION_DELIVERY", "COORDINATION_REGISTER", "QUANTITY_AND_COST_TRACE", "SPECIFICATION_TRACE", "HANDOVER_AND_ASSET_INFORMATION"],
+    outputs: ["EXPEDIENTE_TECNICO_PACKAGE", "BIM_INFORMATION_DELIVERY", "COORDINATION_REGISTER", "QUANTITY_AND_COST_TRACE", "COST_MODEL_WITH_PROVENANCE", "SPECIFICATION_TRACE", "HANDOVER_AND_ASSET_INFORMATION"],
     gate: "BIM_INFORMATION_AND_SPECIALIST_REVIEW",
-    boundary: "Native IFC/RVT/DWG/GIS authoring, engineering calculations, regulatory approval and professional signatures remain adapter- or specialist-dependent.",
+    boundary: "Native IFC/RVT/DWG/GIS authoring, engineering calculations, regulatory approval, market-price adoption and professional signatures remain adapter- or specialist-dependent.",
   },
 ];
 
@@ -78,7 +78,7 @@ export function buildArkiTriadTrace(cycle: IntegratedArchitectCycle): TriadTrace
       {
         id: "ARKI_ETI_BIM",
         status: "SPECIALIST_REQUIRED",
-        evidence: ["ARKI-BIM-SEMANTIC-1.0", "LIFECYCLE_GATE_TRACE", "MODEL_CALCULATION_DRAWING_QUANTITY_COST_SPECIFICATION_SCHEDULE_DECISION"],
+        evidence: ["ARKI-ETI-BIM-1.0", "ARKI-COST-MODEL-1.0", "LIFECYCLE_GATE_TRACE", "MODEL_CALCULATION_DRAWING_QUANTITY_COST_SPECIFICATION_SCHEDULE_DECISION"],
         nextGate: "BIM_INFORMATION_AND_SPECIALIST_REVIEW",
       },
     ],

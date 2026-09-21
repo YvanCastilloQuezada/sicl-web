@@ -1,5 +1,7 @@
 import type { UnifiedMotorInput, UnifiedMotorResult } from "./arkiUnifiedMotor";
 import { executeArkiUnifiedMotor } from "./arkiUnifiedMotor";
+import type { CostModelResult } from "./arkiCostIntelligence";
+import type { EtiBimPackage } from "./arkiEtiBim";
 
 export const ARKI_LIFECYCLE_PHASES = [
   "CONCEPTION",
@@ -53,5 +55,5 @@ export function buildSemanticBimRepresentation(elements: BimElement[], relations
   return { schema: "ARKI-BIM-SEMANTIC-1.0", elements, relationships, lod: "CONCEPTUAL", exportTargets: ["IFC", "RVT", "DWG", "GIS", "JSON"], exportStatus: { IFC: "REQUIRES_ADAPTER", RVT: "REQUIRES_ADAPTER", DWG: "REQUIRES_ADAPTER", GIS: "REQUIRES_ADAPTER", JSON: "PREPARED" }, unknowns: ["native authoring fidelity", "discipline coordination", "family/system definitions", "jurisdictional deliverable requirements"], humanReviewRequired: true };
 }
 
-export type LifecycleRun = { lifecycleVersion: "ARKI-LIFECYCLE-1.0"; currentPhase: ArkiLifecyclePhase; motor: UnifiedMotorResult; gates: LifecycleGate[]; budget?: BudgetResult; bim?: BimRepresentation; humanAuthority: "FINAL"; status: "LIFECYCLE_CONCEPTUAL_PASS" | "PARTIAL" };
-export function executeLifecycleCycle(input: UnifiedMotorInput, phase: ArkiLifecyclePhase = "CONCEPTION", budget?: BudgetResult, bim?: BimRepresentation): LifecycleRun { const motor = executeArkiUnifiedMotor(input); return { lifecycleVersion: "ARKI-LIFECYCLE-1.0", currentPhase: phase, motor, gates: ARKI_LIFECYCLE_GATES, budget, bim, humanAuthority: "FINAL", status: motor.status === "PASS_WITH_BOUNDS" ? "LIFECYCLE_CONCEPTUAL_PASS" : "PARTIAL" }; }
+export type LifecycleRun = { lifecycleVersion: "ARKI-LIFECYCLE-1.0"; currentPhase: ArkiLifecyclePhase; motor: UnifiedMotorResult; gates: LifecycleGate[]; budget?: BudgetResult; bim?: BimRepresentation; costModel?: CostModelResult; etiBim?: EtiBimPackage; humanAuthority: "FINAL"; status: "LIFECYCLE_CONCEPTUAL_PASS" | "PARTIAL" };
+export function executeLifecycleCycle(input: UnifiedMotorInput, phase: ArkiLifecyclePhase = "CONCEPTION", budget?: BudgetResult, bim?: BimRepresentation, costModel?: CostModelResult, etiBim?: EtiBimPackage): LifecycleRun { const motor = executeArkiUnifiedMotor(input); return { lifecycleVersion: "ARKI-LIFECYCLE-1.0", currentPhase: phase, motor, gates: ARKI_LIFECYCLE_GATES, budget, bim, costModel, etiBim, humanAuthority: "FINAL", status: motor.status === "PASS_WITH_BOUNDS" ? "LIFECYCLE_CONCEPTUAL_PASS" : "PARTIAL" }; }

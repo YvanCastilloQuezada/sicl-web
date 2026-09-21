@@ -31,6 +31,8 @@ import { listSecurityEvents, verifySecurityEventChain } from "./security";
 import { securityLayerCatalog } from "./arkiSecurityLayers";
 import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
 import { ENV } from "./_core/env";
+import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntelligence";
+import { arkiEtiBimContract } from "./arkiEtiBim";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -140,6 +142,26 @@ export const appRouter = router({
     contract: publicProcedure.query(() => architectureContractSummary()),
     layers: publicProcedure.query(() => layerCatalog()),
     verticalProof: publicProcedure.query(() => verticalFlowProof()),
+  }),
+  costs: router({
+    contract: publicProcedure.query(() => arkiCostModuleContract()),
+    calculate: protectedProcedure.input(z.object({
+      projectId: z.string().min(1),
+      currency: z.string().min(1),
+      overheadRate: z.number().min(0).max(1).optional(),
+      profitRate: z.number().min(0).max(1).optional(),
+      taxRate: z.number().min(0).max(1).optional(),
+      horizonYears: z.number().int().min(0).optional(),
+      lines: z.array(z.object({
+        id: z.string().min(1), type: z.enum(["OBSERVED_PRICE", "INPUT_UNIT_PRICE", "APU", "QUOTATION", "QUANTITY_TAKEOFF", "BUDGET", "IUPC_REFERENCE", "DERIVED_CALCULATION"]), code: z.string().optional(), description: z.string().min(1), unit: z.string().min(1), quantity: z.number().min(0), unitPrice: z.number().min(0), currency: z.string().min(1), confidence: z.enum(["VERIFIED", "PARTIALLY_VERIFIED", "DECLARED", "ESTIMATE", "UNKNOWN"]), observedAt: z.string().optional(), baseDate: z.string().optional(), validityUntil: z.string().optional(), region: z.string().optional(), supplier: z.string().optional(), sourceUrl: z.string().url().optional(), sourceDocument: z.string().optional(), sourcePage: z.string().optional(), taxStatus: z.enum(["INCLUDED", "EXCLUDED", "NOT_APPLICABLE", "UNKNOWN"]), taxRate: z.number().min(0).max(1).optional(), freight: z.number().min(0).optional(), installation: z.number().min(0).optional(), notes: z.string().optional(),
+      })),
+    })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return calculateArkiCostModel(input);
+    }),
+  }),
+  etiBim: router({
+    contract: publicProcedure.query(() => arkiEtiBimContract()),
   }),
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),
