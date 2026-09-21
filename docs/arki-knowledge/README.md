@@ -50,7 +50,7 @@ The FKCG-02 workbook is preserved under [`fundamental-research/FKCG-02/`](fundam
 
 ## Demonstration gates
 
-The DG-01 applicability specification is preserved under [`demonstration-gates/DG-01/`](demonstration-gates/DG-01/) as **SPECIFIED / NOT IMPLEMENTED / NOT DEMONSTRATED**. It defines a falsifiable twelve-case experiment, P1–P12 evidence criteria, failure taxonomy, A–F mapping and Human Authority boundary. It does not authorize execution, a new applicability engine, ontology changes, runtime work, learning promotion or DG-02.
+The original DG-01 applicability specification is preserved under [`demonstration-gates/DG-01/`](demonstration-gates/DG-01/) as **SPECIFIED / NOT IMPLEMENTED / NOT DEMONSTRATED**, with execution superseded by DG-01B. The DG-01B protocol is a documentary correction that adds strict oracle separation, anonymous cases, B1–B8 blind mutations, five composite cases, positive/negative controls, justification and conditional-applicability contracts, multi-state reporting and revised P1–P12 falsification criteria. It does not authorize execution, a new applicability engine, ontology changes, runtime work, learning promotion or DG-02.
 
 ## Gate
 

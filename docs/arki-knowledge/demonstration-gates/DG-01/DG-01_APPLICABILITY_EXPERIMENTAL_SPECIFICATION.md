@@ -5,6 +5,7 @@
 **Project:** ARKI  
 **Gate:** DG-01 — Applicability Experimental Specification  
 **Status:** `SPECIFIED / NOT IMPLEMENTED / NOT DEMONSTRATED`  
+**Execution status:** `DG-01 ORIGINAL SPEC SUPERSEDED FOR EXECUTION BY DG-01B`
 **Type:** Architecture mapping and adversarial experiment specification only  
 **Authority:** Product Owner Yvan Castillo; Architecture Authority ChatGPT; Implementation Agent Manus AI  
 **Result discipline:** This document defines how a later execution may demonstrate PASS or FAIL. It does not declare DG-01 PASS and does not authorize implementation.
