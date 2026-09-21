@@ -1,5 +1,6 @@
 /**
- * Temporary product-owner access switch.
+ * TEMPORARY / DEVELOPMENT-PRELAUNCH ONLY.
+ * Product-owner access switch; do not use as a production security control.
  *
  * true  = skip the frontend sign-in gate so ARKI opens directly.
  * false = restore the normal Manus OAuth entry gate.
