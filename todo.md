@@ -637,3 +637,14 @@
 - [x] Preview de producción 4176: Home monta, First Contact visible, `/arki-parametric-runtime` monta, 67 ejemplos y controles visibles, consola sin errores.
 - [x] Diagnóstico del dev server: tras muchas recargas el navegador recibió `Too many requests`; preview limpio de producción fue la evidencia válida y no mostró el fallo.
 - [x] Sentinel, Red, motores nuevos, comandos nuevos, aprendizaje autónomo, integraciones externas y despliegue productivo permanecen NOT_IMPLEMENTED/PENDING_EXTERNAL según alcance autorizado.
+
+## Offline Sync + Mobile Performance — 2026-09-21
+- [x] Cola durable en IndexedDB con fallback localStorage para intake inicial.
+- [x] Reintentos exponenciales, máximo de 8 intentos y retención de errores sin perder datos.
+- [x] Integración con First Contact: el intake se guarda localmente cuando no hay conexión y se crea/sincroniza al volver online.
+- [x] Indicador visible de estado offline, sincronización, errores y operaciones pendientes.
+- [x] Señal opcional de Background Sync en el service worker; APIs y datos sensibles nunca se cachean.
+- [x] Caché PWA versionada como `arki-static-v3-offline-sync`.
+- [x] Particionado Rollup adicional para vendor React, datos, UI, gráficos y 3D; los visores 3D siguen bajo demanda.
+- [x] Validación: `pnpm check` PASS; 57 archivos / 273 tests PASS; build PASS; manifest y service worker PASS; diff limpio.
+- [ ] PENDING_PHYSICAL_DEVICE_EVIDENCE: pruebas reales en Android moderno, Android antiguo e iPhone.

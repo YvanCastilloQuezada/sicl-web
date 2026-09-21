@@ -6,6 +6,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ArkiFirstContact from "./components/ArkiFirstContact";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
+import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
@@ -103,6 +104,7 @@ function App() {
             <Toaster />
             <ArkiFirstContact />
             <PwaInstallPrompt />
+            <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
           </TooltipProvider>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "arki-static-v2";
+const CACHE_NAME = "arki-static-v3-offline-sync";
 const APP_SHELL = ["/", "/arki", "/manifest.webmanifest", "/offline.html", "/arki-icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -40,4 +40,13 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("message", (event) => {
   if (event.data?.type === "SKIP_WAITING") void self.skipWaiting();
+});
+
+self.addEventListener("sync", (event) => {
+  if (event.tag !== "arki-offline-sync") return;
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      for (const client of clients) client.postMessage({ type: "ARKI_SYNC_REQUEST" });
+    }),
+  );
 });

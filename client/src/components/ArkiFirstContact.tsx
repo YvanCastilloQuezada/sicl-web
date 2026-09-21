@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import SocialLoginOptions from "./SocialLoginOptions";
 import { trpc } from "@/lib/trpc";
+import { enqueueOffline } from "@/lib/offlineQueue";
 
 const FIRST_CONTACT_KEY = "arki-first-contact-completed-v2";
 type Experience = "OWNER" | "PROFESSIONAL" | "PARAMETRIC" | "SCHOOL" | "DEMO";
@@ -100,9 +101,18 @@ export default function ArkiFirstContact() {
   };
   const startWorkspace = async () => {
     if (!discovery.intent.trim() || createProject.isPending || saveInitialIntake.isPending) return;
+    const project = { name: discovery.intent.slice(0, 120), location: discovery.location || undefined, spatialScale: "PROJECT" as const, temporalHorizon: "PRESENT" as const };
+    const intake = { intent: discovery.intent, location: discovery.location || "UNKNOWN", site: discovery.site || "UNKNOWN", dimensions: discovery.dimensions || "UNKNOWN", occupants: discovery.occupants || "UNKNOWN", budget: discovery.budget || "UNKNOWN" };
+    if (!navigator.onLine) {
+      await enqueueOffline({ operation: "projects.createWithInitialIntake", payload: { project, intake } });
+      setState("WORKING");
+      close();
+      setLocation("/");
+      return;
+    }
     try {
-      const created = await createProject.mutateAsync({ name: discovery.intent.slice(0, 120), location: discovery.location || undefined, spatialScale: "PROJECT", temporalHorizon: "PRESENT" });
-      await saveInitialIntake.mutateAsync({ projectId: created.projectId, expectedVersion: created.version, intent: discovery.intent, location: discovery.location || "UNKNOWN", site: discovery.site || "UNKNOWN", dimensions: discovery.dimensions || "UNKNOWN", occupants: discovery.occupants || "UNKNOWN", budget: discovery.budget || "UNKNOWN" });
+      const created = await createProject.mutateAsync(project);
+      await saveInitialIntake.mutateAsync({ projectId: created.projectId, expectedVersion: created.version, ...intake });
       close(); setLocation("/");
     } catch { setState("GUIDING"); }
   };
