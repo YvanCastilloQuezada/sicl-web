@@ -17,11 +17,13 @@ import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
 import { generateArkiPhotorealisticVisual, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 import { executeProjectBrainWave1 } from "./arkiProjectBrain";
 import { commercialApiContract, handleCommercialApiRequest } from "./arkiCommercialApi";
+import { executeArkiSuperpowersPack } from "./arkiSuperpowersPack";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
 const versionInput = z.object({ projectId: z.string().min(1), expectedVersion: z.number().int().positive() });
 const projectBrainInput = z.object({ projectId: z.string().min(1), name: z.string().min(1), typology: z.string().min(1), brief: z.string().min(10), location: z.string().optional(), jurisdiction: z.string().optional(), site: z.record(z.string(), z.unknown()).optional(), knownFacts: z.array(z.string()).default([]), assumptions: z.array(z.string()).default([]), unknowns: z.array(z.string()).default([]), conflicts: z.array(z.string()).default([]), requirements: z.array(z.string()).default([]), objectives: z.array(z.string()).default([]), constraints: z.array(z.string()).default([]), preferences: z.array(z.string()).default([]), activities: z.array(z.record(z.string(), z.unknown())).default([]), relationships: z.array(z.record(z.string(), z.unknown())).default([]), capacities: z.record(z.string(), z.number()).default({}), stakeholders: z.array(z.string()).default([]), sourceIds: z.array(z.string()).default([]) });
+const superpowersInput = z.object({ projectId: z.string().regex(/^[A-Z]{3}-[A-Z]{3}-\d{3}-\d{3}$/), projectName: z.string().min(1), typology: z.string().min(1), brief: z.string().min(10), context: z.record(z.string(), z.unknown()).default({}), constraints: z.array(z.string()).default([]), activities: z.array(z.record(z.string(), z.unknown())).default([]), relationships: z.array(z.record(z.string(), z.unknown())).default([]), subjects: z.array(z.string()).default([]), conditions: z.array(z.string()).default([]), unknowns: z.array(z.string()).default([]), envelope: z.object({ width: z.number().positive(), height: z.number().positive() }), sourceIds: z.array(z.string()).default([]), requestedPieces: z.array(z.string()).optional(), change: z.string().optional(), baselineDecision: z.string().optional(), alternatives: z.array(z.record(z.string(), z.unknown())).optional(), decisions: z.array(z.record(z.string(), z.unknown())).optional() });
 
 function fail(message: string): never { throw new TRPCError({ code: "BAD_REQUEST", message }); }
 function event(actorId: number, type: string, entityId: string, data: Record<string, unknown>) {
@@ -82,6 +84,12 @@ export const appRouter = router({
     analyze: protectedProcedure.input(projectBrainInput).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return executeProjectBrainWave1(input as never);
+    }),
+  }),
+  superpowers: router({
+    run: protectedProcedure.input(superpowersInput).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return executeArkiSuperpowersPack(input as never);
     }),
   }),
   commercialApi: router({

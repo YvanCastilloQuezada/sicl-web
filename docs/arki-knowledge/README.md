@@ -92,3 +92,8 @@ Photorealistic visual generation, Full HD/4K selection, AR overlay limits and ev
 The enterprise boundary is documented in [`arki-enterprise/ARKI_ENTERPRISE_PLATFORM_AND_COMMERCIAL_API.md`](../arki-enterprise/ARKI_ENTERPRISE_PLATFORM_AND_COMMERCIAL_API.md). `server/arkiEnterpriseArchitecture.ts` registers CAD/documentation, simulation, digital twin, cross-project transfer, global multiscale, external ecosystem, Python plugins and enterprise security with maturity and limits. It reuses the single unified motor; it does not create a second brain.
 
 The commercial facade is implemented in [`server/arkiCommercialApi.ts`](../../server/arkiCommercialApi.ts) and exposed through the `commercialApi` tRPC router. Version `v1` requires tenant, actor, plan and idempotency metadata, returns a request/audit envelope, and preserves mandatory human review. The public capability catalog is not a billing or payment system, and planned integrations remain `CONTRACT_ONLY` or `NOT_DEMONSTRATED` until independently connected and tested.
+
+
+## ARKI Superpowers Pack 1.0
+
+`server/arkiSuperpowersPack.ts` adds five bounded transversal capabilities over the Unified Motor: consequence radar, value-of-information ranking, design divergence, architectural debt and counterfactual exploration. Evidence: `server/arkiSuperpowersPack.test.ts`. Status: `PASS_WITH_BOUNDS / HUMAN_REVIEW_REQUIRED`; no professional, regulatory, structural or construction completion claim.
