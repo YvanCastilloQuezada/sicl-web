@@ -545,3 +545,12 @@
 - [x] Preservar el ciclo IMPORT → INTERPRET → revisión humana → ASSIMILATE sin convertir automáticamente una geometría en decisión arquitectónica.
 - [x] Validar nuevamente TypeScript, build, suite completa de 53 archivos / 257 pruebas y `git diff --check`.
 - [x] PENDING_EXTERNAL: evaluación normativa, selección de alternativas y decisión requieren proyecto poblado, evidencia y autoridad humana.
+
+## Comandos canónicos compartidos — cierre 2026-09-21
+- [x] Reutilizar directamente `client/src/content/commands-catalog.json` en ARKI-PARAMETRIC-RUNTIME.
+- [x] Mostrar el subconjunto contextual: `/PROJECT OPEN`, `/PROJECT SET SCOPE`, `/OBJECTIVE SET`, `/CONSTRAINT SET`, `/EVIDENCE ADD`, `/HUMAN REVIEW`, `/INTERPRET REVIEW`, `/ALTERNATIVE PROMOTE`, `/MULTIOBJECTIVE` y `/DECISION RECORD`.
+- [x] Mantener nombres, sintaxis y semántica canónicos sin crear un segundo catálogo o motor.
+- [x] Añadir al preview el comando, sintaxis, proyecto, artefacto, geometría y provenance activos.
+- [x] Mantener `/ALTERNATIVE PROMOTE` y `/DECISION RECORD` como acciones controladas por Human Authority, sin ejecución automática.
+- [x] Documentar la integración en `ARKI_OPERATIONS_MANUAL.md`.
+- [x] Validar TypeScript, build, suite completa de 53 archivos / 257 pruebas y `git diff --check`.

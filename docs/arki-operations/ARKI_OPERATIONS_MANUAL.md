@@ -64,3 +64,11 @@ El paquete de intercambio genera un archivo `.ark`, un grafo `.dyn` para Dynamo/
 El archivo `.ark` puede importarse de nuevo. ARKI comprueba `ARKI-ARK-1.0`, recupera la geometría y la trata como `PROPOSAL_IMPORTED`. Luego puede sugerir pruebas de programa, circulación, iluminación, ventilación, estructura, regulación, costos y comparación. Esta reingesta conserva provenance y UNKNOWNs y no registra una decisión automática.
 
 La página también incluye un tutorial de cuatro pasos y un ejercicio evaluable. El tutorial se guarda con la sesión del proyecto. El autoguardado persiste proyecto, parámetros, resultado de preview, paso pedagógico, puntaje y última acción, por lo que el usuario puede volver a continuar sin mezclar sesiones de otros proyectos.
+
+## 12. Comandos esenciales compartidos en ARKI-PARAMETRIC-RUNTIME
+
+El runtime reutiliza directamente el mismo `commands-catalog.json` que usa la Escuela Operativa y no crea un catálogo ni un motor paralelo. La vista contextual muestra un subconjunto pertinente: `/PROJECT OPEN`, `/PROJECT SET SCOPE`, `/OBJECTIVE SET`, `/CONSTRAINT SET`, `/EVIDENCE ADD`, `/HUMAN REVIEW`, `/INTERPRET REVIEW`, `/ALTERNATIVE PROMOTE`, `/MULTIOBJECTIVE` y `/DECISION RECORD`.
+
+Estos comandos conservan su nombre, sintaxis y significado canónicos. El contexto activo añade el proyecto, el artefacto `.ark`, la geometría y la provenance del runtime. Los controles gráficos siguen siendo una segunda representación de la misma intención: sus resultados se incluyen en el preview como `canonicalCommand`, `commandSyntax` y `commandContext`.
+
+`/ALTERNATIVE PROMOTE` y `/DECISION RECORD` aparecen como operaciones controladas, pero no se ejecutan automáticamente. Requieren revisión y autoridad humana. Si una acción paramétrica no tiene una representación canónica compatible, se conserva como interacción de interfaz y no se inventa un comando nuevo.
