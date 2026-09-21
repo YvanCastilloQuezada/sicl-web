@@ -66,6 +66,8 @@ The explicit authority profile is documented in [`arki-unified-motor/ARKI_AUTHOR
 
 The broader `ARKI-SYSTEM-AUTHORITY-2.0` profile is documented in [`arki-unified-motor/ARKI_SYSTEM_AUTHORITY_2.0.md`](../../arki-unified-motor/ARKI_SYSTEM_AUTHORITY_2.0.md). It grants the remaining orchestration, research, synthesis, evaluation, representation and audit powers within the one-motor rule.
 
+The lifecycle, budget and BIM contract is documented in [`arki-lifecycle/ARKI_PROJECT_LIFECYCLE_COST_BIM.md`](../../arki-lifecycle/ARKI_PROJECT_LIFECYCLE_COST_BIM.md). It extends ARKI from conception through operation, maintenance and post-occupancy while keeping costs traceable and native BIM exports adapter-dependent.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
