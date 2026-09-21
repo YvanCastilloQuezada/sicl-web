@@ -420,13 +420,13 @@
 - [x] Verificar la matriz y entregar únicamente hechos, discrepancias nuevas, intervención requerida y próxima acción.
 
 ## Fase constitucional B-001 — SICL 0.6
-- [ ] Contrastar Master Spec, State Audit, Acceptance Matrix, Core Contract y HTTP v0.3.
-- [ ] Registrar Fact/Assumption como decisión conceptual APROBADA.
-- [ ] Analizar Audit/Report sin resolver la decisión.
-- [ ] Analizar Decision Conditions y mantenerla read-only.
-- [ ] Delimitar el alcance constitucional exacto de SICL 0.6 y la brecha BLOQUEADO POR CONTRATO.
-- [ ] Redactar y verificar `SICL_CONSTITUTIONAL_REVIEW_0.6.md`.
-- [ ] Entregar el documento y detener la fase hasta clasificación del Product Owner.
+- [x] Contrastar Master Spec, State Audit, Acceptance Matrix, Core Contract y HTTP v0.3. (Completed in the following B-001 review.)
+- [x] Registrar Fact/Assumption como decisión conceptual APROBADA. (Completed through B-001 consolidation.)
+- [x] Analizar Audit/Report sin resolver la decisión. (Completed through B-001 review.)
+- [x] Analizar Decision Conditions y mantenerla read-only. (Completed through B-001 review.)
+- [x] Delimitar el alcance constitucional exacto de SICL 0.6 y la brecha BLOQUEADO POR CONTRATO. (Completed through B-001 consolidation.)
+- [x] Redactar y verificar `SICL_CONSTITUTIONAL_REVIEW_0.6.md`. (Completed in B-001.)
+- [x] Entregar el documento y detener la fase hasta clasificación del Product Owner. (Completed in B-001.)
 
 ## Revisión constitucional B-001
 - [x] Contrastar Master Spec, State Audit, Acceptance Matrix, Core Contract y HTTP v0.3.
