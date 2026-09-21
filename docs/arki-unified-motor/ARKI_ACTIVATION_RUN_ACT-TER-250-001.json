@@ -1,0 +1,200 @@
+{
+  "run": {
+    "activationVersion": "ARKI-ACTIVATION-RUN-1.0",
+    "runId": "ACT-ACT-TER-250-001",
+    "projectId": "ACT-TER-250-001",
+    "motorStatus": "PASS_WITH_BOUNDS",
+    "records": [
+      {
+        "pieceId": "D6.1",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "docs/arki-post-513-inventory",
+          "docs/arki-knowledge"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "D6.2-M",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "server/arkiD62ReasoningHarness.ts",
+          "server/arkiD62MinimalBridge.test.ts"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "D6.3-G",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "server/arkiD63GeometricBridge.ts",
+          "server/arkiD63GeometricBridge.test.ts"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "D6.4",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "server/arkiOcr.ts",
+          "docs/arki-d64"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "PARTI-CONTRACT-1.0",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "server/arkiPartiContract.ts",
+          "server/arkiPartiContract.test.ts"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "ARKI-INTEGRATED-ARCHITECT-1.0",
+        "priorState": "ACTIVE",
+        "disposition": "PROMOTED_TO_EXECUTION",
+        "gateStatus": "PASS",
+        "actionTaken": "Executed inside ARKI Unified Motor using its existing contract and evidence.",
+        "evidence": [
+          "server/arkiIntegratedArchitectCycle.ts",
+          "server/arkiIntegratedArchitectCycle.test.ts"
+        ],
+        "nextGate": "CONTINUOUS_REGRESSION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "MC-02",
+        "priorState": "FROZEN_REFERENCE",
+        "disposition": "RETAINED_FROZEN",
+        "gateStatus": "HOLD",
+        "actionTaken": "Read and routed as reference; no activation or epistemic promotion performed.",
+        "evidence": [
+          "docs/arki-mc02"
+        ],
+        "nextGate": "EXPLICIT_FUTURE_GATE",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "MC-03",
+        "priorState": "FROZEN_REFERENCE",
+        "disposition": "RETAINED_FROZEN",
+        "gateStatus": "HOLD",
+        "actionTaken": "Read and routed as reference; no activation or epistemic promotion performed.",
+        "evidence": [
+          "docs/arki-mc03"
+        ],
+        "nextGate": "MC03_REVIEW_GATE",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "DG-01B",
+        "priorState": "BLOCKED_GATE",
+        "disposition": "RETAINED_BLOCKED",
+        "gateStatus": "HOLD",
+        "actionTaken": "Activation attempted and correctly stopped at the declared gate.",
+        "evidence": [
+          "docs/arki-knowledge/demonstration-gates/DG-01"
+        ],
+        "nextGate": "DG01E_AUTHORIZATION",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "FKCG-02",
+        "priorState": "FROZEN_REFERENCE",
+        "disposition": "RETAINED_FROZEN",
+        "gateStatus": "HOLD",
+        "actionTaken": "Read and routed as reference; no activation or epistemic promotion performed.",
+        "evidence": [
+          "docs/arki-knowledge/fundamental-research/FKCG-02"
+        ],
+        "nextGate": "KNOWLEDGE_PROMOTION_REVIEW",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "DS-EVAL-001",
+        "priorState": "HISTORICAL_REFERENCE",
+        "disposition": "RETAINED_FROZEN",
+        "gateStatus": "HOLD",
+        "actionTaken": "Read and routed as reference; no activation or epistemic promotion performed.",
+        "evidence": [
+          "docs/arki-knowledge/external-evaluation"
+        ],
+        "nextGate": "EXTERNAL_EVIDENCE_REVIEW",
+        "humanReviewRequired": true
+      },
+      {
+        "pieceId": "BIM-DWG-REVIT-GIS",
+        "priorState": "NOT_DEMONSTRATED",
+        "disposition": "RETAINED_NOT_DEMONSTRATED",
+        "gateStatus": "HOLD",
+        "actionTaken": "Claim retained as not demonstrated; no unsupported implementation substituted.",
+        "evidence": [
+          "Historical requirements and inventory reports"
+        ],
+        "nextGate": "CONSTRUCTION_EXPORT_PROOF",
+        "humanReviewRequired": true
+      }
+    ],
+    "promoted": [
+      "D6.1",
+      "D6.2-M",
+      "D6.3-G",
+      "D6.4",
+      "PARTI-CONTRACT-1.0",
+      "ARKI-INTEGRATED-ARCHITECT-1.0"
+    ],
+    "executedReferences": [],
+    "frozenRetained": [
+      "MC-02",
+      "MC-03",
+      "FKCG-02",
+      "DS-EVAL-001"
+    ],
+    "blockedRetained": [
+      "DG-01B"
+    ],
+    "notDemonstratedRetained": [
+      "BIM-DWG-REVIT-GIS"
+    ],
+    "invariants": [
+      "ONE_MOTOR",
+      "FROZEN_IS_NOT_AUTOMATICALLY_ACTIVATED",
+      "DOCUMENTED_IS_NOT_IMPLEMENTED",
+      "UNKNOWN_IS_NOT_PASS",
+      "HUMAN_AUTHORITY_FINAL"
+    ],
+    "humanAuthority": "FINAL"
+  },
+  "summary": {
+    "total": 12,
+    "promoted": 6,
+    "frozenRetained": 4,
+    "blockedRetained": 1,
+    "notDemonstratedRetained": 1,
+    "allPiecesAccountedFor": true,
+    "noSilentActivation": true,
+    "humanAuthority": "FINAL",
+    "motorStatus": "PASS_WITH_BOUNDS"
+  }
+}

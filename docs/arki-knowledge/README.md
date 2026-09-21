@@ -60,6 +60,8 @@ The assembled `ARKI-INTEGRATED-ARCHITECT-1.0` cycle is documented in [`arki-inte
 
 The `ARKI-UNIFIED-MOTOR-1.0` registry is documented in [`arki-unified-motor/ARKI_UNIFIED_MOTOR.md`](../../arki-unified-motor/ARKI_UNIFIED_MOTOR.md). It routes active, frozen, historical, blocked and not-demonstrated pieces through one trace while preserving their states and activation gates.
 
+The total activation run `ACT-TER-250-001` is recorded in [`arki-unified-motor/ARKI_ACTIVATION_RUN_REPORT.md`](../../arki-unified-motor/ARKI_ACTIVATION_RUN_REPORT.md) and its machine-readable ledger in [`arki-unified-motor/ARKI_ACTIVATION_RUN_ACT-TER-250-001.json`](../../arki-unified-motor/ARKI_ACTIVATION_RUN_ACT-TER-250-001.json). It reports six proven pieces executed, four frozen references retained, one blocked gate retained and one not-demonstrated capability retained.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
