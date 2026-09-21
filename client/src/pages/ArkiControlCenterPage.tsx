@@ -1,0 +1,101 @@
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { BookOpen, BrainCircuit, CheckCircle2, FileText, GitBranch, History, LayoutDashboard, LockKeyhole, Network, Search, ShieldAlert, Sparkles, Workflow } from "lucide-react";
+import { useMemo, useState } from "react";
+
+type RegistryItem = { id: string; title: string; category: string; status: string; version?: string; source: string; detail: string; relation?: string; frozen?: boolean; implemented?: boolean; demonstrated?: boolean };
+
+const sections = [
+  { id: "overview", label: "Overview", icon: LayoutDashboard },
+  { id: "history", label: "History", icon: History },
+  { id: "roadmap", label: "Roadmap", icon: Workflow },
+  { id: "knowledge", label: "Knowledge", icon: BrainCircuit },
+  { id: "ideas", label: "Ideas", icon: Sparkles },
+  { id: "frozen", label: "Frozen", icon: LockKeyhole },
+  { id: "macroorders", label: "Macroorders", icon: GitBranch },
+  { id: "organigrams", label: "Organigrams", icon: Network },
+  { id: "documents", label: "Documents", icon: FileText },
+  { id: "unknowns", label: "Unknowns", icon: ShieldAlert },
+] as const;
+
+type SectionId = typeof sections[number]["id"];
+
+const registry: RegistryItem[] = [
+  { id: "I-04", title: "M0-K epistemic separation", category: "Knowledge", status: "DEMONSTRATED_LOCAL", version: "M0-K", source: "docs/ARKI-M0K-COMPATIBILITY-AUDIT.md", detail: "Provenance, rights, uncertainty and human-gated canonization.", relation: "SOURCE → KNOWLEDGE", implemented: true, demonstrated: true },
+  { id: "D6.2-M", title: "Reasoning to topology bridge", category: "Capability", status: "DEMONSTRATED_LOCAL", version: "D6.2", source: "docs/arki-d62m/D6.2-M-REPORT.md", detail: "Requirements, unknowns, deficits, strategies and topology; stops before geometry.", relation: "KNOWLEDGE → TOPOLOGY", implemented: true, demonstrated: true },
+  { id: "D6.3-G", title: "Topology to conceptual geometry", category: "Capability", status: "PARTIAL", version: "D6.3", source: "docs/arki-d63g/D6.3-G-REPORT.md", detail: "Two controlled candidates in a microcase; no professional or regulatory claim.", relation: "TOPOLOGY → GEOMETRY", implemented: true, demonstrated: true },
+  { id: "D6.4", title: "Multimodal source ingestion", category: "Capability", status: "PARTIAL", version: "D6.4", source: "docs/arki-d64/D6.4-MULTIMODAL-SOURCE-INGESTION-REPORT.md", detail: "Images, PDFs, OCR, provenance and human review before FACT promotion.", relation: "SOURCE → OBSERVATION", implemented: true, demonstrated: true },
+  { id: "L2", title: "Transfer runtime", category: "Capability", status: "REMOTE_BLOCKED", version: "L2", source: "docs/arki-l2/ARKI-L2-TRANSFER-RUNTIME.md", detail: "Local transfer, replay and versioning; canonical remote write is not demonstrated.", relation: "KNOWLEDGE → TRANSFER", implemented: true, demonstrated: true },
+  { id: "I-11", title: "Adaptive ARKI-BOOK tutor", category: "Idea", status: "IMPORTANT_UNIMPLEMENTED", source: "docs/arki-post-513-inventory/ARKI_LATENT_CAPABILITY_MAP.md", detail: "Learner state, adaptive dialogue, assessment and longitudinal ledger.", relation: "IDEA → FUTURE", frozen: true },
+  { id: "I-12", title: "Remote SICL Core E2E", category: "Idea", status: "BLOCKED", source: "docs/VERIFICACION_E2E_PENDIENTE.md", detail: "Endpoint, token and live canonical persistence remain pending.", relation: "ORDER → INFRASTRUCTURE", frozen: true },
+  { id: "I-14", title: "Constructive BIM/CAD model", category: "Idea", status: "DOCUMENTED_ONLY", source: "docs/arki-inventory/ARKI_EXTENSION_POTENTIAL_MAP.md", detail: "Future IFC/RVT/DWG/DXF, MEP, structure and specialist validation.", relation: "GEOMETRY → PROFESSIONAL", frozen: true },
+  { id: "I-15", title: "Three PARTI realizations", category: "Idea", status: "PARTIAL_TWO_CANDIDATE_PRECURSOR", source: "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md", detail: "Three meaningful alternatives with rejection and backtracking are not demonstrated.", relation: "PARTI → SEARCH", frozen: true },
+  { id: "MC-00", title: "ARKI Control Center", category: "Macroorder", status: "ACTIVE", version: "MC-00", source: "pasted_content_516.txt", detail: "Read-only projection of existing sources, registries, documents, knowledge and gates.", relation: "REGISTRIES → CONTROL CENTER", implemented: true },
+  { id: "MC-01", title: "Corporación ARKI", category: "Macroorder", status: "READY/WAITING", version: "MC-01", source: "pasted_content_516.txt", detail: "Next sequence after MC-00; not activated by this MVP.", relation: "CONTROL CENTER → CORPORATION" },
+  { id: "MC-02", title: "Frozen Future Orders", category: "Macroorder", status: "READY/WAITING", version: "MC-02", source: "pasted_content_516.txt", detail: "Future-order sequence; not activated by this MVP.", relation: "FROZEN → ORDERS" },
+  { id: "MC-03", title: "ARKI Assembly", category: "Macroorder", status: "BLOCKED", version: "MC-03", source: "pasted_content_516.txt", detail: "Blocked and explicitly not started after MC-00.", relation: "ASSEMBLY → BLOCKED" },
+  { id: "MC-04", title: "SICL deterministic boundary", category: "Macroorder", status: "BLOCKED", version: "MC-04", source: "pasted_content_516.txt", detail: "Boundary remains blocked pending the required conditions.", relation: "SICL → GATE" },
+  { id: "DOC-513", title: "Total System Inventory", category: "Document", status: "WORKTREE_ONLY", version: "Delta 513", source: "docs/arki-inventory/ARKI_TOTAL_SYSTEM_INVENTORY.md", detail: "Capability inventory; present in worktree and not committed at baseline.", relation: "AUDIT → MEMORY" },
+  { id: "DOC-515", title: "Idea and Decision Inventory", category: "Document", status: "WORKTREE_ONLY", version: "Delta 515", source: "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md", detail: "Distributed idea repository, frozen decisions, futures and conflicts.", relation: "IDEAS → DECISIONS" },
+  { id: "CONFLICT-11", title: "Conflict Resolution Record", category: "Decision", status: "RESOLVED_DOCUMENTARY", version: "Delta 515", source: "docs/arki-inventory/ARKI_CONFLICT_RESOLUTION_RECORD.md", detail: "Eleven ambiguities resolved as baseline/classification decisions; no new implementation.", relation: "CONFLICT → INTERPRETATION" },
+];
+
+const history = [
+  ["SICL", "Decision and context layer"], ["SICL-WEB", "Web command center"], ["ARQUÍMEDES", "Historical product name"], ["ARQUI", "Historical naming"], ["SiMS-DeI", "Historical naming preserved only where evidenced"], ["ARKI", "Current architectural intelligence identity"],
+];
+
+const roadmap = [
+  { id: "H1", title: "Architectural Intelligence", state: "CURRENT", detail: "Reasoning, provenance, topology, conceptual geometry and human gates." },
+  { id: "H2", title: "Continuous Project", state: "PARTIAL", detail: "Versioned project state, source ingestion and replay; remote continuity remains open." },
+  { id: "H3", title: "Professional Production", state: "FROZEN_FUTURE", detail: "Constructive model, BIM/CAD, MEP, structure, regulation and documentation." },
+  { id: "H4", title: "Trust & Ecosystem", state: "RESEARCHED", detail: "Specialists, lifecycle, ARKI-CONSTRUCT, ARKI-BUILDING and ecosystem composites." },
+];
+
+function statusTone(status: string) {
+  if (status.includes("BLOCK") || status.includes("UNKNOWN")) return "border-red-300/40 bg-red-500/10 text-red-200";
+  if (status.includes("DEMONSTRATED") || status === "ACTIVE" || status === "CURRENT") return "border-emerald-300/40 bg-emerald-500/10 text-emerald-200";
+  if (status.includes("FROZEN") || status.includes("WAITING")) return "border-amber-300/40 bg-amber-500/10 text-amber-200";
+  return "border-sky-300/40 bg-sky-500/10 text-sky-200";
+}
+
+function StatusBadge({ status }: { status: string }) {
+  return <Badge variant="outline" className={cn("rounded-full text-[10px] tracking-[0.08em]", statusTone(status))}>{status}</Badge>;
+}
+
+export default function ArkiControlCenterPage() {
+  const [section, setSection] = useState<SectionId>("overview");
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState("ALL");
+  const filtered = useMemo(() => registry.filter((item) => {
+    const haystack = `${item.id} ${item.title} ${item.category} ${item.status} ${item.detail} ${item.source}`.toLowerCase();
+    return haystack.includes(query.toLowerCase()) && (filter === "ALL" || item.category === filter || item.status.includes(filter));
+  }), [query, filter]);
+  const counts = { ready: registry.filter((item) => item.status === "ACTIVE" || item.status.includes("DEMONSTRATED")).length, blocked: registry.filter((item) => item.status.includes("BLOCK") || item.status.includes("UNKNOWN")).length, frozen: registry.filter((item) => item.frozen).length };
+
+  return <div className="min-h-[calc(100vh-2rem)] bg-[#071426] text-[#edf4ff] -m-4 md:-m-10">
+    <header className="sticky top-0 z-20 border-b border-[#294765] bg-[#071426]/95 px-5 py-5 backdrop-blur md:px-10">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div><p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#f0a35b]">MC-00 · READ-ONLY REGISTRY</p><h1 className="mt-2 font-serif text-4xl tracking-[-0.04em]">ARKI Control Center</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-[#b8cbe0]">Una proyección navegable de fuentes, decisiones, conocimiento, órdenes, evidencia y gates. No es una nueva fuente de verdad.</p></div>
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row"><div className="relative min-w-0 sm:w-72"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7893af]" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar SICL, R-PARTI, v6.1…" className="border-[#294765] bg-[#0d223d] pl-9 text-[#edf4ff] placeholder:text-[#7893af]" /></div><select value={filter} onChange={(event) => setFilter(event.target.value)} className="rounded-md border border-[#294765] bg-[#0d223d] px-3 py-2 text-sm text-[#edf4ff]"><option value="ALL">Todos los registros</option><option value="Capability">Capabilities</option><option value="Idea">Ideas</option><option value="Macroorder">Macroorders</option><option value="Document">Documents</option><option value="BLOCKED">Blocked</option><option value="FROZEN">Frozen</option></select></div>
+      </div>
+    </header>
+    <div className="mx-auto grid max-w-7xl gap-6 px-5 py-6 md:px-10 lg:grid-cols-[210px_1fr]">
+      <nav className="flex gap-1 overflow-x-auto lg:sticky lg:top-28 lg:block lg:h-fit">{sections.map((item) => <button key={item.id} onClick={() => setSection(item.id)} className={cn("flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-left text-xs transition-colors lg:w-full", section === item.id ? "bg-[#17345c] text-[#f0a35b]" : "text-[#b8cbe0] hover:bg-[#0d223d] hover:text-[#edf4ff]")}><item.icon className="h-4 w-4" />{item.label}</button>)}</nav>
+      <main className="min-w-0 space-y-6">
+        {section === "overview" && <Overview counts={counts} onNavigate={setSection} />}
+        {section === "history" && <RegistryHeader title="History" eyebrow="ORIGIN / IDENTITY" description="Genealogía visible sólo hasta donde la documentación existente la sostiene." />}
+        {section === "history" && <div className="grid gap-3 md:grid-cols-3">{history.map(([title, detail], index) => <Card key={title} className="border-[#294765] bg-[#0d223d]"><CardContent className="p-5"><div className="text-xs text-[#7893af]">0{index + 1}</div><h3 className="mt-5 font-serif text-xl text-[#edf4ff]">{title}</h3><p className="mt-2 text-sm text-[#b8cbe0]">{detail}</p></CardContent></Card>)}</div>}
+        {section === "roadmap" && <><RegistryHeader title="Roadmap" eyebrow="HORIZONS / GATES" description="Horizontes preservados en la memoria de ARKI; no activan órdenes automáticamente." /><div className="grid gap-4 md:grid-cols-2">{roadmap.map((item) => <Card key={item.id} className="border-[#294765] bg-[#0d223d]"><CardHeader><div className="flex items-center justify-between"><CardTitle className="font-serif text-xl">{item.id} · {item.title}</CardTitle><StatusBadge status={item.state} /></div></CardHeader><CardContent><p className="text-sm leading-6 text-[#b8cbe0]">{item.detail}</p></CardContent></Card>)}</div></>}
+        {section === "organigrams" && <><RegistryHeader title="Organigrams" eyebrow="SYSTEM MAPS" description="Navegación preparada para los organigramas existentes y futuros, sin editor gráfico en el MVP." /><Card className="border-[#294765] bg-[#0d223d]"><CardContent className="p-6"><div className="grid gap-3 md:grid-cols-3">{["ARKI Master Organigram", "ARKI Intelligence", "Agents", "Multiscale Architecture", "Corporación ARKI", "Roadmap"].map((item) => <div key={item} className="rounded-lg border border-[#294765] bg-[#071426] p-4 text-sm text-[#edf4ff]"><Network className="mb-3 h-4 w-4 text-[#f0a35b]" />{item}</div>)}</div></CardContent></Card></>}
+        {section !== "overview" && section !== "history" && section !== "roadmap" && section !== "organigrams" && <><RegistryHeader title={sections.find((item) => item.id === section)?.label ?? "Registry"} eyebrow="CANONICAL INDEX / TRACE" description="Índice de referencia: cada registro conserva estado, relación y ubicación fuente." /><div className="grid gap-4">{filtered.filter((item) => section === "ideas" ? item.category === "Idea" : section === "frozen" ? item.frozen : section === "macroorders" ? item.category === "Macroorder" : section === "documents" ? item.category === "Document" : section === "knowledge" ? item.category === "Knowledge" || item.category === "Capability" : section === "unknowns" ? item.status.includes("BLOCK") || item.status.includes("UNKNOWN") || item.status.includes("UNRESOLVED") : true).map((item) => <RegistryCard key={item.id} item={item} />)}{filtered.length === 0 && <Card className="border-[#294765] bg-[#0d223d]"><CardContent className="p-8 text-center text-sm text-[#b8cbe0]">No se encontró evidencia en el índice para esta búsqueda.</CardContent></Card>}</div></>}
+        <p className="border-t border-[#294765] pt-4 text-xs leading-5 text-[#7893af]">Control Center ≠ Source of Truth · READY no equivale a AUTHORIZED · RECOMMENDATION no equivale a DECISION · UNKNOWN permanece UNKNOWN.</p>
+      </main>
+    </div>
+  </div>;
+}
+
+function RegistryHeader({ title, eyebrow, description }: { title: string; eyebrow: string; description: string }) { return <div><p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#f0a35b]">{eyebrow}</p><h2 className="mt-2 font-serif text-3xl tracking-[-0.03em]">{title}</h2><p className="mt-2 text-sm text-[#b8cbe0]">{description}</p></div>; }
+function RegistryCard({ item }: { item: RegistryItem }) { return <Card className="border-[#294765] bg-[#0d223d] transition-colors hover:border-[#4c7197]"><CardContent className="p-5"><div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between"><div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs text-[#f0a35b]">{item.id}</span><StatusBadge status={item.status} /></div><h3 className="mt-2 font-serif text-xl text-[#edf4ff]">{item.title}</h3><p className="mt-2 text-sm leading-6 text-[#b8cbe0]">{item.detail}</p></div><div className="max-w-xs shrink-0 text-xs md:text-right"><p className="text-[#edf4ff]">{item.relation}</p><p className="mt-2 break-words text-[#7893af]">{item.source}</p></div></div></CardContent></Card>; }
+function Overview({ counts, onNavigate }: { counts: { ready: number; blocked: number; frozen: number }; onNavigate: (id: SectionId) => void }) { return <><RegistryHeader title="Overview" eyebrow="ARKI / PROJECT INTELLIGENCE" description="Estado intelectual, documental, arquitectónico y operativo visible en una sola proyección read-only." /><div className="grid gap-4 md:grid-cols-3">{[["READY / DEMONSTRATED", counts.ready, "emerald", "capabilities"], ["BLOCKED / UNKNOWN", counts.blocked, "red", "unknowns"], ["FROZEN / FUTURE", counts.frozen, "amber", "frozen"]].map(([label, value, tone, target]) => <button key={label} onClick={() => onNavigate(target as SectionId)} className={cn("rounded-lg border p-5 text-left transition-transform hover:-translate-y-0.5", tone === "emerald" ? "border-emerald-300/30 bg-emerald-500/10" : tone === "red" ? "border-red-300/30 bg-red-500/10" : "border-amber-300/30 bg-amber-500/10")}><p className="text-xs tracking-[0.12em] text-[#b8cbe0]">{label}</p><p className="mt-3 font-serif text-4xl text-[#edf4ff]">{value}</p><p className="mt-2 text-xs text-[#7893af]">Abrir registro →</p></button>)}</div><Card className="border-[#294765] bg-[#0d223d]"><CardHeader><CardTitle className="font-serif text-xl">Current system position</CardTitle></CardHeader><CardContent className="grid gap-4 md:grid-cols-2"><div><p className="text-xs uppercase tracking-[0.14em] text-[#f0a35b]">STATE</p><p className="mt-2 text-2xl text-[#edf4ff]">DEMONSTRATED_PARTIAL</p><p className="mt-2 text-sm leading-6 text-[#b8cbe0]">ARKI es un sistema local de apoyo arquitectónico trazable con razonamiento acotado, topología, geometría conceptual, multimodalidad y gates humanos.</p></div><div className="rounded-lg border border-[#294765] bg-[#071426] p-4"><p className="text-xs uppercase tracking-[0.14em] text-[#f0a35b]">NEXT GATE</p><p className="mt-2 text-lg text-[#edf4ff]">Human review of baseline and future orders</p><p className="mt-2 text-sm text-[#b8cbe0]">MC-01 y MC-02 no se activan desde este MVP.</p></div></CardContent></Card></>; }

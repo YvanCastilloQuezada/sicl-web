@@ -19,6 +19,7 @@ const ArkiBookPage = lazy(() => import("./pages/ArkiBookPage"));
 const SpatialViewerPage = lazy(() => import("./pages/SpatialViewerPage"));
 const SpatialComparisonPage = lazy(() => import("./pages/SpatialComparisonPage"));
 const SourceLibraryPage = lazy(() => import("./pages/SourceLibraryPage"));
+const ArkiControlCenterPage = lazy(() => import("./pages/ArkiControlCenterPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -60,6 +61,7 @@ function Router() {
       <Route path={"/spatial"}>{() => <DashboardLayout><SpatialViewerPage /></DashboardLayout>}</Route>
       <Route path={"/spatial-comparison"} component={SpatialComparisonPage} />
       <Route path={"/sources"} component={SourceLibraryPage} />
+      <Route path={"/control-center"}>{() => <DashboardLayout><ArkiControlCenterPage /></DashboardLayout>}</Route>
       <Route path={"/audit"}>{() => <AuditRoute />}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
