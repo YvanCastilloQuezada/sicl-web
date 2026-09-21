@@ -61,7 +61,7 @@ function Router() {
       <Route path={"/spatial"}>{() => <DashboardLayout><SpatialViewerPage /></DashboardLayout>}</Route>
       <Route path={"/spatial-comparison"} component={SpatialComparisonPage} />
       <Route path={"/sources"} component={SourceLibraryPage} />
-      <Route path={"/control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader><ArkiControlCenterPage /></DashboardLayout>}</Route>
+      <Route path={"/control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><ArkiControlCenterPage /></DashboardLayout>}</Route>
       <Route path={"/audit"}>{() => <AuditRoute />}</Route>
       <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
       <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>

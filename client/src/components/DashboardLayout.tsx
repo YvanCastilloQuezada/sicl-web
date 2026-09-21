@@ -54,10 +54,12 @@ export default function DashboardLayout({
   children,
   showSidebar = true,
   compactHeader = false,
+  hideBrand = false,
 }: {
   children: React.ReactNode;
   showSidebar?: boolean;
   compactHeader?: boolean;
+  hideBrand?: boolean;
 }) {
   const [sidebarWidth, setSidebarWidth] = useState(() => {
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
@@ -102,7 +104,7 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen bg-background text-foreground">
       {TEMPORARY_DIRECT_ACCESS && <div role="status" className="border-b border-amber-300/30 bg-amber-500/10 px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-amber-100">MODO DE ACCESO DIRECTO TEMPORAL · autenticación real conservada en el backend</div>}
-      <AppHeader compact={compactHeader} />
+      <AppHeader compact={compactHeader} hideBrand={hideBrand} />
       <SidebarProvider
       style={
         {
