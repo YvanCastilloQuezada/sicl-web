@@ -25,7 +25,31 @@ export const siclProjects = mysqlTable("sicl_projects", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const parametricFiles = mysqlTable("parametric_files", {
+  id: int("id").autoincrement().primaryKey(),
+  ownerId: int("ownerId").notNull(),
+  projectId: varchar("projectId", { length: 128 }).notNull(),
+  artifactId: varchar("artifactId", { length: 128 }).notNull().unique(),
+  fileName: varchar("fileName", { length: 180 }).notNull(),
+  format: varchar("format", { length: 32 }).notNull(),
+  sizeBytes: int("sizeBytes").notNull(),
+  checksum: varchar("checksum", { length: 96 }).notNull(),
+  parsed: int("parsed").notNull().default(0),
+  declaredDependencies: text("declaredDependencies").notNull(),
+  capabilities: text("capabilities").notNull(),
+  hostRequired: varchar("hostRequired", { length: 255 }),
+  status: mysqlEnum("status", ["INSPECTED", "OPAQUE_HOST_REQUIRED", "REJECTED", "ARCHIVED"]).notNull(),
+  storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  storageUrl: varchar("storageUrl", { length: 1024 }).notNull(),
+  humanReviewRequired: int("humanReviewRequired").notNull().default(1),
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type SiclProject = typeof siclProjects.$inferSelect;
 export type InsertSiclProject = typeof siclProjects.$inferInsert;
+export type ParametricFile = typeof parametricFiles.$inferSelect;
+export type InsertParametricFile = typeof parametricFiles.$inferInsert;

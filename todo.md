@@ -513,3 +513,13 @@
 - [x] Mostrar biblioteca de sesión, búsqueda, estados, dependencias, host requerido, checksum, copia, apertura del original y retiro de la vista.
 - [x] Mantener límites: el navegador no ejecuta contenido; hosts Dynamo/Revit, Rhino/Grasshopper y Blender siguen siendo gates externos.
 - [x] Validar TypeScript PASS, suite focalizada PASS, build PASS, smoke route HTTP 200 y `git diff --check` PASS.
+
+## Persistencia y realtime paramétrico — cierre de fase
+- [x] Crear `parametric_files` y aplicar la migración SQL en la base de datos del proyecto.
+- [x] Asociar cada archivo a propietario y `projectId`; listar y archivar lógicamente mediante procedimientos protegidos.
+- [x] Conectar el panel web al proyecto activo y cargar la biblioteca persistente.
+- [x] Implementar `/ws/parametric` con eventos de subida, validación, revisión y finalización.
+- [x] Implementar `parametricHostWorkers.ts` como frontera HTTPS/tokenizada para Dynamo/Revit, Rhino/Grasshopper y Blender.
+- [x] Añadir benchmark de 100 iteraciones: media 41.09 ms, p95 45.79 ms, p99 56.74 ms, carga local PASS.
+- [x] Validar TypeScript PASS, suite completa 52 archivos / 253 pruebas PASS, build PASS y `git diff --check` PASS.
+- [x] Mantener `PENDING_EXTERNAL` para hosts reales, colas durables, mTLS, observabilidad bajo concurrencia y revisión profesional.

@@ -1,0 +1,23 @@
+CREATE TABLE `parametric_files` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`ownerId` int NOT NULL,
+	`projectId` varchar(128) NOT NULL,
+	`artifactId` varchar(128) NOT NULL,
+	`fileName` varchar(180) NOT NULL,
+	`format` varchar(32) NOT NULL,
+	`sizeBytes` int NOT NULL,
+	`checksum` varchar(96) NOT NULL,
+	`parsed` int NOT NULL DEFAULT 0,
+	`declaredDependencies` text NOT NULL,
+	`capabilities` text NOT NULL,
+	`hostRequired` varchar(255),
+	`status` enum('INSPECTED','OPAQUE_HOST_REQUIRED','REJECTED','ARCHIVED') NOT NULL,
+	`storageKey` varchar(512) NOT NULL,
+	`storageUrl` varchar(1024) NOT NULL,
+	`humanReviewRequired` int NOT NULL DEFAULT 1,
+	`uploadedAt` timestamp NOT NULL DEFAULT (now()),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `parametric_files_id` PRIMARY KEY(`id`),
+	CONSTRAINT `parametric_files_artifactId_unique` UNIQUE(`artifactId`)
+);

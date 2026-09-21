@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
+import { hostWorkerCatalog } from "./parametricHostWorkers";
 
 type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
 export type ParametricFormat = "DYN" | "DYF" | "GH" | "GHX" | "BLEND" | "ARKI_GRAPH";
@@ -86,6 +87,7 @@ export function parametricRuntimeCatalog() {
     formats: ["DYN", "DYF", "GH", "GHX", "BLEND", "ARKI_GRAPH"] as ParametricFormat[],
     humanReviewRequired: true,
     hosts: { dynamo: "EXTERNAL_HOST_REQUIRED", grasshopper: "EXTERNAL_HOST_REQUIRED", blender: "EXTERNAL_HOST_REQUIRED" },
+    authorizedWorkers: hostWorkerCatalog(),
     transport: { ui: "WEBSOCKET_OPTIONAL", durableBus: "NATS_OR_REDIS_EXTERNAL_GATE" },
   };
 }

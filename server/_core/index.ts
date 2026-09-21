@@ -10,6 +10,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHttpClient";
+import { attachParametricWebSocket } from "../parametricRealtime";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -90,6 +91,7 @@ async function startServer() {
   }
 
   server.listen(port, () => {
+    attachParametricWebSocket(server);
     console.log(`Server running on http://localhost:${port}/`);
   });
 }

@@ -4,7 +4,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { insertSiclProject, getSiclProject, listSiclProjects, updateSiclProject } from "./db";
+import { archiveParametricFile, insertParametricFile, insertSiclProject, getSiclProject, listParametricFiles, listSiclProjects, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
@@ -22,6 +22,8 @@ import { orchestrateAgents } from "./arkiAgentOrchestrator";
 import { AGENT_REGISTRY } from "./arkiAgentRegistry";
 import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
 import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog, type ParametricGraph } from "./arkiParametricRuntime";
+import { publishParametricEvent } from "./parametricRealtime";
+import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -115,17 +117,30 @@ export const appRouter = router({
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     inspect: protectedProcedure.input(z.object({ fileName: z.string().min(1), content: z.union([z.string(), z.instanceof(Buffer)]) })).mutation(({ input }) => inspectParametricArtifact(input)),
-    upload: protectedProcedure.input(z.object({ fileName: z.string().trim().min(1).max(180), mimeType: z.string().min(1).max(120), dataUrl: z.string().startsWith("data:").max(25_000_000) })).mutation(async ({ ctx, input }) => {
+    list: protectedProcedure.input(z.object({ projectId: z.string().min(3) })).query(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return listParametricFiles(ctx.user.id, input.projectId); }),
+    upload: protectedProcedure.input(z.object({ projectId: z.string().min(3), fileName: z.string().trim().min(1).max(180), mimeType: z.string().min(1).max(120), dataUrl: z.string().startsWith("data:").max(25_000_000) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      const channel = `project:${input.projectId}`;
+      publishParametricEvent(channel, { type: "UPLOAD_STARTED", projectId: input.projectId, fileName: input.fileName, progress: 5, message: "Upload started", humanReviewRequired: true, at: new Date().toISOString() });
       const [, base64] = input.dataUrl.split(",", 2);
       if (!base64) fail("Parametric file data is not valid base64");
       const content = Buffer.from(base64, "base64");
+      publishParametricEvent(channel, { type: "VALIDATION_PROGRESS", projectId: input.projectId, fileName: input.fileName, progress: 45, message: "Inspecting format and checksum", humanReviewRequired: true, at: new Date().toISOString() });
       const manifest = inspectParametricArtifact({ fileName: input.fileName, content });
       const stored = await storagePut(`users/${ctx.user.id}/parametric/${Date.now()}-${input.fileName}`, content, input.mimeType);
-      return { ...manifest, storageKey: stored.key, storageUrl: stored.url, uploadedAt: new Date().toISOString(), humanReviewRequired: true };
+      publishParametricEvent(channel, { type: "REVIEW_REQUIRED", projectId: input.projectId, artifactId: manifest.artifactId, fileName: input.fileName, progress: 80, message: manifest.hostRequired ? `Host gate: ${manifest.hostRequired}` : "Manifest ready for human review", humanReviewRequired: true, at: new Date().toISOString() });
+      const persisted = await insertParametricFile({ ownerId: ctx.user.id, projectId: input.projectId, artifactId: manifest.artifactId, fileName: manifest.fileName, format: manifest.format, sizeBytes: manifest.sizeBytes, checksum: manifest.checksum, parsed: manifest.parsed ? 1 : 0, declaredDependencies: JSON.stringify(manifest.declaredDependencies), capabilities: JSON.stringify(manifest.capabilities), hostRequired: manifest.hostRequired, status: manifest.status, storageKey: stored.key, storageUrl: stored.url, humanReviewRequired: 1 });
+      publishParametricEvent(channel, { type: "UPLOAD_COMPLETED", projectId: input.projectId, artifactId: manifest.artifactId, fileName: input.fileName, progress: 100, message: "Persisted and awaiting human review", humanReviewRequired: true, at: new Date().toISOString() });
+      return { ...manifest, ...persisted, declaredDependencies: manifest.declaredDependencies, capabilities: manifest.capabilities, storageKey: stored.key, storageUrl: stored.url, humanReviewRequired: true };
     }),
+    archive: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return { archived: await archiveParametricFile(ctx.user.id, input.projectId, input.artifactId), artifactId: input.artifactId }; }),
     execute: protectedProcedure.input(z.object({ projectId: z.string().min(1), graph: z.object({ contractVersion: z.literal("ARKI-PARAMETRIC-1.0"), graphId: z.string().min(1), nodes: z.array(z.object({ id: z.string().min(1), op: z.enum(["constant", "add", "multiply", "rectangle_points", "translate_points", "scale_points"]), params: z.record(z.string(), z.unknown()) })), outputs: z.array(z.string()), units: z.string().min(1), tolerance: z.number().positive().max(1), humanReviewRequired: z.literal(true) }) })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return executeParametricGraph(input.graph as ParametricGraph);
+    }),
+    hostWorkers: router({
+      catalog: publicProcedure.query(() => hostWorkerCatalog()),
+      dispatch: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1), kind: z.enum(["DYNAMO_REVIT", "RHINO_GRASSHOPPER", "BLENDER"]), command: z.enum(["VALIDATE", "EXECUTE", "EXPORT"]), payload: z.record(z.string(), z.unknown()), humanReviewApproved: z.literal(true) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return executeAuthorizedHostWorker(input); }),
     }),
   }),
   auth: router({

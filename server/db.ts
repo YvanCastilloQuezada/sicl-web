@@ -1,10 +1,11 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, SiclProject, InsertSiclProject, siclProjects, users } from "../drizzle/schema";
+import { InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, parametricFiles, siclProjects, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 const memoryProjects = new Map<string, SiclProject>();
+const memoryParametricFiles = new Map<string, ParametricFile>();
 
 function upaoSnapshot() {
   return JSON.stringify({
@@ -108,5 +109,38 @@ export async function updateSiclProject(ownerId: number, projectId: string, expe
   const db = await getDb();
   if (!db) { const current = memoryProjects.get(`${ownerId}:${projectId}`); if (!current || current.version !== expectedVersion) return false; memoryProjects.set(`${ownerId}:${projectId}`, { ...current, snapshot, version: expectedVersion + 1, ...(status ? { status } : {}), updatedAt: new Date() }); return true; }
   const result = await db.update(siclProjects).set({ snapshot, version: expectedVersion + 1, ...(status ? { status } : {}) }).where(and(eq(siclProjects.ownerId, ownerId), eq(siclProjects.projectId, projectId), eq(siclProjects.version, expectedVersion)));
+  return result[0].affectedRows === 1;
+}
+
+export async function insertParametricFile(file: InsertParametricFile): Promise<ParametricFile> {
+  const db = await getDb();
+  const now = new Date();
+  if (!db) {
+    const stored = { id: 0, createdAt: now, updatedAt: now, uploadedAt: now, ...file } as ParametricFile;
+    memoryParametricFiles.set(`${file.ownerId}:${file.artifactId}`, stored);
+    return stored;
+  }
+  await db.insert(parametricFiles).values(file);
+  const rows = await db.select().from(parametricFiles).where(eq(parametricFiles.artifactId, file.artifactId)).limit(1);
+  if (!rows[0]) throw new Error("Parametric file could not be persisted");
+  return rows[0];
+}
+
+export async function listParametricFiles(ownerId: number, projectId: string): Promise<ParametricFile[]> {
+  const db = await getDb();
+  if (!db) return Array.from(memoryParametricFiles.values()).filter((file) => file.ownerId === ownerId && file.projectId === projectId && file.status !== "ARCHIVED").sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+  return db.select().from(parametricFiles).where(and(eq(parametricFiles.ownerId, ownerId), eq(parametricFiles.projectId, projectId))).orderBy(desc(parametricFiles.updatedAt));
+}
+
+export async function archiveParametricFile(ownerId: number, projectId: string, artifactId: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    const key = `${ownerId}:${artifactId}`;
+    const current = memoryParametricFiles.get(key);
+    if (!current || current.projectId !== projectId) return false;
+    memoryParametricFiles.set(key, { ...current, status: "ARCHIVED", updatedAt: new Date() });
+    return true;
+  }
+  const result = await db.update(parametricFiles).set({ status: "ARCHIVED" }).where(and(eq(parametricFiles.ownerId, ownerId), eq(parametricFiles.projectId, projectId), eq(parametricFiles.artifactId, artifactId)));
   return result[0].affectedRows === 1;
 }
