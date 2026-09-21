@@ -68,6 +68,8 @@ The broader `ARKI-SYSTEM-AUTHORITY-2.0` profile is documented in [`arki-unified-
 
 The lifecycle, budget and BIM contract is documented in [`arki-lifecycle/ARKI_PROJECT_LIFECYCLE_COST_BIM.md`](../../arki-lifecycle/ARKI_PROJECT_LIFECYCLE_COST_BIM.md). It extends ARKI from conception through operation, maintenance and post-occupancy while keeping costs traceable and native BIM exports adapter-dependent.
 
+Advanced geometry and jurisdictional regulation retrieval are documented in [`arki-advanced-geometry/ARKI_ADVANCED_GEOMETRY_AND_JURISDICTION.md`](../../arki-advanced-geometry/ARKI_ADVANCED_GEOMETRY_AND_JURISDICTION.md). The current official Peru source is the Ministry of Housing RNE page; country-specific rules remain source-reviewed and professionally verified.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
