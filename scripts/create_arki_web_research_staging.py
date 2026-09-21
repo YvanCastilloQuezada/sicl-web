@@ -13,7 +13,7 @@ readme.append(['ARKI — Web Research Superpower — STAGING'])
 readme.append(['Purpose', 'Receive abstract metadata and vocabulary candidates from public web research before human review.'])
 readme.append(['Canonical rule', 'Nothing in this workbook is a FACT or canonical Core knowledge until human validation is recorded.'])
 readme.append(['Rights rule', 'Store metadata and short abstracts only; do not reproduce copyrighted source text.'])
-readme.append(['Automation rule', 'Research cycles are disabled until cadence, source allowlist and review owner are configured.'])
+readme.append(['Automation rule', 'Daily cycle is limited to 30 sources and requires owner human authorization; candidates remain pending.'])
 readme.append(['Status values', 'DISCOVERED | ABSTRACTED | STAGED_FOR_EXCEL | HUMAN_CONFIRMED | REJECTED | UNKNOWN'])
 
 queue = wb.create_sheet('01_REVIEW_QUEUE')

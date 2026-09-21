@@ -29,7 +29,8 @@ import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
 import { listSecurityEvents, verifySecurityEventChain } from "./security";
 import { securityLayerCatalog } from "./arkiSecurityLayers";
-import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, researchCyclePolicy } from "./arkiResearchSuperpower";
+import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
+import { ENV } from "./_core/env";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -49,6 +50,10 @@ function localCoreEnabled() {
 
 function requireCanonicalCoreOrExplicitLocal() {
   if (!hasCoreUrl() && !localCoreEnabled()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "SICL_CORE_URL is required; set SICL_ALLOW_LOCAL_CORE=true only for explicit local development" });
+}
+
+function requireOwnerHumanAuthority(ctx: { user: { role: string; openId: string } }) {
+  if (ctx.user.role !== "admin" || !ENV.ownerOpenId || ctx.user.openId !== ENV.ownerOpenId) throw new TRPCError({ code: "FORBIDDEN", message: "OWNER_HUMAN_AUTHORITY_REQUIRED" });
 }
 
 
@@ -135,7 +140,8 @@ export const appRouter = router({
   }),
   research: router({
     policy: publicProcedure.query(() => researchCyclePolicy()),
-    inspect: protectedProcedure.input(z.object({ url: z.string().url().max(2048) })).mutation(async ({ input }) => {
+    inspect: protectedProcedure.input(z.object({ url: z.string().url().max(2048) })).mutation(async ({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8_000);
       try {
@@ -146,10 +152,17 @@ export const appRouter = router({
         clearTimeout(timeout);
       }
     }),
-    stageExcelRow: protectedProcedure.input(z.object({ sourceId: z.string().min(1), title: z.string().min(1), author: z.string().optional(), url: z.string().url(), topic: z.string().min(1), abstract: z.string().min(1).max(2000), terms: z.array(z.string().min(1)).max(30), rights: z.enum(["PUBLIC_METADATA_ONLY", "OPEN_LICENSE", "COPYRIGHTED", "UNKNOWN"]).default("UNKNOWN"), humanApproved: z.boolean().default(false) })).mutation(({ input }) => {
+    stageExcelRow: protectedProcedure.input(z.object({ sourceId: z.string().min(1), title: z.string().min(1), author: z.string().optional(), url: z.string().url(), topic: z.string().min(1), abstract: z.string().min(1).max(2000), terms: z.array(z.string().min(1)).max(30), rights: z.enum(["PUBLIC_METADATA_ONLY", "OPEN_LICENSE", "COPYRIGHTED", "UNKNOWN"]).default("UNKNOWN"), humanApproved: z.boolean().default(false) })).mutation(({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
       const authorization = authorizeResearchWrite({ humanApproved: input.humanApproved, rights: input.rights, target: "EXCEL_REVIEW_STAGING" });
       if (!authorization.allowed) throw new TRPCError({ code: "FORBIDDEN", message: authorization.reason });
-      return { authorization, row: buildExcelReviewRow(input), stage: "STAGED_FOR_EXCEL", canonicalPromotion: "NOT_REQUESTED" };
+      return { authorization, row: stageResearchCandidate(input), stage: "STAGED_FOR_EXCEL", canonicalPromotion: "NOT_REQUESTED" };
+    }),
+    candidates: adminProcedure.query(() => ({ candidates: listResearchCandidates(), canonicalPromotion: "HUMAN_APPROVAL_REQUIRED" })),
+    reviewCandidate: adminProcedure.input(z.object({ candidateId: z.string().min(1), decision: z.enum(["APPROVED_FOR_CORE", "REJECTED"]), correctedAbstract: z.string().max(2000).optional(), correctedTerms: z.array(z.string().min(1)).max(30).optional(), ownerAuthorityConfirmed: z.literal(true) })).mutation(({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
+      const candidate = reviewResearchCandidate(input.candidateId, input.decision, { abstract: input.correctedAbstract, terms: input.correctedTerms });
+      return { candidate, corePromotion: input.decision === "APPROVED_FOR_CORE" ? "QUEUED_FOR_SEPARATE_CORE_VALIDATION" : "NOT_REQUESTED", authority: "OWNER_HUMAN_CONFIRMED" };
     }),
     contract: publicProcedure.query(() => ARKI_RESEARCH_SUPERPOWER),
   }),

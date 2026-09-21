@@ -4,7 +4,7 @@
 
 ARKI dispone ahora de un contrato de investigación web defensivo. Puede inspeccionar fuentes públicas permitidas, registrar metadatos, conservar la URL y el hash de captura, preparar una abstracción breve, extraer vocabulario candidato y generar una fila de revisión para el libro Excel de staging.
 
-La investigación no promueve conocimiento a `FACT`, no escribe directamente en el Core canónico, no reproduce texto protegido y no acepta URLs HTTP, hosts privados ni crawling ilimitado. Todo candidato conserva provenance y permanece sujeto a revisión humana.
+La investigación no promueve conocimiento a `FACT`, no escribe directamente en el Core canónico, no reproduce texto protegido y no acepta URLs HTTP, hosts privados ni crawling ilimitado. Todo candidato conserva provenance y permanece sujeto a revisión humana. El ciclo diario está limitado a 30 fuentes y se ejecuta en modo `ask_user`, de manera que la tarea requiere autorización humana del propietario en cada ejecución.
 
 ## Fuentes iniciales permitidas
 
@@ -38,7 +38,7 @@ El sistema conserva `UNKNOWN` cuando no puede establecer una afirmación con pro
 | Ciclo semanal acotado | Revisa hasta diez fuentes de una lista aprobada y deja candidatos en Excel | Mantiene el libro vivo sin canonización automática | Consume ejecución periódica y exige responsable de revisión |
 | Ciclo programado con panel | Permite cambiar fuentes, temas, frecuencia, límites y revisar candidatos desde la interfaz | Mejor operación a largo plazo | Requiere UI, almacenamiento durable, observabilidad y definición clara de permisos |
 
-La implementación actual deja la programación **desactivada**. Antes de activarla se deben fijar frecuencia, fuente de temas, límite por ciclo y quién confirma o rechaza candidatos.
+La programación actual está activa como tarea diaria a las 03:00 en la zona horaria America/Lima, con límite de 30 fuentes y modo `ask_user`. La ejecución debe detenerse si no se puede verificar la autoridad humana del propietario. La aprobación o rechazo de candidatos sólo está disponible en la sesión administrativa del propietario.
 
 ## Próximo paso recomendado
 
