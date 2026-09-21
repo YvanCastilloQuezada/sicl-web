@@ -2,6 +2,7 @@ import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { TRPCClientError } from "@trpc/client";
 import { useCallback, useEffect, useMemo } from "react";
+import { TEMPORARY_DIRECT_ACCESS } from "@/_core/auth-access";
 
 type UseAuthOptions = {
   redirectOnUnauthenticated?: boolean;
@@ -19,6 +20,7 @@ export function useAuth(options?: UseAuthOptions) {
   const meQuery = trpc.auth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
+    enabled: !TEMPORARY_DIRECT_ACCESS,
   });
 
   const logoutMutation = trpc.auth.logout.useMutation({
@@ -51,15 +53,27 @@ export function useAuth(options?: UseAuthOptions) {
   }, [logoutMutation, utils]);
 
   const state = useMemo(() => {
+    const directAccessUser = {
+      id: 0,
+      openId: "temporary-direct-access",
+      name: "ARKI Direct Access",
+      email: "direct-access@arki.local",
+      loginMethod: "temporary-direct-access",
+      role: "user" as const,
+      createdAt: new Date(0),
+      updatedAt: new Date(0),
+      lastSignedIn: new Date(0),
+    } as NonNullable<typeof meQuery.data>;
+    const effectiveUser = TEMPORARY_DIRECT_ACCESS ? directAccessUser : meQuery.data ?? null;
     localStorage.setItem(
       "manus-runtime-user-info",
-      JSON.stringify(meQuery.data)
+      JSON.stringify(effectiveUser)
     );
     return {
-      user: meQuery.data ?? null,
-      loading: meQuery.isLoading || logoutMutation.isPending,
+      user: effectiveUser,
+      loading: (!TEMPORARY_DIRECT_ACCESS && meQuery.isLoading) || logoutMutation.isPending,
       error: meQuery.error ?? logoutMutation.error ?? null,
-      isAuthenticated: Boolean(meQuery.data),
+      isAuthenticated: Boolean(effectiveUser),
     };
   }, [
     meQuery.data,

@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import AppHeader from "@/components/AppHeader";
+import { TEMPORARY_DIRECT_ACCESS } from "@/_core/auth-access";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "nav.project", path: "/" },
@@ -69,7 +70,7 @@ export default function DashboardLayout({
     return <DashboardLayoutSkeleton />
   }
 
-  if (!user) {
+  if (!user && !TEMPORARY_DIRECT_ACCESS) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
@@ -96,6 +97,7 @@ export default function DashboardLayout({
 
     return (
       <div className="min-h-screen bg-background text-foreground">
+      {TEMPORARY_DIRECT_ACCESS && <div role="status" className="border-b border-amber-300/30 bg-amber-500/10 px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-amber-100">MODO DE ACCESO DIRECTO TEMPORAL · autenticación real conservada en el backend</div>}
       <AppHeader />
       <SidebarProvider
       style={

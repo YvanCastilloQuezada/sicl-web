@@ -28,6 +28,7 @@ import { Activity, ArrowRight, BookOpen, CheckCircle2, Download, FileText, GitBr
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
+import { TEMPORARY_DIRECT_ACCESS } from "@/_core/auth-access";
 type ModuleNavigation = { id: string; label: string; icon: typeof LayoutDashboard; externalPath?: string };
 const modules: ModuleNavigation[] = [
   { id: "overview", label: "nav.project", icon: LayoutDashboard },
@@ -52,7 +53,7 @@ type ProjectSnapshot = {
 export default function Home() {
   const { user, loading } = useAuth();
   if (loading) return <div className="min-h-screen bg-background" />;
-  if (!user) return <SignIn />;
+  if (!user && !TEMPORARY_DIRECT_ACCESS) return <SignIn />;
   return <AuthenticatedHome />;
 }
 
