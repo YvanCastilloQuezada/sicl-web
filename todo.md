@@ -496,3 +496,12 @@
 - [x] Integrar y probar la invocación TypeScript mediante `executeOssWorker` y `tools/test_arki_adapter_runner.ts`.
 - [x] Confirmar `pnpm check`, `pnpm build`, suite Vitest completa (50 archivos / 248 pruebas) y `git diff --check`.
 - [x] Mantener límite epistemológico: fixtures sintéticos PASS no equivalen a exportación de un proyecto ARKI real, round-trip multi-proveedor, DWG ni certificación profesional.
+
+## Runtime paramétrico propio — ARKI-PARAMETRIC-RUNTIME-1.0
+- [x] Investigar Dynamo/Revit, Grasshopper/Rhino/Compute, Blender Geometry Nodes, CPython/Pydantic/NumPy/Numba y WebSockets/NATS/Redis/Ray/Dask con fuentes oficiales.
+- [x] Implementar contrato propio de grafos paramétricos con `inspect`, `validate`, `execute` y `export` como capacidades separadas.
+- [x] Implementar catálogo e inspección gobernada de `.dyn`, `.dyf`, `.gh`, `.ghx`, `.blend` y `ARKI_GRAPH`, preservando hashes y dependencias declaradas.
+- [x] Implementar worker CPython bounded con operaciones allow-listed, rechazo de ciclos/código arbitrario, hash de ejecución y respuesta soft-realtime.
+- [x] Exponer catálogo público y ejecución protegida vía tRPC; registrar capacidad en Control Center.
+- [x] Validar con 4 pruebas focalizadas de runtime, suite completa de 51 archivos / 252 pruebas, TypeScript PASS, build PASS y `git diff --check`.
+- [x] Mantener `EXTERNAL_HOST_REQUIRED` para ejecución real en Revit/Dynamo, Rhino/Grasshopper/Compute y Blender; no declarar hard real-time.

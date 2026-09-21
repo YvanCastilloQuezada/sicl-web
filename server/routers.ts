@@ -21,6 +21,7 @@ import { executeArkiSuperpowersPack } from "./arkiSuperpowersPack";
 import { orchestrateAgents } from "./arkiAgentOrchestrator";
 import { AGENT_REGISTRY } from "./arkiAgentRegistry";
 import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
+import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog, type ParametricGraph } from "./arkiParametricRuntime";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -110,6 +111,14 @@ export const appRouter = router({
   }),
   nativeAdapters: router({
     registry: publicProcedure.query(() => ({ version: "ARKI-NATIVE-ADAPTERS-1.0", execution: "CONTRACTS_ONLY_WORKERS_NOT_INSTALLED", adapters: nativeAdapterCapabilityMatrix(), humanReviewRequired: true })),
+  }),
+  parametricRuntime: router({
+    catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
+    inspect: protectedProcedure.input(z.object({ fileName: z.string().min(1), content: z.union([z.string(), z.instanceof(Buffer)]) })).mutation(({ input }) => inspectParametricArtifact(input)),
+    execute: protectedProcedure.input(z.object({ projectId: z.string().min(1), graph: z.object({ contractVersion: z.literal("ARKI-PARAMETRIC-1.0"), graphId: z.string().min(1), nodes: z.array(z.object({ id: z.string().min(1), op: z.enum(["constant", "add", "multiply", "rectangle_points", "translate_points", "scale_points"]), params: z.record(z.string(), z.unknown()) })), outputs: z.array(z.string()), units: z.string().min(1), tolerance: z.number().positive().max(1), humanReviewRequired: z.literal(true) }) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return executeParametricGraph(input.graph as ParametricGraph);
+    }),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
