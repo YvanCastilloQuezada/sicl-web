@@ -52,8 +52,10 @@ const MAX_WIDTH = 480;
 
 export default function DashboardLayout({
   children,
+  showSidebar = true,
 }: {
   children: React.ReactNode;
+  showSidebar?: boolean;
 }) {
   const [sidebarWidth, setSidebarWidth] = useState(() => {
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
@@ -106,7 +108,7 @@ export default function DashboardLayout({
         } as CSSProperties
       }
     >
-      <DashboardLayoutContent setSidebarWidth={setSidebarWidth}>
+      <DashboardLayoutContent setSidebarWidth={setSidebarWidth} showSidebar={showSidebar}>
         {children}
       </DashboardLayoutContent>
       </SidebarProvider>
@@ -117,11 +119,13 @@ export default function DashboardLayout({
 type DashboardLayoutContentProps = {
   children: React.ReactNode;
   setSidebarWidth: (width: number) => void;
+  showSidebar: boolean;
 };
 
 function DashboardLayoutContent({
   children,
   setSidebarWidth,
+  showSidebar,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
@@ -171,7 +175,7 @@ function DashboardLayoutContent({
 
   return (
     <>
-      <div className="relative" ref={sidebarRef}>
+      {showSidebar && <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"
           className="border-r-0"
@@ -261,7 +265,7 @@ function DashboardLayoutContent({
           }}
           style={{ zIndex: 50 }}
         />
-      </div>
+      </div>}
 
       <SidebarInset>
         {isMobile && (
