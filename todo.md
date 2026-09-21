@@ -647,4 +647,4 @@
 - [x] Caché PWA versionada como `arki-static-v3-offline-sync`.
 - [x] Particionado Rollup adicional para vendor React, datos, UI, gráficos y 3D; los visores 3D siguen bajo demanda.
 - [x] Validación: `pnpm check` PASS; 57 archivos / 273 tests PASS; build PASS; manifest y service worker PASS; diff limpio.
-- [ ] PENDING_PHYSICAL_DEVICE_EVIDENCE: pruebas reales en Android moderno, Android antiguo e iPhone.
+- [~] PENDING_PHYSICAL_DEVICE_EVIDENCE: el harness y protocolo están documentados; las pruebas reales en Android moderno, Android antiguo e iPhone requieren esos dispositivos.
