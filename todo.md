@@ -589,3 +589,12 @@
 - [x] Implementar `projects.saveInitialIntake` con control optimista de versión, evento `INITIAL_INTAKE_PERSISTED`, provenance `USER_PROVIDED` y `UNKNOWN` literal.
 - [x] Validar 55 archivos / 264 pruebas PASS, TypeScript PASS, build PASS, diff PASS y Field Mode renderizado en navegador.
 - [x] Mantener `PENDING_EXTERNAL`: gateway/callback social autorizado, SICL Core intake remoto, hardware WebXR, precisión de tracking y anclaje espacial persistente.
+
+## AR espacial móvil — compatibilidad y superficies
+- [x] Revisar MiLukita: su repositorio actual no contiene una solución AR ejecutable; C-001 está `BLOCKED` y exige separar evidencia de diseño y marcar requisitos físicos.
+- [x] Adoptar ese principio en ARKI: WebXR opcional, detección explícita de capacidad, fallback cámara/orientación y no declarar precisión sin dispositivo real.
+- [x] Implementar indicador animado `DETECTING` mientras se solicita hit-test y el usuario mueve el teléfono.
+- [x] Implementar hit-test real sobre `viewer` + `local-floor`, estado `FOUND` cuando aparece una pose de superficie y botón de intento de anclaje mediante `createAnchor` cuando el dispositivo lo expone.
+- [x] Mostrar estados `CHECKING_CAPABILITIES`, `IMMERSIVE_AR_RUNNING`, `NO_HIT_TEST`, `CAMERA_ORIENTATION_FALLBACK` y `AR_UNAVAILABLE`.
+- [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS, diff PASS.
+- [x] Mantener `PHYSICAL_VALIDATION_REQUIRED`: no se declara compatibilidad universal ni anclaje validado sin pruebas en teléfonos reales.
