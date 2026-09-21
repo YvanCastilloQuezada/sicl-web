@@ -1,3 +1,5 @@
+import { authorizeManiacCoreTrust } from "./arkiSecurityLayers";
+
 export type ArkiLayer = "EDGE" | "BRAIN" | "CORE_TRUST";
 export type AuthorityLevel = "NONE" | "SYSTEM" | "HUMAN";
 export type EpistemicStatus = "FACT" | "ASSUMPTION" | "INFERENCE" | "GENERATED" | "UNKNOWN";
@@ -39,7 +41,15 @@ export function authorizeCoreOperation(input: { operation: CoreOperation; source
   if (humanAuthorityRequired && input.authority !== "HUMAN") throw new Error(`${input.operation} requires HUMAN authority`);
   if (["PROJECT_STATE_COMMIT", "INITIAL_INTAKE_COMMIT", "REASONING_APPEND"].includes(input.operation) && input.authority === "NONE") throw new Error(`${input.operation} requires an authorized actor`);
   if (input.operation === "HUMAN_DECISION_APPEND" && input.humanApproved !== true) throw new Error("HUMAN_DECISION_APPEND requires explicit human approval");
-  return { allowed: true as const, owner: "CORE_TRUST" as const, humanAuthorityRequired };
+  const maniac = authorizeManiacCoreTrust({
+    action: humanAuthorityRequired ? (input.operation === "HUMAN_REVIEW_APPEND" ? "HUMAN_REVIEW_APPEND" : "HUMAN_DECISION_APPEND") : input.operation === "PROJECT_STATE_COMMIT" || input.operation === "INITIAL_INTAKE_COMMIT" || input.operation === "REASONING_APPEND" ? "PROJECT_STATE_COMMIT" : "READ",
+    actorAuthenticated: input.authority !== "NONE",
+    humanApproved: input.humanApproved,
+    expectedVersionMatches: true,
+    auditIntegrityValid: true,
+  });
+  if (!maniac.allowed) throw new Error(`MANIAC_CORE_DENY: ${maniac.reason}`);
+  return { allowed: true as const, owner: "CORE_TRUST" as const, humanAuthorityRequired, maniac };
 }
 
 export function edgePreview<T>(value: T) { return { layer: "EDGE" as const, mutation: "NONE" as const, projectStateEffect: "NO_CANONICAL_MUTATION" as const, value }; }

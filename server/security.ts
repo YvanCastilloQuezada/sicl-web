@@ -1,23 +1,34 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
+import { createHash } from "node:crypto";
 
 const WINDOW_MS = 60_000;
 const MAX_SECURITY_EVENTS = 500;
 const events: SecurityEvent[] = [];
 
 type Bucket = { count: number; resetAt: number };
-export type SecurityEvent = { id: string; at: string; kind: "RATE_LIMIT" | "ORIGIN_BLOCK" | "CSP_REPORT" | "WS_BLOCK"; path: string; method: string; ip: string; status: number; detail: string };
+export type SecurityEvent = { id: string; at: string; kind: "RATE_LIMIT" | "ORIGIN_BLOCK" | "CSP_REPORT" | "WS_BLOCK"; path: string; method: string; ip: string; status: number; detail: string; previousIntegrityHash: string; integrityHash: string };
 
 function clientKey(req: Request) {
   return req.ip || req.socket?.remoteAddress || "unknown";
 }
 
-export function recordSecurityEvent(event: Omit<SecurityEvent, "id" | "at">) {
-  events.unshift({ ...event, id: crypto.randomUUID(), at: new Date().toISOString() });
+export type SecurityEventInput = Omit<SecurityEvent, "id" | "at" | "previousIntegrityHash" | "integrityHash">;
+
+export function recordSecurityEvent(event: SecurityEventInput) {
+  const previousIntegrityHash = events[0]?.integrityHash ?? "GENESIS";
+  const id = crypto.randomUUID();
+  const at = new Date().toISOString();
+  const integrityHash = createHash("sha256").update(JSON.stringify({ ...event, id, at, previousIntegrityHash })).digest("hex");
+  events.unshift({ ...event, id, at, previousIntegrityHash, integrityHash });
   if (events.length > MAX_SECURITY_EVENTS) events.length = MAX_SECURITY_EVENTS;
 }
 
 export function listSecurityEvents(limit = 100) {
   return events.slice(0, Math.max(1, Math.min(limit, MAX_SECURITY_EVENTS)));
+}
+
+export function verifySecurityEventChain() {
+  return events.every((event, index) => event.previousIntegrityHash === (events[index + 1]?.integrityHash ?? "GENESIS"));
 }
 
 export const STRICT_CSP = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https: wss:; media-src 'self' blob:; worker-src 'self' blob:; frame-src 'self'; form-action 'self'; report-uri /api/security/csp-report";
@@ -29,6 +40,9 @@ export function securityHeaders(): RequestHandler {
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Permissions-Policy", "camera=(self), microphone=(self), geolocation=(self), xr-spatial-tracking=(self)");
     res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+    res.setHeader("X-DNS-Prefetch-Control", "off");
+    res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
+    res.setHeader("X-Download-Options", "noopen");
     res.setHeader("Origin-Agent-Cluster", "?1");
     res.setHeader("Reporting-Endpoints", 'csp-endpoint="/api/security/csp-report"');
     const cspHeader = process.env.NODE_ENV === "production" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only";

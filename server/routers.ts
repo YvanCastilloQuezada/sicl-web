@@ -27,7 +27,8 @@ import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHost
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
-import { listSecurityEvents } from "./security";
+import { listSecurityEvents, verifySecurityEventChain } from "./security";
+import { securityLayerCatalog } from "./arkiSecurityLayers";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -128,7 +129,8 @@ export const appRouter = router({
     verticalProof: publicProcedure.query(() => verticalFlowProof()),
   }),
   security: router({
-    recentEvents: adminProcedure.input(z.object({ limit: z.number().int().min(1).max(500).default(100) })).query(({ input }) => ({ events: listSecurityEvents(input.limit), retention: "IN_MEMORY_RING_BUFFER", note: "Production persistence requires the enterprise audit store." })),
+    policy: adminProcedure.query(() => securityLayerCatalog()),
+    recentEvents: adminProcedure.input(z.object({ limit: z.number().int().min(1).max(500).default(100) })).query(({ input }) => ({ events: listSecurityEvents(input.limit), retention: "IN_MEMORY_RING_BUFFER", auditIntegrity: verifySecurityEventChain(), note: "Production persistence requires the enterprise audit store." })),
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
