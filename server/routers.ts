@@ -37,6 +37,8 @@ import { arkiBimViewerContract, detectBimInterferences, inspectBimArtifact, type
 import { runPreliminaryPredimensioning, transversalKnowledgeContract } from "./arkiTransversalEngineering";
 import { ARKI_TRANSVERSAL_SPECIALTIES, buildSpecialtyCoordinationPlan, validateAuthorizedExchangeHost } from "./arkiTransversalSpecialties";
 import { professionalAuthorityContract, recordProfessionalReview } from "./arkiProfessionalReview";
+import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } from "./arkiIfc4";
+import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -169,6 +171,10 @@ export const appRouter = router({
   }),
   bimViewer: router({
     contract: publicProcedure.query(() => arkiBimViewerContract()),
+    ifc4Contract: publicProcedure.query(() => ifc4Contract()),
+    inspectIfc4: protectedProcedure.input(z.object({ projectId: z.string().min(1), content: z.string().max(25_000_000) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return parseIfc4(input.content); }),
+    attachIfcGeometry: protectedProcedure.input(z.object({ projectId: z.string().min(1), parsed: z.unknown(), geometry: z.array(z.object({ expressId: z.number().int().positive(), box: z.object({ min: z.tuple([z.number(), z.number(), z.number()]), max: z.tuple([z.number(), z.number(), z.number()]) }), properties: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return attachDecodedGeometry(input.parsed as ReturnType<typeof parseIfc4>, input.geometry); }),
+    validateIfcRoundTrip: protectedProcedure.input(z.object({ projectId: z.string().min(1), tolerance: z.number().positive().max(1).optional(), before: z.array(z.object({ id: z.string(), kind: z.string(), box: z.object({ min: z.tuple([z.number(), z.number(), z.number()]), max: z.tuple([z.number(), z.number(), z.number()]) }) })).max(100_000), after: z.array(z.object({ id: z.string(), kind: z.string(), box: z.object({ min: z.tuple([z.number(), z.number(), z.number()]), max: z.tuple([z.number(), z.number(), z.number()]) }) })).max(100_000) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return validateIfcRoundTrip(input); }),
     inspect: protectedProcedure.input(z.object({ projectId: z.string().min(1), fileName: z.string().min(1), content: z.string().max(25_000_000) })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return inspectBimArtifact(input.fileName, input.content);
@@ -183,6 +189,10 @@ export const appRouter = router({
     specialties: publicProcedure.query(() => ({ schema: "ARKI-TRANSVERSAL-SPECIALTIES-1.0", count: ARKI_TRANSVERSAL_SPECIALTIES.length, specialties: ARKI_TRANSVERSAL_SPECIALTIES, humanReviewRequired: true as const })),
     coordinationPlan: protectedProcedure.input(z.object({ projectType: z.enum(["HOSPITAL", "AIRPORT", "COMPLEX_BUILDING"]), country: z.string().min(2), jurisdiction: z.string().optional(), codeFamilies: z.array(z.string()), sourceIds: z.array(z.string()), effectiveDate: z.string().optional(), verifiedBy: z.string().optional() })).mutation(({ input }) => buildSpecialtyCoordinationPlan(input.projectType, input)),
     validateHost: protectedProcedure.input(z.object({ format: z.enum(["RVT", "DYN", "IFC"]), hostId: z.string().optional(), hostVersion: z.string().optional(), capabilities: z.array(z.string()) })).mutation(({ input }) => validateAuthorizedExchangeHost(input)),
+    hostCatalog: publicProcedure.query(() => hostConnectionCatalog()),
+    validateHostEndpoint: protectedProcedure.input(z.object({ kind: z.enum(["REVIT", "DYNAMO"]), endpoint: z.string().url(), hostId: z.string().optional(), capabilities: z.array(z.string()) })).mutation(({ input }) => validateHostEndpoint(input)),
+    prepareHostConnection: protectedProcedure.input(z.object({ kind: z.enum(["REVIT", "DYNAMO"]), endpoint: z.string().url(), hostId: z.string().min(1), capabilities: z.array(z.string()) })).mutation(({ input }) => buildHostConnectionRequest(input)),
+    selfCare: publicProcedure.query(() => selfCareContract()),
     predimensioning: protectedProcedure.input(z.object({ projectId: z.string().min(1), use: z.string().min(1), floors: z.number().int().min(1).max(200), typicalSpanM: z.number().positive(), maxSpanM: z.number().positive().optional(), floorToFloorM: z.number().positive(), structuralSystem: z.enum(["REINFORCED_CONCRETE_FRAME", "STEEL_FRAME", "MASONRY", "TIMBER", "UNKNOWN"]), columnWidthM: z.number().positive().optional(), columnDepthM: z.number().positive().optional(), beamDepthM: z.number().positive().optional(), slabThicknessM: z.number().positive().optional(), wetAreaCount: z.number().int().min(0).optional(), electricalRoomCount: z.number().int().min(0).optional(), hvacRequired: z.boolean().optional(), healthcareCritical: z.boolean().optional(), serviceShaftCount: z.number().int().min(0).optional() })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return runPreliminaryPredimensioning(input); }),
   }),
   professionalReview: router({
