@@ -65,3 +65,19 @@ El endpoint debe aceptar `execution_id`, `engine`, `runtime_version`, `expected_
 ## Límites actuales
 
 La integración está preparada y probada con un contrato HTTP simulado en pruebas unitarias, pero no se declara una ejecución remota real porque el entorno actual no tiene `SICL_CORE_URL` configurada. La activación de producción requiere un SICL Core HTTPS real, su endpoint de escritura de ejecuciones y pruebas E2E autenticadas.
+
+## Correcciones aplicadas tras auditoría
+
+Se añadieron pruebas directas para: rechazo de `409 CONCURRENCY_CONFLICT` durante el commit Brain, rechazo de `409` durante el commit D6.2, cambio de versión entre el commit Brain y la relectura canónica, y discrepancia de `project_id`.
+
+El comando `dev` ya no activa `SICL_ALLOW_LOCAL_CORE=true` automáticamente. El fallback local sólo puede habilitarse mediante una configuración explícita de desarrollo y no participa en `projectBrain.executeCanonical`.
+
+También se añadió el harness:
+
+```bash
+SICL_CORE_URL=https://core.example \
+SICL_CORE_SERVICE_TOKEN=REDACTED \
+pnpm run e2e:canonical -- /ruta/al/input.json
+```
+
+El harness se detiene antes de leer el payload si falta la URL o el token. No crea proyectos por sí mismo: ejecuta el payload entregado contra un Core existente y devuelve versiones, commits y `replay_fingerprint`.
