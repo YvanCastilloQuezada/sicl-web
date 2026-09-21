@@ -35,6 +35,8 @@ import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntell
 import { arkiEtiBimContract } from "./arkiEtiBim";
 import { arkiBimViewerContract, detectBimInterferences, inspectBimArtifact, type BimViewerModel } from "./arkiBimViewer";
 import { runPreliminaryPredimensioning, transversalKnowledgeContract } from "./arkiTransversalEngineering";
+import { ARKI_TRANSVERSAL_SPECIALTIES, buildSpecialtyCoordinationPlan, validateAuthorizedExchangeHost } from "./arkiTransversalSpecialties";
+import { professionalAuthorityContract, recordProfessionalReview } from "./arkiProfessionalReview";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -178,7 +180,14 @@ export const appRouter = router({
   }),
   transversal: router({
     contract: publicProcedure.query(() => transversalKnowledgeContract()),
+    specialties: publicProcedure.query(() => ({ schema: "ARKI-TRANSVERSAL-SPECIALTIES-1.0", count: ARKI_TRANSVERSAL_SPECIALTIES.length, specialties: ARKI_TRANSVERSAL_SPECIALTIES, humanReviewRequired: true as const })),
+    coordinationPlan: protectedProcedure.input(z.object({ projectType: z.enum(["HOSPITAL", "AIRPORT", "COMPLEX_BUILDING"]), country: z.string().min(2), jurisdiction: z.string().optional(), codeFamilies: z.array(z.string()), sourceIds: z.array(z.string()), effectiveDate: z.string().optional(), verifiedBy: z.string().optional() })).mutation(({ input }) => buildSpecialtyCoordinationPlan(input.projectType, input)),
+    validateHost: protectedProcedure.input(z.object({ format: z.enum(["RVT", "DYN", "IFC"]), hostId: z.string().optional(), hostVersion: z.string().optional(), capabilities: z.array(z.string()) })).mutation(({ input }) => validateAuthorizedExchangeHost(input)),
     predimensioning: protectedProcedure.input(z.object({ projectId: z.string().min(1), use: z.string().min(1), floors: z.number().int().min(1).max(200), typicalSpanM: z.number().positive(), maxSpanM: z.number().positive().optional(), floorToFloorM: z.number().positive(), structuralSystem: z.enum(["REINFORCED_CONCRETE_FRAME", "STEEL_FRAME", "MASONRY", "TIMBER", "UNKNOWN"]), columnWidthM: z.number().positive().optional(), columnDepthM: z.number().positive().optional(), beamDepthM: z.number().positive().optional(), slabThicknessM: z.number().positive().optional(), wetAreaCount: z.number().int().min(0).optional(), electricalRoomCount: z.number().int().min(0).optional(), hvacRequired: z.boolean().optional(), healthcareCritical: z.boolean().optional(), serviceShaftCount: z.number().int().min(0).optional() })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return runPreliminaryPredimensioning(input); }),
+  }),
+  professionalReview: router({
+    contract: publicProcedure.query(() => professionalAuthorityContract()),
+    submit: protectedProcedure.input(z.object({ projectId: z.string().min(1), specialtyId: z.string().min(1), role: z.enum(["ARCHITECT", "STRUCTURAL_ENGINEER", "SANITARY_ENGINEER", "ELECTRICAL_ENGINEER", "MECHANICAL_ENGINEER", "FIRE_ENGINEER", "BIOSAFETY_SPECIALIST", "ENVIRONMENTAL_SPECIALIST", "SOMA_SPECIALIST", "TRAFFIC_ENGINEER", "BIM_MANAGER", "OTHER_SPECIALIST"]), packageVersion: z.string().min(1), evidenceIds: z.array(z.string()), calculations: z.array(z.string()), openUnknowns: z.array(z.string()), proposedCorrections: z.array(z.string()), reviewerIdentity: z.string().optional(), licenseOrCredentialReference: z.string().optional(), decision: z.enum(["ACCEPT", "ACCEPT_WITH_CORRECTIONS", "REJECT", "REQUEST_MORE_EVIDENCE"]) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return recordProfessionalReview(input); }),
   }),
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),
