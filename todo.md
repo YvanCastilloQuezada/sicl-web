@@ -533,9 +533,9 @@
 - [x] Mantener separación entre el motor único y hosts externos Dynamo/Revit/Rhino/Grasshopper.
 - [x] Generar migración `drizzle/0003_jazzy_colossus.sql` y aplicar tabla `arki_command_sessions`.
 - [x] Validar: `pnpm check` PASS; 53 test files / 257 tests PASS; `pnpm build` PASS; ruta `/arki-parametric-runtime` HTTP 200; `git diff --check` PASS.
-- [ ] PENDING_EXTERNAL: ejecutar `.dyn` en Dynamo/Revit autorizado y producir `.rvt` nativo.
-- [ ] PENDING_EXTERNAL: ejecutar `.ghx` en Rhino/Grasshopper autorizado y producir `.gh` nativo.
-- [ ] PENDING_EXTERNAL: activar endpoints reales de host, colas durables y benchmarks de carga externos.
+- [~] PENDING_EXTERNAL: ejecutar `.dyn` en Dynamo/Revit autorizado y producir `.rvt` nativo; requiere host autorizado no disponible localmente.
+- [~] PENDING_EXTERNAL: ejecutar `.ghx` en Rhino/Grasshopper autorizado y producir `.gh` nativo; requiere host autorizado no disponible localmente.
+- [~] PENDING_EXTERNAL: activar endpoints reales de host, colas durables y benchmarks de carga externos; requiere infraestructura externa.
 - [x] No se afirma que los binarios nativos profesionales hayan sido generados localmente.
 
 ## .ark canónico y ciclo de interpretación — cierre 2026-09-21
@@ -564,4 +564,4 @@
 - [x] Corregir el arranque con fallback estático de recuperación y convertir Home, Dashboard, CommandBar y Parametric Runtime en imports directos críticos.
 - [x] Validar `pnpm check`, `pnpm build`, suite focalizada de 54 archivos / 262 pruebas y `git diff --check`.
 - [x] Verificar visualmente el build estático: Home y `/arki-parametric-runtime` montan correctamente y muestran búsqueda, comandos y Ctrl+Y.
-- [ ] PENDING_EXTERNAL: actualizar el dominio publicado mediante el flujo de publicación WebDev si se requiere reflejar inmediatamente este checkpoint.
+- [~] PENDING_EXTERNAL: actualizar el dominio publicado mediante el flujo de publicación WebDev; no existe una herramienta de publicación disponible en esta sesión.
