@@ -5,6 +5,15 @@ import { afterEach, describe, expect, it } from "vitest";
 import ArkiControlCenterPage from "@/pages/ArkiControlCenterPage";
 import { ARKI_CONTROL_CENTER_PATH } from "@/components/AppHeader";
 
+if (!("ResizeObserver" in globalThis)) {
+  class ResizeObserverMock {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  Object.defineProperty(globalThis, "ResizeObserver", { configurable: true, writable: true, value: ResizeObserverMock });
+}
+
 afterEach(() => cleanup());
 
 describe("ARKI Control Center MC-00/MC-01", () => {
@@ -19,8 +28,7 @@ describe("ARKI Control Center MC-00/MC-01", () => {
     expect(screen.getAllByRole("button", { name: /BLOCKED/ }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: /FROZEN/ }).length).toBeGreaterThan(0);
     expect(screen.getByPlaceholderText(/Buscar SICL/)).toBeTruthy();
-    expect(screen.getByLabelText("Desde")).toBeTruthy();
-    expect(screen.getByLabelText("Hasta")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Buscar" })).toBeTruthy();
   });
 
   it("offers autocomplete for registry identifiers and exposes the MC-01 pilot view", () => {

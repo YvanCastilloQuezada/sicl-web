@@ -1,0 +1,18 @@
+{
+  "workbook": "/home/ubuntu/sicl-web/docs/arki-kr63/ARKI_Canonical_Knowledge_and_Reasoning_v6.3_MULTI_AGENT.xlsx",
+  "baseline_preserved": "/home/ubuntu/sicl-web/docs/arki-kr62/ARKI_Canonical_Knowledge_and_Reasoning_v6.2.xlsx",
+  "version": "v6.3",
+  "order": "SUPLEMENTO \u2014 ARKI MULTI-AGENT PROFESSIONAL SYSTEM",
+  "sheets_added": [
+    "AGENT_REGISTRY",
+    "AGENT_FAMILIES",
+    "AGENT_ORCHESTRATION",
+    "RECENT_CAPABILITIES",
+    "V6_3_METADATA"
+  ],
+  "agent_rows": 12,
+  "families": 6,
+  "orchestration_contracts": 6,
+  "recent_capabilities": 6,
+  "sha256": "6bcaff1db0ee07eb3827a5cbab25a88d4eb675cf29b802fb28b2528658d71691"
+}

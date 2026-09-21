@@ -97,3 +97,6 @@ The commercial facade is implemented in [`server/arkiCommercialApi.ts`](../../se
 ## ARKI Superpowers Pack 1.0
 
 `server/arkiSuperpowersPack.ts` adds five bounded transversal capabilities over the Unified Motor: consequence radar, value-of-information ranking, design divergence, architectural debt and counterfactual exploration. Evidence: `server/arkiSuperpowersPack.test.ts`. Status: `PASS_WITH_BOUNDS / HUMAN_REVIEW_REQUIRED`; no professional, regulatory, structural or construction completion claim.
+
+
+The external enterprise boundary and unresolved infrastructure gates are recorded in [`arki-enterprise/ARKI_ENTERPRISE_READINESS_GAPS.md`](../arki-enterprise/ARKI_ENTERPRISE_READINESS_GAPS.md). Local contracts and tests are validated; real SICL Core hosting, persistent storage, host firewall/HTTPS, native CAD/BIM/GIS adapters and commercial billing remain external gates and are not claimed as deployed.

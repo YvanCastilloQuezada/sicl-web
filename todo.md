@@ -469,3 +469,14 @@
 - [x] Revisar la detección de entorno y el uso de `SICL_ALLOW_LOCAL_CORE` en router, env y scripts de desarrollo.
 - [x] Añadir o actualizar una prueba Vitest que cubra preview/local explícito y producción sin URL.
 - [x] Verificar la página en preview y guardar checkpoint reproducible.
+
+
+## Suplemento 528 — ARKI Multi-Agent Professional System
+- [x] Preservar KR-6.2 sin sobrescribirlo.
+- [x] Consolidar AGENT-BRIEF, AGENT-PARTI, AGENT-REGULATION y AGENT-COST.
+- [x] Registrar Superpowers, Red Team, Contradiction Hunter y Cross-project Transfer con estados conservadores.
+- [x] Crear familias Direction/Coordination, Architecture, Engineering/Performance, Professional Feasibility, Production/Real World y Critical Intelligence/Learning.
+- [x] Registrar contratos de Project State único, comunicaciones estructuradas, autoridad humana y adaptadores externos.
+- [x] Generar y verificar `docs/arki-kr63/ARKI_Canonical_Knowledge_and_Reasoning_v6.3_MULTI_AGENT.xlsx`.
+- [x] Registrar explícitamente que A00–A59 no fueron enumerados literalmente en la orden recibida; no se inventaron nombres.
+- [x] Mantener límites: no declarar multi-agent intelligence demonstrated por la existencia del Registry.
