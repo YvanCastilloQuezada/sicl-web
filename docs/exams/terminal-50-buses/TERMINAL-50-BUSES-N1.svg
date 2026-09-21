@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920">
+<rect width="100%" height="100%" fill="#0b1f3a"/>
+<text x="40" y="42" fill="#f6f3ea" font-family="Arial" font-size="24" font-weight="700">TERMINAL INTERPROVINCIAL · N1</text>
+<text x="40" y="70" fill="#b8c7d9" font-family="Arial" font-size="13">Lámina N1-01 · pasajeros, embarque, llegadas y servicio · CONCEPTUAL / NO EJECUTIVO</text>
+<rect x="40" y="100" width="1420" height="730" fill="#edf2f4" stroke="#f6f3ea" stroke-width="3"/>
+<rect x="70" y="690" width="1360" height="110" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="78" y="710" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">PLAZA / DROP-OFF / ACCESO PRINCIPAL</text>
+<rect x="80" y="500" width="260" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="88" y="520" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">VESTÍBULO PRINCIPAL</text>
+<rect x="350" y="500" width="260" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="358" y="520" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">TAQUILLAS + INFORMACIÓN</text>
+<rect x="620" y="500" width="380" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="628" y="520" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">SALA DE ESPERA GENERAL</text>
+<rect x="1010" y="500" width="190" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="1018" y="520" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">SALA PREFERENCIAL</text>
+<rect x="1210" y="500" width="210" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="1218" y="520" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">SEGURIDAD</text>
+<rect x="80" y="300" width="380" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="88" y="320" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">EMBARQUE / PUERTAS 01–25</text>
+<rect x="470" y="300" width="380" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="478" y="320" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">EMBARQUE / PUERTAS 26–50</text>
+<rect x="860" y="300" width="260" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="868" y="320" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">LLEGADAS / DESEMBARQUE</text>
+<rect x="1130" y="300" width="290" height="170" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="1138" y="320" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">EQUIPAJE / RECLAMO</text>
+<rect x="80" y="130" width="250" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="88" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">CARGA Y DESCARGA</text>
+<rect x="340" y="130" width="220" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="348" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">ALMACÉN</text>
+<rect x="570" y="130" width="280" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="578" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">CLASIFICACIÓN EQUIPAJE</text>
+<rect x="860" y="130" width="200" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="868" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">RESIDUOS</text>
+<rect x="1070" y="130" width="170" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="1078" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">MANTENIMIENTO</text>
+<rect x="1250" y="130" width="170" height="140" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="1258" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">ELÉCTRICO</text>
+<line x1="60" y1="280" x2="60" y2="690" stroke="#2563eb" stroke-width="4" stroke-dasharray="12 8"/>
+<line x1="480" y1="280" x2="480" y2="690" stroke="#2563eb" stroke-width="4" stroke-dasharray="12 8"/>
+<line x1="870" y1="280" x2="870" y2="690" stroke="#2563eb" stroke-width="4" stroke-dasharray="12 8"/>
+<line x1="1140" y1="280" x2="1140" y2="690" stroke="#2563eb" stroke-width="4" stroke-dasharray="12 8"/>
+<line x1="80" y1="480" x2="1420" y2="480" stroke="#2563eb" stroke-width="5" stroke-dasharray="14 8"/>
+<line x1="80" y1="290" x2="1420" y2="290" stroke="#a16207" stroke-width="5" stroke-dasharray="14 8"/>
+<text x="70" y="865" fill="#f6f3ea" font-family="Arial" font-size="12">Azul = circulación pública · Ámbar = circulación/servicio posterior · puertas hacia dársenas al norte</text>
+<rect x="1260" y="100" width="16" height="16" fill="#8ecae6"/><text x="1284" y="113" fill="#f6f3ea" font-family="Arial" font-size="12">PUBLIC</text>
+<rect x="1260" y="124" width="16" height="16" fill="#f4a261"/><text x="1284" y="137" fill="#f6f3ea" font-family="Arial" font-size="12">BUS</text>
+<rect x="1260" y="148" width="16" height="16" fill="#e9c46a"/><text x="1284" y="161" fill="#f6f3ea" font-family="Arial" font-size="12">SERVICE</text>
+<rect x="1260" y="172" width="16" height="16" fill="#90be6d"/><text x="1284" y="185" fill="#f6f3ea" font-family="Arial" font-size="12">OPERATIONS</text>
+<rect x="1260" y="196" width="16" height="16" fill="#b8a1d9"/><text x="1284" y="209" fill="#f6f3ea" font-family="Arial" font-size="12">STAFF</text>
+</svg>

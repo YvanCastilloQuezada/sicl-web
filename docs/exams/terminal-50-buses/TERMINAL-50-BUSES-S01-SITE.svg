@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="950" viewBox="0 0 1400 950">
+<rect width="100%" height="100%" fill="#0b1f3a"/>
+<text x="40" y="42" fill="#f6f3ea" font-family="Arial" font-size="24" font-weight="700">TERMINAL INTERPROVINCIAL · 50 BUSES</text>
+<text x="40" y="70" fill="#b8c7d9" font-family="Arial" font-size="13">Lámina S-01 · esquema de sitio · 120 x 180 m · CONCEPTUAL / AI_PROPOSED</text>
+<rect x="40" y="100" width="1320" height="800" fill="#d8e2dc" stroke="#f6f3ea" stroke-width="3"/>
+<rect x="40" y="850" width="1320" height="50" fill="#4b5563"/><text x="560" y="882" fill="#fff" font-family="Arial" font-size="16">FRENTE PÚBLICO / ACCESO PRINCIPAL</text>
+<rect x="100" y="690" width="1160" height="130" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="108" y="710" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">EDIFICIO TERMINAL · N1/N2 · 120 x 28 m</text>
+<rect x="100" y="610" width="1160" height="70" rx="3" fill="#e9c46a" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="108" y="630" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">PATIO DE SERVICIO + CARGA/DESCARGA + RESIDUOS</text>
+<rect x="100" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B01</text>
+<rect x="212" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="220" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B02</text>
+<rect x="324" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="332" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B03</text>
+<rect x="436" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="444" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B04</text>
+<rect x="548" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="556" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B05</text>
+<rect x="660" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="668" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B06</text>
+<rect x="772" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="780" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B07</text>
+<rect x="884" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="892" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B08</text>
+<rect x="996" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1004" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B09</text>
+<rect x="1108" y="130" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1116" y="150" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B10</text>
+<rect x="100" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B11</text>
+<rect x="212" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="220" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B12</text>
+<rect x="324" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="332" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B13</text>
+<rect x="436" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="444" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B14</text>
+<rect x="548" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="556" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B15</text>
+<rect x="660" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="668" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B16</text>
+<rect x="772" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="780" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B17</text>
+<rect x="884" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="892" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B18</text>
+<rect x="996" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1004" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B19</text>
+<rect x="1108" y="218" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1116" y="238" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B20</text>
+<rect x="100" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B21</text>
+<rect x="212" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="220" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B22</text>
+<rect x="324" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="332" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B23</text>
+<rect x="436" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="444" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B24</text>
+<rect x="548" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="556" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B25</text>
+<rect x="660" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="668" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B26</text>
+<rect x="772" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="780" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B27</text>
+<rect x="884" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="892" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B28</text>
+<rect x="996" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1004" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B29</text>
+<rect x="1108" y="306" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1116" y="326" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B30</text>
+<rect x="100" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B31</text>
+<rect x="212" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="220" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B32</text>
+<rect x="324" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="332" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B33</text>
+<rect x="436" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="444" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B34</text>
+<rect x="548" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="556" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B35</text>
+<rect x="660" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="668" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B36</text>
+<rect x="772" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="780" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B37</text>
+<rect x="884" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="892" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B38</text>
+<rect x="996" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1004" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B39</text>
+<rect x="1108" y="394" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1116" y="414" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B40</text>
+<rect x="100" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B41</text>
+<rect x="212" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="220" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B42</text>
+<rect x="324" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="332" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B43</text>
+<rect x="436" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="444" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B44</text>
+<rect x="548" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="556" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B45</text>
+<rect x="660" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="668" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B46</text>
+<rect x="772" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="780" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B47</text>
+<rect x="884" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="892" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B48</text>
+<rect x="996" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1004" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B49</text>
+<rect x="1108" y="482" width="100" height="62" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="1116" y="502" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">B50</text>
+<line x1="80" y1="200" x2="1280" y2="200" stroke="#7f5539" stroke-width="6" stroke-dasharray="14 8"/>
+<line x1="80" y1="288" x2="1280" y2="288" stroke="#7f5539" stroke-width="6" stroke-dasharray="14 8"/>
+<line x1="80" y1="376" x2="1280" y2="376" stroke="#7f5539" stroke-width="6" stroke-dasharray="14 8"/>
+<line x1="80" y1="464" x2="1280" y2="464" stroke="#7f5539" stroke-width="6" stroke-dasharray="14 8"/>
+<line x1="80" y1="552" x2="1280" y2="552" stroke="#7f5539" stroke-width="6" stroke-dasharray="14 8"/>
+<rect x="100" y="535" width="1160" height="65" rx="3" fill="#f4a261" fill-opacity="0.86" stroke="#10233f" stroke-width="2"/>
+<text x="108" y="555" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">PATIO DE MANIOBRAS / CONTROL DE BUSES</text>
+<rect x="100" y="830" width="300" height="20" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="108" y="850" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">TAXIS / DROP-OFF</text>
+<rect x="420" y="830" width="360" height="20" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="428" y="850" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">ESTACIONAMIENTO AUTOS</text>
+<rect x="800" y="830" width="460" height="20" rx="3" fill="#8ecae6" fill-opacity="0.86" stroke="#10233f" stroke-width="1"/>
+<text x="808" y="850" fill="#10233f" font-family="Arial" font-size="12" font-weight="700">SALIDA PEATONAL CONTROLADA</text>
+<rect x="1190" y="105" width="16" height="16" fill="#8ecae6"/><text x="1214" y="118" fill="#f6f3ea" font-family="Arial" font-size="12">PUBLIC</text>
+<rect x="1190" y="129" width="16" height="16" fill="#f4a261"/><text x="1214" y="142" fill="#f6f3ea" font-family="Arial" font-size="12">BUS</text>
+<rect x="1190" y="153" width="16" height="16" fill="#e9c46a"/><text x="1214" y="166" fill="#f6f3ea" font-family="Arial" font-size="12">SERVICE</text>
+<rect x="1190" y="177" width="16" height="16" fill="#90be6d"/><text x="1214" y="190" fill="#f6f3ea" font-family="Arial" font-size="12">OPERATIONS</text>
+<rect x="1190" y="201" width="16" height="16" fill="#b8a1d9"/><text x="1214" y="214" fill="#f6f3ea" font-family="Arial" font-size="12">STAFF</text>
+<text x="70" y="925" fill="#f6f3ea" font-family="Arial" font-size="12">Flujos: pasajeros por frente sur · buses por dársenas norte · servicio por banda posterior independiente</text>
+</svg>
