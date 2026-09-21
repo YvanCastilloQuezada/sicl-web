@@ -72,3 +72,13 @@ El runtime reutiliza directamente el mismo `commands-catalog.json` que usa la Es
 Estos comandos conservan su nombre, sintaxis y significado canónicos. El contexto activo añade el proyecto, el artefacto `.ark`, la geometría y la provenance del runtime. Los controles gráficos siguen siendo una segunda representación de la misma intención: sus resultados se incluyen en el preview como `canonicalCommand`, `commandSyntax` y `commandContext`.
 
 `/ALTERNATIVE PROMOTE` y `/DECISION RECORD` aparecen como operaciones controladas, pero no se ejecutan automáticamente. Requieren revisión y autoridad humana. Si una acción paramétrica no tiene una representación canónica compatible, se conserva como interacción de interfaz y no se inventa un comando nuevo.
+
+## 13. Shortcuts humanos y estados operativos
+
+El runtime incorpora un resolver reutilizable que se apoya en la normalización existente de `CommandBar.tsx`. Los shortcuts son una interfaz humana, no una nueva semántica. Por ejemplo, `/gen` se convierte visiblemente en `/GENERATE DESIGN`, mientras que el Core continúa recibiendo únicamente la forma canónica cuando exista una ejecución autorizada.
+
+Los shortcuts registrados se validan de forma fail-closed: una entrada desconocida no se inventa, y cualquier ambigüedad debe mostrar candidatos o bloquearse. Entre los shortcuts de baja fricción se encuentran `/o` para abrir proyecto, `/obj` para objetivo, `/con` para restricción, `/fact`, `/assume`, `/evidence`, `/review`, `/gen`, `/gl`, `/gs`, `/gm`, `/site`, `/reg`, `/pareto`, `/snap`, `/status`, `/hist` y `/decide`. `/decide` conserva explícitamente el requisito de autoridad humana.
+
+El runtime separa tres estados. **EXPLORE** actualiza la geometría y la previsualización sin modificar automáticamente el estado canónico. **APPLY** prepara una aplicación explícita y debe registrar actor, proyecto, valores anterior y nuevo, fuente, provenance y acción canónica cuando exista equivalencia. **DECIDE** queda reservado a la autoridad humana; una previsualización, inferencia, generación o importación nunca se promueve por sí sola a decisión o FACT.
+
+La vista contextual muestra los comandos esenciales pertinentes y permite alternar a los 67 comandos del catálogo canónico v2.2.0. Esta opción no duplica el catálogo: solo cambia el filtro de presentación.
