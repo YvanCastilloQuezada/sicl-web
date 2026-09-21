@@ -220,7 +220,7 @@ function DashboardLayoutContent({
                       isActive={isActive}
                       onClick={() => setLocation(item.path)}
                       tooltip={t(item.label)}
-                      className={`h-10 transition-all font-normal`}
+                      className={`h-10 transition-all font-normal ${item.path === "/arki-parametric-runtime" ? "bg-[#f0a35b] text-black hover:bg-[#f6c995] data-[active=true]:bg-[#f0a35b] data-[active=true]:text-black" : ""}`}
                     >
                       <item.icon
                         className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
