@@ -23,13 +23,17 @@
 
   <body>
     <div id="root"><div style="min-height:100vh;background:#071a30;color:#edf4ff;display:grid;place-items:center;font-family:system-ui,sans-serif"><div style="text-align:center"><strong style="display:block;font-size:1.25rem;letter-spacing:.12em">ARKI</strong><span style="display:block;margin-top:.5rem;opacity:.7">Cargando Architectural Intelligence Workspace…</span></div></div></div>
-    <script type="module">
-      import("/src/main.tsx").catch((error) => {
-        const root = document.getElementById("root");
-        if (root) root.innerHTML = '<div style="min-height:100vh;background:#071a30;color:#edf4ff;display:grid;place-items:center;font-family:system-ui,sans-serif;padding:2rem"><div style="max-width:42rem;text-align:center"><strong style="display:block;font-size:1.25rem;letter-spacing:.12em">ARKI</strong><p style="margin-top:1rem">No se pudo cargar la interfaz. Recarga la página o revisa el registro técnico.</p><pre style="margin-top:1rem;white-space:pre-wrap;text-align:left;color:#f6c995;font-size:.75rem">' + String(error?.message || error) + '</pre><button onclick="location.reload()" style="margin-top:1rem;padding:.65rem 1rem;border:0;border-radius:.5rem;background:#f0a35b;color:#071a30;font-weight:700">Recargar ARKI</button></div></div>';
-        console.error("[ARKI_BOOT_ERROR]", error);
+    <script>
+      window.addEventListener("error", function (event) {
+        var root = document.getElementById("root");
+        if (root) root.innerHTML = '<div style="min-height:100vh;background:#071a30;color:#edf4ff;display:grid;place-items:center;font-family:system-ui,sans-serif;padding:2rem"><div style="max-width:42rem;text-align:center"><strong style="display:block;font-size:1.25rem;letter-spacing:.12em">ARKI</strong><p style="margin-top:1rem">No se pudo montar la interfaz React.</p><pre style="margin-top:1rem;white-space:pre-wrap;text-align:left;color:#f6c995;font-size:.75rem">' + String(event.message || "Error de bootstrap") + '</pre><button onclick="location.reload()" style="margin-top:1rem;padding:.65rem 1rem;border:0;border-radius:.5rem;background:#f0a35b;color:#071a30;font-weight:700">Recargar ARKI</button></div></div>';
+        console.error("[ARKI_BOOT_ERROR]", event.error || event.message);
+      });
+      window.addEventListener("unhandledrejection", function (event) {
+        console.error("[ARKI_BOOT_REJECTION]", event.reason);
       });
     </script>
+    <script type="module" src="./src/main.tsx"></script>
     <script
       defer
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
