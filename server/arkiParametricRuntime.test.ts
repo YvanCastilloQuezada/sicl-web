@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog } from "./arkiParametricRuntime";
+import { createArkProposal, serializeArkProposal } from "./arkiParametricExchange";
 
 describe("ARKI parametric runtime", () => {
   it("catalogs external hosts without pretending they are installed", () => {
@@ -20,7 +21,7 @@ describe("ARKI parametric runtime", () => {
   });
 
   it("reads governed ARK proposals as inspectable volumetric artifacts", () => {
-    const ark = inspectParametricArtifact({ fileName: "casa_yvan.ark", content: JSON.stringify({ formatVersion: "ARKI-ARK-1.0", projectId: "ABC-DEF-123-456", name: "casa_yvan", source: { provenance: ["test"] }, geometry: { kind: "RECTANGULAR_MASS", width: 20, depth: 12, height: 3.2, floors: 2 }, observations: [], unknowns: [], humanReviewRequired: true, createdAt: new Date().toISOString() }) });
+    const ark = inspectParametricArtifact({ fileName: "casa_yvan.ark", content: serializeArkProposal(createArkProposal({ projectId: "ABC-DEF-123-456", name: "casa_yvan", source: { provenance: ["test"] }, geometry: { kind: "RECTANGULAR_MASS", width: 20, depth: 12, height: 3.2, floors: 2 } })) });
     expect(ark).toMatchObject({ format: "ARK", parsed: true, status: "INSPECTED" });
     expect(ark.declaredDependencies).toContain("test");
   });

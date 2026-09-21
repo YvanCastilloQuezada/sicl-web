@@ -537,3 +537,11 @@
 - [ ] PENDING_EXTERNAL: ejecutar `.ghx` en Rhino/Grasshopper autorizado y producir `.gh` nativo.
 - [ ] PENDING_EXTERNAL: activar endpoints reales de host, colas durables y benchmarks de carga externos.
 - [x] No se afirma que los binarios nativos profesionales hayan sido generados localmente.
+
+## .ark canónico y ciclo de interpretación — cierre 2026-09-21
+- [x] Extender `ARKI-ARK-1.0` con manifest, project, geometry, semantics, provenance, requirements, objectives, constraints, preferences, alternatives, evaluations, unknowns, conflicts, decisions, history y externalArtifacts.
+- [x] Distinguir entidades y relaciones OBSERVED frente a INFERRED sin promover inferencias a hechos.
+- [x] Implementar interpretación local con observados, inferidos, UNKNOWNs, conflictos, déficits, oportunidades y próximos pasos.
+- [x] Preservar el ciclo IMPORT → INTERPRET → revisión humana → ASSIMILATE sin convertir automáticamente una geometría en decisión arquitectónica.
+- [x] Validar nuevamente TypeScript, build, suite completa de 53 archivos / 257 pruebas y `git diff --check`.
+- [x] PENDING_EXTERNAL: evaluación normativa, selección de alternativas y decisión requieren proyecto poblado, evidencia y autoridad humana.
