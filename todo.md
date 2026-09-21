@@ -607,3 +607,12 @@
 - [x] Mantener servidor/SICL Core como autoridad para identidad, permisos, persistencia, publicación y auditoría.
 - [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS y diff PASS.
 - [x] La prueba física Android moderno/antiguo/iPhone queda `PHYSICAL_VALIDATION_REQUIRED`; el navegador sandbox no sustituye dispositivos reales.
+
+## Fallback 3D local para dispositivos sin AR
+- [x] Reutilizar el visor 3D existente `/spatial?mode=3d` basado en Three.js/React Three Fiber.
+- [x] Añadir en Field Mode el botón `Abrir visualización 3D alternativa`.
+- [x] Mantener la misma `SpatialRepresentation` canónica para 2D, 3D y AR; no crear geometría paralela.
+- [x] Conservar órbita, paneo, zoom, reset de cámara, selección de masas y métricas.
+- [x] Documentar degradación progresiva: WebXR → cámara/orientación → 3D local → 2D/métricas.
+- [x] Validar `pnpm check`, build, suite completa de 264 pruebas y `git diff --check` PASS.
+- [x] Mantener el límite: 3D local no equivale a tracking espacial ni anclaje físico.
