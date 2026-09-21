@@ -1,0 +1,33 @@
+{
+  "batchId": "ARKI-CURRICULUM-BATCH-C-2026-09-21",
+  "status": "READY_FOR_HUMAN_REVIEW",
+  "canonization": "NOT_PERFORMED",
+  "scope": [
+    "architecture",
+    "landscape",
+    "urbanism",
+    "civil-infrastructure",
+    "sanitary-water",
+    "structural-predimensioning",
+    "electrical-energy"
+  ],
+  "reports": [
+    "docs/arki-research/curriculum-architecture-2026-09-21.md",
+    "docs/arki-research/curriculum-landscape-2026-09-21.md",
+    "docs/arki-research/curriculum-urbanism-2026-09-21.md",
+    "docs/arki-research/curriculum-civil-2026-09-21.md",
+    "docs/arki-research/curriculum-sanitary-2026-09-21.md",
+    "docs/arki-research/curriculum-structural-2026-09-21.md",
+    "docs/arki-research/curriculum-electrical-2026-09-21.md"
+  ],
+  "masterPlan": "docs/arki-research/ARKI_MASTER_CURRICULUM_AND_LIBRARY_PLAN_2026-09-21.md",
+  "selectionRule": "Ten reference graduate programs per specialty, selected by triangulation of official curricula, research environment, professional signals, discipline rankings as context, and transferability; not an absolute ranking.",
+  "libraryRule": "A book is a candidate until its source, edition, rights, jurisdiction and curricular use are verified; no full copyrighted book ingestion is implied.",
+  "nextGates": [
+    "Human academic review of program and bibliography selection",
+    "Official verification of current Peruvian norms and UNI references",
+    "Rights and licensing review before ingestion",
+    "Specialist review for high-risk structural, sanitary, electrical, fire and contractual content",
+    "Learning assessment before any capability is marked demonstrated"
+  ]
+}

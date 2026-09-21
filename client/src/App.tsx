@@ -31,6 +31,7 @@ const SecurityEventsPage = lazy(() => import("./pages/SecurityEventsPage"));
 const ArkiResearchReviewPage = lazy(() => import("./pages/ArkiResearchReviewPage"));
 const ArkiBimViewerPage = lazy(() => import("./pages/ArkiBimViewerPage"));
 const ArkiHostConnectionsPage = lazy(() => import("./pages/ArkiHostConnectionsPage"));
+const ArkiSelfCarePage = lazy(() => import("./pages/ArkiSelfCarePage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -79,6 +80,7 @@ function Router() {
       <Route path={"/arki-parametric-runtime"}>{() => <ArkiParametricRuntimePage />}</Route>
       <Route path={"/arki-bim-visor"}>{() => <ArkiBimViewerPage />}</Route>
       <Route path={"/arki-host-connections"}>{() => <ArkiHostConnectionsPage />}</Route>
+      <Route path={"/arki-self-care"}>{() => <ArkiSelfCarePage />}</Route>
       <Route path={"/field"} component={FieldModePage} />
       <Route path={"/security-events"}>{() => <DashboardLayout><SecurityEventsPage /></DashboardLayout>}</Route>
       <Route path={"/arki-research-review"} component={ArkiResearchReviewPage} />

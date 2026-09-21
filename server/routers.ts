@@ -23,7 +23,7 @@ import { AGENT_REGISTRY } from "./arkiAgentRegistry";
 import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
 import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog, type ParametricGraph } from "./arkiParametricRuntime";
 import { publishParametricEvent } from "./parametricRealtime";
-import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
+import { executeAuthorizedHostWorker, hostWorkerCatalog, probeConfiguredHost } from "./parametricHostWorkers";
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, authorizeCoreOperation, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
@@ -39,6 +39,7 @@ import { ARKI_TRANSVERSAL_SPECIALTIES, buildSpecialtyCoordinationPlan, validateA
 import { professionalAuthorityContract, recordProfessionalReview } from "./arkiProfessionalReview";
 import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } from "./arkiIfc4";
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
+import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -199,6 +200,11 @@ export const appRouter = router({
     contract: publicProcedure.query(() => professionalAuthorityContract()),
     submit: protectedProcedure.input(z.object({ projectId: z.string().min(1), specialtyId: z.string().min(1), role: z.enum(["ARCHITECT", "STRUCTURAL_ENGINEER", "SANITARY_ENGINEER", "ELECTRICAL_ENGINEER", "MECHANICAL_ENGINEER", "FIRE_ENGINEER", "BIOSAFETY_SPECIALIST", "ENVIRONMENTAL_SPECIALIST", "SOMA_SPECIALIST", "TRAFFIC_ENGINEER", "BIM_MANAGER", "OTHER_SPECIALIST"]), packageVersion: z.string().min(1), evidenceIds: z.array(z.string()), calculations: z.array(z.string()), openUnknowns: z.array(z.string()), proposedCorrections: z.array(z.string()), reviewerIdentity: z.string().optional(), licenseOrCredentialReference: z.string().optional(), decision: z.enum(["ACCEPT", "ACCEPT_WITH_CORRECTIONS", "REJECT", "REQUEST_MORE_EVIDENCE"]) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return recordProfessionalReview(input); }),
   }),
+  selfCareProposals: router({
+    list: adminProcedure.query(() => listSelfCareProposals()),
+    propose: adminProcedure.input(z.object({ kind: z.enum(["REPAIR", "IMPROVEMENT"]), title: z.string().min(3).max(180), summary: z.string().min(10).max(3000), risk: z.enum(["LOW", "MEDIUM", "HIGH"]), files: z.array(z.string().min(1)).max(100), expectedTests: z.array(z.string().min(1)).max(100), rollback: z.string().min(5).max(1000) })).mutation(({ ctx, input }) => { requireOwnerHumanAuthority(ctx); return stageSelfCareProposal(input); }),
+    decide: adminProcedure.input(z.object({ proposalId: z.string().min(1), decision: z.enum(["APPROVED", "REJECTED"]), rationale: z.string().min(5).max(2000) })).mutation(({ ctx, input }) => { requireOwnerHumanAuthority(ctx); return decideSelfCareProposal({ ...input, actorId: ctx.user.openId }); }),
+  }),
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),
     recentEvents: adminProcedure.input(z.object({ limit: z.number().int().min(1).max(500).default(100) })).query(({ input }) => ({ events: listSecurityEvents(input.limit), retention: "IN_MEMORY_RING_BUFFER", auditIntegrity: verifySecurityEventChain(), note: "Production persistence requires the enterprise audit store." })),
@@ -259,7 +265,8 @@ export const appRouter = router({
     assimilateArk: protectedProcedure.input(z.object({ projectId: z.string().min(3), content: z.string().max(5_000_000) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); const proposal = parseArkProposal(input.content); if (!("formatVersion" in proposal)) return proposal; return architecturalAssimilation(proposal); }),
     hostWorkers: router({
       catalog: publicProcedure.query(() => hostWorkerCatalog()),
-      dispatch: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1), kind: z.enum(["DYNAMO_REVIT", "RHINO_GRASSHOPPER", "BLENDER"]), command: z.enum(["VALIDATE", "EXECUTE", "EXPORT"]), payload: z.record(z.string(), z.unknown()), humanReviewApproved: z.literal(true) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return executeAuthorizedHostWorker(input); }),
+      probe: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1), kind: z.enum(["REVIT", "DYNAMO_REVIT", "RHINO_GRASSHOPPER", "BLENDER"]) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return probeConfiguredHost(input); }),
+      dispatch: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1), kind: z.enum(["REVIT", "DYNAMO_REVIT", "RHINO_GRASSHOPPER", "BLENDER"]), command: z.enum(["VALIDATE", "EXECUTE", "EXPORT"]), payload: z.record(z.string(), z.unknown()), humanReviewApproved: z.literal(true) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return executeAuthorizedHostWorker(input); }),
     }),
     sessions: router({
       list: protectedProcedure.input(z.object({ projectId: z.string().min(3) })).query(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return listArkiCommandSessions(ctx.user.id, input.projectId); }),
