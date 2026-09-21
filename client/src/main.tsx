@@ -6,6 +6,8 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import { startLogin } from "./const";
 import "./index.css";
+import "./i18n";
+import App from "./App";
 
 const root = document.getElementById("root");
 const bootStage = (stage: string) => {
@@ -75,19 +77,17 @@ if (import.meta.env.PROD && "serviceWorker" in navigator) {
   });
 }
 
-bootStage("IMPORTING_I18N_AND_APP");
-void import("./i18n")
-  .then(() => import("./App"))
-  .then(({ default: App }) => {
-    bootStage("REACT_MOUNTING");
-    if (!root) throw new Error("#root not found");
-    createRoot(root).render(
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </trpc.Provider>,
-    );
-    queueMicrotask(() => bootStage("REACT_MOUNTED"));
-  })
-  .catch((error) => showBootError(error, root?.getAttribute("data-arki-boot-stage") ?? "UNKNOWN"));
+bootStage("REACT_MOUNTING");
+try {
+  if (!root) throw new Error("#root not found");
+  createRoot(root).render(
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </trpc.Provider>,
+  );
+  queueMicrotask(() => bootStage("REACT_MOUNTED"));
+} catch (error) {
+  showBootError(error, root?.getAttribute("data-arki-boot-stage") ?? "UNKNOWN");
+}

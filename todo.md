@@ -625,3 +625,15 @@
 - [x] Preservar autenticación, Project State, decisiones, permisos y persistencia canónica en servidor.
 - [x] Documentar límites: PWA no equivale a app nativa ni garantiza WebXR/cámara/GPS en todos los equipos.
 - [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS, validación estática PWA PASS, HTTP smoke PASS y `git diff --check` PASS.
+
+## ARKI THREE-LAYER ARCHITECTURE v1 — cierre local verificado
+- [x] Clasificar responsabilidades reales en EDGE, BRAIN, CORE/TRUST y CROSS-CUTTING con mapa forense de dependencias, riesgos y decisión de no mover masivamente archivos.
+- [x] Implementar contrato `server/arkiThreeLayerArchitecture.ts` con ownership, dependencias permitidas, autoridad, estados epistémicos, aislamiento y observabilidad acotada.
+- [x] Exponer `architecture.contract`, `architecture.layers` y `architecture.verticalProof` como endpoints read-only sin crear motor paralelo.
+- [x] Reutilizar Unified Motor, SICL Core, resolver canónico y Project State existentes.
+- [x] Cubrir contract tests A–G: preview no muta Core, candidato no es decisión, Core valida/autoriza, permisos inválidos se rechazan, UNKNOWN no se promueve, Human Authority es obligatoria y fallos se aíslan.
+- [x] Ejecutar prueba vertical USER → EDGE → PARAMETRIC_EXPLORE → BRAIN_ANALYSIS → USER_APPLY → COMMAND_RESOLUTION → CORE_VALIDATION → PROJECT_STATE → HISTORY → CLOSE → REOPEN.
+- [x] `pnpm check` PASS; suite completa 56 archivos / 271 tests PASS; `pnpm build` PASS; `git diff --check` PASS.
+- [x] Preview de producción 4176: Home monta, First Contact visible, `/arki-parametric-runtime` monta, 67 ejemplos y controles visibles, consola sin errores.
+- [x] Diagnóstico del dev server: tras muchas recargas el navegador recibió `Too many requests`; preview limpio de producción fue la evidencia válida y no mostró el fallo.
+- [x] Sentinel, Red, motores nuevos, comandos nuevos, aprendizaje autónomo, integraciones externas y despliegue productivo permanecen NOT_IMPLEMENTED/PENDING_EXTERNAL según alcance autorizado.

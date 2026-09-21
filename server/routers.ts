@@ -26,6 +26,7 @@ import { publishParametricEvent } from "./parametricRealtime";
 import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 import { spatialArCatalog } from "./arkiSpatialAr";
+import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -119,6 +120,11 @@ export const appRouter = router({
   }),
   spatialAr: router({
     catalog: publicProcedure.query(() => spatialArCatalog()),
+  }),
+  architecture: router({
+    contract: publicProcedure.query(() => architectureContractSummary()),
+    layers: publicProcedure.query(() => layerCatalog()),
+    verticalProof: publicProcedure.query(() => verticalFlowProof()),
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),

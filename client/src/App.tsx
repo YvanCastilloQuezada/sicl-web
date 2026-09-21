@@ -24,8 +24,8 @@ const SourceLibraryPage = lazy(() => import("./pages/SourceLibraryPage"));
 const ArkiControlCenterPage = lazy(() => import("./pages/ArkiControlCenterPage"));
 const ParametricFilesPage = lazy(() => import("./pages/ParametricFilesPage"));
 const ArkiOperationsPage = lazy(() => import("./pages/ArkiOperationsPage"));
-import ArkiParametricRuntimePage from "./pages/ArkiParametricRuntimePage";
-import FieldModePage from "./pages/FieldModePage";
+const ArkiParametricRuntimePage = lazy(() => import("./pages/ArkiParametricRuntimePage"));
+const FieldModePage = lazy(() => import("./pages/FieldModePage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
