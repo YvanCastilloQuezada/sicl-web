@@ -64,6 +64,8 @@ The total activation run `ACT-TER-250-001` is recorded in [`arki-unified-motor/A
 
 The explicit authority profile is documented in [`arki-unified-motor/ARKI_AUTHORITY_PROFILE.md`](../../arki-unified-motor/ARKI_AUTHORITY_PROFILE.md). It grants operational permission to MC-02, MC-03, FKCG-02, DS-EVAL-001 and DG-01B while preserving their evidence, review and human-authority gates.
 
+The broader `ARKI-SYSTEM-AUTHORITY-2.0` profile is documented in [`arki-unified-motor/ARKI_SYSTEM_AUTHORITY_2.0.md`](../../arki-unified-motor/ARKI_SYSTEM_AUTHORITY_2.0.md). It grants the remaining orchestration, research, synthesis, evaluation, representation and audit powers within the one-motor rule.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
