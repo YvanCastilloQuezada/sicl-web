@@ -12,8 +12,8 @@
 - [x] Autenticación integrada con Manus OAuth y autorización por proyecto.
 - [x] Diseño visual Command Center elegante, sobrio, profesional y responsive.
 - [x] Pruebas Vitest para invariantes de backend, read-only y autoridad humana.
-- [ ] Verificación visual y funcional en navegador en escritorio y móvil.
-- [ ] Checkpoint final reproducible antes de entregar.
+- [x] Verificación visual y funcional en navegador en escritorio y móvil.
+- [x] Checkpoint final reproducible antes de entregar.
 
 ## Auditoría de integración — pendientes añadidos
 
