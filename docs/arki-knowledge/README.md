@@ -48,6 +48,10 @@ The external evaluation **DS-EVAL-01 / EXTERNAL_EVALUATION_EVIDENCE_001** is pre
 
 The FKCG-02 workbook is preserved under [`fundamental-research/FKCG-02/`](fundamental-research/FKCG-02/) as **PRESERVED / REVIEWED / NOT CANONIZED / NOT IMPLEMENTED**. It records the A–F responsibility map, source genealogy, surviving principles, corrections, UNKNOWNs and DG-01–DG-05 demonstration gaps. It does not create a new system, engine, primitive, schema or runtime capability; DG-01 remains `SPECIFICATION_PENDING_PRODUCT_OWNER_AUTHORIZATION`.
 
+## Demonstration gates
+
+The DG-01 applicability specification is preserved under [`demonstration-gates/DG-01/`](demonstration-gates/DG-01/) as **SPECIFIED / NOT IMPLEMENTED / NOT DEMONSTRATED**. It defines a falsifiable twelve-case experiment, P1–P12 evidence criteria, failure taxonomy, A–F mapping and Human Authority boundary. It does not authorize execution, a new applicability engine, ontology changes, runtime work, learning promotion or DG-02.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
