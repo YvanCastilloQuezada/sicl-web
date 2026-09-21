@@ -1,0 +1,11 @@
+{
+  "master": "ARKI_CORPORATION_MASTER_ARCHITECTURE.xlsx",
+  "generated_at": "2026-09-21T04:23:44.836311+00:00",
+  "unit_count": 13,
+  "organigram_nodes": 7,
+  "gates_pass": 5,
+  "unknown_or_documentary_units": 4,
+  "gate": "GATE_CORPORATION_CONSOLIDATED = PASS",
+  "implementation_performed": false,
+  "mc03_prerequisites_pass": true
+}
