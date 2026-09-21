@@ -598,3 +598,12 @@
 - [x] Mostrar estados `CHECKING_CAPABILITIES`, `IMMERSIVE_AR_RUNNING`, `NO_HIT_TEST`, `CAMERA_ORIENTATION_FALLBACK` y `AR_UNAVAILABLE`.
 - [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS, diff PASS.
 - [x] Mantener `PHYSICAL_VALIDATION_REQUIRED`: no se declara compatibilidad universal ni anclaje validado sin pruebas en teléfonos reales.
+
+## Reinicio AR y seguridad de ejecución móvil
+- [x] Añadir botón `Reiniciar detección` durante una sesión WebXR activa.
+- [x] El reinicio cierra la sesión, libera hit-test/reference-space, limpia superficie/anclaje y vuelve a comprobar capabilities.
+- [x] Añadir `Reintentar AR` cuando el runtime queda en fallback o no disponible.
+- [x] Documentar que el código en el teléfono es inspeccionable y no confiable: no incluir secretos, autorización definitiva ni tokens permanentes.
+- [x] Mantener servidor/SICL Core como autoridad para identidad, permisos, persistencia, publicación y auditoría.
+- [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS y diff PASS.
+- [x] La prueba física Android moderno/antiguo/iPhone queda `PHYSICAL_VALIDATION_REQUIRED`; el navegador sandbox no sustituye dispositivos reales.
