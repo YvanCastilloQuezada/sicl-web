@@ -33,6 +33,7 @@ import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, 
 import { ENV } from "./_core/env";
 import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntelligence";
 import { arkiEtiBimContract } from "./arkiEtiBim";
+import { arkiBimViewerContract, detectBimInterferences, inspectBimArtifact, type BimViewerModel } from "./arkiBimViewer";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -162,6 +163,17 @@ export const appRouter = router({
   }),
   etiBim: router({
     contract: publicProcedure.query(() => arkiEtiBimContract()),
+  }),
+  bimViewer: router({
+    contract: publicProcedure.query(() => arkiBimViewerContract()),
+    inspect: protectedProcedure.input(z.object({ projectId: z.string().min(1), fileName: z.string().min(1), content: z.string().max(25_000_000) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return inspectBimArtifact(input.fileName, input.content);
+    }),
+    clashes: protectedProcedure.input(z.object({ projectId: z.string().min(1), tolerance: z.number().positive().max(1).optional(), models: z.array(z.unknown()).max(100) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return detectBimInterferences(input.models as BimViewerModel[], input.tolerance);
+    }),
   }),
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),

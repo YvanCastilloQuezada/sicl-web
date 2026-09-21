@@ -22,8 +22,9 @@ const input: AgentOrchestrationInput = {
 };
 
 describe("ARKI KR-6.3 Agent Registry", () => {
-  it("contains the 12 known agents and preserves the A00-A59 boundary", () => {
-    expect(AGENT_REGISTRY).toHaveLength(12);
+  it("contains the core and expanded multidisciplinary agents while preserving the A00-A59 boundary", () => {
+    expect(AGENT_REGISTRY.length).toBeGreaterThanOrEqual(25);
+    expect(AGENT_REGISTRY.map((agent) => agent.id)).toEqual(expect.arrayContaining(["AGENT-SYSTEMS", "AGENT-SOFTWARE", "AGENT-ECONOMICS", "AGENT-ACCOUNTING", "AGENT-FINANCE", "AGENT-OPERATIONS-RESEARCH", "AGENT-INDUSTRIAL", "AGENT-AGRICULTURAL", "AGENT-FORESTRY"]));
     expect(AGENT_FAMILIES).toHaveLength(6);
     expect(agentRegistrySummary().notDemonstratedExternalSpecialists).toContain("A00–A59 target catalog");
   });
