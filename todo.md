@@ -554,3 +554,14 @@
 - [x] Mantener `/ALTERNATIVE PROMOTE` y `/DECISION RECORD` como acciones controladas por Human Authority, sin ejecución automática.
 - [x] Documentar la integración en `ARKI_OPERATIONS_MANUAL.md`.
 - [x] Validar TypeScript, build, suite completa de 53 archivos / 257 pruebas y `git diff --check`.
+
+## Runtime estable y búsqueda de parámetros — 2026-09-21
+- [x] Añadir barra de búsqueda para filtrar parámetros por nombre, clave, unidad y descripción.
+- [x] Añadir barra de comandos persistente en ARKI-PARAMETRIC-RUNTIME con resolver canónico compartido.
+- [x] Añadir atajo `Ctrl+Y` / `Cmd+Y` para enfocar la barra de comandos del runtime.
+- [x] Añadir encabezado y pie de página personalizados al PDF de decisión humana aprobada, con proyecto y fecha actual.
+- [x] Diagnosticar la pantalla blanca: el servidor entregaba HTML, pero el arranque quedaba esperando módulos críticos y solo mostraba el fallback.
+- [x] Corregir el arranque con fallback estático de recuperación y convertir Home, Dashboard, CommandBar y Parametric Runtime en imports directos críticos.
+- [x] Validar `pnpm check`, `pnpm build`, suite focalizada de 54 archivos / 262 pruebas y `git diff --check`.
+- [x] Verificar visualmente el build estático: Home y `/arki-parametric-runtime` montan correctamente y muestran búsqueda, comandos y Ctrl+Y.
+- [ ] PENDING_EXTERNAL: actualizar el dominio publicado mediante el flujo de publicación WebDev si se requiere reflejar inmediatamente este checkpoint.

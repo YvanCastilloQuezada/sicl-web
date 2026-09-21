@@ -6,14 +6,14 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
-const DashboardLayout = lazy(() => import("./components/DashboardLayout"));
-const Home = lazy(() => import("./pages/Home"));
+import DashboardLayout from "./components/DashboardLayout";
+import Home from "./pages/Home";
 const EvidencePage = lazy(() => import("./pages/EvidencePage"));
 const EvaluationsPage = lazy(() => import("./pages/EvaluationsPage"));
 const ComparisonsPage = lazy(() => import("./pages/ComparisonsPage"));
 const HelpPage = lazy(() => import("./pages/HelpPage"));
 const HelpArticlePage = lazy(() => import("./pages/HelpArticlePage"));
-const CommandBar = lazy(() => import("./components/CommandBar"));
+import CommandBar from "./components/CommandBar";
 const MultiobjectivePage = lazy(() => import("./pages/MultiobjectivePage"));
 const ArkiBookPage = lazy(() => import("./pages/ArkiBookPage"));
 const SpatialViewerPage = lazy(() => import("./pages/SpatialViewerPage"));
@@ -22,7 +22,7 @@ const SourceLibraryPage = lazy(() => import("./pages/SourceLibraryPage"));
 const ArkiControlCenterPage = lazy(() => import("./pages/ArkiControlCenterPage"));
 const ParametricFilesPage = lazy(() => import("./pages/ParametricFilesPage"));
 const ArkiOperationsPage = lazy(() => import("./pages/ArkiOperationsPage"));
-const ArkiParametricRuntimePage = lazy(() => import("./pages/ArkiParametricRuntimePage"));
+import ArkiParametricRuntimePage from "./pages/ArkiParametricRuntimePage";
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
