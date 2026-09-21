@@ -30,3 +30,17 @@ Unsupported claims are forced to `UNKNOWN`, with low confidence and mandatory hu
 - `humanReviewRequired: true` for generated visuals and vision observations.
 - `UNKNOWN` whenever the image does not support a claim.
 - No automatic legal, structural, ownership, dimensional or permitting conclusions from an image.
+
+
+## Quality presets update
+
+ARKI now exposes four selectable target presets through `VISUAL_PRESETS` and `visualGeneration.generate`:
+
+| Preset | Target dimensions | Meaning |
+|---|---:|---|
+| `HD` | 1280 × 720 | Preview and lightweight review |
+| `2K` | 2560 × 1440 | High-detail review |
+| `FULL_HD` | 1920 × 1080 | Standard presentation output |
+| `4K` | 3840 × 2160 | High-resolution presentation target |
+
+The target dimensions are requested output contracts. `providerResolutionVerified = false` remains mandatory because the image provider may return a different native size. A generated render is therefore `AI_PROPOSED_VISUAL`, not proof of geometry, dimensions, code compliance or construction quality.

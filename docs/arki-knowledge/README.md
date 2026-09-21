@@ -75,3 +75,13 @@ Photorealistic visual generation, Full HD/4K selection, AR overlay limits and ev
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
+
+
+## Project Brain — Corporation Wave 1
+
+`server/arkiProjectBrain.ts` implements the Wave 1 canonical project state, input-sufficiency gate, problem frame, tension analysis, dynamic parti alternatives, evaluation matrix, Devil's Architect attacks, genealogy and why/removal traces. It is exposed through the protected `projectBrain.analyze` procedure and registered in the Control Center as `ARKI-PROJECT-BRAIN-WAVE-1`. The implementation preserves FACT/ASSUMPTION/UNKNOWN/CONFLICT distinctions and does not claim professional completion, native BIM delivery, or automatic regulatory approval. See `docs/arki-corporation/ARKI_CORPORATION_WAVE1_AND_ROADMAP.md`.
+
+
+## Corporation Waves 2–5
+
+`server/arkiCorporationWaves.ts` adds the governed Wave 2–5 contract on top of the single `ARKI-UNIFIED-MOTOR-1.0`: measurable performance evidence, lifecycle delivery boundaries, jurisdiction/collaboration readiness, and advisory ecosystem/learning structures. The consolidated state is documented in `docs/arki-corporation/ARKI_CORPORATION_WAVES_2_TO_5.md`. It does not promote UNKNOWN to FACT, certify professional compliance, or claim native BIM/CAD/GIS export.

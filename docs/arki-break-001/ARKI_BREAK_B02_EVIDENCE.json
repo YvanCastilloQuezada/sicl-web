@@ -1,0 +1,800 @@
+{
+  "testId": "B02",
+  "title": "CONTRADICTORY BRIEF ATTACK",
+  "exactInput": {
+    "projectId": "BRK-ARK-001-001",
+    "name": "Break test",
+    "typology": "CIVIC",
+    "brief": "Create one shared access where public and service flows must be completely merged and completely separated at the same time.",
+    "location": "Perú",
+    "jurisdiction": "PE",
+    "site": {
+      "areaM2": 10000,
+      "access": "one_primary_edge"
+    },
+    "knownFacts": [
+      "The brief is experimental."
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "conflicts": [],
+    "requirements": [],
+    "objectives": [],
+    "constraints": [
+      "All flows share one route.",
+      "All flows never intersect."
+    ],
+    "preferences": [],
+    "activities": [
+      {
+        "id": "public",
+        "label": "public orientation",
+        "subjects": [
+          "public"
+        ],
+        "capacity": 100,
+        "frequency": "daily",
+        "duration": "short",
+        "temporalOverlap": true,
+        "privacy": "shared"
+      },
+      {
+        "id": "service",
+        "label": "service intake",
+        "subjects": [
+          "public"
+        ],
+        "capacity": 10,
+        "frequency": "daily",
+        "duration": "short",
+        "temporalOverlap": true,
+        "privacy": "shared"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "r1",
+        "from": "public",
+        "to": "service",
+        "relation": "controlled interface",
+        "subjects": [
+          "public"
+        ],
+        "state": "open",
+        "frequency": "daily",
+        "time": "all-day"
+      }
+    ],
+    "capacities": {},
+    "stakeholders": [
+      "owner",
+      "architect"
+    ],
+    "sourceIds": [
+      "ARKI-BREAK-001"
+    ]
+  },
+  "result": "DEGRADES",
+  "severity": "S2 — MATERIAL",
+  "firstBreakpoint": "Problem frame records tension but does not classify the contradictory pair as a conflict record.",
+  "observed": "The input is preserved, but no dedicated contradiction detector or quantified resolution route exists in Wave 1; tensions mention incompatibility only indirectly.",
+  "sufficiency": {
+    "status": "PROCEED",
+    "known": [
+      "The brief is experimental.",
+      "LOCATION=Perú",
+      "JURISDICTION=PE",
+      "ACTIVITIES=2",
+      "RELATIONSHIPS=1"
+    ],
+    "missing": [],
+    "assumptions": [],
+    "blockingUnknowns": [],
+    "humanQuestions": []
+  },
+  "problemFrame": {
+    "intent": "Create one shared access where public and service flows must be completely merged and completely separated at the same time.",
+    "tensions": [
+      "Capacidad y operación deben coexistir con CIVIC legible.",
+      "Restricciones simultáneas: All flows share one route.; All flows never intersect..",
+      "Separar flujos sin perder orientación y proximidad funcional.",
+      "El diseño puede avanzar con supuestos explícitos y revisables."
+    ],
+    "hypotheses": [
+      "Organizar CIVIC mediante una estructura de flujos derivada de actividades y relaciones, no de una forma precargada.",
+      "Separar lo público, operativo y de servicio según las relaciones declaradas; conservar interfaces controladas.",
+      "Mantener alternativas divergentes hasta que la matriz de evaluación y la autoridad humana decidan."
+    ],
+    "provenance": [
+      "SOURCE:ARKI-BREAK-001",
+      "PROJECT_INPUT",
+      "SUFFICIENCY_ANALYSIS"
+    ]
+  },
+  "partis": [
+    {
+      "id": "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE",
+      "title": "Separation spine",
+      "organizingIdea": "Una espina organiza los flujos derivados de public orientation, service intake.",
+      "rules": [
+        "Ordenar secuencias antes de fijar forma.",
+        "Separar interfaces incompatibles.",
+        "public->service:controlled interface"
+      ],
+      "flowStrategy": "linear-separation",
+      "derivedFrom": [
+        "public orientation",
+        "service intake",
+        "public->service:controlled interface",
+        "Capacidad y operación deben coexistir con CIVIC legible.",
+        "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+      ],
+      "status": "AI_PROPOSED",
+      "humanReviewRequired": true
+    },
+    {
+      "id": "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB",
+      "title": "Central relational hub",
+      "organizingIdea": "Un nodo común reduce recorridos entre relaciones compatibles y controla las incompatibles.",
+      "rules": [
+        "Concentrar orientación en un nodo legible.",
+        "Mantener accesos diferenciados.",
+        "public->service:controlled interface"
+      ],
+      "flowStrategy": "central-hub",
+      "derivedFrom": [
+        "public orientation",
+        "service intake",
+        "public->service:controlled interface",
+        "Capacidad y operación deben coexistir con CIVIC legible.",
+        "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+      ],
+      "status": "AI_PROPOSED",
+      "humanReviewRequired": true
+    },
+    {
+      "id": "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS",
+      "title": "Independent rings",
+      "organizingIdea": "Anillos diferenciados permiten operar flujos con menor interferencia entre sí.",
+      "rules": [
+        "Anillo público primero.",
+        "Anillo operativo separado.",
+        "Anillo de servicio con acceso independiente."
+      ],
+      "flowStrategy": "nested-rings",
+      "derivedFrom": [
+        "public orientation",
+        "service intake",
+        "public->service:controlled interface",
+        "Capacidad y operación deben coexistir con CIVIC legible.",
+        "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+      ],
+      "status": "AI_PROPOSED",
+      "humanReviewRequired": true
+    }
+  ],
+  "evaluations": {
+    "domains": [
+      "FUNCTION",
+      "CLIMATE",
+      "STRUCTURE",
+      "CIRCULATION",
+      "ACCESSIBILITY",
+      "REGULATION",
+      "COST",
+      "CONSTRUCTION",
+      "MAINTENANCE",
+      "HUMAN_EXPERIENCE",
+      "ARCHITECTURAL_COHERENCE"
+    ],
+    "alternatives": {
+      "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE": {
+        "FUNCTION": {
+          "status": "PARTIAL",
+          "rationale": "La actividad está registrada, pero el ajuste funcional requiere revisión.",
+          "evidence": [
+            "ACTIVITIES",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE"
+          ]
+        },
+        "CLIMATE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay clima verificado o simulación ambiental en esta Wave.",
+          "evidence": [
+            "UNKNOWN:CLIMATE"
+          ]
+        },
+        "STRUCTURE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cálculo estructural.",
+          "evidence": [
+            "UNKNOWN:STRUCTURE"
+          ]
+        },
+        "CIRCULATION": {
+          "status": "PARTIAL",
+          "rationale": "Las relaciones alimentan el parti; anchos, radios y conflictos deben comprobarse.",
+          "evidence": [
+            "RELATIONSHIPS",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE"
+          ]
+        },
+        "ACCESSIBILITY": {
+          "status": "UNKNOWN",
+          "rationale": "No se ha verificado normativa ni recorrido accesible completo.",
+          "evidence": [
+            "UNKNOWN:ACCESSIBILITY"
+          ]
+        },
+        "REGULATION": {
+          "status": "UNKNOWN",
+          "rationale": "La jurisdicción o la aplicabilidad normativa aún requieren verificación.",
+          "evidence": [
+            "JURISDICTION",
+            "REGULATION"
+          ]
+        },
+        "COST": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cantidades ni precios de esta alternativa en la entrada.",
+          "evidence": [
+            "UNKNOWN:COST"
+          ]
+        },
+        "CONSTRUCTION": {
+          "status": "UNKNOWN",
+          "rationale": "La constructibilidad requiere estructura, materiales y método.",
+          "evidence": [
+            "UNKNOWN:CONSTRUCTION"
+          ]
+        },
+        "MAINTENANCE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay estrategia de mantenimiento declarada.",
+          "evidence": [
+            "UNKNOWN:MAINTENANCE"
+          ]
+        },
+        "HUMAN_EXPERIENCE": {
+          "status": "PARTIAL",
+          "rationale": "Se conserva orientación y separación como intención, no como resultado medido.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE",
+            "HYPOTHESIS"
+          ]
+        },
+        "ARCHITECTURAL_COHERENCE": {
+          "status": "PASS",
+          "rationale": "El parti conserva una regla organizadora coherente y trazable.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE",
+            "PROBLEM_FRAME"
+          ]
+        }
+      },
+      "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB": {
+        "FUNCTION": {
+          "status": "PARTIAL",
+          "rationale": "La actividad está registrada, pero el ajuste funcional requiere revisión.",
+          "evidence": [
+            "ACTIVITIES",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB"
+          ]
+        },
+        "CLIMATE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay clima verificado o simulación ambiental en esta Wave.",
+          "evidence": [
+            "UNKNOWN:CLIMATE"
+          ]
+        },
+        "STRUCTURE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cálculo estructural.",
+          "evidence": [
+            "UNKNOWN:STRUCTURE"
+          ]
+        },
+        "CIRCULATION": {
+          "status": "PARTIAL",
+          "rationale": "Las relaciones alimentan el parti; anchos, radios y conflictos deben comprobarse.",
+          "evidence": [
+            "RELATIONSHIPS",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB"
+          ]
+        },
+        "ACCESSIBILITY": {
+          "status": "UNKNOWN",
+          "rationale": "No se ha verificado normativa ni recorrido accesible completo.",
+          "evidence": [
+            "UNKNOWN:ACCESSIBILITY"
+          ]
+        },
+        "REGULATION": {
+          "status": "UNKNOWN",
+          "rationale": "La jurisdicción o la aplicabilidad normativa aún requieren verificación.",
+          "evidence": [
+            "JURISDICTION",
+            "REGULATION"
+          ]
+        },
+        "COST": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cantidades ni precios de esta alternativa en la entrada.",
+          "evidence": [
+            "UNKNOWN:COST"
+          ]
+        },
+        "CONSTRUCTION": {
+          "status": "UNKNOWN",
+          "rationale": "La constructibilidad requiere estructura, materiales y método.",
+          "evidence": [
+            "UNKNOWN:CONSTRUCTION"
+          ]
+        },
+        "MAINTENANCE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay estrategia de mantenimiento declarada.",
+          "evidence": [
+            "UNKNOWN:MAINTENANCE"
+          ]
+        },
+        "HUMAN_EXPERIENCE": {
+          "status": "PARTIAL",
+          "rationale": "Se conserva orientación y separación como intención, no como resultado medido.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB",
+            "HYPOTHESIS"
+          ]
+        },
+        "ARCHITECTURAL_COHERENCE": {
+          "status": "PASS",
+          "rationale": "El parti conserva una regla organizadora coherente y trazable.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB",
+            "PROBLEM_FRAME"
+          ]
+        }
+      },
+      "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS": {
+        "FUNCTION": {
+          "status": "PARTIAL",
+          "rationale": "La actividad está registrada, pero el ajuste funcional requiere revisión.",
+          "evidence": [
+            "ACTIVITIES",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS"
+          ]
+        },
+        "CLIMATE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay clima verificado o simulación ambiental en esta Wave.",
+          "evidence": [
+            "UNKNOWN:CLIMATE"
+          ]
+        },
+        "STRUCTURE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cálculo estructural.",
+          "evidence": [
+            "UNKNOWN:STRUCTURE"
+          ]
+        },
+        "CIRCULATION": {
+          "status": "PARTIAL",
+          "rationale": "Las relaciones alimentan el parti; anchos, radios y conflictos deben comprobarse.",
+          "evidence": [
+            "RELATIONSHIPS",
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS"
+          ]
+        },
+        "ACCESSIBILITY": {
+          "status": "UNKNOWN",
+          "rationale": "No se ha verificado normativa ni recorrido accesible completo.",
+          "evidence": [
+            "UNKNOWN:ACCESSIBILITY"
+          ]
+        },
+        "REGULATION": {
+          "status": "UNKNOWN",
+          "rationale": "La jurisdicción o la aplicabilidad normativa aún requieren verificación.",
+          "evidence": [
+            "JURISDICTION",
+            "REGULATION"
+          ]
+        },
+        "COST": {
+          "status": "UNKNOWN",
+          "rationale": "No hay cantidades ni precios de esta alternativa en la entrada.",
+          "evidence": [
+            "UNKNOWN:COST"
+          ]
+        },
+        "CONSTRUCTION": {
+          "status": "UNKNOWN",
+          "rationale": "La constructibilidad requiere estructura, materiales y método.",
+          "evidence": [
+            "UNKNOWN:CONSTRUCTION"
+          ]
+        },
+        "MAINTENANCE": {
+          "status": "UNKNOWN",
+          "rationale": "No hay estrategia de mantenimiento declarada.",
+          "evidence": [
+            "UNKNOWN:MAINTENANCE"
+          ]
+        },
+        "HUMAN_EXPERIENCE": {
+          "status": "PARTIAL",
+          "rationale": "Se conserva orientación y separación como intención, no como resultado medido.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS",
+            "HYPOTHESIS"
+          ]
+        },
+        "ARCHITECTURAL_COHERENCE": {
+          "status": "PASS",
+          "rationale": "El parti conserva una regla organizadora coherente y trazable.",
+          "evidence": [
+            "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS",
+            "PROBLEM_FRAME"
+          ]
+        }
+      }
+    },
+    "devilArchitect": {
+      "target": "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE",
+      "attacks": [
+        "Intentar eliminar la interfaz controlada.",
+        "Concentrar todos los flujos en un solo acceso.",
+        "Suponer que la imagen prueba cumplimiento."
+      ],
+      "contradictions": [
+        "La forma puede parecer ordenada aunque las relaciones operativas sean incompatibles."
+      ],
+      "weakAssumptions": [
+        "La demanda y la operación no están verificadas."
+      ],
+      "uniqueFailures": [
+        "Un acceso único puede bloquear todo el sistema.",
+        "Un cruce no controlado puede contaminar la separación de flujos."
+      ],
+      "displacedCosts": [
+        "La alternativa más compacta puede trasladar costo a operación, seguridad o mantenimiento."
+      ],
+      "createdProblems": [
+        "Toda solución puede crear recorridos excesivos, puntos ciegos o conflictos de servicio."
+      ],
+      "status": "AI_PROPOSED",
+      "humanReviewRequired": true
+    }
+  },
+  "genealogy": {
+    "nodes": [
+      {
+        "id": "G-PROBLEM",
+        "type": "PROBLEM",
+        "label": "Create one shared access where public and service flows must be completely merged and completely separated at the same time.",
+        "parentIds": [],
+        "state": "FACT",
+        "provenance": [
+          "PROJECT_INPUT"
+        ]
+      },
+      {
+        "id": "G-TENSION-1",
+        "type": "TENSION",
+        "label": "Capacidad y operación deben coexistir con CIVIC legible.",
+        "parentIds": [
+          "G-PROBLEM"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PROBLEM_FRAME"
+        ]
+      },
+      {
+        "id": "G-TENSION-2",
+        "type": "TENSION",
+        "label": "Restricciones simultáneas: All flows share one route.; All flows never intersect..",
+        "parentIds": [
+          "G-PROBLEM"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PROBLEM_FRAME"
+        ]
+      },
+      {
+        "id": "G-TENSION-3",
+        "type": "TENSION",
+        "label": "Separar flujos sin perder orientación y proximidad funcional.",
+        "parentIds": [
+          "G-PROBLEM"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PROBLEM_FRAME"
+        ]
+      },
+      {
+        "id": "G-TENSION-4",
+        "type": "TENSION",
+        "label": "El diseño puede avanzar con supuestos explícitos y revisables.",
+        "parentIds": [
+          "G-PROBLEM"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PROBLEM_FRAME"
+        ]
+      },
+      {
+        "id": "G-PARTI-1",
+        "type": "PARTI",
+        "label": "Separation spine",
+        "parentIds": [
+          "G-PROBLEM",
+          "G-TENSION-1",
+          "G-TENSION-2"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "public orientation",
+          "service intake",
+          "public->service:controlled interface",
+          "Capacidad y operación deben coexistir con CIVIC legible.",
+          "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+        ]
+      },
+      {
+        "id": "G-PARTI-2",
+        "type": "PARTI",
+        "label": "Central relational hub",
+        "parentIds": [
+          "G-PROBLEM",
+          "G-TENSION-1",
+          "G-TENSION-2"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "public orientation",
+          "service intake",
+          "public->service:controlled interface",
+          "Capacidad y operación deben coexistir con CIVIC legible.",
+          "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+        ]
+      },
+      {
+        "id": "G-PARTI-3",
+        "type": "PARTI",
+        "label": "Independent rings",
+        "parentIds": [
+          "G-PROBLEM",
+          "G-TENSION-1",
+          "G-TENSION-2"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "public orientation",
+          "service intake",
+          "public->service:controlled interface",
+          "Capacidad y operación deben coexistir con CIVIC legible.",
+          "Restricciones simultáneas: All flows share one route.; All flows never intersect.."
+        ]
+      },
+      {
+        "id": "G-TOPOLOGY-1",
+        "type": "TOPOLOGY",
+        "label": "linear-separation",
+        "parentIds": [
+          "G-PARTI-1"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE"
+        ]
+      },
+      {
+        "id": "G-TOPOLOGY-2",
+        "type": "TOPOLOGY",
+        "label": "central-hub",
+        "parentIds": [
+          "G-PARTI-2"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-HUB"
+        ]
+      },
+      {
+        "id": "G-TOPOLOGY-3",
+        "type": "TOPOLOGY",
+        "label": "nested-rings",
+        "parentIds": [
+          "G-PARTI-3"
+        ],
+        "state": "HYPOTHESIS",
+        "provenance": [
+          "PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-RINGS"
+        ]
+      },
+      {
+        "id": "G-DECISION",
+        "type": "DECISION",
+        "label": "Human selection remains pending",
+        "parentIds": [
+          "G-PARTI-1",
+          "G-PARTI-2",
+          "G-PARTI-3"
+        ],
+        "state": "UNKNOWN",
+        "provenance": [
+          "HUMAN_AUTHORITY_FINAL"
+        ]
+      },
+      {
+        "id": "G-CONSEQUENCE",
+        "type": "CONSEQUENCE",
+        "label": "Performance and cost consequences require further evidence",
+        "parentIds": [
+          "G-DECISION"
+        ],
+        "state": "UNKNOWN",
+        "provenance": [
+          "EVALUATION_MATRIX"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "G-PROBLEM",
+        "to": "G-TENSION-1",
+        "relation": "TENSION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-TENSION-2",
+        "relation": "TENSION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-TENSION-3",
+        "relation": "TENSION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-TENSION-4",
+        "relation": "TENSION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-PARTI-1",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-1",
+        "to": "G-PARTI-1",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-2",
+        "to": "G-PARTI-1",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-PARTI-2",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-1",
+        "to": "G-PARTI-2",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-2",
+        "to": "G-PARTI-2",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-PROBLEM",
+        "to": "G-PARTI-3",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-1",
+        "to": "G-PARTI-3",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-TENSION-2",
+        "to": "G-PARTI-3",
+        "relation": "PARTI_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-1",
+        "to": "G-TOPOLOGY-1",
+        "relation": "TOPOLOGY_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-2",
+        "to": "G-TOPOLOGY-2",
+        "relation": "TOPOLOGY_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-3",
+        "to": "G-TOPOLOGY-3",
+        "relation": "TOPOLOGY_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-1",
+        "to": "G-DECISION",
+        "relation": "DECISION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-2",
+        "to": "G-DECISION",
+        "relation": "DECISION_DERIVED_FROM"
+      },
+      {
+        "from": "G-PARTI-3",
+        "to": "G-DECISION",
+        "relation": "DECISION_DERIVED_FROM"
+      },
+      {
+        "from": "G-DECISION",
+        "to": "G-CONSEQUENCE",
+        "relation": "CONSEQUENCE_DERIVED_FROM"
+      }
+    ],
+    "why": [
+      "WHY: Create one shared access where public and service flows must be completely merged and completely separated at the same time.",
+      "TENSION: Capacidad y operación deben coexistir con CIVIC legible.",
+      "TENSION: Restricciones simultáneas: All flows share one route.; All flows never intersect..",
+      "TENSION: Separar flujos sin perder orientación y proximidad funcional.",
+      "TENSION: El diseño puede avanzar con supuestos explícitos y revisables.",
+      "PARTI: Separation spine because Una espina organiza los flujos derivados de public orientation, service intake.",
+      "PARTI: Central relational hub because Un nodo común reduce recorridos entre relaciones compatibles y controla las incompatibles.",
+      "PARTI: Independent rings because Anillos diferenciados permiten operar flujos con menor interferencia entre sí.",
+      "EVALUATION: PARTI-BRK-ARK-001-001-CIVIC-PUBLIC-SPINE is attacked before human decision."
+    ],
+    "removalImpact": [
+      "Removing the selected parti requires re-evaluating topology and geometry.",
+      "Removing a critical relationship may invalidate the functional hypothesis.",
+      "Removing the evidence chain converts the claim to UNKNOWN."
+    ]
+  },
+  "status": "PASS_WITH_BOUNDS",
+  "unknowns": [
+    {
+      "id": "UNKNOWN-1",
+      "label": "Functional fit requires activity-by-activity human review.",
+      "state": "UNKNOWN",
+      "provenance": [
+        "INPUT_SUFFICIENCY",
+        "EVALUATION_BOUNDARY"
+      ]
+    },
+    {
+      "id": "UNKNOWN-2",
+      "label": "Regulatory applicability requires jurisdiction-specific evidence and professional review.",
+      "state": "UNKNOWN",
+      "provenance": [
+        "INPUT_SUFFICIENCY",
+        "EVALUATION_BOUNDARY"
+      ]
+    },
+    {
+      "id": "UNKNOWN-3",
+      "label": "Structural, MEP, cost and maintenance validation require specialist inputs.",
+      "state": "UNKNOWN",
+      "provenance": [
+        "INPUT_SUFFICIENCY",
+        "EVALUATION_BOUNDARY"
+      ]
+    }
+  ],
+  "unsupportedClaims": [
+    "No professional completion, permit approval, structural/MEP verification or native BIM export claimed."
+  ]
+}

@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 import { AR_VISUAL_CAPABILITIES, enforceVisionEvidence, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 
 describe("ARKI visual intelligence", () => {
-  it("exposes selectable Full HD and 4K visual presets", () => {
+  it("exposes selectable HD, 2K, Full HD and 4K visual presets", () => {
+    expect(VISUAL_PRESETS.HD.targetWidth).toBe(1280);
+    expect(VISUAL_PRESETS.HD.targetHeight).toBe(720);
+    expect(VISUAL_PRESETS["2K"].targetWidth).toBe(2560);
+    expect(VISUAL_PRESETS["2K"].targetHeight).toBe(1440);
     expect(VISUAL_PRESETS.FULL_HD.targetWidth).toBe(1920);
     expect(VISUAL_PRESETS.FULL_HD.targetHeight).toBe(1080);
     expect(VISUAL_PRESETS["4K"].targetWidth).toBe(3840);
