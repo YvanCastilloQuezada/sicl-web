@@ -22,7 +22,7 @@ import {
 import { startLogin } from "@/const";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/useMobile";
-import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, Network, PanelLeft, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
+import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, Network, PanelLeft, Puzzle, Scale, ShieldCheck, Target, Waypoints } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -43,6 +43,7 @@ const menuItems = [
   { icon: ShieldCheck, label: "nav.decision", path: "/#audit" },
   { icon: BookOpen, label: "ARKI · Libro Vivo", path: "/arki-book" },
   { icon: Boxes, label: "ARKI · Parametric Files", path: "/parametric-files" },
+  { icon: Puzzle, label: "ARKI · Escuela Operativa", path: "/arki-operations" },
   { icon: Network, label: "ARKI · Control Center", path: "/control-center" },
 ];
 

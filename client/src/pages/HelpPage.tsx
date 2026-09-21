@@ -37,7 +37,7 @@ export default function HelpPage() {
             <p className="mt-2 text-sm leading-6 text-[#52645a]">{t("help.tasks.subtitle")}</p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {(["first_project", "preference", "recommendation", "human_review", "decision", "command"] as const).map((task) => (
-                <Link key={task} href={task === "command" ? "/help/commands" : "/"} className="group border border-[#cbd2c9] bg-[#fbfaf6] p-4 transition-colors hover:border-[#d07b4a] hover:bg-white">
+                <Link key={task} href={task === "command" ? "/arki-operations" : "/"} className="group border border-[#cbd2c9] bg-[#fbfaf6] p-4 transition-colors hover:border-[#d07b4a] hover:bg-white">
                   <span className="text-sm font-semibold text-[#385348]">{t(`help.tasks.${task}.title`)}</span>
                   <span className="mt-1 block text-xs leading-5 text-[#718078]">{t(`help.tasks.${task}.description`)}</span>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#a94524]">{t("help.tasks.open")} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" /></span>
