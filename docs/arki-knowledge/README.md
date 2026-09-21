@@ -70,6 +70,8 @@ The lifecycle, budget and BIM contract is documented in [`arki-lifecycle/ARKI_PR
 
 Advanced geometry and jurisdictional regulation retrieval are documented in [`arki-advanced-geometry/ARKI_ADVANCED_GEOMETRY_AND_JURISDICTION.md`](../../arki-advanced-geometry/ARKI_ADVANCED_GEOMETRY_AND_JURISDICTION.md). The current official Peru source is the Ministry of Housing RNE page; country-specific rules remain source-reviewed and professionally verified.
 
+Photorealistic visual generation, Full HD/4K selection, AR overlay limits and evidence-bounded vision are documented in [`arki-visual-intelligence/ARKI_PHOTOREALISTIC_VISUAL_AND_EVIDENCE_PROTOCOL.md`](../../arki-visual-intelligence/ARKI_PHOTOREALISTIC_VISUAL_AND_EVIDENCE_PROTOCOL.md).
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`

@@ -14,6 +14,7 @@ import { comparisonCollectionForRecommendation, nextRecommendationVersion } from
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
 import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
+import { generateArkiPhotorealisticVisual, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -65,6 +66,13 @@ export const appRouter = router({
       const next = siclCorePort.appendRecord(snapshot, "sources", sourceRecord, event(ctx.user.id, "MULTIMODAL_SOURCE_INGESTED", sourceId, { observedVersion: project.version, sourceType: input.sourceType, ocrCount: ocr.length, visualCount: visual?.observations.length ?? 0, humanReviewRequired: true }));
       const saved = await saveNext(ctx.user.id, input.projectId, project.version, next, "ACTIVE");
       return { projectId: input.projectId, sourceId, media, ocr, visual, version: saved.version, humanReviewRequired: true, promotion: "PROMOTION_NOT_REQUESTED" };
+    }),
+  }),
+  visualGeneration: router({
+    presets: publicProcedure.query(() => ({ presets: VISUAL_PRESETS, arCapabilities: ["camera_context_overlay", "photorealistic_reference_render", "two_stake_calibration", "geospatial_anchor_candidate", "WebXR_optional", "occlusion_and_scale_require_device_validation"] })),
+    generate: protectedProcedure.input(z.object({ projectId: z.string().min(1), prompt: z.string().trim().min(10), quality: z.enum(["FULL_HD", "4K"]), purpose: z.enum(["EXTERIOR_RENDER", "INTERIOR_RENDER", "MATERIAL_STUDY", "AR_OVERLAY", "SITE_CONTEXT"]), referenceImageUrl: z.string().url().optional(), preserveGeometry: z.boolean().default(true) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return generateArkiPhotorealisticVisual(input);
     }),
   }),
   auth: router({
