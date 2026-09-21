@@ -36,7 +36,7 @@ function ProjectListLoader({ enabled, onProjects }: { enabled: boolean; onProjec
   return null;
 }
 
-export default function AppHeader() {
+export default function AppHeader({ compact = false }: { compact?: boolean }) {
   const { preference, setThemePreference } = useTheme();
   const { t } = useTranslation();
   const headerRef = useRef<HTMLElement>(null);
@@ -123,12 +123,12 @@ export default function AppHeader() {
   };
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background/95 px-5 py-3 backdrop-blur md:px-10">
+    <header ref={headerRef} className={cn("sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur", compact ? "px-4 py-2" : "px-5 py-3 md:px-10")}>
       {projectMenuOpen && <ProjectListLoader enabled onProjects={handleProjects} />}
       <div className="mx-auto grid max-w-[1500px] gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div className="min-w-0">
-          <div className="flex items-baseline gap-3"><h1 className="font-serif text-3xl leading-none tracking-[-0.04em] md:text-4xl">{t("header.title")}</h1><span className="text-sm font-medium text-muted-foreground md:text-base">· by SICL</span></div>
-          <p className="mt-1 text-xs font-semibold leading-4 text-foreground md:text-sm">{t("header.identity_line2")}</p>
+          <div className="flex items-baseline gap-2"><h1 className={cn("font-serif leading-none tracking-[-0.04em]", compact ? "text-2xl" : "text-3xl md:text-4xl")}>{t("header.title")}</h1><span className={cn("font-medium text-muted-foreground", compact ? "text-xs" : "text-sm md:text-base")}>· by SICL</span></div>
+          <p className={cn("font-semibold leading-4 text-foreground", compact ? "mt-0 text-[10px]" : "mt-1 text-xs md:text-sm")}>{t("header.identity_line2")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           <LanguageSelector />
