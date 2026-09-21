@@ -1,0 +1,82 @@
+{
+  "identity": "FKCG-02 — Fundamental Knowledge Preservation",
+  "status": [
+    "PRESERVED",
+    "REVIEWED",
+    "NOT_CANONIZED",
+    "NOT_IMPLEMENTED"
+  ],
+  "sha256": "9f73b9af9118a3b0fa4bfae9895875a788018b55c4a7fce033748a56df0c2b25",
+  "workbook": "ARKI_FKCG02_Fundamental_Knowledge_Preservation_v1.0.xlsx",
+  "sources": [
+    "P0-R1",
+    "P0-R2",
+    "DS-REDTEAM-01",
+    "APA-01",
+    "P1-R1",
+    "KRG-01",
+    "P1-R2",
+    "FKCG-01"
+  ],
+  "source_artifact_policy": "UNKNOWN / NOT_PRESENT_IN_REPOSITORY when not physically available",
+  "no_runtime_activation": true,
+  "no_automatic_canonization": true,
+  "no_ffo_activation": true,
+  "sheets": [
+    {
+      "name": "README",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Source Register",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Surviving Principles",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Corrections",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Responsibility Map",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Cross-Cutting",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "State Decomposition",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "UNKNOWN Register",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Demonstration Gaps",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "DG01 Protocol",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "Decisions Required",
+      "rows": null,
+      "columns": null
+    }
+  ]
+}

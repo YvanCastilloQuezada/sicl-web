@@ -44,6 +44,10 @@ The package is registered read-only under **Knowledge → Preserved Registers** 
 
 The external evaluation **DS-EVAL-01 / EXTERNAL_EVALUATION_EVIDENCE_001** is preserved separately under [`external-evaluations/DS-EVAL-01/`](external-evaluations/DS-EVAL-01/). The workbook is attributed to **DeepSeek** with `CONSULTATIVE ONLY` authority and `REVIEWED / DISPOSITIONED` status. It is indexed in the Control Center as **External Evaluation Evidence #001 — DS-EVAL-01**. The original external report was not provided and remains `NOT PROVIDED / UNKNOWN`; no finding, candidate constitutional rule or research package is automatically canonized or implemented.
 
+## Fundamental knowledge preservation
+
+The FKCG-02 workbook is preserved under [`fundamental-research/FKCG-02/`](fundamental-research/FKCG-02/) as **PRESERVED / REVIEWED / NOT CANONIZED / NOT IMPLEMENTED**. It records the A–F responsibility map, source genealogy, surviving principles, corrections, UNKNOWNs and DG-01–DG-05 demonstration gaps. It does not create a new system, engine, primitive, schema or runtime capability; DG-01 remains `SPECIFICATION_PENDING_PRODUCT_OWNER_AUTHORIZATION`.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
