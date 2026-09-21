@@ -100,3 +100,8 @@ The commercial facade is implemented in [`server/arkiCommercialApi.ts`](../../se
 
 
 The external enterprise boundary and unresolved infrastructure gates are recorded in [`arki-enterprise/ARKI_ENTERPRISE_READINESS_GAPS.md`](../arki-enterprise/ARKI_ENTERPRISE_READINESS_GAPS.md). Local contracts and tests are validated; real SICL Core hosting, persistent storage, host firewall/HTTPS, native CAD/BIM/GIS adapters and commercial billing remain external gates and are not claimed as deployed.
+
+
+## ARKI Multi-Agent Professional System — KR-6.3
+
+The KR-6.3 workbook and its runtime companion are documented in [`arki-agents/ARKI_AGENT_REGISTRY_AND_ORCHESTRATOR.md`](../arki-agents/ARKI_AGENT_REGISTRY_AND_ORCHESTRATOR.md). `server/arkiAgentRegistry.ts` preserves the twelve named agents, six families and the explicit A00–A59 target boundary; `server/arkiAgentOrchestrator.ts` selects bounded specialists and emits structured artifacts over one Unified Motor execution. The protected `agents.orchestrate` procedure is executable with bounds; the public `agents.registry` procedure is read-only. Multi-agent autonomous intelligence is not claimed as demonstrated, and Human Authority remains final.

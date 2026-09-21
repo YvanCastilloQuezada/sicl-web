@@ -1,0 +1,20 @@
+{
+  "version": "ARKI-MULTI-AGENT-ORCHESTRATOR-1.0",
+  "oneMotor": true,
+  "selectedAgentIds": [
+    "AGENT-BRIEF",
+    "AGENT-RED-TEAM",
+    "AGENT-TRANSFER",
+    "AGENT-REGULATION",
+    "AGENT-COST",
+    "AGENT-CONSEQUENCE",
+    "AGENT-VOI",
+    "AGENT-DIVERGENCE",
+    "AGENT-DEBT"
+  ],
+  "artifactCount": 9,
+  "humanAuthority": "FINAL",
+  "status": "EXECUTABLE_WITH_BOUNDS",
+  "multiAgentClaim": "COORDINATED_AGENT_CONTRACTS_NOT_DEMONSTRATED",
+  "noAutonomousApproval": true
+}
