@@ -1,4 +1,9 @@
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import { resolve } from "node:path";
 import type { EnterpriseDomain, Maturity } from "./arkiEnterpriseArchitecture";
+
+const execFileAsync = promisify(execFile);
 
 export type AdapterKind = "BIM" | "CAD_3D" | "CAD_2D" | "GIS" | "MESH" | "PUBLICATION";
 export type AdapterRuntime = "OSS_WORKER_REQUIRED" | "WEB_WASM_OPTIONAL" | "CONTRACT_ONLY";
@@ -104,4 +109,16 @@ export function nativeAdapterCapabilityMatrix() {
 export function planProfessionalExport(input: ExchangeEnvelope) {
   const diagnostic = validateExchangeEnvelope(input);
   return { adapterId: selectAdapter(input.sourceFormat, input.targetFormat), diagnostic, lossManifest: buildLossManifest(input, diagnostic), execution: "NOT_EXECUTED_WORKER_NOT_INSTALLED" as const };
+}
+
+export async function executeOssWorker(operation: "dxf" | "geojson" | "gpkg" | "ifc" | "step" | "iges", outputPath: string) {
+  const python = process.env.ARKI_OSS_PYTHON ?? "python3";
+  const worker = resolve(process.cwd(), "tools/arki_exchange_worker.py");
+  try {
+    const result = await execFileAsync(python, [worker, operation, outputPath], { timeout: 120_000, maxBuffer: 1_000_000 });
+    return { status: "EXECUTED" as const, operation, outputPath, stdout: result.stdout.trim(), stderr: result.stderr.trim(), worker };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { status: "WORKER_FAILED" as const, operation, outputPath, stdout: "", stderr: message, worker };
+  }
 }

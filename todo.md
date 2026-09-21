@@ -488,3 +488,11 @@
 - [x] Documentar licencias, formatos, límites, DWG no demostrado y gates de activación en `docs/arki-enterprise/ARKI_NATIVE_ADAPTERS_OSS_RESEARCH.md`.
 - [x] Validar con 3 pruebas focalizadas, `pnpm check`, `pnpm build` y `git diff --check`.
 - [x] Mantener `PENDING_EXTERNAL`: workers nativos aislados, SBOM, fixtures reales, round-trip y revisión humana antes de elevar madurez a `DEMONSTRATED`.
+
+## Activación real de workers OSS — demostración local
+- [x] Crear entorno virtual aislado fuera del repositorio con IfcOpenShell 0.8.5, ezdxf 1.4.4, Shapely 2.1.2, CairoSVG 2.9.1, python-docx 1.2.0 y cadquery-ocp 8.0.1.
+- [x] Implementar worker `tools/arki_exchange_worker.py` para generar IFC4, DXF R2018, GeoJSON, GeoPackage, STEP e IGES.
+- [x] Validar por lectura real los seis formatos con `tools/test_arki_exchange_worker.py`.
+- [x] Integrar y probar la invocación TypeScript mediante `executeOssWorker` y `tools/test_arki_adapter_runner.ts`.
+- [x] Confirmar `pnpm check`, `pnpm build`, suite Vitest completa (50 archivos / 248 pruebas) y `git diff --check`.
+- [x] Mantener límite epistemológico: fixtures sintéticos PASS no equivalen a exportación de un proyecto ARKI real, round-trip multi-proveedor, DWG ni certificación profesional.

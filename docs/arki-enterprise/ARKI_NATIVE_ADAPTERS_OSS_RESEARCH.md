@@ -19,7 +19,13 @@ ARKI adopts a **layered adapter contract** rather than embedding a second archit
 
 `server/arkiNativeAdapters.ts` provides a versioned registry, license and source metadata, runtime maturity, format coverage, adapter selection, exchange-envelope validation, and `ARKI-EXCHANGE-LOSS-1.0` manifests. The contract requires preservation of the original file and human review. GIS exchanges require a CRS; CAD exchanges warn when units are absent; IFC exchanges warn when profile/MVD and IDS are absent; projections to mesh or publication formats record loss of editability and semantics.
 
-The tRPC facade remains separate from the architectural brain. No worker process, package installation, proprietary SDK, conversion service, or professional certification is silently introduced.
+The tRPC facade remains separate from the architectural brain. No proprietary SDK, conversion service, or professional certification is silently introduced. The OSS workers are now installed in an isolated virtual environment outside the repository and exercised against synthetic fixtures; this is a local worker demonstration, not a claim that arbitrary ARKI project geometry has completed a professional round-trip.
+
+## Local worker demonstration
+
+The isolated worker generated and read back valid demonstration files for **IFC4, DXF R2018, GeoJSON (EPSG:4326), GeoPackage (EPSG:4326), STEP and IGES**. The IFC fixture contains one project and one wall; the CAD fixtures contain a bounded box/plan; the GIS fixtures contain one site polygon. The TypeScript orchestrator successfully invoked the IFC worker through `executeOssWorker`.
+
+The demonstrated scope is therefore: **OSS worker installed and fixture conversion/readback PASS**. It is not yet: **ARKI project model export**, **multi-provider round-trip**, **permit-ready documentation**, **DWG support**, or **professional certification**.
 
 ## Explicit non-claims
 
@@ -28,11 +34,12 @@ DWG is not treated as an open format. LibreDWG remains experimental/beta and can
 ## Activation gates
 
 1. Pin tool versions and produce an SBOM and license notices.
-2. Install workers in an isolated execution image; limit CPU, memory, time and temporary-file access.
-3. Add real fixtures for IFC2X3/IFC4/IFC4.3, DXF, STEP, IGES, GeoPackage and GeoJSON.
-4. Validate schemas, GUIDs, properties, geometry, units, tolerances, CRS and rendered outputs.
-5. Record every dropped entity, attribute, relation, layer, material, source reference and precision change.
-6. Run human-reviewed round-trip tests before changing any capability to `DEMONSTRATED`.
+2. Move the isolated worker environment into a reproducible deployment image with resource limits.
+3. Add real project fixtures for IFC2X3/IFC4/IFC4.3, DXF, STEP, IGES, GeoPackage and GeoJSON.
+4. Connect ARKI's conceptual geometry/project lifecycle output to the worker input contract.
+5. Validate schemas, GUIDs, properties, geometry, units, tolerances, CRS and rendered outputs.
+6. Record every dropped entity, attribute, relation, layer, material, source reference and precision change.
+7. Run human-reviewed round-trip tests before changing any capability to `DEMONSTRATED`.
 
 ## Sources consulted
 
