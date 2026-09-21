@@ -648,3 +648,14 @@
 - [x] Particionado Rollup adicional para vendor React, datos, UI, gráficos y 3D; los visores 3D siguen bajo demanda.
 - [x] Validación: `pnpm check` PASS; 57 archivos / 273 tests PASS; build PASS; manifest y service worker PASS; diff limpio.
 - [~] PENDING_PHYSICAL_DEVICE_EVIDENCE: el harness y protocolo están documentados; las pruebas reales en Android moderno, Android antiguo e iPhone requieren esos dispositivos.
+
+## Security Hardening v1 — 2026-09-21
+- [x] Añadir headers: `nosniff`, `SAMEORIGIN`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster` y HSTS bajo HTTPS.
+- [x] Añadir CSP en modo `Report-Only` para observar compatibilidad sin romper el arranque.
+- [x] Añadir guardia de origen para mutaciones HTTP; permitir host actual, `ARKI_ALLOWED_ORIGINS` y clientes sin header Origin.
+- [x] Añadir rate limiting en memoria para OAuth, Core y tRPC con `429` y `Retry-After`.
+- [x] Endurecer WebSocket paramétrico: maxPayload 16 KiB, 1 canal/socket, 50 suscriptores/canal, 30 mensajes/minuto, validación de origen y ping.
+- [x] Mantener intactos `protectedProcedure`, `adminProcedure` y el acceso temporal de interfaz; no se debilitó autenticación backend.
+- [x] Crear `server/security.test.ts` y documentación `docs/arki-enterprise/ARKI_SECURITY_HARDENING.md`.
+- [x] Validar: `pnpm check` PASS; 58 archivos / 276 tests PASS; build PASS; headers HTTP verificados; diff limpio.
+- [~] PENDING_PRODUCTION_SECURITY: rate limiting distribuido, WAF/DDoS, CSP enforcement, SAST/DAST, rotación de secretos, backups cifrados y pentest profesional requieren infraestructura y operación de producción.

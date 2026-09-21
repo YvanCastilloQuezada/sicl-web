@@ -12,6 +12,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHttpClient";
 import { attachParametricWebSocket } from "../parametricRealtime";
+import { rateLimit, securityHeaders, writeRequestGuard } from "../security";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -34,11 +35,18 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 
 async function startServer() {
   const app = express();
+  app.disable("x-powered-by");
+  app.set("trust proxy", 1);
   const server = createServer(app);
+  app.use(securityHeaders());
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(compression({ threshold: 1024 }));
+  app.use(writeRequestGuard);
+  app.use("/api/oauth", rateLimit({ name: "oauth", max: 30 }));
+  app.use("/api/core", rateLimit({ name: "core", max: 90 }));
+  app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   app.get("/api/core/health", async (_req, res) => {
