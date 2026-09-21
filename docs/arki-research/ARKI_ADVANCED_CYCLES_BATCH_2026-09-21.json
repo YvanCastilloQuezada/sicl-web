@@ -1,0 +1,25 @@
+{
+  "batchId": "ARKI-ADVANCED-CYCLES-2026-09-21",
+  "status": "READY_FOR_HUMAN_REVIEW",
+  "canonicalization": "NOT_CANONIZED",
+  "readingMode": {
+    "fullBooksAutomatically": false,
+    "whatWasUsed": ["public syllabi", "official curricula", "public technical documentation", "public standards summaries", "candidate bibliographies"],
+    "whatWasNotClaimed": ["complete book reading", "official course completion", "university credit", "professional certification", "automatic Core ingestion"]
+  },
+  "cycles": [
+    {"name":"Mecánica cuántica","report":"docs/arki-research/curriculum-advanced-mechanics-quantum-2026-09-21.md"},
+    {"name":"Física cuántica y tecnologías cuánticas","report":"docs/arki-research/curriculum-advanced-physics-quantum-2026-09-21.md"},
+    {"name":"Modelos matemáticos","report":"docs/arki-research/curriculum-advanced-mathematical-models-2026-09-21.md"},
+    {"name":"Investigación de operaciones","report":"docs/arki-research/curriculum-advanced-operations-research-2026-09-21.md"},
+    {"name":"Modelos causa-efecto y modelos causales","report":"docs/arki-research/curriculum-advanced-causal-models-2026-09-21.md"},
+    {"name":"Modelos determinísticos","report":"docs/arki-research/curriculum-advanced-deterministic-models-2026-09-21.md"},
+    {"name":"Modelos computacionales","report":"docs/arki-research/curriculum-advanced-computational-models-2026-09-21.md"},
+    {"name":"Inteligencia artificial","report":"docs/arki-research/curriculum-advanced-artificial-intelligence-2026-09-21.md"},
+    {"name":"Ingeniería de software","report":"docs/arki-research/curriculum-advanced-software-engineering-2026-09-21.md"},
+    {"name":"White hat hacking y ciberseguridad defensiva","report":"docs/arki-research/curriculum-advanced-white-hat-security-2026-09-21.md"}
+  ],
+  "masterReport":"docs/arki-research/ARKI_ADVANCED_CYCLES_MASTER_2026-09-21.md",
+  "learningPolicy":"Cada ciclo propone fundamentos, métodos, laboratorio/proyecto, evaluación y gates. Sólo después de superar esos gates y una revisión humana podrá una parte convertirse en conocimiento ingerido o capacidad demostrada.",
+  "mandatoryGates":["diagnóstico de entrada","fuentes y derechos","versionado de estándares y software","laboratorio reproducible","evaluación con evidencia","revisión humana","abstención ante desconocimiento","no uso de pruebas de seguridad fuera de alcance"]
+}
