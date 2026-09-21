@@ -616,3 +616,12 @@
 - [x] Documentar degradación progresiva: WebXR → cámara/orientación → 3D local → 2D/métricas.
 - [x] Validar `pnpm check`, build, suite completa de 264 pruebas y `git diff --check` PASS.
 - [x] Mantener el límite: 3D local no equivale a tracking espacial ni anclaje físico.
+
+## ARKI WebApp / PWA — migración consolidada
+- [x] Mantener una única aplicación ARKI con manifest instalable, start URL `/arki`, scope global y modo standalone.
+- [x] Registrar service worker solo en producción para evitar interferencias con el desarrollo/HMR.
+- [x] Mejorar cache del shell y fallback offline; no cachear `/api/`, `/trpc/` ni `/oauth/`.
+- [x] Añadir aviso de instalación, estado offline y actualización controlada del service worker.
+- [x] Preservar autenticación, Project State, decisiones, permisos y persistencia canónica en servidor.
+- [x] Documentar límites: PWA no equivale a app nativa ni garantiza WebXR/cámara/GPS en todos los equipos.
+- [x] Validar TypeScript PASS, build PASS, 55 archivos / 264 pruebas PASS, validación estática PWA PASS, HTTP smoke PASS y `git diff --check` PASS.
