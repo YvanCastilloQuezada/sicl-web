@@ -22,15 +22,15 @@
 - [x] Completar el flujo web de evaluaciones y comparaciones trazables para habilitar Recommendations analíticas de extremo a extremo.
 - [x] Implementar versionado real del ciclo de Recommendations, no solo `recommendationVersion: 1`.
 - [x] Añadir paso separado de preparación de Decision antes del registro durable.
-- [ ] Ejecutar y documentar el flujo completo en navegador en escritorio y móvil.
+- [~] PENDING_FIXTURE — Ejecutar y documentar el flujo completo en navegador en escritorio y móvil cuando exista un proyecto canónico poblado.
 
 ## Integración aprobada con núcleo Python
 
 - [x] Definir contrato HTTP versionado entre el núcleo Python y `sicl-web`.
 - [x] Implementar servicio adaptador Python separado sin duplicar reglas de dominio.
 - [x] Conectar tRPC al adaptador mediante un cliente anti-corrupción autenticado.
-- [ ] Verificar que errores de dominio, conflictos de versión y autoridad se preservan extremo a extremo contra una instancia real del núcleo Python.
-- [ ] Verificar flujo completo en escritorio y móvil después de la integración real.
+- [~] PENDING_EXTERNAL — Verificar que errores de dominio, conflictos de versión y autoridad se preservan extremo a extremo contra una instancia real del núcleo Python.
+- [~] PENDING_EXTERNAL — Verificar flujo completo en escritorio y móvil después de la integración real.
 
 ## Corrección de integración — pendientes
 
@@ -48,21 +48,21 @@
 
 - [x] Determinar la ruta de alojamiento Manus compatible con un servicio Python persistente.
 - [x] Preparar configuración de contenedor, persistencia SQLite y secretos server-to-server.
-- [ ] Definir el registro de `SICL_CORE_URL` después del alojamiento real.
+- [~] PENDING_EXTERNAL — Definir el registro de `SICL_CORE_URL` después del alojamiento real.
 - [x] Validar readiness del servicio sin ejecutar un despliegue irreversible.
 
 ## Despliegue aprobado en Cloud Computer Manus
 
-- [ ] Confirmar que el Cloud Computer está creado y adjunto a la sesión.
+- [~] PENDING_EXTERNAL — Confirmar que el Cloud Computer está creado y adjunto a la sesión.
 - [x] Preparar Dockerfile y contexto reproducible para `sicl-core-http`.
-- [ ] Configurar `/data/sicl/` como almacenamiento persistente de SQLite.
-- [ ] Configurar UFW para exponer únicamente SSH y HTTPS.
-- [ ] Crear unidad systemd con reinicio automático del servicio.
-- [ ] Configurar HTTPS y obtener la URL real del servicio.
-- [ ] Registrar `SICL_CORE_URL` en el entorno server-side de `sicl-web`.
-- [ ] Ejecutar verificación end-to-end de snapshots, Council y flujos humanos.
-- [ ] Adjuntar el Cloud Computer Manus y ejecutar la instalación real de `/data/sicl/`.
-- [ ] Verificar que `core.sqlite` persiste fuera del contenedor tras reinicio del servicio.
+- [~] PENDING_EXTERNAL — Configurar `/data/sicl/` como almacenamiento persistente de SQLite.
+- [~] PENDING_EXTERNAL — Configurar UFW para exponer únicamente SSH y HTTPS.
+- [~] PENDING_EXTERNAL — Crear unidad systemd con reinicio automático del servicio.
+- [~] PENDING_EXTERNAL — Configurar HTTPS y obtener la URL real del servicio.
+- [~] PENDING_EXTERNAL — Registrar `SICL_CORE_URL` en el entorno server-side de `sicl-web`.
+- [~] PENDING_EXTERNAL — Ejecutar verificación end-to-end de snapshots, Council y flujos humanos.
+- [~] PENDING_EXTERNAL — Adjuntar el Cloud Computer Manus y ejecutar la instalación real de `/data/sicl/`.
+- [~] PENDING_EXTERNAL — Verificar que `core.sqlite` persiste fuera del contenedor tras reinicio del servicio.
 - [x] Preparar runbook corregido de alojamiento con nombres reales de variables, secuencia segura de UFW y HTTPS, y registro server-side de `SICL_CORE_URL`.
 - [x] Hacer que el router falle cerrado en producción si falta `SICL_CORE_URL`, con prueba Vitest explícita.
 - [x] Convertir el fallback TypeScript en modo local explícito mediante `SICL_ALLOW_LOCAL_CORE=true`; producción no lo habilita automáticamente.
@@ -90,7 +90,7 @@
 - [x] Añadir regresión dirigida para separación entre comparisons y multiComparisons.
 - [x] Renderizar detalles canónicos completos de comparaciones, multi-comparaciones, tradeoffs y recommendations.
 - [x] Mostrar timestamps, versiones y authority basis seguro en HumanReviews y Decisions.
-- [ ] Verificar visualmente Council y Audit con datos canónicos poblados en escritorio y móvil.
+- [~] PENDING_FIXTURE — Verificar visualmente Council y Audit con datos canónicos poblados en escritorio y móvil.
 
 ## Correcciones detectadas antes del checkpoint
 
@@ -203,7 +203,7 @@
 
 - [x] Añadir una prueba integrada local que cree Evaluation y Comparison y luego ejecute `recommendationCreate` sobre esa referencia, verificando trazabilidad y versión.
 - [x] Verificar el versionado de Recommendations en el núcleo Python/adaptador HTTP canónico: se confirmó `Recommendation.entity_version` + `Project.entity_version`, pero no existe versionado monotónico de ciclos; la semántica nueva queda explícitamente pendiente de decisión contractual.
-- [ ] Ejecutar y documentar una verificación funcional de navegador del flujo Alternatives & Evaluation → Recommendation en escritorio y móvil cuando exista un proyecto de prueba poblado.
+- [~] PENDING_FIXTURE — Ejecutar y documentar una verificación funcional de navegador del flujo Alternatives & Evaluation → Recommendation en escritorio y móvil cuando exista un proyecto de prueba poblado.
 
 ## Readiness de despliegue — auditoría de continuidad
 
