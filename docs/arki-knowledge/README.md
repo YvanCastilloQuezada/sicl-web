@@ -58,6 +58,8 @@ The typed `PARTI-CONTRACT-1.0` is implemented in [`server/arkiPartiContract.ts`]
 
 The assembled `ARKI-INTEGRATED-ARCHITECT-1.0` cycle is documented in [`arki-integrated-architect/ARKI_INTEGRATED_ARCHITECT_CYCLE.md`](../../arki-integrated-architect/ARKI_INTEGRATED_ARCHITECT_CYCLE.md). It reuses the existing ingestion, knowledge, D6.2, PARTI, topology, D6.3 geometry, evaluation and Human Authority boundaries. Its claim is limited to bounded conceptual architectural synthesis.
 
+The `ARKI-UNIFIED-MOTOR-1.0` registry is documented in [`arki-unified-motor/ARKI_UNIFIED_MOTOR.md`](../../arki-unified-motor/ARKI_UNIFIED_MOTOR.md). It routes active, frozen, historical, blocked and not-demonstrated pieces through one trace while preserving their states and activation gates.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
