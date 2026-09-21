@@ -2,9 +2,10 @@ import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { hostWorkerCatalog } from "./parametricHostWorkers";
+import { parseArkProposal } from "./arkiParametricExchange";
 
 type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
-export type ParametricFormat = "DYN" | "DYF" | "GH" | "GHX" | "BLEND" | "ARKI_GRAPH";
+export type ParametricFormat = "DYN" | "DYF" | "GH" | "GHX" | "BLEND" | "ARKI_GRAPH" | "ARK";
 export type ParametricCapability = "INSPECT" | "VALIDATE" | "EXECUTE" | "EXPORT";
 export type ParametricNode = { id: string; op: "constant" | "add" | "multiply" | "rectangle_points" | "translate_points" | "scale_points"; params: Record<string, Json> };
 export type ParametricGraph = { contractVersion: "ARKI-PARAMETRIC-1.0"; graphId: string; nodes: ParametricNode[]; outputs: string[]; units: string; tolerance: number; humanReviewRequired: true };
@@ -12,7 +13,7 @@ export type ParametricManifest = { artifactId: string; fileName: string; format:
 
 const formatFor = (fileName: string): ParametricFormat | "UNKNOWN" => {
   const extension = fileName.toLowerCase().split(".").pop();
-  return extension === "dyn" ? "DYN" : extension === "dyf" ? "DYF" : extension === "gh" ? "GH" : extension === "ghx" ? "GHX" : extension === "blend" ? "BLEND" : extension === "json" ? "ARKI_GRAPH" : "UNKNOWN";
+  return extension === "dyn" ? "DYN" : extension === "dyf" ? "DYF" : extension === "gh" ? "GH" : extension === "ghx" ? "GHX" : extension === "blend" ? "BLEND" : extension === "ark" ? "ARK" : extension === "json" ? "ARKI_GRAPH" : "UNKNOWN";
 };
 
 function checksum(content: string | Buffer) { return `sha256:${createHash("sha256").update(content).digest("hex")}`; }
@@ -22,7 +23,10 @@ export function inspectParametricArtifact(input: { fileName: string; content: st
   const raw = typeof input.content === "string" ? input.content : input.content.toString("utf8");
   const declaredDependencies: string[] = [];
   let parsed = false;
-  if (format === "DYN" || format === "DYF" || format === "ARKI_GRAPH") {
+  if (format === "ARK") {
+    const proposal = parseArkProposal(raw);
+    if ("formatVersion" in proposal) { parsed = true; declaredDependencies.push(...proposal.source.provenance); }
+  } else if (format === "DYN" || format === "DYF" || format === "ARKI_GRAPH") {
     try {
       const parsedJson = JSON.parse(raw) as Record<string, unknown>;
       parsed = true;
@@ -84,7 +88,7 @@ export function parametricRuntimeCatalog() {
     softRealtime: true,
     hardRealtime: false,
     capabilities: ["INSPECT", "VALIDATE", "EXECUTE", "EXPORT"] as ParametricCapability[],
-    formats: ["DYN", "DYF", "GH", "GHX", "BLEND", "ARKI_GRAPH"] as ParametricFormat[],
+    formats: ["DYN", "DYF", "GH", "GHX", "BLEND", "ARKI_GRAPH", "ARK"] as ParametricFormat[],
     humanReviewRequired: true,
     hosts: { dynamo: "EXTERNAL_HOST_REQUIRED", grasshopper: "EXTERNAL_HOST_REQUIRED", blender: "EXTERNAL_HOST_REQUIRED" },
     authorizedWorkers: hostWorkerCatalog(),

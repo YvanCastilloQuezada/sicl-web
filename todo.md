@@ -523,3 +523,17 @@
 - [x] Añadir benchmark de 100 iteraciones: media 41.09 ms, p95 45.79 ms, p99 56.74 ms, carga local PASS.
 - [x] Validar TypeScript PASS, suite completa 52 archivos / 253 pruebas PASS, build PASS y `git diff --check` PASS.
 - [x] Mantener `PENDING_EXTERNAL` para hosts reales, colas durables, mTLS, observabilidad bajo concurrencia y revisión profesional.
+
+## ARKI-PARAMETRIC-RUNTIME — cierre seguro 2026-09-21
+- [x] Crear página propia con preview geométrico SVG determinista, sliders, tutorial y ejercicio evaluable.
+- [x] Persistir sesiones por propietario y proyecto, con parámetros, preview, progreso y puntaje.
+- [x] Crear formato gobernado `ARKI-ARK-1.0` para propuestas volumétricas trazables.
+- [x] Permitir exportación local de paquete `.ark` + `.dyn` + `.ghx`.
+- [x] Implementar lectura y asimilación de `.ark` como propuesta, preservando provenance, UNKNOWNs y revisión humana.
+- [x] Mantener separación entre el motor único y hosts externos Dynamo/Revit/Rhino/Grasshopper.
+- [x] Generar migración `drizzle/0003_jazzy_colossus.sql` y aplicar tabla `arki_command_sessions`.
+- [x] Validar: `pnpm check` PASS; 53 test files / 257 tests PASS; `pnpm build` PASS; ruta `/arki-parametric-runtime` HTTP 200; `git diff --check` PASS.
+- [ ] PENDING_EXTERNAL: ejecutar `.dyn` en Dynamo/Revit autorizado y producir `.rvt` nativo.
+- [ ] PENDING_EXTERNAL: ejecutar `.ghx` en Rhino/Grasshopper autorizado y producir `.gh` nativo.
+- [ ] PENDING_EXTERNAL: activar endpoints reales de host, colas durables y benchmarks de carga externos.
+- [x] No se afirma que los binarios nativos profesionales hayan sido generados localmente.

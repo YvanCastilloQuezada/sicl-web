@@ -47,9 +47,27 @@ export const parametricFiles = mysqlTable("parametric_files", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const arkiCommandSessions = mysqlTable("arki_command_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  ownerId: int("ownerId").notNull(),
+  projectId: varchar("projectId", { length: 128 }).notNull(),
+  sessionId: varchar("sessionId", { length: 128 }).notNull().unique(),
+  commandName: varchar("commandName", { length: 180 }).notNull(),
+  parameters: text("parameters").notNull(),
+  previewResult: text("previewResult").notNull(),
+  tutorialStep: int("tutorialStep").notNull().default(0),
+  exerciseScore: int("exerciseScore"),
+  exerciseState: varchar("exerciseState", { length: 32 }).notNull().default("IN_PROGRESS"),
+  lastAction: varchar("lastAction", { length: 64 }).notNull().default("AUTOSAVE"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type SiclProject = typeof siclProjects.$inferSelect;
 export type InsertSiclProject = typeof siclProjects.$inferInsert;
 export type ParametricFile = typeof parametricFiles.$inferSelect;
 export type InsertParametricFile = typeof parametricFiles.$inferInsert;
+export type ArkiCommandSession = typeof arkiCommandSessions.$inferSelect;
+export type InsertArkiCommandSession = typeof arkiCommandSessions.$inferInsert;

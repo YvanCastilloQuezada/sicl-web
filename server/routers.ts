@@ -4,7 +4,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { archiveParametricFile, insertParametricFile, insertSiclProject, getSiclProject, listParametricFiles, listSiclProjects, updateSiclProject } from "./db";
+import { archiveParametricFile, insertParametricFile, insertSiclProject, getSiclProject, listArkiCommandSessions, listParametricFiles, listSiclProjects, saveArkiCommandSession, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
@@ -24,6 +24,7 @@ import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
 import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog, type ParametricGraph } from "./arkiParametricRuntime";
 import { publishParametricEvent } from "./parametricRealtime";
 import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
+import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -138,9 +139,15 @@ export const appRouter = router({
       await ownedProject(ctx.user.id, input.projectId);
       return executeParametricGraph(input.graph as ParametricGraph);
     }),
+    exportPackage: protectedProcedure.input(z.object({ projectId: z.string().min(3), name: z.string().min(1).max(120), geometry: z.object({ kind: z.enum(["RECTANGULAR_MASS", "COURTYARD_MASS", "POINTS"]), width: z.number().positive(), depth: z.number().positive(), height: z.number().positive(), floors: z.number().int().positive().max(100), courtyardRatio: z.number().min(0).max(0.9).optional(), points: z.array(z.tuple([z.number(), z.number(), z.number()])).optional() }), graph: z.object({ contractVersion: z.literal("ARKI-PARAMETRIC-1.0"), graphId: z.string().min(1), nodes: z.array(z.object({ id: z.string().min(1), op: z.enum(["constant", "add", "multiply", "rectangle_points", "translate_points", "scale_points"]), params: z.record(z.string(), z.unknown()) })), outputs: z.array(z.string()), units: z.string().min(1), tolerance: z.number().positive().max(1), humanReviewRequired: z.literal(true) }) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return exchangePackage({ ...input, geometry: input.geometry as ArkGeometry, graph: input.graph as ParametricGraph }); }),
+    assimilateArk: protectedProcedure.input(z.object({ projectId: z.string().min(3), content: z.string().max(5_000_000) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); const proposal = parseArkProposal(input.content); if (!("formatVersion" in proposal)) return proposal; return architecturalAssimilation(proposal); }),
     hostWorkers: router({
       catalog: publicProcedure.query(() => hostWorkerCatalog()),
       dispatch: protectedProcedure.input(z.object({ projectId: z.string().min(3), artifactId: z.string().min(1), kind: z.enum(["DYNAMO_REVIT", "RHINO_GRASSHOPPER", "BLENDER"]), command: z.enum(["VALIDATE", "EXECUTE", "EXPORT"]), payload: z.record(z.string(), z.unknown()), humanReviewApproved: z.literal(true) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return executeAuthorizedHostWorker(input); }),
+    }),
+    sessions: router({
+      list: protectedProcedure.input(z.object({ projectId: z.string().min(3) })).query(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return listArkiCommandSessions(ctx.user.id, input.projectId); }),
+      save: protectedProcedure.input(z.object({ projectId: z.string().min(3), sessionId: z.string().min(8).max(128), commandName: z.string().min(1).max(180), parameters: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])), previewResult: z.record(z.string(), z.unknown()), tutorialStep: z.number().int().min(0).max(100), exerciseScore: z.number().int().min(0).max(100).nullable(), exerciseState: z.enum(["IN_PROGRESS", "PASSED", "REVIEW_REQUIRED"]), lastAction: z.enum(["AUTOSAVE", "EXERCISE_SUBMIT", "MANUAL_SAVE", "COMMAND_CHANGE"]) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return saveArkiCommandSession({ ownerId: ctx.user.id, projectId: input.projectId, sessionId: input.sessionId, commandName: input.commandName, parameters: JSON.stringify(input.parameters), previewResult: JSON.stringify(input.previewResult), tutorialStep: input.tutorialStep, exerciseScore: input.exerciseScore, exerciseState: input.exerciseState, lastAction: input.lastAction }); }),
     }),
   }),
   auth: router({

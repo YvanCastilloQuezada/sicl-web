@@ -54,3 +54,13 @@ No se debe rellenar un UNKNOWN por intuición. El usuario debe conservarlo, regi
 ## 10. Límites de la página
 
 La Escuela Operativa no afirma que Dynamo/Revit, Rhino/Grasshopper, Blender, CAD, BIM, simulación o normativa local estén instalados o verificados sólo porque exista un comando relacionado. Los workers externos requieren sus hosts, endpoint HTTPS, autenticación, versionado y revisión humana. La geometría compleja, BIM, costos, ciclo de vida y regulaciones deben conservar fuente, versión, incertidumbre y autoridad competente.
+
+## 11. Laboratorio ARKI-PARAMETRIC-RUNTIME
+
+La página `ARKI-PARAMETRIC-RUNTIME` ofrece un laboratorio separado para experimentar con masas rectangulares y masas con patio. Los sliders de ancho, fondo, altura y niveles actualizan inmediatamente la axonometría conceptual, la planta paramétrica y las métricas de control. El resultado es deliberadamente una hipótesis geométrica: todavía no representa un programa funcional, una estructura calculada ni un expediente normativo.
+
+El paquete de intercambio genera un archivo `.ark`, un grafo `.dyn` para Dynamo/Revit y un XML `.ghx` para Grasshopper/Rhino. ARKI evita fabricar binarios `.rvt` o `.gh` que no puede verificar. La página muestra el estado de los hosts y mantiene `PENDING_EXTERNAL` hasta que existe un worker autorizado.
+
+El archivo `.ark` puede importarse de nuevo. ARKI comprueba `ARKI-ARK-1.0`, recupera la geometría y la trata como `PROPOSAL_IMPORTED`. Luego puede sugerir pruebas de programa, circulación, iluminación, ventilación, estructura, regulación, costos y comparación. Esta reingesta conserva provenance y UNKNOWNs y no registra una decisión automática.
+
+La página también incluye un tutorial de cuatro pasos y un ejercicio evaluable. El tutorial se guarda con la sesión del proyecto. El autoguardado persiste proyecto, parámetros, resultado de preview, paso pedagógico, puntaje y última acción, por lo que el usuario puede volver a continuar sin mezclar sesiones de otros proyectos.

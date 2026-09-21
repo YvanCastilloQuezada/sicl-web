@@ -1,11 +1,12 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, parametricFiles, siclProjects, users } from "../drizzle/schema";
+import { ArkiCommandSession, InsertArkiCommandSession, InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, arkiCommandSessions, parametricFiles, siclProjects, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 const memoryProjects = new Map<string, SiclProject>();
 const memoryParametricFiles = new Map<string, ParametricFile>();
+const memoryCommandSessions = new Map<string, ArkiCommandSession>();
 
 function upaoSnapshot() {
   return JSON.stringify({
@@ -143,4 +144,25 @@ export async function archiveParametricFile(ownerId: number, projectId: string, 
   }
   const result = await db.update(parametricFiles).set({ status: "ARCHIVED" }).where(and(eq(parametricFiles.ownerId, ownerId), eq(parametricFiles.projectId, projectId), eq(parametricFiles.artifactId, artifactId)));
   return result[0].affectedRows === 1;
+}
+
+export async function saveArkiCommandSession(session: InsertArkiCommandSession): Promise<ArkiCommandSession> {
+  const db = await getDb();
+  const now = new Date();
+  if (!db) {
+    const existing = memoryCommandSessions.get(`${session.ownerId}:${session.sessionId}`);
+    const stored = { id: existing?.id ?? 0, createdAt: existing?.createdAt ?? now, updatedAt: now, ...existing, ...session } as ArkiCommandSession;
+    memoryCommandSessions.set(`${session.ownerId}:${session.sessionId}`, stored);
+    return stored;
+  }
+  await db.insert(arkiCommandSessions).values(session).onDuplicateKeyUpdate({ set: { commandName: session.commandName, parameters: session.parameters, previewResult: session.previewResult, tutorialStep: session.tutorialStep, exerciseScore: session.exerciseScore, exerciseState: session.exerciseState, lastAction: session.lastAction } });
+  const rows = await db.select().from(arkiCommandSessions).where(and(eq(arkiCommandSessions.ownerId, session.ownerId), eq(arkiCommandSessions.sessionId, session.sessionId))).limit(1);
+  if (!rows[0]) throw new Error("ARKI command session could not be persisted");
+  return rows[0];
+}
+
+export async function listArkiCommandSessions(ownerId: number, projectId: string): Promise<ArkiCommandSession[]> {
+  const db = await getDb();
+  if (!db) return Array.from(memoryCommandSessions.values()).filter((session) => session.ownerId === ownerId && session.projectId === projectId).sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+  return db.select().from(arkiCommandSessions).where(and(eq(arkiCommandSessions.ownerId, ownerId), eq(arkiCommandSessions.projectId, projectId))).orderBy(desc(arkiCommandSessions.updatedAt));
 }

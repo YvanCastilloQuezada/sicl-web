@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
 
-const ACCEPTED = ".dyn,.dyf,.gh,.ghx,.blend,.json";
+const ACCEPTED = ".dyn,.dyf,.gh,.ghx,.blend,.ark,.json";
 type Manifest = { artifactId: string; fileName: string; format: string; sizeBytes: number; checksum: string; parsed: boolean; declaredDependencies: string[]; capabilities: string[]; hostRequired: string | null; status: string; storageUrl?: string; storageKey?: string; uploadedAt?: string; humanReviewRequired?: boolean };
 
 function normalizeManifest(value: Record<string, unknown>): Manifest {
@@ -17,7 +17,7 @@ function normalizeManifest(value: Record<string, unknown>): Manifest {
   return { artifactId: String(value.artifactId), fileName: String(value.fileName), format: String(value.format), sizeBytes: Number(value.sizeBytes), checksum: String(value.checksum), parsed: Boolean(value.parsed), declaredDependencies: parseArray(value.declaredDependencies), capabilities: parseArray(value.capabilities), hostRequired: typeof value.hostRequired === "string" ? value.hostRequired : null, status: String(value.status), storageUrl: typeof value.storageUrl === "string" ? value.storageUrl : undefined, storageKey: typeof value.storageKey === "string" ? value.storageKey : undefined, uploadedAt: value.uploadedAt instanceof Date ? value.uploadedAt.toISOString() : typeof value.uploadedAt === "string" ? value.uploadedAt : undefined, humanReviewRequired: Boolean(value.humanReviewRequired) };
 }
 
-const formatLabel: Record<string, string> = { DYN: "Dynamo graph", DYF: "Dynamo custom node", GH: "Grasshopper binary", GHX: "Grasshopper XML", BLEND: "Blender project", ARKI_GRAPH: "ARKI graph" };
+const formatLabel: Record<string, string> = { DYN: "Dynamo graph", DYF: "Dynamo custom node", GH: "Grasshopper binary", GHX: "Grasshopper XML", BLEND: "Blender project", ARKI_GRAPH: "ARKI graph", ARK: "ARKI volumetric proposal" };
 
 function statusTone(status: string) {
   if (status === "INSPECTED") return "border-emerald-400/30 bg-emerald-400/10 text-emerald-200";
@@ -75,8 +75,8 @@ export default function ParametricFilesPage() {
   }
 
   function acceptFiles(list: FileList | File[]) {
-    const candidates = Array.from(list).filter((file) => /\.(dyn|dyf|gh|ghx|blend|json)$/i.test(file.name));
-    if (!candidates.length) { toast.error("Usa .dyn, .dyf, .gh, .ghx, .blend o .json"); return; }
+    const candidates = Array.from(list).filter((file) => /\.(dyn|dyf|gh|ghx|blend|ark|json)$/i.test(file.name));
+    if (!candidates.length) { toast.error("Usa .dyn, .dyf, .gh, .ghx, .blend, .ark o .json"); return; }
     if (candidates.length > 1) toast.info("Se procesa un archivo por vez para conservar trazabilidad");
     void uploadFile(candidates[0]);
   }
@@ -105,7 +105,7 @@ export default function ParametricFilesPage() {
             <CardHeader><CardTitle className="flex items-center gap-2 text-xl"><UploadCloud className="h-5 w-5 text-[#f0a35b]" /> Subir archivo paramétrico</CardTitle></CardHeader>
             <CardContent>
               <button type="button" onClick={() => inputRef.current?.click()} className="flex min-h-52 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-[#557da5] bg-[#0b203a] px-6 text-center transition hover:border-[#f0a35b] hover:bg-[#122f50] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f0a35b]">
-                <UploadCloud className="mb-4 h-10 w-10 text-[#f0a35b]" /><span className="text-lg font-medium">Arrastra o selecciona un archivo</span><span className="mt-2 text-sm text-[#9eb6ce]">.dyn · .dyf · .gh · .ghx · .blend · .json</span><span className="mt-4 rounded-lg bg-[#6ea8ff] px-4 py-2 text-sm font-medium text-[#081a31]">Seleccionar archivo</span>
+                <UploadCloud className="mb-4 h-10 w-10 text-[#f0a35b]" /><span className="text-lg font-medium">Arrastra o selecciona un archivo</span><span className="mt-2 text-sm text-[#9eb6ce]">.dyn · .dyf · .gh · .ghx · .blend · .ark · .json</span><span className="mt-4 rounded-lg bg-[#6ea8ff] px-4 py-2 text-sm font-medium text-[#081a31]">Seleccionar archivo</span>
               </button>
               <input ref={inputRef} type="file" accept={ACCEPTED} className="hidden" onChange={(event) => { if (event.target.files) acceptFiles(event.target.files); event.currentTarget.value = ""; }} />
               {uploadingName && <div className="mt-4 rounded-xl border border-[#294765] bg-[#0b203a] p-3"><div className="flex justify-between text-sm"><span>Validando {uploadingName}</span><span>{progress}%</span></div><Progress value={progress} className="mt-2 h-2" /><p className="mt-2 text-xs text-[#9eb6ce]">{realtimeMessage}</p></div>}

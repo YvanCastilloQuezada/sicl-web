@@ -19,6 +19,12 @@ describe("ARKI parametric runtime", () => {
     expect(ghx.parsed).toBe(true);
   });
 
+  it("reads governed ARK proposals as inspectable volumetric artifacts", () => {
+    const ark = inspectParametricArtifact({ fileName: "casa_yvan.ark", content: JSON.stringify({ formatVersion: "ARKI-ARK-1.0", projectId: "ABC-DEF-123-456", name: "casa_yvan", source: { provenance: ["test"] }, geometry: { kind: "RECTANGULAR_MASS", width: 20, depth: 12, height: 3.2, floors: 2 }, observations: [], unknowns: [], humanReviewRequired: true, createdAt: new Date().toISOString() }) });
+    expect(ark).toMatchObject({ format: "ARK", parsed: true, status: "INSPECTED" });
+    expect(ark.declaredDependencies).toContain("test");
+  });
+
   it("executes an allowed graph deterministically and returns a hash", async () => {
     const graph = { contractVersion: "ARKI-PARAMETRIC-1.0" as const, graphId: "fixture-001", nodes: [
       { id: "rect", op: "rectangle_points" as const, params: { width: 10, height: 6 } },
