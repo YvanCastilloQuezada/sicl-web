@@ -505,3 +505,11 @@
 - [x] Exponer catálogo público y ejecución protegida vía tRPC; registrar capacidad en Control Center.
 - [x] Validar con 4 pruebas focalizadas de runtime, suite completa de 51 archivos / 252 pruebas, TypeScript PASS, build PASS y `git diff --check`.
 - [x] Mantener `EXTERNAL_HOST_REQUIRED` para ejecución real en Revit/Dynamo, Rhino/Grasshopper/Compute y Blender; no declarar hard real-time.
+
+## Parametric Files UI — subida y gestión desde navegador
+- [x] Crear ruta `/parametric-files` con DashboardLayout y acceso lateral `ARKI · Parametric Files`.
+- [x] Implementar drag-and-drop y selector para `.dyn`, `.dyf`, `.gh`, `.ghx`, `.blend` y `.json`.
+- [x] Añadir endpoint protegido `parametricRuntime.upload` con almacenamiento seguro, checksum, inspección y manifiesto.
+- [x] Mostrar biblioteca de sesión, búsqueda, estados, dependencias, host requerido, checksum, copia, apertura del original y retiro de la vista.
+- [x] Mantener límites: el navegador no ejecuta contenido; hosts Dynamo/Revit, Rhino/Grasshopper y Blender siguen siendo gates externos.
+- [x] Validar TypeScript PASS, suite focalizada PASS, build PASS, smoke route HTTP 200 y `git diff --check` PASS.

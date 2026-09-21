@@ -115,6 +115,14 @@ export const appRouter = router({
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     inspect: protectedProcedure.input(z.object({ fileName: z.string().min(1), content: z.union([z.string(), z.instanceof(Buffer)]) })).mutation(({ input }) => inspectParametricArtifact(input)),
+    upload: protectedProcedure.input(z.object({ fileName: z.string().trim().min(1).max(180), mimeType: z.string().min(1).max(120), dataUrl: z.string().startsWith("data:").max(25_000_000) })).mutation(async ({ ctx, input }) => {
+      const [, base64] = input.dataUrl.split(",", 2);
+      if (!base64) fail("Parametric file data is not valid base64");
+      const content = Buffer.from(base64, "base64");
+      const manifest = inspectParametricArtifact({ fileName: input.fileName, content });
+      const stored = await storagePut(`users/${ctx.user.id}/parametric/${Date.now()}-${input.fileName}`, content, input.mimeType);
+      return { ...manifest, storageKey: stored.key, storageUrl: stored.url, uploadedAt: new Date().toISOString(), humanReviewRequired: true };
+    }),
     execute: protectedProcedure.input(z.object({ projectId: z.string().min(1), graph: z.object({ contractVersion: z.literal("ARKI-PARAMETRIC-1.0"), graphId: z.string().min(1), nodes: z.array(z.object({ id: z.string().min(1), op: z.enum(["constant", "add", "multiply", "rectangle_points", "translate_points", "scale_points"]), params: z.record(z.string(), z.unknown()) })), outputs: z.array(z.string()), units: z.string().min(1), tolerance: z.number().positive().max(1), humanReviewRequired: z.literal(true) }) })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return executeParametricGraph(input.graph as ParametricGraph);
