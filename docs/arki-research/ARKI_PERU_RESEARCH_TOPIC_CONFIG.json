@@ -1,0 +1,65 @@
+{
+  "configId": "ARKI-PERU-NORM-2026-09-21",
+  "status": "ACTIVE_FOR_OWNER_REVIEW",
+  "authority": "OWNER_HUMAN_ONLY",
+  "schedule": "ONE_OFF_RESEARCH_WINDOW",
+  "maxSources": 30,
+  "canonicalPromotion": "DISABLED_PENDING_HUMAN_REVIEW",
+  "jurisdiction": "PERU",
+  "languagePriority": ["es", "en"],
+  "topics": [
+    {
+      "id": "BIM_PERU",
+      "priority": "HIGH",
+      "enabled": true,
+      "objective": "Aprender la metodología BIM y su aplicación verificable en inversiones públicas peruanas.",
+      "requiredSources": ["MEF", "gob.pe", "El Peruano", "NTP/ISO cuando sea legalmente accesible"],
+      "focus": ["Plan BIM Perú", "Guía Nacional BIM", "CDE", "OIR", "AIR", "PIR", "EIR", "LOIN", "BEP", "MIDP", "TIDP", "PIM", "AIM", "roles BIM", "usos BIM", "lineamientos vigentes"],
+      "humanGate": "Verificar entidad, Invierte.pe, fase, tipología, instrumento y contrato antes de aplicar una obligación."
+    },
+    {
+      "id": "RNE_PERU",
+      "priority": "HIGH",
+      "enabled": true,
+      "objective": "Construir una matriz de aplicabilidad del Reglamento Nacional de Edificaciones por tipología y disciplina.",
+      "requiredSources": ["MVCS", "SENCICO", "El Peruano", "SPIJ oficial"],
+      "focus": ["Generalidades", "Arquitectura", "Estructuras", "Instalaciones", "A.120", "A.130", "E.030", "G.050", "normas específicas por uso"],
+      "humanGate": "Verificar texto vigente y modificatorias norma por norma; no usar proyectos prepublicados como norma vigente."
+    },
+    {
+      "id": "CONTRATACION_PUBLICA",
+      "priority": "HIGH",
+      "enabled": true,
+      "objective": "Comprender la Ley 32069, su Reglamento, directivas, opiniones y guías sin mezclar regímenes históricos.",
+      "requiredSources": ["MEF/DGA", "OECE", "gob.pe", "El Peruano"],
+      "focus": ["Ley 32069", "DS 009-2025-EF", "DS 001-2026-EF", "régimen transitorio", "directivas", "opiniones", "bases", "gestión de riesgos", "EIR/TDR cuando corresponda"],
+      "humanGate": "Verificar fecha de convocatoria, régimen, modalidad, bases y norma aplicable al procedimiento concreto."
+    },
+    {
+      "id": "EXPEDIENTE_TECNICO",
+      "priority": "HIGH",
+      "enabled": true,
+      "objective": "Aprender a estructurar, controlar y revisar expedientes técnicos sin simular aprobación ni firma profesional.",
+      "requiredSources": ["MEF", "OECE", "PRONIED", "sector competente", "MVCS cuando aplique"],
+      "focus": ["UEI", "UF", "consistencia", "Formato 08-A", "memoria", "estudios básicos", "planos", "especificaciones", "metrados", "presupuesto", "cronograma", "riesgos", "aprobación", "registro"],
+      "humanGate": "Verificar sector, tipología, modalidad, TDR, organización interna y profesionales responsables."
+    }
+  ],
+  "blockedScopes": [
+    "No canonizar automáticamente",
+    "No afirmar cumplimiento legal",
+    "No firmar planos ni expedientes",
+    "No inventar certificados, ensayos, permisos o aprobaciones",
+    "No usar fuentes privadas como autoridad normativa sin contraste oficial",
+    "No asumir que una guía es ley",
+    "No extender una norma a una tipología no confirmada"
+  ],
+  "reviewOutputs": [
+    "Matriz de aplicabilidad normativa",
+    "Matriz de vigencia y provenance",
+    "Matriz de responsables y firmas",
+    "Lista de UNKNOWNs",
+    "Controles automatizables",
+    "Borradores no aprobados"
+  ]
+}
