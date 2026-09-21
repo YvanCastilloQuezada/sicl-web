@@ -1,0 +1,31 @@
+{
+  "exampleId": "EJEMPLO-033",
+  "title": "Ejemplo 033 · /GENERATE SHOW",
+  "commandName": "/GENERATE SHOW",
+  "category": "generate",
+  "syntax": "/GENERATE SHOW <generation_id>",
+  "command": "/GENERATE SHOW GEN-001",
+  "arguments": [
+    {
+      "name": "generation_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "GEN-001"
+    }
+  ],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE SHOW.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

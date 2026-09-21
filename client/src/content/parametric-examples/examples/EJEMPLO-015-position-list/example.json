@@ -1,0 +1,37 @@
+{
+  "exampleId": "EJEMPLO-015",
+  "title": "Ejemplo 015 · /POSITION LIST",
+  "commandName": "/POSITION LIST",
+  "category": "position",
+  "syntax": "/POSITION LIST [actor_id] [subject_id]",
+  "command": "/POSITION LIST ACTOR-001 ALT-001",
+  "arguments": [
+    {
+      "name": "actor_id",
+      "required": false,
+      "type": "string",
+      "exampleValue": "ACTOR-001"
+    },
+    {
+      "name": "subject_id",
+      "required": false,
+      "type": "string",
+      "exampleValue": "ALT-001"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /POSITION LIST.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

@@ -1,0 +1,24 @@
+{
+  "exampleId": "EJEMPLO-062",
+  "title": "Ejemplo 062 · /SNAPSHOT LIST",
+  "commandName": "/SNAPSHOT LIST",
+  "category": "snapshot",
+  "syntax": "/SNAPSHOT LIST",
+  "command": "/SNAPSHOT LIST",
+  "arguments": [],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /SNAPSHOT LIST.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

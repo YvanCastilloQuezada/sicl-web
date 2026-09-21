@@ -1,0 +1,2409 @@
+{
+  "contractVersion": "ARKI-PARAMETRIC-EXAMPLE-CORPUS-1.0",
+  "generatedAt": "2026-09-21T00:00:00.000Z",
+  "sourceCatalog": "client/src/content/commands-catalog.json",
+  "totalCommands": 67,
+  "purpose": "Corpus didáctico y repetible para aprender comandos sin confundir ejemplos con ejecuciones reales.",
+  "rules": [
+    "REUSE_BEFORE_EXTEND",
+    "HUMAN_AUTHORITY_FINAL",
+    "UNKNOWN_PRESERVED",
+    "NO_NATIVE_HOST_CLAIM"
+  ],
+  "examples": [
+    {
+      "exampleId": "EJEMPLO-001",
+      "title": "Ejemplo 001 · /PROJECT CREATE",
+      "commandName": "/PROJECT CREATE",
+      "category": "project",
+      "syntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
+      "command": "/PROJECT CREATE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026",
+      "arguments": [
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        },
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Casa Demo Paramétrica"
+        },
+        {
+          "name": "spatial_scope",
+          "required": false,
+          "type": "string",
+          "exampleValue": "PROJECT"
+        },
+        {
+          "name": "temporal_scope",
+          "required": false,
+          "type": "string",
+          "exampleValue": "2026"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT CREATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-001-project-create/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-002",
+      "title": "Ejemplo 002 · /PROJECT OPEN",
+      "commandName": "/PROJECT OPEN",
+      "category": "project",
+      "syntax": "/PROJECT OPEN <project_id>",
+      "command": "/PROJECT OPEN EXAMPLE-ARCH-001",
+      "arguments": [
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT OPEN.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-002-project-open/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-003",
+      "title": "Ejemplo 003 · /PROJECT SET SCOPE",
+      "commandName": "/PROJECT SET SCOPE",
+      "category": "project",
+      "syntax": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]",
+      "command": "/PROJECT SET SCOPE PROJECT 2026",
+      "arguments": [
+        {
+          "name": "spatial_scope",
+          "required": true,
+          "type": "string",
+          "exampleValue": "PROJECT"
+        },
+        {
+          "name": "temporal_scope",
+          "required": false,
+          "type": "string",
+          "exampleValue": "2026"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT SET SCOPE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-003-project-set-scope/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-004",
+      "title": "Ejemplo 004 · /PROJECT IMPORT OBJECTIVE",
+      "commandName": "/PROJECT IMPORT OBJECTIVE",
+      "category": "project",
+      "syntax": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>",
+      "command": "/PROJECT IMPORT OBJECTIVE EXAMPLE-ARCH-001 OBJ-FUNCTIONALITY",
+      "arguments": [
+        {
+          "name": "source_project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        },
+        {
+          "name": "objective_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "OBJ-FUNCTIONALITY"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT IMPORT OBJECTIVE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-004-project-import-objective/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-005",
+      "title": "Ejemplo 005 · /PROJECT SHOW",
+      "commandName": "/PROJECT SHOW",
+      "category": "project",
+      "syntax": "/PROJECT SHOW",
+      "command": "/PROJECT SHOW",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-005-project-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-006",
+      "title": "Ejemplo 006 · /PROJECT LIST",
+      "commandName": "/PROJECT LIST",
+      "category": "project",
+      "syntax": "/PROJECT LIST",
+      "command": "/PROJECT LIST",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-006-project-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-007",
+      "title": "Ejemplo 007 · /STAGE SET",
+      "commandName": "/STAGE SET",
+      "category": "stage",
+      "syntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
+      "command": "/STAGE SET DRAFT",
+      "arguments": [
+        {
+          "name": "DRAFT|ACTIVE|CLOSED",
+          "required": true,
+          "type": "string",
+          "exampleValue": "DRAFT"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /STAGE SET.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-007-stage-set/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-008",
+      "title": "Ejemplo 008 · /OBJECTIVE SET",
+      "commandName": "/OBJECTIVE SET",
+      "category": "objective",
+      "syntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
+      "command": "/OBJECTIVE SET functional_area MAXIMIZE daylight_and_functionality",
+      "arguments": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "exampleValue": "functional_area"
+        },
+        {
+          "name": "MAXIMIZE|MINIMIZE",
+          "required": true,
+          "type": "string",
+          "exampleValue": "MAXIMIZE"
+        },
+        {
+          "name": "value",
+          "required": true,
+          "type": "string",
+          "exampleValue": "daylight_and_functionality"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /OBJECTIVE SET.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-008-objective-set/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-009",
+      "title": "Ejemplo 009 · /CONSTRAINT SET",
+      "commandName": "/CONSTRAINT SET",
+      "category": "constraint",
+      "syntax": "/CONSTRAINT SET <key> <operator> <value> [unit]",
+      "command": "/CONSTRAINT SET functional_area >= daylight_and_functionality m",
+      "arguments": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "exampleValue": "functional_area"
+        },
+        {
+          "name": "operator",
+          "required": true,
+          "type": "string",
+          "exampleValue": ">="
+        },
+        {
+          "name": "value",
+          "required": true,
+          "type": "string",
+          "exampleValue": "daylight_and_functionality"
+        },
+        {
+          "name": "unit",
+          "required": false,
+          "type": "string",
+          "exampleValue": "m"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /CONSTRAINT SET.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-009-constraint-set/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-010",
+      "title": "Ejemplo 010 · /ROLE ADD",
+      "commandName": "/ROLE ADD",
+      "category": "role",
+      "syntax": "/ROLE ADD <name> [actor]",
+      "command": "/ROLE ADD Casa Demo Paramétrica human-reviewer",
+      "arguments": [
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Casa Demo Paramétrica"
+        },
+        {
+          "name": "actor",
+          "required": false,
+          "type": "string",
+          "exampleValue": "human-reviewer"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ROLE ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-010-role-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-011",
+      "title": "Ejemplo 011 · /ACTOR ADD",
+      "commandName": "/ACTOR ADD",
+      "category": "actor",
+      "syntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+      "command": "/ACTOR ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}",
+      "arguments": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "role",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ARCHITECT"
+        },
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Casa Demo Paramétrica"
+        },
+        {
+          "name": "authority",
+          "required": true,
+          "type": "string",
+          "exampleValue": "HUMAN_AUTHORITY"
+        },
+        {
+          "name": "interests_json constraints_json",
+          "required": false,
+          "type": "string",
+          "exampleValue": "{\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ACTOR ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-011-actor-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-012",
+      "title": "Ejemplo 012 · /ACTOR LIST",
+      "commandName": "/ACTOR LIST",
+      "category": "actor",
+      "syntax": "/ACTOR LIST",
+      "command": "/ACTOR LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ACTOR LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-012-actor-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-013",
+      "title": "Ejemplo 013 · /ACTOR SHOW",
+      "commandName": "/ACTOR SHOW",
+      "category": "actor",
+      "syntax": "/ACTOR SHOW <actor_id>",
+      "command": "/ACTOR SHOW ACTOR-001",
+      "arguments": [
+        {
+          "name": "actor_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ACTOR SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-013-actor-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-014",
+      "title": "Ejemplo 014 · /POSITION ADD",
+      "commandName": "/POSITION ADD",
+      "category": "position",
+      "syntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+      "command": "/POSITION ADD ACTOR-001 ALTERNATIVE ALT-001 SUPPORT La alternativa conserva circulación clara",
+      "arguments": [
+        {
+          "name": "actor_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "subject_type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ALTERNATIVE"
+        },
+        {
+          "name": "subject_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ALT-001"
+        },
+        {
+          "name": "stance",
+          "required": true,
+          "type": "string",
+          "exampleValue": "SUPPORT"
+        },
+        {
+          "name": "statement",
+          "required": true,
+          "type": "string",
+          "exampleValue": "La alternativa conserva circulación clara"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /POSITION ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-014-position-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-015",
+      "title": "Ejemplo 015 · /POSITION LIST",
+      "commandName": "/POSITION LIST",
+      "category": "position",
+      "syntax": "/POSITION LIST [actor_id] [subject_id]",
+      "command": "/POSITION LIST ACTOR-001 ALT-001",
+      "arguments": [
+        {
+          "name": "actor_id",
+          "required": false,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "subject_id",
+          "required": false,
+          "type": "string",
+          "exampleValue": "ALT-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /POSITION LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-015-position-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-016",
+      "title": "Ejemplo 016 · /CYCLE CREATE",
+      "commandName": "/CYCLE CREATE",
+      "category": "cycle",
+      "syntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
+      "command": "/CYCLE CREATE CYCLE-2026 2026-2030 2026-01-01 2026-12-31",
+      "arguments": [
+        {
+          "name": "cycle_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "CYCLE-2026"
+        },
+        {
+          "name": "horizon",
+          "required": true,
+          "type": "string",
+          "exampleValue": "2026-2030"
+        },
+        {
+          "name": "start_date",
+          "required": true,
+          "type": "string",
+          "exampleValue": "2026-01-01"
+        },
+        {
+          "name": "end_date",
+          "required": true,
+          "type": "string",
+          "exampleValue": "2026-12-31"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /CYCLE CREATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-016-cycle-create/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-017",
+      "title": "Ejemplo 017 · /CYCLE LIST",
+      "commandName": "/CYCLE LIST",
+      "category": "cycle",
+      "syntax": "/CYCLE LIST",
+      "command": "/CYCLE LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /CYCLE LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-017-cycle-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-018",
+      "title": "Ejemplo 018 · /CYCLE SHOW",
+      "commandName": "/CYCLE SHOW",
+      "category": "cycle",
+      "syntax": "/CYCLE SHOW <cycle_id>",
+      "command": "/CYCLE SHOW CYCLE-2026",
+      "arguments": [
+        {
+          "name": "cycle_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "CYCLE-2026"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /CYCLE SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-018-cycle-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-019",
+      "title": "Ejemplo 019 · /SCENARIO CREATE",
+      "commandName": "/SCENARIO CREATE",
+      "category": "scenario",
+      "syntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
+      "command": "/SCENARIO CREATE SCENARIO-BASE CYCLE-2026 Casa Demo Paramétrica",
+      "arguments": [
+        {
+          "name": "branch_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "SCENARIO-BASE"
+        },
+        {
+          "name": "cycle_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "CYCLE-2026"
+        },
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Casa Demo Paramétrica"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO CREATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-019-scenario-create/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-020",
+      "title": "Ejemplo 020 · /SCENARIO LIST",
+      "commandName": "/SCENARIO LIST",
+      "category": "scenario",
+      "syntax": "/SCENARIO LIST",
+      "command": "/SCENARIO LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-020-scenario-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-021",
+      "title": "Ejemplo 021 · /SCENARIO SELECT",
+      "commandName": "/SCENARIO SELECT",
+      "category": "scenario",
+      "syntax": "/SCENARIO SELECT <branch_id>",
+      "command": "/SCENARIO SELECT SCENARIO-BASE",
+      "arguments": [
+        {
+          "name": "branch_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "SCENARIO-BASE"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO SELECT.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-021-scenario-select/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-022",
+      "title": "Ejemplo 022 · /FACT SET",
+      "commandName": "/FACT SET",
+      "category": "fact",
+      "syntax": "/FACT SET <statement> <source>",
+      "command": "/FACT SET La alternativa conserva circulación clara OWNER_BRIEF",
+      "arguments": [
+        {
+          "name": "statement",
+          "required": true,
+          "type": "string",
+          "exampleValue": "La alternativa conserva circulación clara"
+        },
+        {
+          "name": "source",
+          "required": true,
+          "type": "string",
+          "exampleValue": "OWNER_BRIEF"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /FACT SET.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-022-fact-set/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-023",
+      "title": "Ejemplo 023 · /ASSUMPTION SET",
+      "commandName": "/ASSUMPTION SET",
+      "category": "assumption",
+      "syntax": "/ASSUMPTION SET <statement> <basis>",
+      "command": "/ASSUMPTION SET La alternativa conserva circulación clara example_basis",
+      "arguments": [
+        {
+          "name": "statement",
+          "required": true,
+          "type": "string",
+          "exampleValue": "La alternativa conserva circulación clara"
+        },
+        {
+          "name": "basis",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_basis"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ASSUMPTION SET.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-023-assumption-set/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-024",
+      "title": "Ejemplo 024 · /EVIDENCE ADD",
+      "commandName": "/EVIDENCE ADD",
+      "category": "evidence",
+      "syntax": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]",
+      "command": "/EVIDENCE ADD EVID-001 La alternativa conserva circulación clara DOCUMENT SOURCE-001 https://example.invalid/evidence-001",
+      "arguments": [
+        {
+          "name": "evidence_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EVID-001"
+        },
+        {
+          "name": "statement",
+          "required": true,
+          "type": "string",
+          "exampleValue": "La alternativa conserva circulación clara"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "DOCUMENT"
+        },
+        {
+          "name": "source_id",
+          "required": false,
+          "type": "string",
+          "exampleValue": "SOURCE-001"
+        },
+        {
+          "name": "url",
+          "required": false,
+          "type": "string",
+          "exampleValue": "https://example.invalid/evidence-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /EVIDENCE ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-024-evidence-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-025",
+      "title": "Ejemplo 025 · /EVIDENCE LIST",
+      "commandName": "/EVIDENCE LIST",
+      "category": "evidence",
+      "syntax": "/EVIDENCE LIST",
+      "command": "/EVIDENCE LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /EVIDENCE LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-025-evidence-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-026",
+      "title": "Ejemplo 026 · /EVIDENCE SHOW",
+      "commandName": "/EVIDENCE SHOW",
+      "category": "evidence",
+      "syntax": "/EVIDENCE SHOW <evidence_id>",
+      "command": "/EVIDENCE SHOW EVID-001",
+      "arguments": [
+        {
+          "name": "evidence_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EVID-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /EVIDENCE SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-026-evidence-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-027",
+      "title": "Ejemplo 027 · /HUMAN REVIEW",
+      "commandName": "/HUMAN REVIEW",
+      "category": "human",
+      "syntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
+      "command": "/HUMAN REVIEW human-reviewer example_timestamp_utc Revisar antes de aplicar Ejemplo educativo y trazable HUMAN_AUTHORITY",
+      "arguments": [
+        {
+          "name": "actor",
+          "required": true,
+          "type": "string",
+          "exampleValue": "human-reviewer"
+        },
+        {
+          "name": "timestamp_utc",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_timestamp_utc"
+        },
+        {
+          "name": "review",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Revisar antes de aplicar"
+        },
+        {
+          "name": "reason",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Ejemplo educativo y trazable"
+        },
+        {
+          "name": "authority",
+          "required": false,
+          "type": "string",
+          "exampleValue": "HUMAN_AUTHORITY"
+        }
+      ],
+      "mode": "DECIDE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Human review required; this example must not execute automatically.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /HUMAN REVIEW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-027-human-review/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-028",
+      "title": "Ejemplo 028 · /SITE INTELLIGENCE",
+      "commandName": "/SITE INTELLIGENCE",
+      "category": "site",
+      "syntax": "/SITE INTELLIGENCE <location>",
+      "command": "/SITE INTELLIGENCE Trujillo, Peru",
+      "arguments": [
+        {
+          "name": "location",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Trujillo, Peru"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SITE INTELLIGENCE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-028-site-intelligence/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-029",
+      "title": "Ejemplo 029 · /AGENT RUN",
+      "commandName": "/AGENT RUN",
+      "category": "agent",
+      "syntax": "/AGENT RUN <agent_type> <alternative_id>",
+      "command": "/AGENT RUN PARTI ALT-001",
+      "arguments": [
+        {
+          "name": "agent_type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "PARTI"
+        },
+        {
+          "name": "alternative_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ALT-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /AGENT RUN.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-029-agent-run/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-030",
+      "title": "Ejemplo 030 · /DEBATE",
+      "commandName": "/DEBATE",
+      "category": "debate",
+      "syntax": "/DEBATE <alternative_id>",
+      "command": "/DEBATE ALT-001",
+      "arguments": [
+        {
+          "name": "alternative_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ALT-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /DEBATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-030-debate/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-031",
+      "title": "Ejemplo 031 · /GENERATE DESIGN",
+      "commandName": "/GENERATE DESIGN",
+      "category": "generate",
+      "syntax": "/GENERATE DESIGN <method> <parameters_json>",
+      "command": "/GENERATE DESIGN PARAMETRIC_MASSING {\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}",
+      "arguments": [
+        {
+          "name": "method",
+          "required": true,
+          "type": "string",
+          "exampleValue": "PARAMETRIC_MASSING"
+        },
+        {
+          "name": "parameters_json",
+          "required": true,
+          "type": "string",
+          "exampleValue": "{\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE DESIGN.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [
+        "EJEMPLO-031.ark",
+        "EJEMPLO-031.dyn",
+        "EJEMPLO-031.ghx"
+      ],
+      "path": "examples/EJEMPLO-031-generate-design/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-032",
+      "title": "Ejemplo 032 · /GENERATE LIST",
+      "commandName": "/GENERATE LIST",
+      "category": "generate",
+      "syntax": "/GENERATE LIST",
+      "command": "/GENERATE LIST",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-032-generate-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-033",
+      "title": "Ejemplo 033 · /GENERATE SHOW",
+      "commandName": "/GENERATE SHOW",
+      "category": "generate",
+      "syntax": "/GENERATE SHOW <generation_id>",
+      "command": "/GENERATE SHOW GEN-001",
+      "arguments": [
+        {
+          "name": "generation_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "GEN-001"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-033-generate-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-034",
+      "title": "Ejemplo 034 · /GENERATE METHODS",
+      "commandName": "/GENERATE METHODS",
+      "category": "generate",
+      "syntax": "/GENERATE METHODS",
+      "command": "/GENERATE METHODS",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE METHODS.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-034-generate-methods/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-035",
+      "title": "Ejemplo 035 · /ALTERNATIVE PROMOTE",
+      "commandName": "/ALTERNATIVE PROMOTE",
+      "category": "alternative",
+      "syntax": "/ALTERNATIVE PROMOTE <alternative_id>",
+      "command": "/ALTERNATIVE PROMOTE ALT-001",
+      "arguments": [
+        {
+          "name": "alternative_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ALT-001"
+        }
+      ],
+      "mode": "DECIDE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Human review required; this example must not execute automatically.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /ALTERNATIVE PROMOTE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-035-alternative-promote/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-036",
+      "title": "Ejemplo 036 · /MEMORY LIST",
+      "commandName": "/MEMORY LIST",
+      "category": "memory",
+      "syntax": "/MEMORY LIST",
+      "command": "/MEMORY LIST",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-036-memory-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-037",
+      "title": "Ejemplo 037 · /MEMORY SHOW",
+      "commandName": "/MEMORY SHOW",
+      "category": "memory",
+      "syntax": "/MEMORY SHOW <memory_id>",
+      "command": "/MEMORY SHOW MEM-001",
+      "arguments": [
+        {
+          "name": "memory_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "MEM-001"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-037-memory-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-038",
+      "title": "Ejemplo 038 · /MEMORY EXTRACT",
+      "commandName": "/MEMORY EXTRACT",
+      "category": "memory",
+      "syntax": "/MEMORY EXTRACT <type> <title> <content>",
+      "command": "/MEMORY EXTRACT DOCUMENT example_title example_content",
+      "arguments": [
+        {
+          "name": "type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "DOCUMENT"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_title"
+        },
+        {
+          "name": "content",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_content"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY EXTRACT.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-038-memory-extract/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-039",
+      "title": "Ejemplo 039 · /MEMORY REVOKE",
+      "commandName": "/MEMORY REVOKE",
+      "category": "memory",
+      "syntax": "/MEMORY REVOKE <memory_id>",
+      "command": "/MEMORY REVOKE MEM-001",
+      "arguments": [
+        {
+          "name": "memory_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "MEM-001"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY REVOKE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-039-memory-revoke/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-040",
+      "title": "Ejemplo 040 · /MEMORY APPLY",
+      "commandName": "/MEMORY APPLY",
+      "category": "memory",
+      "syntax": "/MEMORY APPLY <memory_id>",
+      "command": "/MEMORY APPLY MEM-001",
+      "arguments": [
+        {
+          "name": "memory_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "MEM-001"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY APPLY.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-040-memory-apply/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-041",
+      "title": "Ejemplo 041 · /MEMORY TYPES",
+      "commandName": "/MEMORY TYPES",
+      "category": "memory",
+      "syntax": "/MEMORY TYPES",
+      "command": "/MEMORY TYPES",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY TYPES.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-041-memory-types/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-042",
+      "title": "Ejemplo 042 · /GENERATE",
+      "commandName": "/GENERATE",
+      "category": "generate",
+      "syntax": "/GENERATE <method> <objective_keys_csv>",
+      "command": "/GENERATE PARAMETRIC_MASSING example_objective_keys_csv",
+      "arguments": [
+        {
+          "name": "method",
+          "required": true,
+          "type": "string",
+          "exampleValue": "PARAMETRIC_MASSING"
+        },
+        {
+          "name": "objective_keys_csv",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_objective_keys_csv"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-042-generate/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-043",
+      "title": "Ejemplo 043 · /PARETO",
+      "commandName": "/PARETO",
+      "category": "pareto",
+      "syntax": "/PARETO <objective_1> <objective_2>",
+      "command": "/PARETO example_objective_1 example_objective_2",
+      "arguments": [
+        {
+          "name": "objective_1",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_objective_1"
+        },
+        {
+          "name": "objective_2",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_objective_2"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PARETO.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-043-pareto/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-044",
+      "title": "Ejemplo 044 · /TRADEOFF_MATRIX",
+      "commandName": "/TRADEOFF_MATRIX",
+      "category": "tradeoff_matrix",
+      "syntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
+      "command": "/TRADEOFF_MATRIX example_objective_1 example_objective_2",
+      "arguments": [
+        {
+          "name": "objective_1",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_objective_1"
+        },
+        {
+          "name": "objective_2",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_objective_2"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /TRADEOFF_MATRIX.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-044-tradeoff-matrix/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-045",
+      "title": "Ejemplo 045 · /MULTIOBJECTIVE",
+      "commandName": "/MULTIOBJECTIVE",
+      "category": "multiobjective",
+      "syntax": "/MULTIOBJECTIVE",
+      "command": "/MULTIOBJECTIVE",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /MULTIOBJECTIVE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-045-multiobjective/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-046",
+      "title": "Ejemplo 046 · /SCALE PARENT",
+      "commandName": "/SCALE PARENT",
+      "category": "scale",
+      "syntax": "/SCALE PARENT <project_id>",
+      "command": "/SCALE PARENT EXAMPLE-ARCH-001",
+      "arguments": [
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCALE PARENT.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-046-scale-parent/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-047",
+      "title": "Ejemplo 047 · /SCALE CHILDREN",
+      "commandName": "/SCALE CHILDREN",
+      "category": "scale",
+      "syntax": "/SCALE CHILDREN <project_id>",
+      "command": "/SCALE CHILDREN EXAMPLE-ARCH-001",
+      "arguments": [
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCALE CHILDREN.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-047-scale-children/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-048",
+      "title": "Ejemplo 048 · /SCALE RELATE",
+      "commandName": "/SCALE RELATE",
+      "category": "scale",
+      "syntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
+      "command": "/SCALE RELATE PARENT-ID-001 CHILD-ID-001 ARCHITECTURAL",
+      "arguments": [
+        {
+          "name": "parent_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "PARENT-ID-001"
+        },
+        {
+          "name": "child_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "CHILD-ID-001"
+        },
+        {
+          "name": "relation_type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ARCHITECTURAL"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCALE RELATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-048-scale-relate/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-049",
+      "title": "Ejemplo 049 · /SCALE RELATIONS",
+      "commandName": "/SCALE RELATIONS",
+      "category": "scale",
+      "syntax": "/SCALE RELATIONS <project_id>",
+      "command": "/SCALE RELATIONS EXAMPLE-ARCH-001",
+      "arguments": [
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SCALE RELATIONS.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-049-scale-relations/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-050",
+      "title": "Ejemplo 050 · /PLANNING ADD",
+      "commandName": "/PLANNING ADD",
+      "category": "planning",
+      "syntax": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]",
+      "command": "/PLANNING ADD ACTOR-001 DOCUMENT Casa Demo Paramétrica https://example.invalid/evidence-001",
+      "arguments": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "string",
+          "exampleValue": "DOCUMENT"
+        },
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "exampleValue": "Casa Demo Paramétrica"
+        },
+        {
+          "name": "jurisdiction",
+          "required": false,
+          "type": "string",
+          "exampleValue": null
+        },
+        {
+          "name": "url",
+          "required": false,
+          "type": "string",
+          "exampleValue": "https://example.invalid/evidence-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PLANNING ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-050-planning-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-051",
+      "title": "Ejemplo 051 · /PLANNING LIST",
+      "commandName": "/PLANNING LIST",
+      "category": "planning",
+      "syntax": "/PLANNING LIST",
+      "command": "/PLANNING LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PLANNING LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-051-planning-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-052",
+      "title": "Ejemplo 052 · /PLANNING SHOW",
+      "commandName": "/PLANNING SHOW",
+      "category": "planning",
+      "syntax": "/PLANNING SHOW <instrument_id>",
+      "command": "/PLANNING SHOW INSTRUMENT-ID-001",
+      "arguments": [
+        {
+          "name": "instrument_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "INSTRUMENT-ID-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PLANNING SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-052-planning-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-053",
+      "title": "Ejemplo 053 · /PLANNING TYPES",
+      "commandName": "/PLANNING TYPES",
+      "category": "planning",
+      "syntax": "/PLANNING TYPES",
+      "command": "/PLANNING TYPES",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /PLANNING TYPES.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-053-planning-types/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-054",
+      "title": "Ejemplo 054 · /REGULATION ADD",
+      "commandName": "/REGULATION ADD",
+      "category": "regulation",
+      "syntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
+      "command": "/REGULATION ADD ACTOR-001 example_code example_title https://example.invalid/reference",
+      "arguments": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "code",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_code"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_title"
+        },
+        {
+          "name": "jurisdiction",
+          "required": false,
+          "type": "string",
+          "exampleValue": null
+        },
+        {
+          "name": "source_url",
+          "required": false,
+          "type": "string",
+          "exampleValue": "https://example.invalid/reference"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-054-regulation-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-055",
+      "title": "Ejemplo 055 · /REGULATION LIST",
+      "commandName": "/REGULATION LIST",
+      "category": "regulation",
+      "syntax": "/REGULATION LIST",
+      "command": "/REGULATION LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-055-regulation-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-056",
+      "title": "Ejemplo 056 · /REGULATION SHOW",
+      "commandName": "/REGULATION SHOW",
+      "category": "regulation",
+      "syntax": "/REGULATION SHOW <regulation_id>",
+      "command": "/REGULATION SHOW RNE-PERU",
+      "arguments": [
+        {
+          "name": "regulation_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "RNE-PERU"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION SHOW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-056-regulation-show/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-057",
+      "title": "Ejemplo 057 · /REGULATION STATUS",
+      "commandName": "/REGULATION STATUS",
+      "category": "regulation",
+      "syntax": "/REGULATION STATUS <regulation_id> <status>",
+      "command": "/REGULATION STATUS RNE-PERU DRAFT",
+      "arguments": [
+        {
+          "name": "regulation_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "RNE-PERU"
+        },
+        {
+          "name": "status",
+          "required": true,
+          "type": "string",
+          "exampleValue": "DRAFT"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION STATUS.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-057-regulation-status/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-058",
+      "title": "Ejemplo 058 · /INTERPRET ADD",
+      "commandName": "/INTERPRET ADD",
+      "category": "interpret",
+      "syntax": "/INTERPRET ADD <id> <regulation_id> <article> <text>",
+      "command": "/INTERPRET ADD ACTOR-001 RNE-PERU example_article example_text",
+      "arguments": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "ACTOR-001"
+        },
+        {
+          "name": "regulation_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "RNE-PERU"
+        },
+        {
+          "name": "article",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_article"
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "exampleValue": "example_text"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /INTERPRET ADD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-058-interpret-add/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-059",
+      "title": "Ejemplo 059 · /INTERPRET LIST",
+      "commandName": "/INTERPRET LIST",
+      "category": "interpret",
+      "syntax": "/INTERPRET LIST [regulation_id]",
+      "command": "/INTERPRET LIST RNE-PERU",
+      "arguments": [
+        {
+          "name": "regulation_id",
+          "required": false,
+          "type": "string",
+          "exampleValue": "RNE-PERU"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /INTERPRET LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-059-interpret-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-060",
+      "title": "Ejemplo 060 · /INTERPRET REVIEW",
+      "commandName": "/INTERPRET REVIEW",
+      "category": "interpret",
+      "syntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
+      "command": "/INTERPRET REVIEW INTERPRETATION-ID-001 human-reviewer HUMAN_AUTHORITY",
+      "arguments": [
+        {
+          "name": "interpretation_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "INTERPRETATION-ID-001"
+        },
+        {
+          "name": "actor",
+          "required": true,
+          "type": "string",
+          "exampleValue": "human-reviewer"
+        },
+        {
+          "name": "authority",
+          "required": true,
+          "type": "string",
+          "exampleValue": "HUMAN_AUTHORITY"
+        }
+      ],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /INTERPRET REVIEW.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-060-interpret-review/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-061",
+      "title": "Ejemplo 061 · /SNAPSHOT CREATE",
+      "commandName": "/SNAPSHOT CREATE",
+      "category": "snapshot",
+      "syntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
+      "command": "/SNAPSHOT CREATE SNAP-001 EXAMPLE-ARCH-001 2026-01-01",
+      "arguments": [
+        {
+          "name": "snapshot_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "SNAP-001"
+        },
+        {
+          "name": "project_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "EXAMPLE-ARCH-001"
+        },
+        {
+          "name": "cut_date",
+          "required": true,
+          "type": "string",
+          "exampleValue": "2026-01-01"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SNAPSHOT CREATE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-061-snapshot-create/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-062",
+      "title": "Ejemplo 062 · /SNAPSHOT LIST",
+      "commandName": "/SNAPSHOT LIST",
+      "category": "snapshot",
+      "syntax": "/SNAPSHOT LIST",
+      "command": "/SNAPSHOT LIST",
+      "arguments": [],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SNAPSHOT LIST.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-062-snapshot-list/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-063",
+      "title": "Ejemplo 063 · /SNAPSHOT FREEZE",
+      "commandName": "/SNAPSHOT FREEZE",
+      "category": "snapshot",
+      "syntax": "/SNAPSHOT FREEZE <snapshot_id>",
+      "command": "/SNAPSHOT FREEZE SNAP-001",
+      "arguments": [
+        {
+          "name": "snapshot_id",
+          "required": true,
+          "type": "string",
+          "exampleValue": "SNAP-001"
+        }
+      ],
+      "mode": "APPLY",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /SNAPSHOT FREEZE.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-063-snapshot-freeze/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-064",
+      "title": "Ejemplo 064 · /DECISION RECORD",
+      "commandName": "/DECISION RECORD",
+      "category": "decision",
+      "syntax": "/DECISION RECORD <statement> <actor> <authority>",
+      "command": "/DECISION RECORD La alternativa conserva circulación clara human-reviewer HUMAN_AUTHORITY",
+      "arguments": [
+        {
+          "name": "statement",
+          "required": true,
+          "type": "string",
+          "exampleValue": "La alternativa conserva circulación clara"
+        },
+        {
+          "name": "actor",
+          "required": true,
+          "type": "string",
+          "exampleValue": "human-reviewer"
+        },
+        {
+          "name": "authority",
+          "required": true,
+          "type": "string",
+          "exampleValue": "HUMAN_AUTHORITY"
+        }
+      ],
+      "mode": "DECIDE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Human review required; this example must not execute automatically.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /DECISION RECORD.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-064-decision-record/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-065",
+      "title": "Ejemplo 065 · /STATUS",
+      "commandName": "/STATUS",
+      "category": "status",
+      "syntax": "/STATUS",
+      "command": "/STATUS",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /STATUS.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-065-status/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-066",
+      "title": "Ejemplo 066 · /HISTORY",
+      "commandName": "/HISTORY",
+      "category": "history",
+      "syntax": "/HISTORY",
+      "command": "/HISTORY",
+      "arguments": [],
+      "mode": "EXPLORE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /HISTORY.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-066-history/example.json"
+    },
+    {
+      "exampleId": "EJEMPLO-067",
+      "title": "Ejemplo 067 · /EXIT",
+      "commandName": "/EXIT",
+      "category": "exit",
+      "syntax": "/EXIT",
+      "command": "/EXIT",
+      "arguments": [],
+      "mode": "DECIDE",
+      "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+      "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+      "humanReviewRequired": true,
+      "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+      "learningObjective": "Aprender la sintaxis y el límite operativo de /EXIT.",
+      "provenance": [
+        "commands-catalog.json",
+        "ARKI-PARAMETRIC-RUNTIME",
+        "user-authorized-example-corpus"
+      ],
+      "unknowns": [
+        "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+      ],
+      "artifacts": [],
+      "path": "examples/EJEMPLO-067-exit/example.json"
+    }
+  ]
+}

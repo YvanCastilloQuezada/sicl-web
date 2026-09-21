@@ -1,0 +1,24 @@
+{
+  "exampleId": "EJEMPLO-055",
+  "title": "Ejemplo 055 · /REGULATION LIST",
+  "commandName": "/REGULATION LIST",
+  "category": "regulation",
+  "syntax": "/REGULATION LIST",
+  "command": "/REGULATION LIST",
+  "arguments": [],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION LIST.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

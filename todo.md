@@ -565,3 +565,12 @@
 - [x] Validar `pnpm check`, `pnpm build`, suite focalizada de 54 archivos / 262 pruebas y `git diff --check`.
 - [x] Verificar visualmente el build estático: Home y `/arki-parametric-runtime` montan correctamente y muestran búsqueda, comandos y Ctrl+Y.
 - [~] PENDING_EXTERNAL: actualizar el dominio publicado mediante el flujo de publicación WebDev; no existe una herramienta de publicación disponible en esta sesión.
+
+## Corpus paramétrico didáctico — cierre 2026-09-21
+- [x] Generar un ejemplo numerado por cada uno de los 67 comandos del catálogo canónico.
+- [x] Incluir en cada ejemplo sintaxis, valores concretos, modo operativo, objetivo, provenance, UNKNOWNs y límite de ejecución.
+- [x] Generar el paquete especial de `/GENERATE DESIGN` con `.ark`, `.dyn` y `.ghx` intercambiables.
+- [x] Integrar el manifiesto en ARKI-PARAMETRIC-RUNTIME y mostrar los primeros ejemplos como biblioteca didáctica.
+- [x] Crear README y documentación del corpus, diferenciando ejemplo repetible de ejecución real.
+- [x] Crear `tools/validate_parametric_examples.mjs` y verificar 67/67 ejemplos, IDs únicos, archivos presentes y paquete geométrico completo.
+- [x] Validar build de producción y mantener la autoridad humana y los límites de hosts externos.

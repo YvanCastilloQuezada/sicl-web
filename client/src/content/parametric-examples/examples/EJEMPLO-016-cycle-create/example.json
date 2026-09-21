@@ -1,0 +1,49 @@
+{
+  "exampleId": "EJEMPLO-016",
+  "title": "Ejemplo 016 · /CYCLE CREATE",
+  "commandName": "/CYCLE CREATE",
+  "category": "cycle",
+  "syntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
+  "command": "/CYCLE CREATE CYCLE-2026 2026-2030 2026-01-01 2026-12-31",
+  "arguments": [
+    {
+      "name": "cycle_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "CYCLE-2026"
+    },
+    {
+      "name": "horizon",
+      "required": true,
+      "type": "string",
+      "exampleValue": "2026-2030"
+    },
+    {
+      "name": "start_date",
+      "required": true,
+      "type": "string",
+      "exampleValue": "2026-01-01"
+    },
+    {
+      "name": "end_date",
+      "required": true,
+      "type": "string",
+      "exampleValue": "2026-12-31"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /CYCLE CREATE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

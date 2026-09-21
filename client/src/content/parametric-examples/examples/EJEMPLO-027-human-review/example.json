@@ -1,0 +1,55 @@
+{
+  "exampleId": "EJEMPLO-027",
+  "title": "Ejemplo 027 · /HUMAN REVIEW",
+  "commandName": "/HUMAN REVIEW",
+  "category": "human",
+  "syntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
+  "command": "/HUMAN REVIEW human-reviewer example_timestamp_utc Revisar antes de aplicar Ejemplo educativo y trazable HUMAN_AUTHORITY",
+  "arguments": [
+    {
+      "name": "actor",
+      "required": true,
+      "type": "string",
+      "exampleValue": "human-reviewer"
+    },
+    {
+      "name": "timestamp_utc",
+      "required": true,
+      "type": "string",
+      "exampleValue": "example_timestamp_utc"
+    },
+    {
+      "name": "review",
+      "required": true,
+      "type": "string",
+      "exampleValue": "Revisar antes de aplicar"
+    },
+    {
+      "name": "reason",
+      "required": true,
+      "type": "string",
+      "exampleValue": "Ejemplo educativo y trazable"
+    },
+    {
+      "name": "authority",
+      "required": false,
+      "type": "string",
+      "exampleValue": "HUMAN_AUTHORITY"
+    }
+  ],
+  "mode": "DECIDE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Human review required; this example must not execute automatically.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /HUMAN REVIEW.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

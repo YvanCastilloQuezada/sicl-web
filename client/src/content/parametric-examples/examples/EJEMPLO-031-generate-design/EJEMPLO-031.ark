@@ -1,0 +1,58 @@
+{
+  "formatVersion": "ARKI-ARK-1.0",
+  "projectId": "EXAMPLE-ARCH-001",
+  "name": "EJEMPLO-031-parametric-mass",
+  "geometry": {
+    "kind": "RECTANGULAR_MASS",
+    "width": 24,
+    "depth": 16,
+    "height": 3.2,
+    "floors": 2,
+    "courtyardRatio": 0
+  },
+  "graph": {
+    "contractVersion": "ARKI-PARAMETRIC-1.0",
+    "graphId": "EJEMPLO-031-mass",
+    "nodes": [
+      {
+        "id": "width",
+        "op": "constant",
+        "params": {
+          "value": 24
+        }
+      },
+      {
+        "id": "depth",
+        "op": "constant",
+        "params": {
+          "value": 16
+        }
+      },
+      {
+        "id": "height",
+        "op": "constant",
+        "params": {
+          "value": 6.4
+        }
+      },
+      {
+        "id": "mass",
+        "op": "rectangle_points",
+        "params": {
+          "width": 24,
+          "height": 16
+        }
+      }
+    ],
+    "outputs": [
+      "mass"
+    ],
+    "units": "m",
+    "tolerance": 0.001,
+    "humanReviewRequired": true
+  },
+  "humanReviewRequired": true,
+  "provenance": [
+    "parametric-example-corpus"
+  ]
+}

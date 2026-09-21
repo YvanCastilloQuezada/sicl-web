@@ -1,0 +1,37 @@
+{
+  "exampleId": "EJEMPLO-042",
+  "title": "Ejemplo 042 · /GENERATE",
+  "commandName": "/GENERATE",
+  "category": "generate",
+  "syntax": "/GENERATE <method> <objective_keys_csv>",
+  "command": "/GENERATE PARAMETRIC_MASSING example_objective_keys_csv",
+  "arguments": [
+    {
+      "name": "method",
+      "required": true,
+      "type": "string",
+      "exampleValue": "PARAMETRIC_MASSING"
+    },
+    {
+      "name": "objective_keys_csv",
+      "required": true,
+      "type": "string",
+      "exampleValue": "example_objective_keys_csv"
+    }
+  ],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

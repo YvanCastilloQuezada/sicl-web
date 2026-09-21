@@ -1,0 +1,31 @@
+{
+  "exampleId": "EJEMPLO-056",
+  "title": "Ejemplo 056 · /REGULATION SHOW",
+  "commandName": "/REGULATION SHOW",
+  "category": "regulation",
+  "syntax": "/REGULATION SHOW <regulation_id>",
+  "command": "/REGULATION SHOW RNE-PERU",
+  "arguments": [
+    {
+      "name": "regulation_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "RNE-PERU"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION SHOW.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}
