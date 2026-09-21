@@ -11,9 +11,10 @@ import { analyzeVisualPhoto } from "./visualField";
 import { extractOcr, classifyDocumentStructure, type OcrInputKind } from "./arkiOcr";
 import { storagePut } from "./storage";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
-import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview } from "./coreHttpClient";
+import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
 import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
+import { executeCanonicalBrainAndD62 } from "./arkiCanonicalExecution";
 import { generateArkiPhotorealisticVisual, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 import { executeProjectBrainWave1 } from "./arkiProjectBrain";
 import { commercialApiContract, handleCommercialApiRequest } from "./arkiCommercialApi";
@@ -119,6 +120,31 @@ export const appRouter = router({
     analyze: protectedProcedure.input(projectBrainInput).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return executeProjectBrainWave1(input as never);
+    }),
+    executeCanonical: protectedProcedure.input(projectBrainInput.extend({
+      brainExecutionId: z.string().min(8),
+      d62ExecutionId: z.string().min(8),
+      requestedReasoningDepth: z.enum(["MINIMUM", "STANDARD", "DEEP"]).default("DEEP"),
+      seed: z.string().optional(),
+      perturbations: z.array(z.object({ id: z.string().min(1), statement: z.string().min(1), changes: z.record(z.string(), z.unknown()).optional() })).optional(),
+      failures: z.array(z.object({ id: z.string().min(1), statement: z.string().min(1), affectedElement: z.string().optional() })).optional(),
+      counterexamples: z.array(z.object({ id: z.string().min(1), claim: z.string().min(1), observation: z.string().min(1) })).optional(),
+    })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      try {
+        return await executeCanonicalBrainAndD62(input as never);
+      } catch (error) {
+        if (error instanceof SiclCoreHttpError) {
+          if (error.status === 401 || error.status === 403) throw new TRPCError({ code: "UNAUTHORIZED", message: error.message });
+          if (error.status === 404) throw new TRPCError({ code: "NOT_FOUND", message: error.message });
+          if (error.status === 409) throw new TRPCError({ code: "CONFLICT", message: error.message });
+          throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message });
+        }
+        if (error instanceof Error && /CORE_PROJECT_NOT_FOUND/.test(error.message)) throw new TRPCError({ code: "NOT_FOUND", message: error.message });
+        if (error instanceof Error && /CORE_VERSION_CHANGED|VERSION_INVALID|CONCURRENCY_CONFLICT/.test(error.message)) throw new TRPCError({ code: "CONFLICT", message: error.message });
+        if (error instanceof Error && /SICL_CORE_URL|CORE_CANONICAL_SNAPSHOT_REQUIRED|CORE_UNAVAILABLE/.test(error.message)) throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message });
+        throw error;
+      }
     }),
   }),
   superpowers: router({

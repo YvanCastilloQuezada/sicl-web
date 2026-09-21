@@ -130,6 +130,10 @@ export async function createCoreRecommendation(projectId: string, payload: Recor
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/recommendations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
 }
 
+export async function appendCoreReasoningExecution(projectId: string, payload: Record<string, unknown>) {
+  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/reasoning-executions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+}
+
 export async function recordCoreHumanReview(projectId: string, payload: Record<string, unknown>) {
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/human-reviews`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...payload, actor: payload.actor ?? payload.actor_id, authority: payload.authority ?? payload.authority_basis, review: payload.review ?? "Recommendation reviewed by human authority", timestamp: payload.timestamp ?? new Date().toISOString() }) });
 }
