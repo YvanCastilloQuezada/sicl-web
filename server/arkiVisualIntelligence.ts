@@ -1,6 +1,6 @@
 import { generateImage, type GenerateImageResponse } from "./_core/imageGeneration";
 
-export type VisualQuality = "HD" | "2K" | "FULL_HD" | "4K";
+export type VisualQuality = "HD" | "2K" | "FULL_HD" | "4K" | "8K" | "16K";
 export type VisualPurpose = "EXTERIOR_RENDER" | "INTERIOR_RENDER" | "MATERIAL_STUDY" | "AR_OVERLAY" | "SITE_CONTEXT";
 export type VisualPreset = { quality: VisualQuality; providerQuality: "medium" | "high"; targetWidth: number; targetHeight: number; label: string; providerDependent: true };
 
@@ -9,6 +9,8 @@ export const VISUAL_PRESETS: Record<VisualQuality, VisualPreset> = {
   "2K": { quality: "2K", providerQuality: "high", targetWidth: 2560, targetHeight: 1440, label: "2K QHD · 2560 × 1440", providerDependent: true },
   FULL_HD: { quality: "FULL_HD", providerQuality: "high", targetWidth: 1920, targetHeight: 1080, label: "Full HD · 1920 × 1080", providerDependent: true },
   "4K": { quality: "4K", providerQuality: "high", targetWidth: 3840, targetHeight: 2160, label: "4K UHD · 3840 × 2160", providerDependent: true },
+  "8K": { quality: "8K", providerQuality: "high", targetWidth: 7680, targetHeight: 4320, label: "8K UHD · 7680 × 4320 · provider/upscale dependent", providerDependent: true },
+  "16K": { quality: "16K", providerQuality: "high", targetWidth: 15360, targetHeight: 8640, label: "16K · 15360 × 8640 · external render/upscale dependent", providerDependent: true },
 };
 
 export type VisualGenerationRequest = { prompt: string; quality: VisualQuality; purpose: VisualPurpose; referenceImageUrl?: string; preserveGeometry?: boolean; projectId?: string };
@@ -31,7 +33,7 @@ function visualSafetyPrompt(request: VisualGenerationRequest, preset: VisualPres
 export async function generateArkiPhotorealisticVisual(request: VisualGenerationRequest): Promise<ArkiGeneratedVisual> {
   const preset = VISUAL_PRESETS[request.quality];
   const result = await generateImage({ prompt: visualSafetyPrompt(request, preset), quality: preset.providerQuality, originalImages: request.referenceImageUrl ? [{ url: request.referenceImageUrl, mimeType: "image/jpeg" }] : undefined });
-  return { ...result, quality: request.quality, requestedResolution: `${preset.targetWidth}x${preset.targetHeight}`, purpose: request.purpose, status: "AI_PROPOSED_VISUAL", providerResolutionVerified: false, humanReviewRequired: true, limitations: ["provider may return a different native size", "visual appearance does not prove dimensions or code compliance", "architectural and material fidelity requires human review"] };
+  return { ...result, quality: request.quality, requestedResolution: `${preset.targetWidth}x${preset.targetHeight}`, purpose: request.purpose, status: "AI_PROPOSED_VISUAL", providerResolutionVerified: false, humanReviewRequired: true, limitations: ["provider may return a different native size", "8K/16K may require a separate approved upscale or external render worker", "visual appearance does not prove dimensions or code compliance", "architectural and material fidelity requires human review"] };
 }
 
 export type VisionClaim = { claimId: string; observation: string; evidence: "VISIBLE_IN_IMAGE" | "LEGIBLE_TEXT" | "MEASURED_METADATA" | "NOT_OBSERVED"; qualifier: "EXACT" | "APPROXIMATE" | "RANGE" | "UNKNOWN"; confidence: "HIGH" | "MEDIUM" | "LOW"; status: "AI_PROPOSED"; humanReviewRequired: true };

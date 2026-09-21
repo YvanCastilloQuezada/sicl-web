@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { AR_VISUAL_CAPABILITIES, enforceVisionEvidence, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 
 describe("ARKI visual intelligence", () => {
-  it("exposes selectable HD, 2K, Full HD and 4K visual presets", () => {
+  it("exposes selectable HD, 2K, Full HD, 4K, 8K and 16K visual presets", () => {
     expect(VISUAL_PRESETS.HD.targetWidth).toBe(1280);
     expect(VISUAL_PRESETS.HD.targetHeight).toBe(720);
     expect(VISUAL_PRESETS["2K"].targetWidth).toBe(2560);
@@ -12,6 +12,11 @@ describe("ARKI visual intelligence", () => {
     expect(VISUAL_PRESETS["4K"].targetWidth).toBe(3840);
     expect(VISUAL_PRESETS["4K"].targetHeight).toBe(2160);
     expect(VISUAL_PRESETS["4K"].providerDependent).toBe(true);
+    expect(VISUAL_PRESETS["8K"].targetWidth).toBe(7680);
+    expect(VISUAL_PRESETS["8K"].targetHeight).toBe(4320);
+    expect(VISUAL_PRESETS["16K"].targetWidth).toBe(15360);
+    expect(VISUAL_PRESETS["16K"].targetHeight).toBe(8640);
+    expect(VISUAL_PRESETS["16K"].label).toContain("external render/upscale dependent");
   });
 
   it("keeps photorealistic output as a proposed visual, not a verified fact", () => {
