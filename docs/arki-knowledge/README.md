@@ -52,6 +52,10 @@ The FKCG-02 workbook is preserved under [`fundamental-research/FKCG-02/`](fundam
 
 The original DG-01 applicability specification is preserved under [`demonstration-gates/DG-01/`](demonstration-gates/DG-01/) as **SPECIFIED / NOT IMPLEMENTED / NOT DEMONSTRATED**, with execution superseded by DG-01B. The DG-01B protocol is a documentary correction that adds strict oracle separation, anonymous cases, B1–B8 blind mutations, five composite cases, positive/negative controls, justification and conditional-applicability contracts, multi-state reporting and revised P1–P12 falsification criteria. It does not authorize execution, a new applicability engine, ontology changes, runtime work, learning promotion or DG-02.
 
+## Parti documentary contract
+
+The typed `PARTI-CONTRACT-1.0` is implemented in [`server/arkiPartiContract.ts`](../../server/arkiPartiContract.ts) and documented in [`arki-parti/PARTI_CONTRACT_REPORT.md`](../../arki-parti/PARTI_CONTRACT_REPORT.md). It records the organizing hypothesis and its provenance, topology and geometry lineage without creating a new design engine. The focused proof covers three parti hypotheses, an adversarial functional rejection, mutation/backtracking and bounded typology adaptation; functional validity remains subject to human review.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`
