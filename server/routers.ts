@@ -25,10 +25,12 @@ import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCat
 import { publishParametricEvent } from "./parametricRealtime";
 import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
+import { spatialArCatalog } from "./arkiSpatialAr";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
 const versionInput = z.object({ projectId: z.string().min(1), expectedVersion: z.number().int().positive() });
+const initialIntakeInput = versionInput.extend({ intent: z.string().trim().min(1), location: z.string().trim().default("UNKNOWN"), site: z.string().trim().default("UNKNOWN"), dimensions: z.string().trim().default("UNKNOWN"), occupants: z.string().trim().default("UNKNOWN"), budget: z.string().trim().default("UNKNOWN") });
 const projectBrainInput = z.object({ projectId: z.string().min(1), name: z.string().min(1), typology: z.string().min(1), brief: z.string().min(10), location: z.string().optional(), jurisdiction: z.string().optional(), site: z.record(z.string(), z.unknown()).optional(), knownFacts: z.array(z.string()).default([]), assumptions: z.array(z.string()).default([]), unknowns: z.array(z.string()).default([]), conflicts: z.array(z.string()).default([]), requirements: z.array(z.string()).default([]), objectives: z.array(z.string()).default([]), constraints: z.array(z.string()).default([]), preferences: z.array(z.string()).default([]), activities: z.array(z.record(z.string(), z.unknown())).default([]), relationships: z.array(z.record(z.string(), z.unknown())).default([]), capacities: z.record(z.string(), z.number()).default({}), stakeholders: z.array(z.string()).default([]), sourceIds: z.array(z.string()).default([]) });
 const superpowersInput = z.object({ projectId: z.string().regex(/^[A-Z]{3}-[A-Z]{3}-\d{3}-\d{3}$/), projectName: z.string().min(1), typology: z.string().min(1), brief: z.string().min(10), context: z.record(z.string(), z.unknown()).default({}), constraints: z.array(z.string()).default([]), activities: z.array(z.record(z.string(), z.unknown())).default([]), relationships: z.array(z.record(z.string(), z.unknown())).default([]), subjects: z.array(z.string()).default([]), conditions: z.array(z.string()).default([]), unknowns: z.array(z.string()).default([]), envelope: z.object({ width: z.number().positive(), height: z.number().positive() }), sourceIds: z.array(z.string()).default([]), requestedPieces: z.array(z.string()).optional(), change: z.string().optional(), baselineDecision: z.string().optional(), alternatives: z.array(z.record(z.string(), z.unknown())).optional(), decisions: z.array(z.record(z.string(), z.unknown())).optional() });
 const agentOrchestrationInput = superpowersInput.extend({ problem: z.string().optional(), phase: z.string().optional(), jurisdiction: z.string().optional(), requestedAgents: z.array(z.string()).optional() });
@@ -115,6 +117,9 @@ export const appRouter = router({
   nativeAdapters: router({
     registry: publicProcedure.query(() => ({ version: "ARKI-NATIVE-ADAPTERS-1.0", execution: "CONTRACTS_ONLY_WORKERS_NOT_INSTALLED", adapters: nativeAdapterCapabilityMatrix(), humanReviewRequired: true })),
   }),
+  spatialAr: router({
+    catalog: publicProcedure.query(() => spatialArCatalog()),
+  }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     inspect: protectedProcedure.input(z.object({ fileName: z.string().min(1), content: z.union([z.string(), z.instanceof(Buffer)]) })).mutation(({ input }) => inspectParametricArtifact(input)),
@@ -191,6 +196,15 @@ export const appRouter = router({
       snapshot.events.push(event(ctx.user.id, "PROJECT_CREATED", projectId, { name: input.name, spatialScale: input.spatialScale, temporalHorizon: input.temporalHorizon }));
       await insertSiclProject({ ownerId: ctx.user.id, projectId, name: input.name, location: input.location ?? null, status: "DRAFT", version: 1, snapshot: JSON.stringify(snapshot) });
       return { projectId, version: 1 };
+    }),
+    saveInitialIntake: protectedProcedure.input(initialIntakeInput).mutation(async ({ ctx, input }) => {
+      if (hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Initial intake requires the canonical SICL intake endpoint; local persistence is not guessed when SICL Core is configured" });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving intake" });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const initialIntake = { intent: input.intent, location: input.location || "UNKNOWN", site: input.site || "UNKNOWN", dimensions: input.dimensions || "UNKNOWN", occupants: input.occupants || "UNKNOWN", budget: input.budget || "UNKNOWN", provenance: "USER_PROVIDED" as const, epistemicStatus: "UNVERIFIED" as const, capturedAt: new Date().toISOString() };
+      const next = { ...snapshot, initialIntake, events: [...snapshot.events, event(ctx.user.id, "INITIAL_INTAKE_PERSISTED", input.projectId, { observedVersion: input.expectedVersion, provenance: initialIntake.provenance, epistemicStatus: initialIntake.epistemicStatus })] };
+      return { ...(await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE")), initialIntake, persistence: "PROJECT_STATE" as const };
     }),
     addRecord: protectedProcedure.input(versionInput.extend({ kind: z.enum(recordKinds), record: z.record(z.string(), z.unknown()) })).mutation(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);

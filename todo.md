@@ -580,3 +580,12 @@
 - [x] Se conserva y reutiliza el trabajo válido de PWA, First Contact, Parametric Runtime y Field Mode.
 - [x] Se completa la macroorden consolidada sobre una sola aplicación ARKI Web App, sin crear una aplicación paralela.
 - [x] Se mantienen un solo Project State, Command Resolver, catálogo canónico, historial y modelo de autoridad humana.
+
+## Access Runtime v2 — AR espacial, autenticación y Project State
+- [x] Añadir adaptador WebXR con detección `immersive-ar`, `local-floor`, `hit-test`, `dom-overlay` y estado degradado de cámara/orientación.
+- [x] Mantener límites epistemológicos: capacidad del dispositivo no equivale a precisión, tracking validado ni anclaje persistente.
+- [x] Exponer catálogo público `spatialAr.catalog` con revisión humana obligatoria.
+- [x] Añadir opciones Google, Microsoft y Apple condicionadas a URLs OAuth configuradas; preservar Manus OAuth con nonce/state y no almacenar credenciales.
+- [x] Implementar `projects.saveInitialIntake` con control optimista de versión, evento `INITIAL_INTAKE_PERSISTED`, provenance `USER_PROVIDED` y `UNKNOWN` literal.
+- [x] Validar 55 archivos / 264 pruebas PASS, TypeScript PASS, build PASS, diff PASS y Field Mode renderizado en navegador.
+- [x] Mantener `PENDING_EXTERNAL`: gateway/callback social autorizado, SICL Core intake remoto, hardware WebXR, precisión de tracking y anclaje espacial persistente.
