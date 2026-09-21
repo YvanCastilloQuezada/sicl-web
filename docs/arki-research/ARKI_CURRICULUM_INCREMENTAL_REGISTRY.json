@@ -5,6 +5,13 @@
   "purpose": "Registrar especialidades, universidades, cursos, bibliografía, competencias y transferencia a ARKI sin canonizar conocimiento automáticamente.",
   "capacity": 5000,
   "currentTopicCount": 18,
+  "masterCurriculum": {
+    "path": "docs/arki-research/ARKI_MASTER_CURRICULUM_5000.json",
+    "topicCount": 5000,
+    "formula": "25 professional families × 20 BIM capabilities × 10 communication contexts",
+    "status": "STRUCTURED_RESEARCH_PENDING",
+    "canonization": "NOT_PERFORMED"
+  },
   "lastResearchBatch": {
     "batchA": "docs/arki-research/ARKI_CURRICULUM_BATCH_A_COMPARISON_2026-09-21.md",
     "batchB": "docs/arki-research/ARKI_CURRICULUM_BATCH_B_COMPARISON_2026-09-21.md",

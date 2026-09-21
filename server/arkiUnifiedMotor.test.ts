@@ -12,6 +12,9 @@ describe("ARKI-UNIFIED-MOTOR-1.0", () => {
     const result = executeArkiUnifiedMotor(input);
     expect(result.motorVersion).toBe("ARKI-UNIFIED-MOTOR-1.0");
     expect(result.status).toBe("PASS_WITH_BOUNDS");
+    expect(result.triad.oneMotor).toBe(true);
+    expect(result.triad.components.map((component) => component.id)).toEqual(["ARKI_SUPER_ARCHITECT", "ARKI_GRAPHIC_INTELLIGENCE", "ARKI_ETI_BIM"]);
+    expect(result.triad.canonicalIdentity).toBe("ONE_PROJECT_STATE");
     expect(result.pieceRegistry.length).toBeGreaterThanOrEqual(10);
     expect(result.routing.find((item) => item.pieceId === "D6.2-M")?.route).toBe("EXECUTE");
     expect(result.routing.find((item) => item.pieceId === "MC-02")?.route).toBe("REFERENCE");
@@ -28,6 +31,7 @@ describe("ARKI-UNIFIED-MOTOR-1.0", () => {
     expect(capability.canUseFrozenAsEvidence).toBe(true);
     expect(capability.canSilentlyActivateFrozen).toBe(false);
     expect(capability.canClaimProfessionalCompletion).toBe(false);
+    expect(capability.triad.representationPolicy).toBe("SAME_SEMANTIC_IDENTITY_MULTIPLE_CONTROLLED_REPRESENTATIONS");
   });
 
   it("supports a requested subset while retaining the same motor and human authority", () => {
