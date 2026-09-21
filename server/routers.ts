@@ -29,6 +29,7 @@ import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
 import { listSecurityEvents, verifySecurityEventChain } from "./security";
 import { securityLayerCatalog } from "./arkiSecurityLayers";
+import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, researchCyclePolicy } from "./arkiResearchSuperpower";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -131,6 +132,26 @@ export const appRouter = router({
   security: router({
     policy: adminProcedure.query(() => securityLayerCatalog()),
     recentEvents: adminProcedure.input(z.object({ limit: z.number().int().min(1).max(500).default(100) })).query(({ input }) => ({ events: listSecurityEvents(input.limit), retention: "IN_MEMORY_RING_BUFFER", auditIntegrity: verifySecurityEventChain(), note: "Production persistence requires the enterprise audit store." })),
+  }),
+  research: router({
+    policy: publicProcedure.query(() => researchCyclePolicy()),
+    inspect: protectedProcedure.input(z.object({ url: z.string().url().max(2048) })).mutation(async ({ input }) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8_000);
+      try {
+        return await inspectPublicResearchSource(input.url, controller.signal);
+      } catch (error) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: error instanceof Error ? error.message : "RESEARCH_SOURCE_UNAVAILABLE" });
+      } finally {
+        clearTimeout(timeout);
+      }
+    }),
+    stageExcelRow: protectedProcedure.input(z.object({ sourceId: z.string().min(1), title: z.string().min(1), author: z.string().optional(), url: z.string().url(), topic: z.string().min(1), abstract: z.string().min(1).max(2000), terms: z.array(z.string().min(1)).max(30), rights: z.enum(["PUBLIC_METADATA_ONLY", "OPEN_LICENSE", "COPYRIGHTED", "UNKNOWN"]).default("UNKNOWN"), humanApproved: z.boolean().default(false) })).mutation(({ input }) => {
+      const authorization = authorizeResearchWrite({ humanApproved: input.humanApproved, rights: input.rights, target: "EXCEL_REVIEW_STAGING" });
+      if (!authorization.allowed) throw new TRPCError({ code: "FORBIDDEN", message: authorization.reason });
+      return { authorization, row: buildExcelReviewRow(input), stage: "STAGED_FOR_EXCEL", canonicalPromotion: "NOT_REQUESTED" };
+    }),
+    contract: publicProcedure.query(() => ARKI_RESEARCH_SUPERPOWER),
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
