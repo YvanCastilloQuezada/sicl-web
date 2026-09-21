@@ -29,7 +29,7 @@ import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, authorizeCoreOperation, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
 import { listSecurityEvents, verifySecurityEventChain } from "./security";
 import { securityLayerCatalog } from "./arkiSecurityLayers";
-import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
+import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, closeResearchInternetAccess, grantResearchInternetLease, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, researchInternetLeaseStatus, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
 import { ENV } from "./_core/env";
 import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntelligence";
 import { arkiEtiBimContract } from "./arkiEtiBim";
@@ -211,6 +211,12 @@ export const appRouter = router({
   }),
   research: router({
     policy: publicProcedure.query(() => researchCyclePolicy()),
+    leaseStatus: protectedProcedure.query(() => researchInternetLeaseStatus()),
+    grantLease: protectedProcedure.input(z.object({ durationMinutes: z.number().int().min(1).max(120).default(10), explicitlyExtended: z.boolean().default(false) })).mutation(({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
+      return grantResearchInternetLease({ ownerAuthorized: true, durationMinutes: input.durationMinutes, explicitlyExtended: input.explicitlyExtended });
+    }),
+    closeLease: protectedProcedure.mutation(({ ctx }) => { requireOwnerHumanAuthority(ctx); return closeResearchInternetAccess(); }),
     inspect: protectedProcedure.input(z.object({ url: z.string().url().max(2048) })).mutation(async ({ ctx, input }) => {
       requireOwnerHumanAuthority(ctx);
       const controller = new AbortController();
