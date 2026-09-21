@@ -85,3 +85,10 @@ Photorealistic visual generation, Full HD/4K selection, AR overlay limits and ev
 ## Corporation Waves 2–5
 
 `server/arkiCorporationWaves.ts` adds the governed Wave 2–5 contract on top of the single `ARKI-UNIFIED-MOTOR-1.0`: measurable performance evidence, lifecycle delivery boundaries, jurisdiction/collaboration readiness, and advisory ecosystem/learning structures. The consolidated state is documented in `docs/arki-corporation/ARKI_CORPORATION_WAVES_2_TO_5.md`. It does not promote UNKNOWN to FACT, certify professional compliance, or claim native BIM/CAD/GIS export.
+
+
+## Enterprise platform and commercial API
+
+The enterprise boundary is documented in [`arki-enterprise/ARKI_ENTERPRISE_PLATFORM_AND_COMMERCIAL_API.md`](../arki-enterprise/ARKI_ENTERPRISE_PLATFORM_AND_COMMERCIAL_API.md). `server/arkiEnterpriseArchitecture.ts` registers CAD/documentation, simulation, digital twin, cross-project transfer, global multiscale, external ecosystem, Python plugins and enterprise security with maturity and limits. It reuses the single unified motor; it does not create a second brain.
+
+The commercial facade is implemented in [`server/arkiCommercialApi.ts`](../../server/arkiCommercialApi.ts) and exposed through the `commercialApi` tRPC router. Version `v1` requires tenant, actor, plan and idempotency metadata, returns a request/audit envelope, and preserves mandatory human review. The public capability catalog is not a billing or payment system, and planned integrations remain `CONTRACT_ONLY` or `NOT_DEMONSTRATED` until independently connected and tested.
