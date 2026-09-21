@@ -20,6 +20,7 @@ import { commercialApiContract, handleCommercialApiRequest } from "./arkiCommerc
 import { executeArkiSuperpowersPack } from "./arkiSuperpowersPack";
 import { orchestrateAgents } from "./arkiAgentOrchestrator";
 import { AGENT_REGISTRY } from "./arkiAgentRegistry";
+import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -106,6 +107,9 @@ export const appRouter = router({
     contract: publicProcedure.query(() => commercialApiContract()),
     capabilities: publicProcedure.query(() => handleCommercialApiRequest({ apiVersion: "v1", tenantId: "public", actorId: "catalog", plan: "EVALUATION", operation: "CAPABILITIES", idempotencyKey: "catalog" }).result),
     register: protectedProcedure.input(z.object({ tenantId: z.string().min(1), plan: z.enum(["EVALUATION", "PROFESSIONAL", "ENTERPRISE"]), operation: z.enum(["CAPABILITIES", "ARCHITECTURE_PLAN", "EXPORT_REQUEST"]), idempotencyKey: z.string().min(1) })).mutation(({ ctx, input }) => handleCommercialApiRequest({ apiVersion: "v1", tenantId: input.tenantId, actorId: String(ctx.user.id), plan: input.plan, operation: input.operation, idempotencyKey: input.idempotencyKey })),
+  }),
+  nativeAdapters: router({
+    registry: publicProcedure.query(() => ({ version: "ARKI-NATIVE-ADAPTERS-1.0", execution: "CONTRACTS_ONLY_WORKERS_NOT_INSTALLED", adapters: nativeAdapterCapabilityMatrix(), humanReviewRequired: true })),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),

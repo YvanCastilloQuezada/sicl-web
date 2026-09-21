@@ -480,3 +480,11 @@
 - [x] Generar y verificar `docs/arki-kr63/ARKI_Canonical_Knowledge_and_Reasoning_v6.3_MULTI_AGENT.xlsx`.
 - [x] Registrar explícitamente que A00–A59 no fueron enumerados literalmente en la orden recibida; no se inventaron nombres.
 - [x] Mantener límites: no declarar multi-agent intelligence demonstrated por la existencia del Registry.
+
+## Adaptadores nativos OSS — investigación y frontera de activación
+- [x] Investigar fuentes oficiales y comparar pilas gratuitas para CAD, BIM, GIS, mallas y publicación profesional.
+- [x] Implementar `server/arkiNativeAdapters.ts` con registro, selección, validación de envelopes y manifiesto de pérdidas.
+- [x] Exponer catálogo read-only mediante `nativeAdapters.registry` y registrar la capacidad en Control Center.
+- [x] Documentar licencias, formatos, límites, DWG no demostrado y gates de activación en `docs/arki-enterprise/ARKI_NATIVE_ADAPTERS_OSS_RESEARCH.md`.
+- [x] Validar con 3 pruebas focalizadas, `pnpm check`, `pnpm build` y `git diff --check`.
+- [x] Mantener `PENDING_EXTERNAL`: workers nativos aislados, SBOM, fixtures reales, round-trip y revisión humana antes de elevar madurez a `DEMONSTRATED`.
