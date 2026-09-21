@@ -22,7 +22,7 @@ import {
 import { startLogin } from "@/const";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/useMobile";
-import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, MapPin, Network, PanelLeft, Puzzle, Scale, ShieldCheck, Target, Waypoints, Workflow } from "lucide-react";
+import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, MapPin, Network, PanelLeft, Puzzle, Scale, ShieldAlert, ShieldCheck, Target, Waypoints, Workflow } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -47,6 +47,7 @@ const menuItems = [
   { icon: Workflow, label: "ARKI · Parametric Runtime", path: "/arki-parametric-runtime" },
   { icon: MapPin, label: "ARKI · Field Mode", path: "/field" },
   { icon: Network, label: "ARKI · Control Center", path: "/control-center" },
+  { icon: ShieldAlert, label: "ARKI · Security Events", path: "/security-events" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";

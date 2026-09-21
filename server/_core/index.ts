@@ -12,7 +12,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHttpClient";
 import { attachParametricWebSocket } from "../parametricRealtime";
-import { rateLimit, securityHeaders, writeRequestGuard } from "../security";
+import { rateLimit, recordSecurityEvent, securityHeaders, writeRequestGuard } from "../security";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -44,6 +44,18 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.use(compression({ threshold: 1024 }));
   app.use(writeRequestGuard);
+  app.post("/api/security/csp-report", rateLimit({ name: "csp-report", max: 60 }), (req, res) => {
+    const report = (req.body?.["csp-report"] ?? req.body) as Record<string, unknown>;
+    recordSecurityEvent({
+      kind: "CSP_REPORT",
+      path: String(report["document-uri"] ?? req.path),
+      method: req.method,
+      ip: req.ip || req.socket.remoteAddress || "unknown",
+      status: 200,
+      detail: JSON.stringify({ blockedUri: report["blocked-uri"] ?? "unknown", violatedDirective: report["violated-directive"] ?? "unknown", sourceFile: report["source-file"] ?? "unknown" }).slice(0, 1000),
+    });
+    res.status(204).end();
+  });
   app.use("/api/oauth", rateLimit({ name: "oauth", max: 30 }));
   app.use("/api/core", rateLimit({ name: "core", max: 90 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));

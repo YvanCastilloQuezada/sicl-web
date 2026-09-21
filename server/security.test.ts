@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { rateLimit, sameOriginGuard, securityHeaders } from "./security";
+import { listSecurityEvents, rateLimit, sameOriginGuard, securityHeaders } from "./security";
 
 function responseMock() {
   const headers = new Map<string, string>();
@@ -24,6 +24,17 @@ describe("security middleware", () => {
     expect(res.headers.get("strict-transport-security")).toContain("max-age");
   });
 
+  it("uses enforced CSP in production", () => {
+    const previous = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const req = { protocol: "https", headers: {}, get: () => "arki.test" } as any;
+    const res = responseMock();
+    securityHeaders()(req, res, () => undefined);
+    expect(res.headers.get("content-security-policy")).toContain("script-src 'self'");
+    expect(res.headers.get("content-security-policy-report-only")).toBeUndefined();
+    process.env.NODE_ENV = previous;
+  });
+
   it("rejects a cross-origin mutating request", () => {
     const req = { method: "POST", headers: { origin: "https://evil.example" }, protocol: "https", get: () => "arki.test" } as any;
     const res = responseMock();
@@ -31,6 +42,7 @@ describe("security middleware", () => {
     sameOriginGuard()(req, res, () => { called = true; });
     expect(called).toBe(false);
     expect(res.statusCode).toBe(403);
+    expect(listSecurityEvents(10).some((event) => event.kind === "ORIGIN_BLOCK")).toBe(true);
   });
 
   it("fails closed with a 429 after the configured request budget", () => {

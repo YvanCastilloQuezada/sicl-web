@@ -651,11 +651,12 @@
 
 ## Security Hardening v1 — 2026-09-21
 - [x] Añadir headers: `nosniff`, `SAMEORIGIN`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster` y HSTS bajo HTTPS.
-- [x] Añadir CSP en modo `Report-Only` para observar compatibilidad sin romper el arranque.
+- [x] Añadir CSP estricta en producción con `script-src 'self'`, `object-src 'none'`, `frame-ancestors 'self'`, `form-action 'self'` y endpoint de reportes; desarrollo conserva `Report-Only` para HMR.
 - [x] Añadir guardia de origen para mutaciones HTTP; permitir host actual, `ARKI_ALLOWED_ORIGINS` y clientes sin header Origin.
 - [x] Añadir rate limiting en memoria para OAuth, Core y tRPC con `429` y `Retry-After`.
 - [x] Endurecer WebSocket paramétrico: maxPayload 16 KiB, 1 canal/socket, 50 suscriptores/canal, 30 mensajes/minuto, validación de origen y ping.
 - [x] Mantener intactos `protectedProcedure`, `adminProcedure` y el acceso temporal de interfaz; no se debilitó autenticación backend.
-- [x] Crear `server/security.test.ts` y documentación `docs/arki-enterprise/ARKI_SECURITY_HARDENING.md`.
-- [x] Validar: `pnpm check` PASS; 58 archivos / 276 tests PASS; build PASS; headers HTTP verificados; diff limpio.
-- [~] PENDING_PRODUCTION_SECURITY: rate limiting distribuido, WAF/DDoS, CSP enforcement, SAST/DAST, rotación de secretos, backups cifrados y pentest profesional requieren infraestructura y operación de producción.
+- [x] Crear panel `/security-events` protegido por `adminProcedure`, con eventos CSP, rate limit, origen y WebSocket en ring buffer de 500 registros.
+- [x] Crear `server/security.test.ts` y actualizar `docs/arki-enterprise/ARKI_SECURITY_HARDENING.md`.
+- [x] Validar: `pnpm check` PASS; 58 archivos / 277 tests PASS; build PASS; header `Content-Security-Policy` verificado en producción; ruta `/security-events` HTTP 200; diff limpio.
+- [~] PENDING_PRODUCTION_SECURITY: rate limiting distribuido, WAF/DDoS, SAST/DAST, rotación de secretos, backups cifrados y pentest profesional requieren infraestructura y operación de producción.

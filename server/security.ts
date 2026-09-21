@@ -1,12 +1,26 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
 const WINDOW_MS = 60_000;
+const MAX_SECURITY_EVENTS = 500;
+const events: SecurityEvent[] = [];
 
 type Bucket = { count: number; resetAt: number };
+export type SecurityEvent = { id: string; at: string; kind: "RATE_LIMIT" | "ORIGIN_BLOCK" | "CSP_REPORT" | "WS_BLOCK"; path: string; method: string; ip: string; status: number; detail: string };
 
 function clientKey(req: Request) {
-  return req.ip || req.socket.remoteAddress || "unknown";
+  return req.ip || req.socket?.remoteAddress || "unknown";
 }
+
+export function recordSecurityEvent(event: Omit<SecurityEvent, "id" | "at">) {
+  events.unshift({ ...event, id: crypto.randomUUID(), at: new Date().toISOString() });
+  if (events.length > MAX_SECURITY_EVENTS) events.length = MAX_SECURITY_EVENTS;
+}
+
+export function listSecurityEvents(limit = 100) {
+  return events.slice(0, Math.max(1, Math.min(limit, MAX_SECURITY_EVENTS)));
+}
+
+export const STRICT_CSP = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https: wss:; media-src 'self' blob:; worker-src 'self' blob:; frame-src 'self'; form-action 'self'; report-uri /api/security/csp-report";
 
 export function securityHeaders(): RequestHandler {
   return (req, res, next) => {
@@ -16,7 +30,9 @@ export function securityHeaders(): RequestHandler {
     res.setHeader("Permissions-Policy", "camera=(self), microphone=(self), geolocation=(self), xr-spatial-tracking=(self)");
     res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
     res.setHeader("Origin-Agent-Cluster", "?1");
-    res.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; connect-src 'self' https: wss:");
+    res.setHeader("Reporting-Endpoints", 'csp-endpoint="/api/security/csp-report"');
+    const cspHeader = process.env.NODE_ENV === "production" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only";
+    res.setHeader(cspHeader, STRICT_CSP);
     const forwarded = String(req.headers["x-forwarded-proto"] ?? "").split(",").map((value) => value.trim());
     if (req.protocol === "https" || forwarded.includes("https")) {
       res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
@@ -32,6 +48,7 @@ export function sameOriginGuard(): RequestHandler {
     const expected = `${req.protocol}://${req.get("host")}`;
     const configured = (process.env.ARKI_ALLOWED_ORIGINS ?? "").split(",").map((value) => value.trim()).filter(Boolean);
     if (origin === expected || configured.includes(origin)) return next();
+    recordSecurityEvent({ kind: "ORIGIN_BLOCK", path: req.path, method: req.method, ip: clientKey(req), status: 403, detail: `Origin rejected: ${origin}` });
     res.status(403).json({ error: "ORIGIN_NOT_ALLOWED" });
   };
 }
@@ -46,14 +63,14 @@ export function rateLimit(options: { windowMs?: number; max: number; name: strin
     const bucket = !current || current.resetAt <= now ? { count: 0, resetAt: now + windowMs } : current;
     bucket.count += 1;
     buckets.set(key, bucket);
-    if (buckets.size > 10_000) {
-      buckets.forEach((value, bucketKey) => { if (value.resetAt <= now) buckets.delete(bucketKey); });
-    }
+    if (buckets.size > 10_000) buckets.forEach((value, bucketKey) => { if (value.resetAt <= now) buckets.delete(bucketKey); });
     res.setHeader("X-RateLimit-Limit", String(options.max));
     res.setHeader("X-RateLimit-Remaining", String(Math.max(0, options.max - bucket.count)));
     if (bucket.count > options.max) {
-      res.setHeader("Retry-After", String(Math.ceil((bucket.resetAt - now) / 1000)));
-      res.status(429).json({ error: "RATE_LIMITED", retryAfterSeconds: Math.ceil((bucket.resetAt - now) / 1000) });
+      const retryAfterSeconds = Math.ceil((bucket.resetAt - now) / 1000);
+      res.setHeader("Retry-After", String(retryAfterSeconds));
+      recordSecurityEvent({ kind: "RATE_LIMIT", path: req.path, method: req.method, ip: clientKey(req), status: 429, detail: `${options.name} limit exceeded` });
+      res.status(429).json({ error: "RATE_LIMITED", retryAfterSeconds });
       return;
     }
     next();

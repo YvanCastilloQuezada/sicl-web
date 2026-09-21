@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { archiveParametricFile, insertParametricFile, insertSiclProject, getSiclProject, listArkiCommandSessions, listParametricFiles, listSiclProjects, saveArkiCommandSession, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
@@ -27,6 +27,7 @@ import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHost
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 import { spatialArCatalog } from "./arkiSpatialAr";
 import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
+import { listSecurityEvents } from "./security";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -125,6 +126,9 @@ export const appRouter = router({
     contract: publicProcedure.query(() => architectureContractSummary()),
     layers: publicProcedure.query(() => layerCatalog()),
     verticalProof: publicProcedure.query(() => verticalFlowProof()),
+  }),
+  security: router({
+    recentEvents: adminProcedure.input(z.object({ limit: z.number().int().min(1).max(500).default(100) })).query(({ input }) => ({ events: listSecurityEvents(input.limit), retention: "IN_MEMORY_RING_BUFFER", note: "Production persistence requires the enterprise audit store." })),
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
