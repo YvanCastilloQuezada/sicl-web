@@ -26,7 +26,7 @@ import { publishParametricEvent } from "./parametricRealtime";
 import { executeAuthorizedHostWorker, hostWorkerCatalog } from "./parametricHostWorkers";
 import { architecturalAssimilation, exchangePackage, parseArkProposal, type ArkGeometry } from "./arkiParametricExchange";
 import { spatialArCatalog } from "./arkiSpatialAr";
-import { architectureContractSummary, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
+import { architectureContractSummary, authorizeCoreOperation, layerCatalog, verticalFlowProof } from "./arkiThreeLayerArchitecture";
 import { listSecurityEvents, verifySecurityEventChain } from "./security";
 import { securityLayerCatalog } from "./arkiSecurityLayers";
 import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
@@ -63,10 +63,17 @@ async function ownedProject(ownerId: number, projectId: string) {
   if (!project) throw new TRPCError({ code: "NOT_FOUND", message: "SICL project not found" });
   return project;
 }
-async function saveNext(ownerId: number, projectId: string, expectedVersion: number, snapshot: SiclSnapshot, status?: "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED") {
+async function saveNext(ownerId: number, projectId: string, expectedVersion: number, snapshot: SiclSnapshot, status?: "DRAFT" | "ACTIVE" | "DECIDED" | "ARCHIVED", operation: "PROJECT_STATE_COMMIT" | "INITIAL_INTAKE_COMMIT" | "REASONING_APPEND" | "HUMAN_REVIEW_APPEND" | "HUMAN_DECISION_APPEND" = "PROJECT_STATE_COMMIT", humanApproved = false) {
+  const authorization = authorizeCoreOperation({
+    operation,
+    sourceLayer: "CORE_TRUST",
+    authority: operation === "HUMAN_REVIEW_APPEND" || operation === "HUMAN_DECISION_APPEND" ? "HUMAN" : "SYSTEM",
+    humanApproved,
+  });
+  if (!verifySecurityEventChain()) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "MANIAC_CORE_DENY: audit integrity failure" });
   const updated = await updateSiclProject(ownerId, projectId, expectedVersion, JSON.stringify(snapshot), status);
   if (!updated) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
-  return { version: expectedVersion + 1, snapshot };
+  return { version: expectedVersion + 1, snapshot, authorization };
 }
 
 export const appRouter = router({
@@ -230,6 +237,7 @@ export const appRouter = router({
     create: protectedProcedure.input(projectInput).mutation(async ({ ctx, input }) => {
       requireCanonicalCoreOrExplicitLocal();
       const projectId = input.projectId ?? generateProjectId();
+      authorizeCoreOperation({ operation: "PROJECT_CREATE", sourceLayer: "BRAIN", authority: "SYSTEM" });
       if (hasCoreUrl()) {
         const canonical = await createCoreProject(projectId, input.name, { spatialScope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporalScope: { horizon: input.temporalHorizon } });
         const snapshot = { ...canonical.snapshot, spatial_scope: { scale: input.spatialScale, id: projectId, name: input.location || input.name }, temporal_scope: { horizon: input.temporalHorizon } };
@@ -250,7 +258,7 @@ export const appRouter = router({
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       const initialIntake = { intent: input.intent, location: input.location || "UNKNOWN", site: input.site || "UNKNOWN", dimensions: input.dimensions || "UNKNOWN", occupants: input.occupants || "UNKNOWN", budget: input.budget || "UNKNOWN", provenance: "USER_PROVIDED" as const, epistemicStatus: "UNVERIFIED" as const, capturedAt: new Date().toISOString() };
       const next = { ...snapshot, initialIntake, events: [...snapshot.events, event(ctx.user.id, "INITIAL_INTAKE_PERSISTED", input.projectId, { observedVersion: input.expectedVersion, provenance: initialIntake.provenance, epistemicStatus: initialIntake.epistemicStatus })] };
-      return { ...(await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE")), initialIntake, persistence: "PROJECT_STATE" as const };
+      return { ...(await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE", "INITIAL_INTAKE_COMMIT")), initialIntake, persistence: "PROJECT_STATE" as const };
     }),
     addRecord: protectedProcedure.input(versionInput.extend({ kind: z.enum(recordKinds), record: z.record(z.string(), z.unknown()) })).mutation(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
@@ -287,7 +295,7 @@ export const appRouter = router({
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       const result = executeArchitecturalReasoning({ executionId: input.executionId, projectId: input.projectId, brief: input.brief, context: input.context, constraints: input.constraints, knownFacts: input.knownFacts, unknowns: input.unknowns, requestedReasoningDepth: input.requestedReasoningDepth, seed: input.seed, perturbations: input.perturbations, failures: input.failures, counterexamples: input.counterexamples }, snapshot, project.version, "ARKI-L2-TRANSFER-1.0");
       const next = { ...snapshot, reasoningExecutions: [...snapshot.reasoningExecutions, result.execution], events: [...snapshot.events, event(ctx.user.id, "ARCHITECTURAL_REASONING_EXECUTED", result.execution.executionId, { observedVersion: input.expectedVersion, transferCount: result.transferDecisions.length, strategyCount: result.strategies.length, humanReviewRequired: true })] };
-      const saved = await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+      const saved = await saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE", "REASONING_APPEND");
       return { ...result, version: saved.version, persistence: "PASS", humanAuthority: "FINAL", promotion: "HUMAN_REVIEW_REQUIRED" };
     }),
     recommendationCreate: protectedProcedure.input(versionInput.extend({ recommendationId: z.string().min(1), alternativeId: z.string().min(1), reason: z.string().trim().min(10), basedOn: z.string().min(1), basedOnKind: z.enum(["BINARY", "MULTI_CRITERIA", "COUNCIL_FINDING", "COUNCIL_ASSESSMENT", "COLLECTIVE_AGGREGATE"]), source: z.literal("ANALYTICAL") })).mutation(async ({ ctx, input }) => {
@@ -304,6 +312,7 @@ export const appRouter = router({
     }),
     reviewRecord: protectedProcedure.input(versionInput.extend({ reviewId: z.string().min(1), recommendationId: z.string().min(1), actorId: z.string().min(1), confirmationId: z.string().min(1), reason: z.string().trim().min(10), recommendationVersion: z.number().int().positive(), status: z.enum(["ACCEPTED", "MODIFIED", "REJECTED"]), authorityBasis: z.string().min(1).default("HUMAN_REVIEW") })).mutation(async ({ ctx, input }) => {
       if (hasCoreUrl()) return recordCoreHumanReview(input.projectId, { review_id: input.reviewId, recommendation_id: input.recommendationId, actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId, status: input.status, reason: input.reason, observed_project_version: input.expectedVersion, recommendation_version: input.recommendationVersion, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
+      requireOwnerHumanAuthority(ctx);
       const project = await ownedProject(ctx.user.id, input.projectId);
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
@@ -311,7 +320,7 @@ export const appRouter = router({
       if (!recommendation || Number(recommendation.recommendationVersion) !== input.recommendationVersion) fail("HumanReview recommendation version mismatch");
       const review = { id: input.reviewId, recommendationId: input.recommendationId, actorId: input.actorId, confirmationId: input.confirmationId, reason: input.reason, status: input.status, observedVersion: input.expectedVersion, recommendationVersion: input.recommendationVersion };
       const next = siclCorePort.appendHumanReview(snapshot, review, event(ctx.user.id, "HUMAN_REVIEW_RECORDED", review.id, { observedVersion: input.expectedVersion, recommendationVersion: input.recommendationVersion }));
-      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE", "HUMAN_REVIEW_APPEND", true);
     }),
     decisionPrepare: protectedProcedure.input(versionInput.extend({ selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);
@@ -322,13 +331,14 @@ export const appRouter = router({
     }),
     decisionRecord: protectedProcedure.input(versionInput.extend({ decisionId: z.string().min(1), selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).mutation(async ({ ctx, input }) => {
       if (hasCoreUrl()) return recordCoreDecision(input.projectId, { decision_id: input.decisionId, selected_alternative_id: input.selectedAlternativeId, decision_maker: input.actorId, rationale: input.rationale, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID(), authority_context: { actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId } });
+      requireOwnerHumanAuthority(ctx);
       const project = await ownedProject(ctx.user.id, input.projectId);
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       if (!snapshot.alternatives.some((item) => item.id === input.selectedAlternativeId)) fail("Decision selectedAlternativeId does not exist");
       const decision = { id: input.decisionId, selectedAlternativeId: input.selectedAlternativeId, actorId: input.actorId, authorityBasis: input.authorityBasis, confirmationId: input.confirmationId, rationale: input.rationale, observedVersion: input.expectedVersion, decisionType: "HUMAN" };
       const next = siclCorePort.appendHumanDecision(snapshot, decision, event(ctx.user.id, "HUMAN_DECISION_RECORDED", decision.id, { observedVersion: input.expectedVersion, actorId: input.actorId, authorityBasis: input.authorityBasis }));
-      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "DECIDED");
+      return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "DECIDED", "HUMAN_DECISION_APPEND", true);
     }),
     audit: protectedProcedure.input(z.object({ projectId: z.string().min(1) })).query(async ({ ctx, input }) => {
       const project = await ownedProject(ctx.user.id, input.projectId);

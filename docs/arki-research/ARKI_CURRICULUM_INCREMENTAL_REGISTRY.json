@@ -1,0 +1,56 @@
+{
+  "registryId": "ARKI-CURRICULUM-INCREMENTAL-2026-09-21",
+  "status": "ACTIVE_RESEARCH_REGISTRY",
+  "owner": "ARKI",
+  "purpose": "Registrar especialidades, universidades, cursos, bibliografía, competencias y transferencia a ARKI sin canonizar conocimiento automáticamente.",
+  "capacity": 5000,
+  "currentTopicCount": 18,
+  "lastResearchBatch": {
+    "batchA": "docs/arki-research/ARKI_CURRICULUM_BATCH_A_COMPARISON_2026-09-21.md",
+    "batchB": "docs/arki-research/ARKI_CURRICULUM_BATCH_B_COMPARISON_2026-09-21.md",
+    "status": "READY_FOR_HUMAN_REVIEW",
+    "failures": 0,
+    "canonization": "NOT_PERFORMED",
+    "bibliographyPolicy": "NOT_PUBLIC_WHEN_NOT_VERIFIED"
+  },
+  "selectionPolicy": {
+    "worldUniversities": "Seleccionar cinco instituciones usando el ranking por materia más reciente disponible y pertinente (QS/THE/ARWU u otra fuente metodológicamente explícita), contrastándolo con la página oficial del programa.",
+    "PeruReference": "Investigar la UNI mediante su portal oficial, facultades, mallas curriculares, sílabos y repositorio. Si no existe una carrera exacta, registrar UNI_NO_EXACT_PROGRAM y usar el programa técnico más cercano sin presentarlo como equivalente.",
+    "curriculumEvidence": "Priorizar mallas, planes de estudio, catálogos, sílabos y handbooks oficiales; marcar NOT_PUBLIC cuando el libro o syllabus no sea accesible.",
+    "bibliographyEvidence": "Registrar sólo libros, manuales y lecturas observables en fuentes oficiales o bibliotecas/catálogos académicos; no inferir que un libro se estudia por ser famoso.",
+    "epistemicLabels": ["VERIFIED", "PARTIALLY_VERIFIED", "NOT_PUBLIC", "UNKNOWN", "HUMAN_REVIEW_REQUIRED"],
+    "noHallucinationRule": "No inventar rankings, cursos, autores, libros, acreditaciones, equivalencias UNI ni obligatoriedad profesional."
+  },
+  "topicSchema": {
+    "required": ["topicId", "name", "disciplineFamily", "worldUniversities", "uniReference", "courses", "booksAndReadings", "competencies", "arkiTransfer", "unknowns", "sources", "status"],
+    "statusValues": ["RESEARCH_PENDING", "PARTIALLY_VERIFIED", "READY_FOR_HUMAN_REVIEW", "ACCEPTED"],
+    "reviewGate": "No incorporar al Core hasta revisión humana, validación de fuentes y clasificación de autoridad."
+  },
+  "topics": [
+    {"topicId":"URB-001","name":"Urbanismo","disciplineFamily":"Urbanismo y territorio","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"URB-002","name":"Planificación urbana","disciplineFamily":"Urbanismo y territorio","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"BIM-002","name":"Implementación BIM","disciplineFamily":"BIM y gestión de información","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"CRA-002","name":"Alfarería","disciplineFamily":"Artes, oficio y materialidad","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"CRA-003","name":"Cerámica avanzada","disciplineFamily":"Artes, oficio y materialidad","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"FUR-002","name":"Diseño de muebles","disciplineFamily":"Diseño y fabricación","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"REG-001","name":"Desarrollo urbano y rural","disciplineFamily":"Desarrollo territorial","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"REG-002","name":"Desarrollo regional","disciplineFamily":"Desarrollo territorial","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"REG-003","name":"Desarrollo macroregional","disciplineFamily":"Desarrollo territorial","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"REG-004","name":"Desarrollo del país","disciplineFamily":"Desarrollo territorial","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"CIV-001","name":"Ingeniería Civil","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"ELE-001","name":"Ingeniería Eléctrica","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"MEC-001","name":"Ingeniería Mecánica","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"EME-001","name":"Ingeniería Electromecánica","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"SAN-001","name":"Ingeniería Sanitaria","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"STR-001","name":"Ingeniería Estructural","disciplineFamily":"Ingeniería","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"BRI-001","name":"Ingeniería de Puentes","disciplineFamily":"Infraestructura","status":"READY_FOR_HUMAN_REVIEW"},
+    {"topicId":"DAM-001","name":"Ingeniería de Represas, acueductos y pavimentos","disciplineFamily":"Infraestructura","status":"READY_FOR_HUMAN_REVIEW"}
+  ],
+  "expansionProtocol": {
+    "addTopic": "Crear topicId estable, definir especialidad, familia, pregunta de transferencia y estado RESEARCH_PENDING.",
+    "reviewGate": "No incorporar al Core hasta revisión humana, validación de fuentes y clasificación de autoridad.",
+    "incrementalCapacity": "Se pueden añadir hasta 5.000 entradas sin mezclar temas ni sobrescribir historial.",
+    "versioning": "Cada actualización conserva fecha, fuentes, cambios, estado anterior y decisión humana.",
+    "separation": "Conocimiento curricular, capacidad de software y autoridad profesional permanecen separados."
+  }
+}

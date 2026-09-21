@@ -35,7 +35,7 @@ export const ARKI_SECURITY_LAYERS = {
   ],
 } as const;
 
-export type CoreTrustAction = "READ" | "PREVIEW" | "PROJECT_STATE_COMMIT" | "HUMAN_REVIEW_APPEND" | "HUMAN_DECISION_APPEND" | "UNKNOWN";
+export type CoreTrustAction = "READ" | "PREVIEW" | "PROJECT_CREATE" | "PROJECT_STATE_COMMIT" | "HUMAN_REVIEW_APPEND" | "HUMAN_DECISION_APPEND" | "UNKNOWN";
 
 export function authorizeManiacCoreTrust(input: { action: CoreTrustAction; actorAuthenticated: boolean; humanApproved?: boolean; expectedVersionMatches?: boolean; auditIntegrityValid?: boolean }) {
   if (input.action === "UNKNOWN") return { allowed: false as const, reason: "DEFAULT_DENY_UNKNOWN_OPERATION" };

@@ -42,7 +42,7 @@ export function authorizeCoreOperation(input: { operation: CoreOperation; source
   if (["PROJECT_STATE_COMMIT", "INITIAL_INTAKE_COMMIT", "REASONING_APPEND"].includes(input.operation) && input.authority === "NONE") throw new Error(`${input.operation} requires an authorized actor`);
   if (input.operation === "HUMAN_DECISION_APPEND" && input.humanApproved !== true) throw new Error("HUMAN_DECISION_APPEND requires explicit human approval");
   const maniac = authorizeManiacCoreTrust({
-    action: humanAuthorityRequired ? (input.operation === "HUMAN_REVIEW_APPEND" ? "HUMAN_REVIEW_APPEND" : "HUMAN_DECISION_APPEND") : input.operation === "PROJECT_STATE_COMMIT" || input.operation === "INITIAL_INTAKE_COMMIT" || input.operation === "REASONING_APPEND" ? "PROJECT_STATE_COMMIT" : "READ",
+    action: humanAuthorityRequired ? (input.operation === "HUMAN_REVIEW_APPEND" ? "HUMAN_REVIEW_APPEND" : "HUMAN_DECISION_APPEND") : input.operation === "PROJECT_CREATE" ? "PROJECT_CREATE" : input.operation === "PROJECT_STATE_COMMIT" || input.operation === "INITIAL_INTAKE_COMMIT" || input.operation === "REASONING_APPEND" ? "PROJECT_STATE_COMMIT" : "READ",
     actorAuthenticated: input.authority !== "NONE",
     humanApproved: input.humanApproved,
     expectedVersionMatches: true,

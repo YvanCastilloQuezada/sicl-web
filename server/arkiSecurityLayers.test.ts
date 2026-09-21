@@ -10,6 +10,7 @@ describe("ARKI defensive three-layer security", () => {
 
   it("fails closed for unauthenticated, unknown, conflicted and tampered commits", () => {
     expect(authorizeManiacCoreTrust({ action: "UNKNOWN", actorAuthenticated: true }).allowed).toBe(false);
+    expect(authorizeManiacCoreTrust({ action: "PROJECT_CREATE", actorAuthenticated: true }).allowed).toBe(true);
     expect(authorizeManiacCoreTrust({ action: "PROJECT_STATE_COMMIT", actorAuthenticated: false }).allowed).toBe(false);
     expect(authorizeManiacCoreTrust({ action: "PROJECT_STATE_COMMIT", actorAuthenticated: true, expectedVersionMatches: false }).allowed).toBe(false);
     expect(authorizeManiacCoreTrust({ action: "PROJECT_STATE_COMMIT", actorAuthenticated: true, auditIntegrityValid: false }).allowed).toBe(false);
