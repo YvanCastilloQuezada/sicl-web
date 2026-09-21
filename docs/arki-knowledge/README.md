@@ -62,6 +62,8 @@ The `ARKI-UNIFIED-MOTOR-1.0` registry is documented in [`arki-unified-motor/ARKI
 
 The total activation run `ACT-TER-250-001` is recorded in [`arki-unified-motor/ARKI_ACTIVATION_RUN_REPORT.md`](../../arki-unified-motor/ARKI_ACTIVATION_RUN_REPORT.md) and its machine-readable ledger in [`arki-unified-motor/ARKI_ACTIVATION_RUN_ACT-TER-250-001.json`](../../arki-unified-motor/ARKI_ACTIVATION_RUN_ACT-TER-250-001.json). It reports six proven pieces executed, four frozen references retained, one blocked gate retained and one not-demonstrated capability retained.
 
+The explicit authority profile is documented in [`arki-unified-motor/ARKI_AUTHORITY_PROFILE.md`](../../arki-unified-motor/ARKI_AUTHORITY_PROFILE.md). It grants operational permission to MC-02, MC-03, FKCG-02, DS-EVAL-001 and DG-01B while preserving their evidence, review and human-authority gates.
+
 ## Gate
 
 `GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS`

@@ -1,5 +1,6 @@
 import { executeArkiUnifiedMotor, UNIFIED_PIECE_REGISTRY, type UnifiedMotorInput, type UnifiedPiece } from "./arkiUnifiedMotor";
 import type { SiclSnapshot } from "./siclCore";
+import { getArkiAuthorityProfile } from "./arkiAuthorityProfile";
 
 export type ActivationDisposition = "PROMOTED_TO_EXECUTION" | "EXECUTED_AS_REFERENCE" | "RETAINED_FROZEN" | "RETAINED_BLOCKED" | "RETAINED_NOT_DEMONSTRATED";
 export type ActivationGateStatus = "PASS" | "HOLD" | "NOT_APPLICABLE";
@@ -28,6 +29,7 @@ export type ActivationRun = {
   notDemonstratedRetained: string[];
   invariants: string[];
   humanAuthority: "FINAL";
+  authorityProfile: ReturnType<typeof getArkiAuthorityProfile>;
 };
 
 function disposition(piece: UnifiedPiece): ActivationRecord {
@@ -40,7 +42,7 @@ function disposition(piece: UnifiedPiece): ActivationRecord {
 export function executeActivationRun(input: UnifiedMotorInput, snapshot?: SiclSnapshot, coreKnowledgeVersion = 1): ActivationRun {
   const result = executeArkiUnifiedMotor(input, snapshot, coreKnowledgeVersion, "ARKI-ACTIVATION-RUN-1.0");
   const records = result.pieceRegistry.map(disposition);
-  return { activationVersion: "ARKI-ACTIVATION-RUN-1.0", runId: `ACT-${input.projectId}`, projectId: input.projectId, motorStatus: result.status, records, promoted: records.filter((item) => item.disposition === "PROMOTED_TO_EXECUTION").map((item) => item.pieceId), executedReferences: records.filter((item) => item.disposition === "EXECUTED_AS_REFERENCE").map((item) => item.pieceId), frozenRetained: records.filter((item) => item.disposition === "RETAINED_FROZEN").map((item) => item.pieceId), blockedRetained: records.filter((item) => item.disposition === "RETAINED_BLOCKED").map((item) => item.pieceId), notDemonstratedRetained: records.filter((item) => item.disposition === "RETAINED_NOT_DEMONSTRATED").map((item) => item.pieceId), invariants: ["ONE_MOTOR", "FROZEN_IS_NOT_AUTOMATICALLY_ACTIVATED", "DOCUMENTED_IS_NOT_IMPLEMENTED", "UNKNOWN_IS_NOT_PASS", "HUMAN_AUTHORITY_FINAL"], humanAuthority: "FINAL" };
+  return { activationVersion: "ARKI-ACTIVATION-RUN-1.0", runId: `ACT-${input.projectId}`, projectId: input.projectId, motorStatus: result.status, records, promoted: records.filter((item) => item.disposition === "PROMOTED_TO_EXECUTION").map((item) => item.pieceId), executedReferences: records.filter((item) => item.disposition === "EXECUTED_AS_REFERENCE").map((item) => item.pieceId), frozenRetained: records.filter((item) => item.disposition === "RETAINED_FROZEN").map((item) => item.pieceId), blockedRetained: records.filter((item) => item.disposition === "RETAINED_BLOCKED").map((item) => item.pieceId), notDemonstratedRetained: records.filter((item) => item.disposition === "RETAINED_NOT_DEMONSTRATED").map((item) => item.pieceId), invariants: ["ONE_MOTOR", "FROZEN_IS_NOT_AUTOMATICALLY_ACTIVATED", "DOCUMENTED_IS_NOT_IMPLEMENTED", "UNKNOWN_IS_NOT_PASS", "HUMAN_AUTHORITY_FINAL"], humanAuthority: "FINAL", authorityProfile: getArkiAuthorityProfile() };
 }
 
 export function activationSummary(run: ActivationRun) {
