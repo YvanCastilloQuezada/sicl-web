@@ -1,0 +1,6 @@
+export const ARKI_TV_CONTRACT_VERSION = "ARKI-TV-1.0" as const;
+export const ARKI_TV_STATUS = "FROZEN" as const;
+export const ARKI_TV_CAPABILITIES = ["ARCHITECTURE_BRIEFING", "BIM_REVIEW", "FIELD_VISION", "PROJECT_STORY", "MULTI_ASSISTANT_PRESENTATION", "AR_LU_CROSSOVER"] as const;
+export type ArkiTvCapability = (typeof ARKI_TV_CAPABILITIES)[number];
+export type ArkiTvContract = { name: "ARKI-TV"; version: typeof ARKI_TV_CONTRACT_VERSION; status: typeof ARKI_TV_STATUS; capabilities: readonly ArkiTvCapability[]; presenters: string[]; activationGate: "OWNER_AND_PROFESSIONAL_REVIEW"; publicationEnabled: false; coreMutationEnabled: false; externalProviderRequired: true; invariants: readonly string[] };
+export const ARKI_TV_FROZEN_CONTRACT: ArkiTvContract = { name: "ARKI-TV", version: ARKI_TV_CONTRACT_VERSION, status: ARKI_TV_STATUS, capabilities: ARKI_TV_CAPABILITIES, presenters: ["ARKI", "LUCA", "ARKI-BIM", "ARKI-FIELD", "ARKI-COST"], activationGate: "OWNER_AND_PROFESSIONAL_REVIEW", publicationEnabled: false, coreMutationEnabled: false, externalProviderRequired: true, invariants: ["FROZEN_IS_NOT_REJECTED", "DOCUMENTED_IS_NOT_ACTIVATED", "NO_UNAPPROVED_PUBLICATION", "NO_SECRET_TRANSFER", "HUMAN_AUTHORITY_FINAL"] };
