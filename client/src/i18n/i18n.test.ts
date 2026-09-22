@@ -40,7 +40,7 @@ describe("i18n core", () => {
     expect(normalizeLanguage("xx-YY")).toBeUndefined();
   });
 
-  it("uses the first supported browser language when no explicit choice exists", () => {
+  it("uses Spanish when no explicit choice exists, regardless of browser language", () => {
     const storage = new Map<string, string>();
     Object.defineProperty(globalThis, "window", { configurable: true, value: {} });
     Object.defineProperty(globalThis, "localStorage", {
@@ -48,7 +48,7 @@ describe("i18n core", () => {
       value: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
     });
     Object.defineProperty(globalThis, "navigator", { configurable: true, value: { languages: ["xx-XX", "de-DE"], language: "xx-XX" } });
-    expect(detectLanguage()).toBe("de");
+    expect(detectLanguage()).toBe("es");
   });
 
   it("prioritizes an explicit saved choice over the browser language", () => {

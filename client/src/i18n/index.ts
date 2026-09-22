@@ -20,7 +20,7 @@ void i18n
     lng: "es",
     fallbackLng: "es",
     supportedLngs: ["es", "en", "pt", "it", "fr", "de", "ru", "zh"],
-    detection: { order: ["localStorage", "navigator"], caches: ["localStorage"], lookupLocalStorage: I18N_STORAGE_KEY },
+    detection: { order: ["localStorage"], caches: ["localStorage"], lookupLocalStorage: I18N_STORAGE_KEY },
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
   });

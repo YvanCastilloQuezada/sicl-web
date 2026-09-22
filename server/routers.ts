@@ -111,7 +111,7 @@ export const appRouter = router({
   }),
   visualGeneration: router({
     presets: publicProcedure.query(() => ({ presets: VISUAL_PRESETS, arCapabilities: ["camera_context_overlay", "photorealistic_reference_render", "two_stake_calibration", "geospatial_anchor_candidate", "WebXR_optional", "occlusion_and_scale_require_device_validation"] })),
-    generate: protectedProcedure.input(z.object({ projectId: z.string().min(1), prompt: z.string().trim().min(10), quality: z.enum(["HD", "2K", "FULL_HD", "4K", "8K", "16K"]), purpose: z.enum(["EXTERIOR_RENDER", "INTERIOR_RENDER", "MATERIAL_STUDY", "AR_OVERLAY", "SITE_CONTEXT"]), referenceImageUrl: z.string().url().optional(), preserveGeometry: z.boolean().default(true) })).mutation(async ({ ctx, input }) => {
+    generate: protectedProcedure.input(z.object({ projectId: z.string().min(1), prompt: z.string().trim().min(10), quality: z.enum(["HD", "2K", "FULL_HD", "4K", "8K", "16K"]), purpose: z.enum(["EXTERIOR_RENDER", "INTERIOR_RENDER", "MATERIAL_STUDY", "AR_OVERLAY", "SITE_CONTEXT"]), language: z.enum(["es", "en", "pt", "it", "fr", "de", "ru", "zh"]).default("es"), referenceImageUrl: z.string().url().optional(), preserveGeometry: z.boolean().default(true) })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return generateArkiPhotorealisticVisual(input);
     }),

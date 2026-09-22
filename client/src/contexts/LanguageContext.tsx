@@ -28,11 +28,7 @@ export function detectLanguage(): LanguageCode {
   if (localStorage.getItem(LANGUAGE_CHOICE_KEY) === "true") {
     return normalizeLanguage(localStorage.getItem(I18N_STORAGE_KEY)) ?? "es";
   }
-
-  const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length > 0
-    ? navigator.languages
-    : [navigator.language];
-  return browserLanguages.map(normalizeLanguage).find(Boolean) ?? "es";
+  return "es";
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {

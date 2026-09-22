@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { AR_VISUAL_CAPABILITIES, enforceVisionEvidence, VISUAL_PRESETS } from "./arkiVisualIntelligence";
+import { ARKI_DEFAULT_DISPLAY_LANGUAGE, displayLanguageInstruction, normalizeArkiDisplayLanguage } from "../shared/arkiDisplayLanguage";
 
 describe("ARKI visual intelligence", () => {
   it("exposes selectable HD, 2K, Full HD, 4K, 8K and 16K visual presets", () => {
@@ -30,5 +31,13 @@ describe("ARKI visual intelligence", () => {
     expect(claim.qualifier).toBe("UNKNOWN");
     expect(claim.confidence).toBe("LOW");
     expect(claim.humanReviewRequired).toBe(true);
+  });
+
+  it("defaults every visual output to Spanish and supports explicit localization", () => {
+    expect(ARKI_DEFAULT_DISPLAY_LANGUAGE).toBe("es");
+    expect(normalizeArkiDisplayLanguage(undefined)).toBe("es");
+    expect(normalizeArkiDisplayLanguage("en-US")).toBe("en");
+    expect(displayLanguageInstruction("es")).toContain("Español");
+    expect(displayLanguageInstruction("en")).toContain("English");
   });
 });
