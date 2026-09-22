@@ -54,6 +54,7 @@ import { typologyParameterContract } from "../shared/arkiTypologyParameters";
 import { normativeSourceCatalog } from "../shared/arkiNormativeSources";
 import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
 import { calculateAnnualWaterBalance } from "../shared/arkiWaterBalance";
+import { dynamicFamilyContract, dynamicFamilySummary, generateDynamicBuilding, listDynamicFamilies, searchDynamicFamilies, type FamilyCategory } from "../shared/arkiDynamicFamilies";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -317,6 +318,10 @@ export const appRouter = router({
     projectStateContract: publicProcedure.query(() => projectStateContract()),
     parameterContract: publicProcedure.query(() => typologyParameterContract()),
     specializedGeometry: publicProcedure.query(() => specializedGeometryCatalog()),
+    dynamicFamilyContract: publicProcedure.query(() => dynamicFamilyContract()),
+    dynamicFamilies: publicProcedure.input(z.object({ category: z.enum(["SALUD", "EDUCATION", "COMMERCE", "SPORT", "RESIDENTIAL"]).optional() }).optional()).query(({ input }) => ({ ...dynamicFamilySummary(), families: listDynamicFamilies(input?.category as FamilyCategory | undefined) })),
+    searchDynamicFamilies: protectedProcedure.input(z.object({ query: z.string().max(240) })).query(({ input }) => searchDynamicFamilies(input.query)),
+    generateDynamicBuilding: protectedProcedure.input(z.object({ familyId: z.string().min(1), variantId: z.string().min(1), context: z.object({ country: z.string().length(2).optional(), region: z.string().max(120).optional(), city: z.string().max(120).optional(), climate: z.string().max(120).optional(), seismicZone: z.string().max(120).optional(), jurisdiction: z.string().max(160).optional() }).optional(), parameters: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })).mutation(({ ctx, input }) => ({ ownerId: ctx.user.id, generation: generateDynamicBuilding(input), persistence: "PROPOSAL_ONLY" as const, humanReviewRequired: true as const })),
     normativeSources: publicProcedure.query(() => normativeSourceCatalog()),
     waterBalance: protectedProcedure.input(z.object({ projectId: z.string().min(3), precipitationAnnualMm: z.number().nonnegative(), catchmentRoofAreaM2: z.number().nonnegative(), consumptionLitersPerPersonDay: z.number().nonnegative(), annualVisitors: z.number().nonnegative(), residents: z.number().nonnegative(), daysPerYear: z.number().positive().optional(), collectionCoefficient: z.number().min(0).max(1).optional(), location: z.string().optional(), projectLocation: z.string().optional() })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
