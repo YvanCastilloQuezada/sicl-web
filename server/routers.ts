@@ -41,6 +41,7 @@ import { professionalAuthorityContract, recordProfessionalReview } from "./arkiP
 import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } from "./arkiIfc4";
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
+import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -107,6 +108,24 @@ export const appRouter = router({
       const next = siclCorePort.appendRecord(snapshot, "sources", sourceRecord, event(ctx.user.id, "MULTIMODAL_SOURCE_INGESTED", sourceId, { observedVersion: project.version, sourceType: input.sourceType, ocrCount: ocr.length, visualCount: visual?.observations.length ?? 0, humanReviewRequired: true }));
       const saved = await saveNext(ctx.user.id, input.projectId, project.version, next, "ACTIVE");
       return { projectId: input.projectId, sourceId, media, ocr, visual, version: saved.version, humanReviewRequired: true, promotion: "PROMOTION_NOT_REQUESTED" };
+    }),
+  }),
+  spatialFieldBridge: router({
+    contract: publicProcedure.query(() => ({ ...spatialBridgeContract(), evidence: bridgeEvidenceSummary() })),
+    openSession: protectedProcedure.input(z.object({ projectId: z.string().min(1), deviceId: z.string().trim().min(3), scopes: z.array(z.string().min(1)).min(1), ttlMinutes: z.number().int().min(1).max(60).optional() })).mutation(async ({ ctx, input }) => {
+      if (!hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "BRIDGE_CORE_REQUIRED: canonical SICL Core is not connected" });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      return openSpatialBridgeSession({ projectId: project.projectId, userId: ctx.user.id, deviceId: input.deviceId, scopes: input.scopes, observedProjectVersion: project.version, coreAvailable: true, ttlMinutes: input.ttlMinutes });
+    }),
+    observe: protectedProcedure.input(z.object({ projectId: z.string().min(1), session: z.object({ sessionId: z.string().min(8), projectId: z.string().min(1), userId: z.number().int().positive(), deviceId: z.string().min(3), mode: z.enum(["ONLINE", "DEGRADED", "OFFLINE", "CORE_UNAVAILABLE", "REVOKED"]), scopes: z.array(z.string()), observedProjectVersion: z.number().int().positive(), createdAt: z.string(), expiresAt: z.string(), provenance: z.literal("MILUQUITA_FIELD_SESSION") }), kind: z.enum(["CAMERA", "GPS", "HIT_TEST", "ANCHOR", "VOICE", "DOCUMENT", "MANUAL"]), payload: z.record(z.string(), z.unknown()), confidence: z.enum(["UNKNOWN", "LOW", "MEDIUM", "HIGH"]).optional() })).mutation(async ({ ctx, input }) => {
+      if (!hasCoreUrl()) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "BRIDGE_CORE_REQUIRED: canonical SICL Core is not connected" });
+      const project = await ownedProject(ctx.user.id, input.projectId);
+      const session = validateSpatialBridgeSession(input.session as SpatialBridgeSession, { userId: ctx.user.id, projectId: project.projectId });
+      const observation = buildSpatialObservation({ session, kind: input.kind as SpatialBridgeObservationKind, payload: input.payload, confidence: input.confidence, expectedProjectVersion: project.version, coreAvailable: true });
+      const snapshot = siclCorePort.parseSnapshot(project.snapshot);
+      const next = siclCorePort.appendRecord(snapshot, "sources", observationRecord(observation) as unknown as SiclRecord, observationEvent(observation, ctx.user.id));
+      const saved = await saveNext(ctx.user.id, project.projectId, project.version, next, "ACTIVE", "PROJECT_STATE_COMMIT");
+      return { observation, version: saved.version, persistence: "SICL_CORE_PROJECT_STATE", humanReviewRequired: true as const, decisionCreated: false as const };
     }),
   }),
   visualGeneration: router({
