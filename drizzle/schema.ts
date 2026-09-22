@@ -63,6 +63,26 @@ export const arkiCommandSessions = mysqlTable("arki_command_sessions", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const federatedAssistantHandoffs = mysqlTable("federated_assistant_handoffs", {
+  id: int("id").autoincrement().primaryKey(),
+  handoffId: varchar("handoffId", { length: 128 }).notNull().unique(),
+  ownerId: int("ownerId").notNull(),
+  sourceProduct: varchar("sourceProduct", { length: 16 }).notNull(),
+  targetProduct: varchar("targetProduct", { length: 16 }).notNull(),
+  sourceAssistantId: varchar("sourceAssistantId", { length: 128 }).notNull(),
+  targetAssistantId: varchar("targetAssistantId", { length: 128 }),
+  request: text("request").notNull(),
+  status: mysqlEnum("status", ["CANDIDATE", "HUMAN_REVIEW", "APPROVED", "REJECTED", "FROZEN"]).default("CANDIDATE").notNull(),
+  sourceCommit: varchar("sourceCommit", { length: 160 }).notNull(),
+  evidenceJson: text("evidenceJson").notNull(),
+  traceJson: text("traceJson").notNull(),
+  reviewNote: text("reviewNote"),
+  reviewerOpenId: varchar("reviewerOpenId", { length: 128 }),
+  reviewedAt: timestamp("reviewedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type SiclProject = typeof siclProjects.$inferSelect;
@@ -71,3 +91,5 @@ export type ParametricFile = typeof parametricFiles.$inferSelect;
 export type InsertParametricFile = typeof parametricFiles.$inferInsert;
 export type ArkiCommandSession = typeof arkiCommandSessions.$inferSelect;
 export type InsertArkiCommandSession = typeof arkiCommandSessions.$inferInsert;
+export type FederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferSelect;
+export type InsertFederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferInsert;

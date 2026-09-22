@@ -29,6 +29,13 @@
       "when": 1789998499747,
       "tag": "0003_jazzy_colossus",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1790050693169,
+      "tag": "0004_salty_stryfe",
+      "breakpoints": true
     }
   ]
 }

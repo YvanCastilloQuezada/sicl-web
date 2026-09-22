@@ -1,0 +1,21 @@
+CREATE TABLE `federated_assistant_handoffs` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`handoffId` varchar(128) NOT NULL,
+	`ownerId` int NOT NULL,
+	`sourceProduct` varchar(16) NOT NULL,
+	`targetProduct` varchar(16) NOT NULL,
+	`sourceAssistantId` varchar(128) NOT NULL,
+	`targetAssistantId` varchar(128),
+	`request` text NOT NULL,
+	`status` enum('CANDIDATE','HUMAN_REVIEW','APPROVED','REJECTED','FROZEN') NOT NULL DEFAULT 'CANDIDATE',
+	`sourceCommit` varchar(160) NOT NULL,
+	`evidenceJson` text NOT NULL,
+	`traceJson` text NOT NULL,
+	`reviewNote` text,
+	`reviewerOpenId` varchar(128),
+	`reviewedAt` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `federated_assistant_handoffs_id` PRIMARY KEY(`id`),
+	CONSTRAINT `federated_assistant_handoffs_handoffId_unique` UNIQUE(`handoffId`)
+);

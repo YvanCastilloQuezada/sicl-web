@@ -4,7 +4,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { archiveParametricFile, insertParametricFile, insertSiclProject, getSiclProject, listArkiCommandSessions, listParametricFiles, listSiclProjects, saveArkiCommandSession, updateSiclProject } from "./db";
+import { archiveParametricFile, insertFederatedAssistantHandoff, insertParametricFile, insertSiclProject, getSiclProject, listArkiCommandSessions, listFederatedAssistantHandoffs, listParametricFiles, listSiclProjects, reviewFederatedAssistantHandoff, saveArkiCommandSession, updateSiclProject } from "./db";
 import { type RecordKind, type SiclRecord, type SiclSnapshot } from "./siclCore";
 import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
@@ -21,6 +21,7 @@ import { commercialApiContract, handleCommercialApiRequest } from "./arkiCommerc
 import { executeArkiSuperpowersPack } from "./arkiSuperpowersPack";
 import { orchestrateAgents } from "./arkiAgentOrchestrator";
 import { AGENT_REGISTRY } from "./arkiAgentRegistry";
+import { directFederatedAssistants } from "../shared/federatedAssistantDirector";
 import { nativeAdapterCapabilityMatrix } from "./arkiNativeAdapters";
 import { executeParametricGraph, inspectParametricArtifact, parametricRuntimeCatalog, type ParametricGraph } from "./arkiParametricRuntime";
 import { publishParametricEvent } from "./parametricRealtime";
@@ -89,6 +90,11 @@ async function saveNext(ownerId: number, projectId: string, expectedVersion: num
 
 export const appRouter = router({
   system: systemRouter,
+  federatedHandoffs: router({
+    list: protectedProcedure.input(z.object({ status: z.enum(["CANDIDATE", "HUMAN_REVIEW", "APPROVED", "REJECTED", "FROZEN"]).optional() }).optional()).query(({ ctx, input }) => listFederatedAssistantHandoffs(ctx.user.id, input?.status)),
+    create: protectedProcedure.input(z.object({ sourceProduct: z.enum(["ARKI", "LUCA"]), targetProduct: z.enum(["ARKI", "LUCA"]), sourceAssistantId: z.string().min(1).max(128), targetAssistantId: z.string().max(128).optional(), request: z.string().trim().min(10).max(5000), sourceCommit: z.string().trim().min(1).max(160), evidence: z.array(z.string().min(1).max(500)).min(1).max(30), trace: z.array(z.string().min(1).max(1000)).max(100).default([]) })).mutation(({ ctx, input }) => { const director = directFederatedAssistants({ request: input.request, sourceCommit: input.sourceCommit, evidence: input.evidence }); if (director.handoffStatus === "BLOCKED") throw new TRPCError({ code: "BAD_REQUEST", message: director.reasons.join(",") }); return insertFederatedAssistantHandoff({ ownerId: ctx.user.id, sourceProduct: input.sourceProduct, targetProduct: input.targetProduct, sourceAssistantId: input.sourceAssistantId, targetAssistantId: input.targetAssistantId ?? null, request: input.request, status: "HUMAN_REVIEW", sourceCommit: input.sourceCommit, evidenceJson: JSON.stringify(input.evidence), traceJson: JSON.stringify([...director.trace, ...input.trace]), reviewNote: null, reviewerOpenId: null, reviewedAt: null }); }),
+    review: protectedProcedure.input(z.object({ handoffId: z.string().min(1), status: z.enum(["APPROVED", "REJECTED", "FROZEN"]), reviewNote: z.string().trim().min(3).max(2000) })).mutation(async ({ ctx, input }) => { requireOwnerHumanAuthority(ctx); const updated = await reviewFederatedAssistantHandoff(ctx.user.id, input.handoffId, input.status, ctx.user.openId, input.reviewNote); if (!updated) throw new TRPCError({ code: "CONFLICT", message: "Handoff is not in HUMAN_REVIEW or does not belong to the owner" }); return { updated: true, handoffId: input.handoffId, status: input.status, humanAuthority: "FINAL" as const }; }),
+  }),
   visualField: router({
     analyze: protectedProcedure.input(z.object({ projectId: z.string().min(1), spatialScope: z.string().min(1), imageDataUrl: z.string().startsWith("data:image/") })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);

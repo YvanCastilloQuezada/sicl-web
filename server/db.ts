@@ -1,12 +1,14 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { ArkiCommandSession, InsertArkiCommandSession, InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, arkiCommandSessions, parametricFiles, siclProjects, users } from "../drizzle/schema";
+import { randomUUID } from "node:crypto";
+import { ArkiCommandSession, FederatedAssistantHandoff, InsertArkiCommandSession, InsertFederatedAssistantHandoff, InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, arkiCommandSessions, federatedAssistantHandoffs, parametricFiles, siclProjects, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 const memoryProjects = new Map<string, SiclProject>();
 const memoryParametricFiles = new Map<string, ParametricFile>();
 const memoryCommandSessions = new Map<string, ArkiCommandSession>();
+const memoryFederatedHandoffs = new Map<string, FederatedAssistantHandoff>();
 
 function upaoSnapshot() {
   return JSON.stringify({
@@ -165,4 +167,40 @@ export async function listArkiCommandSessions(ownerId: number, projectId: string
   const db = await getDb();
   if (!db) return Array.from(memoryCommandSessions.values()).filter((session) => session.ownerId === ownerId && session.projectId === projectId).sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
   return db.select().from(arkiCommandSessions).where(and(eq(arkiCommandSessions.ownerId, ownerId), eq(arkiCommandSessions.projectId, projectId))).orderBy(desc(arkiCommandSessions.updatedAt));
+}
+
+export async function insertFederatedAssistantHandoff(input: Omit<InsertFederatedAssistantHandoff, "handoffId"> & { handoffId?: string }): Promise<FederatedAssistantHandoff> {
+  const handoffId = input.handoffId ?? `ARLU-${randomUUID().replaceAll("-", "").slice(0, 24).toUpperCase()}`;
+  const values = { ...input, handoffId } as InsertFederatedAssistantHandoff;
+  const db = await getDb();
+  const now = new Date();
+  if (!db) {
+    const stored = { id: 0, createdAt: now, updatedAt: now, ...values } as FederatedAssistantHandoff;
+    memoryFederatedHandoffs.set(handoffId, stored);
+    return stored;
+  }
+  await db.insert(federatedAssistantHandoffs).values(values);
+  const rows = await db.select().from(federatedAssistantHandoffs).where(eq(federatedAssistantHandoffs.handoffId, handoffId)).limit(1);
+  if (!rows[0]) throw new Error("Federated assistant handoff could not be persisted");
+  return rows[0];
+}
+
+export async function listFederatedAssistantHandoffs(ownerId: number, status?: FederatedAssistantHandoff["status"]): Promise<FederatedAssistantHandoff[]> {
+  const db = await getDb();
+  if (!db) return Array.from(memoryFederatedHandoffs.values()).filter((handoff) => handoff.ownerId === ownerId && (!status || handoff.status === status)).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  const conditions = status ? and(eq(federatedAssistantHandoffs.ownerId, ownerId), eq(federatedAssistantHandoffs.status, status)) : eq(federatedAssistantHandoffs.ownerId, ownerId);
+  return db.select().from(federatedAssistantHandoffs).where(conditions).orderBy(desc(federatedAssistantHandoffs.createdAt));
+}
+
+export async function reviewFederatedAssistantHandoff(ownerId: number, handoffId: string, status: Extract<FederatedAssistantHandoff["status"], "APPROVED" | "REJECTED" | "FROZEN">, reviewerOpenId: string, reviewNote: string): Promise<boolean> {
+  const db = await getDb();
+  const reviewedAt = new Date();
+  if (!db) {
+    const current = memoryFederatedHandoffs.get(handoffId);
+    if (!current || current.ownerId !== ownerId || current.status === "APPROVED") return false;
+    memoryFederatedHandoffs.set(handoffId, { ...current, status, reviewerOpenId, reviewNote, reviewedAt, updatedAt: reviewedAt });
+    return true;
+  }
+  const result = await db.update(federatedAssistantHandoffs).set({ status, reviewerOpenId, reviewNote, reviewedAt }).where(and(eq(federatedAssistantHandoffs.ownerId, ownerId), eq(federatedAssistantHandoffs.handoffId, handoffId), eq(federatedAssistantHandoffs.status, "HUMAN_REVIEW")));
+  return result[0].affectedRows === 1;
 }

@@ -1,4 +1,6 @@
 export type AssistantProduct = "ARKI" | "LUCA";
+export const AR_LU_ORCHESTRATOR_NAME = "AR-LU FEDERATED ORCHESTRATOR" as const;
+export const AR_LU_ORCHESTRATOR_VERSION = "AR-LU-ORCHESTRATOR-1.0" as const;
 export type AssistantSharingDisposition = "SHARED_CONTRACT" | "SHARED_READ_ONLY" | "ADAPTER_REQUIRED" | "ISOLATED" | "PLANNED";
 export type AssistantMaturity = "IMPLEMENTED" | "PARTIAL" | "PREPARED" | "CONTRACT_ONLY" | "CONCEPTUAL" | "PLANNED";
 
@@ -69,7 +71,7 @@ const ARKI_ASSISTANTS: FederatedAssistant[] = [
 export const FEDERATED_ASSISTANT_CATALOG: readonly FederatedAssistant[] = [...LUCA_ASSISTANTS, ...ARKI_ASSISTANTS];
 
 export type DirectorRequest = { request: string; sourceCommit: string; evidence: string[]; humanApproved?: boolean };
-export type DirectorDecision = { director: "ARKI-FEDERATED-ASSISTANT-DIRECTOR-1.0"; selected: FederatedAssistant[]; handoffStatus: "CANDIDATE" | "HUMAN_REVIEW" | "APPROVED" | "BLOCKED"; reasons: string[]; trace: string[]; noCoreMutation: true; noSecretTransfer: true; humanAuthority: "FINAL" };
+export type DirectorDecision = { director: typeof AR_LU_ORCHESTRATOR_NAME; version: typeof AR_LU_ORCHESTRATOR_VERSION; selected: FederatedAssistant[]; handoffStatus: "CANDIDATE" | "HUMAN_REVIEW" | "APPROVED" | "BLOCKED"; reasons: string[]; trace: string[]; noCoreMutation: true; noSecretTransfer: true; humanAuthority: "FINAL" };
 
 const normalize = (value: string) => value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
@@ -82,8 +84,8 @@ export function directFederatedAssistants(input: DirectorRequest): DirectorDecis
   });
   const reasons = selected.map((assistant) => `${assistant.id}: ${assistant.disposition} · ${assistant.domain}`);
   const trace = [`REQUEST:${input.request}`, `SOURCE_COMMIT:${input.sourceCommit}`, ...input.evidence.map((evidence) => `EVIDENCE:${evidence}`), "ROUTE:ONE_GOVERNED_DIRECTOR", "CORE_WRITE:FORBIDDEN", "SECRET_TRANSFER:FORBIDDEN"];
-  if (!input.sourceCommit.trim() || input.evidence.length === 0) return { director: "ARKI-FEDERATED-ASSISTANT-DIRECTOR-1.0", selected: [], handoffStatus: "BLOCKED", reasons: ["SOURCE_COMMIT_AND_EVIDENCE_REQUIRED"], trace, noCoreMutation: true, noSecretTransfer: true, humanAuthority: "FINAL" };
-  return { director: "ARKI-FEDERATED-ASSISTANT-DIRECTOR-1.0", selected, handoffStatus: input.humanApproved === true ? "APPROVED" : "HUMAN_REVIEW", reasons, trace, noCoreMutation: true, noSecretTransfer: true, humanAuthority: "FINAL" };
+  if (!input.sourceCommit.trim() || input.evidence.length === 0) return { director: AR_LU_ORCHESTRATOR_NAME, version: AR_LU_ORCHESTRATOR_VERSION, selected: [], handoffStatus: "BLOCKED", reasons: ["SOURCE_COMMIT_AND_EVIDENCE_REQUIRED"], trace, noCoreMutation: true, noSecretTransfer: true, humanAuthority: "FINAL" };
+  return { director: AR_LU_ORCHESTRATOR_NAME, version: AR_LU_ORCHESTRATOR_VERSION, selected, handoffStatus: input.humanApproved === true ? "APPROVED" : "HUMAN_REVIEW", reasons, trace, noCoreMutation: true, noSecretTransfer: true, humanAuthority: "FINAL" };
 }
 
 export function federatedAssistantSummary() {
