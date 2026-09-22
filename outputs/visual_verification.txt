@@ -1,0 +1,5 @@
+Verificación visual 2026-09-22:
+- casa_trujillo_3d_axonometric.png existe, 2304x1536, composición axonométrica con casa de cuatro niveles, concreto visto, terrazas, jardines, piletas y piscina.
+- casa_trujillo_render_4k.png existe, 2560x1440, perspectiva exterior fotorrealista con concreto brutalista, jardines, espejo de agua y piscina.
+- Ambos archivos son PNG RGB válidos y no presentan error de lectura.
+- Las láminas técnicas se entregan como SVG vectorial para conservar cotas y líneas editables.

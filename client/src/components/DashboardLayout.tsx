@@ -52,7 +52,7 @@ const menuItems = [
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
-const DEFAULT_WIDTH = 280;
+const DEFAULT_WIDTH = 260;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
 
@@ -108,8 +108,8 @@ export default function DashboardLayout({
   }
 
     return (
-      <div className="min-h-screen bg-background text-foreground">
-      {TEMPORARY_DIRECT_ACCESS && <div role="status" className="border-b border-amber-300/30 bg-amber-500/10 px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-amber-100">MODO DE ACCESO DIRECTO TEMPORAL · autenticación real conservada en el backend</div>}
+      <div className="arki-shell min-h-screen">
+      {TEMPORARY_DIRECT_ACCESS && <div role="status" className="border-b border-[#f0a35b]/30 bg-[#f0a35b]/10 px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-[#f6c995]">MODO DE ACCESO DIRECTO TEMPORAL · autenticación real conservada en el backend</div>}
       <AppHeader compact={compactHeader} hideBrand={hideBrand} />
       <SidebarProvider
       style={
@@ -186,12 +186,12 @@ function DashboardLayoutContent({
   return (
     <>
       {showSidebar && <div className="relative" ref={sidebarRef}>
-        <Sidebar
+          <Sidebar
           collapsible="icon"
           className="border-r-0"
           disableTransition={isResizing}
         >
-          <SidebarHeader className="h-16 justify-center">
+          <SidebarHeader className="h-16 justify-center bg-[#0d1d2c]">
             <div className="flex items-center gap-3 px-2 transition-all w-full">
               <button
                 onClick={toggleSidebar}
@@ -223,7 +223,7 @@ function DashboardLayoutContent({
                       isActive={isActive}
                       onClick={() => setLocation(item.path)}
                       tooltip={t(item.label)}
-                      className={`h-10 transition-all font-normal ${item.path === "/arki-parametric-runtime" || item.path === "/arki-generator" ? "bg-[#f0a35b] text-black hover:bg-[#f6c995] data-[active=true]:bg-[#f0a35b] data-[active=true]:text-black" : ""}`}
+                    className={`h-10 rounded-[5px] transition-all font-normal ${isActive ? "bg-[#d4ff3a] text-[#07121e] hover:bg-[#e3ff72] data-[active=true]:bg-[#d4ff3a] data-[active=true]:text-[#07121e]" : "text-[#b9cbd6] hover:bg-[#102538] hover:text-white"}`}
                     >
                       <item.icon
                         className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}

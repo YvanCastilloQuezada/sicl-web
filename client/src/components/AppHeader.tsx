@@ -123,7 +123,7 @@ export default function AppHeader({ compact = false, hideBrand = false }: { comp
   };
 
   return (
-    <header ref={headerRef} className={cn("sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur", compact ? "px-4 py-2" : "px-5 py-3 md:px-10")}>
+    <header ref={headerRef} className={cn("sticky top-0 z-50 border-b border-[#28445b] bg-[#07121e]/95 backdrop-blur", compact ? "px-4 py-2" : "px-5 py-3 md:px-10")}>
       {projectMenuOpen && <ProjectListLoader enabled onProjects={handleProjects} />}
       <div className="mx-auto grid max-w-[1500px] gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         {!hideBrand && <div className="min-w-0">
@@ -132,10 +132,10 @@ export default function AppHeader({ compact = false, hideBrand = false }: { comp
         </div>}
         <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           <LanguageSelector />
-          <button type="button" onClick={() => window.location.assign(ARKI_CONTROL_CENTER_PATH)} title="Abrir ARKI Control Center" aria-label="Abrir ARKI Control Center" className="inline-flex items-center gap-1.5 border border-[#294765] bg-[#071426] px-3 py-2 text-xs font-semibold text-[#edf4ff] transition-colors hover:border-[#7bc6d5] hover:bg-[#0b1d35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7bc6d5]"><Network className="h-3.5 w-3.5 text-[#7bc6d5]" /><span className="hidden sm:inline">Control Center</span></button>
+          <button type="button" onClick={() => window.location.assign(ARKI_CONTROL_CENTER_PATH)} title="Abrir ARKI Control Center" aria-label="Abrir ARKI Control Center" className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#28445b] bg-[#102538] px-3 py-2 text-xs font-semibold text-[#e8f1f7] transition-colors hover:border-[#d4ff3a] hover:bg-[#102538] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4ff3a]"><Network className="h-3.5 w-3.5 text-[#7dd3fc]" /><span className="hidden sm:inline">Control Center</span></button>
           <HelpButton />
           <div className="flex items-center gap-1 border border-border bg-card p-1" role="group" aria-label="Entrada conversacional ARKI">
-            <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} aria-pressed={voiceActive} className={cn("inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", voiceActive && "animate-pulse rounded-full bg-[#fbe5d6] text-[#a94524] ring-2 ring-[#d07b4a]")}><Mic className={cn("h-4 w-4", voiceActive && "animate-bounce")} /></button>
+            <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "voice" } }))} title={t("header.voice", "Dictar encargo")} aria-label={t("header.voice", "Dictar encargo")} aria-pressed={voiceActive} className={cn("inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring", voiceActive && "animate-pulse rounded-full bg-[#f0a35b] text-[#07121e] ring-2 ring-[#f0a35b]")}><Mic className={cn("h-4 w-4", voiceActive && "animate-bounce")} /></button>
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("arki:open-conversation", { detail: { mode: "camera" } }))} title={t("header.camera", "Añadir contexto visual")} aria-label={t("header.camera", "Añadir contexto visual")} className="inline-flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Camera className="h-4 w-4" /></button>
             <button type="button" onClick={() => window.location.assign("/spatial?mode=ar")} title="Abrir realidad aumentada" aria-label="Abrir realidad aumentada" className="inline-flex h-8 items-center justify-center gap-1 px-1.5 text-foreground transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"><ScanLine className="h-4 w-4" /><span className="text-[10px] font-semibold tracking-wide">AR</span></button>
           </div>

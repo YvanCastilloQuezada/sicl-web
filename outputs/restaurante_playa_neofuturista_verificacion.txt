@@ -1,0 +1,7 @@
+Verificación visual 2026-09-22:
+
+La perspectiva principal existe como PNG de 2560x1440 y muestra una cubierta fluida tipo ola, comedor acristalado, terrazas, paisaje dunar y relación directa con el mar.
+
+La vista aérea existe como PNG de 2304x1536 y muestra la organización radial en tres alas alrededor de un patio central, lounge en cubierta, recorridos peatonales, vegetación de dunas y acceso de servicio independiente.
+
+Ambos renders son coherentes entre sí y representan una propuesta conceptual, no un expediente técnico.
