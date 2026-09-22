@@ -36,6 +36,7 @@ const ArkiDeviceInteroperabilityPage = lazy(() => import("./pages/ArkiDeviceInte
 const LucaControlCenterPage = lazy(() => import("./pages/LucaControlCenterPage"));
 const FederatedHandoffInboxPage = lazy(() => import("./pages/FederatedHandoffInboxPage"));
 const ArkiTvPage = lazy(() => import("./pages/ArkiTvPage"));
+const ArLuOrchestratorPage = lazy(() => import("./pages/ArLuOrchestratorPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -88,6 +89,7 @@ function Router() {
       <Route path={"/luka-control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><LucaControlCenterPage /></DashboardLayout>}</Route>
       <Route path={"/federated-handoffs"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><FederatedHandoffInboxPage /></DashboardLayout>}</Route>
       <Route path={"/arki-tv"}>{() => <ArkiTvPage />}</Route>
+      <Route path={"/ar-lu-orchestrator"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><ArLuOrchestratorPage /></DashboardLayout>}</Route>
       <Route path={"/arki-self-care"}>{() => <ArkiSelfCarePage />}</Route>
       <Route path={"/field"} component={FieldModePage} />
       <Route path={"/security-events"}>{() => <DashboardLayout><SecurityEventsPage /></DashboardLayout>}</Route>
