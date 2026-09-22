@@ -1,6 +1,6 @@
-# Ejemplo 019 · /SCENARIO CREATE
+# Ejemplo 019 · SCE-CRE
 
-**Comando:** `/SCENARIO CREATE SCENARIO-BASE CYCLE-2026 Casa Demo Paramétrica`
+**Comando:** `SCE-CRE SCENARIO-BASE CYCLE-2026 Casa Demo Paramétrica`
 
 **Modo:** APPLY
 

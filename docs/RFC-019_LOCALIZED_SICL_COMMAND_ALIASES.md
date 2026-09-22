@@ -16,9 +16,9 @@
 
 ## 1. Resumen ejecutivo
 
-RFC-019 propone que el Command Bar permita a cada usuario trabajar con comandos visibles en el idioma seleccionado en ARKI. El usuario podría descubrir y escribir un alias como `/PROYECTO CREAR`, `/PROJETO CRIAR`, `/PROJET CRÉER` o `/项目 创建`, mientras que el frontend normalizaría esa entrada a `/PROJECT CREATE` antes de enviarla al Core.
+RFC-019 propone que el Command Bar permita a cada usuario trabajar con comandos visibles en el idioma seleccionado en ARKI. El usuario puede descubrir y escribir un código compacto como `PRO-CRE` o un alias localizado heredado como `/PROYECTO CREAR`, mientras que el frontend normaliza ambos al nombre legacy interno `/PROJECT CREATE` antes de enviarlo al Core.
 
-La propuesta adopta un **modelo híbrido**. La experiencia de usuario se localiza, pero el protocolo ejecutado permanece canónico. El Core seguirá recibiendo comandos SICL en su forma formal actual, con el mismo endpoint, los mismos argumentos técnicos y las mismas invariantes constitucionales. La traducción será una capacidad de presentación y normalización, no una segunda gramática independiente del Core.
+La propuesta adopta un **modelo híbrido**. La experiencia de usuario utiliza códigos compactos, pero el protocolo ejecutado permanece compatible con la forma legacy formal. El Core seguirá recibiendo comandos SICL en su forma formal actual, con el mismo endpoint, los mismos argumentos técnicos y las mismas invariantes constitucionales. La traducción será una capacidad de presentación y normalización, no una segunda gramática independiente del Core.
 
 Esta separación permite mejorar la accesibilidad lingüística sin crear una bifurcación del contrato. También conserva una representación única para logs, auditoría, pruebas, documentación técnica, integraciones externas y análisis posterior.
 
@@ -28,7 +28,7 @@ La implementación se propone en fases. La primera fase registra alias de comand
 
 ## 2. Motivación
 
-El selector de idioma actual traduce la navegación, los formularios, los mensajes y la ayuda del frontend. Sin embargo, los nombres de los comandos permanecen en inglés técnico. Esta decisión protege la compatibilidad, pero introduce una discontinuidad en la experiencia: una persona que trabaja en español puede leer “Proyecto” en la interfaz y tener que escribir `/PROJECT CREATE` en la barra de comandos.
+El selector de idioma actual traduce la navegación, los formularios, los mensajes y la ayuda del frontend. Sin embargo, los nombres de los comandos permanecen en inglés técnico. Esta decisión protege la compatibilidad, pero introduce una discontinuidad en la experiencia: una persona que trabaja en español puede leer “Proyecto” en la interfaz y tener que escribir `PRO-CRE` en la barra de comandos.
 
 El catálogo actual contiene 67 comandos y una matriz provisional de alias para ocho idiomas. La matriz demuestra que existe una correspondencia inicial entre la forma canónica y una forma localizada. También muestra que no todos los términos deben traducirse. Identificadores como `PARETO`, `SNAPSHOT`, `TRADEOFF_MATRIX`, estados técnicos, valores JSON, fechas, unidades y nombres de métodos requieren reglas específicas.
 
@@ -90,7 +90,7 @@ RFC-019 no autoriza lo siguiente:
 El comando canónico es la forma registrada por el dispatcher del Core y expuesta actualmente por el catálogo de 67 comandos. Por ejemplo:
 
 ```text
-/PROJECT CREATE
+PRO-CRE
 ```
 
 Esta forma es la única que se enviará al Core durante la primera implementación.
@@ -106,7 +106,7 @@ Un alias localizado es una forma alternativa asociada a un comando canónico par
 es un alias propuesto para:
 
 ```text
-/PROJECT CREATE
+PRO-CRE
 ```
 
 Un alias no crea una nueva operación semántica.
@@ -145,7 +145,7 @@ El frontend puede detectar errores de forma temprana, pero el Core mantiene la v
 
 ### 6.4 No se traduce la autoridad
 
-Los alias no cambian quién puede ejecutar una operación. En particular, `/DECISION RECORD` continúa exigiendo los requisitos de `HumanReview`, actor y autoridad definidos por el Core.
+Los alias no cambian quién puede ejecutar una operación. En particular, `DEC-REC` continúa exigiendo los requisitos de `HumanReview`, actor y autoridad definidos por el Core.
 
 ### 6.5 Fact no es Assumption
 
@@ -216,7 +216,7 @@ El registro puede representarse como JSON versionado. La forma exacta podrá cam
   "entries": [
     {
       "alias": "/PROYECTO CREAR",
-      "canonical": "/PROJECT CREATE",
+      "canonical": "PRO-CRE",
       "status": "PROPOSED",
       "source": "COMMANDS_TRANSLATIONS_MATRIX",
       "reviewed": false,
@@ -340,7 +340,7 @@ La salida no debe ser únicamente una cadena. Se propone una estructura interna 
 ```json
 {
   "display_command": "/PROYECTO CREAR P-001 Vivienda",
-  "canonical_command": "/PROJECT CREATE P-001 Vivienda",
+  "canonical_command": "PRO-CRE P-001 Vivienda",
   "locale": "es",
   "alias_used": true,
   "catalog_version": "2.2.0",
@@ -361,7 +361,7 @@ Antes de ejecutar, la interfaz debe mostrar una confirmación no ambigua. Por ej
 
 ```text
 Entrada:   /PROYECTO CREAR P-001 Vivienda
-Se enviará: /PROJECT CREATE P-001 Vivienda
+Se enviará: PRO-CRE P-001 Vivienda
 Idioma:    Español
 ```
 
@@ -378,7 +378,7 @@ El historial local debe almacenar, como mínimo:
 ```json
 {
   "display_command": "/PROYECTO CREAR P-001 Vivienda",
-  "canonical_command": "/PROJECT CREATE P-001 Vivienda",
+  "canonical_command": "PRO-CRE P-001 Vivienda",
   "locale": "es",
   "catalog_version": "2.2.0",
   "timestamp": "2026-09-16T00:00:00.000Z",
@@ -493,9 +493,9 @@ La implementación debe incluir pruebas unitarias, de integración y de interfaz
 
 ### 20.2 Pruebas de normalización
 
-- `/PROYECTO CREAR` produce `/PROJECT CREATE` con locale `es`.
-- `/PROJETO CRIAR` produce `/PROJECT CREATE` con locale `pt`.
-- `/PROJET CRÉER` produce `/PROJECT CREATE` con locale `fr`.
+- `/PROYECTO CREAR` produce `PRO-CRE` con locale `es`.
+- `/PROJETO CRIAR` produce `PRO-CRE` con locale `pt`.
+- `/PROJET CRÉER` produce `PRO-CRE` con locale `fr`.
 - La forma canónica sigue funcionando en todos los locales.
 - Un alias desconocido no ejecuta una solicitud.
 - Una colisión produce `AMBIGUOUS_ALIAS`.
@@ -526,14 +526,14 @@ El siguiente conjunto ilustra la primera operación del catálogo. La forma de l
 
 | Idioma | Entrada visible | Forma canónica enviada |
 |---|---|---|
-| Español | `/PROYECTO CREAR P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| English | `/PROJECT CREATE P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| Português | `/PROJETO CRIAR P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| Italiano | `/PROGETTO CREARE P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| Français | `/PROJET CRÉER P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| Deutsch | `/PROJEKT ERSTELLEN P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| Русский | `/ПРОЕКТ СОЗДАТЬ P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
-| 中文 | `/项目 创建 P-001 Vivienda` | `/PROJECT CREATE P-001 Vivienda` |
+| Español | `/PROYECTO CREAR P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| English | `PRO-CRE P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| Português | `/PROJETO CRIAR P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| Italiano | `/PROGETTO CREARE P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| Français | `/PROJET CRÉER P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| Deutsch | `/PROJEKT ERSTELLEN P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| Русский | `/ПРОЕКТ СОЗДАТЬ P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
+| 中文 | `/项目 创建 P-001 Vivienda` | `PRO-CRE P-001 Vivienda` |
 
 Los argumentos `P-001` y `Vivienda` no se traducen automáticamente porque el primero es un identificador y el segundo es un nombre proporcionado por el usuario.
 

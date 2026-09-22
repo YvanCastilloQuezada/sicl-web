@@ -1,6 +1,6 @@
-# Ejemplo 063 · /SNAPSHOT FREEZE
+# Ejemplo 063 · SNA-FRE
 
-**Comando:** `/SNAPSHOT FREEZE SNAP-001`
+**Comando:** `SNA-FRE SNAP-001`
 
 **Modo:** APPLY
 

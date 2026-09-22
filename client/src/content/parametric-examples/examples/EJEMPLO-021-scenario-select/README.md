@@ -1,6 +1,6 @@
-# Ejemplo 021 · /SCENARIO SELECT
+# Ejemplo 021 · SCE-SEL
 
-**Comando:** `/SCENARIO SELECT SCENARIO-BASE`
+**Comando:** `SCE-SEL SCENARIO-BASE`
 
 **Modo:** APPLY
 

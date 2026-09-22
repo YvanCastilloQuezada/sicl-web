@@ -1,17 +1,17 @@
 {
   "exampleId": "EJEMPLO-005",
-  "title": "Ejemplo 005 · /PROJECT SHOW",
-  "commandName": "/PROJECT SHOW",
+  "title": "Ejemplo 005 · PRO-SHO",
+  "commandName": "PRO-SHO",
   "category": "project",
-  "syntax": "/PROJECT SHOW",
-  "command": "/PROJECT SHOW",
+  "syntax": "PRO-SHO",
+  "command": "PRO-SHO",
   "arguments": [],
   "mode": "EXPLORE",
   "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT SHOW.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de PRO-SHO.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -20,5 +20,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "PRO-SHO",
+  "legacyCommand": "/PROJECT SHOW"
 }

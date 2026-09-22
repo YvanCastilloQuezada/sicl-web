@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-007",
-  "title": "Ejemplo 007 · /STAGE SET",
-  "commandName": "/STAGE SET",
+  "title": "Ejemplo 007 · STA-SET",
+  "commandName": "STA-SET",
   "category": "stage",
-  "syntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
-  "command": "/STAGE SET DRAFT",
+  "syntax": "STA-SET <DRAFT|ACTIVE|CLOSED>",
+  "command": "STA-SET DRAFT",
   "arguments": [
     {
       "name": "DRAFT|ACTIVE|CLOSED",
@@ -18,7 +18,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /STAGE SET.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de STA-SET.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -27,5 +27,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "STA-SET",
+  "legacyCommand": "/STAGE SET"
 }

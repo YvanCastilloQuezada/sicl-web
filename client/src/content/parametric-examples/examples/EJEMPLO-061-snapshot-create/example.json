@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-061",
-  "title": "Ejemplo 061 · /SNAPSHOT CREATE",
-  "commandName": "/SNAPSHOT CREATE",
+  "title": "Ejemplo 061 · SNA-CRE",
+  "commandName": "SNA-CRE",
   "category": "snapshot",
-  "syntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
-  "command": "/SNAPSHOT CREATE SNAP-001 EXAMPLE-ARCH-001 2026-01-01",
+  "syntax": "SNA-CRE <snapshot_id> <project_id> <cut_date>",
+  "command": "SNA-CRE SNAP-001 EXAMPLE-ARCH-001 2026-01-01",
   "arguments": [
     {
       "name": "snapshot_id",
@@ -30,7 +30,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /SNAPSHOT CREATE.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de SNA-CRE.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -39,5 +39,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "SNA-CRE",
+  "legacyCommand": "/SNAPSHOT CREATE"
 }

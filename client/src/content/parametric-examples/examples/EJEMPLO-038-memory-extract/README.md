@@ -1,6 +1,6 @@
-# Ejemplo 038 · /MEMORY EXTRACT
+# Ejemplo 038 · MEM-EXT
 
-**Comando:** `/MEMORY EXTRACT DOCUMENT example_title example_content`
+**Comando:** `MEM-EXT DOCUMENT example_title example_content`
 
 **Modo:** EXPLORE
 

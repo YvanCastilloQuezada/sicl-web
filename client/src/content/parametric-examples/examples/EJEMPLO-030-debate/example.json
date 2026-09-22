@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-030",
-  "title": "Ejemplo 030 · /DEBATE",
-  "commandName": "/DEBATE",
+  "title": "Ejemplo 030 · DEB-ATE",
+  "commandName": "DEB-ATE",
   "category": "debate",
-  "syntax": "/DEBATE <alternative_id>",
-  "command": "/DEBATE ALT-001",
+  "syntax": "DEB-ATE <alternative_id>",
+  "command": "DEB-ATE ALT-001",
   "arguments": [
     {
       "name": "alternative_id",
@@ -18,7 +18,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /DEBATE.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de DEB-ATE.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -27,5 +27,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "DEB-ATE",
+  "legacyCommand": "/DEBATE"
 }

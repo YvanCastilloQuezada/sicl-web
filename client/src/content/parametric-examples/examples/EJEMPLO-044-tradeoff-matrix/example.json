@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-044",
-  "title": "Ejemplo 044 · /TRADEOFF_MATRIX",
-  "commandName": "/TRADEOFF_MATRIX",
+  "title": "Ejemplo 044 · TRA-DEO",
+  "commandName": "TRA-DEO",
   "category": "tradeoff_matrix",
-  "syntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
-  "command": "/TRADEOFF_MATRIX example_objective_1 example_objective_2",
+  "syntax": "TRA-DEO <objective_1> <objective_2>",
+  "command": "TRA-DEO example_objective_1 example_objective_2",
   "arguments": [
     {
       "name": "objective_1",
@@ -24,7 +24,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /TRADEOFF_MATRIX.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de TRA-DEO.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -33,5 +33,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "TRA-DEO",
+  "legacyCommand": "/TRADEOFF_MATRIX"
 }

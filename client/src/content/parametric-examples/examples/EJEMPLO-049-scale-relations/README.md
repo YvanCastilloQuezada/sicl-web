@@ -1,6 +1,6 @@
-# Ejemplo 049 · /SCALE RELATIONS
+# Ejemplo 049 · SCA-RLS
 
-**Comando:** `/SCALE RELATIONS EXAMPLE-ARCH-001`
+**Comando:** `SCA-RLS EXAMPLE-ARCH-001`
 
 **Modo:** APPLY
 

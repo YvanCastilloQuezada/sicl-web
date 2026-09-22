@@ -1,6 +1,6 @@
-# Ejemplo 045 · /MULTIOBJECTIVE
+# Ejemplo 045 · MUL-TIO
 
-**Comando:** `/MULTIOBJECTIVE`
+**Comando:** `MUL-TIO`
 
 **Modo:** APPLY
 

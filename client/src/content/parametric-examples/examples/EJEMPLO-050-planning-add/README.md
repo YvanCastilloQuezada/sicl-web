@@ -1,6 +1,6 @@
-# Ejemplo 050 · /PLANNING ADD
+# Ejemplo 050 · PLA-ADD
 
-**Comando:** `/PLANNING ADD ACTOR-001 DOCUMENT Casa Demo Paramétrica https://example.invalid/evidence-001`
+**Comando:** `PLA-ADD ACTOR-001 DOCUMENT Casa Demo Paramétrica https://example.invalid/evidence-001`
 
 **Modo:** APPLY
 

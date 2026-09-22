@@ -1,6 +1,6 @@
-# Ejemplo 042 · /GENERATE
+# Ejemplo 042 · GEN-ERA
 
-**Comando:** `/GENERATE PARAMETRIC_MASSING example_objective_keys_csv`
+**Comando:** `GEN-ERA PARAMETRIC_MASSING example_objective_keys_csv`
 
 **Modo:** EXPLORE
 

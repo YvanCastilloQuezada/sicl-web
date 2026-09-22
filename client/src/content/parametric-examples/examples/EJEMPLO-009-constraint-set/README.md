@@ -1,6 +1,6 @@
-# Ejemplo 009 · /CONSTRAINT SET
+# Ejemplo 009 · CON-SET
 
-**Comando:** `/CONSTRAINT SET functional_area >= daylight_and_functionality m`
+**Comando:** `CON-SET functional_area >= daylight_and_functionality m`
 
 **Modo:** APPLY
 

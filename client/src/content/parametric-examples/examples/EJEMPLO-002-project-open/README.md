@@ -1,6 +1,6 @@
-# Ejemplo 002 · /PROJECT OPEN
+# Ejemplo 002 · PRO-OPE
 
-**Comando:** `/PROJECT OPEN EXAMPLE-ARCH-001`
+**Comando:** `PRO-OPE EXAMPLE-ARCH-001`
 
 **Modo:** EXPLORE
 

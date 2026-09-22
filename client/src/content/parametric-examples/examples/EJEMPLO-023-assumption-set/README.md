@@ -1,6 +1,6 @@
-# Ejemplo 023 · /ASSUMPTION SET
+# Ejemplo 023 · ASS-SET
 
-**Comando:** `/ASSUMPTION SET La alternativa conserva circulación clara example_basis`
+**Comando:** `ASS-SET La alternativa conserva circulación clara example_basis`
 
 **Modo:** APPLY
 

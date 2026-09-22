@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-021",
-  "title": "Ejemplo 021 · /SCENARIO SELECT",
-  "commandName": "/SCENARIO SELECT",
+  "title": "Ejemplo 021 · SCE-SEL",
+  "commandName": "SCE-SEL",
   "category": "scenario",
-  "syntax": "/SCENARIO SELECT <branch_id>",
-  "command": "/SCENARIO SELECT SCENARIO-BASE",
+  "syntax": "SCE-SEL <branch_id>",
+  "command": "SCE-SEL SCENARIO-BASE",
   "arguments": [
     {
       "name": "branch_id",
@@ -18,7 +18,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO SELECT.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de SCE-SEL.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -27,5 +27,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "SCE-SEL",
+  "legacyCommand": "/SCENARIO SELECT"
 }

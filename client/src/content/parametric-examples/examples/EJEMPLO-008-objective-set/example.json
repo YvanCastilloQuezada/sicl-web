@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-008",
-  "title": "Ejemplo 008 · /OBJECTIVE SET",
-  "commandName": "/OBJECTIVE SET",
+  "title": "Ejemplo 008 · OBJ-SET",
+  "commandName": "OBJ-SET",
   "category": "objective",
-  "syntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
-  "command": "/OBJECTIVE SET functional_area MAXIMIZE daylight_and_functionality",
+  "syntax": "OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>",
+  "command": "OBJ-SET functional_area MAXIMIZE daylight_and_functionality",
   "arguments": [
     {
       "name": "key",
@@ -30,7 +30,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /OBJECTIVE SET.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de OBJ-SET.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -39,5 +39,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "OBJ-SET",
+  "legacyCommand": "/OBJECTIVE SET"
 }

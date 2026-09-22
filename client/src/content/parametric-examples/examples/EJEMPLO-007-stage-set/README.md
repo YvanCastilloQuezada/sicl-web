@@ -1,6 +1,6 @@
-# Ejemplo 007 · /STAGE SET
+# Ejemplo 007 · STA-SET
 
-**Comando:** `/STAGE SET DRAFT`
+**Comando:** `STA-SET DRAFT`
 
 **Modo:** APPLY
 

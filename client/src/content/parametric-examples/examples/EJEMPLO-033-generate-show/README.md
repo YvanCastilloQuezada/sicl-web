@@ -1,6 +1,6 @@
-# Ejemplo 033 · /GENERATE SHOW
+# Ejemplo 033 · GEN-SHO
 
-**Comando:** `/GENERATE SHOW GEN-001`
+**Comando:** `GEN-SHO GEN-001`
 
 **Modo:** EXPLORE
 

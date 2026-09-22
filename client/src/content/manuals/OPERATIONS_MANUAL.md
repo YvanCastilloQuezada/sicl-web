@@ -99,11 +99,11 @@ La salida debe mostrar los comandos disponibles. Si no hay proyecto activo, el s
 El error más común al comenzar es ejecutar una mutación sin proyecto abierto. Resuélvelo así:
 
 ```text
-/PROJECT CREATE UPAO-001 "Proyecto UPAO"
-/PROJECT OPEN UPAO-001
+PRO-CRE UPAO-001 "Proyecto UPAO"
+PRO-OPE UPAO-001
 ```
 
-Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-001` y continúa desde el snapshot existente.
+Si el identificador ya existe, no repitas la creación. Usa `PRO-OPE UPAO-001` y continúa desde el snapshot existente.
 
 # Parte 2 — Tareas frecuentes
 
@@ -114,7 +114,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/PROJECT CREATE UPAO-001 "Campus UPAO" parcela_sitio proyecto
+PRO-CRE UPAO-001 "Campus UPAO" parcela_sitio proyecto
 ```
 
 **HTTP equivalente.** `POST /v1/projects`.
@@ -140,7 +140,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/PROJECT SET SCOPE distrito_ciudad mediano_plazo
+PRO-SET distrito_ciudad mediano_plazo
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands` con `command` igual al comando anterior.
@@ -156,7 +156,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/FACT SET "El área del sitio es 2000 m2" CATASTRO
+FAC-SET "El área del sitio es 2000 m2" CATASTRO
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands`.
@@ -172,14 +172,14 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/ASSUMPTION SET "La ocupación inicial será 80%" ESTIMACION
+ASS-SET "La ocupación inicial será 80%" ESTIMACION
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands`.
 
 **Salida esperada.** Un registro en `assumptions`, separado de `facts`.
 
-**Errores.** `INVALID_INPUTS`, proyecto cerrado o falta de basis. No uses `/FACT SET` para ocultar una estimación.
+**Errores.** `INVALID_INPUTS`, proyecto cerrado o falta de basis. No uses `FAC-SET` para ocultar una estimación.
 
 ## T-05 — Registrar evidencia
 
@@ -188,7 +188,7 @@ Si el identificador ya existe, no repitas la creación. Usa `/PROJECT OPEN UPAO-
 **CLI.**
 
 ```text
-/EVIDENCE ADD EVD-001 "El plano registra 2000 m2" DOCUMENT CATASTRO https://example.org/plano
+EVI-ADD EVD-001 "El plano registra 2000 m2" DOCUMENT CATASTRO https://example.org/plano
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/evidence`.
@@ -231,7 +231,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/OBJECTIVE SET CLIMATE MAXIMIZE 80
+OBJ-SET CLIMATE MAXIMIZE 80
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands`.
@@ -247,7 +247,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/CONSTRAINT SET HEIGHT <= 6 FLOORS
+CON-SET HEIGHT <= 6 FLOORS
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands`.
@@ -263,7 +263,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/ROLE ADD ARCHITECT "Yvan Castillo"
+ROL-ADD ARCHITECT "Yvan Castillo"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/commands`.
@@ -334,7 +334,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.** Depende del flujo de recomendación activo; normalmente se consulta el consejo/council del proyecto:
 
 ```text
-/STATUS
+STA-TUS
 ```
 
 **HTTP equivalente.** `GET /v1/projects/{project_id}/council`.
@@ -350,7 +350,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
+HUM-REV architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/human-reviews`.
@@ -366,7 +366,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/DECISION RECORD "Adoptar CONVENCIONAL_A sujeto a las condiciones revisadas" architect-yvan "Architect with project authority"
+DEC-REC "Adoptar CONVENCIONAL_A sujeto a las condiciones revisadas" architect-yvan "Architect with project authority"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/decisions`.
@@ -382,7 +382,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/PROJECT SHOW
+PRO-SHO
 ```
 
 **HTTP equivalente.** `GET /v1/projects/{project_id}/snapshot`.
@@ -398,7 +398,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/HISTORY
+HIS-TOR
 ```
 
 **HTTP equivalente.** `GET /v1/projects/{project_id}/history`.
@@ -446,7 +446,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO PARETO ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/multiobjective/pareto`.
@@ -462,7 +462,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/multiobjective/tradeoffs`.
@@ -478,7 +478,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/GENERATE DESIGN parametric_grid_v1 '{"parameters":{"FLOORS":[4,6],"ORIENTATION":["NORTH","SOUTH"]}}'
+GEN-DES parametric_grid_v1 '{"parameters":{"FLOORS":[4,6],"ORIENTATION":["NORTH","SOUTH"]}}'
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/generations`.
@@ -494,7 +494,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/GENERATE DESIGN evolutionary_v1 '{"seed":42,"population_size":8,"generations":3,"parameters":{"FLOORS":[3,6]}}'
+GEN-DES evolutionary_v1 '{"seed":42,"population_size":8,"generations":3,"parameters":{"FLOORS":[3,6]}}'
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/generations`.
@@ -527,7 +527,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/PLANNING ADD PLAN-001 MASTER_PLAN "Plan urbano local" Trujillo https://example.org/plan
+PLA-ADD PLAN-001 MASTER_PLAN "Plan urbano local" Trujillo https://example.org/plan
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/planning/instruments`.
@@ -543,7 +543,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/REGULATION ADD REG-001 CODE-001 "Reglamento urbano" Trujillo https://example.org/reg
+REG-ADD REG-001 CODE-001 "Reglamento urbano" Trujillo https://example.org/reg
 ```
 
 **HTTP equivalente.** `POST /v1/regulations`.
@@ -559,8 +559,8 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/SNAPSHOT CREATE SNAP-001 UPAO-001 2026-09-16
-/SNAPSHOT FREEZE SNAP-001 architect-yvan
+SNA-CRE SNAP-001 UPAO-001 2026-09-16
+SNA-FRE SNAP-001 architect-yvan
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/normative-snapshots` y `POST /v1/normative-snapshots/{snapshot_id}/freeze`.
@@ -576,7 +576,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/SCALE RELATE CITY-001 UPAO-001 CONTAINS "El campus pertenece al distrito"
+SCA-RLT CITY-001 UPAO-001 CONTAINS "El campus pertenece al distrito"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/scale-relations`.
@@ -592,7 +592,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/PROJECT IMPORT OBJECTIVE CITY-001 CLIMATE
+PRO-IMP CITY-001 CLIMATE
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/import-objective`.
@@ -608,8 +608,8 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/ACTOR ADD MUNICIPALITY ROLE "Municipalidad" PUBLIC
-/POSITION ADD MUNICIPALITY ALTERNATIVE CONVENCIONAL_A SUPPORTS "Cumple el plan"
+ACT-ADD MUNICIPALITY ROLE "Municipalidad" PUBLIC
+POS-ADD MUNICIPALITY ALTERNATIVE CONVENCIONAL_A SUPPORTS "Cumple el plan"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/actors` y `POST /v1/projects/{project_id}/positions`.
@@ -625,7 +625,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/CYCLE CREATE CYCLE-2030 mediano_plazo 2026-01-01 2030-12-31
+CYC-CRE CYCLE-2030 mediano_plazo 2026-01-01 2030-12-31
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/cycles`.
@@ -641,8 +641,8 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/SCENARIO CREATE SCENARIO-A CYCLE-2030 "Alta densidad" '{"growth":"high"}'
-/SCENARIO SELECT SCENARIO-A architect-yvan "Scenario authority"
+SCE-CRE SCENARIO-A CYCLE-2030 "Alta densidad" '{"growth":"high"}'
+SCE-SEL SCENARIO-A architect-yvan "Scenario authority"
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/scenarios` y `POST /v1/scenarios/{branch_id}/select`.
@@ -676,7 +676,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/MEMORY EXTRACT UPAO-001 architect-yvan "Architect with project authority"
+MEM-EXT UPAO-001 architect-yvan "Architect with project authority"
 ```
 
 **HTTP equivalente.** `POST /v1/memory/extract`.
@@ -692,7 +692,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **CLI.**
 
 ```text
-/MEMORY APPLY MEM-001 architect-yvan
+MEM-APP MEM-001 architect-yvan
 ```
 
 **HTTP equivalente.** `POST /v1/projects/{project_id}/memory/apply`.
@@ -708,15 +708,15 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **Objetivo.** Crear un proyecto, registrar conocimiento inicial y dejar una restricción explícita.
 
 ```text
-/PROJECT CREATE UPAO-001 "Campus UPAO" parcela_sitio proyecto
-/PROJECT OPEN UPAO-001
-/FACT SET "El área del sitio es 2000 m2" CATASTRO
-/ASSUMPTION SET "La ocupación inicial será 80%" ESTIMACION
-/OBJECTIVE SET CLIMATE MAXIMIZE 80
-/CONSTRAINT SET HEIGHT <= 6 FLOORS
-/ROLE ADD ARCHITECT "Yvan Castillo"
-/PROJECT SHOW
-/HISTORY
+PRO-CRE UPAO-001 "Campus UPAO" parcela_sitio proyecto
+PRO-OPE UPAO-001
+FAC-SET "El área del sitio es 2000 m2" CATASTRO
+ASS-SET "La ocupación inicial será 80%" ESTIMACION
+OBJ-SET CLIMATE MAXIMIZE 80
+CON-SET HEIGHT <= 6 FLOORS
+ROL-ADD ARCHITECT "Yvan Castillo"
+PRO-SHO
+HIS-TOR
 ```
 
 **Salida esperada.** Snapshot con las entidades separadas, versión creciente y eventos ordenados. La verificación mínima es comprobar que el hecho aparece en `facts`, el supuesto en `assumptions`, y el constraint tiene `hard=true`.
@@ -736,8 +736,8 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 /ALTERNATIVE SET BIOCLIMATIC_A AREA 2000
 /EVALUATE CONVENCIONAL_A CLIMATE 72 PERCENT 0.85 USER_INPUT
 /EVALUATE BIOCLIMATIC_A CLIMATE 88 PERCENT 0.85 USER_INPUT
-/MULTIOBJECTIVE PARETO CLIMATE CONSTRUCTION_COST
-/MULTIOBJECTIVE TRADEOFFS CLIMATE CONSTRUCTION_COST
+MUL-TIO PARETO CLIMATE CONSTRUCTION_COST
+MUL-TIO TRADEOFFS CLIMATE CONSTRUCTION_COST
 ```
 
 **Salida esperada.** Resultado descriptivo, con alternativas incompletas si falta alguna evaluación. La verificación consiste en comprobar que no aparece `Decision` como efecto colateral.
@@ -747,10 +747,10 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **Objetivo.** Mostrar el orden constitucional recomendación, revisión humana y decisión.
 
 ```text
-/STATUS
-/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
-/DECISION RECORD "Adoptar BIOCLIMATIC_A sujeto a las condiciones revisadas" architect-yvan "Architect with project authority"
-/HISTORY
+STA-TUS
+HUM-REV architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación y sus condiciones" "Validación de autoridad humana" "Architect"
+DEC-REC "Adoptar BIOCLIMATIC_A sujeto a las condiciones revisadas" architect-yvan "Architect with project authority"
+HIS-TOR
 ```
 
 **Salida esperada.** La decisión queda asociada al actor, authority y revisión. La verificación negativa es intentar la decisión sin HumanReview y confirmar `HUMAN_REVIEW_REQUIRED`.
@@ -760,11 +760,11 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **Objetivo.** Vincular una escala territorial y transferir un objetivo sin copiar autoridad.
 
 ```text
-/PROJECT CREATE CITY-001 "Distrito de referencia" distrito_ciudad mediano_plazo
-/SCALE RELATE CITY-001 UPAO-001 CONTAINS "El campus pertenece al distrito"
-/PROJECT OPEN UPAO-001
-/PROJECT IMPORT OBJECTIVE CITY-001 CLIMATE
-/SCALE RELATIONS UPAO-001
+PRO-CRE CITY-001 "Distrito de referencia" distrito_ciudad mediano_plazo
+SCA-RLT CITY-001 UPAO-001 CONTAINS "El campus pertenece al distrito"
+PRO-OPE UPAO-001
+PRO-IMP CITY-001 CLIMATE
+SCA-RLS UPAO-001
 ```
 
 **Salida esperada.** El objetivo importado conserva `source_parent_objective_id`. La relación se consulta como append-only.
@@ -774,7 +774,7 @@ HTTP-only — no existe comando CLI `/SOURCE ADD`. Usar `POST /v1/projects/{proj
 **Objetivo.** Ejecutar una simulación reproducible y consultar su registro.
 
 ```text
-/PROJECT OPEN UPAO-001
+PRO-OPE UPAO-001
 /SIMULATE METHODS
 /SIMULATE MONTE_CARLO ALT-001 OBJ-001 AREA '{"type":"NORMAL","parameters":{"mean":2000,"std_dev":100}}' 1000
 /SIMULATE LIST
@@ -823,24 +823,24 @@ Un error conserva `contract_version`, `code`, `message`, `project_id` y `data` d
 
 | Área | Comandos |
 |---|---|
-| Proyecto | `/PROJECT CREATE`, `/PROJECT OPEN`, `/PROJECT SHOW`, `/PROJECT LIST`, `/PROJECT SET SCOPE`, `/PROJECT IMPORT OBJECTIVE` |
-| Estado | `/STAGE SET`, `/STATUS`, `/HISTORY` |
-| Epistemología | `/FACT SET`, `/ASSUMPTION SET`, `/EVIDENCE ADD`, `/EVIDENCE LIST`, `/EVIDENCE SHOW`, `/SOURCE ADD`, `/SOURCE LIST`, `/SOURCE SHOW` |
-| Diseño | `/OBJECTIVE SET`, `/CONSTRAINT SET`, `/ROLE ADD`, `/ALTERNATIVE CREATE`, `/ALTERNATIVE SET`, `/ALTERNATIVE LIST`, `/ALTERNATIVE PROMOTE` |
-| Análisis | `/EVALUATE`, `/COMPARE`, `/MULTIOBJECTIVE PARETO`, `/MULTIOBJECTIVE TRADEOFFS`, `/SIMULATE`, `/GENERATE DESIGN` |
-| Gobernanza | `/HUMAN REVIEW`, `/DECISION RECORD`, `/COUNCIL` por HTTP, `/DEBATE` cuando está disponible |
+| Proyecto | `PRO-CRE`, `PRO-OPE`, `PRO-SHO`, `PRO-LIS`, `PRO-SET`, `PRO-IMP` |
+| Estado | `STA-SET`, `STA-TUS`, `HIS-TOR` |
+| Epistemología | `FAC-SET`, `ASS-SET`, `EVI-ADD`, `EVI-LIS`, `EVI-SHO`, `/SOURCE ADD`, `/SOURCE LIST`, `/SOURCE SHOW` |
+| Diseño | `OBJ-SET`, `CON-SET`, `ROL-ADD`, `/ALTERNATIVE CREATE`, `/ALTERNATIVE SET`, `/ALTERNATIVE LIST`, `ALT-PRO` |
+| Análisis | `/EVALUATE`, `/COMPARE`, `MUL-TIO PARETO`, `MUL-TIO TRADEOFFS`, `/SIMULATE`, `GEN-DES` |
+| Gobernanza | `HUM-REV`, `DEC-REC`, `/COUNCIL` por HTTP, `DEB-ATE` cuando está disponible |
 
 ## Comandos temporales, institucionales y normativos
 
 | Área | Comandos |
 |---|---|
-| Actores | `/ACTOR ADD`, `/ACTOR LIST`, `/ACTOR SHOW`, `/POSITION ADD`, `/POSITION LIST` |
-| Tiempo | `/CYCLE CREATE`, `/CYCLE LIST`, `/CYCLE SHOW`, `/SCENARIO CREATE`, `/SCENARIO LIST`, `/SCENARIO SELECT` |
+| Actores | `ACT-ADD`, `ACT-LIS`, `ACT-SHO`, `POS-ADD`, `POS-LIS` |
+| Tiempo | `CYC-CRE`, `CYC-LIS`, `CYC-SHO`, `SCE-CRE`, `SCE-LIS`, `SCE-SEL` |
 | Evolución | `/EVOLUTION CREATE`, `/EVOLUTION ADD`, `/EVOLUTION APPLY`, `/EVOLUTION LIST`, `/EVOLUTION SHOW` |
-| Memoria | `/MEMORY LIST`, `/MEMORY SHOW`, `/MEMORY EXTRACT`, `/MEMORY REVOKE`, `/MEMORY APPLY`, `/MEMORY TYPES` |
-| Planificación | `/PLANNING ADD`, `/PLANNING LIST`, `/PLANNING SHOW`, `/PLANNING TYPES` |
-| Normativa | `/REGULATION ADD`, `/REGULATION LIST`, `/REGULATION SHOW`, `/REGULATION STATUS`, `/INTERPRET ADD`, `/INTERPRET LIST`, `/INTERPRET REVIEW`, `/SNAPSHOT CREATE`, `/SNAPSHOT LIST`, `/SNAPSHOT FREEZE` |
-| Escalas | `/SCALE PARENT`, `/SCALE CHILDREN`, `/SCALE RELATE`, `/SCALE RELATIONS` |
+| Memoria | `MEM-LIS`, `MEM-SHO`, `MEM-EXT`, `MEM-REV`, `MEM-APP`, `MEM-TYP` |
+| Planificación | `PLA-ADD`, `PLA-LIS`, `PLA-SHO`, `PLA-TYP` |
+| Normativa | `REG-ADD`, `REG-LIS`, `REG-SHO`, `REG-STA`, `INT-ADD`, `INT-LIS`, `INT-REV`, `SNA-CRE`, `SNA-LIS`, `SNA-FRE` |
+| Escalas | `SCA-PAR`, `SCA-CHI`, `SCA-RLT`, `SCA-RLS` |
 
 ## Endpoints HTTP principales
 

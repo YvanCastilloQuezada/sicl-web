@@ -1,6 +1,6 @@
-# Ejemplo 024 · /EVIDENCE ADD
+# Ejemplo 024 · EVI-ADD
 
-**Comando:** `/EVIDENCE ADD EVID-001 La alternativa conserva circulación clara DOCUMENT SOURCE-001 https://example.invalid/evidence-001`
+**Comando:** `EVI-ADD EVID-001 La alternativa conserva circulación clara DOCUMENT SOURCE-001 https://example.invalid/evidence-001`
 
 **Modo:** APPLY
 

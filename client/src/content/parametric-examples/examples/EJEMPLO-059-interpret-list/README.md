@@ -1,6 +1,6 @@
-# Ejemplo 059 · /INTERPRET LIST
+# Ejemplo 059 · INT-LIS
 
-**Comando:** `/INTERPRET LIST RNE-PERU`
+**Comando:** `INT-LIS RNE-PERU`
 
 **Modo:** EXPLORE
 

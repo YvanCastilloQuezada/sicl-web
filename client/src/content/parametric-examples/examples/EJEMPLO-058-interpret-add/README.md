@@ -1,6 +1,6 @@
-# Ejemplo 058 · /INTERPRET ADD
+# Ejemplo 058 · INT-ADD
 
-**Comando:** `/INTERPRET ADD ACTOR-001 RNE-PERU example_article example_text`
+**Comando:** `INT-ADD ACTOR-001 RNE-PERU example_article example_text`
 
 **Modo:** EXPLORE
 

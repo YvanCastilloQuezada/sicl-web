@@ -1,6 +1,6 @@
-# Ejemplo 011 · /ACTOR ADD
+# Ejemplo 011 · ACT-ADD
 
-**Comando:** `/ACTOR ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {"interests":["functionality"],"constraints":["human_review"]}`
+**Comando:** `ACT-ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {"interests":["functionality"],"constraints":["human_review"]}`
 
 **Modo:** APPLY
 

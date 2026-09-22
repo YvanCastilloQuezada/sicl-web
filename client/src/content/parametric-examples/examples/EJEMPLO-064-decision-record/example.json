@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-064",
-  "title": "Ejemplo 064 · /DECISION RECORD",
-  "commandName": "/DECISION RECORD",
+  "title": "Ejemplo 064 · DEC-REC",
+  "commandName": "DEC-REC",
   "category": "decision",
-  "syntax": "/DECISION RECORD <statement> <actor> <authority>",
-  "command": "/DECISION RECORD La alternativa conserva circulación clara human-reviewer HUMAN_AUTHORITY",
+  "syntax": "DEC-REC <statement> <actor> <authority>",
+  "command": "DEC-REC La alternativa conserva circulación clara human-reviewer HUMAN_AUTHORITY",
   "arguments": [
     {
       "name": "statement",
@@ -30,7 +30,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Human review required; this example must not execute automatically.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /DECISION RECORD.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de DEC-REC.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -39,5 +39,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "DEC-REC",
+  "legacyCommand": "/DECISION RECORD"
 }

@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-031",
-  "title": "Ejemplo 031 · /GENERATE DESIGN",
-  "commandName": "/GENERATE DESIGN",
+  "title": "Ejemplo 031 · GEN-DES",
+  "commandName": "GEN-DES",
   "category": "generate",
-  "syntax": "/GENERATE DESIGN <method> <parameters_json>",
-  "command": "/GENERATE DESIGN PARAMETRIC_MASSING {\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}",
+  "syntax": "GEN-DES <method> <parameters_json>",
+  "command": "GEN-DES PARAMETRIC_MASSING {\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}",
   "arguments": [
     {
       "name": "method",
@@ -24,7 +24,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE DESIGN.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de GEN-DES.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -37,5 +37,7 @@
     "EJEMPLO-031.ark",
     "EJEMPLO-031.dyn",
     "EJEMPLO-031.ghx"
-  ]
+  ],
+  "compactCommand": "GEN-DES",
+  "legacyCommand": "/GENERATE DESIGN"
 }

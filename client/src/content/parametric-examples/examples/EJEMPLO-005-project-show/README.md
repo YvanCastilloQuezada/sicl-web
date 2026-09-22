@@ -1,6 +1,6 @@
-# Ejemplo 005 · /PROJECT SHOW
+# Ejemplo 005 · PRO-SHO
 
-**Comando:** `/PROJECT SHOW`
+**Comando:** `PRO-SHO`
 
 **Modo:** EXPLORE
 

@@ -4,7 +4,7 @@
 **Fuente de verdad:** `src/sicl/cli.py` en `main`.
 **Baseline:** `246417391dfb85c63596e1650faef39466378954`.
 
-Esta referencia describe el dispatcher real. Si contradice `USER_MANUAL.md`, `OPERATIONS_MANUAL.md` u otro documento, prevalece esta referencia. Los comandos marcados **HTTP-only** no son aceptados por el CLI local.
+Esta referencia describe el dispatcher real y su forma compacta de interfaz. Si contradice `USER_MANUAL.md`, `OPERATIONS_MANUAL.md` u otro documento, prevalece esta referencia. Los comandos marcados **HTTP-only** no son aceptados por el CLI local. El frontend acepta el código compacto y conserva el nombre legacy como alias compatible antes de llamar al Core.
 
 ## 1. Cómo usar esta referencia
 
@@ -12,84 +12,84 @@ Cada ficha contiene nombre, sintaxis exacta, argumentos, ejemplo, comportamiento
 
 ## 1. PROYECTO
 
-### /PROJECT CREATE
+### PRO-CRE
 
-**Sintaxis:** `/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]`
+**Sintaxis:** `PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]`
 
 **Ejemplo:**
 
 ```text
-/PROJECT CREATE UPAO-001 "UPAO Plaza" parcela_sitio proyecto
+PRO-CRE UPAO-001 "UPAO Plaza" parcela_sitio proyecto
 ```
 
 **Validación y comportamiento:** Requiere project_id y name; scopes se validan contra los enums del dominio; crea Project y evento PROJECT_CREATED.
 
 **Errores comunes:** `PROJECT_ALREADY_EXISTS, INVALID_ARGUMENT, INVALID_SCOPE`
 
-### /PROJECT OPEN
+### PRO-OPE
 
-**Sintaxis:** `/PROJECT OPEN <project_id>`
+**Sintaxis:** `PRO-OPE <project_id>`
 
 **Ejemplo:**
 
 ```text
-/PROJECT OPEN UPAO-001
+PRO-OPE UPAO-001
 ```
 
 **Validación y comportamiento:** Requiere un proyecto existente; lo convierte en el proyecto actual.
 
 **Errores comunes:** `PROJECT_NOT_FOUND, INVALID_ARGUMENT`
 
-### /PROJECT SET SCOPE
+### PRO-SET
 
-**Sintaxis:** `/PROJECT SET SCOPE <spatial_scope> [temporal_scope]`
+**Sintaxis:** `PRO-SET <spatial_scope> [temporal_scope]`
 
 **Ejemplo:**
 
 ```text
-/PROJECT SET SCOPE edificacion proyecto
+PRO-SET edificacion proyecto
 ```
 
 **Validación y comportamiento:** Requiere proyecto abierto; actualiza scopes y versión.
 
 **Errores comunes:** `PROJECT_NOT_FOUND, INVALID_SCOPE, INVALID_ARGUMENT`
 
-### /PROJECT IMPORT OBJECTIVE
+### PRO-IMP
 
-**Sintaxis:** `/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>`
+**Sintaxis:** `PRO-IMP <source_project_id> <objective_id>`
 
 **Ejemplo:**
 
 ```text
-/PROJECT IMPORT OBJECTIVE CITY-001 OBJ-123
+PRO-IMP CITY-001 OBJ-123
 ```
 
 **Validación y comportamiento:** Requiere proyecto abierto, relación multiescala válida y objetivo existente.
 
 **Errores comunes:** `PROJECT_NOT_FOUND, OBJECTIVE_NOT_FOUND, SCALE_RELATION_REQUIRED`
 
-### /PROJECT SHOW
+### PRO-SHO
 
-**Sintaxis:** `/PROJECT SHOW`
+**Sintaxis:** `PRO-SHO`
 
 **Ejemplo:**
 
 ```text
-/PROJECT SHOW
+PRO-SHO
 ```
 
 **Validación y comportamiento:** Devuelve el snapshot del proyecto actual.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /PROJECT LIST
+### PRO-LIS
 
-**Sintaxis:** `/PROJECT LIST`
+**Sintaxis:** `PRO-LIS`
 
 **Ejemplo:**
 
 ```text
-/PROJECT LIST
+PRO-LIS
 ```
 
 **Validación y comportamiento:** Lista proyectos persistidos.
@@ -98,42 +98,42 @@ Cada ficha contiene nombre, sintaxis exacta, argumentos, ejemplo, comportamiento
 
 ## 2. ESTADO Y AUDITORÍA
 
-### /STAGE SET
+### STA-SET
 
-**Sintaxis:** `/STAGE SET <DRAFT|ACTIVE|CLOSED>`
+**Sintaxis:** `STA-SET <DRAFT|ACTIVE|CLOSED>`
 
 **Ejemplo:**
 
 ```text
-/STAGE SET ACTIVE
+STA-SET ACTIVE
 ```
 
 **Validación y comportamiento:** Requiere proyecto abierto; solo acepta DRAFT, ACTIVE o CLOSED.
 
 **Errores comunes:** `INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /STATUS
+### STA-TUS
 
-**Sintaxis:** `/STATUS`
+**Sintaxis:** `STA-TUS`
 
 **Ejemplo:**
 
 ```text
-/STATUS
+STA-TUS
 ```
 
 **Validación y comportamiento:** Devuelve estado y snapshot del proyecto actual.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /HISTORY
+### HIS-TOR
 
-**Sintaxis:** `/HISTORY`
+**Sintaxis:** `HIS-TOR`
 
 **Ejemplo:**
 
 ```text
-/HISTORY
+HIS-TOR
 ```
 
 **Validación y comportamiento:** Devuelve eventos del proyecto en orden temporal.
@@ -142,70 +142,70 @@ Cada ficha contiene nombre, sintaxis exacta, argumentos, ejemplo, comportamiento
 
 ## 3. CONOCIMIENTO
 
-### /FACT SET
+### FAC-SET
 
-**Sintaxis:** `/FACT SET <statement> <source>`
+**Sintaxis:** `FAC-SET <statement> <source>`
 
 **Ejemplo:**
 
 ```text
-/FACT SET "El lote tiene 2000 m2" CATASTRO
+FAC-SET "El lote tiene 2000 m2" CATASTRO
 ```
 
 **Validación y comportamiento:** Requiere statement y source; crea Fact y evento append-only.
 
 **Errores comunes:** `INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /ASSUMPTION SET
+### ASS-SET
 
-**Sintaxis:** `/ASSUMPTION SET <statement> <basis>`
+**Sintaxis:** `ASS-SET <statement> <basis>`
 
 **Ejemplo:**
 
 ```text
-/ASSUMPTION SET "La ocupación será 80 por ciento" ESTIMACION
+ASS-SET "La ocupación será 80 por ciento" ESTIMACION
 ```
 
 **Validación y comportamiento:** Requiere statement y basis; crea Assumption separada de Fact.
 
 **Errores comunes:** `INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /EVIDENCE ADD
+### EVI-ADD
 
-**Sintaxis:** `/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]`
+**Sintaxis:** `EVI-ADD <evidence_id> <statement> <type> [source_id] [url]`
 
 **Ejemplo:**
 
 ```text
-/EVIDENCE ADD EVD-001 "Frente de 40 m" OBSERVATION
+EVI-ADD EVD-001 "Frente de 40 m" OBSERVATION
 ```
 
 **Validación y comportamiento:** Tipo: DOCUMENT, OBSERVATION, MEASUREMENT, REFERENCE, TESTIMONY, NORMATIVE u OTHER.
 
 **Errores comunes:** `EVIDENCE_ALREADY_EXISTS, INVALID_EVIDENCE_TYPE, INVALID_ARGUMENT`
 
-### /EVIDENCE LIST
+### EVI-LIS
 
-**Sintaxis:** `/EVIDENCE LIST`
+**Sintaxis:** `EVI-LIS`
 
 **Ejemplo:**
 
 ```text
-/EVIDENCE LIST
+EVI-LIS
 ```
 
 **Validación y comportamiento:** Lista evidencia del proyecto actual.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /EVIDENCE SHOW
+### EVI-SHO
 
-**Sintaxis:** `/EVIDENCE SHOW <evidence_id>`
+**Sintaxis:** `EVI-SHO <evidence_id>`
 
 **Ejemplo:**
 
 ```text
-/EVIDENCE SHOW EVD-001
+EVI-SHO EVD-001
 ```
 
 **Validación y comportamiento:** Requiere evidencia existente.
@@ -258,42 +258,42 @@ GET /v1/projects/UPAO-001/sources/CATASTRO
 
 ## 5. DISEÑO
 
-### /OBJECTIVE SET
+### OBJ-SET
 
-**Sintaxis:** `/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>`
+**Sintaxis:** `OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>`
 
 **Ejemplo:**
 
 ```text
-/OBJECTIVE SET CLIMATE MAXIMIZE 80
+OBJ-SET CLIMATE MAXIMIZE 80
 ```
 
 **Validación y comportamiento:** Direction obligatoria; crea Objective.
 
 **Errores comunes:** `OBJECTIVE_DIRECTION_REQUIRED, INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /CONSTRAINT SET
+### CON-SET
 
-**Sintaxis:** `/CONSTRAINT SET <key> <operator> <value> [unit]`
+**Sintaxis:** `CON-SET <key> <operator> <value> [unit]`
 
 **Ejemplo:**
 
 ```text
-/CONSTRAINT SET HEIGHT <= 6 FLOORS
+CON-SET HEIGHT <= 6 FLOORS
 ```
 
 **Validación y comportamiento:** Constraint MVP es siempre hard=true.
 
 **Errores comunes:** `INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /ROLE ADD
+### ROL-ADD
 
-**Sintaxis:** `/ROLE ADD <name> [actor]`
+**Sintaxis:** `ROL-ADD <name> [actor]`
 
 **Ejemplo:**
 
 ```text
-/ROLE ADD ARCHITECT "Yvan Castillo"
+ROL-ADD ARCHITECT "Yvan Castillo"
 ```
 
 **Validación y comportamiento:** Crea Role asociado al proyecto.
@@ -344,14 +344,14 @@ GET /v1/projects/UPAO-001/sources/CATASTRO
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /ALTERNATIVE PROMOTE
+### ALT-PRO
 
-**Sintaxis:** `/ALTERNATIVE PROMOTE <alternative_id>`
+**Sintaxis:** `ALT-PRO <alternative_id>`
 
 **Ejemplo:**
 
 ```text
-/ALTERNATIVE PROMOTE ALT-123
+ALT-PRO ALT-123
 ```
 
 **Validación y comportamiento:** Promueve GeneratedAlternative; requiere candidato existente.
@@ -390,28 +390,28 @@ GET /v1/projects/UPAO-001/sources/CATASTRO
 
 ## 8. GOBERNANZA
 
-### /HUMAN REVIEW
+### HUM-REV
 
-**Sintaxis:** `/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]`
+**Sintaxis:** `HUM-REV <actor> <timestamp_utc> <review> <reason> [authority]`
 
 **Ejemplo:**
 
 ```text
-/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación" "Validación" "Architect"
+HUM-REV architect-yvan 2026-09-16T07:00:00Z "Revisé la recomendación" "Validación" "Architect"
 ```
 
 **Validación y comportamiento:** Timestamp UTC obligatorio; crea HumanReview APPROVED.
 
 **Errores comunes:** `HUMAN_AUTHORITY_REQUIRED, INVALID_ARGUMENT, PROJECT_NOT_FOUND`
 
-### /DECISION RECORD
+### DEC-REC
 
-**Sintaxis:** `/DECISION RECORD <statement> <actor> <authority>`
+**Sintaxis:** `DEC-REC <statement> <actor> <authority>`
 
 **Ejemplo:**
 
 ```text
-/DECISION RECORD "Adoptar CONVENCIONAL_A" architect-yvan Architect
+DEC-REC "Adoptar CONVENCIONAL_A" architect-yvan Architect
 ```
 
 **Validación y comportamiento:** Requiere HumanReview APPROVED previo y autoridad humana; nunca es creado por Recommendation.
@@ -506,56 +506,56 @@ GET /v1/projects/UPAO-001/council
 
 ## 10. MULTIOBJETIVO
 
-### /MULTIOBJECTIVE PARETO
+### MUL-TIO PARETO
 
-**Sintaxis:** `/MULTIOBJECTIVE PARETO <objective_key_1> <objective_key_2> [...]`
+**Sintaxis:** `MUL-TIO PARETO <objective_key_1> <objective_key_2> [...]`
 
 **Ejemplo:**
 
 ```text
-/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO PARETO ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **Validación y comportamiento:** Requiere al menos dos objetivos existentes con dirección.
 
 **Errores comunes:** `OBJECTIVE_NOT_FOUND, INVALID_ARGUMENT, INVALID_STATE`
 
-### /MULTIOBJECTIVE TRADEOFFS
+### MUL-TIO TRADEOFFS
 
-**Sintaxis:** `/MULTIOBJECTIVE TRADEOFFS <objective_key_1> <objective_key_2>`
+**Sintaxis:** `MUL-TIO TRADEOFFS <objective_key_1> <objective_key_2>`
 
 **Ejemplo:**
 
 ```text
-/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **Validación y comportamiento:** Requiere exactamente dos objetivos.
 
 **Errores comunes:** `OBJECTIVE_NOT_FOUND, INVALID_ARGUMENT`
 
-### /MULTIOBJECTIVE LIST
+### MUL-TIO LIST
 
-**Sintaxis:** `/MULTIOBJECTIVE LIST`
+**Sintaxis:** `MUL-TIO LIST`
 
 **Ejemplo:**
 
 ```text
-/MULTIOBJECTIVE LIST
+MUL-TIO LIST
 ```
 
 **Validación y comportamiento:** Lista resultados multiobjetivo.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /MULTIOBJECTIVE SHOW
+### MUL-TIO SHOW
 
-**Sintaxis:** `/MULTIOBJECTIVE SHOW <multiobjective_id>`
+**Sintaxis:** `MUL-TIO SHOW <multiobjective_id>`
 
 **Ejemplo:**
 
 ```text
-/MULTIOBJECTIVE SHOW MO-123
+MUL-TIO SHOW MO-123
 ```
 
 **Validación y comportamiento:** Requiere resultado existente.
@@ -564,98 +564,98 @@ GET /v1/projects/UPAO-001/council
 
 ## 11. GENERACIÓN
 
-### /GENERATE DESIGN
+### GEN-DES
 
-**Sintaxis:** `/GENERATE DESIGN <method> <parameters_json>`
+**Sintaxis:** `GEN-DES <method> <parameters_json>`
 
 **Ejemplo:**
 
 ```text
-/GENERATE DESIGN parametric_grid_v1 '{"FLOORS":[4,6]}'
+GEN-DES parametric_grid_v1 '{"FLOORS":[4,6]}'
 ```
 
 **Validación y comportamiento:** Genera candidatos sin decidir; métodos dependen del catálogo.
 
 **Errores comunes:** `METHOD_NOT_FOUND, INVALID_INPUTS`
 
-### /GENERATE METHODS
+### GEN-MET
 
-**Sintaxis:** `/GENERATE METHODS`
+**Sintaxis:** `GEN-MET`
 
 **Ejemplo:**
 
 ```text
-/GENERATE METHODS
+GEN-MET
 ```
 
 **Validación y comportamiento:** Lista métodos de generación.
 
 **Errores comunes:** `INVALID_STATE`
 
-### /GENERATE LIST
+### GEN-LIS
 
-**Sintaxis:** `/GENERATE LIST`
+**Sintaxis:** `GEN-LIS`
 
 **Ejemplo:**
 
 ```text
-/GENERATE LIST
+GEN-LIS
 ```
 
 **Validación y comportamiento:** Lista GeneratedAlternative.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /GENERATE SHOW
+### GEN-SHO
 
-**Sintaxis:** `/GENERATE SHOW <generation_id>`
+**Sintaxis:** `GEN-SHO <generation_id>`
 
 **Ejemplo:**
 
 ```text
-/GENERATE SHOW GEN-123
+GEN-SHO GEN-123
 ```
 
 **Validación y comportamiento:** Requiere generación existente.
 
 **Errores comunes:** `GENERATION_NOT_FOUND, INVALID_ARGUMENT`
 
-### /GENERATE
+### GEN-ERA
 
-**Sintaxis:** `/GENERATE <method> <objective_keys_csv>`
+**Sintaxis:** `GEN-ERA <method> <objective_keys_csv>`
 
 **Ejemplo:**
 
 ```text
-/GENERATE evolutionary_v1 ENERGY_SAVINGS,CONSTRUCTION_COST
+GEN-ERA evolutionary_v1 ENERGY_SAVINGS,CONSTRUCTION_COST
 ```
 
 **Validación y comportamiento:** Genera alternativas; no crea Decision.
 
 **Errores comunes:** `METHOD_NOT_FOUND, INVALID_INPUTS, LLM_NOT_CONFIGURED`
 
-### /PARETO
+### PAR-ETO
 
-**Sintaxis:** `/PARETO <objective_1> <objective_2>`
+**Sintaxis:** `PAR-ETO <objective_1> <objective_2>`
 
 **Ejemplo:**
 
 ```text
-/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+PAR-ETO ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **Validación y comportamiento:** Atajo de análisis Pareto.
 
 **Errores comunes:** `OBJECTIVE_NOT_FOUND, INVALID_ARGUMENT`
 
-### /TRADEOFF_MATRIX
+### TRA-DEO
 
-**Sintaxis:** `/TRADEOFF_MATRIX <objective_1> <objective_2>`
+**Sintaxis:** `TRA-DEO <objective_1> <objective_2>`
 
 **Ejemplo:**
 
 ```text
-/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST
+TRA-DEO ENERGY_SAVINGS CONSTRUCTION_COST
 ```
 
 **Validación y comportamiento:** Atajo de matriz de trade-offs.
@@ -694,56 +694,56 @@ GET /v1/projects/UPAO-001/council
 
 ## 13. PLANIFICACIÓN
 
-### /PLANNING ADD
+### PLA-ADD
 
-**Sintaxis:** `/PLANNING ADD <id> <type> <name> [jurisdiction] [url]`
+**Sintaxis:** `PLA-ADD <id> <type> <name> [jurisdiction] [url]`
 
 **Ejemplo:**
 
 ```text
-/PLANNING ADD PI-001 ZONING "Plan urbano" Trujillo https://example.org
+PLA-ADD PI-001 ZONING "Plan urbano" Trujillo https://example.org
 ```
 
 **Validación y comportamiento:** Type debe ser PlanningInstrumentType válido.
 
 **Errores comunes:** `CONFLICT, INVALID_ARGUMENT`
 
-### /PLANNING LIST
+### PLA-LIS
 
-**Sintaxis:** `/PLANNING LIST`
+**Sintaxis:** `PLA-LIS`
 
 **Ejemplo:**
 
 ```text
-/PLANNING LIST
+PLA-LIS
 ```
 
 **Validación y comportamiento:** Lista instrumentos.
 
 **Errores comunes:** `INVALID_STATE`
 
-### /PLANNING SHOW
+### PLA-SHO
 
-**Sintaxis:** `/PLANNING SHOW <instrument_id>`
+**Sintaxis:** `PLA-SHO <instrument_id>`
 
 **Ejemplo:**
 
 ```text
-/PLANNING SHOW PI-001
+PLA-SHO PI-001
 ```
 
 **Validación y comportamiento:** Muestra instrumento existente.
 
 **Errores comunes:** `PLANNING_INSTRUMENT_NOT_FOUND`
 
-### /PLANNING TYPES
+### PLA-TYP
 
-**Sintaxis:** `/PLANNING TYPES`
+**Sintaxis:** `PLA-TYP`
 
 **Ejemplo:**
 
 ```text
-/PLANNING TYPES
+PLA-TYP
 ```
 
 **Validación y comportamiento:** Lista tipos válidos.
@@ -752,140 +752,140 @@ GET /v1/projects/UPAO-001/council
 
 ## 14. REGULACIÓN
 
-### /REGULATION ADD
+### REG-ADD
 
-**Sintaxis:** `/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]`
+**Sintaxis:** `REG-ADD <id> <code> <title> [jurisdiction] [source_url]`
 
 **Ejemplo:**
 
 ```text
-/REGULATION ADD REG-001 RNE "Reglamento Nacional" Peru https://example.org
+REG-ADD REG-001 RNE "Reglamento Nacional" Peru https://example.org
 ```
 
 **Validación y comportamiento:** Registra regulación con estado NO_VERIFICADA.
 
 **Errores comunes:** `CONFLICT, INVALID_ARGUMENT`
 
-### /REGULATION LIST
+### REG-LIS
 
-**Sintaxis:** `/REGULATION LIST`
+**Sintaxis:** `REG-LIS`
 
 **Ejemplo:**
 
 ```text
-/REGULATION LIST
+REG-LIS
 ```
 
 **Validación y comportamiento:** Lista regulaciones.
 
 **Errores comunes:** `INVALID_STATE`
 
-### /REGULATION SHOW
+### REG-SHO
 
-**Sintaxis:** `/REGULATION SHOW <regulation_id>`
+**Sintaxis:** `REG-SHO <regulation_id>`
 
 **Ejemplo:**
 
 ```text
-/REGULATION SHOW REG-001
+REG-SHO REG-001
 ```
 
 **Validación y comportamiento:** Muestra regulación.
 
 **Errores comunes:** `REGULATION_NOT_FOUND`
 
-### /REGULATION STATUS
+### REG-STA
 
-**Sintaxis:** `/REGULATION STATUS <regulation_id> <status>`
+**Sintaxis:** `REG-STA <regulation_id> <status>`
 
 **Ejemplo:**
 
 ```text
-/REGULATION STATUS REG-001 VERIFICADA
+REG-STA REG-001 VERIFICADA
 ```
 
 **Validación y comportamiento:** Actualiza estado de regulación.
 
 **Errores comunes:** `REGULATION_NOT_FOUND, INVALID_ARGUMENT`
 
-### /INTERPRET ADD
+### INT-ADD
 
-**Sintaxis:** `/INTERPRET ADD <id> <regulation_id> <article> <text>`
+**Sintaxis:** `INT-ADD <id> <regulation_id> <article> <text>`
 
 **Ejemplo:**
 
 ```text
-/INTERPRET ADD INT-001 REG-001 Art-10 "Interpretación técnica"
+INT-ADD INT-001 REG-001 Art-10 "Interpretación técnica"
 ```
 
 **Validación y comportamiento:** Regulación debe existir; incluye disclaimer legal.
 
 **Errores comunes:** `REGULATION_NOT_FOUND, CONFLICT, INVALID_ARGUMENT`
 
-### /INTERPRET LIST
+### INT-LIS
 
-**Sintaxis:** `/INTERPRET LIST [regulation_id]`
+**Sintaxis:** `INT-LIS [regulation_id]`
 
 **Ejemplo:**
 
 ```text
-/INTERPRET LIST REG-001
+INT-LIS REG-001
 ```
 
 **Validación y comportamiento:** Lista interpretaciones opcionalmente filtradas.
 
 **Errores comunes:** `INVALID_ARGUMENT`
 
-### /INTERPRET REVIEW
+### INT-REV
 
-**Sintaxis:** `/INTERPRET REVIEW <interpretation_id> <actor> <authority>`
+**Sintaxis:** `INT-REV <interpretation_id> <actor> <authority>`
 
 **Ejemplo:**
 
 ```text
-/INTERPRET REVIEW INT-001 architect-yvan Architect
+INT-REV INT-001 architect-yvan Architect
 ```
 
 **Validación y comportamiento:** Requiere actor y authority no vacíos.
 
 **Errores comunes:** `INTERPRETATION_NOT_FOUND, INVALID_ARGUMENT`
 
-### /SNAPSHOT CREATE
+### SNA-CRE
 
-**Sintaxis:** `/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>`
+**Sintaxis:** `SNA-CRE <snapshot_id> <project_id> <cut_date>`
 
 **Ejemplo:**
 
 ```text
-/SNAPSHOT CREATE SNAP-001 UPAO-001 2026-09-16
+SNA-CRE SNAP-001 UPAO-001 2026-09-16
 ```
 
 **Validación y comportamiento:** cut_date debe ser ISO date.
 
 **Errores comunes:** `PROJECT_NOT_FOUND, INVALID_ARGUMENT`
 
-### /SNAPSHOT LIST
+### SNA-LIS
 
-**Sintaxis:** `/SNAPSHOT LIST`
+**Sintaxis:** `SNA-LIS`
 
 **Ejemplo:**
 
 ```text
-/SNAPSHOT LIST
+SNA-LIS
 ```
 
 **Validación y comportamiento:** Lista snapshots.
 
 **Errores comunes:** `INVALID_STATE`
 
-### /SNAPSHOT FREEZE
+### SNA-FRE
 
-**Sintaxis:** `/SNAPSHOT FREEZE <snapshot_id>`
+**Sintaxis:** `SNA-FRE <snapshot_id>`
 
 **Ejemplo:**
 
 ```text
-/SNAPSHOT FREEZE SNAP-001
+SNA-FRE SNAP-001
 ```
 
 **Validación y comportamiento:** Congela snapshot existente.
@@ -894,56 +894,56 @@ GET /v1/projects/UPAO-001/council
 
 ## 15. MULTIESCALA
 
-### /SCALE PARENT
+### SCA-PAR
 
-**Sintaxis:** `/SCALE PARENT <project_id>`
+**Sintaxis:** `SCA-PAR <project_id>`
 
 **Ejemplo:**
 
 ```text
-/SCALE PARENT CITY-001
+SCA-PAR CITY-001
 ```
 
 **Validación y comportamiento:** Busca proyecto padre en relaciones.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /SCALE CHILDREN
+### SCA-CHI
 
-**Sintaxis:** `/SCALE CHILDREN <project_id>`
+**Sintaxis:** `SCA-CHI <project_id>`
 
 **Ejemplo:**
 
 ```text
-/SCALE CHILDREN CITY-001
+SCA-CHI CITY-001
 ```
 
 **Validación y comportamiento:** Lista hijos relacionados.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /SCALE RELATE
+### SCA-RLT
 
-**Sintaxis:** `/SCALE RELATE <parent_id> <child_id> <relation_type>`
+**Sintaxis:** `SCA-RLT <parent_id> <child_id> <relation_type>`
 
 **Ejemplo:**
 
 ```text
-/SCALE RELATE CITY-001 SITE-001 CONTAINS
+SCA-RLT CITY-001 SITE-001 CONTAINS
 ```
 
 **Validación y comportamiento:** Proyectos deben existir; relation_type se valida.
 
 **Errores comunes:** `PROJECT_NOT_FOUND, INVALID_SCOPE_RELATION`
 
-### /SCALE RELATIONS
+### SCA-RLS
 
-**Sintaxis:** `/SCALE RELATIONS <project_id>`
+**Sintaxis:** `SCA-RLS <project_id>`
 
 **Ejemplo:**
 
 ```text
-/SCALE RELATIONS CITY-001
+SCA-RLS CITY-001
 ```
 
 **Validación y comportamiento:** Lista relaciones del proyecto.
@@ -952,70 +952,70 @@ GET /v1/projects/UPAO-001/council
 
 ## 16. ACTORES
 
-### /ACTOR ADD
+### ACT-ADD
 
-**Sintaxis:** `/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]`
+**Sintaxis:** `ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]`
 
 **Ejemplo:**
 
 ```text
-/ACTOR ADD architect-yvan ARCHITECT "Yvan" DECISIONAL
+ACT-ADD architect-yvan ARCHITECT "Yvan" DECISIONAL
 ```
 
 **Validación y comportamiento:** Role y authority se validan; JSON opcional debe ser lista.
 
 **Errores comunes:** `CONFLICT, INVALID_ARGUMENT`
 
-### /ACTOR LIST
+### ACT-LIS
 
-**Sintaxis:** `/ACTOR LIST`
+**Sintaxis:** `ACT-LIS`
 
 **Ejemplo:**
 
 ```text
-/ACTOR LIST
+ACT-LIS
 ```
 
 **Validación y comportamiento:** Lista actores.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /ACTOR SHOW
+### ACT-SHO
 
-**Sintaxis:** `/ACTOR SHOW <actor_id>`
+**Sintaxis:** `ACT-SHO <actor_id>`
 
 **Ejemplo:**
 
 ```text
-/ACTOR SHOW architect-yvan
+ACT-SHO architect-yvan
 ```
 
 **Validación y comportamiento:** Muestra actor.
 
 **Errores comunes:** `ACTOR_NOT_FOUND`
 
-### /POSITION ADD
+### POS-ADD
 
-**Sintaxis:** `/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>`
+**Sintaxis:** `POS-ADD <actor_id> <subject_type> <subject_id> <stance> <statement>`
 
 **Ejemplo:**
 
 ```text
-/POSITION ADD architect-yvan ALTERNATIVE ALT-1 SUPPORT "Apoyo"
+POS-ADD architect-yvan ALTERNATIVE ALT-1 SUPPORT "Apoyo"
 ```
 
 **Validación y comportamiento:** Actor, subject type y stance se validan.
 
 **Errores comunes:** `ACTOR_NOT_FOUND, INVALID_ARGUMENT`
 
-### /POSITION LIST
+### POS-LIS
 
-**Sintaxis:** `/POSITION LIST [actor_id] [subject_id]`
+**Sintaxis:** `POS-LIS [actor_id] [subject_id]`
 
 **Ejemplo:**
 
 ```text
-/POSITION LIST architect-yvan
+POS-LIS architect-yvan
 ```
 
 **Validación y comportamiento:** Lista posiciones con filtros opcionales.
@@ -1024,84 +1024,84 @@ GET /v1/projects/UPAO-001/council
 
 ## 17. TIEMPO
 
-### /CYCLE CREATE
+### CYC-CRE
 
-**Sintaxis:** `/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>`
+**Sintaxis:** `CYC-CRE <cycle_id> <horizon> <start_date> <end_date>`
 
 **Ejemplo:**
 
 ```text
-/CYCLE CREATE CYCLE-2030 2030 2026-01-01 2030-12-31
+CYC-CRE CYCLE-2030 2030 2026-01-01 2030-12-31
 ```
 
 **Validación y comportamiento:** Horizon y fechas se validan.
 
 **Errores comunes:** `INVALID_ARGUMENT, CONFLICT`
 
-### /CYCLE LIST
+### CYC-LIS
 
-**Sintaxis:** `/CYCLE LIST`
+**Sintaxis:** `CYC-LIS`
 
 **Ejemplo:**
 
 ```text
-/CYCLE LIST
+CYC-LIS
 ```
 
 **Validación y comportamiento:** Lista ciclos.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /CYCLE SHOW
+### CYC-SHO
 
-**Sintaxis:** `/CYCLE SHOW <cycle_id>`
+**Sintaxis:** `CYC-SHO <cycle_id>`
 
 **Ejemplo:**
 
 ```text
-/CYCLE SHOW CYCLE-2030
+CYC-SHO CYCLE-2030
 ```
 
 **Validación y comportamiento:** Muestra ciclo.
 
 **Errores comunes:** `CYCLE_NOT_FOUND`
 
-### /SCENARIO CREATE
+### SCE-CRE
 
-**Sintaxis:** `/SCENARIO CREATE <branch_id> <cycle_id> <name>`
+**Sintaxis:** `SCE-CRE <branch_id> <cycle_id> <name>`
 
 **Ejemplo:**
 
 ```text
-/SCENARIO CREATE BASE-2030 CYCLE-2030 "Base"
+SCE-CRE BASE-2030 CYCLE-2030 "Base"
 ```
 
 **Validación y comportamiento:** Ciclo debe existir.
 
 **Errores comunes:** `CYCLE_NOT_FOUND, CONFLICT`
 
-### /SCENARIO LIST
+### SCE-LIS
 
-**Sintaxis:** `/SCENARIO LIST`
+**Sintaxis:** `SCE-LIS`
 
 **Ejemplo:**
 
 ```text
-/SCENARIO LIST
+SCE-LIS
 ```
 
 **Validación y comportamiento:** Lista escenarios.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /SCENARIO SELECT
+### SCE-SEL
 
-**Sintaxis:** `/SCENARIO SELECT <branch_id>`
+**Sintaxis:** `SCE-SEL <branch_id>`
 
 **Ejemplo:**
 
 ```text
-/SCENARIO SELECT BASE-2030
+SCE-SEL BASE-2030
 ```
 
 **Validación y comportamiento:** Selecciona rama de escenario.
@@ -1180,84 +1180,84 @@ GET /v1/projects/UPAO-001/council
 
 ## 18. MEMORIA INSTITUCIONAL
 
-### /MEMORY LIST
+### MEM-LIS
 
-**Sintaxis:** `/MEMORY LIST`
+**Sintaxis:** `MEM-LIS`
 
 **Ejemplo:**
 
 ```text
-/MEMORY LIST
+MEM-LIS
 ```
 
 **Validación y comportamiento:** Lista memorias activas.
 
 **Errores comunes:** `PROJECT_NOT_FOUND`
 
-### /MEMORY SHOW
+### MEM-SHO
 
-**Sintaxis:** `/MEMORY SHOW <memory_id>`
+**Sintaxis:** `MEM-SHO <memory_id>`
 
 **Ejemplo:**
 
 ```text
-/MEMORY SHOW MEM-001
+MEM-SHO MEM-001
 ```
 
 **Validación y comportamiento:** Muestra memoria.
 
 **Errores comunes:** `MEMORY_NOT_FOUND`
 
-### /MEMORY EXTRACT
+### MEM-EXT
 
-**Sintaxis:** `/MEMORY EXTRACT <type> <title> <content>`
+**Sintaxis:** `MEM-EXT <type> <title> <content>`
 
 **Ejemplo:**
 
 ```text
-/MEMORY EXTRACT LESSON_LEARNED "Lección" "Contenido"
+MEM-EXT LESSON_LEARNED "Lección" "Contenido"
 ```
 
 **Validación y comportamiento:** Crea memoria desde conocimiento del proyecto.
 
 **Errores comunes:** `INVALID_ARGUMENT`
 
-### /MEMORY REVOKE
+### MEM-REV
 
-**Sintaxis:** `/MEMORY REVOKE <memory_id>`
+**Sintaxis:** `MEM-REV <memory_id>`
 
 **Ejemplo:**
 
 ```text
-/MEMORY REVOKE MEM-001
+MEM-REV MEM-001
 ```
 
 **Validación y comportamiento:** Revoca memoria sin borrarla.
 
 **Errores comunes:** `MEMORY_NOT_FOUND, MEMORY_REVOKED`
 
-### /MEMORY APPLY
+### MEM-APP
 
-**Sintaxis:** `/MEMORY APPLY <memory_id>`
+**Sintaxis:** `MEM-APP <memory_id>`
 
 **Ejemplo:**
 
 ```text
-/MEMORY APPLY MEM-001
+MEM-APP MEM-001
 ```
 
 **Validación y comportamiento:** Aplica memoria vigente.
 
 **Errores comunes:** `MEMORY_NOT_FOUND, MEMORY_REVOKED`
 
-### /MEMORY TYPES
+### MEM-TYP
 
-**Sintaxis:** `/MEMORY TYPES`
+**Sintaxis:** `MEM-TYP`
 
 **Ejemplo:**
 
 ```text
-/MEMORY TYPES
+MEM-TYP
 ```
 
 **Validación y comportamiento:** Lista tipos de memoria.
@@ -1359,10 +1359,10 @@ Usar /EXPORT REPORT <path>
 **Ejemplo:**
 
 ```text
-Usar /MULTIOBJECTIVE TRADEOFFS A B
+Usar MUL-TIO TRADEOFFS A B
 ```
 
-**Validación y comportamiento:** El dispatcher usa /TRADEOFF_MATRIX y /MULTIOBJECTIVE TRADEOFFS.
+**Validación y comportamiento:** El dispatcher usa TRA-DEO y MUL-TIO TRADEOFFS.
 
 **Errores comunes:** `UNKNOWN_COMMAND`
 
@@ -1373,77 +1373,77 @@ Usar /MULTIOBJECTIVE TRADEOFFS A B
 **Ejemplo:**
 
 ```text
-Usar /STATUS o /PROJECT SHOW
+Usar STA-TUS o PRO-SHO
 ```
 
 **Validación y comportamiento:** No existe en el dispatcher actual.
 
 **Errores comunes:** `UNKNOWN_COMMAND`
 
-### /SITE INTELLIGENCE
+### SIT-INT
 
-**Sintaxis:** `/SITE INTELLIGENCE <location>`
+**Sintaxis:** `SIT-INT <location>`
 
 **Ejemplo:**
 
 ```text
-/SITE INTELLIGENCE "Trujillo, Peru"
+SIT-INT "Trujillo, Peru"
 ```
 
 **Validación y comportamiento:** Consulta inteligencia de sitio y registra observaciones.
 
 **Errores comunes:** `INVALID_ARGUMENT, INVALID_STATE`
 
-### /AGENT RUN
+### AGE-RUN
 
-**Sintaxis:** `/AGENT RUN <agent_type> <alternative_id>`
+**Sintaxis:** `AGE-RUN <agent_type> <alternative_id>`
 
 **Ejemplo:**
 
 ```text
-/AGENT RUN BIOCLIMATIC CONVENCIONAL_A
+AGE-RUN BIOCLIMATIC CONVENCIONAL_A
 ```
 
 **Validación y comportamiento:** Ejecuta agente experto; genera evaluaciones, no decisiones.
 
 **Errores comunes:** `CANDIDATE_NOT_FOUND, INVALID_ARGUMENT`
 
-### /DEBATE
+### DEB-ATE
 
-**Sintaxis:** `/DEBATE <alternative_id>`
+**Sintaxis:** `DEB-ATE <alternative_id>`
 
 **Ejemplo:**
 
 ```text
-/DEBATE CONVENCIONAL_A
+DEB-ATE CONVENCIONAL_A
 ```
 
 **Validación y comportamiento:** Read-only; resume evaluaciones de agentes.
 
 **Errores comunes:** `CANDIDATE_NOT_FOUND, INVALID_ARGUMENT`
 
-### /DECISION RECORD
+### DEC-REC
 
-**Sintaxis:** `/DECISION RECORD <statement> <actor> <authority>`
+**Sintaxis:** `DEC-REC <statement> <actor> <authority>`
 
 **Ejemplo:**
 
 ```text
-/DECISION RECORD "Adoptar A" architect-yvan Architect
+DEC-REC "Adoptar A" architect-yvan Architect
 ```
 
 **Validación y comportamiento:** Repetido aquí para el catálogo transversal.
 
 **Errores comunes:** `HUMAN_REVIEW_REQUIRED, HUMAN_AUTHORITY_REQUIRED`
 
-### /EXIT
+### EXI-IT
 
-**Sintaxis:** `/EXIT`
+**Sintaxis:** `EXI-IT`
 
 **Ejemplo:**
 
 ```text
-/EXIT
+EXI-IT
 ```
 
 **Validación y comportamiento:** Finaliza la sesión del intérprete.
@@ -1454,11 +1454,11 @@ Usar /STATUS o /PROJECT SHOW
 
 | Código | Significado | Cómo resolver |
 |---|---|---|
-| `ACTOR_NOT_FOUND` | El actor no existe. Verifique `/ACTOR LIST`. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
+| `ACTOR_NOT_FOUND` | El actor no existe. Verifique `ACT-LIS`. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `ACTOR_REQUIRED` | Falta actor. Proporcione un actor válido. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `CANDIDATE_NOT_FOUND` | La alternativa/candidato no existe. Use `/ALTERNATIVE LIST`. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `CONFLICT` | El identificador ya existe o hay conflicto de estado. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
-| `CYCLE_NOT_FOUND` | El ciclo no existe. Use `/CYCLE LIST`. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
+| `CYCLE_NOT_FOUND` | El ciclo no existe. Use `CYC-LIS`. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `DECISIONAL_ACTOR_REQUIRED` | El actor no tiene autoridad DECISIONAL. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `EVIDENCE_ALREADY_EXISTS` | El evidence_id ya existe; use otro identificador. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
 | `EVIDENCE_NOT_FOUND` | La evidencia no existe. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |

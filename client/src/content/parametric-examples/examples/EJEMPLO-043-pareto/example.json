@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-043",
-  "title": "Ejemplo 043 · /PARETO",
-  "commandName": "/PARETO",
+  "title": "Ejemplo 043 · PAR-ETO",
+  "commandName": "PAR-ETO",
   "category": "pareto",
-  "syntax": "/PARETO <objective_1> <objective_2>",
-  "command": "/PARETO example_objective_1 example_objective_2",
+  "syntax": "PAR-ETO <objective_1> <objective_2>",
+  "command": "PAR-ETO example_objective_1 example_objective_2",
   "arguments": [
     {
       "name": "objective_1",
@@ -24,7 +24,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /PARETO.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de PAR-ETO.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -33,5 +33,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "PAR-ETO",
+  "legacyCommand": "/PARETO"
 }

@@ -1,6 +1,6 @@
-# Ejemplo 039 · /MEMORY REVOKE
+# Ejemplo 039 · MEM-REV
 
-**Comando:** `/MEMORY REVOKE MEM-001`
+**Comando:** `MEM-REV MEM-001`
 
 **Modo:** EXPLORE
 

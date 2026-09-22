@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-054",
-  "title": "Ejemplo 054 · /REGULATION ADD",
-  "commandName": "/REGULATION ADD",
+  "title": "Ejemplo 054 · REG-ADD",
+  "commandName": "REG-ADD",
   "category": "regulation",
-  "syntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
-  "command": "/REGULATION ADD ACTOR-001 example_code example_title https://example.invalid/reference",
+  "syntax": "REG-ADD <id> <code> <title> [jurisdiction] [source_url]",
+  "command": "REG-ADD ACTOR-001 example_code example_title https://example.invalid/reference",
   "arguments": [
     {
       "name": "id",
@@ -42,7 +42,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION ADD.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de REG-ADD.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -51,5 +51,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "REG-ADD",
+  "legacyCommand": "/REGULATION ADD"
 }

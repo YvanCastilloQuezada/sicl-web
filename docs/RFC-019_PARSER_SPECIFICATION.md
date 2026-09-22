@@ -331,6 +331,8 @@ La validación del índice debe comprobar:
 
 ## 9. Contrato de salida del parser
 
+> **Compatibilidad compacta:** la interfaz actual puede recibir códigos compactos `XXX-XXX` sin slash. Esos códigos se resuelven mediante el catálogo compacto y se normalizan al comando legacy antes de invocar este parser de aliases. La regla `COMMAND_MUST_START_WITH_SLASH` se conserva únicamente para entradas que se declaran como aliases localizados legacy, no para la forma compacta preferida.
+
 ```ts
 type ParseResult =
   | {

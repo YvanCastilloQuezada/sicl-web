@@ -1,6 +1,6 @@
-# Ejemplo 035 · /ALTERNATIVE PROMOTE
+# Ejemplo 035 · ALT-PRO
 
-**Comando:** `/ALTERNATIVE PROMOTE ALT-001`
+**Comando:** `ALT-PRO ALT-001`
 
 **Modo:** DECIDE
 

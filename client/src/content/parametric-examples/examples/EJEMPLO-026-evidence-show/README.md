@@ -1,6 +1,6 @@
-# Ejemplo 026 · /EVIDENCE SHOW
+# Ejemplo 026 · EVI-SHO
 
-**Comando:** `/EVIDENCE SHOW EVID-001`
+**Comando:** `EVI-SHO EVID-001`
 
 **Modo:** APPLY
 

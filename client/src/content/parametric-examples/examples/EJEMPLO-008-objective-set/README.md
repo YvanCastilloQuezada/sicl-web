@@ -1,6 +1,6 @@
-# Ejemplo 008 · /OBJECTIVE SET
+# Ejemplo 008 · OBJ-SET
 
-**Comando:** `/OBJECTIVE SET functional_area MAXIMIZE daylight_and_functionality`
+**Comando:** `OBJ-SET functional_area MAXIMIZE daylight_and_functionality`
 
 **Modo:** APPLY
 

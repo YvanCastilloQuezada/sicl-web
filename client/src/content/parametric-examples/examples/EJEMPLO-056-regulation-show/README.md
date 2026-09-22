@@ -1,6 +1,6 @@
-# Ejemplo 056 · /REGULATION SHOW
+# Ejemplo 056 · REG-SHO
 
-**Comando:** `/REGULATION SHOW RNE-PERU`
+**Comando:** `REG-SHO RNE-PERU`
 
 **Modo:** APPLY
 

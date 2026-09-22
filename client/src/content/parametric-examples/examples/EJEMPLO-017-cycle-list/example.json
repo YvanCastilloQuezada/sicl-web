@@ -1,17 +1,17 @@
 {
   "exampleId": "EJEMPLO-017",
-  "title": "Ejemplo 017 · /CYCLE LIST",
-  "commandName": "/CYCLE LIST",
+  "title": "Ejemplo 017 · CYC-LIS",
+  "commandName": "CYC-LIS",
   "category": "cycle",
-  "syntax": "/CYCLE LIST",
-  "command": "/CYCLE LIST",
+  "syntax": "CYC-LIS",
+  "command": "CYC-LIS",
   "arguments": [],
   "mode": "APPLY",
   "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /CYCLE LIST.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de CYC-LIS.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -20,5 +20,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "CYC-LIS",
+  "legacyCommand": "/CYCLE LIST"
 }

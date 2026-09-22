@@ -1,6 +1,6 @@
-# Ejemplo 015 · /POSITION LIST
+# Ejemplo 015 · POS-LIS
 
-**Comando:** `/POSITION LIST ACTOR-001 ALT-001`
+**Comando:** `POS-LIS ACTOR-001 ALT-001`
 
 **Modo:** APPLY
 

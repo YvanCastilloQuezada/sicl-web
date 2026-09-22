@@ -1,6 +1,6 @@
-# Ejemplo 065 · /STATUS
+# Ejemplo 065 · STA-TUS
 
-**Comando:** `/STATUS`
+**Comando:** `STA-TUS`
 
 **Modo:** EXPLORE
 

@@ -1,6 +1,6 @@
-# Ejemplo 028 · /SITE INTELLIGENCE
+# Ejemplo 028 · SIT-INT
 
-**Comando:** `/SITE INTELLIGENCE Trujillo, Peru`
+**Comando:** `SIT-INT Trujillo, Peru`
 
 **Modo:** EXPLORE
 

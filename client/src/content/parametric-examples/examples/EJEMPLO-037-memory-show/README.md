@@ -1,6 +1,6 @@
-# Ejemplo 037 · /MEMORY SHOW
+# Ejemplo 037 · MEM-SHO
 
-**Comando:** `/MEMORY SHOW MEM-001`
+**Comando:** `MEM-SHO MEM-001`
 
 **Modo:** EXPLORE
 

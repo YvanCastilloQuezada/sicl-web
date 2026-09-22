@@ -1,6 +1,6 @@
-# Ejemplo 066 · /HISTORY
+# Ejemplo 066 · HIS-TOR
 
-**Comando:** `/HISTORY`
+**Comando:** `HIS-TOR`
 
 **Modo:** EXPLORE
 

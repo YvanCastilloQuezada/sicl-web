@@ -1,6 +1,6 @@
-# Ejemplo 044 · /TRADEOFF_MATRIX
+# Ejemplo 044 · TRA-DEO
 
-**Comando:** `/TRADEOFF_MATRIX example_objective_1 example_objective_2`
+**Comando:** `TRA-DEO example_objective_1 example_objective_2`
 
 **Modo:** APPLY
 

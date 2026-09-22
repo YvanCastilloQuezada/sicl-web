@@ -1,6 +1,6 @@
-# Ejemplo 052 · /PLANNING SHOW
+# Ejemplo 052 · PLA-SHO
 
-**Comando:** `/PLANNING SHOW INSTRUMENT-ID-001`
+**Comando:** `PLA-SHO INSTRUMENT-ID-001`
 
 **Modo:** APPLY
 

@@ -33,6 +33,8 @@ type AliasRegistry = {
 
 type CatalogCommand = {
   name: string;
+  compact: string;
+  legacy: string;
   category: string;
   syntax: string;
   arguments: { name: string; required: boolean; type: string; values?: string[] }[];
@@ -104,7 +106,7 @@ function commandExample(command: CatalogCommand): string {
     alternative_id: "ALT-001", alternative: "ALT-001", source_id: "SRC-001", evidence_id: "EVD-001",
   };
   const required = command.arguments.filter((arg) => arg.required).map((arg) => values[arg.name] ?? arg.values?.[0] ?? `DEMO-${arg.name.toUpperCase()}`);
-  return `${command.name}${required.length ? ` ${required.join(" ")}` : ""}`;
+  return `${command.compact}${required.length ? ` ${required.join(" ")}` : ""}`;
 }
 
 export function normalizeLocalizedCommand(input: string, locale = activeLocale()): { canonical: string; aliasUsed: boolean; aliasStatus: string } | null {
@@ -118,8 +120,10 @@ export function normalizeLocalizedCommand(input: string, locale = activeLocale()
     if (match.status !== "ACTIVE") return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
     return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
   }
-  const canonical = commands.find((item) => upper === item.name || upper.startsWith(`${item.name} `));
-  return canonical ? { canonical: value, aliasUsed: false, aliasStatus: "CANONICAL" } : null;
+  const compact = commands.find((item) => upper === item.compact || upper.startsWith(`${item.compact} `));
+  if (compact) return { canonical: `${compact.name}${value.slice(compact.compact.length)}`, aliasUsed: false, aliasStatus: "COMPACT_CANONICAL" };
+  const legacy = commands.find((item) => upper === item.legacy || upper.startsWith(`${item.legacy} `));
+  return legacy ? { canonical: value, aliasUsed: false, aliasStatus: "LEGACY_ALIAS" } : null;
 }
 
 function readHistory(): string[] {
@@ -138,12 +142,13 @@ function writeHistory(items: string[]) {
 export function commandSuggestions(input: string, context: CommandContext = {}, locale = activeLocale()): string[] {
   const value = input.trim();
   const visibleAliases = localizedAliases(locale);
-  if (!value) return [...visibleAliases.slice(0, 8).map((item) => item.alias), ...commands.slice(0, 4).map((item) => item.name)];
+  if (!value) return [...commands.slice(0, 8).map((item) => item.compact), ...visibleAliases.slice(0, 4).map((item) => item.alias)];
   const upper = value.toUpperCase();
-  if (value.startsWith("/") && !value.includes(" ")) {
+  if (!value.includes(" ") && !commands.some((item) => item.compact === upper)) {
     const localized = visibleAliases.filter((item) => item.alias.toUpperCase().startsWith(upper)).map((item) => item.alias);
-    const canonical = commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name);
-    return [...localized, ...canonical].slice(0, 12);
+    const compact = commands.filter((item) => item.compact.startsWith(upper)).map((item) => item.compact);
+    const legacy = commands.filter((item) => item.legacy.startsWith(upper)).map((item) => item.legacy);
+    return [...compact, ...localized, ...legacy].slice(0, 12);
   }
   const tokens = value.split(/\s+/);
   const localized = visibleAliases.find((item) => item.alias.toUpperCase() === tokens.slice(0, item.alias.split(" ").length).join(" ").toUpperCase());
@@ -156,9 +161,10 @@ export function commandSuggestions(input: string, context: CommandContext = {}, 
     if (arg) return [`<${arg.name}>`];
     return [];
   }
-  const command = commands.find((item) => item.name === tokens.slice(0, item.name.split(" ").length).join(" ").toUpperCase());
-  if (!command) return commands.filter((item) => item.name.startsWith(upper)).map((item) => item.name).slice(0, 12);
-  const argIndex = tokens.length - command.name.split(" ").length;
+  const command = commands.find((item) => item.compact === tokens[0].toUpperCase() || item.legacy === tokens.slice(0, item.legacy.split(" ").length).join(" ").toUpperCase());
+  if (!command) return commands.filter((item) => item.compact.startsWith(upper) || item.legacy.startsWith(upper)).map((item) => item.compact).slice(0, 12);
+  const commandTokenCount = tokens[0].toUpperCase() === command.compact ? 1 : command.legacy.split(" ").length;
+  const argIndex = tokens.length - commandTokenCount;
   const arg = command.arguments[argIndex];
   if (command.name === "/OBJECTIVE SET" && argIndex === 0) return context.objectives ?? [];
   if ((command.name === "/ALTERNATIVE SET" || command.name === "/ALTERNATIVE CREATE") && argIndex === 0) return context.alternatives ?? [];
@@ -170,11 +176,11 @@ export function commandSuggestions(input: string, context: CommandContext = {}, 
 
 export function validateCommand(input: string): string | null {
   const value = input.trim();
-  if (!value.startsWith("/")) return "COMMAND_MUST_START_WITH_SLASH";
   const upper = value.toUpperCase();
-  const command = commands.find((item) => upper === item.name || upper.startsWith(`${item.name} `));
+  const command = commands.find((item) => upper === item.compact || upper.startsWith(`${item.compact} `) || upper === item.legacy || upper.startsWith(`${item.legacy} `));
   if (!command) return "COMMAND_NOT_FOUND";
-  const args = value.split(/\s+/).slice(command.name.split(" ").length);
+  const tokenCount = upper === command.compact || upper.startsWith(`${command.compact} `) ? 1 : command.legacy.split(" ").length;
+  const args = value.split(/\s+/).slice(tokenCount);
   const required = command.arguments.filter((arg) => arg.required).length;
   if (args.length < required) return "MISSING_REQUIRED_ARGUMENT";
   return null;
@@ -466,7 +472,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
     if (event.key === "Tab" && suggestions[selected]) {
       event.preventDefault();
       const value = suggestions[selected];
-      setInput(value.startsWith("/") ? value : `${input.trim()} ${value}`.trim());
+      setInput(!input.includes(" ") && value.toUpperCase().startsWith(input.trim().toUpperCase()) ? value : value.startsWith("/") ? value : `${input.trim()} ${value}`.trim());
       return;
     }
     if (event.key === "Enter") {

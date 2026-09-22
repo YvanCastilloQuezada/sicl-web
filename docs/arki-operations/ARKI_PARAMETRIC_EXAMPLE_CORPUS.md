@@ -10,7 +10,7 @@ La biblioteca se encuentra en `client/src/content/parametric-examples/manifest.j
 
 Los ejemplos son **material didáctico reproducible**, no acciones ejecutadas. No crean decisiones humanas, no promueven alternativas, no invocan un SICL Core remoto y no simulan que Dynamo/Revit o Rhino/Grasshopper hayan producido binarios nativos. Las categorías que requieren evidencia, un host autorizado o autoridad humana se mantienen explícitamente en `EXPLORE`, `APPLY` o `DECIDE`, según corresponda.
 
-El ejemplo `/GENERATE DESIGN` incluye un paquete de intercambio `.ark`, `.dyn` y `.ghx`. El `.ark` es una propuesta geométrica trazable que conserva provenance y revisión humana requerida; `.dyn` y `.ghx` son intercambios legibles, no archivos nativos `.rvt` o `.gh`.
+El ejemplo `GEN-DES` incluye un paquete de intercambio `.ark`, `.dyn` y `.ghx`. El `.ark` es una propuesta geométrica trazable que conserva provenance y revisión humana requerida; `.dyn` y `.ghx` son intercambios legibles, no archivos nativos `.rvt` o `.gh`.
 
 ## Criterio de repetibilidad
 

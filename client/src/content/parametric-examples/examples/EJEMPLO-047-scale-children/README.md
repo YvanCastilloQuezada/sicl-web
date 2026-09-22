@@ -1,6 +1,6 @@
-# Ejemplo 047 · /SCALE CHILDREN
+# Ejemplo 047 · SCA-CHI
 
-**Comando:** `/SCALE CHILDREN EXAMPLE-ARCH-001`
+**Comando:** `SCA-CHI EXAMPLE-ARCH-001`
 
 **Modo:** APPLY
 

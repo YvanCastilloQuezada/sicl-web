@@ -1,6 +1,6 @@
-# Ejemplo 031 · /GENERATE DESIGN
+# Ejemplo 031 · GEN-DES
 
-**Comando:** `/GENERATE DESIGN PARAMETRIC_MASSING {"width":24,"depth":16,"height":3.2,"floors":2,"kind":"RECTANGULAR_MASS"}`
+**Comando:** `GEN-DES PARAMETRIC_MASSING {"width":24,"depth":16,"height":3.2,"floors":2,"kind":"RECTANGULAR_MASS"}`
 
 **Modo:** EXPLORE
 

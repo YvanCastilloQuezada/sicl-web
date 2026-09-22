@@ -1,6 +1,6 @@
-# Ejemplo 046 · /SCALE PARENT
+# Ejemplo 046 · SCA-PAR
 
-**Comando:** `/SCALE PARENT EXAMPLE-ARCH-001`
+**Comando:** `SCA-PAR EXAMPLE-ARCH-001`
 
 **Modo:** APPLY
 

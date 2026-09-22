@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-011",
-  "title": "Ejemplo 011 · /ACTOR ADD",
-  "commandName": "/ACTOR ADD",
+  "title": "Ejemplo 011 · ACT-ADD",
+  "commandName": "ACT-ADD",
   "category": "actor",
-  "syntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
-  "command": "/ACTOR ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}",
+  "syntax": "ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+  "command": "ACT-ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}",
   "arguments": [
     {
       "name": "id",
@@ -42,7 +42,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /ACTOR ADD.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de ACT-ADD.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -51,5 +51,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "ACT-ADD",
+  "legacyCommand": "/ACTOR ADD"
 }

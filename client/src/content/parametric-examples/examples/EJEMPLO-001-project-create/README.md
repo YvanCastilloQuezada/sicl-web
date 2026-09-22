@@ -1,6 +1,6 @@
-# Ejemplo 001 · /PROJECT CREATE
+# Ejemplo 001 · PRO-CRE
 
-**Comando:** `/PROJECT CREATE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026`
+**Comando:** `PRO-CRE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026`
 
 **Modo:** EXPLORE
 

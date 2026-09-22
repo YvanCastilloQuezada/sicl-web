@@ -1,6 +1,6 @@
-# Ejemplo 014 · /POSITION ADD
+# Ejemplo 014 · POS-ADD
 
-**Comando:** `/POSITION ADD ACTOR-001 ALTERNATIVE ALT-001 SUPPORT La alternativa conserva circulación clara`
+**Comando:** `POS-ADD ACTOR-001 ALTERNATIVE ALT-001 SUPPORT La alternativa conserva circulación clara`
 
 **Modo:** APPLY
 

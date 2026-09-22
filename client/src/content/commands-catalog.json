@@ -2,7 +2,7 @@
   {
     "name": "/PROJECT CREATE",
     "category": "project",
-    "syntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
+    "syntax": "PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]",
     "arguments": [
       {
         "name": "project_id",
@@ -25,13 +25,16 @@
         "type": "string"
       }
     ],
-    "example": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
-    "errors": []
+    "example": "PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]",
+    "errors": [],
+    "compact": "PRO-CRE",
+    "legacy": "/PROJECT CREATE",
+    "legacySyntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]"
   },
   {
     "name": "/PROJECT OPEN",
     "category": "project",
-    "syntax": "/PROJECT OPEN <project_id>",
+    "syntax": "PRO-OPE <project_id>",
     "arguments": [
       {
         "name": "project_id",
@@ -39,13 +42,16 @@
         "type": "string"
       }
     ],
-    "example": "/PROJECT OPEN <project_id>",
-    "errors": []
+    "example": "PRO-OPE <project_id>",
+    "errors": [],
+    "compact": "PRO-OPE",
+    "legacy": "/PROJECT OPEN",
+    "legacySyntax": "/PROJECT OPEN <project_id>"
   },
   {
     "name": "/PROJECT SET SCOPE",
     "category": "project",
-    "syntax": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]",
+    "syntax": "PRO-SET <spatial_scope> [temporal_scope]",
     "arguments": [
       {
         "name": "spatial_scope",
@@ -58,13 +64,16 @@
         "type": "string"
       }
     ],
-    "example": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]",
-    "errors": []
+    "example": "PRO-SET <spatial_scope> [temporal_scope]",
+    "errors": [],
+    "compact": "PRO-SET",
+    "legacy": "/PROJECT SET SCOPE",
+    "legacySyntax": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]"
   },
   {
     "name": "/PROJECT IMPORT OBJECTIVE",
     "category": "project",
-    "syntax": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>",
+    "syntax": "PRO-IMP <source_project_id> <objective_id>",
     "arguments": [
       {
         "name": "source_project_id",
@@ -77,29 +86,38 @@
         "type": "string"
       }
     ],
-    "example": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>",
-    "errors": []
+    "example": "PRO-IMP <source_project_id> <objective_id>",
+    "errors": [],
+    "compact": "PRO-IMP",
+    "legacy": "/PROJECT IMPORT OBJECTIVE",
+    "legacySyntax": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>"
   },
   {
     "name": "/PROJECT SHOW",
     "category": "project",
-    "syntax": "/PROJECT SHOW",
+    "syntax": "PRO-SHO",
     "arguments": [],
-    "example": "/PROJECT SHOW",
-    "errors": []
+    "example": "PRO-SHO",
+    "errors": [],
+    "compact": "PRO-SHO",
+    "legacy": "/PROJECT SHOW",
+    "legacySyntax": "/PROJECT SHOW"
   },
   {
     "name": "/PROJECT LIST",
     "category": "project",
-    "syntax": "/PROJECT LIST",
+    "syntax": "PRO-LIS",
     "arguments": [],
-    "example": "/PROJECT LIST",
-    "errors": []
+    "example": "PRO-LIS",
+    "errors": [],
+    "compact": "PRO-LIS",
+    "legacy": "/PROJECT LIST",
+    "legacySyntax": "/PROJECT LIST"
   },
   {
     "name": "/STAGE SET",
     "category": "stage",
-    "syntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
+    "syntax": "STA-SET <DRAFT|ACTIVE|CLOSED>",
     "arguments": [
       {
         "name": "DRAFT|ACTIVE|CLOSED",
@@ -107,13 +125,16 @@
         "type": "string"
       }
     ],
-    "example": "/STAGE SET <DRAFT|ACTIVE|CLOSED>",
-    "errors": []
+    "example": "STA-SET <DRAFT|ACTIVE|CLOSED>",
+    "errors": [],
+    "compact": "STA-SET",
+    "legacy": "/STAGE SET",
+    "legacySyntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>"
   },
   {
     "name": "/OBJECTIVE SET",
     "category": "objective",
-    "syntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
+    "syntax": "OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>",
     "arguments": [
       {
         "name": "key",
@@ -131,13 +152,16 @@
         "type": "string"
       }
     ],
-    "example": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>",
-    "errors": []
+    "example": "OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>",
+    "errors": [],
+    "compact": "OBJ-SET",
+    "legacy": "/OBJECTIVE SET",
+    "legacySyntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>"
   },
   {
     "name": "/CONSTRAINT SET",
     "category": "constraint",
-    "syntax": "/CONSTRAINT SET <key> <operator> <value> [unit]",
+    "syntax": "CON-SET <key> <operator> <value> [unit]",
     "arguments": [
       {
         "name": "key",
@@ -160,13 +184,16 @@
         "type": "string"
       }
     ],
-    "example": "/CONSTRAINT SET <key> <operator> <value> [unit]",
-    "errors": []
+    "example": "CON-SET <key> <operator> <value> [unit]",
+    "errors": [],
+    "compact": "CON-SET",
+    "legacy": "/CONSTRAINT SET",
+    "legacySyntax": "/CONSTRAINT SET <key> <operator> <value> [unit]"
   },
   {
     "name": "/ROLE ADD",
     "category": "role",
-    "syntax": "/ROLE ADD <name> [actor]",
+    "syntax": "ROL-ADD <name> [actor]",
     "arguments": [
       {
         "name": "name",
@@ -179,13 +206,16 @@
         "type": "string"
       }
     ],
-    "example": "/ROLE ADD <name> [actor]",
-    "errors": []
+    "example": "ROL-ADD <name> [actor]",
+    "errors": [],
+    "compact": "ROL-ADD",
+    "legacy": "/ROLE ADD",
+    "legacySyntax": "/ROLE ADD <name> [actor]"
   },
   {
     "name": "/ACTOR ADD",
     "category": "actor",
-    "syntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+    "syntax": "ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]",
     "arguments": [
       {
         "name": "id",
@@ -213,21 +243,27 @@
         "type": "string"
       }
     ],
-    "example": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
-    "errors": []
+    "example": "ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+    "errors": [],
+    "compact": "ACT-ADD",
+    "legacy": "/ACTOR ADD",
+    "legacySyntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]"
   },
   {
     "name": "/ACTOR LIST",
     "category": "actor",
-    "syntax": "/ACTOR LIST",
+    "syntax": "ACT-LIS",
     "arguments": [],
-    "example": "/ACTOR LIST",
-    "errors": []
+    "example": "ACT-LIS",
+    "errors": [],
+    "compact": "ACT-LIS",
+    "legacy": "/ACTOR LIST",
+    "legacySyntax": "/ACTOR LIST"
   },
   {
     "name": "/ACTOR SHOW",
     "category": "actor",
-    "syntax": "/ACTOR SHOW <actor_id>",
+    "syntax": "ACT-SHO <actor_id>",
     "arguments": [
       {
         "name": "actor_id",
@@ -235,13 +271,16 @@
         "type": "string"
       }
     ],
-    "example": "/ACTOR SHOW <actor_id>",
-    "errors": []
+    "example": "ACT-SHO <actor_id>",
+    "errors": [],
+    "compact": "ACT-SHO",
+    "legacy": "/ACTOR SHOW",
+    "legacySyntax": "/ACTOR SHOW <actor_id>"
   },
   {
     "name": "/POSITION ADD",
     "category": "position",
-    "syntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+    "syntax": "POS-ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
     "arguments": [
       {
         "name": "actor_id",
@@ -269,13 +308,16 @@
         "type": "string"
       }
     ],
-    "example": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
-    "errors": []
+    "example": "POS-ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+    "errors": [],
+    "compact": "POS-ADD",
+    "legacy": "/POSITION ADD",
+    "legacySyntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>"
   },
   {
     "name": "/POSITION LIST",
     "category": "position",
-    "syntax": "/POSITION LIST [actor_id] [subject_id]",
+    "syntax": "POS-LIS [actor_id] [subject_id]",
     "arguments": [
       {
         "name": "actor_id",
@@ -288,13 +330,16 @@
         "type": "string"
       }
     ],
-    "example": "/POSITION LIST [actor_id] [subject_id]",
-    "errors": []
+    "example": "POS-LIS [actor_id] [subject_id]",
+    "errors": [],
+    "compact": "POS-LIS",
+    "legacy": "/POSITION LIST",
+    "legacySyntax": "/POSITION LIST [actor_id] [subject_id]"
   },
   {
     "name": "/CYCLE CREATE",
     "category": "cycle",
-    "syntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
+    "syntax": "CYC-CRE <cycle_id> <horizon> <start_date> <end_date>",
     "arguments": [
       {
         "name": "cycle_id",
@@ -317,21 +362,27 @@
         "type": "string"
       }
     ],
-    "example": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>",
-    "errors": []
+    "example": "CYC-CRE <cycle_id> <horizon> <start_date> <end_date>",
+    "errors": [],
+    "compact": "CYC-CRE",
+    "legacy": "/CYCLE CREATE",
+    "legacySyntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>"
   },
   {
     "name": "/CYCLE LIST",
     "category": "cycle",
-    "syntax": "/CYCLE LIST",
+    "syntax": "CYC-LIS",
     "arguments": [],
-    "example": "/CYCLE LIST",
-    "errors": []
+    "example": "CYC-LIS",
+    "errors": [],
+    "compact": "CYC-LIS",
+    "legacy": "/CYCLE LIST",
+    "legacySyntax": "/CYCLE LIST"
   },
   {
     "name": "/CYCLE SHOW",
     "category": "cycle",
-    "syntax": "/CYCLE SHOW <cycle_id>",
+    "syntax": "CYC-SHO <cycle_id>",
     "arguments": [
       {
         "name": "cycle_id",
@@ -339,13 +390,16 @@
         "type": "string"
       }
     ],
-    "example": "/CYCLE SHOW <cycle_id>",
-    "errors": []
+    "example": "CYC-SHO <cycle_id>",
+    "errors": [],
+    "compact": "CYC-SHO",
+    "legacy": "/CYCLE SHOW",
+    "legacySyntax": "/CYCLE SHOW <cycle_id>"
   },
   {
     "name": "/SCENARIO CREATE",
     "category": "scenario",
-    "syntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
+    "syntax": "SCE-CRE <branch_id> <cycle_id> <name>",
     "arguments": [
       {
         "name": "branch_id",
@@ -363,21 +417,27 @@
         "type": "string"
       }
     ],
-    "example": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
-    "errors": []
+    "example": "SCE-CRE <branch_id> <cycle_id> <name>",
+    "errors": [],
+    "compact": "SCE-CRE",
+    "legacy": "/SCENARIO CREATE",
+    "legacySyntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>"
   },
   {
     "name": "/SCENARIO LIST",
     "category": "scenario",
-    "syntax": "/SCENARIO LIST",
+    "syntax": "SCE-LIS",
     "arguments": [],
-    "example": "/SCENARIO LIST",
-    "errors": []
+    "example": "SCE-LIS",
+    "errors": [],
+    "compact": "SCE-LIS",
+    "legacy": "/SCENARIO LIST",
+    "legacySyntax": "/SCENARIO LIST"
   },
   {
     "name": "/SCENARIO SELECT",
     "category": "scenario",
-    "syntax": "/SCENARIO SELECT <branch_id>",
+    "syntax": "SCE-SEL <branch_id>",
     "arguments": [
       {
         "name": "branch_id",
@@ -385,13 +445,16 @@
         "type": "string"
       }
     ],
-    "example": "/SCENARIO SELECT <branch_id>",
-    "errors": []
+    "example": "SCE-SEL <branch_id>",
+    "errors": [],
+    "compact": "SCE-SEL",
+    "legacy": "/SCENARIO SELECT",
+    "legacySyntax": "/SCENARIO SELECT <branch_id>"
   },
   {
     "name": "/FACT SET",
     "category": "fact",
-    "syntax": "/FACT SET <statement> <source>",
+    "syntax": "FAC-SET <statement> <source>",
     "arguments": [
       {
         "name": "statement",
@@ -404,13 +467,16 @@
         "type": "string"
       }
     ],
-    "example": "/FACT SET <statement> <source>",
-    "errors": []
+    "example": "FAC-SET <statement> <source>",
+    "errors": [],
+    "compact": "FAC-SET",
+    "legacy": "/FACT SET",
+    "legacySyntax": "/FACT SET <statement> <source>"
   },
   {
     "name": "/ASSUMPTION SET",
     "category": "assumption",
-    "syntax": "/ASSUMPTION SET <statement> <basis>",
+    "syntax": "ASS-SET <statement> <basis>",
     "arguments": [
       {
         "name": "statement",
@@ -423,13 +489,16 @@
         "type": "string"
       }
     ],
-    "example": "/ASSUMPTION SET <statement> <basis>",
-    "errors": []
+    "example": "ASS-SET <statement> <basis>",
+    "errors": [],
+    "compact": "ASS-SET",
+    "legacy": "/ASSUMPTION SET",
+    "legacySyntax": "/ASSUMPTION SET <statement> <basis>"
   },
   {
     "name": "/EVIDENCE ADD",
     "category": "evidence",
-    "syntax": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]",
+    "syntax": "EVI-ADD <evidence_id> <statement> <type> [source_id] [url]",
     "arguments": [
       {
         "name": "evidence_id",
@@ -457,21 +526,27 @@
         "type": "string"
       }
     ],
-    "example": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]",
-    "errors": []
+    "example": "EVI-ADD <evidence_id> <statement> <type> [source_id] [url]",
+    "errors": [],
+    "compact": "EVI-ADD",
+    "legacy": "/EVIDENCE ADD",
+    "legacySyntax": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]"
   },
   {
     "name": "/EVIDENCE LIST",
     "category": "evidence",
-    "syntax": "/EVIDENCE LIST",
+    "syntax": "EVI-LIS",
     "arguments": [],
-    "example": "/EVIDENCE LIST",
-    "errors": []
+    "example": "EVI-LIS",
+    "errors": [],
+    "compact": "EVI-LIS",
+    "legacy": "/EVIDENCE LIST",
+    "legacySyntax": "/EVIDENCE LIST"
   },
   {
     "name": "/EVIDENCE SHOW",
     "category": "evidence",
-    "syntax": "/EVIDENCE SHOW <evidence_id>",
+    "syntax": "EVI-SHO <evidence_id>",
     "arguments": [
       {
         "name": "evidence_id",
@@ -479,13 +554,16 @@
         "type": "string"
       }
     ],
-    "example": "/EVIDENCE SHOW <evidence_id>",
-    "errors": []
+    "example": "EVI-SHO <evidence_id>",
+    "errors": [],
+    "compact": "EVI-SHO",
+    "legacy": "/EVIDENCE SHOW",
+    "legacySyntax": "/EVIDENCE SHOW <evidence_id>"
   },
   {
     "name": "/HUMAN REVIEW",
     "category": "human",
-    "syntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
+    "syntax": "HUM-REV <actor> <timestamp_utc> <review> <reason> [authority]",
     "arguments": [
       {
         "name": "actor",
@@ -513,13 +591,16 @@
         "type": "string"
       }
     ],
-    "example": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]",
-    "errors": []
+    "example": "HUM-REV <actor> <timestamp_utc> <review> <reason> [authority]",
+    "errors": [],
+    "compact": "HUM-REV",
+    "legacy": "/HUMAN REVIEW",
+    "legacySyntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]"
   },
   {
     "name": "/SITE INTELLIGENCE",
     "category": "site",
-    "syntax": "/SITE INTELLIGENCE <location>",
+    "syntax": "SIT-INT <location>",
     "arguments": [
       {
         "name": "location",
@@ -527,13 +608,16 @@
         "type": "string"
       }
     ],
-    "example": "/SITE INTELLIGENCE <location>",
-    "errors": []
+    "example": "SIT-INT <location>",
+    "errors": [],
+    "compact": "SIT-INT",
+    "legacy": "/SITE INTELLIGENCE",
+    "legacySyntax": "/SITE INTELLIGENCE <location>"
   },
   {
     "name": "/AGENT RUN",
     "category": "agent",
-    "syntax": "/AGENT RUN <agent_type> <alternative_id>",
+    "syntax": "AGE-RUN <agent_type> <alternative_id>",
     "arguments": [
       {
         "name": "agent_type",
@@ -546,13 +630,16 @@
         "type": "string"
       }
     ],
-    "example": "/AGENT RUN <agent_type> <alternative_id>",
-    "errors": []
+    "example": "AGE-RUN <agent_type> <alternative_id>",
+    "errors": [],
+    "compact": "AGE-RUN",
+    "legacy": "/AGENT RUN",
+    "legacySyntax": "/AGENT RUN <agent_type> <alternative_id>"
   },
   {
     "name": "/DEBATE",
     "category": "debate",
-    "syntax": "/DEBATE <alternative_id>",
+    "syntax": "DEB-ATE <alternative_id>",
     "arguments": [
       {
         "name": "alternative_id",
@@ -560,13 +647,16 @@
         "type": "string"
       }
     ],
-    "example": "/DEBATE <alternative_id>",
-    "errors": []
+    "example": "DEB-ATE <alternative_id>",
+    "errors": [],
+    "compact": "DEB-ATE",
+    "legacy": "/DEBATE",
+    "legacySyntax": "/DEBATE <alternative_id>"
   },
   {
     "name": "/GENERATE DESIGN",
     "category": "generate",
-    "syntax": "/GENERATE DESIGN <method> <parameters_json>",
+    "syntax": "GEN-DES <method> <parameters_json>",
     "arguments": [
       {
         "name": "method",
@@ -579,21 +669,27 @@
         "type": "string"
       }
     ],
-    "example": "/GENERATE DESIGN <method> <parameters_json>",
-    "errors": []
+    "example": "GEN-DES <method> <parameters_json>",
+    "errors": [],
+    "compact": "GEN-DES",
+    "legacy": "/GENERATE DESIGN",
+    "legacySyntax": "/GENERATE DESIGN <method> <parameters_json>"
   },
   {
     "name": "/GENERATE LIST",
     "category": "generate",
-    "syntax": "/GENERATE LIST",
+    "syntax": "GEN-LIS",
     "arguments": [],
-    "example": "/GENERATE LIST",
-    "errors": []
+    "example": "GEN-LIS",
+    "errors": [],
+    "compact": "GEN-LIS",
+    "legacy": "/GENERATE LIST",
+    "legacySyntax": "/GENERATE LIST"
   },
   {
     "name": "/GENERATE SHOW",
     "category": "generate",
-    "syntax": "/GENERATE SHOW <generation_id>",
+    "syntax": "GEN-SHO <generation_id>",
     "arguments": [
       {
         "name": "generation_id",
@@ -601,21 +697,27 @@
         "type": "string"
       }
     ],
-    "example": "/GENERATE SHOW <generation_id>",
-    "errors": []
+    "example": "GEN-SHO <generation_id>",
+    "errors": [],
+    "compact": "GEN-SHO",
+    "legacy": "/GENERATE SHOW",
+    "legacySyntax": "/GENERATE SHOW <generation_id>"
   },
   {
     "name": "/GENERATE METHODS",
     "category": "generate",
-    "syntax": "/GENERATE METHODS",
+    "syntax": "GEN-MET",
     "arguments": [],
-    "example": "/GENERATE METHODS",
-    "errors": []
+    "example": "GEN-MET",
+    "errors": [],
+    "compact": "GEN-MET",
+    "legacy": "/GENERATE METHODS",
+    "legacySyntax": "/GENERATE METHODS"
   },
   {
     "name": "/ALTERNATIVE PROMOTE",
     "category": "alternative",
-    "syntax": "/ALTERNATIVE PROMOTE <alternative_id>",
+    "syntax": "ALT-PRO <alternative_id>",
     "arguments": [
       {
         "name": "alternative_id",
@@ -623,21 +725,27 @@
         "type": "string"
       }
     ],
-    "example": "/ALTERNATIVE PROMOTE <alternative_id>",
-    "errors": []
+    "example": "ALT-PRO <alternative_id>",
+    "errors": [],
+    "compact": "ALT-PRO",
+    "legacy": "/ALTERNATIVE PROMOTE",
+    "legacySyntax": "/ALTERNATIVE PROMOTE <alternative_id>"
   },
   {
     "name": "/MEMORY LIST",
     "category": "memory",
-    "syntax": "/MEMORY LIST",
+    "syntax": "MEM-LIS",
     "arguments": [],
-    "example": "/MEMORY LIST",
-    "errors": []
+    "example": "MEM-LIS",
+    "errors": [],
+    "compact": "MEM-LIS",
+    "legacy": "/MEMORY LIST",
+    "legacySyntax": "/MEMORY LIST"
   },
   {
     "name": "/MEMORY SHOW",
     "category": "memory",
-    "syntax": "/MEMORY SHOW <memory_id>",
+    "syntax": "MEM-SHO <memory_id>",
     "arguments": [
       {
         "name": "memory_id",
@@ -645,13 +753,16 @@
         "type": "string"
       }
     ],
-    "example": "/MEMORY SHOW <memory_id>",
-    "errors": []
+    "example": "MEM-SHO <memory_id>",
+    "errors": [],
+    "compact": "MEM-SHO",
+    "legacy": "/MEMORY SHOW",
+    "legacySyntax": "/MEMORY SHOW <memory_id>"
   },
   {
     "name": "/MEMORY EXTRACT",
     "category": "memory",
-    "syntax": "/MEMORY EXTRACT <type> <title> <content>",
+    "syntax": "MEM-EXT <type> <title> <content>",
     "arguments": [
       {
         "name": "type",
@@ -669,13 +780,16 @@
         "type": "string"
       }
     ],
-    "example": "/MEMORY EXTRACT <type> <title> <content>",
-    "errors": []
+    "example": "MEM-EXT <type> <title> <content>",
+    "errors": [],
+    "compact": "MEM-EXT",
+    "legacy": "/MEMORY EXTRACT",
+    "legacySyntax": "/MEMORY EXTRACT <type> <title> <content>"
   },
   {
     "name": "/MEMORY REVOKE",
     "category": "memory",
-    "syntax": "/MEMORY REVOKE <memory_id>",
+    "syntax": "MEM-REV <memory_id>",
     "arguments": [
       {
         "name": "memory_id",
@@ -683,13 +797,16 @@
         "type": "string"
       }
     ],
-    "example": "/MEMORY REVOKE <memory_id>",
-    "errors": []
+    "example": "MEM-REV <memory_id>",
+    "errors": [],
+    "compact": "MEM-REV",
+    "legacy": "/MEMORY REVOKE",
+    "legacySyntax": "/MEMORY REVOKE <memory_id>"
   },
   {
     "name": "/MEMORY APPLY",
     "category": "memory",
-    "syntax": "/MEMORY APPLY <memory_id>",
+    "syntax": "MEM-APP <memory_id>",
     "arguments": [
       {
         "name": "memory_id",
@@ -697,21 +814,27 @@
         "type": "string"
       }
     ],
-    "example": "/MEMORY APPLY <memory_id>",
-    "errors": []
+    "example": "MEM-APP <memory_id>",
+    "errors": [],
+    "compact": "MEM-APP",
+    "legacy": "/MEMORY APPLY",
+    "legacySyntax": "/MEMORY APPLY <memory_id>"
   },
   {
     "name": "/MEMORY TYPES",
     "category": "memory",
-    "syntax": "/MEMORY TYPES",
+    "syntax": "MEM-TYP",
     "arguments": [],
-    "example": "/MEMORY TYPES",
-    "errors": []
+    "example": "MEM-TYP",
+    "errors": [],
+    "compact": "MEM-TYP",
+    "legacy": "/MEMORY TYPES",
+    "legacySyntax": "/MEMORY TYPES"
   },
   {
     "name": "/GENERATE",
     "category": "generate",
-    "syntax": "/GENERATE <method> <objective_keys_csv>",
+    "syntax": "GEN-ERA <method> <objective_keys_csv>",
     "arguments": [
       {
         "name": "method",
@@ -724,13 +847,16 @@
         "type": "string"
       }
     ],
-    "example": "/GENERATE <method> <objective_keys_csv>",
-    "errors": []
+    "example": "GEN-ERA <method> <objective_keys_csv>",
+    "errors": [],
+    "compact": "GEN-ERA",
+    "legacy": "/GENERATE",
+    "legacySyntax": "/GENERATE <method> <objective_keys_csv>"
   },
   {
     "name": "/PARETO",
     "category": "pareto",
-    "syntax": "/PARETO <objective_1> <objective_2>",
+    "syntax": "PAR-ETO <objective_1> <objective_2>",
     "arguments": [
       {
         "name": "objective_1",
@@ -743,13 +869,16 @@
         "type": "string"
       }
     ],
-    "example": "/PARETO <objective_1> <objective_2>",
-    "errors": []
+    "example": "PAR-ETO <objective_1> <objective_2>",
+    "errors": [],
+    "compact": "PAR-ETO",
+    "legacy": "/PARETO",
+    "legacySyntax": "/PARETO <objective_1> <objective_2>"
   },
   {
     "name": "/TRADEOFF_MATRIX",
     "category": "tradeoff_matrix",
-    "syntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
+    "syntax": "TRA-DEO <objective_1> <objective_2>",
     "arguments": [
       {
         "name": "objective_1",
@@ -762,21 +891,27 @@
         "type": "string"
       }
     ],
-    "example": "/TRADEOFF_MATRIX <objective_1> <objective_2>",
-    "errors": []
+    "example": "TRA-DEO <objective_1> <objective_2>",
+    "errors": [],
+    "compact": "TRA-DEO",
+    "legacy": "/TRADEOFF_MATRIX",
+    "legacySyntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>"
   },
   {
     "name": "/MULTIOBJECTIVE",
     "category": "multiobjective",
-    "syntax": "/MULTIOBJECTIVE",
+    "syntax": "MUL-TIO",
     "arguments": [],
-    "example": "/MULTIOBJECTIVE",
-    "errors": []
+    "example": "MUL-TIO",
+    "errors": [],
+    "compact": "MUL-TIO",
+    "legacy": "/MULTIOBJECTIVE",
+    "legacySyntax": "/MULTIOBJECTIVE"
   },
   {
     "name": "/SCALE PARENT",
     "category": "scale",
-    "syntax": "/SCALE PARENT <project_id>",
+    "syntax": "SCA-PAR <project_id>",
     "arguments": [
       {
         "name": "project_id",
@@ -784,13 +919,16 @@
         "type": "string"
       }
     ],
-    "example": "/SCALE PARENT <project_id>",
-    "errors": []
+    "example": "SCA-PAR <project_id>",
+    "errors": [],
+    "compact": "SCA-PAR",
+    "legacy": "/SCALE PARENT",
+    "legacySyntax": "/SCALE PARENT <project_id>"
   },
   {
     "name": "/SCALE CHILDREN",
     "category": "scale",
-    "syntax": "/SCALE CHILDREN <project_id>",
+    "syntax": "SCA-CHI <project_id>",
     "arguments": [
       {
         "name": "project_id",
@@ -798,13 +936,16 @@
         "type": "string"
       }
     ],
-    "example": "/SCALE CHILDREN <project_id>",
-    "errors": []
+    "example": "SCA-CHI <project_id>",
+    "errors": [],
+    "compact": "SCA-CHI",
+    "legacy": "/SCALE CHILDREN",
+    "legacySyntax": "/SCALE CHILDREN <project_id>"
   },
   {
     "name": "/SCALE RELATE",
     "category": "scale",
-    "syntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
+    "syntax": "SCA-RLT <parent_id> <child_id> <relation_type>",
     "arguments": [
       {
         "name": "parent_id",
@@ -822,13 +963,16 @@
         "type": "string"
       }
     ],
-    "example": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
-    "errors": []
+    "example": "SCA-RLT <parent_id> <child_id> <relation_type>",
+    "errors": [],
+    "compact": "SCA-RLT",
+    "legacy": "/SCALE RELATE",
+    "legacySyntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>"
   },
   {
     "name": "/SCALE RELATIONS",
     "category": "scale",
-    "syntax": "/SCALE RELATIONS <project_id>",
+    "syntax": "SCA-RLS <project_id>",
     "arguments": [
       {
         "name": "project_id",
@@ -836,13 +980,16 @@
         "type": "string"
       }
     ],
-    "example": "/SCALE RELATIONS <project_id>",
-    "errors": []
+    "example": "SCA-RLS <project_id>",
+    "errors": [],
+    "compact": "SCA-RLS",
+    "legacy": "/SCALE RELATIONS",
+    "legacySyntax": "/SCALE RELATIONS <project_id>"
   },
   {
     "name": "/PLANNING ADD",
     "category": "planning",
-    "syntax": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]",
+    "syntax": "PLA-ADD <id> <type> <name> [jurisdiction] [url]",
     "arguments": [
       {
         "name": "id",
@@ -870,21 +1017,27 @@
         "type": "string"
       }
     ],
-    "example": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]",
-    "errors": []
+    "example": "PLA-ADD <id> <type> <name> [jurisdiction] [url]",
+    "errors": [],
+    "compact": "PLA-ADD",
+    "legacy": "/PLANNING ADD",
+    "legacySyntax": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]"
   },
   {
     "name": "/PLANNING LIST",
     "category": "planning",
-    "syntax": "/PLANNING LIST",
+    "syntax": "PLA-LIS",
     "arguments": [],
-    "example": "/PLANNING LIST",
-    "errors": []
+    "example": "PLA-LIS",
+    "errors": [],
+    "compact": "PLA-LIS",
+    "legacy": "/PLANNING LIST",
+    "legacySyntax": "/PLANNING LIST"
   },
   {
     "name": "/PLANNING SHOW",
     "category": "planning",
-    "syntax": "/PLANNING SHOW <instrument_id>",
+    "syntax": "PLA-SHO <instrument_id>",
     "arguments": [
       {
         "name": "instrument_id",
@@ -892,21 +1045,27 @@
         "type": "string"
       }
     ],
-    "example": "/PLANNING SHOW <instrument_id>",
-    "errors": []
+    "example": "PLA-SHO <instrument_id>",
+    "errors": [],
+    "compact": "PLA-SHO",
+    "legacy": "/PLANNING SHOW",
+    "legacySyntax": "/PLANNING SHOW <instrument_id>"
   },
   {
     "name": "/PLANNING TYPES",
     "category": "planning",
-    "syntax": "/PLANNING TYPES",
+    "syntax": "PLA-TYP",
     "arguments": [],
-    "example": "/PLANNING TYPES",
-    "errors": []
+    "example": "PLA-TYP",
+    "errors": [],
+    "compact": "PLA-TYP",
+    "legacy": "/PLANNING TYPES",
+    "legacySyntax": "/PLANNING TYPES"
   },
   {
     "name": "/REGULATION ADD",
     "category": "regulation",
-    "syntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
+    "syntax": "REG-ADD <id> <code> <title> [jurisdiction] [source_url]",
     "arguments": [
       {
         "name": "id",
@@ -934,21 +1093,27 @@
         "type": "string"
       }
     ],
-    "example": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]",
-    "errors": []
+    "example": "REG-ADD <id> <code> <title> [jurisdiction] [source_url]",
+    "errors": [],
+    "compact": "REG-ADD",
+    "legacy": "/REGULATION ADD",
+    "legacySyntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]"
   },
   {
     "name": "/REGULATION LIST",
     "category": "regulation",
-    "syntax": "/REGULATION LIST",
+    "syntax": "REG-LIS",
     "arguments": [],
-    "example": "/REGULATION LIST",
-    "errors": []
+    "example": "REG-LIS",
+    "errors": [],
+    "compact": "REG-LIS",
+    "legacy": "/REGULATION LIST",
+    "legacySyntax": "/REGULATION LIST"
   },
   {
     "name": "/REGULATION SHOW",
     "category": "regulation",
-    "syntax": "/REGULATION SHOW <regulation_id>",
+    "syntax": "REG-SHO <regulation_id>",
     "arguments": [
       {
         "name": "regulation_id",
@@ -956,13 +1121,16 @@
         "type": "string"
       }
     ],
-    "example": "/REGULATION SHOW <regulation_id>",
-    "errors": []
+    "example": "REG-SHO <regulation_id>",
+    "errors": [],
+    "compact": "REG-SHO",
+    "legacy": "/REGULATION SHOW",
+    "legacySyntax": "/REGULATION SHOW <regulation_id>"
   },
   {
     "name": "/REGULATION STATUS",
     "category": "regulation",
-    "syntax": "/REGULATION STATUS <regulation_id> <status>",
+    "syntax": "REG-STA <regulation_id> <status>",
     "arguments": [
       {
         "name": "regulation_id",
@@ -975,13 +1143,16 @@
         "type": "string"
       }
     ],
-    "example": "/REGULATION STATUS <regulation_id> <status>",
-    "errors": []
+    "example": "REG-STA <regulation_id> <status>",
+    "errors": [],
+    "compact": "REG-STA",
+    "legacy": "/REGULATION STATUS",
+    "legacySyntax": "/REGULATION STATUS <regulation_id> <status>"
   },
   {
     "name": "/INTERPRET ADD",
     "category": "interpret",
-    "syntax": "/INTERPRET ADD <id> <regulation_id> <article> <text>",
+    "syntax": "INT-ADD <id> <regulation_id> <article> <text>",
     "arguments": [
       {
         "name": "id",
@@ -1004,13 +1175,16 @@
         "type": "string"
       }
     ],
-    "example": "/INTERPRET ADD <id> <regulation_id> <article> <text>",
-    "errors": []
+    "example": "INT-ADD <id> <regulation_id> <article> <text>",
+    "errors": [],
+    "compact": "INT-ADD",
+    "legacy": "/INTERPRET ADD",
+    "legacySyntax": "/INTERPRET ADD <id> <regulation_id> <article> <text>"
   },
   {
     "name": "/INTERPRET LIST",
     "category": "interpret",
-    "syntax": "/INTERPRET LIST [regulation_id]",
+    "syntax": "INT-LIS [regulation_id]",
     "arguments": [
       {
         "name": "regulation_id",
@@ -1018,13 +1192,16 @@
         "type": "string"
       }
     ],
-    "example": "/INTERPRET LIST [regulation_id]",
-    "errors": []
+    "example": "INT-LIS [regulation_id]",
+    "errors": [],
+    "compact": "INT-LIS",
+    "legacy": "/INTERPRET LIST",
+    "legacySyntax": "/INTERPRET LIST [regulation_id]"
   },
   {
     "name": "/INTERPRET REVIEW",
     "category": "interpret",
-    "syntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
+    "syntax": "INT-REV <interpretation_id> <actor> <authority>",
     "arguments": [
       {
         "name": "interpretation_id",
@@ -1042,13 +1219,16 @@
         "type": "string"
       }
     ],
-    "example": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
-    "errors": []
+    "example": "INT-REV <interpretation_id> <actor> <authority>",
+    "errors": [],
+    "compact": "INT-REV",
+    "legacy": "/INTERPRET REVIEW",
+    "legacySyntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>"
   },
   {
     "name": "/SNAPSHOT CREATE",
     "category": "snapshot",
-    "syntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
+    "syntax": "SNA-CRE <snapshot_id> <project_id> <cut_date>",
     "arguments": [
       {
         "name": "snapshot_id",
@@ -1066,21 +1246,27 @@
         "type": "string"
       }
     ],
-    "example": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>",
-    "errors": []
+    "example": "SNA-CRE <snapshot_id> <project_id> <cut_date>",
+    "errors": [],
+    "compact": "SNA-CRE",
+    "legacy": "/SNAPSHOT CREATE",
+    "legacySyntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>"
   },
   {
     "name": "/SNAPSHOT LIST",
     "category": "snapshot",
-    "syntax": "/SNAPSHOT LIST",
+    "syntax": "SNA-LIS",
     "arguments": [],
-    "example": "/SNAPSHOT LIST",
-    "errors": []
+    "example": "SNA-LIS",
+    "errors": [],
+    "compact": "SNA-LIS",
+    "legacy": "/SNAPSHOT LIST",
+    "legacySyntax": "/SNAPSHOT LIST"
   },
   {
     "name": "/SNAPSHOT FREEZE",
     "category": "snapshot",
-    "syntax": "/SNAPSHOT FREEZE <snapshot_id>",
+    "syntax": "SNA-FRE <snapshot_id>",
     "arguments": [
       {
         "name": "snapshot_id",
@@ -1088,13 +1274,16 @@
         "type": "string"
       }
     ],
-    "example": "/SNAPSHOT FREEZE <snapshot_id>",
-    "errors": []
+    "example": "SNA-FRE <snapshot_id>",
+    "errors": [],
+    "compact": "SNA-FRE",
+    "legacy": "/SNAPSHOT FREEZE",
+    "legacySyntax": "/SNAPSHOT FREEZE <snapshot_id>"
   },
   {
     "name": "/DECISION RECORD",
     "category": "decision",
-    "syntax": "/DECISION RECORD <statement> <actor> <authority>",
+    "syntax": "DEC-REC <statement> <actor> <authority>",
     "arguments": [
       {
         "name": "statement",
@@ -1112,31 +1301,43 @@
         "type": "string"
       }
     ],
-    "example": "/DECISION RECORD <statement> <actor> <authority>",
-    "errors": []
+    "example": "DEC-REC <statement> <actor> <authority>",
+    "errors": [],
+    "compact": "DEC-REC",
+    "legacy": "/DECISION RECORD",
+    "legacySyntax": "/DECISION RECORD <statement> <actor> <authority>"
   },
   {
     "name": "/STATUS",
     "category": "status",
-    "syntax": "/STATUS",
+    "syntax": "STA-TUS",
     "arguments": [],
-    "example": "/STATUS",
-    "errors": []
+    "example": "STA-TUS",
+    "errors": [],
+    "compact": "STA-TUS",
+    "legacy": "/STATUS",
+    "legacySyntax": "/STATUS"
   },
   {
     "name": "/HISTORY",
     "category": "history",
-    "syntax": "/HISTORY",
+    "syntax": "HIS-TOR",
     "arguments": [],
-    "example": "/HISTORY",
-    "errors": []
+    "example": "HIS-TOR",
+    "errors": [],
+    "compact": "HIS-TOR",
+    "legacy": "/HISTORY",
+    "legacySyntax": "/HISTORY"
   },
   {
     "name": "/EXIT",
     "category": "exit",
-    "syntax": "/EXIT",
+    "syntax": "EXI-IT",
     "arguments": [],
-    "example": "/EXIT",
-    "errors": []
+    "example": "EXI-IT",
+    "errors": [],
+    "compact": "EXI-IT",
+    "legacy": "/EXIT",
+    "legacySyntax": "/EXIT"
   }
 ]

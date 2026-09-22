@@ -1,6 +1,6 @@
-# Ejemplo 053 · /PLANNING TYPES
+# Ejemplo 053 · PLA-TYP
 
-**Comando:** `/PLANNING TYPES`
+**Comando:** `PLA-TYP`
 
 **Modo:** APPLY
 

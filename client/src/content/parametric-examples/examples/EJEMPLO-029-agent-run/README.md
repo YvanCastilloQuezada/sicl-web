@@ -1,6 +1,6 @@
-# Ejemplo 029 · /AGENT RUN
+# Ejemplo 029 · AGE-RUN
 
-**Comando:** `/AGENT RUN PARTI ALT-001`
+**Comando:** `AGE-RUN PARTI ALT-001`
 
 **Modo:** APPLY
 

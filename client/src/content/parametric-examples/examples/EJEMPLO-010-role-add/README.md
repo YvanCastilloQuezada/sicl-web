@@ -1,6 +1,6 @@
-# Ejemplo 010 · /ROLE ADD
+# Ejemplo 010 · ROL-ADD
 
-**Comando:** `/ROLE ADD Casa Demo Paramétrica human-reviewer`
+**Comando:** `ROL-ADD Casa Demo Paramétrica human-reviewer`
 
 **Modo:** APPLY
 

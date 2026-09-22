@@ -67,9 +67,9 @@ Para utilizar la API, ejecute FastAPI con el comando definido por el despliegue.
 ### 3.2 Crear un proyecto
 
 ```text
-/PROJECT CREATE UPAO-001 "UPAO Plaza Center"
-/PROJECT OPEN UPAO-001
-/PROJECT SHOW
+PRO-CRE UPAO-001 "UPAO Plaza Center"
+PRO-OPE UPAO-001
+PRO-SHO
 ```
 
 El identificador debe ser estable y legible. El nombre describe el caso. Después de abrir un proyecto, los comandos siguientes se ejecutan en su contexto.
@@ -79,7 +79,7 @@ El identificador debe ser estable y legible. El nombre describe el caso. Despué
 Declare una escala espacial cuando sea conocida. No deje que el sistema la infiera.
 
 ```text
-/PROJECT SET SCOPE parcela_sitio proyecto
+PRO-SET parcela_sitio proyecto
 ```
 
 Las nueve escalas disponibles son `pais`, `region`, `provincia_metropoli`, `distrito_ciudad`, `zona_barrio_sector`, `parcela_sitio`, `edificacion`, `espacio` y `objeto`.
@@ -87,8 +87,8 @@ Las nueve escalas disponibles son `pais`, `region`, `provincia_metropoli`, `dist
 ### 3.4 Definir objetivos
 
 ```text
-/OBJECTIVE SET ENERGY_SAVINGS MAXIMIZE 80
-/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60 USD_M2
+OBJ-SET ENERGY_SAVINGS MAXIMIZE 80
+OBJ-SET CONSTRUCTION_COST MINIMIZE 60 USD_M2
 ```
 
 El objetivo debe indicar una clave, una dirección y un valor. La dirección puede ser `MAXIMIZE` o `MINIMIZE` según el objetivo.
@@ -98,9 +98,9 @@ El objetivo debe indicar una clave, una dirección y un valor. La dirección pue
 La evidencia debe indicar qué se afirma, qué tipo de evidencia se utiliza y de qué fuente proviene.
 
 ```text
-/EVIDENCE ADD E-001 "El sitio se encuentra en Trujillo" OBSERVATION
-/EVIDENCE LIST
-/EVIDENCE SHOW E-001
+EVI-ADD E-001 "El sitio se encuentra en Trujillo" OBSERVATION
+EVI-LIS
+EVI-SHO E-001
 ```
 
 Una evidencia no se convierte automáticamente en hecho o suposición. El usuario debe realizar la clasificación correspondiente.
@@ -112,7 +112,7 @@ Una evidencia no se convierte automáticamente en hecho o suposición. El usuari
 Comience creando el proyecto, abriéndolo y declarando su escala. Si dispone de una ubicación, utilice Site Intelligence para obtener observaciones descriptivas.
 
 ```text
-/SITE INTELLIGENCE "Trujillo, Peru"
+SIT-INT "Trujillo, Peru"
 ```
 
 Las observaciones deben conservar fuente, estado y trazabilidad. Site Intelligence no debe producir obligaciones normativas automáticas.
@@ -128,8 +128,8 @@ Si dos fuentes difieren, conserve el estado `CONFLICTING` y no elija silenciosam
 Un hecho representa información verificada dentro del contexto del proyecto. Un supuesto representa una premisa de trabajo que aún requiere confirmación.
 
 ```text
-/FACT SET SITE_AREA=2000 CATASTRO
-/ASSUMPTION SET OCCUPANCY=80% ESTIMACION
+FAC-SET SITE_AREA=2000 CATASTRO
+ASS-SET OCCUPANCY=80% ESTIMACION
 ```
 
 No utilice una Assumption para ocultar la falta de un Fact. Tampoco cambie una Assumption a Fact sin nueva evidencia verificable y evento auditable.
@@ -143,8 +143,8 @@ Revise que los valores y unidades sean comparables. Si un objetivo no tiene dire
 ### 4.5 Restricciones y requisitos
 
 ```text
-/CONSTRAINT SET HEIGHT <= 6 FLOORS
-/CONSTRAINT SET BUDGET <= 500000 USD
+CON-SET HEIGHT <= 6 FLOORS
+CON-SET BUDGET <= 500000 USD
 ```
 
 En el alcance vigente, las constraints son `HARD`. Una constraint dura debe cumplirse para que una alternativa sea admisible.
@@ -205,10 +205,10 @@ Una simulación produce un resultado descriptivo. No crea una Decision. El méto
 ### 4.11 Multiobjective
 
 ```text
-/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
-/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
-/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
-/MULTIOBJECTIVE LIST
+PAR-ETO ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+MUL-TIO LIST
 ```
 
 El frente de Pareto muestra opciones no dominadas con respecto a objetivos declarados. Un trade-off hace visible que mejorar un objetivo puede empeorar otro.
@@ -226,7 +226,7 @@ Una recomendación resume una salida analítica. Debe conservar la separación r
 ### 4.13 HumanReview
 
 ```text
-/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé las evaluaciones y el trade-off" "Validación arquitectónica" BOARD
+HUM-REV architect-yvan 2026-09-16T07:00:00Z "Revisé las evaluaciones y el trade-off" "Validación arquitectónica" BOARD
 ```
 
 La revisión humana declara que un actor examinó el material relevante. Debe incluir actor, autoridad y una razón suficiente.
@@ -234,7 +234,7 @@ La revisión humana declara que un actor examinó el material relevante. Debe in
 ### 4.14 Decision
 
 ```text
-/DECISION RECORD "Seleccionar CONVENCIONAL_A" A-DEC BOARD
+DEC-REC "Seleccionar CONVENCIONAL_A" A-DEC BOARD
 ```
 
 La Decision debe registrarse después de HumanReview. Si falta la revisión, el actor o la autoridad, la operación debe rechazarse.
@@ -242,8 +242,8 @@ La Decision debe registrarse después de HumanReview. Si falta la revisión, el 
 ### 4.15 Audit
 
 ```text
-/HISTORY
-/STATUS
+HIS-TOR
+STA-TUS
 ```
 
 Audit se obtiene de los eventos, snapshots y resultados trazables. El historial debe mostrar las mutaciones en orden temporal.
@@ -253,32 +253,32 @@ Audit se obtiene de los eventos, snapshots y resultados trazables. El historial 
 ### 5.1 Proyecto y estado
 
 ```text
-/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]
-/PROJECT OPEN <project_id>
-/PROJECT SET SCOPE <spatial_scope> [temporal_scope]
-/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>
-/PROJECT SHOW
-/PROJECT LIST
-/STAGE SET <stage>
-/STATUS
-/HISTORY
+PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]
+PRO-OPE <project_id>
+PRO-SET <spatial_scope> [temporal_scope]
+PRO-IMP <source_project_id> <objective_id>
+PRO-SHO
+PRO-LIS
+STA-SET <stage>
+STA-TUS
+HIS-TOR
 /HELP
-/EXIT
+EXI-IT
 ```
 
 ### 5.2 Conocimiento y decisión
 
 ```text
-/OBJECTIVE SET <key> <direction> <value>
-/CONSTRAINT SET <key> <operator> <value> [unit]
-/ROLE ADD <name> <actor>
-/FACT SET <statement> [source]
-/ASSUMPTION SET <statement> [basis]
-/EVIDENCE ADD <id> <statement> <type> [source_id] [url]
-/EVIDENCE LIST
-/EVIDENCE SHOW <id>
-/HUMAN REVIEW <actor> <timestamp_utc> "<review>" "<reason>" [authority]
-/DECISION RECORD <statement> <actor> <authority>
+OBJ-SET <key> <direction> <value>
+CON-SET <key> <operator> <value> [unit]
+ROL-ADD <name> <actor>
+FAC-SET <statement> [source]
+ASS-SET <statement> [basis]
+EVI-ADD <id> <statement> <type> [source_id] [url]
+EVI-LIS
+EVI-SHO <id>
+HUM-REV <actor> <timestamp_utc> "<review>" "<reason>" [authority]
+DEC-REC <statement> <actor> <authority>
 ```
 
 ### 5.3 Alternativas y análisis
@@ -290,12 +290,12 @@ Audit se obtiene de los eventos, snapshots y resultados trazables. El historial 
 /EVALUATE <alternative> <objective> <value> [unit] [confidence] [source]
 /COMPARE <alternative> <alternative> [...]
 /RECOMMEND
-/AGENT RUN <agent> <alternative>
-/DEBATE <alternative>
-/SITE INTELLIGENCE <location>
-/GENERATE <alternative> <objective_1> <objective_2>
-/PARETO <objective_1> <objective_2>
-/TRADEOFF_MATRIX <objective_1> <objective_2>
+AGE-RUN <agent> <alternative>
+DEB-ATE <alternative>
+SIT-INT <location>
+GEN-ERA <alternative> <objective_1> <objective_2>
+PAR-ETO <objective_1> <objective_2>
+TRA-DEO <objective_1> <objective_2>
 ```
 
 ### 5.4 Simulation, diseño y multiescala
@@ -307,40 +307,40 @@ Audit se obtiene de los eventos, snapshots y resultados trazables. El historial 
 /SIMULATE METHODS
 /DESIGN PRINCIPLES
 /DESIGN PRINCIPLE <principle_id>
-/SCALE PARENT <scope>
-/SCALE CHILDREN <scope>
-/SCALE RELATE <parent_project_id> <child_project_id> <relation_type> [description]
-/SCALE RELATIONS <project_id>
+SCA-PAR <scope>
+SCA-CHI <scope>
+SCA-RLT <parent_project_id> <child_project_id> <relation_type> [description]
+SCA-RLS <project_id>
 ```
 
 ### 5.5 Planificación y regulación
 
 ```text
-/PLANNING ADD <id> <type> <name> [jurisdiction] [url]
-/PLANNING LIST
-/PLANNING SHOW <id>
-/PLANNING TYPES
-/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]
-/REGULATION LIST
-/REGULATION SHOW <id>
-/REGULATION STATUS <id> <status>
-/INTERPRET ADD <id> <regulation_id> <article> <text>
-/INTERPRET LIST [regulation_id]
-/INTERPRET REVIEW <id> <actor> <authority>
-/SNAPSHOT CREATE <id> <project_id> <cut_date>
-/SNAPSHOT LIST <project_id>
-/SNAPSHOT FREEZE <id> <reviewer>
+PLA-ADD <id> <type> <name> [jurisdiction] [url]
+PLA-LIS
+PLA-SHO <id>
+PLA-TYP
+REG-ADD <id> <code> <title> [jurisdiction] [source_url]
+REG-LIS
+REG-SHO <id>
+REG-STA <id> <status>
+INT-ADD <id> <regulation_id> <article> <text>
+INT-LIS [regulation_id]
+INT-REV <id> <actor> <authority>
+SNA-CRE <id> <project_id> <cut_date>
+SNA-LIS <project_id>
+SNA-FRE <id> <reviewer>
 ```
 
 ### 5.6 Ciclos y escenarios
 
 ```text
-/CYCLE CREATE <cycle_id> <horizon> <start_date>
-/CYCLE LIST
-/CYCLE SHOW <cycle_id>
-/SCENARIO CREATE <branch_id> <parent_cycle_id> <name>
-/SCENARIO LIST
-/SCENARIO SELECT <branch_id> <actor> <authority>
+CYC-CRE <cycle_id> <horizon> <start_date>
+CYC-LIS
+CYC-SHO <cycle_id>
+SCE-CRE <branch_id> <parent_cycle_id> <name>
+SCE-LIS
+SCE-SEL <branch_id> <actor> <authority>
 ```
 
 Los horizontes de ciclo son `2030`, `2040`, `2050` o `CUSTOM`. La selección de escenario exige actor activo y HumanReview aprobado.
@@ -510,11 +510,11 @@ El User Copilot es una capacidad de asistencia, no una autoridad. Puede explicar
 `GeneratedAlternative` conserva candidatos generados por métodos declarados. La generación paramétrica y por patrones producen propuestas; no producen una `Alternative` formal hasta que una persona las promueve con actor y autoridad. La generación no recomienda ni decide.
 
 ```text
-/GENERATE DESIGN <method> <json_inputs>
-/GENERATE LIST
-/GENERATE SHOW <generation_id>
-/GENERATE METHODS
-/ALTERNATIVE PROMOTE <generation_id> <candidate_index> <actor> <authority>
+GEN-DES <method> <json_inputs>
+GEN-LIS
+GEN-SHO <generation_id>
+GEN-MET
+ALT-PRO <generation_id> <candidate_index> <actor> <authority>
 ```
 
 ### 7.2 Memoria institucional
@@ -586,25 +586,25 @@ UPAO-001 es un caso sintético para demostrar el flujo completo. Puede represent
 ### Paso 1 — Crear
 
 ```text
-/PROJECT CREATE UPAO-001 "UPAO Plaza Center"
-/PROJECT OPEN UPAO-001
-/PROJECT SET SCOPE parcela_sitio proyecto
+PRO-CRE UPAO-001 "UPAO Plaza Center"
+PRO-OPE UPAO-001
+PRO-SET parcela_sitio proyecto
 ```
 
 ### Paso 2 — Registrar contexto
 
 ```text
-/FACT SET SITE_AREA=2000 CATASTRO
-/FACT SET FAR=5.0 CATASTRO
-/ASSUMPTION SET OCCUPANCY=80% ESTIMACION
+FAC-SET SITE_AREA=2000 CATASTRO
+FAC-SET FAR=5.0 CATASTRO
+ASS-SET OCCUPANCY=80% ESTIMACION
 ```
 
 ### Paso 3 — Definir objetivos y constraints
 
 ```text
-/OBJECTIVE SET ENERGY_SAVINGS MAXIMIZE 80
-/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60
-/CONSTRAINT SET HEIGHT <= 6 FLOORS
+OBJ-SET ENERGY_SAVINGS MAXIMIZE 80
+OBJ-SET CONSTRUCTION_COST MINIMIZE 60
+CON-SET HEIGHT <= 6 FLOORS
 ```
 
 ### Paso 4 — Crear alternativas y evaluar
@@ -625,9 +625,9 @@ UPAO-001 es un caso sintético para demostrar el flujo completo. Puede represent
 ### Paso 5 — Revisar y decidir
 
 ```text
-/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z "Revisé la comparación y la recomendación" "Validación arquitectónica" BOARD
-/DECISION RECORD "Seleccionar BIOCLIMATICA_B" A-DEC BOARD
-/HISTORY
+HUM-REV architect-yvan 2026-09-16T07:00:00Z "Revisé la comparación y la recomendación" "Validación arquitectónica" BOARD
+DEC-REC "Seleccionar BIOCLIMATICA_B" A-DEC BOARD
+HIS-TOR
 ```
 
 El resultado correcto muestra Recommendation y Decision como registros diferentes. La Decision tiene actor, autoridad y HumanReview previo.
@@ -636,7 +636,7 @@ El resultado correcto muestra Recommendation y Decision como registros diferente
 
 ### PROJECT_NOT_FOUND
 
-El proyecto no existe o no está abierto. Verifique el identificador y ejecute `/PROJECT OPEN`.
+El proyecto no existe o no está abierto. Verifique el identificador y ejecute `PRO-OPE`.
 
 ### INVALID_ARGUMENT
 

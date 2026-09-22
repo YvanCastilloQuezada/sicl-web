@@ -1,6 +1,6 @@
-# Ejemplo 013 · /ACTOR SHOW
+# Ejemplo 013 · ACT-SHO
 
-**Comando:** `/ACTOR SHOW ACTOR-001`
+**Comando:** `ACT-SHO ACTOR-001`
 
 **Modo:** APPLY
 

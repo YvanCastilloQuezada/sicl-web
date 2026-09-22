@@ -10,13 +10,13 @@ La barra está disponible en todas las páginas del frontend. Puede abrirse con 
 
 ## Flujo de ejecución
 
-Primero se introduce el ID del proyecto. Después se escribe el comando SICL. La barra valida que el comando comience con `/`, que exista en el catálogo del dispatcher y que sus argumentos obligatorios estén presentes. Si la validación local pasa, se realiza un `POST /v1/projects/{project_id}/commands` con el comando y el actor `frontend-user`.
+Primero se introduce el ID del proyecto. Después se escribe el comando SICL compacto, por ejemplo `PRO-OPE`. La barra valida que el código exista en el catálogo, que sus argumentos obligatorios estén presentes y que no haya ambigüedad. Los comandos legacy con `/` siguen aceptándose como aliases de transición. Si la validación local pasa, se realiza un `POST /v1/projects/{project_id}/commands` con el comando normalizado y el actor `frontend-user`.
 
 Los resultados exitosos se muestran en verde. Los errores se muestran en rojo con el mensaje producido por el cliente REST. La barra no convierte errores en éxitos ni activa fallback local silencioso.
 
 ## Autocompletado
 
-Al escribir `/` se muestran los comandos disponibles. La tecla `Tab` acepta la sugerencia seleccionada y las flechas permiten recorrerlas. Para comandos que admiten contexto, la barra puede recibir objetivos, alternativas y actores del proyecto. Cuando no hay contexto disponible, se conserva el marcador de argumento en lugar de inventar valores.
+Al escribir un prefijo como `PRO-` se muestran los comandos compactos disponibles. La tecla `Tab` acepta la sugerencia seleccionada y las flechas permiten recorrerlas. Para comandos que admiten contexto, la barra puede recibir objetivos, alternativas y actores del proyecto. Cuando no hay contexto disponible, se conserva el marcador de argumento en lugar de inventar valores.
 
 `Enter` ejecuta el comando. `ArrowUp` recupera comandos previos y `ArrowDown` permite recorrer las sugerencias. El historial se almacena en `localStorage` con la clave `sims-dei-command-history` y se limita a los últimos 100 comandos, eliminando duplicados consecutivos.
 
@@ -35,11 +35,11 @@ En un flujo de mantenimiento del repositorio, el script debe ejecutarse desde un
 
 ## Internacionalización
 
-El namespace `command_bar` está disponible en español, inglés, portugués, italiano, francés, alemán, ruso y chino. Los comandos SICL permanecen en su sintaxis formal —por ejemplo, `/PROJECT CREATE`— porque son lenguaje de protocolo y no deben traducirse; las etiquetas, mensajes, ayudas y estados de la interfaz sí se traducen.
+El namespace `command_bar` está disponible en español, inglés, portugués, italiano, francés, alemán, ruso y chino. Los comandos SICL se muestran en su forma compacta —por ejemplo, `PRO-CRE`— porque son lenguaje de protocolo y deben ser rápidos de escribir; las etiquetas, mensajes, ayudas y estados de la interfaz sí se traducen. La forma legacy `/PROJECT CREATE` permanece reconocida durante la transición.
 
 ## Límites
 
-La barra no modifica el Core, no altera formularios existentes de Fase A y no sustituye la revisión humana requerida por las invariantes constitucionales. Un comando como `/DECISION RECORD` sigue sujeto a los requisitos de actor, autoridad y revisión definidos por el Core.
+La barra no modifica el Core, no altera formularios existentes de Fase A y no sustituye la revisión humana requerida por las invariantes constitucionales. Un comando como `DEC-REC` sigue sujeto a los requisitos de actor, autoridad y revisión definidos por el Core.
 
 
 ## Ayuda contextual y ejemplos

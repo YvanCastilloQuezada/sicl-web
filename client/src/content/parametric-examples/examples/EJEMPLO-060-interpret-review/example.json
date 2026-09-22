@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-060",
-  "title": "Ejemplo 060 · /INTERPRET REVIEW",
-  "commandName": "/INTERPRET REVIEW",
+  "title": "Ejemplo 060 · INT-REV",
+  "commandName": "INT-REV",
   "category": "interpret",
-  "syntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>",
-  "command": "/INTERPRET REVIEW INTERPRETATION-ID-001 human-reviewer HUMAN_AUTHORITY",
+  "syntax": "INT-REV <interpretation_id> <actor> <authority>",
+  "command": "INT-REV INTERPRETATION-ID-001 human-reviewer HUMAN_AUTHORITY",
   "arguments": [
     {
       "name": "interpretation_id",
@@ -30,7 +30,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /INTERPRET REVIEW.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de INT-REV.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -39,5 +39,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "INT-REV",
+  "legacyCommand": "/INTERPRET REVIEW"
 }

@@ -1,6 +1,6 @@
-# Ejemplo 034 · /GENERATE METHODS
+# Ejemplo 034 · GEN-MET
 
-**Comando:** `/GENERATE METHODS`
+**Comando:** `GEN-MET`
 
 **Modo:** EXPLORE
 

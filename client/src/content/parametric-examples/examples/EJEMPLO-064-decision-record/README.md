@@ -1,6 +1,6 @@
-# Ejemplo 064 · /DECISION RECORD
+# Ejemplo 064 · DEC-REC
 
-**Comando:** `/DECISION RECORD La alternativa conserva circulación clara human-reviewer HUMAN_AUTHORITY`
+**Comando:** `DEC-REC La alternativa conserva circulación clara human-reviewer HUMAN_AUTHORITY`
 
 **Modo:** DECIDE
 

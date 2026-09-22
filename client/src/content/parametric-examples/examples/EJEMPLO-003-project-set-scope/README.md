@@ -1,6 +1,6 @@
-# Ejemplo 003 · /PROJECT SET SCOPE
+# Ejemplo 003 · PRO-SET
 
-**Comando:** `/PROJECT SET SCOPE PROJECT 2026`
+**Comando:** `PRO-SET PROJECT 2026`
 
 **Modo:** EXPLORE
 

@@ -1,6 +1,6 @@
-# Ejemplo 054 · /REGULATION ADD
+# Ejemplo 054 · REG-ADD
 
-**Comando:** `/REGULATION ADD ACTOR-001 example_code example_title https://example.invalid/reference`
+**Comando:** `REG-ADD ACTOR-001 example_code example_title https://example.invalid/reference`
 
 **Modo:** APPLY
 

@@ -1,6 +1,6 @@
-# Ejemplo 043 · /PARETO
+# Ejemplo 043 · PAR-ETO
 
-**Comando:** `/PARETO example_objective_1 example_objective_2`
+**Comando:** `PAR-ETO example_objective_1 example_objective_2`
 
 **Modo:** APPLY
 

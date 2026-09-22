@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-001",
-  "title": "Ejemplo 001 · /PROJECT CREATE",
-  "commandName": "/PROJECT CREATE",
+  "title": "Ejemplo 001 · PRO-CRE",
+  "commandName": "PRO-CRE",
   "category": "project",
-  "syntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
-  "command": "/PROJECT CREATE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026",
+  "syntax": "PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]",
+  "command": "PRO-CRE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026",
   "arguments": [
     {
       "name": "project_id",
@@ -36,7 +36,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT CREATE.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de PRO-CRE.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -45,5 +45,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "PRO-CRE",
+  "legacyCommand": "/PROJECT CREATE"
 }

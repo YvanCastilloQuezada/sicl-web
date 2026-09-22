@@ -1,6 +1,6 @@
-# Ejemplo 041 · /MEMORY TYPES
+# Ejemplo 041 · MEM-TYP
 
-**Comando:** `/MEMORY TYPES`
+**Comando:** `MEM-TYP`
 
 **Modo:** EXPLORE
 

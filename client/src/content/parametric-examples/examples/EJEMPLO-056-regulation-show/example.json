@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-056",
-  "title": "Ejemplo 056 · /REGULATION SHOW",
-  "commandName": "/REGULATION SHOW",
+  "title": "Ejemplo 056 · REG-SHO",
+  "commandName": "REG-SHO",
   "category": "regulation",
-  "syntax": "/REGULATION SHOW <regulation_id>",
-  "command": "/REGULATION SHOW RNE-PERU",
+  "syntax": "REG-SHO <regulation_id>",
+  "command": "REG-SHO RNE-PERU",
   "arguments": [
     {
       "name": "regulation_id",
@@ -18,7 +18,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION SHOW.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de REG-SHO.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -27,5 +27,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "REG-SHO",
+  "legacyCommand": "/REGULATION SHOW"
 }

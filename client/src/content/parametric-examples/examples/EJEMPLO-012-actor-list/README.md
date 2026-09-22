@@ -1,6 +1,6 @@
-# Ejemplo 012 · /ACTOR LIST
+# Ejemplo 012 · ACT-LIS
 
-**Comando:** `/ACTOR LIST`
+**Comando:** `ACT-LIS`
 
 **Modo:** APPLY
 

@@ -1,17 +1,17 @@
 {
   "exampleId": "EJEMPLO-020",
-  "title": "Ejemplo 020 · /SCENARIO LIST",
-  "commandName": "/SCENARIO LIST",
+  "title": "Ejemplo 020 · SCE-LIS",
+  "commandName": "SCE-LIS",
   "category": "scenario",
-  "syntax": "/SCENARIO LIST",
-  "command": "/SCENARIO LIST",
+  "syntax": "SCE-LIS",
+  "command": "SCE-LIS",
   "arguments": [],
   "mode": "APPLY",
   "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO LIST.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de SCE-LIS.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -20,5 +20,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "SCE-LIS",
+  "legacyCommand": "/SCENARIO LIST"
 }

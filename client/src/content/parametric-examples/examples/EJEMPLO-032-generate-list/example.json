@@ -1,17 +1,17 @@
 {
   "exampleId": "EJEMPLO-032",
-  "title": "Ejemplo 032 · /GENERATE LIST",
-  "commandName": "/GENERATE LIST",
+  "title": "Ejemplo 032 · GEN-LIS",
+  "commandName": "GEN-LIS",
   "category": "generate",
-  "syntax": "/GENERATE LIST",
-  "command": "/GENERATE LIST",
+  "syntax": "GEN-LIS",
+  "command": "GEN-LIS",
   "arguments": [],
   "mode": "EXPLORE",
   "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE LIST.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de GEN-LIS.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -20,5 +20,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "GEN-LIS",
+  "legacyCommand": "/GENERATE LIST"
 }

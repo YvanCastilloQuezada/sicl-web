@@ -1,6 +1,6 @@
-# Ejemplo 040 · /MEMORY APPLY
+# Ejemplo 040 · MEM-APP
 
-**Comando:** `/MEMORY APPLY MEM-001`
+**Comando:** `MEM-APP MEM-001`
 
 **Modo:** EXPLORE
 

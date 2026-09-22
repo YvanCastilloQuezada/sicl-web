@@ -1,6 +1,6 @@
-# Ejemplo 055 · /REGULATION LIST
+# Ejemplo 055 · REG-LIS
 
-**Comando:** `/REGULATION LIST`
+**Comando:** `REG-LIS`
 
 **Modo:** APPLY
 

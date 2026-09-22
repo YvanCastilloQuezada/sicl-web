@@ -1,6 +1,6 @@
-# Ejemplo 036 · /MEMORY LIST
+# Ejemplo 036 · MEM-LIS
 
-**Comando:** `/MEMORY LIST`
+**Comando:** `MEM-LIS`
 
 **Modo:** EXPLORE
 

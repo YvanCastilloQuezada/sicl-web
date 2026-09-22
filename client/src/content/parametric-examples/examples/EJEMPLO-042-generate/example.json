@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-042",
-  "title": "Ejemplo 042 · /GENERATE",
-  "commandName": "/GENERATE",
+  "title": "Ejemplo 042 · GEN-ERA",
+  "commandName": "GEN-ERA",
   "category": "generate",
-  "syntax": "/GENERATE <method> <objective_keys_csv>",
-  "command": "/GENERATE PARAMETRIC_MASSING example_objective_keys_csv",
+  "syntax": "GEN-ERA <method> <objective_keys_csv>",
+  "command": "GEN-ERA PARAMETRIC_MASSING example_objective_keys_csv",
   "arguments": [
     {
       "name": "method",
@@ -24,7 +24,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de GEN-ERA.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -33,5 +33,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "GEN-ERA",
+  "legacyCommand": "/GENERATE"
 }

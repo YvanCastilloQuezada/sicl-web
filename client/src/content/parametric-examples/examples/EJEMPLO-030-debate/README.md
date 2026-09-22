@@ -1,6 +1,6 @@
-# Ejemplo 030 · /DEBATE
+# Ejemplo 030 · DEB-ATE
 
-**Comando:** `/DEBATE ALT-001`
+**Comando:** `DEB-ATE ALT-001`
 
 **Modo:** APPLY
 

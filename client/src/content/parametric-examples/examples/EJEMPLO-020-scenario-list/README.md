@@ -1,6 +1,6 @@
-# Ejemplo 020 · /SCENARIO LIST
+# Ejemplo 020 · SCE-LIS
 
-**Comando:** `/SCENARIO LIST`
+**Comando:** `SCE-LIS`
 
 **Modo:** APPLY
 

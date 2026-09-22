@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-059",
-  "title": "Ejemplo 059 · /INTERPRET LIST",
-  "commandName": "/INTERPRET LIST",
+  "title": "Ejemplo 059 · INT-LIS",
+  "commandName": "INT-LIS",
   "category": "interpret",
-  "syntax": "/INTERPRET LIST [regulation_id]",
-  "command": "/INTERPRET LIST RNE-PERU",
+  "syntax": "INT-LIS [regulation_id]",
+  "command": "INT-LIS RNE-PERU",
   "arguments": [
     {
       "name": "regulation_id",
@@ -18,7 +18,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /INTERPRET LIST.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de INT-LIS.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -27,5 +27,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "INT-LIS",
+  "legacyCommand": "/INTERPRET LIST"
 }

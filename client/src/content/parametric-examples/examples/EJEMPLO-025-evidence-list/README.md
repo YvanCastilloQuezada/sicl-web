@@ -1,6 +1,6 @@
-# Ejemplo 025 · /EVIDENCE LIST
+# Ejemplo 025 · EVI-LIS
 
-**Comando:** `/EVIDENCE LIST`
+**Comando:** `EVI-LIS`
 
 **Modo:** APPLY
 

@@ -1,6 +1,6 @@
-# Ejemplo 057 · /REGULATION STATUS
+# Ejemplo 057 · REG-STA
 
-**Comando:** `/REGULATION STATUS RNE-PERU DRAFT`
+**Comando:** `REG-STA RNE-PERU DRAFT`
 
 **Modo:** APPLY
 

@@ -1,6 +1,6 @@
-# Ejemplo 006 · /PROJECT LIST
+# Ejemplo 006 · PRO-LIS
 
-**Comando:** `/PROJECT LIST`
+**Comando:** `PRO-LIS`
 
 **Modo:** EXPLORE
 

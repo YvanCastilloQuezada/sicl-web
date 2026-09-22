@@ -1,6 +1,6 @@
-# Ejemplo 060 · /INTERPRET REVIEW
+# Ejemplo 060 · INT-REV
 
-**Comando:** `/INTERPRET REVIEW INTERPRETATION-ID-001 human-reviewer HUMAN_AUTHORITY`
+**Comando:** `INT-REV INTERPRETATION-ID-001 human-reviewer HUMAN_AUTHORITY`
 
 **Modo:** EXPLORE
 

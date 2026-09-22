@@ -1,6 +1,6 @@
-# Ejemplo 032 · /GENERATE LIST
+# Ejemplo 032 · GEN-LIS
 
-**Comando:** `/GENERATE LIST`
+**Comando:** `GEN-LIS`
 
 **Modo:** EXPLORE
 

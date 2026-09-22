@@ -1,6 +1,6 @@
-# Ejemplo 051 · /PLANNING LIST
+# Ejemplo 051 · PLA-LIS
 
-**Comando:** `/PLANNING LIST`
+**Comando:** `PLA-LIS`
 
 **Modo:** APPLY
 

@@ -1,6 +1,6 @@
-# Ejemplo 018 · /CYCLE SHOW
+# Ejemplo 018 · CYC-SHO
 
-**Comando:** `/CYCLE SHOW CYCLE-2026`
+**Comando:** `CYC-SHO CYCLE-2026`
 
 **Modo:** APPLY
 

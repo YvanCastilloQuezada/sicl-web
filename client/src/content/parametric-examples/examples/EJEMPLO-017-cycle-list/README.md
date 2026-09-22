@@ -1,6 +1,6 @@
-# Ejemplo 017 · /CYCLE LIST
+# Ejemplo 017 · CYC-LIS
 
-**Comando:** `/CYCLE LIST`
+**Comando:** `CYC-LIS`
 
 **Modo:** APPLY
 

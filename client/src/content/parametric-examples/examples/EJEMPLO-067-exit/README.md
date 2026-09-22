@@ -1,6 +1,6 @@
-# Ejemplo 067 · /EXIT
+# Ejemplo 067 · EXI-IT
 
-**Comando:** `/EXIT`
+**Comando:** `EXI-IT`
 
 **Modo:** DECIDE
 

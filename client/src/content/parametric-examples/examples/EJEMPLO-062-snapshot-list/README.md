@@ -1,6 +1,6 @@
-# Ejemplo 062 · /SNAPSHOT LIST
+# Ejemplo 062 · SNA-LIS
 
-**Comando:** `/SNAPSHOT LIST`
+**Comando:** `SNA-LIS`
 
 **Modo:** APPLY
 

@@ -1,10 +1,10 @@
 {
   "exampleId": "EJEMPLO-038",
-  "title": "Ejemplo 038 · /MEMORY EXTRACT",
-  "commandName": "/MEMORY EXTRACT",
+  "title": "Ejemplo 038 · MEM-EXT",
+  "commandName": "MEM-EXT",
   "category": "memory",
-  "syntax": "/MEMORY EXTRACT <type> <title> <content>",
-  "command": "/MEMORY EXTRACT DOCUMENT example_title example_content",
+  "syntax": "MEM-EXT <type> <title> <content>",
+  "command": "MEM-EXT DOCUMENT example_title example_content",
   "arguments": [
     {
       "name": "type",
@@ -30,7 +30,7 @@
   "executionBoundary": "CATALOG_EXAMPLE_ONLY",
   "humanReviewRequired": true,
   "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
-  "learningObjective": "Aprender la sintaxis y el límite operativo de /MEMORY EXTRACT.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de MEM-EXT.",
   "provenance": [
     "commands-catalog.json",
     "ARKI-PARAMETRIC-RUNTIME",
@@ -39,5 +39,7 @@
   "unknowns": [
     "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
   ],
-  "artifacts": []
+  "artifacts": [],
+  "compactCommand": "MEM-EXT",
+  "legacyCommand": "/MEMORY EXTRACT"
 }

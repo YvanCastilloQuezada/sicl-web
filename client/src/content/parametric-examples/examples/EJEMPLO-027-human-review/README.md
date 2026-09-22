@@ -1,6 +1,6 @@
-# Ejemplo 027 · /HUMAN REVIEW
+# Ejemplo 027 · HUM-REV
 
-**Comando:** `/HUMAN REVIEW human-reviewer example_timestamp_utc Revisar antes de aplicar Ejemplo educativo y trazable HUMAN_AUTHORITY`
+**Comando:** `HUM-REV human-reviewer example_timestamp_utc Revisar antes de aplicar Ejemplo educativo y trazable HUMAN_AUTHORITY`
 
 **Modo:** DECIDE
 

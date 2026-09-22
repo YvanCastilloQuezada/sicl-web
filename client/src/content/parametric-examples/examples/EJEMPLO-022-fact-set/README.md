@@ -1,6 +1,6 @@
-# Ejemplo 022 · /FACT SET
+# Ejemplo 022 · FAC-SET
 
-**Comando:** `/FACT SET La alternativa conserva circulación clara OWNER_BRIEF`
+**Comando:** `FAC-SET La alternativa conserva circulación clara OWNER_BRIEF`
 
 **Modo:** APPLY
 
