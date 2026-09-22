@@ -22,7 +22,7 @@ import {
 import { startLogin } from "@/const";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/useMobile";
-import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, MapPin, Network, PanelLeft, Puzzle, Scale, ShieldAlert, ShieldCheck, Target, Waypoints, Workflow } from "lucide-react";
+import { Activity, BookOpen, Boxes, FileText, GitBranch, LayoutDashboard, LogOut, MapPin, Network, PanelLeft, Puzzle, Scale, ShieldAlert, ShieldCheck, Sparkles, Target, Waypoints, Workflow } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -45,6 +45,7 @@ const menuItems = [
   { icon: Boxes, label: "ARKI · Parametric Files", path: "/parametric-files" },
   { icon: Puzzle, label: "ARKI · Escuela Operativa", path: "/arki-operations" },
   { icon: Workflow, label: "ARKI · Parametric Runtime", path: "/arki-parametric-runtime" },
+  { icon: Sparkles, label: "ARKI · Generador Paramétrico", path: "/arki-generator" },
   { icon: MapPin, label: "ARKI · Field Mode", path: "/field" },
   { icon: Network, label: "ARKI · Control Center", path: "/control-center" },
   { icon: ShieldAlert, label: "ARKI · Security Events", path: "/security-events" },
@@ -222,7 +223,7 @@ function DashboardLayoutContent({
                       isActive={isActive}
                       onClick={() => setLocation(item.path)}
                       tooltip={t(item.label)}
-                      className={`h-10 transition-all font-normal ${item.path === "/arki-parametric-runtime" ? "bg-[#f0a35b] text-black hover:bg-[#f6c995] data-[active=true]:bg-[#f0a35b] data-[active=true]:text-black" : ""}`}
+                      className={`h-10 transition-all font-normal ${item.path === "/arki-parametric-runtime" || item.path === "/arki-generator" ? "bg-[#f0a35b] text-black hover:bg-[#f6c995] data-[active=true]:bg-[#f0a35b] data-[active=true]:text-black" : ""}`}
                     >
                       <item.icon
                         className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
