@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ArkiFirstContact from "./components/ArkiFirstContact";
+import ArkiContextGate from "./components/ArkiContextGate";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -123,6 +124,7 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <ArkiFirstContact />
+            <ArkiContextGate />
             <PwaInstallPrompt />
             <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
