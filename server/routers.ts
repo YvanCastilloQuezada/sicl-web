@@ -43,6 +43,7 @@ import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } 
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
 import { arkiTypologySummary, instantiateArkiTypology, listArkiTypologies } from "../shared/arkiTypologyLibrary";
+import { arkiTypologyExecutionSummary, exportArkiTypology, generateArkiTypology, searchArkiTypologies, validateArkiTypology, type TypologyExportFormat } from "../shared/arkiTypologyExecution";
 import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
 import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
 
@@ -299,10 +300,24 @@ export const appRouter = router({
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     typologies: publicProcedure.query(() => ({ ...arkiTypologySummary(), typologies: listArkiTypologies() })),
+    typologyExecution: publicProcedure.query(() => arkiTypologyExecutionSummary()),
     instantiateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })).mutation(async ({ ctx, input }) => {
       const proposal = instantiateArkiTypology(input.typologyId, input.overrides);
       if (!proposal) throw new TRPCError({ code: "NOT_FOUND", message: "Typology is not present in the governed reference library" });
       return { ownerId: ctx.user.id, proposal, persistence: "PROPOSAL_ONLY" as const, humanReviewRequired: true as const };
+    }),
+    generateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(), country: z.string().length(2).optional(), jurisdiction: z.string().max(160).optional() })).mutation(async ({ ctx, input }) => {
+      const generation = generateArkiTypology(input);
+      return { ownerId: ctx.user.id, generation, persistence: "PROPOSAL_ONLY" as const };
+    }),
+    validateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(), country: z.string().length(2).optional(), jurisdiction: z.string().max(160).optional(), ruleIds: z.array(z.string().min(1)).max(100).optional() })).mutation(async ({ ctx, input }) => {
+      const validation = validateArkiTypology(input);
+      return { ownerId: ctx.user.id, ...validation, persistence: "PROPOSAL_ONLY" as const };
+    }),
+    searchTypologies: protectedProcedure.input(z.object({ query: z.string().max(240), category: z.enum(["RESIDENTIAL", "EDUCATION", "HEALTH", "CULTURE", "SPORT", "OFFICE", "COMMERCE", "INDUSTRY", "TRANSPORT", "HOSPITALITY", "WORSHIP", "LANDSCAPE", "URBANISM"]).optional(), topK: z.number().int().min(1).max(50).default(10) })).query(({ input }) => searchArkiTypologies(input.query, input.category, input.topK)),
+    exportTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(), country: z.string().length(2).optional(), jurisdiction: z.string().max(160).optional(), format: z.enum(["JSON", "GEOJSON", "SVG"]) })).mutation(async ({ ctx, input }) => {
+      const generation = generateArkiTypology(input);
+      return { ownerId: ctx.user.id, export: exportArkiTypology(generation, input.format as TypologyExportFormat), status: "PROPOSAL_ONLY" as const };
     }),
     normativeContract: publicProcedure.query(() => normativeContract()),
     validateNormative: protectedProcedure.input(z.object({ projectId: z.string().min(3), typology: z.string().min(1).optional(), facts: z.array(z.object({ variable: z.string().min(1), value: z.number().finite(), unit: z.string().optional(), source: z.string().optional() })).max(200), ruleIds: z.array(z.string().min(1)).max(100).optional() })).mutation(async ({ ctx, input }) => {
