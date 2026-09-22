@@ -42,6 +42,7 @@ import { professionalAuthorityContract, recordProfessionalReview } from "./arkiP
 import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } from "./arkiIfc4";
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
+import { arkiTypologySummary, instantiateArkiTypology, listArkiTypologies } from "../shared/arkiTypologyLibrary";
 import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
 import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
 
@@ -297,6 +298,12 @@ export const appRouter = router({
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
+    typologies: publicProcedure.query(() => ({ ...arkiTypologySummary(), typologies: listArkiTypologies() })),
+    instantiateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })).mutation(async ({ ctx, input }) => {
+      const proposal = instantiateArkiTypology(input.typologyId, input.overrides);
+      if (!proposal) throw new TRPCError({ code: "NOT_FOUND", message: "Typology is not present in the governed reference library" });
+      return { ownerId: ctx.user.id, proposal, persistence: "PROPOSAL_ONLY" as const, humanReviewRequired: true as const };
+    }),
     normativeContract: publicProcedure.query(() => normativeContract()),
     validateNormative: protectedProcedure.input(z.object({ projectId: z.string().min(3), typology: z.string().min(1).optional(), facts: z.array(z.object({ variable: z.string().min(1), value: z.number().finite(), unit: z.string().optional(), source: z.string().optional() })).max(200), ruleIds: z.array(z.string().min(1)).max(100).optional() })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);

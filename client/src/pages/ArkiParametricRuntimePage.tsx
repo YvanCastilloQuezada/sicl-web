@@ -69,6 +69,7 @@ export default function ArkiParametricRuntimePage() {
   const [arkSummary, setArkSummary] = useState<ArkSummary | null>(null);
   const [selectedRuntimeCommand, setSelectedRuntimeCommand] = useState(CANONICAL_RUNTIME_COMMANDS[0]);
   const [selectedTemplateId, setSelectedTemplateId] = useState<NativeTemplateId | null>(null);
+  const [selectedTypologyId, setSelectedTypologyId] = useState("");
   const [assistantText, setAssistantText] = useState("");
   const [assistantProposal, setAssistantProposal] = useState<ParameterProposal | null>(null);
   const [commandInput, setCommandInput] = useState("");
@@ -90,6 +91,7 @@ export default function ArkiParametricRuntimePage() {
   const exportPackage = trpc.parametricRuntime.exportPackage.useMutation();
   const assimilateArk = trpc.parametricRuntime.assimilateArk.useMutation();
   const hostWorkers = trpc.parametricRuntime.hostWorkers.catalog.useQuery();
+  const typologyCatalog = trpc.parametricRuntime.typologies.useQuery();
   const normativeValidation = trpc.parametricRuntime.validateNormative.useMutation();
   const activeRuntimeCommand = runtimeCommands.find((command) => command.name === selectedRuntimeCommand) ?? runtimeCommands[0];
   const visibleRuntimeCommands = showAllCommands ? (catalog as CanonicalCommand[]) : runtimeCommands;
@@ -182,6 +184,11 @@ export default function ArkiParametricRuntimePage() {
         </div>
         <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
           {ARKI_NATIVE_TEMPLATES.map((template) => <button key={template.id} type="button" onClick={() => applyNativeTemplate(template.id)} className={selectedTemplateId === template.id ? "rounded-lg border border-[#f0a35b] bg-[#49351f] p-3 text-left" : "rounded-lg border border-[#294765] bg-[#081a30] p-3 text-left transition-colors hover:border-[#f0a35b]"}><span className="block text-xs font-medium text-[#edf4ff]">{template.name}</span><span className="mt-1 block text-[10px] leading-4 text-[#9eb6ce]">{template.description}</span><span className="mt-2 block font-mono text-[9px] text-[#f6c995]">{template.geometry.width} × {template.geometry.depth} m · {template.geometry.floors} niveles</span></button>)}
+        </div>
+        <div className="rounded-lg border border-[#557da5] bg-[#081a30] p-3">
+          <div className="flex flex-wrap items-center justify-between gap-2"><div><strong className="block text-xs text-[#edf4ff]">Biblioteca declarativa de tipologías</strong><span className="text-[10px] text-[#9eb6ce]">Cada ficha declara parámetros, dominios normativos, métricas y evidencia requerida. Son plantillas de referencia, no expedientes aprobados.</span></div><Badge className="border border-[#f0a35b]/30 bg-[#f0a35b]/10 text-[#f6c995]">{typologyCatalog.data?.total ?? "…"} tipologías</Badge></div>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row"><select value={selectedTypologyId} onChange={(event) => setSelectedTypologyId(event.target.value)} className="h-9 flex-1 rounded-md border border-[#557da5] bg-[#0d223d] px-3 text-xs text-[#edf4ff]"><option value="">Seleccionar tipología para inspeccionar…</option>{typologyCatalog.data?.typologies.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.category}</option>)}</select><span className="self-center text-[10px] text-[#7893af]">Estado: REFERENCE_TEMPLATE · revisión humana requerida</span></div>
+          {selectedTypologyId && (() => { const item = typologyCatalog.data?.typologies.find((candidate) => candidate.id === selectedTypologyId); return item ? <div className="mt-3 grid gap-2 lg:grid-cols-[1.3fr_1fr_1fr]"><div><strong className="text-xs text-[#edf4ff]">{item.name}</strong><p className="mt-1 text-[10px] leading-4 text-[#b8cbe0]">{item.description}</p><p className="mt-1 text-[10px] text-[#7893af]">Escala: {item.scale} · Categoría: {item.category}</p></div><div><span className="block text-[10px] text-[#7893af]">Dominios normativos</span><p className="mt-1 text-[10px] text-[#f6c995]">{item.ruleDomains.join(" · ")}</p></div><div><span className="block text-[10px] text-[#7893af]">Métricas / evidencia</span><p className="mt-1 text-[10px] text-[#b8d5ff]">{item.metrics.join(" · ")}</p><p className="mt-1 text-[10px] text-[#9eb6ce]">{item.evidenceRequired.join(" · ")}</p></div></div> : null; })()}
         </div>
         <div className="grid gap-2 sm:grid-cols-4">
           {[['Área por nivel', `${nativeAnalysis.metrics.floorArea} m²`], ['Área construida conceptual', `${nativeAnalysis.metrics.conceptualBuiltArea} m²`], ['Altura total', `${nativeAnalysis.metrics.totalHeight} m`], ['Patio', `${nativeAnalysis.metrics.courtyardArea} m²`]].map(([label, value]) => <div key={label} className="rounded-lg border border-[#294765] bg-[#081a30] p-3"><span className="block text-[10px] text-[#7893af]">{label}</span><strong className="mt-1 block text-sm text-[#edf4ff]">{value}</strong></div>)}
