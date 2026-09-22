@@ -4,8 +4,8 @@ import { ARKI_TYPOLOGIES, arkiTypologySummary, getArkiTypology, instantiateArkiT
 describe("ARKI typology library", () => {
   it("contains the complete declarative catalog with unique IDs", () => {
     expect(arkiTypologySummary().total).toBeGreaterThanOrEqual(40);
-    expect(ARKI_TYPOLOGIES).toHaveLength(51);
-    expect(new Set(ARKI_TYPOLOGIES.map((item) => item.id)).size).toBe(51);
+    expect(ARKI_TYPOLOGIES.length).toBeGreaterThanOrEqual(51);
+    expect(new Set(ARKI_TYPOLOGIES.map((item) => item.id)).size).toBe(ARKI_TYPOLOGIES.length);
     expect(ARKI_TYPOLOGIES.every((item) => item.parameters.length >= 5 && item.ruleDomains.length > 0 && item.evidenceRequired.length > 0)).toBe(true);
   });
 

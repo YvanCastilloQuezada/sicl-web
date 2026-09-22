@@ -48,6 +48,11 @@ import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, obser
 import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
 import { dslSummary, executeTypologyDsl, validateTypologyDsl, type TypologyDslDefinition } from "../shared/arkiTypologyDsl";
 import { analyticsDisclaimer, marketplaceApiSchema, marketplaceContractCheck, marketplaceFeatureMatrix, summarizeTypologyAnalytics, validateMarketplaceSubmission } from "../shared/arkiMarketplaceGovernance";
+import { projectStateContract, createProjectState, proposeProjectChange, type ArkiProjectState } from "../shared/arkiProjectState";
+import { typologyParameterContract } from "../shared/arkiTypologyParameters";
+import { normativeSourceCatalog } from "../shared/arkiNormativeSources";
+import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
+import { calculateAnnualWaterBalance } from "../shared/arkiWaterBalance";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -303,6 +308,15 @@ export const appRouter = router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     typologies: publicProcedure.query(() => ({ ...arkiTypologySummary(), typologies: listArkiTypologies() })),
     typologyExecution: publicProcedure.query(() => arkiTypologyExecutionSummary()),
+    projectStateContract: publicProcedure.query(() => projectStateContract()),
+    parameterContract: publicProcedure.query(() => typologyParameterContract()),
+    specializedGeometry: publicProcedure.query(() => specializedGeometryCatalog()),
+    normativeSources: publicProcedure.query(() => normativeSourceCatalog()),
+    waterBalance: protectedProcedure.input(z.object({ projectId: z.string().min(3), precipitationAnnualMm: z.number().nonnegative(), catchmentRoofAreaM2: z.number().nonnegative(), consumptionLitersPerPersonDay: z.number().nonnegative(), annualVisitors: z.number().nonnegative(), residents: z.number().nonnegative(), daysPerYear: z.number().positive().optional(), collectionCoefficient: z.number().min(0).max(1).optional(), location: z.string().optional(), projectLocation: z.string().optional() })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      const { projectId: _projectId, ...waterInput } = input;
+      return { projectId: input.projectId, result: calculateAnnualWaterBalance(waterInput), persistence: "PROPOSAL_ONLY" as const };
+    }),
     dsl: publicProcedure.query(() => dslSummary()),
     marketplaceContract: publicProcedure.query(() => marketplaceContractCheck()),
     marketplaceApi: publicProcedure.query(() => marketplaceApiSchema()),
@@ -316,6 +330,11 @@ export const appRouter = router({
       if (!proposal) throw new TRPCError({ code: "NOT_FOUND", message: "Typology is not present in the governed reference library" });
       return { ownerId: ctx.user.id, proposal, persistence: "PROPOSAL_ONLY" as const, humanReviewRequired: true as const };
     }),
+    createProjectState: protectedProcedure.input(z.object({ projectId: z.string().min(3), parameters: z.record(z.string(), z.unknown()), metrics: z.record(z.string(), z.unknown()).optional(), provenance: z.array(z.string()).optional(), unknowns: z.array(z.string()).optional() })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return { ownerId: ctx.user.id, state: createProjectState(input), persistence: "PROJECT_STATE_PROPOSAL_ONLY" as const, humanApprovalRequired: true as const };
+    }),
+    proposeProjectChange: protectedProcedure.input(z.object({ state: z.record(z.string(), z.unknown()), nextParameters: z.record(z.string(), z.unknown()), reason: z.string().min(3), origin: z.enum(["SYSTEM", "AI_PROPOSED", "HUMAN"]).optional() })).mutation(({ input }) => ({ proposal: proposeProjectChange(input.state as unknown as ArkiProjectState, input.nextParameters, input.reason, input.origin), persistence: "PROPOSAL_ONLY" as const, humanApprovalRequired: true as const })),
     generateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(), country: z.string().length(2).optional(), jurisdiction: z.string().max(160).optional() })).mutation(async ({ ctx, input }) => {
       const generation = generateArkiTypology(input);
       return { ownerId: ctx.user.id, generation, persistence: "PROPOSAL_ONLY" as const };

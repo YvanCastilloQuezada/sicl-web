@@ -1,5 +1,6 @@
 import { ARKI_TYPOLOGIES, getArkiTypology, type ArkiTypology, type TypologyParameter } from "./arkiTypologyLibrary";
 import { validateAgainstRne, type NormativeFact } from "./arkiNormativeEngine";
+import { generateSpecializedGeometry } from "./arkiSpecializedGeometry";
 
 export const ARKI_TYPOLOGY_EXECUTION_VERSION = "ARKI-TYPOLOGY-EXECUTION-1.0" as const;
 
@@ -19,6 +20,7 @@ export type TypologyGeneration = {
   country: string;
   jurisdiction: string;
   parameters: Record<string, number | boolean | string>;
+  specializedGeometry?: ReturnType<typeof generateSpecializedGeometry>;
   geometry: { kind: "RECTANGULAR_MASS"; widthM: number; depthM: number; heightM: number; floors: number };
   metrics: Record<string, number | string>;
   spaces: Array<{ name: string; areaM2: number; source: "DERIVED_CONCEPTUAL" }>;
@@ -128,6 +130,7 @@ export function generateArkiTypology(input: TypologyGenerationInput): TypologyGe
     country: input.country ?? String(parameters.country ?? "PE"),
     jurisdiction: input.jurisdiction ?? "UNKNOWN",
     parameters,
+    specializedGeometry: generateSpecializedGeometry(typology.id, parameters),
     geometry: { kind: "RECTANGULAR_MASS", widthM: Number(derived.widthM.toFixed(2)), depthM: Number(derived.depthM.toFixed(2)), heightM: Number(derived.heightM.toFixed(2)), floors: derived.levels },
     metrics,
     spaces: conceptualSpaces(typology, derived.floorArea, derived.capacity),
