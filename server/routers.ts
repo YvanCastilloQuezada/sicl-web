@@ -46,6 +46,7 @@ import { arkiTypologySummary, instantiateArkiTypology, listArkiTypologies } from
 import { arkiTypologyExecutionSummary, exportArkiTypology, generateArkiTypology, searchArkiTypologies, validateArkiTypology, type TypologyExportFormat } from "../shared/arkiTypologyExecution";
 import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
 import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
+import { dslSummary, executeTypologyDsl, validateTypologyDsl, type TypologyDslDefinition } from "../shared/arkiTypologyDsl";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -301,6 +302,9 @@ export const appRouter = router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
     typologies: publicProcedure.query(() => ({ ...arkiTypologySummary(), typologies: listArkiTypologies() })),
     typologyExecution: publicProcedure.query(() => arkiTypologyExecutionSummary()),
+    dsl: publicProcedure.query(() => dslSummary()),
+    validateDsl: protectedProcedure.input(z.object({ definition: z.record(z.string(), z.unknown()) })).mutation(({ input }) => ({ validation: validateTypologyDsl(input.definition as unknown as TypologyDslDefinition), persistence: "PROPOSAL_ONLY" as const })),
+    executeDsl: protectedProcedure.input(z.object({ definition: z.record(z.string(), z.unknown()), parameters: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])) })).mutation(({ input }) => ({ result: executeTypologyDsl(input.definition as unknown as TypologyDslDefinition, input.parameters as Record<string, string | number | boolean>), persistence: "PROPOSAL_ONLY" as const })),
     instantiateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })).mutation(async ({ ctx, input }) => {
       const proposal = instantiateArkiTypology(input.typologyId, input.overrides);
       if (!proposal) throw new TRPCError({ code: "NOT_FOUND", message: "Typology is not present in the governed reference library" });
