@@ -1,0 +1,310 @@
+1. Ray Tracing (calidad cine)
+three-gpu-pathtracer es la librería correcta. Renderiza por muestras acumuladas, no en tiempo real, pero da un fotorrealismo que WebGL normal no alcanza.
+
+javascript
+import { WebGLPathTracer } from 'three-gpu-pathtracer';
+
+// En el ViewerPro, añadir modo path tracing
+activarPathTracing() {
+  this.pathTracer = new WebGLPathTracer(this.renderer);
+  this.pathTracer.setScene(this.escena, this.camara);
+  this.pathTracer.bounces = 5; // rebotes de luz
+  this.pathTracer.tiles.set(3, 3); // tiles para no bloquear
+  this.pathTracer.minSamples = 20;
+  this.pathTracer.renderToCanvas = true;
+
+  // Loop de muestras
+  this._loopPathTracing();
+}
+
+_loopPathTracing = () => {
+  if (!this.pathTracer) return;
+  this.pathTracer.renderSample();
+  requestAnimationFrame(this._loopPathTracing);
+};
+Advertencia técnica: la librería tiene limitaciones que la documentación oficial lista:
+
+Requiere WebGL2
+
+Solo MeshStandardMaterial y MeshPhysicalMaterial
+
+Sin geometría instanciada ni buffers interleaved
+
+Sin SpotLights/DirectionalLights sin MIS activado
+
+Vale la pena para renders finales. Para navegación en vivo, es demasiado lento.
+
+🥽 2. WebXR para VR/AR
+Three.js tiene soporte nativo de WebXR. La clave es un botón de entrada porque los navegadores requieren interacción del usuario.
+
+javascript
+import { VRButton } from 'three/addons/webxr/VRButton.js';
+import { ARButton } from 'three/addons/webxr/ARButton.js';
+
+// Inicializar WebXR
+initWebXR() {
+  this.renderer.xr.enabled = true;
+
+  // Botones de entrada
+  document.body.appendChild(VRButton.createButton(this.renderer));
+  document.body.appendChild(ARButton.createButton(this.renderer, {
+    requiredFeatures: ['hit-test'],
+    optionalFeatures: ['dom-overlay', 'anchors'],
+  }));
+
+  // Controladores
+  const controller1 = this.renderer.xr.getController(0);
+  const controller2 = this.renderer.xr.getController(1);
+  this.escena.add(controller1, controller2);
+
+  // Eventos
+  controller1.addEventListener('selectstart', () => {
+    console.log('Selección con controlador 1');
+  });
+
+  // Loop XR
+  this.renderer.setAnimationLoop((timestamp, frame) => {
+    this.renderer.render(this.escena, this.camara);
+  });
+}
+Lo que ganas: Un arquitecto puede ver el hospital en VR desde el navegador del celular o Quest. En AR, puede colocar el modelo sobre una mesa real.
+
+☁️ 3. Render en la nube con GPU dedicada
+Aquí está la decisión más importante. Renderizar 16K en un navegador es inviable (necesitas ~2 GB de VRAM solo para el framebuffer). La solución es render split: cliente renderiza baja calidad, servidor renderiza alta calidad.
+
+AWS G4dn es la instancia correcta:
+
+NVIDIA T4 GPU
+
+16 GiB GDDR6
+
+Ideal para render y streaming
+
+Arquitectura:
+
+text
+Cliente (bajo resolución, 30 FPS) 
+    ↓ WebSocket
+Servidor GPU (path tracing, 16K)
+    ↓ WebSocket
+Cliente recibe imagen final
+Costo aproximado: G4dn.xlarge ~$0.526/hora. Para render 16K de un hospital: ~30 segundos. Costo: ~$0.004. Vale la pena totalmente.
+
+Código de integración:
+
+javascript
+// Cliente solicita render al servidor
+async solicitarRenderNube(familia, params, resolucion) {
+  const res = await fetch('/api/render-nube', {
+    method: 'POST',
+    body: JSON.stringify({ familia, params, resolucion }),
+  });
+  const blob = await res.blob();
+  return blob; // PNG 16K
+}
+Nota: El hilo de Stack Overflow que encontré confirma que sin X server y DISPLAY forwarding, WebGL GPU acelerado no funciona en Docker. Por eso la solución es el servidor GPU separado.
+
+🎥 4. Motion Blur + DOF cinematográfico
+Three.js tiene TSL (Three.js Shading Language) con post-processing moderno.
+
+javascript
+import { pass, dof, motionBlur } from 'three/tsl';
+
+// Depth of Field
+const scenePass = pass(this.escena, this.camara);
+const beauty = scenePass.getTextureNode();
+const depth = scenePass.getDepthNode();
+
+this.postProcessing.outputNode = dof(
+  beauty,
+  depth,
+  5,     // focusDistance
+  0.02,  // focalLength
+  0.025  // bokehScale
+);
+
+// Motion Blur (necesita buffer de velocidad)
+this.postProcessing.outputNode = motionBlur(
+  this.postProcessing.outputNode,
+  velocityNode,
+  8  // samples
+);
+Nota técnica: El algoritmo de DOF es costoso. La solución práctica es usar el PathTracer con PhysicalCamera que ya incluye DOF nativo:
+
+javascript
+const camera = new PhysicalCamera(50, aspect, 0.1, 1000);
+camera.focusDistance = 25;
+camera.fStop = 1.4;
+camera.bokehSize = 10;
+🎬 5. Video recorrido con animación de cámara
+MediaRecorder API captura el canvas directamente. Problema conocido: en Android es lento, en iOS es suave.
+
+javascript
+async grabarRecorrido(keyframes, duracion = 15000) {
+  const canvas = this.renderer.domElement;
+
+  // Workaround Android: canvas virtual
+  const virtualCanvas = document.createElement('canvas');
+  virtualCanvas.width = canvas.width;
+  virtualCanvas.height = canvas.height;
+  const vctx = virtualCanvas.getContext('2d');
+
+  const stream = virtualCanvas.captureStream(60);
+  const recorder = new MediaRecorder(stream, {
+    mimeType: 'video/webm;codecs=vp9',
+    videoBitsPerSecond: 20_000_000, // 20 Mbps para calidad
+  });
+
+  const chunks = [];
+  recorder.ondataavailable = (e) => chunks.push(e.data);
+  recorder.start();
+
+  // Animar cámara
+  const inicio = performance.now();
+  const animar = () => {
+    const t = Math.min((performance.now() - inicio) / duracion, 1);
+    // Interpolar cámara entre keyframes
+    this._interpolarCamara(keyframes, t);
+    this.renderer.render(this.escena, this.camara);
+
+    // Copiar al canvas virtual
+    vctx.drawImage(canvas, 0, 0);
+
+    if (t < 1) requestAnimationFrame(animar);
+    else {
+      recorder.stop();
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      this._descargarBlob(blob, 'recorrido.webm');
+    }
+  };
+
+  animar();
+}
+Vale la pena para presentaciones a clientes. Un video de 15 segundos mostrando el recorrido del hospital vale más que 100 renders estáticos.
+
+📱 6. Exportación USDZ para AR en iPhone
+Three.js tiene USDZExporter nativo. El problema es que no funciona en Node.js sin un polyfill de ProgressEvent.
+
+javascript
+import { USDZExporter } from 'three/addons/exporters/USDZExporter.js';
+
+async exportarUSDZ() {
+  const exporter = new USDZExporter();
+  const arraybuffer = await exporter.parseAsync(this.escena);
+  const blob = new Blob([arraybuffer], { type: 'model/vnd.usdz+zip' });
+
+  // Descargar
+  this._descargarBlob(blob, 'hospital.usdz');
+}
+En iPhone: abrir el .usdz directamente desde Safari activa AR Quick Look. Vale la pena para presentaciones móviles instantáneas.
+
+Alternativa: Reality Converter de Apple (Mac) convierte .glb/.obj a .usdz con calidad profesional.
+
+↔️ 7. Comparación visual con slider side-by-side
+Técnica: dos cámaras, dos escenas, clipping planes controlados por slider.
+
+javascript
+class ComparadorSlider {
+  constructor(container, viewer) {
+    this.viewer = viewer;
+    this.container = container;
+    this.sliderPos = 0.5;
+
+    // Crear segundo renderer
+    this.rendererB = new THREE.WebGLRenderer({ alpha: true });
+    this.rendererB.setSize(container.clientWidth, container.clientHeight);
+
+    // Clipping planes
+    this.planeA = new THREE.Plane(new THREE.Vector3(1, 0, 0), 0);
+    this.planeB = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0);
+  }
+
+  setSlider(valor) {
+    this.sliderPos = valor;
+    this.planeA.constant = valor;
+    this.planeB.constant = -valor;
+  }
+
+  render() {
+    // Renderizar versión A (con clipping)
+    this.viewer.grupoActual.traverse(obj => {
+      if (obj.material) obj.material.clippingPlanes = [this.planeA];
+    });
+    this.viewer.renderer.render(this.viewer.escena, this.viewer.camara);
+
+    // Renderizar versión B encima (con clipping inverso)
+    // ...
+  }
+}
+Vale la pena para mostrar el antes/después de cambios. Un cliente entiende instantáneamente qué cambió.
+
+⏱️ 8. Time-lapse de evolución del proyecto
+Problema técnico: Three.js no tiene time-lapse nativo de geometría cambiante. La solución es reproducir frames guardados.
+
+javascript
+class TimelineProyecto {
+  constructor(viewer) {
+    this.viewer = viewer;
+    this.frames = []; // {timestamp, params, geometria}
+  }
+
+  registrarFrame(params, geometria) {
+    this.frames.push({
+      timestamp: Date.now(),
+      params: JSON.parse(JSON.stringify(params)),
+      geometria: JSON.parse(JSON.stringify(geometria)),
+    });
+  }
+
+  async reproducir(fps = 10) {
+    for (const frame of this.frames) {
+      // Actualizar params
+      Object.assign(this.viewer.params, frame.params);
+
+      // Regenerar geometría
+      this.viewer.renderDesdeModelo3D(frame.geometria);
+
+      // Esperar
+      await new Promise(r => setTimeout(r, 1000 / fps));
+    }
+  }
+
+  async grabarTimeLapse(fps = 30) {
+    // Similar a grabarRecorrido pero con frames
+  }
+}
+Vale la pena para documentar la evolución del proyecto. Un video de 30 segundos mostrando cómo creció el hospital desde el boceto hasta el diseño final es oro para presentaciones.
+
+💎 Mi evaluación honesta
+Lo que vale totalmente la pena (implementar ya):
+
+Feature	Por qué
+Ray Tracing	Diferenciador visual brutal
+WebXR	Demo que deja boquiabiertos a inversores
+USDZ	AR instantáneo en iPhone
+Slider	Utilidad diaria del arquitecto
+Render nube 16K	Calidad de impresión
+Lo que es "nice to have":
+
+Feature	Por qué
+Motion Blur + DOF	Bonito pero costoso
+Video recorrido	Útil pero no crítico
+Time-lapse	Útil para presentaciones
+🎯 Mi propuesta concreta
+Implementa en este orden:
+
+Ray Tracing + WebXR (2 días)
+
+Render nube 16K (1 semana, requiere infra)
+
+Slider side-by-side (1 día)
+
+USDZ (medio día)
+
+Motion Blur + DOF (1 día)
+
+Video recorrido + Time-lapse (2 días)
+
+Total: ~2 semanas.
+
+¿Con cuál arranco ahora? O si prefieres, cierro con el commit final de todo lo que ya tienes y luego implementamos estos uno por uno con calma.
