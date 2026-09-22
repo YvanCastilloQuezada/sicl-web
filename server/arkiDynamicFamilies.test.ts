@@ -77,4 +77,19 @@ describe("ARKI dynamic building family generator", () => {
     expect(exported.content).toContain("FILE_SCHEMA(('IFC4'))");
     expect(exported.metadata?.nativeRvt).toBe(false);
   });
+
+  it("generates every registered family and every variant with governed three-view output", () => {
+    const families = DYNAMIC_BUILDING_FAMILIES;
+    expect(families).toHaveLength(12);
+    const generated = families.flatMap((family) => family.variants.map((variant) => generateDynamicBuilding({ familyId: family.id, variantId: variant.id, context: { country: "PE", region: "Loreto", city: "Iquitos", climate: "tropical_humedo", seismicZone: "2", jurisdiction: "RNE-PE" } })));
+    expect(generated.length).toBeGreaterThanOrEqual(35);
+    for (const building of generated) {
+      expect(building.metrics.footprintM2).toBeGreaterThan(0);
+      expect(building.unifiedGeometry.plan).toBeDefined();
+      expect(building.unifiedGeometry.section).toBeDefined();
+      expect(building.unifiedGeometry.model3d).toBeDefined();
+      expect(building.humanReviewRequired).toBe(true);
+      expect(building.projectStateMutation).toBe("NOT_REQUESTED");
+    }
+  });
 });
