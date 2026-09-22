@@ -1,0 +1,8 @@
+import { describe, expect, it } from "vitest";
+import { architecturalGuideDomains, canConsumeTransferredGuide, prepareLocalGuideTransfer } from "../shared/arluArchitecturalGuideTransfer";
+const guide = { guideId: "TRUJILLO-001", title: "Guía arquitectónica de Trujillo", city: "Trujillo", domains: ["ARCHITECTURE", "HISTORY_OF_ART", "URBANISM"], fileRef: "guides/trujillo.pdf", sha256: "abc", rights: "OWNER_AUTHORIZED" as const, approved: true, source: "LUCA-LIBRARY" };
+describe("architectural guide transfer", () => {
+  it("includes the architect guide domains", () => expect(architecturalGuideDomains()).toContain("HISTORY_OF_ART"));
+  it("prepares an expiring local Wi-Fi handoff without secrets or Core access", () => { const transfer = prepareLocalGuideTransfer({ guide, channel: "LOCAL_WIFI", receiverId: "tourist-phone-1", receiverSupportsLocalTransfer: true, now: new Date("2026-09-22T05:00:00Z") }); expect(transfer.status).toBe("READY"); expect(transfer.credentialsIncluded).toBe(false); expect(transfer.coreAccess).toBe("NONE"); expect(canConsumeTransferredGuide({ status: transfer.status, expiresAt: transfer.expiresAt, sha256Matches: true, now: new Date("2026-09-22T05:05:00Z") }).allowed).toBe(true); });
+  it("blocks unapproved or unknown-rights guides", () => { expect(prepareLocalGuideTransfer({ guide: { ...guide, approved: false }, channel: "QR_HANDOFF", receiverId: "x", receiverSupportsLocalTransfer: true }).status).toBe("BLOCKED_APPROVAL"); expect(prepareLocalGuideTransfer({ guide: { ...guide, rights: "UNKNOWN" }, channel: "QR_HANDOFF", receiverId: "x", receiverSupportsLocalTransfer: true }).status).toBe("BLOCKED_RIGHTS"); });
+});
