@@ -47,6 +47,7 @@ import { arkiTypologyExecutionSummary, exportArkiTypology, generateArkiTypology,
 import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
 import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
 import { dslSummary, executeTypologyDsl, validateTypologyDsl, type TypologyDslDefinition } from "../shared/arkiTypologyDsl";
+import { analyticsDisclaimer, marketplaceApiSchema, marketplaceContractCheck, marketplaceFeatureMatrix, summarizeTypologyAnalytics, validateMarketplaceSubmission } from "../shared/arkiMarketplaceGovernance";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -303,6 +304,11 @@ export const appRouter = router({
     typologies: publicProcedure.query(() => ({ ...arkiTypologySummary(), typologies: listArkiTypologies() })),
     typologyExecution: publicProcedure.query(() => arkiTypologyExecutionSummary()),
     dsl: publicProcedure.query(() => dslSummary()),
+    marketplaceContract: publicProcedure.query(() => marketplaceContractCheck()),
+    marketplaceApi: publicProcedure.query(() => marketplaceApiSchema()),
+    marketplaceFeatures: publicProcedure.query(() => marketplaceFeatureMatrix()),
+    validateMarketplace: protectedProcedure.input(z.object({ slug: z.string(), name: z.string(), definition: z.record(z.string(), z.unknown()), dslValid: z.boolean(), highestRisk: z.enum(["low", "medium", "high", "critical"]).optional() })).mutation(({ input }) => validateMarketplaceSubmission(input)),
+    analytics: protectedProcedure.input(z.object({ events: z.array(z.object({ typologyId: z.string().min(1), ok: z.boolean(), score: z.number().optional(), at: z.string().optional() })).max(10000) })).query(({ input }) => ({ rows: summarizeTypologyAnalytics(input.events), disclaimer: analyticsDisclaimer() })),
     validateDsl: protectedProcedure.input(z.object({ definition: z.record(z.string(), z.unknown()) })).mutation(({ input }) => ({ validation: validateTypologyDsl(input.definition as unknown as TypologyDslDefinition), persistence: "PROPOSAL_ONLY" as const })),
     executeDsl: protectedProcedure.input(z.object({ definition: z.record(z.string(), z.unknown()), parameters: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])) })).mutation(({ input }) => ({ result: executeTypologyDsl(input.definition as unknown as TypologyDslDefinition, input.parameters as Record<string, string | number | boolean>), persistence: "PROPOSAL_ONLY" as const })),
     instantiateTypology: protectedProcedure.input(z.object({ typologyId: z.string().min(1), overrides: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })).mutation(async ({ ctx, input }) => {
