@@ -43,6 +43,7 @@ import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } 
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
 import { buildSpatialObservation, bridgeEvidenceSummary, observationEvent, observationRecord, openSpatialBridgeSession, spatialBridgeContract, validateSpatialBridgeSession, type SpatialBridgeObservationKind, type SpatialBridgeSession } from "./arkiSpatialFieldBridge";
+import { normativeContract, validateAgainstRne, type NormativeFact } from "../shared/arkiNormativeEngine";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -296,6 +297,11 @@ export const appRouter = router({
   }),
   parametricRuntime: router({
     catalog: publicProcedure.query(() => parametricRuntimeCatalog()),
+    normativeContract: publicProcedure.query(() => normativeContract()),
+    validateNormative: protectedProcedure.input(z.object({ projectId: z.string().min(3), typology: z.string().min(1).optional(), facts: z.array(z.object({ variable: z.string().min(1), value: z.number().finite(), unit: z.string().optional(), source: z.string().optional() })).max(200), ruleIds: z.array(z.string().min(1)).max(100).optional() })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return { projectId: input.projectId, validation: validateAgainstRne({ typology: input.typology, facts: input.facts as NormativeFact[], ruleIds: input.ruleIds }), projectStateMutation: "NOT_REQUESTED" as const, canonicalPromotion: "NOT_REQUESTED" as const };
+    }),
     inspect: protectedProcedure.input(z.object({ fileName: z.string().min(1), content: z.union([z.string(), z.instanceof(Buffer)]) })).mutation(({ input }) => inspectParametricArtifact(input)),
     list: protectedProcedure.input(z.object({ projectId: z.string().min(3) })).query(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return listParametricFiles(ctx.user.id, input.projectId); }),
     upload: protectedProcedure.input(z.object({ projectId: z.string().min(3), fileName: z.string().trim().min(1).max(180), mimeType: z.string().min(1).max(120), dataUrl: z.string().startsWith("data:").max(25_000_000) })).mutation(async ({ ctx, input }) => {

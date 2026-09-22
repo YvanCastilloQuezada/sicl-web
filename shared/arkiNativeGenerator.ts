@@ -5,7 +5,9 @@ export type NativeTemplateId =
   | "TROPICAL_STADIUM"
   | "URBAN_CORRIDOR"
   | "COMPACT_HOUSE"
-  | "LANDSCAPE_CAMPUS";
+  | "LANDSCAPE_CAMPUS"
+  | "HOSPITAL_COMPLEX"
+  | "INTERPROVINCIAL_TERMINAL";
 
 export type NativeGeometry = {
   kind: "RECTANGULAR_MASS" | "COURTYARD_MASS";
@@ -81,6 +83,22 @@ export const ARKI_NATIVE_TEMPLATES: readonly NativeTemplate[] = [
     geometry: { kind: "COURTYARD_MASS", width: 96, depth: 72, height: 3.6, floors: 3, courtyardRatio: 0.35 },
     tags: ["campus", "paisaje", "cultura"],
     assumptions: ["Vegetación y agua se modelan como contexto posterior", "Requiere topografía real"],
+  },
+  {
+    id: "HOSPITAL_COMPLEX",
+    name: "Hospital de alta complejidad",
+    description: "Masa con patio para explorar relaciones entre atención, soporte y paisaje terapéutico.",
+    geometry: { kind: "COURTYARD_MASS", width: 128, depth: 96, height: 4.2, floors: 6, courtyardRatio: 0.24 },
+    tags: ["hospital", "salud", "BIM", "MEP"],
+    assumptions: ["Programa clínico, flujos limpio/sucio y gases medicinales pendientes", "Requiere coordinación profesional y normativa sanitaria vigente"],
+  },
+  {
+    id: "INTERPROVINCIAL_TERMINAL",
+    name: "Terminal terrestre interprovincial",
+    description: "Masa de referencia para pasajeros, buses, carga, maniobras y separación de flujos.",
+    geometry: { kind: "COURTYARD_MASS", width: 180, depth: 120, height: 5.5, floors: 3, courtyardRatio: 0.32 },
+    tags: ["terminal", "movilidad", "buses", "carga"],
+    assumptions: ["Aforo, radios de giro y demanda deben verificarse con datos de tránsito", "No sustituye simulación de movilidad ni revisión de evacuación"],
   },
 ];
 

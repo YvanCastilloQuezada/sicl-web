@@ -3,9 +3,9 @@ import { analyzeNativeGeometry, ARKI_NATIVE_TEMPLATES, getNativeTemplate, native
 
 describe("ARKI native generator", () => {
   it("exposes a deterministic first-party template catalog", () => {
-    expect(nativeTemplateSummary()).toMatchObject({ version: "ARKI-NATIVE-GENERATOR-1.0", templates: 5 });
-    expect(ARKI_NATIVE_TEMPLATES.map((template) => template.id)).toHaveLength(5);
-    expect(new Set(ARKI_NATIVE_TEMPLATES.map((template) => template.id)).size).toBe(5);
+    expect(nativeTemplateSummary()).toMatchObject({ version: "ARKI-NATIVE-GENERATOR-1.0", templates: 7 });
+    expect(ARKI_NATIVE_TEMPLATES.map((template) => template.id)).toHaveLength(7);
+    expect(new Set(ARKI_NATIVE_TEMPLATES.map((template) => template.id)).size).toBe(7);
   });
 
   it("loads a template without mutating the catalog", () => {
