@@ -8,6 +8,7 @@ import {
   isProposalOnly,
   searchDynamicFamilies,
 } from "../shared/arkiDynamicFamilies";
+import { compareDynamicBuildings, exportDynamicBuilding } from "../shared/arkiFamilyComparison";
 
 describe("ARKI dynamic building family generator", () => {
   it("exposes a small root registry with composable variants", () => {
@@ -57,5 +58,23 @@ describe("ARKI dynamic building family generator", () => {
     expect(contract.flow).toContain("FAMILY -> VARIANT");
     expect(contract.gates).toContain("NO_CORE_MUTATION");
     expect(contract.limitations).toContain("not_native_revit_family");
+  });
+
+  it("adds offices and returns the three coordinated views in one generation", () => {
+    const result = generateDynamicBuilding({ familyId: "FAM-OFFICES", variantId: "CORPORATE", context: { country: "PE", city: "Lima", jurisdiction: "RNE-PE" } });
+    expect(result.program.primarySpaces).toContain("lobby corporativo");
+    expect(result.unifiedGeometry.schema).toBe("ARKI-UNIFIED-GEOMETRY-1.0");
+    expect(result.unifiedGeometry.plan).toEqual(result.geometry2d);
+    expect(result.unifiedGeometry.section.totalHeightM).toBe(result.geometry3d.heightM);
+  });
+
+  it("compares up to four versions and exports enriched IFC without claiming native Revit", () => {
+    const buildings = ["GENERAL", "CLINIC", "RURAL", "GENERAL"].map((variantId, index) => generateDynamicBuilding({ familyId: "FAM-HEALTH", variantId, context: { country: "PE", city: `Ciudad-${index}`, jurisdiction: "RNE-PE" }, parameters: { capacity: 100 + index * 50 } }));
+    const comparison = compareDynamicBuildings(buildings.map((building, index) => ({ id: `v${index + 1}`, label: `Versión ${index + 1}`, version: `1.${index}`, building })), "DIFF");
+    expect(comparison.versionCount).toBe(4);
+    expect(comparison.metrics.length).toBeGreaterThan(0);
+    const exported = exportDynamicBuilding(buildings[0], "IFC4");
+    expect(exported.content).toContain("FILE_SCHEMA(('IFC4'))");
+    expect(exported.metadata?.nativeRvt).toBe(false);
   });
 });

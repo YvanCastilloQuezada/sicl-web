@@ -1,7 +1,7 @@
 import type { IncomingMessage, Server } from "node:http";
 import { WebSocketServer, type WebSocket } from "ws";
 
-export type ParametricRealtimeEvent = { type: "UPLOAD_STARTED" | "VALIDATION_PROGRESS" | "REVIEW_REQUIRED" | "UPLOAD_COMPLETED" | "UPLOAD_FAILED"; projectId: string; artifactId?: string; fileName?: string; progress: number; message: string; humanReviewRequired: boolean; at: string };
+export type ParametricRealtimeEvent = { type: "UPLOAD_STARTED" | "VALIDATION_PROGRESS" | "REVIEW_REQUIRED" | "UPLOAD_COMPLETED" | "UPLOAD_FAILED" | "CURSOR_MOVED" | "PRESENCE_JOINED" | "PRESENCE_LEFT"; projectId: string; artifactId?: string; fileName?: string; progress: number; message: string; humanReviewRequired: boolean; at: string; participantId?: string; displayName?: string; x?: number; y?: number; color?: string };
 
 const channels = new Map<string, Set<WebSocket>>();
 let attached = false;
@@ -23,6 +23,12 @@ export function publishParametricEvent(channel: string, event: ParametricRealtim
   if (!subscribers) return;
   const payload = JSON.stringify(event);
   subscribers.forEach((socket) => { if (socket.readyState === 1) socket.send(payload); });
+}
+
+export function publishCollaborativeCursor(channel: string, input: { projectId: string; participantId: string; displayName?: string; x: number; y: number; color?: string }) {
+  if (!Number.isFinite(input.x) || !Number.isFinite(input.y) || input.participantId.length > 128) return false;
+  publishParametricEvent(channel, { type: "CURSOR_MOVED", projectId: input.projectId, participantId: input.participantId, displayName: input.displayName?.slice(0, 80), x: input.x, y: input.y, color: input.color, progress: 0, message: "Collaborative cursor update", humanReviewRequired: false, at: new Date().toISOString() });
+  return true;
 }
 
 export function attachParametricWebSocket(server: Server) {
@@ -54,7 +60,11 @@ export function attachParametricWebSocket(server: Server) {
         return;
       }
       try {
-        const message = JSON.parse(raw.toString()) as { type?: string; channel?: string };
+        const message = JSON.parse(raw.toString()) as { type?: string; channel?: string; projectId?: string; participantId?: string; displayName?: string; x?: number; y?: number; color?: string };
+        if (message.type === "cursor" && channel && message.projectId && message.participantId && Number.isFinite(message.x) && Number.isFinite(message.y)) {
+          publishCollaborativeCursor(channel, { projectId: message.projectId, participantId: message.participantId, displayName: message.displayName, x: message.x as number, y: message.y as number, color: message.color });
+          return;
+        }
         if (message.type !== "subscribe" || !message.channel || !/^project:[A-Za-z0-9-]{3,128}$/.test(message.channel)) {
           socket.send(JSON.stringify({ type: "UPLOAD_FAILED", progress: 0, message: "Invalid subscription", humanReviewRequired: true, at: new Date().toISOString() }));
           return;

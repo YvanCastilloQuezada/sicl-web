@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-export type FamilyCategory = "SALUD" | "EDUCATION" | "COMMERCE" | "SPORT" | "RESIDENTIAL";
+export type FamilyCategory = "SALUD" | "EDUCATION" | "COMMERCE" | "SPORT" | "OFFICES" | "LANDSCAPE" | "INDUSTRY" | "TRANSPORT" | "CULTURE" | "RESIDENTIAL" | "HOSPITALITY" | "WORSHIP";
 export type BuildingScale = "BUILDING" | "COMPLEX" | "URBAN";
 export type RuleOperator = "MIN" | "MAX" | "EXACT" | "REQUIRED";
 
@@ -80,7 +80,9 @@ export type GeneratedBuilding = {
   program: FamilyProgram;
   rules: FamilyRule[];
   geometry2d: { type: string; footprintM2: number; widthM: number; depthM: number; courtyardM2?: number; rings?: number };
+  section: { type: string; floors: number; floorHeightM: number; totalHeightM: number; usesByFloor: string[] };
   geometry3d: { type: string; floors: number; heightM: number; massing: string };
+  unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0"; plan: GeneratedBuilding["geometry2d"]; section: GeneratedBuilding["section"]; model3d: GeneratedBuilding["geometry3d"] };
   metrics: { footprintM2: number; builtAreaM2: number; capacity: number; estimatedCostUsdConceptual: number };
   validation: { status: "PASS" | "UNKNOWN" | "BLOCKED"; checked: string[]; unknowns: string[] };
   alerts: Array<{ code: string; message: string; severity: "INFO" | "WARNING" | "BLOCKER" }>;
@@ -93,7 +95,49 @@ const p = (id: string, label: string, defaultValue: string | number | boolean, e
 const rule = (id: string, code: string, description: string, parameter: string, operator: RuleOperator, value: number | string | boolean | undefined, source: string): FamilyRule => ({ id, code, description, parameter, operator, value, source, required: true });
 const program = (primarySpaces: string[], services: string[], circulations: string[]): FamilyProgram => ({ zones: [{ id: "PUBLIC", name: "Área pública", areaRatio: 0.25 }, { id: "SERVICE", name: "Área de servicio", areaRatio: 0.15 }, { id: "PRIMARY", name: "Área principal", areaRatio: 0.6 }], primarySpaces, services, circulations });
 
+function makeAdditionalFamily(input: { id: string; name: string; category: FamilyCategory; description: string; geometryStrategy: DynamicBuildingFamily["geometryStrategy"]; tags: string[]; primary: string[]; services: string[]; variants: Array<{ id: string; name: string; description: string; tags: string[]; extra: string[]; modifiers: Record<string, string | number | boolean> }> }): DynamicBuildingFamily {
+  return { id: input.id, name: input.name, description: input.description, category: input.category, scale: input.category === "LANDSCAPE" ? "URBAN" : "COMPLEX", version: "1.0.0", baseProgram: program(input.primary, input.services, ["público", "personal", "servicio", "evacuación"]), variants: input.variants.map((variant) => ({ id: variant.id, name: variant.name, description: variant.description, capacityUnit: "usuarios", modifiers: { floors: 2, courtyardRatio: 0.08, capacity: 300, ...variant.modifiers }, programExtra: variant.extra, ruleIds: ["GEN-EGRESS"], tags: variant.tags })), baseParameters: [p("areaM2", "Área del terreno", 10000, { unit: "m²", min: 100 }), p("capacity", "Capacidad", 300, { unit: "personas", min: 1 }), p("floors", "Niveles", 2, { unit: "niveles", min: 1, max: 80 }), p("courtyardRatio", "Proporción de vacío", 0.08, { unit: "ratio", min: 0, max: 0.8 })], baseRules: [rule("GEN-EGRESS", "RNE-A.130", "Aforo y evacuación requieren validación del proyecto.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista")], geometryStrategy: input.geometryStrategy, tags: input.tags };
+}
+
+const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
+  makeAdditionalFamily({ id: "FAM-LANDSCAPE", name: "Paisajismo", category: "LANDSCAPE", description: "Parques, plazas, malecones, corredores verdes y humedales.", geometryStrategy: "COURTYARD_MASS", tags: ["paisajismo", "parque", "espacio público", "GH.020"], primary: ["áreas verdes", "senderos", "estancias", "equipamiento"], services: ["riego", "bombas", "servicios higiénicos"], variants: [
+    { id: "URBAN_PARK", name: "Parque urbano", description: "Parque de barrio con recreación y vegetación.", tags: ["parque", "verde"], extra: ["juegos infantiles", "ciclovía"], modifiers: { areaM2: 20000, capacity: 5000 } },
+    { id: "PUBLIC_PLAZA", name: "Plaza pública", description: "Plaza cívica y cultural.", tags: ["plaza", "cívica"], extra: ["fuente", "pavimento cívico"], modifiers: { areaM2: 5000, capacity: 2000 } },
+    { id: "WETLAND", name: "Humedal artificial", description: "Humedal para tratamiento y biodiversidad.", tags: ["humedal", "agua"], extra: ["sendero interpretativo", "mirador de aves"], modifiers: { areaM2: 50000, capacity: 500 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-INDUSTRY", name: "Industria", category: "INDUSTRY", description: "Manufactura, almacenes y centros logísticos.", geometryStrategy: "LINEAR_MASS", tags: ["industria", "manufactura", "logística", "RNE-A.060"], primary: ["producción", "almacén", "patio de maniobras"], services: ["vestuarios", "cuarto eléctrico", "control de calidad"], variants: [
+    { id: "WAREHOUSE", name: "Almacén simple", description: "Almacén de mercancías secas.", tags: ["almacén"], extra: ["racks", "muelles"], modifiers: { areaM2: 3000, floors: 1 } },
+    { id: "LOGISTICS", name: "Centro logístico", description: "Distribución multi-almacén.", tags: ["logística"], extra: ["muelles múltiples", "patio de maniobras"], modifiers: { areaM2: 25000, floors: 1 } },
+    { id: "MANUFACTURING", name: "Planta de manufactura", description: "Producción industrial con líneas y control de calidad.", tags: ["manufactura"], extra: ["líneas de producción", "laboratorio"], modifiers: { areaM2: 15000, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-TRANSPORT", name: "Transporte", category: "TRANSPORT", description: "Terminales, estaciones, aeropuertos y nodos intermodales.", geometryStrategy: "LINEAR_MASS", tags: ["transporte", "terminal", "intermodal"], primary: ["vestíbulo", "andenes", "circulación pública"], services: ["control", "equipaje", "mantenimiento"], variants: [
+    { id: "BUS_TERMINAL", name: "Terminal terrestre", description: "Terminal de buses interprovincial.", tags: ["buses", "terminal"], extra: ["andenes", "salas de espera"], modifiers: { areaM2: 18000, capacity: 2500 } },
+    { id: "STATION", name: "Estación intermodal", description: "Intercambio de modos de transporte.", tags: ["intermodal", "estación"], extra: ["conexión peatonal", "bicicletas"], modifiers: { areaM2: 12000, capacity: 4000 } },
+    { id: "AIRPORT", name: "Terminal aeroportuaria", description: "Terminal de pasajeros con controles y plataforma.", tags: ["aeropuerto", "aviación"], extra: ["check-in", "seguridad", "mangas"], modifiers: { areaM2: 60000, capacity: 12000, floors: 3 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-CULTURE", name: "Cultura", category: "CULTURE", description: "Museos, bibliotecas, teatros y centros culturales.", geometryStrategy: "COURTYARD_MASS", tags: ["cultura", "museo", "teatro"], primary: ["exposición", "auditorio", "espacio comunitario"], services: ["carga cultural", "conservación", "taquilla"], variants: [
+    { id: "MUSEUM", name: "Museo", description: "Museo con galerías y conservación.", tags: ["museo"], extra: ["galerías", "depósitos"], modifiers: { areaM2: 8000, capacity: 1200 } },
+    { id: "LIBRARY", name: "Biblioteca", description: "Biblioteca pública y digital.", tags: ["biblioteca"], extra: ["salas de lectura", "archivo"], modifiers: { areaM2: 5000, capacity: 600 } },
+    { id: "THEATER", name: "Teatro", description: "Teatro y artes escénicas.", tags: ["teatro", "escénico"], extra: ["escenario", "camerinos"], modifiers: { areaM2: 10000, capacity: 1400 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-RESIDENTIAL", name: "Residencial", category: "RESIDENTIAL", description: "Vivienda unifamiliar, multifamiliar y conjunto residencial.", geometryStrategy: "COURTYARD_MASS", tags: ["vivienda", "residencial", "multifamiliar"], primary: ["unidades de vivienda", "áreas comunes", "patios"], services: ["estacionamiento", "cuartos técnicos", "residuos"], variants: [
+    { id: "SINGLE", name: "Vivienda unifamiliar", description: "Casa independiente.", tags: ["casa"], extra: ["jardín", "estacionamiento"], modifiers: { areaM2: 300, capacity: 6, floors: 2 } },
+    { id: "MULTIFAMILY", name: "Multifamiliar", description: "Edificio de departamentos.", tags: ["departamentos"], extra: ["núcleo vertical", "área común"], modifiers: { areaM2: 3000, capacity: 120, floors: 8 } },
+    { id: "HOUSING_COMPLEX", name: "Conjunto residencial", description: "Conjunto de bloques y espacio común.", tags: ["conjunto", "barrial"], extra: ["parque común", "equipamiento vecinal"], modifiers: { areaM2: 20000, capacity: 900, floors: 5 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-HOSPITALITY", name: "Hospedaje", category: "HOSPITALITY", description: "Hoteles, hostales y resorts.", geometryStrategy: "COURTYARD_MASS", tags: ["hotel", "turismo", "hospedaje"], primary: ["habitaciones", "lobby", "restaurante"], services: ["housekeeping", "cocina", "mantenimiento"], variants: [
+    { id: "HOTEL", name: "Hotel", description: "Hotel urbano con habitaciones y servicios.", tags: ["hotel"], extra: ["recepción", "salón de eventos"], modifiers: { areaM2: 15000, capacity: 500, floors: 10 } },
+    { id: "HOSTEL", name: "Hostal", description: "Hospedaje económico de escala media.", tags: ["hostal"], extra: ["cocina compartida", "terraza"], modifiers: { areaM2: 2500, capacity: 100, floors: 4 } },
+    { id: "RESORT", name: "Resort", description: "Complejo turístico con paisaje y recreación.", tags: ["resort", "paisaje"], extra: ["piscinas", "spa", "jardines"], modifiers: { areaM2: 40000, capacity: 700, floors: 4 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-WORSHIP", name: "Culto", category: "WORSHIP", description: "Templos, centros comunitarios y espacios de culto.", geometryStrategy: "COURTYARD_MASS", tags: ["culto", "templo", "comunidad"], primary: ["sala de culto", "patio", "espacio comunitario"], services: ["administración", "servicios", "apoyo social"], variants: [
+    { id: "TEMPLE", name: "Templo", description: "Espacio de culto con nave principal.", tags: ["templo"], extra: ["nave", "sacristía"], modifiers: { areaM2: 2500, capacity: 800, floors: 1 } },
+    { id: "COMMUNITY_CENTER", name: "Centro comunitario", description: "Centro de reunión y apoyo social.", tags: ["comunidad"], extra: ["aulas", "comedor social"], modifiers: { areaM2: 4000, capacity: 500, floors: 2 } },
+  ] }),
+];
+
 export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
+  ...ADDITIONAL_DYNAMIC_FAMILIES,
   {
     id: "FAM-HEALTH",
     name: "Salud",
@@ -142,11 +186,32 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
       { id: "MARKET", name: "Mercado", description: "Mercado con puestos y logística separada.", capacityUnit: "usuarios", modifiers: { stalls: 180, floors: 1, courtyardRatio: 0.08 }, programExtra: ["cámara fría", "patio de maniobras"], ruleIds: ["COM-LOAD", "COM-EGRESS"], tags: ["mercado", "abastecimiento"] },
       { id: "MALL", name: "Centro comercial", description: "Centro comercial con ancla y estacionamiento.", capacityUnit: "usuarios", modifiers: { stalls: 120, floors: 4, courtyardRatio: 0.12 }, programExtra: ["ancla comercial", "food court", "estacionamiento"], ruleIds: ["COM-LOAD", "COM-EGRESS"], tags: ["mall", "retail"] },
       { id: "NEIGHBORHOOD", name: "Comercio vecinal", description: "Comercio de proximidad de baja escala.", capacityUnit: "usuarios", modifiers: { stalls: 24, floors: 2, courtyardRatio: 0.05 }, programExtra: ["entrega de última milla"], ruleIds: ["COM-EGRESS"], tags: ["barrial", "proximidad"] },
+      { id: "DEPARTMENT_STORE", name: "Tienda departamental", description: "Retail masivo organizado por departamentos.", capacityUnit: "usuarios", modifiers: { stalls: 60, floors: 4, courtyardRatio: 0 }, programExtra: ["área de venta", "carga y descarga", "almacén"], ruleIds: ["COM-LOAD", "COM-EGRESS"], tags: ["retail", "departamental"] },
+      { id: "GALLERY", name: "Galería comercial", description: "Locales pequeños alrededor de circulaciones compartidas.", capacityUnit: "locales", modifiers: { stalls: 80, floors: 3, courtyardRatio: 0.08 }, programExtra: ["locales modulares", "pasaje comercial"], ruleIds: ["COM-EGRESS"], tags: ["galería", "locales"] },
     ],
     baseParameters: [p("areaM2", "Área del terreno", 5000, { unit: "m²", min: 200 }), p("capacity", "Aforo", 800, { unit: "personas", min: 1 }), p("floors", "Niveles", 2, { unit: "niveles", min: 1, max: 20 }), p("courtyardRatio", "Proporción de vacío", 0.1, { unit: "ratio", min: 0, max: 0.6 })],
     baseRules: [rule("COM-LOAD", "RNE-A.070", "Separar abastecimiento, carga y descarga del flujo público.", "serviceFlowSeparated", "REQUIRED", true, "RNE de referencia; validar operación"), rule("COM-EGRESS", "RNE-A.130", "El aforo y las salidas requieren verificación especializada.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista")],
     geometryStrategy: "PODIUM_TOWER",
     tags: ["comercio", "mercado", "retail"],
+  },
+  {
+    id: "FAM-OFFICES",
+    name: "Oficinas",
+    description: "Familia de oficinas pequeñas, coworking, corporativas y gubernamentales.",
+    category: "OFFICES",
+    scale: "BUILDING",
+    version: "1.0.0",
+    baseProgram: program(["puestos de trabajo", "salas de reunión", "lobby"], ["datos", "cuarto eléctrico", "servicios"], ["público", "personal", "mantenimiento", "evacuación"]),
+    variants: [
+      { id: "SMALL", name: "Oficina pequeña", description: "Unidad de trabajo de baja escala.", capacityUnit: "personas", modifiers: { employees: 25, floors: 1, courtyardRatio: 0 }, programExtra: ["recepción", "sala de reunión"], ruleIds: ["OFF-EGRESS"], tags: ["pequeña", "boutique"] },
+      { id: "COWORKING", name: "Coworking", description: "Trabajo flexible y compartido.", capacityUnit: "usuarios", modifiers: { employees: 180, floors: 2, courtyardRatio: 0.08 }, programExtra: ["cabinas", "café", "sala flexible"], ruleIds: ["OFF-EGRESS", "OFF-DATA"], tags: ["coworking", "flexible"] },
+      { id: "CORPORATE", name: "Torre corporativa", description: "Oficinas de alta densidad con núcleo vertical.", capacityUnit: "personas", modifiers: { employees: 1200, floors: 18, courtyardRatio: 0.04 }, programExtra: ["lobby corporativo", "amenities", "helipuerto o terraza técnica"], ruleIds: ["OFF-EGRESS", "OFF-DATA"], tags: ["corporativo", "torre"] },
+      { id: "GOVERNMENT", name: "Oficina gubernamental", description: "Edificio institucional con atención al ciudadano.", capacityUnit: "personas", modifiers: { employees: 450, floors: 6, courtyardRatio: 0.12 }, programExtra: ["atención al ciudadano", "archivo", "sala de actos"], ruleIds: ["OFF-EGRESS"], tags: ["gubernamental", "institucional"] },
+    ],
+    baseParameters: [p("areaM2", "Área del terreno", 5000, { unit: "m²", min: 200 }), p("capacity", "Aforo", 300, { unit: "personas", min: 1 }), p("floors", "Niveles", 6, { unit: "niveles", min: 1, max: 80 }), p("courtyardRatio", "Proporción de vacío", 0.08, { unit: "ratio", min: 0, max: 0.6 })],
+    baseRules: [rule("OFF-EGRESS", "RNE-A.080", "La ocupación, salidas y circulación requieren verificación del proyecto.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista"), rule("OFF-DATA", "OFF-MEP-001", "La continuidad de datos y energía debe coordinarse con MEP.", "dataAndPowerValidated", "REQUIRED", true, "Coordinación MEP")],
+    geometryStrategy: "PODIUM_TOWER",
+    tags: ["oficinas", "corporativo", "coworking", "gobierno"],
   },
   {
     id: "FAM-SPORT",
@@ -209,7 +274,10 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
   const floors = Math.max(1, Math.round(valueAsNumber(parameters.floors) || 1));
   const capacity = Math.max(0, Math.round(valueAsNumber(parameters.capacity) || valueAsNumber(parameters.spectators) || valueAsNumber(parameters.students) || valueAsNumber(parameters.beds) || 0));
   const builtArea = geometry2d.footprintM2 * floors;
-  return { id: randomUUID(), familyId: family.id, variantId: variant.id, name: `${variant.name} · ${context.city || "sin ciudad"}`, context, parameters, program: { ...family.baseProgram, primarySpaces: [...family.baseProgram.primarySpaces, ...variant.programExtra] }, rules, geometry2d, geometry3d: { type: "EXTRUSION_FROM_2D", floors, heightM: Number((floors * 3.4).toFixed(2)), massing: family.geometryStrategy }, metrics: { footprintM2: geometry2d.footprintM2, builtAreaM2: Number(builtArea.toFixed(2)), capacity, estimatedCostUsdConceptual: Math.round(builtArea * (family.category === "SALUD" ? 1800 : 1200)) }, validation: { status: unknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: Array.from(new Set(unknowns)) }, alerts, status: "GENERATED_CANDIDATE", humanReviewRequired: true, projectStateMutation: "NOT_REQUESTED" };
+  const geometry3d = { type: "EXTRUSION_FROM_2D", floors, heightM: Number((floors * 3.4).toFixed(2)), massing: family.geometryStrategy } as const;
+  const section = { type: "SECTION_FROM_PROGRAM", floors, floorHeightM: 3.4, totalHeightM: geometry3d.heightM, usesByFloor: Array.from({ length: floors }, (_, index) => index === 0 ? family.baseProgram.primarySpaces[0] ?? "acceso" : variant.programExtra[index - 1] ?? "programa principal") };
+  const plan = { ...geometry2d };
+  return { id: randomUUID(), familyId: family.id, variantId: variant.id, name: `${variant.name} · ${context.city || "sin ciudad"}`, context, parameters, program: { ...family.baseProgram, primarySpaces: [...family.baseProgram.primarySpaces, ...variant.programExtra] }, rules, geometry2d: plan, section, geometry3d, unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0", plan, section, model3d: geometry3d }, metrics: { footprintM2: geometry2d.footprintM2, builtAreaM2: Number(builtArea.toFixed(2)), capacity, estimatedCostUsdConceptual: Math.round(builtArea * (family.category === "SALUD" ? 1800 : 1200)) }, validation: { status: unknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: Array.from(new Set(unknowns)) }, alerts, status: "GENERATED_CANDIDATE", humanReviewRequired: true, projectStateMutation: "NOT_REQUESTED" };
 }
 
 export function searchDynamicFamilies(query: string) { const q = query.trim().toLocaleLowerCase(); return listDynamicFamilies().flatMap((family) => family.variants.map((variant) => ({ familyId: family.id, familyName: family.name, variantId: variant.id, variantName: variant.name, score: q ? Number([family.name, family.description, variant.name, variant.description, ...family.tags, ...variant.tags].join(" ").toLocaleLowerCase().includes(q) ? 1 : 0) : 1 }))).filter((item) => item.score > 0).sort((a, b) => b.score - a.score || a.variantName.localeCompare(b.variantName)); }
@@ -263,7 +331,7 @@ export function familyFingerprint(familyId: string, variantId: string) { return 
 export const dynamicFamilyStatus = "PARAMETRIC_CANDIDATE_REQUIRES_PROFESSIONAL_REVIEW" as const;
 
 // Keep exports stable for future UI adapters.
-export const DYNAMIC_FAMILY_CATEGORIES: FamilyCategory[] = ["SALUD", "EDUCATION", "COMMERCE", "SPORT", "RESIDENTIAL"];
+export const DYNAMIC_FAMILY_CATEGORIES: FamilyCategory[] = ["SALUD", "EDUCATION", "COMMERCE", "SPORT", "OFFICES", "LANDSCAPE", "INDUSTRY", "TRANSPORT", "CULTURE", "RESIDENTIAL", "HOSPITALITY", "WORSHIP"];
 export const DYNAMIC_FAMILY_SCALES: BuildingScale[] = ["BUILDING", "COMPLEX", "URBAN"];
 
 // Metadata for the generated artifact.

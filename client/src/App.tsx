@@ -40,6 +40,7 @@ const ArkiTvPage = lazy(() => import("./pages/ArkiTvPage"));
 const ArLuOrchestratorPage = lazy(() => import("./pages/ArLuOrchestratorPage"));
 const ArkiMarketplacePage = lazy(() => import("./pages/ArkiMarketplacePage"));
 const ArkiGeneratorPage = lazy(() => import("./pages/ArkiGeneratorPage"));
+const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -87,6 +88,7 @@ function Router() {
       <Route path={"/arki-operations"}>{() => <DashboardLayout><ArkiOperationsPage /></DashboardLayout>}</Route>
       <Route path={"/arki-parametric-runtime"}>{() => <ArkiParametricRuntimePage />}</Route>
       <Route path={"/arki-generator"}>{() => <ArkiGeneratorPage />}</Route>
+      <Route path={"/arki-family-studio"}>{() => <ArkiFamilyStudioPage />}</Route>
       <Route path={"/arki-bim-visor"}>{() => <ArkiBimViewerPage />}</Route>
       <Route path={"/arki-host-connections"}>{() => <ArkiHostConnectionsPage />}</Route>
       <Route path={"/arki-device-bridge"}>{() => <DashboardLayout><ArkiDeviceInteroperabilityPage /></DashboardLayout>}</Route>

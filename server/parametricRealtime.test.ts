@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import { describe, expect, it } from "vitest";
 import WebSocket from "ws";
-import { attachParametricWebSocket, publishParametricEvent } from "./parametricRealtime";
+import { attachParametricWebSocket, publishCollaborativeCursor, publishParametricEvent } from "./parametricRealtime";
 
 describe("parametric realtime", () => {
   it("subscribes by project and receives governed progress events", async () => {
@@ -21,5 +21,10 @@ describe("parametric realtime", () => {
     expect(messages[1]).toMatchObject({ type: "REVIEW_REQUIRED", projectId: "TEST-001", humanReviewRequired: true });
     socket.close();
     await new Promise<void>((resolve) => server.close(() => resolve()));
+  });
+
+  it("validates ephemeral collaborative cursor updates", () => {
+    expect(publishCollaborativeCursor("project:TEST-001", { projectId: "TEST-001", participantId: "user-1", x: 10, y: 20 })).toBe(true);
+    expect(publishCollaborativeCursor("project:TEST-001", { projectId: "TEST-001", participantId: "user-1", x: Number.NaN, y: 20 })).toBe(false);
   });
 });
