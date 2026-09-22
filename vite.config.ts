@@ -15,6 +15,8 @@ const PROJECT_ROOT = import.meta.dirname;
 const LOG_DIR = path.join(PROJECT_ROOT, ".manus-logs");
 const MAX_LOG_SIZE_BYTES = 1 * 1024 * 1024; // 1MB per log file
 const TRIM_TARGET_BYTES = Math.floor(MAX_LOG_SIZE_BYTES * 0.6); // Trim to 60% to avoid constant re-trimming
+const MAX_DEBUG_PAYLOAD_BYTES = 128 * 1024;
+const MAX_DEBUG_ENTRIES = 200;
 
 type LogSource = "browserConsole" | "networkRequests" | "sessionReplay";
 
@@ -106,14 +108,14 @@ function vitePluginManusDebugCollector(): Plugin {
 
         const handlePayload = (payload: any) => {
           // Write logs directly to files
-          if (payload.consoleLogs?.length > 0) {
-            writeToLogFile("browserConsole", payload.consoleLogs);
+          if (Array.isArray(payload.consoleLogs) && payload.consoleLogs.length > 0) {
+            writeToLogFile("browserConsole", payload.consoleLogs.slice(0, MAX_DEBUG_ENTRIES));
           }
-          if (payload.networkRequests?.length > 0) {
-            writeToLogFile("networkRequests", payload.networkRequests);
+          if (Array.isArray(payload.networkRequests) && payload.networkRequests.length > 0) {
+            writeToLogFile("networkRequests", payload.networkRequests.slice(0, MAX_DEBUG_ENTRIES));
           }
-          if (payload.sessionEvents?.length > 0) {
-            writeToLogFile("sessionReplay", payload.sessionEvents);
+          if (Array.isArray(payload.sessionEvents) && payload.sessionEvents.length > 0) {
+            writeToLogFile("sessionReplay", payload.sessionEvents.slice(0, MAX_DEBUG_ENTRIES));
           }
 
           res.writeHead(200, { "Content-Type": "application/json" });
@@ -134,6 +136,9 @@ function vitePluginManusDebugCollector(): Plugin {
         let body = "";
         req.on("data", (chunk) => {
           body += chunk.toString();
+          if (Buffer.byteLength(body, "utf8") > MAX_DEBUG_PAYLOAD_BYTES) {
+            req.destroy();
+          }
         });
 
         req.on("end", () => {

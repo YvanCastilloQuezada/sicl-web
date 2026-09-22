@@ -40,6 +40,7 @@ import { runPreliminaryPredimensioning, transversalKnowledgeContract } from "./a
 import { ARKI_TRANSVERSAL_SPECIALTIES, buildSpecialtyCoordinationPlan, validateAuthorizedExchangeHost } from "./arkiTransversalSpecialties";
 import { professionalAuthorityContract, recordProfessionalReview } from "./arkiProfessionalReview";
 import { attachDecodedGeometry, ifc4Contract, parseIfc4, validateIfcRoundTrip } from "./arkiIfc4";
+import { coordinateMepModels, mepCoordinationContract } from "./arkiMepCoordination";
 import { buildHostConnectionRequest, hostConnectionCatalog, selfCareContract, validateHostEndpoint } from "./arkiHostConnection";
 import { decideSelfCareProposal, listSelfCareProposals, stageSelfCareProposal } from "./arkiSelfCareProposals";
 import { arkiTypologySummary, instantiateArkiTypology, listArkiTypologies } from "../shared/arkiTypologyLibrary";
@@ -233,6 +234,7 @@ export const appRouter = router({
   }),
   bimViewer: router({
     contract: publicProcedure.query(() => arkiBimViewerContract()),
+    mepCoordinationContract: publicProcedure.query(() => mepCoordinationContract()),
     ifc4Contract: publicProcedure.query(() => ifc4Contract()),
     inspectIfc4: protectedProcedure.input(z.object({ projectId: z.string().min(1), content: z.string().max(25_000_000) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return parseIfc4(input.content); }),
     attachIfcGeometry: protectedProcedure.input(z.object({ projectId: z.string().min(1), parsed: z.unknown(), geometry: z.array(z.object({ expressId: z.number().int().positive(), box: z.object({ min: z.tuple([z.number(), z.number(), z.number()]), max: z.tuple([z.number(), z.number(), z.number()]) }), properties: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional() })) })).mutation(async ({ ctx, input }) => { await ownedProject(ctx.user.id, input.projectId); return attachDecodedGeometry(input.parsed as ReturnType<typeof parseIfc4>, input.geometry); }),
@@ -244,6 +246,10 @@ export const appRouter = router({
     clashes: protectedProcedure.input(z.object({ projectId: z.string().min(1), tolerance: z.number().positive().max(1).optional(), models: z.array(z.unknown()).max(100) })).mutation(async ({ ctx, input }) => {
       await ownedProject(ctx.user.id, input.projectId);
       return detectBimInterferences(input.models as BimViewerModel[], input.tolerance);
+    }),
+    coordinateMep: protectedProcedure.input(z.object({ projectId: z.string().min(1), tolerance: z.number().positive().max(1).optional(), models: z.array(z.unknown()).max(100) })).mutation(async ({ ctx, input }) => {
+      await ownedProject(ctx.user.id, input.projectId);
+      return coordinateMepModels({ models: input.models, tolerance: input.tolerance });
     }),
   }),
   transversal: router({
