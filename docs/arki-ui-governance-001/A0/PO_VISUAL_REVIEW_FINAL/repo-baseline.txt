@@ -1,0 +1,38 @@
+--- git ---
+feature/arki-native-generator-v1
+1062129cbc8a8b19d105179f45212ffa70b22441
+[31m??[m docs/arki-ui-governance-001/A0/ARKI_UI_GOVERNANCE_A0_R2.zip
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/
+[31m??[m outputs/atril_colegio_biologos_doble_helice_unica.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva_v2.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral_v2.png
+[31m??[m outputs/colegio_biologos_implantacion_aerea.png
+[31m??[m outputs/colegio_biologos_parque_cientifico.png
+[31m??[m outputs/colegio_biologos_parque_con_escultura_adn.png
+[31m??[m outputs/colegio_biologos_perspectiva_institucional.png
+[31m??[m outputs/doble_helice_posmodernista_posfuturista_hd.png
+--- markers ---
+--- package scripts ---
+{
+  "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
+  "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+  "start": "NODE_ENV=production node dist/index.js",
+  "check": "tsc --noEmit",
+  "format": "prettier --write .",
+  "test": "vitest run",
+  "e2e:canonical": "tsx scripts/run-arki-canonical-e2e.ts",
+  "e2e:advanced": "tsx scripts/run-arki-advanced-e2e.ts",
+  "security:stress:local": "node scripts/arki-local-security-stress.mjs",
+  "db:push": "drizzle-kit generate && drizzle-kit migrate"
+}
+--- route map count ---
+36
+--- processes ---
+793586 node dist/index.js
+828478 node dist/index.js
+840748 sh -c NODE_ENV=development tsx watch server/_core/index.ts --host 0.0.0.0
+--- ports ---
+LISTEN 0      511                *:4001             *:*    users:(("node",pid=828478,fd=28))        
+LISTEN 0      511                *:3002             *:*    users:(("node",pid=840765,fd=34))        
