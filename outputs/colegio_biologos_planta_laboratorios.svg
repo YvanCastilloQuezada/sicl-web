@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+<rect width="100%" height="100%" fill="#071a2b"/>
+<text x="55" y="55" fill="#8de34f" font-family="Arial" font-size="18" letter-spacing="3">COLEGIO DE BIÓLOGOS DEL PERÚ · ARKI</text>
+<text x="55" y="95" fill="#eaf6ef" font-family="Arial" font-size="34" font-weight="bold">PLANTA PRIMER PISO · ÁREA DE LABORATORIOS</text>
+<text x="55" y="127" fill="#9ab4b7" font-family="Arial" font-size="16">Ala científica de 60 m × 30 m · acceso controlado desde parque y circulación técnica posterior</text>
+<rect x="120" y="175" width="960" height="480" fill="none" stroke="#d7f6d0" stroke-width="4"/>
+<rect x="120" y="175" width="960" height="55" rx="5" fill="#183f45" stroke="#8de34f" stroke-width="2"/>
+<text x="600.0" y="199.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="16" font-weight="bold">GALERÍA PÚBLICA / ACCESO DESDE PARQUE</text>
+<rect x="120" y="600" width="960" height="55" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="600.0" y="624.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="15" font-weight="bold">CIRCULACIÓN TÉCNICA · CARGA · RESIDUOS · MANTENIMIENTO</text>
+<rect x="120" y="230" width="320" height="185" rx="5" fill="#102d3f" stroke="#8de34f" stroke-width="2"/>
+<text x="280.0" y="319.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="15" font-weight="bold">LABORATORIO DE ECOLOGÍA Y BIODIVERSIDAD</text>
+<rect x="440" y="230" width="320" height="185" rx="5" fill="#102d3f" stroke="#8de34f" stroke-width="2"/>
+<text x="600.0" y="319.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="15" font-weight="bold">LABORATORIO DE BIOLOGÍA MOLECULAR</text>
+<rect x="760" y="230" width="320" height="185" rx="5" fill="#102d3f" stroke="#8de34f" stroke-width="2"/>
+<text x="920.0" y="319.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="15" font-weight="bold">LABORATORIO DE DOCENCIA Y MICROSCOPÍA</text>
+<rect x="120" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="200.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">PREPARACIÓN / LAVADO</text>
+<rect x="280" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="360.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">ALMACÉN LIMPIO</text>
+<rect x="440" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="520.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">VESTUARIO Y EPP</text>
+<rect x="600" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="680.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">CÁMARA FRÍA / MUESTRAS</text>
+<rect x="760" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="840.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">RESIDUOS CONTROLADOS</text>
+<rect x="920" y="415" width="160" height="185" rx="5" fill="#25394a" stroke="#8de34f" stroke-width="2"/>
+<text x="1000.0" y="504.5" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="13" font-weight="bold">OFICINA TÉCNICA</text>
+<path d="M600 175 L600 230 M285 600 L285 655 M885 600 L885 655" stroke="#ffcf62" stroke-width="5"/>
+<text x="120" y="700" fill="#9ab4b7" font-family="Arial" font-size="13">Criterio: separar circulación pública, técnica y de muestras; definir bioseguridad según operación real.</text>
+<text x="120" y="728" fill="#9ab4b7" font-family="Arial" font-size="13">Laboratorios dimensionados conceptualmente; equipos, gases, extracción, presión y residuos requieren ingeniería especializada.</text>
+<text x="120" y="775" fill="#9ab4b7" font-family="Arial" font-size="13">Área referencial: 1.800 m² · modulación estructural sugerida: 8 m × 8 m · patios de servicio posibles en fachada posterior.</text>
+<g transform="translate(1190 135)"><path d="M0 35 L18 0 L36 35" fill="none" stroke="#42d9c8" stroke-width="3"/><text x="18" y="58" text-anchor="middle" fill="#eaf6ef" font-family="Arial" font-size="14">N</text></g>
+<line x1="55" y1="850" x2="355" y2="850" stroke="#eaf6ef" stroke-width="3"/><text x="205" y="878" text-anchor="middle" fill="#9ab4b7" font-family="Arial" font-size="13">escala gráfica conceptual · 10 m</text>
+<text x="55" y="905" fill="#9ab4b7" font-family="Arial" font-size="12">AI_PROPOSED · Planta conceptual no apta para construcción · verificar RNE, aforos, bioseguridad, estructura e instalaciones.</text></svg>

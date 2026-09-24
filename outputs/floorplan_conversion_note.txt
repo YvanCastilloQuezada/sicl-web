@@ -1,0 +1,2 @@
+PNG conversion unavailable: No module named 'cairosvg'
+SVG files are the canonical editable deliverables.
