@@ -1,0 +1,416 @@
+{
+  "audit": "ARKI-UI-GOVERNANCE-001.A0.R2",
+  "runtime": {
+    "source": "/home/ubuntu/sicl-web",
+    "mode": "production",
+    "process": "node dist/index.js",
+    "port": 4001,
+    "expectedBootMarker": "REACT_MOUNTED",
+    "observed": true,
+    "head": "ccdc6d95f87175fb0bbeba8fd64fb1cc2f07e85a",
+    "buildTimestamp": "2026-09-24T21:41:40Z",
+    "bundle": "assets/index-DNwvu7b4.js"
+  },
+  "routes": [
+    {
+      "route": "/",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.564111+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/root.webp"
+    },
+    {
+      "route": "/arki",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.565989+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki.webp"
+    },
+    {
+      "route": "/evidence",
+      "status": "USER_FACING_BLOCKED",
+      "reason": "Screen rendered; canonical Core dependency is disconnected and fail-closed.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_evidence.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.567561+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/evidence.webp"
+    },
+    {
+      "route": "/evaluations",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_evaluations.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.569015+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/evaluations.webp"
+    },
+    {
+      "route": "/comparisons",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_comparisons.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.570519+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/comparisons.webp"
+    },
+    {
+      "route": "/multiobjective",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_multiobjective.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.571906+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/multiobjective.webp"
+    },
+    {
+      "route": "/arki-book",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-book.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.573289+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-book.webp"
+    },
+    {
+      "route": "/spatial",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.574795+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/spatial.webp"
+    },
+    {
+      "route": "/spatial-comparison",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "Route rendered an explicit Core/spatial dependency 503 state.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial-comparison.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.576575+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/spatial-comparison.webp"
+    },
+    {
+      "route": "/sources",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_sources.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.578141+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/sources.webp"
+    },
+    {
+      "route": "/control-center",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_control-center.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.579590+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/control-center.webp"
+    },
+    {
+      "route": "/parametric-files",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_parametric-files.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.581162+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/parametric-files.webp"
+    },
+    {
+      "route": "/arki-operations",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-operations.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.582610+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-operations.webp"
+    },
+    {
+      "route": "/arki-parametric-runtime",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-parametric-runtime.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.584748+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-parametric-runtime.webp"
+    },
+    {
+      "route": "/arki-generator",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-generator.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.587242+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-generator.webp"
+    },
+    {
+      "route": "/arki-family-studio",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-family-studio.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.589801+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-family-studio.webp"
+    },
+    {
+      "route": "/arki-super-architect",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-super-architect.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.591446+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-super-architect.webp"
+    },
+    {
+      "route": "/arki-design-funnel",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-design-funnel_r2prod_2.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.592899+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-design-funnel.webp"
+    },
+    {
+      "route": "/arki-bim-visor",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-bim-visor.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.594410+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-bim-visor.webp"
+    },
+    {
+      "route": "/arki-host-connections",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-host-connections.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.595864+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-host-connections.webp"
+    },
+    {
+      "route": "/arki-device-bridge",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-device-bridge.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.597286+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-device-bridge.webp"
+    },
+    {
+      "route": "/luka-control-center",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_luka-control-center.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.598811+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/luka-control-center.webp"
+    },
+    {
+      "route": "/federated-handoffs",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": null,
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.600118+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/federated-handoffs.webp"
+    },
+    {
+      "route": "/arki-tv",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-tv.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.601437+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-tv.webp"
+    },
+    {
+      "route": "/ar-lu-orchestrator",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_ar-lu-orchestrator.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.603166+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/ar-lu-orchestrator.webp"
+    },
+    {
+      "route": "/arki-marketplace",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-marketplace.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.604682+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-marketplace.webp"
+    },
+    {
+      "route": "/arki-self-care",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-self-care.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.606103+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-self-care.webp"
+    },
+    {
+      "route": "/field",
+      "status": "USER_FACING_BLOCKED",
+      "reason": "Screen rendered; canonical Core dependency is disconnected and fail-closed.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_field.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.607500+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/field.webp"
+    },
+    {
+      "route": "/security-events",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_security-events.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.608867+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/security-events.webp"
+    },
+    {
+      "route": "/arki-research-review",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-research-review.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.610248+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/arki-research-review.webp"
+    },
+    {
+      "route": "/audit",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_audit_audit.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.611617+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/audit.webp"
+    },
+    {
+      "route": "/help",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_user.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.612989+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/help.webp"
+    },
+    {
+      "route": "/help/user",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_user.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.614333+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/help_user.webp"
+    },
+    {
+      "route": "/help/operations",
+      "status": "DEPENDENCY_BLOCKED",
+      "reason": "React mounted but the route remained in Suspense lazy-module fallback.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_operations.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.615665+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/help_operations.webp"
+    },
+    {
+      "route": "/help/commands",
+      "status": "USER_FACING_REACHABLE",
+      "reason": "Meaningful user-facing screen rendered in production runtime 4001.",
+      "textEvidence": null,
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.616969+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/help_commands.webp"
+    },
+    {
+      "route": "/404",
+      "status": "NOT_USER_FACING",
+      "reason": "Explicit 404 utility route.",
+      "textEvidence": "/home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_404.md",
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.618584+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/404.webp"
+    },
+    {
+      "route": "__fallback__",
+      "status": "NOT_USER_FACING",
+      "reason": "Catch-all route; not a declared user-facing path.",
+      "textEvidence": null,
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.620040+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/__fallback__.webp"
+    },
+    {
+      "route": "__fallback_2__",
+      "status": "NOT_USER_FACING",
+      "reason": "Catch-all route; not a declared user-facing path.",
+      "textEvidence": null,
+      "screenshotEvidence": "/home/ubuntu/screenshots/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp",
+      "bootRuntime": "production-4001",
+      "capturedAt": "2026-09-24T22:50:40.621483+00:00",
+      "packageScreenshot": "/home/ubuntu/sicl-web/docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/screens/__fallback_2__.webp"
+    }
+  ],
+  "metrics": {
+    "ROUTES_DECLARED": 38,
+    "ROUTES_USER_FACING": 35,
+    "ROUTES_REACHABLE": 15,
+    "ROUTES_BROKEN": 0,
+    "ROUTES_BLOCKED": 20,
+    "ROUTES_INTERNAL": 0,
+    "ROUTES_ALIAS_REDIRECT": 0,
+    "ROUTES_UNKNOWN": 0,
+    "SCREEN_STATES_CAPTURED": 110
+  },
+  "controlNormalization": {
+    "STATIC_CONTROL_OCCURRENCES": 1336,
+    "UNIQUE_CONTROL_DEFINITIONS": "SEE_A0_STATIC_REGISTRY",
+    "SHARED_CONTROL_COMPONENTS": "SEE_A0_STATIC_REGISTRY",
+    "RUNTIME_VISIBLE_CONTROLS": "CAPTURED_PER_SCREEN_IN_BROWSER_EVIDENCE",
+    "RUNTIME_TESTED_CONTROLS": "NOT_ALL_ACTIONS_EXECUTED; NON-DESTRUCTIVE SURVEY ONLY",
+    "SOURCE_ONLY_CONTROLS": "SEE_A0_STATIC_REGISTRY",
+    "NON_USER_FACING_HANDLERS": "SEE_A0_STATIC_REGISTRY"
+  }
+}
