@@ -2,12 +2,18 @@ import { trpc } from "@/lib/trpc";
 import { COOKIE_NAME, UNAUTHED_ERR_MSG } from "@shared/const";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
+import * as React from "react";
 import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import { startLogin } from "./const";
 import "./index.css";
 import "./i18n";
 import App from "./App";
+
+// The Manus JSX transform emits React.createElement in this workspace.
+// Install the namespace before the first render so production and dev use
+// the same explicit bootstrap contract.
+(globalThis as typeof globalThis & { React: typeof React }).React = React;
 
 const root = document.getElementById("root");
 const bootStage = (stage: string) => {

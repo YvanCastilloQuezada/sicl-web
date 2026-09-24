@@ -1,4 +1,3 @@
-import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
@@ -155,7 +154,15 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+// The public Manus dev proxy cannot execute Vite's virtual React Refresh module.
+// Keep the React plugin for production builds; Vite's native esbuild JSX transform
+// is sufficient for the local dev bootstrap and avoids a false infinite fallback.
+const plugins = [
+  ...(process.env.NODE_ENV !== "development" ? [react()] : []),
+  tailwindcss(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+];
 
 export default defineConfig({
   plugins,
@@ -175,6 +182,9 @@ export default defineConfig({
   },
   server: {
     host: true,
+    // The Manus preview proxy cannot execute Vite's virtual React Refresh
+    // module; disabling HMR keeps normal ESM bootstrap and production intact.
+    hmr: false,
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",
