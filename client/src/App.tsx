@@ -11,7 +11,7 @@ import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
-import Home from "./pages/Home";
+const Home = lazy(() => import("./pages/Home"));
 const EvidencePage = lazy(() => import("./pages/EvidencePage"));
 const EvaluationsPage = lazy(() => import("./pages/EvaluationsPage"));
 const ComparisonsPage = lazy(() => import("./pages/ComparisonsPage"));
@@ -41,6 +41,7 @@ const ArLuOrchestratorPage = lazy(() => import("./pages/ArLuOrchestratorPage"));
 const ArkiMarketplacePage = lazy(() => import("./pages/ArkiMarketplacePage"));
 const ArkiGeneratorPage = lazy(() => import("./pages/ArkiGeneratorPage"));
 const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
+const ArkiSuperArchitectViewerPage = lazy(() => import("./pages/ArkiSuperArchitectViewerPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -89,6 +90,7 @@ function Router() {
       <Route path={"/arki-parametric-runtime"}>{() => <ArkiParametricRuntimePage />}</Route>
       <Route path={"/arki-generator"}>{() => <ArkiGeneratorPage />}</Route>
       <Route path={"/arki-family-studio"}>{() => <ArkiFamilyStudioPage />}</Route>
+      <Route path={"/arki-super-architect"}>{() => <ArkiSuperArchitectViewerPage />}</Route>
       <Route path={"/arki-bim-visor"}>{() => <ArkiBimViewerPage />}</Route>
       <Route path={"/arki-host-connections"}>{() => <ArkiHostConnectionsPage />}</Route>
       <Route path={"/arki-device-bridge"}>{() => <DashboardLayout><ArkiDeviceInteroperabilityPage /></DashboardLayout>}</Route>
