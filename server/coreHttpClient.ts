@@ -108,6 +108,14 @@ async function coreRequest<T>(path: string, init: RequestInit): Promise<T> {
   return unwrap(await response.json() as T);
 }
 
+async function coreRequestWithTimeout<T>(path: string, init: RequestInit): Promise<T> {
+  const base = coreUrl();
+  if (!base) throw new Error("SICL_CORE_URL is required");
+  const response = await fetchWithTimeout(`${base}${path}`, { ...init, headers: { ...serviceHeaders(), ...(init.headers ?? {}) } });
+  if (!response.ok) throw await errorFromResponse(response);
+  return unwrap(await response.json() as T);
+}
+
 export async function fetchOperationsResearchMethods(): Promise<OperationsResearchCatalog | undefined> {
   if (!coreUrl()) return undefined;
   return coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
@@ -242,7 +250,7 @@ export interface CoreD2SnapshotResponse extends CoreWriteResponse {
 }
 
 export async function promoteDeveloperProposal(projectId: string, request: DeveloperPromotionRequest): Promise<DeveloperPromotionResponse> {
-  return coreRequest<DeveloperPromotionResponse>(`/v1/projects/${encodeURIComponent(projectId)}/developer-promotions`, {
+  return coreRequestWithTimeout<DeveloperPromotionResponse>(`/v1/projects/${encodeURIComponent(projectId)}/developer-promotions`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(request),
