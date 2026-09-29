@@ -151,8 +151,9 @@ describe("[6] Developer promotion Core client", () => {
     const pending = promoteDeveloperProposal("P-1", {
       proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1",
     });
+    const rejection = expect(pending).rejects.toMatchObject({ name: "AbortError" });
     await vi.advanceTimersByTimeAsync(15_000);
-    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    await rejection;
     vi.useRealTimers();
   });
 
