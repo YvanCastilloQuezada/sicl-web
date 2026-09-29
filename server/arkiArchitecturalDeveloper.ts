@@ -14,6 +14,7 @@ import type { IntegratedArchitectCycle } from "./arkiIntegratedArchitectCycle";
 import { validatePartiContract, type PartiContract } from "./arkiPartiContract";
 import type { CanonicalSpatialElement, CanonicalSpatialRepresentation } from "./arkiD63GeometricBridge";
 import { resolveSpecialVolumeGeometry } from "./arkiVerticalSpecialVolumeGeometryResolver";
+import { bridgeD63ToD2Geometry } from "./arkiD63ToD2GeometryBridge";
 
 /**
  * ARKI Architectural Developer (proposal-only).
@@ -118,14 +119,25 @@ function buildElements(
       }
 
       const vertical = resolution.value;
+      const bridgedGeometry = bridgeD63ToD2Geometry({
+        geometry: element.geometry,
+        coordinateSystem: representation.coordinate_system,
+        units: representation.units,
+        baseElevation_mm: vertical.baseElevation_mm,
+        verticalExtent_mm: vertical.verticalExtent_mm,
+      });
+      if (!bridgedGeometry.ok) {
+        unknowns.push({
+          field: `${pid}.geometry`,
+          reason: `D6_3_TO_D2_GEOMETRY_BRIDGE_FAILED:${bridgedGeometry.code}`,
+          requiredEvidence: "Provide D6.3 geometry satisfying the strict D-2 geometry bridge contract",
+        });
+        continue;
+      }
       result.push({
         provisionalId: pid,
         kind,
-        geometry: {
-          ...(element.geometry as unknown as Record<string, unknown>),
-          height_mm: vertical.verticalExtent_mm,
-          z_mm: vertical.baseElevation_mm,
-        },
+        geometry: bridgedGeometry.value,
         properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
         provenance: [
           ...provenanceFromElement(element),
@@ -180,10 +192,26 @@ function buildElements(
       continue;
     }
 
+    const bridgedGeometry = bridgeD63ToD2Geometry({
+      geometry: element.geometry,
+      coordinateSystem: representation.coordinate_system,
+      units: representation.units,
+      baseElevation_mm: elevationDecision.selectedDimension_mm,
+      verticalExtent_mm: height,
+    });
+    if (!bridgedGeometry.ok) {
+      unknowns.push({
+        field: `${pid}.geometry`,
+        reason: `D6_3_TO_D2_GEOMETRY_BRIDGE_FAILED:${bridgedGeometry.code}`,
+        requiredEvidence: "Provide D6.3 geometry satisfying the strict D-2 geometry bridge contract",
+      });
+      continue;
+    }
+
     result.push({
       provisionalId: pid,
       kind,
-      geometry: { ...(element.geometry as unknown as Record<string, unknown>), height_mm: height, z_mm: elevationDecision.selectedDimension_mm },
+      geometry: bridgedGeometry.value,
       properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
       provenance: [
         ...provenanceFromElement(element),
