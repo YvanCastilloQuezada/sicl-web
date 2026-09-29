@@ -11,7 +11,7 @@ import {
 } from "../shared/arkiDeveloperProposal";
 import { fingerprint } from "./arkiFingerprint";
 import type { IntegratedArchitectCycle } from "./arkiIntegratedArchitectCycle";
-import type { PartiContract } from "./arkiPartiContract";
+import { validatePartiContract, type PartiContract } from "./arkiPartiContract";
 import type { CanonicalSpatialElement, CanonicalSpatialRepresentation } from "./arkiD63GeometricBridge";
 
 /**
@@ -35,6 +35,8 @@ export interface DeveloperInput {
     envelope: { width: number; height: number };
   };
   parentProposalId?: string;
+  /** Verified corpus locators available to this execution; absent refs fail closed. */
+  verifiedCorpusRefs?: ReadonlySet<string>;
 }
 
 export interface DeveloperResult {
@@ -303,6 +305,11 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
   }
   if (fingerprint(partiInCycle) !== fingerprint(input.partiContract)) {
     throw new Error("PARTI_CONTRACT_MISMATCH");
+  }
+
+  const partiValidation = validatePartiContract(input.partiContract, input.verifiedCorpusRefs);
+  if (partiValidation.status !== "PASS") {
+    throw new Error(`PARTI_CONTRACT_INVALID: ${partiValidation.violations.join(";")}`);
   }
 
   const representation = selectGeometry(input.cycle, input.partiContract);
