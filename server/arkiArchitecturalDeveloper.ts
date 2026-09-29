@@ -11,7 +11,7 @@ import {
 } from "../shared/arkiDeveloperProposal";
 import { fingerprint } from "./arkiFingerprint";
 import type { IntegratedArchitectCycle } from "./arkiIntegratedArchitectCycle";
-import type { PartiContract } from "./arkiPartiContract";
+import { validatePartiContract, type PartiContract } from "./arkiPartiContract";
 import type { CanonicalSpatialElement, CanonicalSpatialRepresentation } from "./arkiD63GeometricBridge";
 
 /**
@@ -35,6 +35,8 @@ export interface DeveloperInput {
     envelope: { width: number; height: number };
   };
   parentProposalId?: string;
+  /** Verified corpus locators available to this execution; absent refs fail closed. */
+  verifiedCorpusRefs?: ReadonlySet<string>;
 }
 
 export interface DeveloperResult {
@@ -73,38 +75,106 @@ function provenanceFromElement(element: CanonicalSpatialElement): DeveloperProve
 
 function buildElements(
   representation: CanonicalSpatialRepresentation,
+  parti: PartiContract,
   unknowns: DeveloperUnknown[]
 ): ProposedArchiElementDTO[] {
   const result: ProposedArchiElementDTO[] = [];
+  const decisions = new Map(parti.verticalDecisions.map((d) => [d.decisionId, d]));
+  const levels = parti.verticalSystem.levels ?? [];
+  const volumes = parti.verticalSystem.specialVolumes ?? [];
 
   for (const element of representation.elements) {
     const kind = D63_TO_CORE_KIND[element.element_type];
+    const pid = proposedId(element);
 
     if (kind === null) {
-      unknowns.push({
-        field: `${proposedId(element)}.kind`,
-        reason: `D6.3 element_type=${element.element_type} has no Core ElementKind mapping`,
-        requiredEvidence: "Core must decide the mapping in Commit 8",
-      });
+      unknowns.push({ field: `${pid}.kind`, reason: `D6.3 element_type=${element.element_type} has no Core ElementKind mapping`, requiredEvidence: "Explicit semantic mapping with sufficient architectural evidence" });
+      continue;
+    }
+
+    // This microblock authorizes CLEAR_HEIGHT only for SPACE. Other Core kinds
+    // require their own vertical semantics and remain fail-closed.
+    if (kind !== "SPACE") {
+      unknowns.push({ field: `${pid}.height_mm`, reason: `Vertical authority for Core kind ${kind} is not defined in this microblock`, requiredEvidence: "Element-kind-specific vertical decision contract" });
+      continue;
+    }
+
+    const memberLevels = levels.filter((level) => level.members.includes(pid));
+    const memberVolumes = volumes.filter((volume) => volume.members.includes(pid));
+    if (memberLevels.length > 1 || memberVolumes.length > 1 || (memberLevels.length && memberVolumes.length)) {
+      unknowns.push({ field: `${pid}.vertical_membership`, reason: "Element has conflicting vertical-system membership", requiredEvidence: "Exactly one applicable level or special volume" });
+      continue;
+    }
+
+    let heightDecision = undefined as PartiContract["verticalDecisions"][number] | undefined;
+    let elevationDecision = undefined as PartiContract["verticalDecisions"][number] | undefined;
+
+    if (memberVolumes.length === 1) {
+      const volume = memberVolumes[0];
+      heightDecision = volume.volumeDecisionId ? decisions.get(volume.volumeDecisionId) : undefined;
+      if (!heightDecision || heightDecision.dimensionKind !== "SPECIAL_VERTICAL" || heightDecision.status !== "RESOLVED") {
+        unknowns.push({ field: `${pid}.height_mm`, reason: "SPECIAL_VERTICAL decision is missing or unresolved", requiredEvidence: "RESOLVED SPECIAL_VERTICAL decision for the containing special volume" });
+        continue;
+      }
+    } else {
+      if (memberLevels.length !== 1) {
+        unknowns.push({ field: `${pid}.height_mm`, reason: "LEVEL_MEMBERSHIP_GAP: SPACE belongs to no VerticalLevel", requiredEvidence: "Exactly one VerticalLevel membership and RESOLVED CLEAR_HEIGHT" });
+        continue;
+      }
+      const level = memberLevels[0];
+      elevationDecision = decisions.get(level.elevationDecisionId);
+      const base = level.clearHeightDecisionId ? decisions.get(level.clearHeightDecisionId) : undefined;
+      const elementOverrides = parti.verticalDecisions.filter((d) => d.dimensionKind === "CLEAR_HEIGHT" && d.status === "RESOLVED" && (
+        (d.target.kind === "ELEMENT" && d.target.elementProvisionalId === pid) ||
+        (d.target.kind === "GROUP" && d.target.members.includes(pid))
+      ));
+      const values = new Set(elementOverrides.map((d) => d.selectedDimension_mm));
+      if (values.size > 1) {
+        unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: equally applicable vertical overrides have incompatible values", requiredEvidence: "Resolve vertical decision conflict in Parti" });
+        continue;
+      }
+      if (elementOverrides.length) {
+        const override = elementOverrides[0];
+        if (!override.verticalException) {
+          unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: element/group height cannot override LEVEL without a justified verticalException", requiredEvidence: "Typed verticalException with reasoning and evidence" });
+          continue;
+        }
+        heightDecision = override;
+      } else {
+        heightDecision = base;
+      }
+      if (!heightDecision || heightDecision.dimensionKind !== "CLEAR_HEIGHT" || heightDecision.status !== "RESOLVED") {
+        unknowns.push({ field: `${pid}.height_mm`, reason: "CLEAR_HEIGHT decision is missing or unresolved", requiredEvidence: "RESOLVED CLEAR_HEIGHT decision for the containing level" });
+        continue;
+      }
+      if (!elevationDecision || elevationDecision.dimensionKind !== "ELEVATION" || elevationDecision.status !== "RESOLVED") {
+        unknowns.push({ field: `${pid}.z_mm`, reason: "ELEVATION decision is missing or unresolved", requiredEvidence: "RESOLVED ELEVATION decision for the containing level" });
+        continue;
+      }
+    }
+
+    const height = heightDecision.selectedDimension_mm;
+    const z = elevationDecision?.selectedDimension_mm ?? 0;
+    if (height === null || height <= 0) {
+      unknowns.push({ field: `${pid}.height_mm`, reason: "Resolved vertical decision has no positive height", requiredEvidence: "Positive resolved vertical dimension" });
       continue;
     }
 
     result.push({
-      provisionalId: proposedId(element),
+      provisionalId: pid,
       kind,
-      geometry: element.geometry as unknown as Record<string, unknown>,
-      properties: {
-        d63_element_type: element.element_type,
-        d63_labels: element.labels ?? {},
-      },
-      provenance: provenanceFromElement(element),
-      epistemicStatus: "HYPOTHESIS",
+      geometry: { ...(element.geometry as unknown as Record<string, unknown>), height_mm: height, z_mm: z },
+      properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
+      provenance: [
+        ...provenanceFromElement(element),
+        { source: "vertical_dimension_decision", ref: heightDecision.decisionId },
+        ...(elevationDecision ? [{ source: "vertical_elevation_decision", ref: elevationDecision.decisionId }] : []),
+      ],
+      epistemicStatus: heightDecision.epistemicStatus,
     });
   }
-
   return result;
 }
-
 function collectUnknowns(input: DeveloperInput): DeveloperUnknown[] {
   const unknowns: DeveloperUnknown[] = [];
 
@@ -237,13 +307,18 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
     throw new Error("PARTI_CONTRACT_MISMATCH");
   }
 
+  const partiValidation = validatePartiContract(input.partiContract, input.verifiedCorpusRefs);
+  if (partiValidation.status !== "PASS") {
+    throw new Error(`PARTI_CONTRACT_INVALID: ${partiValidation.violations.join(";")}`);
+  }
+
   const representation = selectGeometry(input.cycle, input.partiContract);
   const hasCirculation = representation.elements.some(
     (element) => element.element_type === "CirculationElement"
   );
 
   const unresolvedUnknowns = collectUnknowns(input);
-  const proposedElements = buildElements(representation, unresolvedUnknowns);
+  const proposedElements = buildElements(representation, input.partiContract, unresolvedUnknowns);
 
   // D6.3 does not expose referential architectural relations.
   const proposedRelations: DeveloperProposal["proposedRelations"] = [];

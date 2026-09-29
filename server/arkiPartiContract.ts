@@ -1,5 +1,7 @@
 import { executeD63G, type D63Input, type D63Result } from "./arkiD63GeometricBridge";
 import { emptySnapshot } from "./siclCore";
+import type { VerticalDecision } from "../shared/arkiVerticalDecision";
+import type { VerticalSystem } from "../shared/arkiVerticalSystem";
 
 export type PartiStatus = "AI_PROPOSED" | "HUMAN_ACCEPTED" | "HUMAN_REJECTED" | "MUTATED" | "SUPERSEDED";
 export type PartiEvaluation = "PASS" | "FAIL" | "UNKNOWN" | "NOT_EVALUATED";
@@ -24,6 +26,8 @@ export type PartiContract = {
   provenance: string[];
   topologyId: string;
   geometryIds: string[];
+  verticalDecisions: VerticalDecision[];
+  verticalSystem: VerticalSystem;
   humanAuthority: { required: true; decision: "PENDING" | "ACCEPTED" | "REJECTED"; reviewer?: string };
 };
 
@@ -70,7 +74,7 @@ export type PartiProof = {
 
 const requiredText: Array<keyof PartiContract> = ["partiId", "projectId", "version", "intention", "scale", "typology", "topologyId"];
 
-export function validatePartiContract(parti: PartiContract): PartiValidation {
+export function validatePartiContract(parti: PartiContract, verifiedCorpusRefs?: ReadonlySet<string>): PartiValidation {
   const missingFields = requiredText.filter((field) => !String(parti[field] ?? "").trim());
   const violations: string[] = [];
   if (!parti.originConditions.length) violations.push("ORIGIN_CONDITIONS_REQUIRED");
@@ -83,18 +87,79 @@ export function validatePartiContract(parti: PartiContract): PartiValidation {
   if (!parti.provenance.length) violations.push("PROVENANCE_REQUIRED");
   if (!parti.geometryIds.length) violations.push("GEOMETRY_LINEAGE_REQUIRED");
   if (parti.humanAuthority.required !== true) violations.push("HUMAN_AUTHORITY_BOUNDARY_REQUIRED");
-  const preservedDistinctions = [
-    "PARTI != FORM",
-    "PARTI != ORGANIZATION",
-    "PARTI != TOPOLOGY",
-    "PARTI != GEOMETRY",
-    "AI_PROPOSED != HUMAN_DECIDED",
-    "UNKNOWN != FAILURE",
-  ];
+
+  const decisions = new Map(parti.verticalDecisions.map((d) => [d.decisionId, d]));
+  for (const d of parti.verticalDecisions) {
+    if (!d.decisionId.trim()) violations.push("VERTICAL_DECISION_ID_REQUIRED");
+    if (d.status === "RESOLVED") {
+      if (d.selectedDimension_mm === null) violations.push("VERTICAL_RESOLVED_VALUE_REQUIRED");
+      if (!d.evidence.length) violations.push("VERTICAL_RESOLVED_EVIDENCE_REQUIRED");
+      if (d.decisionAuthority === "UNRESOLVED") violations.push("VERTICAL_RESOLVED_AUTHORITY_REQUIRED");
+      if (!d.reasoning.trim()) violations.push("VERTICAL_RESOLVED_REASONING_REQUIRED");
+    }
+    if (d.status === "UNKNOWN" && (d.selectedDimension_mm !== null || !d.unknowns.length)) violations.push("VERTICAL_UNKNOWN_CONTRACT_INVALID");
+    if (d.status === "CONFLICTING" && (d.selectedDimension_mm !== null || !d.conflicts.length)) violations.push("VERTICAL_CONFLICTING_CONTRACT_INVALID");
+    if (d.status === "RESOLVED" && d.dimensionKind !== "ELEVATION" && (d.selectedDimension_mm ?? 0) <= 0) violations.push("VERTICAL_POSITIVE_DIMENSION_REQUIRED");
+    if (d.decisionAuthority === "HUMAN_AUTHORITY" && !d.humanAuthorityRef?.trim()) violations.push("VERTICAL_HUMAN_AUTHORITY_REF_REQUIRED");
+    if (d.decisionAuthority === "ARCHITECTURAL_DECISION" && d.humanAuthorityRequired !== true) violations.push("VERTICAL_ARCHITECTURAL_DECISION_REQUIRES_HUMAN_AUTHORITY");
+    if (d.evidence.some((e) => e.kind === "SIMULATION") && !["HYPOTHESIS", "ASSUMPTION"].includes(d.epistemicStatus)) violations.push("VERTICAL_SIMULATION_NOT_FACT");
+    if (d.regulatoryConstraints.some((r) => r.height_mm <= 0 || !r.evidenceRef.trim())) violations.push("VERTICAL_REGULATORY_CONSTRAINT_INVALID");
+    if (d.status === "RESOLVED" && d.regulatoryConstraints.some((r) => r.applicability === "REQUIRES_DETERMINATION")) violations.push("VERTICAL_APPLICABILITY_UNRESOLVED");
+    if (d.status === "RESOLVED" && d.selectedDimension_mm !== null) {
+      const applicable = d.regulatoryConstraints.filter((r) => r.applicability === "APPLICABLE");
+      if (applicable.some((r) => r.kind === "MIN" && d.selectedDimension_mm! < r.height_mm) ||
+          applicable.some((r) => r.kind === "MAX" && d.selectedDimension_mm! > r.height_mm)) violations.push("VERTICAL_REGULATORY_RANGE_CONFLICT");
+    }
+    if (d.designReferences.some((r) => !r.evidenceRef.trim())) violations.push("VERTICAL_DESIGN_REFERENCE_EVIDENCE_REQUIRED");
+    if (d.designReferences.some((r) => ["NEUFERT", "PLAZOLA"].includes(r.kind) && !r.corpusLocator?.corpusRef.trim())) violations.push("VERTICAL_CORPUS_LOCATOR_REQUIRED");
+    if (d.designReferences.some((r) => ["NEUFERT", "PLAZOLA"].includes(r.kind) && r.corpusLocator?.corpusRef.trim() && (!verifiedCorpusRefs || !verifiedCorpusRefs.has(r.corpusLocator.corpusRef)))) violations.push("VERTICAL_CORPUS_REF_UNVERIFIED");
+    if (d.designDrivers.some((driver) => driver.influence === "CONDITIONAL" && !driver.condition?.trim())) violations.push("VERTICAL_CONDITIONAL_DRIVER_CONDITION_REQUIRED");
+    if (d.status === "RESOLVED" && d.designDrivers.some((driver) => driver.influence === "UNKNOWN") && !d.unknowns.length) violations.push("VERTICAL_UNKNOWN_DRIVER_MUST_BE_DOCUMENTED");
+    if (d.target.kind === "ELEMENT" && !d.target.elementProvisionalId.trim()) violations.push("VERTICAL_ELEMENT_TARGET_REQUIRED");
+    if (d.target.kind === "GROUP" && !d.target.members.length) violations.push("VERTICAL_GROUP_MEMBERS_REQUIRED");
+    if (d.target.kind === "LEVEL" && !d.target.levelId.trim()) violations.push("VERTICAL_LEVEL_TARGET_REQUIRED");
+    if (d.target.kind === "SPECIAL_VOLUME" && (!d.target.volumeId.trim() || !d.target.members.length)) violations.push("VERTICAL_SPECIAL_VOLUME_TARGET_INVALID");
+    if (d.dimensionKind === "FLOOR_TO_FLOOR" && !["LEVEL", "WHOLE_PARTI"].includes(d.target.kind)) violations.push("VERTICAL_FLOOR_TO_FLOOR_TARGET_INVALID");
+    if (d.dimensionKind === "CLEAR_HEIGHT" && !["ELEMENT", "GROUP", "LEVEL"].includes(d.target.kind)) violations.push("VERTICAL_CLEAR_HEIGHT_TARGET_INVALID");
+    if (d.dimensionKind === "ELEVATION" && d.target.kind !== "LEVEL") violations.push("VERTICAL_ELEVATION_TARGET_INVALID");
+    if (d.dimensionKind === "SPECIAL_VERTICAL" && d.target.kind !== "SPECIAL_VOLUME") violations.push("VERTICAL_SPECIAL_DIMENSION_TARGET_INVALID");
+    if (d.verticalException && (!d.verticalException.reasoning.trim() || !d.verticalException.evidenceRefs.length)) violations.push("VERTICAL_EXCEPTION_EVIDENCE_REQUIRED");
+  }
+
+  const levels = parti.verticalSystem.levels ?? [];
+  const volumes = parti.verticalSystem.specialVolumes ?? [];
+  if (parti.verticalSystem.kind === "LEVEL_BASED" && !levels.length) violations.push("VERTICAL_LEVEL_BASED_LEVEL_REQUIRED");
+  if (parti.verticalSystem.kind === "SPECIAL_VOLUME" && !volumes.length) violations.push("VERTICAL_SPECIAL_VOLUME_REQUIRED");
+  if (parti.verticalSystem.kind === "HYBRID" && (!levels.length || !volumes.length)) violations.push("VERTICAL_HYBRID_COMPONENTS_REQUIRED");
+  for (const level of levels) {
+    const elevation = decisions.get(level.elevationDecisionId);
+    if (!elevation || elevation.target.kind !== "LEVEL" || elevation.target.levelId !== level.levelId || elevation.dimensionKind !== "ELEVATION") violations.push("VERTICAL_ELEVATION_DECISION_REF_INVALID");
+    if (level.floorToFloorDecisionId) {
+      const ftf = decisions.get(level.floorToFloorDecisionId);
+      if (!ftf || ftf.target.kind !== "LEVEL" || ftf.target.levelId !== level.levelId || ftf.dimensionKind !== "FLOOR_TO_FLOOR") violations.push("VERTICAL_FLOOR_TO_FLOOR_DECISION_REF_INVALID");
+    }
+    if (level.clearHeightDecisionId) {
+      const clear = decisions.get(level.clearHeightDecisionId);
+      if (!clear || clear.target.kind !== "LEVEL" || clear.target.levelId !== level.levelId || clear.dimensionKind !== "CLEAR_HEIGHT") violations.push("VERTICAL_CLEAR_HEIGHT_DECISION_REF_INVALID");
+    }
+  }
+  for (const volume of volumes) {
+    if (volume.volumeDecisionId) {
+      const vd = decisions.get(volume.volumeDecisionId);
+      if (!vd || vd.target.kind !== "SPECIAL_VOLUME" || vd.target.volumeId !== volume.volumeId || vd.dimensionKind !== "SPECIAL_VERTICAL") violations.push("VERTICAL_SPECIAL_VOLUME_DECISION_REF_INVALID");
+    }
+  }
+
+  const resolved = parti.verticalDecisions.filter((d) => d.status === "RESOLVED" && d.selectedDimension_mm !== null);
+  for (let i = 0; i < resolved.length; i++) for (let j = i + 1; j < resolved.length; j++) {
+    const a = resolved[i], b = resolved[j];
+    if (JSON.stringify(a.target) === JSON.stringify(b.target) && a.dimensionKind === b.dimensionKind && a.selectedDimension_mm !== b.selectedDimension_mm) violations.push("VERTICAL_SAME_SPECIFICITY_CONFLICT");
+  }
+
+  const preservedDistinctions = ["PARTI != FORM","PARTI != ORGANIZATION","PARTI != TOPOLOGY","PARTI != GEOMETRY","AI_PROPOSED != HUMAN_DECIDED","UNKNOWN != FAILURE","FLOOR_TO_FLOOR != CLEAR_HEIGHT","ELEVATION != HEIGHT"];
   const status: PartiEvaluation = missingFields.length || violations.length ? "FAIL" : "PASS";
   return { status, missingFields, violations, preservedDistinctions, whyTrace: parti.provenance.map((item) => `${parti.partiId} <- ${item}`) };
 }
-
 function baseInput(executionId: string, typology: string, envelope: { width: number; height: number }, separationCondition: string): D63Input {
   return {
     executionId, projectId: "PARTI-PROOF-PROJECT", brief: `A ${typology} requires legible public orientation, controlled service access and a shared spatial anchor.`, typology,
@@ -105,7 +170,16 @@ function baseInput(executionId: string, typology: string, envelope: { width: num
 }
 
 function parti(id: string, typology: string, intention: string, rules: string[], topologyId: string, geometryIds: string[], provenance: string[], status: PartiStatus = "AI_PROPOSED"): PartiContract {
-  return { partiId: id, projectId: "PARTI-PROOF-PROJECT", version: "1.0", status, intention, originConditions: ["Public and staff activities overlap in time.", "The envelope is explicit but operational capacity is not verified."], organizingRules: rules, functionalRelationships: ["Public orientation relates to controlled staff intake through an explicit interface."], hierarchies: ["Public entry is primary; service access is controlled; shared anchor is secondary."], circulation: ["Public and service flows remain legible and are not silently merged."], scale: "BUILDING / CONCEPTUAL", typology, limits: ["Conceptual geometry only.", "Regulatory, structural and construction validity are not demonstrated."], unknowns: ["Exact capacity, code compliance and professional approval remain unresolved."], provenance, topologyId, geometryIds, humanAuthority: { required: true, decision: "PENDING" } };
+  const elevationId = `${id}-LEVEL-01-ELEVATION`;
+  const verticalDecisions: VerticalDecision[] = [{
+    decisionId: elevationId, target: { kind: "LEVEL", levelId: `${id}-LEVEL-01` }, dimensionKind: "ELEVATION",
+    selectedDimension_mm: null, regulatoryConstraints: [], designReferences: [], designDrivers: [],
+    reasoning: "", status: "UNKNOWN", epistemicStatus: "UNKNOWN", decisionAuthority: "UNRESOLVED",
+    evidence: [], provenance: [...provenance, "VERTICAL_DIMENSION_AUTHORITY"], unknowns: ["Level elevation has not been architecturally decided."],
+    conflicts: [], humanAuthorityRequired: true,
+  }];
+  const verticalSystem: VerticalSystem = { systemId: `${id}-VERTICAL`, kind: "LEVEL_BASED", levels: [{ levelId: `${id}-LEVEL-01`, name: "Level 01", members: [], elevationDecisionId: elevationId }], provenance: [...provenance, "VERTICAL_DIMENSION_AUTHORITY"] };
+  return { partiId: id, projectId: "PARTI-PROOF-PROJECT", version: "1.0", status, intention, originConditions: ["Public and staff activities overlap in time.", "The envelope is explicit but operational capacity is not verified."], organizingRules: rules, functionalRelationships: ["Public orientation relates to controlled staff intake through an explicit interface."], hierarchies: ["Public entry is primary; service access is controlled; shared anchor is secondary."], circulation: ["Public and service flows remain legible and are not silently merged."], scale: "BUILDING / CONCEPTUAL", typology, limits: ["Conceptual geometry only.", "Regulatory, structural and construction validity are not demonstrated."], unknowns: ["Exact capacity, code compliance and professional approval remain unresolved."], provenance, topologyId, geometryIds, verticalDecisions, verticalSystem, humanAuthority: { required: true, decision: "PENDING" } };
 }
 
 export function buildPartiProof(): PartiProof {

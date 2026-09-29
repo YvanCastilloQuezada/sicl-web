@@ -117,14 +117,64 @@ function acceptedFixture(): DeveloperInput {
   return { ...input, cycle, partiContract: acceptedParti };
 }
 
+function verticallyAuthorizedFixture(height = 2800, elevation = 0): DeveloperInput {
+  const input = fixture();
+  const representation = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id)
+    ? input.cycle.geometry.candidateA
+    : input.cycle.geometry.candidateB;
+  const spaceIds = representation.elements.filter((e) => e.element_type === "SpatialZone").map((e) => `d63-${e.id}`);
+  const levelId = "LEVEL-01";
+  const elevationId = "VD-ELEVATION-01";
+  const clearId = "VD-CLEAR-01";
+  const verticalDecisions = [
+    {
+      decisionId: elevationId, target: { kind: "LEVEL" as const, levelId }, dimensionKind: "ELEVATION" as const,
+      selectedDimension_mm: elevation, regulatoryConstraints: [], designReferences: [], designDrivers: [],
+      reasoning: "Architect establishes the project level datum.", status: "RESOLVED" as const, epistemicStatus: "HYPOTHESIS" as const,
+      decisionAuthority: "ARCHITECTURAL_DECISION" as const, evidence: [{ kind: "ARCHITECT_DECISION" as const, ref: "ARCH-ELEV-01" }],
+      provenance: ["PARTI:vertical"], unknowns: [], conflicts: [], humanAuthorityRequired: true,
+    },
+    {
+      decisionId: clearId, target: { kind: "LEVEL" as const, levelId }, dimensionKind: "CLEAR_HEIGHT" as const,
+      selectedDimension_mm: height, regulatoryConstraints: [], designReferences: [], designDrivers: [{ kind: "SPACE_USE" as const, description: "occupied spatial zone", influence: "NEUTRAL" as const }],
+      reasoning: "Architect adopts a coherent clear height for this level.", status: "RESOLVED" as const, epistemicStatus: "HYPOTHESIS" as const,
+      decisionAuthority: "ARCHITECTURAL_DECISION" as const, evidence: [{ kind: "ARCHITECT_DECISION" as const, ref: "ARCH-CLEAR-01" }],
+      provenance: ["PARTI:vertical"], unknowns: [], conflicts: [], humanAuthorityRequired: true,
+    },
+  ];
+  const partiContract: PartiContract = {
+    ...input.partiContract,
+    verticalDecisions,
+    verticalSystem: { systemId: "VS-01", kind: "LEVEL_BASED", levels: [{ levelId, name: "Level 01", members: spaceIds, elevationDecisionId: elevationId, clearHeightDecisionId: clearId }], provenance: ["PARTI:vertical"] },
+  };
+  const cycle = { ...input.cycle, parti: { ...input.cycle.parti, partis: input.cycle.parti.partis.map((p) => p.partiId === partiContract.partiId ? partiContract : p) } };
+  return { ...input, cycle, partiContract };
+}
+
 describe("ARKI Architectural Developer proposal-only", () => {
+  it("emits SPACE height_mm only from RESOLVED CLEAR_HEIGHT and z_mm from RESOLVED ELEVATION", () => {
+    const proposal = developProposal(verticallyAuthorizedFixture(2800, -3200)).proposal;
+    expect(proposal.proposedElements.length).toBeGreaterThan(0);
+    expect(proposal.proposedElements.every((el) => el.kind === "SPACE")).toBe(true);
+    expect(proposal.proposedElements.every((el) => el.geometry?.height_mm === 2800 && el.geometry?.z_mm === -3200)).toBe(true);
+    expect(proposal.proposedElements.every((el) => el.provenance.some((p) => p.source === "vertical_dimension_decision"))).toBe(true);
+  });
+
+  it("does not let CLEAR_HEIGHT authorize non-SPACE D6.3 elements", () => {
+    const proposal = developProposal(verticallyAuthorizedFixture()).proposal;
+    expect(proposal.proposedElements.some((el) => el.kind === "SITE")).toBe(false);
+    expect(proposal.unresolvedUnknowns.some((u) => u.reason.includes("Core kind SITE"))).toBe(true);
+  });
+
+
   it("produces a valid pre-D-2 proposal from a selected candidate", () => {
     const result = developProposal(fixture());
     expect(result.validation.valid).toBe(true);
     expect(result.proposal.reviewRequired).toBe(true);
     expect(result.proposal.rejectedBecause).toBeNull();
     expect(result.proposal.mutation).toBeNull();
-    expect(result.proposal.proposedElements.length).toBeGreaterThan(0);
+    expect(result.proposal.proposedElements).toHaveLength(0);
+    expect(result.proposal.unresolvedUnknowns.some((item) => item.reason.includes("LEVEL_MEMBERSHIP_GAP"))).toBe(true);
   });
 
   it("rejects a candidate that was not selected for development", () => {
