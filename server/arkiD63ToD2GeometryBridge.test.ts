@@ -72,6 +72,19 @@ describe("D6.3 to D-2 strict geometry bridge", () => {
       .toEqual({ ok:false, code:"GEOMETRY_MM_PRECISION_NOT_REPRESENTABLE" });
   });
 
+  it("enforces the frozen 1e-9 mm computational precision boundary", () => {
+    const withinMetres = (1e-9 / 1000) * 0.5;
+    const beyondMetres = (1e-9 / 1000) * 2;
+    expect(run({ geometry: polygon([[withinMetres,0],[1,0],[1,1],[withinMetres,1],[withinMetres,0]]) }).ok).toBe(true);
+    expect(run({ geometry: polygon([[beyondMetres,0],[1,0],[1,1],[beyondMetres,1],[beyondMetres,0]]) }))
+      .toEqual({ ok:false, code:"GEOMETRY_MM_PRECISION_NOT_REPRESENTABLE" });
+  });
+
+  it.each([NaN, Infinity, -Infinity])("rejects non-finite planar coordinate %s", (coordinate) => {
+    expect(run({ geometry: polygon([[0,0],[1,0],[1,coordinate],[0,1],[0,0]]) }))
+      .toEqual({ ok:false, code:"GEOMETRY_COORDINATE_NOT_FINITE" });
+  });
+
   it("validates vertical authority as already-mm integers", () => {
     expect(run({ baseElevation_mm: NaN })).toEqual({ ok:false, code:"GEOMETRY_BASE_ELEVATION_NOT_FINITE" });
     expect(run({ baseElevation_mm: 1.5 })).toEqual({ ok:false, code:"GEOMETRY_BASE_ELEVATION_NOT_INTEGER" });
