@@ -12,10 +12,10 @@ describe("ARKI-INTEGRATED-ARCHITECT-1.0", () => {
 
   it("runs the complete bounded cycle for a residential project", () => {
     const cycle = executeIntegratedArchitectCycle(base("RES-HOU-200-001", "RESIDENTIAL", "A two-storey home with private, social and service zoning."));
-    expect(cycle.status).toBe("CONCEPTUAL_CYCLE_PASS");
+    expect(cycle.status).toBe("PARTIAL");
     expect(cycle.stages.map((item) => item.stage)).toEqual(expect.arrayContaining(["PROJECT_CONDITIONS", "KNOWLEDGE_RETRIEVAL", "REASONING_AND_TRANSFER", "PARTI_HYPOTHESES", "TOPOLOGY", "GEOMETRY_CONCEPTUAL", "FUNCTIONAL_EVALUATION", "HUMAN_REVIEW"]));
     expect(cycle.parti.partis).toHaveLength(3);
-    expect(cycle.geometry.finalStatus).toBe("PASS");
+    expect(cycle.geometry.finalStatus).toBe("PARTIAL");
     expect(cycle.evaluation.functional).toBe("UNKNOWN");
     expect(cycle.evaluation.humanDecision).toBe("PENDING");
   });
@@ -23,7 +23,7 @@ describe("ARKI-INTEGRATED-ARCHITECT-1.0", () => {
   it("runs the same cycle for a 500-person restaurant without falsely claiming compliance", () => {
     const cycle = executeIntegratedArchitectCycle(base("RES-TAU-500-002", "RESTAURANT", "A restaurant for 500 people with independent public, service, supply and waste flows."));
     const summary = summarizeArchitectCapability(cycle);
-    expect(cycle.status).toBe("CONCEPTUAL_CYCLE_PASS");
+    expect(cycle.status).toBe("PARTIAL");
     expect(summary.canProposePartis).toBe(true);
     expect(summary.canRejectAdversarialParti).toBe(true);
     expect(summary.canBacktrack).toBe(true);

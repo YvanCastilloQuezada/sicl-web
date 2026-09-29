@@ -11,7 +11,7 @@ describe("ARKI-UNIFIED-MOTOR-1.0", () => {
   it("routes active, frozen, blocked and not-demonstrated pieces through one trace", () => {
     const result = executeArkiUnifiedMotor(input);
     expect(result.motorVersion).toBe("ARKI-UNIFIED-MOTOR-1.0");
-    expect(result.status).toBe("PASS_WITH_BOUNDS");
+    expect(result.status).toBe("PARTIAL");
     expect(result.triad.oneMotor).toBe(true);
     expect(result.triad.components.map((component) => component.id)).toEqual(["ARKI_SUPER_ARCHITECT", "ARKI_GRAPHIC_INTELLIGENCE", "ARKI_ETI_BIM"]);
     expect(result.triad.canonicalIdentity).toBe("ONE_PROJECT_STATE");

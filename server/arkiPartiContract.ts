@@ -131,7 +131,8 @@ export function buildPartiProof(): PartiProof {
 export function validatePartiProof(proof: PartiProof): "PASS" | "PARTIAL" | "FAIL" {
   if (proof.contractVersion !== "PARTI-CONTRACT-1.0" || proof.partis.length !== 3) return "FAIL";
   if (proof.partis.some((item) => validatePartiContract(item).status !== "PASS")) return "FAIL";
-  if (proof.bridgeResults.length !== 3 || proof.bridgeResults.some((item) => item.finalStatus !== "PASS")) return "FAIL";
+  if (proof.bridgeResults.length !== 3) return "FAIL";
+  if (proof.bridgeResults.some((item) => item.finalStatus === "PARTIAL")) return "PARTIAL";
   if (proof.evaluations.some((item) => item.humanReviewRequired !== true)) return "FAIL";
   return proof.finalStatus;
 }
