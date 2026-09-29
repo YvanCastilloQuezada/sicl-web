@@ -32,3 +32,25 @@ export type VerticalSystem = {
   specialVolumes?: VerticalSpecialVolume[];
   provenance: string[];
 };
+
+
+export type BaseElevationProvenance = {
+  kind: "LEVEL_INHERITANCE_DECLARED";
+  volumeId: string;
+  levelId: string;
+  levelDecisionId: string;
+  declarationId: string;
+};
+
+export type VerticalExtentProvenance = {
+  kind: "SPECIAL_VERTICAL";
+  volumeId: string;
+  decisionId: string;
+};
+
+export type ResolvedVerticalGeometry = {
+  baseElevation_mm: number;
+  verticalExtent_mm: number;
+  baseElevationProvenance: BaseElevationProvenance;
+  verticalExtentProvenance: VerticalExtentProvenance;
+};
