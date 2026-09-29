@@ -34,7 +34,13 @@ export type CanonicalHistory = { contract_version: string; project_id: string; o
 type V1Envelope = { contract_version: string; status: string; code: string; message: string; project_id?: string | null; observed_version?: number | null; data?: Record<string, unknown> };
 
 export class SiclCoreHttpError extends Error {
-  constructor(public readonly status: number, public readonly errorCode?: string, detail?: string, public readonly envelope: Record<string, unknown> = {}) {
+  constructor(
+    public readonly status: number,
+    public readonly errorCode?: string,
+    detail?: string,
+    public readonly envelope: Record<string, unknown> = {},
+    public readonly retryAfter: number | null = null,
+  ) {
     super(detail ? `SICL Core adapter returned ${status}: ${detail}` : `SICL Core adapter returned ${status}`);
     this.name = "SiclCoreHttpError";
   }
@@ -86,18 +92,31 @@ function unwrap<T>(body: T): T {
   return { ...envelope, ...envelope.data } as T;
 }
 
+function parseRetryAfter(value: string | null): number | null {
+  if (value === null || !/^[1-9]\\d*$/.test(value.trim())) return null;
+  const seconds = Number(value.trim());
+  return Number.isSafeInteger(seconds) ? seconds : null;
+}
+
 async function errorFromResponse(response: Response): Promise<SiclCoreHttpError> {
   let errorCode: string | undefined;
   let detail: string | undefined;
   let envelope: Record<string, unknown> = {};
   try {
     envelope = await response.json() as Record<string, unknown>;
-    if (typeof envelope.error === "string") errorCode = envelope.error;
-    if (typeof envelope.code === "string") errorCode = envelope.code;
-    if (typeof envelope.detail === "string") detail = envelope.detail;
+    const nested = envelope.detail;
+    if (nested && typeof nested === "object") {
+      const body = nested as Record<string, unknown>;
+      if (typeof body.code === "string") errorCode = body.code;
+      if (typeof body.message === "string") detail = body.message;
+    } else if (typeof nested === "string") {
+      detail = nested;
+    }
+    if (!errorCode && typeof envelope.error === "string") errorCode = envelope.error;
+    if (!errorCode && typeof envelope.code === "string") errorCode = envelope.code;
     if (!detail && typeof envelope.message === "string") detail = envelope.message;
-  } catch { /* Preserve status when body is empty. */ }
-  return new SiclCoreHttpError(response.status, errorCode, detail, envelope);
+  } catch { /* Preserve status when body is empty or malformed. */ }
+  return new SiclCoreHttpError(response.status, errorCode, detail, envelope, parseRetryAfter(response.headers.get("retry-after")));
 }
 
 async function coreRequest<T>(path: string, init: RequestInit): Promise<T> {
