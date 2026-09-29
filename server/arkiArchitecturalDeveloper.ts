@@ -13,6 +13,7 @@ import { fingerprint } from "./arkiFingerprint";
 import type { IntegratedArchitectCycle } from "./arkiIntegratedArchitectCycle";
 import { validatePartiContract, type PartiContract } from "./arkiPartiContract";
 import type { CanonicalSpatialElement, CanonicalSpatialRepresentation } from "./arkiD63GeometricBridge";
+import { resolveSpecialVolumeGeometry } from "./arkiVerticalSpecialVolumeGeometryResolver";
 
 /**
  * ARKI Architectural Developer (proposal-only).
@@ -92,8 +93,6 @@ function buildElements(
       continue;
     }
 
-    // This microblock authorizes CLEAR_HEIGHT only for SPACE. Other Core kinds
-    // require their own vertical semantics and remain fail-closed.
     if (kind !== "SPACE") {
       unknowns.push({ field: `${pid}.height_mm`, reason: `Vertical authority for Core kind ${kind} is not defined in this microblock`, requiredEvidence: "Element-kind-specific vertical decision contract" });
       continue;
@@ -106,69 +105,89 @@ function buildElements(
       continue;
     }
 
-    let heightDecision = undefined as PartiContract["verticalDecisions"][number] | undefined;
-    let elevationDecision = undefined as PartiContract["verticalDecisions"][number] | undefined;
-
     if (memberVolumes.length === 1) {
-      const volume = memberVolumes[0];
-      heightDecision = volume.volumeDecisionId ? decisions.get(volume.volumeDecisionId) : undefined;
-      if (!heightDecision || heightDecision.dimensionKind !== "SPECIAL_VERTICAL" || heightDecision.status !== "RESOLVED") {
-        unknowns.push({ field: `${pid}.height_mm`, reason: "SPECIAL_VERTICAL decision is missing or unresolved", requiredEvidence: "RESOLVED SPECIAL_VERTICAL decision for the containing special volume" });
+      const resolution = resolveSpecialVolumeGeometry(memberVolumes[0], levels, decisions);
+      if (!resolution.ok) {
+        unknowns.push({
+          field: `${pid}.vertical_geometry`,
+          reason: `SPECIAL_VOLUME_GEOMETRY_RESOLUTION_FAILED:${resolution.code}`,
+          requiredEvidence: "Resolve the referenced vertical-system authority before Developer materialization",
+        });
         continue;
       }
-    } else {
-      if (memberLevels.length !== 1) {
-        unknowns.push({ field: `${pid}.height_mm`, reason: "LEVEL_MEMBERSHIP_GAP: SPACE belongs to no VerticalLevel", requiredEvidence: "Exactly one VerticalLevel membership and RESOLVED CLEAR_HEIGHT" });
-        continue;
-      }
-      const level = memberLevels[0];
-      elevationDecision = decisions.get(level.elevationDecisionId);
-      const base = level.clearHeightDecisionId ? decisions.get(level.clearHeightDecisionId) : undefined;
-      const elementOverrides = parti.verticalDecisions.filter((d) => d.dimensionKind === "CLEAR_HEIGHT" && d.status === "RESOLVED" && (
-        (d.target.kind === "ELEMENT" && d.target.elementProvisionalId === pid) ||
-        (d.target.kind === "GROUP" && d.target.members.includes(pid))
-      ));
-      const values = new Set(elementOverrides.map((d) => d.selectedDimension_mm));
-      if (values.size > 1) {
-        unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: equally applicable vertical overrides have incompatible values", requiredEvidence: "Resolve vertical decision conflict in Parti" });
-        continue;
-      }
-      if (elementOverrides.length) {
-        const override = elementOverrides[0];
-        if (!override.verticalException) {
-          unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: element/group height cannot override LEVEL without a justified verticalException", requiredEvidence: "Typed verticalException with reasoning and evidence" });
-          continue;
-        }
-        heightDecision = override;
-      } else {
-        heightDecision = base;
-      }
-      if (!heightDecision || heightDecision.dimensionKind !== "CLEAR_HEIGHT" || heightDecision.status !== "RESOLVED") {
-        unknowns.push({ field: `${pid}.height_mm`, reason: "CLEAR_HEIGHT decision is missing or unresolved", requiredEvidence: "RESOLVED CLEAR_HEIGHT decision for the containing level" });
-        continue;
-      }
-      if (!elevationDecision || elevationDecision.dimensionKind !== "ELEVATION" || elevationDecision.status !== "RESOLVED") {
-        unknowns.push({ field: `${pid}.z_mm`, reason: "ELEVATION decision is missing or unresolved", requiredEvidence: "RESOLVED ELEVATION decision for the containing level" });
-        continue;
-      }
+
+      const vertical = resolution.value;
+      result.push({
+        provisionalId: pid,
+        kind,
+        geometry: {
+          ...(element.geometry as unknown as Record<string, unknown>),
+          height_mm: vertical.verticalExtent_mm,
+          z_mm: vertical.baseElevation_mm,
+        },
+        properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
+        provenance: [
+          ...provenanceFromElement(element),
+          { source: "vertical_dimension_decision", ref: vertical.verticalExtentProvenance.decisionId },
+          { source: "vertical_elevation_decision", ref: vertical.baseElevationProvenance.levelDecisionId },
+          { source: "vertical_base_declaration", ref: vertical.baseElevationProvenance.declarationId },
+        ],
+        epistemicStatus: decisions.get(vertical.verticalExtentProvenance.decisionId)!.epistemicStatus,
+      });
+      continue;
+    }
+
+    if (memberLevels.length !== 1) {
+      unknowns.push({ field: `${pid}.height_mm`, reason: "LEVEL_MEMBERSHIP_GAP: SPACE belongs to no VerticalLevel", requiredEvidence: "Exactly one VerticalLevel membership and RESOLVED CLEAR_HEIGHT" });
+      continue;
+    }
+
+    const level = memberLevels[0];
+    const elevationDecision = decisions.get(level.elevationDecisionId);
+    const base = level.clearHeightDecisionId ? decisions.get(level.clearHeightDecisionId) : undefined;
+    const elementOverrides = parti.verticalDecisions.filter((d) => d.dimensionKind === "CLEAR_HEIGHT" && d.status === "RESOLVED" && (
+      (d.target.kind === "ELEMENT" && d.target.elementProvisionalId === pid) ||
+      (d.target.kind === "GROUP" && d.target.members.includes(pid))
+    ));
+    const values = new Set(elementOverrides.map((d) => d.selectedDimension_mm));
+    if (values.size > 1) {
+      unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: equally applicable vertical overrides have incompatible values", requiredEvidence: "Resolve vertical decision conflict in Parti" });
+      continue;
+    }
+
+    const heightDecision = elementOverrides.length ? elementOverrides[0] : base;
+    if (elementOverrides.length && !heightDecision?.verticalException) {
+      unknowns.push({ field: `${pid}.height_mm`, reason: "CONFLICTING: element/group height cannot override LEVEL without a justified verticalException", requiredEvidence: "Typed verticalException with reasoning and evidence" });
+      continue;
+    }
+    if (!heightDecision || heightDecision.dimensionKind !== "CLEAR_HEIGHT" || heightDecision.status !== "RESOLVED") {
+      unknowns.push({ field: `${pid}.height_mm`, reason: "CLEAR_HEIGHT decision is missing or unresolved", requiredEvidence: "RESOLVED CLEAR_HEIGHT decision for the containing level" });
+      continue;
+    }
+    if (!elevationDecision || elevationDecision.dimensionKind !== "ELEVATION" || elevationDecision.status !== "RESOLVED") {
+      unknowns.push({ field: `${pid}.z_mm`, reason: "ELEVATION decision is missing or unresolved", requiredEvidence: "RESOLVED ELEVATION decision for the containing level" });
+      continue;
     }
 
     const height = heightDecision.selectedDimension_mm;
-    const z = elevationDecision?.selectedDimension_mm ?? 0;
     if (height === null || height <= 0) {
       unknowns.push({ field: `${pid}.height_mm`, reason: "Resolved vertical decision has no positive height", requiredEvidence: "Positive resolved vertical dimension" });
+      continue;
+    }
+    if (elevationDecision.selectedDimension_mm === null) {
+      unknowns.push({ field: `${pid}.z_mm`, reason: "Resolved ELEVATION decision has no value", requiredEvidence: "Resolved ELEVATION value for the containing level" });
       continue;
     }
 
     result.push({
       provisionalId: pid,
       kind,
-      geometry: { ...(element.geometry as unknown as Record<string, unknown>), height_mm: height, z_mm: z },
+      geometry: { ...(element.geometry as unknown as Record<string, unknown>), height_mm: height, z_mm: elevationDecision.selectedDimension_mm },
       properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
       provenance: [
         ...provenanceFromElement(element),
         { source: "vertical_dimension_decision", ref: heightDecision.decisionId },
-        ...(elevationDecision ? [{ source: "vertical_elevation_decision", ref: elevationDecision.decisionId }] : []),
+        { source: "vertical_elevation_decision", ref: elevationDecision.decisionId },
       ],
       epistemicStatus: heightDecision.epistemicStatus,
     });
