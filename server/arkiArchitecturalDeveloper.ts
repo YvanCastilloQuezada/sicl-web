@@ -252,7 +252,7 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
   // Creating element-level derivations here would invent lineage.
   const proposedDerivations: DeveloperProposal["proposedDerivations"] = [];
 
-  const sourceExecutionId = input.cycle.reasoning.reasoningExecutionId;
+  const sourceExecutionId = `${input.cycle.project.projectId}-cycle`;
   const sourceD63 = representation.id;
   const epistemicStatus =
     input.partiContract.humanAuthority.decision === "ACCEPTED"
