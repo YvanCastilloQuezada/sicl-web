@@ -138,6 +138,24 @@ describe("[6] Developer promotion Core client", () => {
     expect(JSON.parse(String((fetchSpy.mock.calls[0][1] as RequestInit).body))).toEqual(requestBody);
   });
 
+  it("aborts a promotion transport that exceeds the Core timeout", async () => {
+    vi.useFakeTimers();
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockImplementation((_url: string, init: RequestInit) =>
+      new Promise((_resolve, reject) => {
+        init.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")));
+      })
+    ));
+    const { promoteDeveloperProposal } = await import("./coreHttpClient");
+    const pending = promoteDeveloperProposal("P-1", {
+      proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1",
+    });
+    await vi.advanceTimersByTimeAsync(15_000);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    vi.useRealTimers();
+  });
+
   it("reads the exact version-addressed D-2 snapshot", async () => {
     process.env.SICL_CORE_URL = "https://core.example.test";
     process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
