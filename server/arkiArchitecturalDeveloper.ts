@@ -53,6 +53,25 @@ const D63_TO_CORE_KIND: Record<CanonicalSpatialElement["element_type"], string |
   CirculationElement: null,
 };
 
+function readMappedElementType(element: CanonicalSpatialElement):
+  | { ok: true; elementType: CanonicalSpatialElement["element_type"]; kind: string | null }
+  | { ok: false; reason: string } {
+  let observed: unknown;
+  try {
+    observed = (element as unknown as Record<string, unknown>).element_type;
+  } catch {
+    return { ok: false, reason: "UNKNOWN_D63_ELEMENT_TYPE:<unreadable>" };
+  }
+  if (typeof observed !== "string") {
+    return { ok: false, reason: "UNKNOWN_D63_ELEMENT_TYPE:<invalid-runtime-type>" };
+  }
+  if (!Object.prototype.hasOwnProperty.call(D63_TO_CORE_KIND, observed)) {
+    return { ok: false, reason: `UNKNOWN_D63_ELEMENT_TYPE:${observed}` };
+  }
+  const elementType = observed as CanonicalSpatialElement["element_type"];
+  return { ok: true, elementType, kind: D63_TO_CORE_KIND[elementType] };
+}
+
 function selectGeometry(
   cycle: IntegratedArchitectCycle,
   partiContract: PartiContract
@@ -87,11 +106,24 @@ function buildElements(
   const volumes = parti.verticalSystem.specialVolumes ?? [];
 
   for (const element of representation.elements) {
-    const kind = D63_TO_CORE_KIND[element.element_type];
     const pid = proposedId(element);
+    const mapped = readMappedElementType(element);
+    if (!mapped.ok) {
+      unknowns.push({
+        field: `${pid}.kind`,
+        reason: mapped.reason,
+        requiredEvidence: "Recognized D6.3 element_type and explicit D6.3 → Core mapping",
+      });
+      continue;
+    }
+    const { elementType, kind } = mapped;
 
     if (kind === null) {
-      unknowns.push({ field: `${pid}.kind`, reason: `D6.3 element_type=${element.element_type} has no Core ElementKind mapping`, requiredEvidence: "Explicit semantic mapping with sufficient architectural evidence" });
+      unknowns.push({
+        field: `${pid}.kind`,
+        reason: `NO_CORE_ELEMENT_KIND_MAPPING:${elementType}`,
+        requiredEvidence: "Explicit semantic mapping with sufficient architectural evidence",
+      });
       continue;
     }
 
@@ -138,7 +170,7 @@ function buildElements(
         provisionalId: pid,
         kind,
         geometry: bridgedGeometry.value,
-        properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
+        properties: { d63_element_type: elementType },
         provenance: [
           ...provenanceFromElement(element),
           { source: "vertical_dimension_decision", ref: vertical.verticalExtentProvenance.decisionId },
@@ -212,7 +244,7 @@ function buildElements(
       provisionalId: pid,
       kind,
       geometry: bridgedGeometry.value,
-      properties: { d63_element_type: element.element_type, d63_labels: element.labels ?? {} },
+      properties: { d63_element_type: elementType },
       provenance: [
         ...provenanceFromElement(element),
         { source: "vertical_dimension_decision", ref: heightDecision.decisionId },
@@ -361,12 +393,11 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
   }
 
   const representation = selectGeometry(input.cycle, input.partiContract);
-  const hasCirculation = representation.elements.some(
-    (element) => element.element_type === "CirculationElement"
-  );
-
   const unresolvedUnknowns = collectUnknowns(input);
   const proposedElements = buildElements(representation, input.partiContract, unresolvedUnknowns);
+  const hasCirculation = unresolvedUnknowns.some(
+    (item) => item.reason === "NO_CORE_ELEMENT_KIND_MAPPING:CirculationElement"
+  );
 
   // D6.3 does not expose referential architectural relations.
   const proposedRelations: DeveloperProposal["proposedRelations"] = [];
