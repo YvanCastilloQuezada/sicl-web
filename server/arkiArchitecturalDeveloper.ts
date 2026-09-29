@@ -82,6 +82,7 @@ function buildElements(
   const result: ProposedArchiElementDTO[] = [];
   const decisions = new Map(parti.verticalDecisions.map((d) => [d.decisionId, d]));
   const levels = parti.verticalSystem.levels ?? [];
+  const levelsById = new Map(levels.map((level) => [level.levelId, level]));
   const volumes = parti.verticalSystem.specialVolumes ?? [];
 
   for (const element of representation.elements) {
@@ -106,7 +107,7 @@ function buildElements(
     }
 
     if (memberVolumes.length === 1) {
-      const resolution = resolveSpecialVolumeGeometry(memberVolumes[0], levels, decisions);
+      const resolution = resolveSpecialVolumeGeometry(memberVolumes[0], levelsById, decisions);
       if (!resolution.ok) {
         unknowns.push({
           field: `${pid}.vertical_geometry`,
