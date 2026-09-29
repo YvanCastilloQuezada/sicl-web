@@ -74,7 +74,7 @@ export type PartiProof = {
 
 const requiredText: Array<keyof PartiContract> = ["partiId", "projectId", "version", "intention", "scale", "typology", "topologyId"];
 
-export function validatePartiContract(parti: PartiContract): PartiValidation {
+export function validatePartiContract(parti: PartiContract, verifiedCorpusRefs?: ReadonlySet<string>): PartiValidation {
   const missingFields = requiredText.filter((field) => !String(parti[field] ?? "").trim());
   const violations: string[] = [];
   if (!parti.originConditions.length) violations.push("ORIGIN_CONDITIONS_REQUIRED");
@@ -112,6 +112,7 @@ export function validatePartiContract(parti: PartiContract): PartiValidation {
     }
     if (d.designReferences.some((r) => !r.evidenceRef.trim())) violations.push("VERTICAL_DESIGN_REFERENCE_EVIDENCE_REQUIRED");
     if (d.designReferences.some((r) => ["NEUFERT", "PLAZOLA"].includes(r.kind) && !r.corpusLocator?.corpusRef.trim())) violations.push("VERTICAL_CORPUS_LOCATOR_REQUIRED");
+    if (d.designReferences.some((r) => ["NEUFERT", "PLAZOLA"].includes(r.kind) && r.corpusLocator?.corpusRef.trim() && (!verifiedCorpusRefs || !verifiedCorpusRefs.has(r.corpusLocator.corpusRef)))) violations.push("VERTICAL_CORPUS_REF_UNVERIFIED");
     if (d.designDrivers.some((driver) => driver.influence === "CONDITIONAL" && !driver.condition?.trim())) violations.push("VERTICAL_CONDITIONAL_DRIVER_CONDITION_REQUIRED");
     if (d.status === "RESOLVED" && d.designDrivers.some((driver) => driver.influence === "UNKNOWN") && !d.unknowns.length) violations.push("VERTICAL_UNKNOWN_DRIVER_MUST_BE_DOCUMENTED");
     if (d.target.kind === "ELEMENT" && !d.target.elementProvisionalId.trim()) violations.push("VERTICAL_ELEMENT_TARGET_REQUIRED");
