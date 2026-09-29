@@ -148,6 +148,41 @@ export function validatePartiContract(parti: PartiContract, verifiedCorpusRefs?:
       const vd = decisions.get(volume.volumeDecisionId);
       if (!vd || vd.target.kind !== "SPECIAL_VOLUME" || vd.target.volumeId !== volume.volumeId || vd.dimensionKind !== "SPECIAL_VERTICAL") violations.push("VERTICAL_SPECIAL_VOLUME_DECISION_REF_INVALID");
     }
+
+    const base = volume.architecturalBase;
+    if (base === undefined) continue;
+
+    if (base.kind !== "LEVEL_BASE") {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_KIND_INVALID");
+      continue;
+    }
+
+    const level = levels.find((candidate) => candidate.levelId === base.levelId);
+    if (!level) {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_LEVEL_NOT_FOUND");
+      continue;
+    }
+
+    const elevation = decisions.get(level.elevationDecisionId);
+    if (!elevation) {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_ELEVATION_DECISION_NOT_FOUND");
+      continue;
+    }
+    if (elevation.target.kind !== "LEVEL" || elevation.target.levelId !== level.levelId) {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_ELEVATION_DECISION_TARGET_MISMATCH");
+      continue;
+    }
+    if (elevation.dimensionKind !== "ELEVATION") {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_ELEVATION_DECISION_KIND_MISMATCH");
+      continue;
+    }
+    if (elevation.status !== "RESOLVED") {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_ELEVATION_DECISION_NOT_RESOLVED");
+      continue;
+    }
+    if (elevation.selectedDimension_mm === null) {
+      violations.push("SPECIAL_VOLUME_ARCHITECTURAL_BASE_ELEVATION_DECISION_VALUE_MISSING");
+    }
   }
 
   const resolved = parti.verticalDecisions.filter((d) => d.status === "RESOLVED" && d.selectedDimension_mm !== null);
