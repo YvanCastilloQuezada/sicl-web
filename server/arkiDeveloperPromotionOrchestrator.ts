@@ -266,6 +266,7 @@ export async function orchestrateDeveloperPromotion(
     || !nonEmptyString(promotion.snapshot_id)
     || !Number.isInteger(promotion.d2_version)
     || promotion.d2_version < 1
+    || !["COMPLETE", "PARTIAL", "FAILED", "NOT_ATTEMPTED"].includes(promotion.effects_status)
   ) {
     return {
       ...result,
