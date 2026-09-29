@@ -29,6 +29,13 @@ describe("VERTICAL_DIMENSION_AUTHORITY frozen contract", () => {
     expect(validatePartiContract(parti).violations).toContain("VERTICAL_CORPUS_LOCATOR_REQUIRED");
   });
 
+  it("fails closed when a bibliographic corpusRef is syntactically present but not verified", () => {
+    const parti = resolvedElevation(0);
+    parti.verticalDecisions[0].designReferences = [{ kind: "PLAZOLA", description: "hangar reference", evidenceRef: "EVID-PLAZOLA", corpusLocator: { corpusRef: "PLAZOLA_V10_P412", volume: "10", page: "412" } }];
+    expect(validatePartiContract(parti).violations).toContain("VERTICAL_CORPUS_REF_UNVERIFIED");
+    expect(validatePartiContract(parti, new Set(["PLAZOLA_V10_P412"])).violations).not.toContain("VERTICAL_CORPUS_REF_UNVERIFIED");
+  });
+
   it("blocks RESOLVED when regulatory applicability still requires determination", () => {
     const parti = resolvedElevation(0);
     parti.verticalDecisions[0].regulatoryConstraints = [{ kind: "MIN", height_mm: 2200, sourceAuthority: "RNE", applicability: "REQUIRES_DETERMINATION", evidenceRef: "RNE-TEST" }];
