@@ -387,4 +387,48 @@ describe("ARKI Architectural Developer proposal-only", () => {
     expect(proposal.proposedElements.filter((el) => el.kind === "SPACE").every((el) => el.geometry?.z_mm === elevation)).toBe(true);
   });
 
+  it("materializes strict Core-compatible EXTRUDED_RECTANGLE geometry from D6.3 plus vertical authority", () => {
+    const proposal = developProposal(verticallyAuthorizedFixture(2800, -3200)).proposal;
+    const spaces = proposal.proposedElements.filter((el) => el.kind === "SPACE");
+    expect(spaces.length).toBeGreaterThan(0);
+    for (const element of spaces) {
+      expect(element.geometry).toMatchObject({
+        kind: "EXTRUDED_RECTANGLE",
+        profile: { radius_mm: null },
+        z_mm: -3200,
+        height_mm: 2800,
+      });
+      expect(Number.isInteger(element.geometry?.x_mm)).toBe(true);
+      expect(Number.isInteger(element.geometry?.y_mm)).toBe(true);
+      expect(Number.isInteger((element.geometry?.profile as { width_mm?: number })?.width_mm)).toBe(true);
+      expect(Number.isInteger((element.geometry?.profile as { depth_mm?: number })?.depth_mm)).toBe(true);
+    }
+  });
+
+  it("fails closed with the exact bridge code instead of materializing an invalid D6.3 polygon", () => {
+    const input = verticallyAuthorizedFixture();
+    const selected = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id)
+      ? "candidateA" : "candidateB";
+    const representation = input.cycle.geometry[selected];
+    const targetIndex = representation.elements.findIndex((element) => element.element_type === "SpatialZone");
+    if (targetIndex < 0) throw new Error("TEST_SPATIAL_ZONE_REQUIRED");
+    const elements = representation.elements.map((element, index) => index === targetIndex ? {
+      ...element,
+      geometry: { type: "Polygon" as const, coordinates: [[[0,0],[2,2],[0,2],[2,0],[0,0]]] },
+    } : element);
+    const changedRepresentation = { ...representation, elements };
+    const cycle = {
+      ...input.cycle,
+      geometry: { ...input.cycle.geometry, [selected]: changedRepresentation },
+    };
+    const result = developProposal({ ...input, cycle }).proposal;
+    const pid = `d63-${elements[targetIndex].id}`;
+    expect(result.proposedElements.some((element) => element.provisionalId === pid)).toBe(false);
+    expect(result.unresolvedUnknowns).toContainEqual({
+      field: `${pid}.geometry`,
+      reason: "D6_3_TO_D2_GEOMETRY_BRIDGE_FAILED:GEOMETRY_RECTANGLE_VERTEX_SET_INVALID",
+      requiredEvidence: "Provide D6.3 geometry satisfying the strict D-2 geometry bridge contract",
+    });
+  });
+
 });
