@@ -185,11 +185,24 @@ export interface BoundHumanReviewResponse extends CoreWriteResponse {
   };
 }
 
-export async function recordCoreHumanReview(projectId: string, payload: BoundHumanReviewRequest): Promise<BoundHumanReviewResponse> {
-  return coreRequest<BoundHumanReviewResponse>(`/v1/projects/${encodeURIComponent(projectId)}/human-reviews`, {
+export function recordCoreHumanReview(projectId: string, payload: BoundHumanReviewRequest): Promise<BoundHumanReviewResponse>;
+export function recordCoreHumanReview(projectId: string, payload: Record<string, unknown>): Promise<CoreWriteResponse>;
+export async function recordCoreHumanReview(projectId: string, payload: BoundHumanReviewRequest | Record<string, unknown>): Promise<BoundHumanReviewResponse | CoreWriteResponse> {
+  const isBoundDeveloperReview =
+    payload.referenced_entity_type === "DEVELOPER_PROPOSAL";
+  const body = isBoundDeveloperReview
+    ? payload
+    : {
+        ...payload,
+        actor: payload.actor ?? payload.actor_id,
+        authority: payload.authority ?? payload.authority_basis,
+        review: payload.review ?? "Recommendation reviewed by human authority",
+        timestamp: payload.timestamp ?? new Date().toISOString(),
+      };
+  return coreRequest<BoundHumanReviewResponse | CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/human-reviews`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   });
 }
 
