@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { fingerprint } from "./arkiFingerprint";
 import type { SiclKnowledgeRecord, SiclReasoningExecution, SiclSnapshot } from "./siclCore";
 
 export type TransferMode = "TRANSFER" | "ADAPT" | "DO_NOT_TRANSFER" | "UNKNOWN";
@@ -48,7 +48,6 @@ export type ArchitecturalReasoningResult = {
 };
 
 const tokenise = (value: string) => new Set(value.toLowerCase().split(/[^a-záéíóúüñ0-9]+/i).filter((token) => token.length >= 4));
-const fingerprint = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const asText = (value: unknown) => typeof value === "string" ? value : JSON.stringify(value ?? "");
 
 function relevance(brief: string, item: SiclKnowledgeRecord): { score: number; reason: string } {

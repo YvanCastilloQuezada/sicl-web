@@ -1,6 +1,7 @@
 import { executeArchitecturalReasoning, type ArchitecturalReasoningInput } from "./arkiD62ReasoningHarness";
 import { executeProjectBrainWave1, type ProjectBrainInput } from "./arkiProjectBrain";
-import { appendCoreReasoningExecution, fetchCanonicalSnapshot, hasCoreUrl, type CanonicalCoreSnapshot } from "./coreHttpClient";
+import { fingerprint } from "./arkiFingerprint";
+import { appendCoreReasoningExecution, fetchCanonicalSnapshot, hasCoreUrl, type CanonicalCoreSnapshot, type ReasoningExecutionRequest, type ReasoningExecutionResponse } from "./coreHttpClient";
 import { parseSnapshot, type SiclSnapshot } from "./siclCore";
 
 export type CanonicalExecutionInput = ProjectBrainInput & {
@@ -18,8 +19,8 @@ export type CanonicalExecutionResult = {
   projectId: string;
   brain: ReturnType<typeof executeProjectBrainWave1>;
   d62: ReturnType<typeof executeArchitecturalReasoning>;
-  brainCommit: Record<string, unknown>;
-  d62Commit: Record<string, unknown>;
+  brainCommit: ReasoningExecutionResponse;
+  d62Commit: ReasoningExecutionResponse;
   versions: { initial: number | null; afterBrain: number | null; afterD62: number | null };
   persistence: "CANONICAL_CORE";
   humanAuthority: "FINAL";
@@ -66,23 +67,31 @@ export async function executeCanonicalBrainAndD62(input: CanonicalExecutionInput
     sourceIds: input.sourceIds,
   };
   const brain = executeProjectBrainWave1(brainInput);
-  const brainCommit = await appendCoreReasoningExecution(input.projectId, {
+  const brainRequest: ReasoningExecutionRequest = {
     execution_id: input.brainExecutionId,
-    engine: "ARKI-PROJECT-BRAIN-WAVE-1",
-    runtime_version: "ARKI-PROJECT-BRAIN-WAVE-1",
-    expected_project_version: initial.version,
-    input: brainInput,
-    output: brain,
-    epistemic_status: "AI_PROPOSED",
-    human_review_required: true,
-    promotion: "HUMAN_REVIEW_REQUIRED",
-  });
+    kind: "PROJECT_BRAIN",
+    fingerprint: fingerprint({ kind: "PROJECT_BRAIN", input: brainInput, output: brain }),
+    input_fingerprint: fingerprint(brainInput),
+    payload: {
+      runtime_version: "ARKI-PROJECT-BRAIN-WAVE-1",
+      input: brainInput,
+      output: brain,
+      human_review_required: true,
+      promotion: "HUMAN_REVIEW_REQUIRED",
+    },
+    epistemic_status: "HYPOTHESIS",
+    human_authority_ref: null,
+    source_refs: input.sourceIds ?? [],
+    actor: "ARKI_PROJECT_BRAIN",
+    created_at: new Date().toISOString(),
+  };
+  const brainCommit = await appendCoreReasoningExecution(input.projectId, brainRequest);
   const afterBrain = Number(brainCommit.observed_version);
-  if (!Number.isInteger(afterBrain) || afterBrain < initial.version) throw new Error("CORE_BRAIN_COMMIT_VERSION_INVALID");
+  if (!Number.isInteger(afterBrain) || afterBrain !== initial.version) throw new Error("CANONICAL_MUTATION_DURING_REASONING");
 
   const refreshedCanonical = await fetchCanonicalSnapshot(input.projectId);
   const refreshed = requireCanonicalSnapshot(refreshedCanonical, input.projectId);
-  if (refreshed.version !== afterBrain) throw new Error("CORE_VERSION_CHANGED_AFTER_BRAIN_COMMIT");
+  if (refreshed.version !== initial.version) throw new Error("CANONICAL_MUTATION_DURING_REASONING");
 
   const d62Input: ArchitecturalReasoningInput = {
     executionId: input.d62ExecutionId,
@@ -99,21 +108,27 @@ export async function executeCanonicalBrainAndD62(input: CanonicalExecutionInput
     counterexamples: input.counterexamples,
   };
   const d62 = executeArchitecturalReasoning(d62Input, refreshed.snapshot, refreshed.version, "ARKI-L2-TRANSFER-1.0");
-  const d62Commit = await appendCoreReasoningExecution(input.projectId, {
+  const d62Request: ReasoningExecutionRequest = {
     execution_id: input.d62ExecutionId,
-    engine: "ARKI-D6.2-M",
-    runtime_version: "ARKI-L2-TRANSFER-1.0",
-    expected_project_version: refreshed.version,
-    input: d62Input,
-    output: d62,
-    core_knowledge_version: refreshed.version,
-    replay_fingerprint: d62.replayFingerprint,
-    epistemic_status: "AI_PROPOSED",
-    human_review_required: true,
-    promotion: "HUMAN_REVIEW_REQUIRED",
-  });
+    kind: "D6_2",
+    fingerprint: d62.replayFingerprint,
+    input_fingerprint: fingerprint(d62Input),
+    payload: {
+      runtime_version: "ARKI-L2-TRANSFER-1.0",
+      input: d62Input,
+      output: d62,
+      human_review_required: true,
+      promotion: "HUMAN_REVIEW_REQUIRED",
+    },
+    epistemic_status: "HYPOTHESIS",
+    human_authority_ref: null,
+    source_refs: input.sourceIds ?? [],
+    actor: "ARKI_D6_2",
+    created_at: new Date().toISOString(),
+  };
+  const d62Commit = await appendCoreReasoningExecution(input.projectId, d62Request);
   const afterD62 = Number(d62Commit.observed_version);
-  if (!Number.isInteger(afterD62) || afterD62 < refreshed.version) throw new Error("CORE_D62_COMMIT_VERSION_INVALID");
+  if (!Number.isInteger(afterD62) || afterD62 !== refreshed.version) throw new Error("CANONICAL_MUTATION_DURING_REASONING");
 
   return { status: "EXECUTED", projectId: input.projectId, brain, d62, brainCommit, d62Commit, versions: { initial: initial.version, afterBrain, afterD62 }, persistence: "CANONICAL_CORE", humanAuthority: "FINAL", promotion: "HUMAN_REVIEW_REQUIRED" };
 }

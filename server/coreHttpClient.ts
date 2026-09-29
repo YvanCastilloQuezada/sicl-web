@@ -3,6 +3,29 @@ import type { SpatialScope, TemporalScope } from "@shared/siclScopes";
 
 export type CanonicalNotFound = { not_found: true; project_id: string; status: 404; error: string; detail?: string; envelope: Record<string, unknown> };
 type CoreWriteResponse = { contract_version: string; project_id: string; observed_version: number | null; [key: string]: unknown };
+
+export type ReasoningKind = "PROJECT_BRAIN" | "D6_2" | "D6_3" | "DEVELOPER_PROPOSAL";
+export type EpistemicStatus = "FACT" | "ASSUMPTION" | "HYPOTHESIS" | "UNKNOWN" | "CONFLICT" | "PROPOSAL";
+
+export interface ReasoningExecutionRequest {
+  execution_id: string;
+  kind: ReasoningKind;
+  fingerprint: string;
+  input_fingerprint: string | null;
+  payload: Record<string, unknown>;
+  epistemic_status: EpistemicStatus;
+  human_authority_ref: Record<string, unknown> | null;
+  source_refs: unknown[];
+  actor: string;
+  created_at: string;
+}
+
+export interface ReasoningExecutionResponse {
+  status: "RECORDED";
+  execution_id: string;
+  event_id: number;
+  observed_version: number;
+}
 export type OperationsResearchMethod = { method: string; required_inputs: string[]; required_units: string[]; required_constraints: string[]; required_assumptions: string[]; required_provenance: string[]; output_fields: string[]; feasibility_states: string[]; sensitivity_outputs: string[]; version: string };
 export type OperationsResearchCatalog = { contract_version: string; read_only: boolean; methods: OperationsResearchMethod[] };
 export type CanonicalCouncil = { contract_version: string; project_id: string; observed_version: number; read_only: true; readOnly: boolean; finding: string; comparisons: unknown[]; multi_comparisons: unknown[]; tradeoffs: unknown[]; recommendations: unknown[]; [key: string]: unknown };
@@ -130,8 +153,8 @@ export async function createCoreRecommendation(projectId: string, payload: Recor
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/recommendations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
 }
 
-export async function appendCoreReasoningExecution(projectId: string, payload: Record<string, unknown>) {
-  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/reasoning-executions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+export async function appendCoreReasoningExecution(projectId: string, request: ReasoningExecutionRequest): Promise<ReasoningExecutionResponse> {
+  return coreRequest<ReasoningExecutionResponse>(`/v1/projects/${encodeURIComponent(projectId)}/reasoning-executions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(request) });
 }
 
 export async function recordCoreHumanReview(projectId: string, payload: Record<string, unknown>) {

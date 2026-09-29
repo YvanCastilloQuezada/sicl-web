@@ -28,9 +28,12 @@ const input = {
   seed: "HOS-TRU-400-001",
 };
 
-const snapshot = (version: number, projectId = input.projectId) => ({ contract_version: "sicl-core-http/0.4", project_id: projectId, observed_version: version, snapshot: {} });
-const ok = (version: number) => new Response(JSON.stringify({ contract_version: "sicl-core-http/0.4", project_id: input.projectId, observed_version: version, accepted: true }), { status: 200, headers: { "content-type": "application/json" } });
-const conflict = (detail = "expected project version does not match") => new Response(JSON.stringify({ error: "CONCURRENCY_CONFLICT", detail }), { status: 409, headers: { "content-type": "application/json" } });
+const snapshot = (version: number, projectId = input.projectId) => ({ contract_version: "1.0", project_id: projectId, observed_version: version, snapshot: {} });
+const recorded = (version: number, executionId: string, eventId: number) => new Response(JSON.stringify({
+  contract_version: "1.0", status: "OK", code: "OK", message: "ok", project_id: input.projectId, observed_version: version,
+  data: { status: "RECORDED", execution_id: executionId, event_id: eventId },
+}), { status: 200, headers: { "content-type": "application/json" } });
+const conflict = (detail = "execution id conflict") => new Response(JSON.stringify({ code: "CONFLICT", detail }), { status: 409, headers: { "content-type": "application/json" } });
 
 function useRemoteFetch(...responses: Response[]) {
   process.env.SICL_CORE_URL = "https://core.example.test";
@@ -55,73 +58,78 @@ describe("canonical Brain and D6.2 execution", () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it("reads, commits Brain, rereads, commits D6.2, and preserves review status", async () => {
+  it("records Brain and D6.2 without fabricating project version increments", async () => {
     const fetchSpy = useRemoteFetch(
-      new Response(JSON.stringify(snapshot(7)), { status: 200, headers: { "content-type": "application/json" } }),
-      ok(8),
-      new Response(JSON.stringify(snapshot(8)), { status: 200, headers: { "content-type": "application/json" } }),
-      ok(9),
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(7, input.brainExecutionId, 101),
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(7, input.d62ExecutionId, 102),
     );
-
     const result = await executeCanonicalBrainAndD62(input);
-
+    expect(result.versions).toEqual({ initial: 7, afterBrain: 7, afterD62: 7 });
     expect(result.persistence).toBe("CANONICAL_CORE");
     expect(result.promotion).toBe("HUMAN_REVIEW_REQUIRED");
-    expect(result.versions).toEqual({ initial: 7, afterBrain: 8, afterD62: 9 });
-    expect(result.brain.status).toBe("PASS_WITH_BOUNDS");
-    expect(result.d62.execution.projectId).toBe(input.projectId);
     expect(fetchSpy).toHaveBeenCalledTimes(4);
-    expect(fetchSpy.mock.calls.map(([url]) => url)).toEqual([
-      "https://core.example.test/v1/projects/HOS-TRU-400-001/snapshot",
-      "https://core.example.test/v1/projects/HOS-TRU-400-001/reasoning-executions",
-      "https://core.example.test/v1/projects/HOS-TRU-400-001/snapshot",
-      "https://core.example.test/v1/projects/HOS-TRU-400-001/reasoning-executions",
-    ]);
+
     const brainPayload = JSON.parse(String((fetchSpy.mock.calls[1]?.[1] as RequestInit).body));
     const d62Payload = JSON.parse(String((fetchSpy.mock.calls[3]?.[1] as RequestInit).body));
-    expect(brainPayload).toMatchObject({ execution_id: input.brainExecutionId, engine: "ARKI-PROJECT-BRAIN-WAVE-1", expected_project_version: 7, human_review_required: true });
-    expect(d62Payload).toMatchObject({ execution_id: input.d62ExecutionId, engine: "ARKI-D6.2-M", expected_project_version: 8, human_review_required: true });
+    expect(brainPayload).toMatchObject({
+      execution_id: input.brainExecutionId, kind: "PROJECT_BRAIN", epistemic_status: "HYPOTHESIS",
+      actor: "ARKI_PROJECT_BRAIN", source_refs: input.sourceIds,
+      payload: { runtime_version: "ARKI-PROJECT-BRAIN-WAVE-1", human_review_required: true, promotion: "HUMAN_REVIEW_REQUIRED" },
+    });
+    expect(d62Payload).toMatchObject({
+      execution_id: input.d62ExecutionId, kind: "D6_2", epistemic_status: "HYPOTHESIS",
+      actor: "ARKI_D6_2", source_refs: input.sourceIds,
+      payload: { runtime_version: "ARKI-L2-TRANSFER-1.0", human_review_required: true, promotion: "HUMAN_REVIEW_REQUIRED" },
+    });
+    for (const payload of [brainPayload, d62Payload]) {
+      expect(payload.fingerprint).toMatch(/^[0-9a-f]{64}$/);
+      expect(payload.input_fingerprint).toMatch(/^[0-9a-f]{64}$/);
+      expect(payload).not.toHaveProperty("engine");
+      expect(payload).not.toHaveProperty("expected_project_version");
+    }
     expect(JSON.stringify(d62Payload)).not.toContain("test-service-token");
   });
 
-  it("aborts at the Brain commit on a canonical 409 and never starts D6.2", async () => {
-    const fetchSpy = useRemoteFetch(
-      new Response(JSON.stringify(snapshot(7)), { status: 200, headers: { "content-type": "application/json" } }),
-      conflict("expected project version 7, got 8"),
-    );
-
-    await expect(executeCanonicalBrainAndD62(input)).rejects.toMatchObject({ status: 409, errorCode: "CONCURRENCY_CONFLICT" });
+  it("aborts at the Brain record on a canonical 409 and never starts D6.2", async () => {
+    const fetchSpy = useRemoteFetch(new Response(JSON.stringify(snapshot(7)), { status: 200 }), conflict());
+    await expect(executeCanonicalBrainAndD62(input)).rejects.toMatchObject({ status: 409, errorCode: "CONFLICT" });
     expect(fetchSpy).toHaveBeenCalledTimes(2);
-    expect(fetchSpy.mock.calls[1]?.[0]).toContain("reasoning-executions");
   });
 
-  it("aborts when the canonical snapshot changes after Brain commit", async () => {
+  it("aborts when canonical state mutates after Brain reasoning is recorded", async () => {
     const fetchSpy = useRemoteFetch(
-      new Response(JSON.stringify(snapshot(7)), { status: 200, headers: { "content-type": "application/json" } }),
-      ok(8),
-      new Response(JSON.stringify(snapshot(9)), { status: 200, headers: { "content-type": "application/json" } }),
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(7, input.brainExecutionId, 101),
+      new Response(JSON.stringify(snapshot(8)), { status: 200 }),
     );
-
-    await expect(executeCanonicalBrainAndD62(input)).rejects.toThrow("CORE_VERSION_CHANGED_AFTER_BRAIN_COMMIT");
+    await expect(executeCanonicalBrainAndD62(input)).rejects.toThrow("CANONICAL_MUTATION_DURING_REASONING");
     expect(fetchSpy).toHaveBeenCalledTimes(3);
-    expect(fetchSpy.mock.calls.some(([url]) => String(url).endsWith("/reasoning-executions"))).toBe(true);
-    expect(fetchSpy.mock.calls[3]).toBeUndefined();
   });
 
-  it("aborts when the D6.2 commit returns a canonical 409", async () => {
+  it("aborts when Brain response reports a different observed version", async () => {
     const fetchSpy = useRemoteFetch(
-      new Response(JSON.stringify(snapshot(7)), { status: 200, headers: { "content-type": "application/json" } }),
-      ok(8),
-      new Response(JSON.stringify(snapshot(8)), { status: 200, headers: { "content-type": "application/json" } }),
-      conflict("expected project version 8, got 9"),
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(8, input.brainExecutionId, 101),
     );
+    await expect(executeCanonicalBrainAndD62(input)).rejects.toThrow("CANONICAL_MUTATION_DURING_REASONING");
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
+  });
 
-    await expect(executeCanonicalBrainAndD62(input)).rejects.toMatchObject({ status: 409, errorCode: "CONCURRENCY_CONFLICT" });
+  it("aborts when D6.2 response reports a different observed version", async () => {
+    const fetchSpy = useRemoteFetch(
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(7, input.brainExecutionId, 101),
+      new Response(JSON.stringify(snapshot(7)), { status: 200 }),
+      recorded(8, input.d62ExecutionId, 102),
+    );
+    await expect(executeCanonicalBrainAndD62(input)).rejects.toThrow("CANONICAL_MUTATION_DURING_REASONING");
     expect(fetchSpy).toHaveBeenCalledTimes(4);
   });
 
   it("rejects a canonical snapshot belonging to another project", async () => {
-    useRemoteFetch(new Response(JSON.stringify(snapshot(7, "OTHER-PROJECT")), { status: 200, headers: { "content-type": "application/json" } }));
+    useRemoteFetch(new Response(JSON.stringify(snapshot(7, "OTHER-PROJECT")), { status: 200 }));
     await expect(executeCanonicalBrainAndD62(input)).rejects.toThrow("CORE_PROJECT_ID_MISMATCH");
   });
 });

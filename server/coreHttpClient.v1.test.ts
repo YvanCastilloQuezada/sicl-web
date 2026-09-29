@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createCorePreference, fetchCanonicalHistory, fetchCanonicalSnapshot } from "./coreHttpClient";
+import { appendCoreReasoningExecution, createCorePreference, fetchCanonicalHistory, fetchCanonicalSnapshot } from "./coreHttpClient";
 
 describe("RFC-002 canonical v1 envelope", () => {
   afterEach(() => {
@@ -36,5 +36,26 @@ describe("RFC-002 canonical v1 envelope", () => {
     vi.stubGlobal("fetch", fetchSpy);
     await createCorePreference("P-1", { name: "Energy", justification: "low energy" });
     expect(JSON.parse(fetchSpy.mock.calls[0][1].body as string)).toMatchObject({ name: "Energy", justification: "low energy", statement: "low energy" });
+  });
+  it("writes the strict snake_case reasoning execution contract and preserves observed_version", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token";
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      contract_version: "1.0", status: "OK", code: "OK", message: "ok", project_id: "P-1", observed_version: 7,
+      data: { status: "RECORDED", execution_id: "EX-1", event_id: 41 },
+    }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchSpy);
+    const request = {
+      execution_id: "EX-1", kind: "PROJECT_BRAIN" as const, fingerprint: "a".repeat(64), input_fingerprint: "b".repeat(64),
+      payload: { output: "bounded" }, epistemic_status: "HYPOTHESIS" as const, human_authority_ref: null,
+      source_refs: ["SRC-1"], actor: "ARKI_PROJECT_BRAIN", created_at: "2026-09-29T12:00:00.000Z",
+    };
+    await expect(appendCoreReasoningExecution("P-1", request)).resolves.toMatchObject({
+      status: "RECORDED", execution_id: "EX-1", event_id: 41, observed_version: 7,
+    });
+    const sent = JSON.parse(String((fetchSpy.mock.calls[0]?.[1] as RequestInit).body));
+    expect(sent).toEqual(request);
+    expect(sent).not.toHaveProperty("engine");
+    expect(sent).not.toHaveProperty("expected_project_version");
   });
 });
