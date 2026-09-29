@@ -100,8 +100,8 @@ export function bridgeD63ToD2Geometry(
   const uniqueVertices = new Set(vertices.map(([x, y]) => `${x}|${y}`));
   if (uniqueVertices.size !== 4) return fail("GEOMETRY_RECTANGLE_VERTEX_SET_INVALID");
 
-  const xs = [...new Set(vertices.map(([x]) => x))];
-  const ys = [...new Set(vertices.map(([, y]) => y))];
+  const xs = Array.from(new Set(vertices.map(([x]) => x)));
+  const ys = Array.from(new Set(vertices.map(([, y]) => y)));
   if (xs.length !== 2 || ys.length !== 2) return fail("GEOMETRY_RECTANGLE_VERTEX_SET_INVALID");
 
   const minX = Math.min(...xs), maxX = Math.max(...xs);
@@ -112,7 +112,7 @@ export function bridgeD63ToD2Geometry(
     `${minX}|${minY}`, `${minX}|${maxY}`,
     `${maxX}|${minY}`, `${maxX}|${maxY}`,
   ]);
-  if ([...uniqueVertices].some((vertex) => !expected.has(vertex))) {
+  if (Array.from(uniqueVertices).some((vertex) => !expected.has(vertex))) {
     return fail("GEOMETRY_RECTANGLE_VERTEX_SET_INVALID");
   }
 
