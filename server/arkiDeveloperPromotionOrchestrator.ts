@@ -124,17 +124,53 @@ function explicitHumanApprovalIsValid(value: DeveloperHumanApprovalInput): boole
     && nonEmptyString(value.authority);
 }
 
-function coreReason(error: unknown): { code: string; detail: string } {
+const AUTHORITATIVE_REJECTION_MAP = new Map<string, ReadonlySet<number>>([
+  ["PROJECT_NOT_FOUND", new Set([404])],
+  ["PROPOSAL_NOT_FOUND", new Set([404])],
+  ["HUMAN_REVIEW_NOT_FOUND", new Set([404])],
+  ["PROPOSAL_FINGERPRINT_MISMATCH", new Set([409])],
+  ["PROPOSAL_FINGERPRINT_INCONSISTENT", new Set([409])],
+  ["HUMAN_REVIEW_BINDING_MISMATCH", new Set([409])],
+  ["SUFFICIENCY_NOT_PERMITTED", new Set([409])],
+  ["INVALID_DEVELOPER_PROPOSAL", new Set([400])],
+  ["STRUCTURAL_VALIDATION_FAILED", new Set([400])],
+  ["RELATIONS_NOT_YET_SUPPORTED", new Set([400])],
+  ["DERIVATIONS_NOT_YET_SUPPORTED", new Set([400])],
+  ["UNKNOWN_ELEMENT_KIND", new Set([400])],
+  ["MISSING_GEOMETRY", new Set([400])],
+  ["GEOMETRY_CONTRACT_NOT_MAPPED", new Set([400])],
+  ["UNSUPPORTED_PROPERTY_VALUE", new Set([400])],
+  ["PROMOTION_PERSIST_FAILED", new Set([500])],
+  ["INTEGRITY_FAILURE", new Set([500])],
+]);
+
+const ALLOWLISTED_PREFIXES = [
+  ["GEOMETRY_CONTRACT_NOT_MAPPED:", "GEOMETRY_CONTRACT_NOT_MAPPED"],
+  ["UNSUPPORTED_PROPERTY_VALUE:", "UNSUPPORTED_PROPERTY_VALUE"],
+] as const;
+
+function classifyAuthoritativeRejection(status: number, code: string): string | null {
+  const exactStatuses = AUTHORITATIVE_REJECTION_MAP.get(code);
+  if (exactStatuses?.has(status)) return code;
+  for (const [prefix, canonical] of ALLOWLISTED_PREFIXES) {
+    if (code.startsWith(prefix) && code.length > prefix.length && AUTHORITATIVE_REJECTION_MAP.get(canonical)?.has(status)) {
+      return canonical;
+    }
+  }
+  return null;
+}
+
+function coreReason(error: unknown): { code: string; detail: string | null } {
   if (error instanceof SiclCoreHttpError) {
     const nested = error.envelope.detail;
     if (nested && typeof nested === "object") {
       const body = nested as Record<string, unknown>;
       return {
-        code: typeof body.code === "string" ? body.code : (error.errorCode ?? "CORE_REJECTED"),
-        detail: typeof body.message === "string" ? body.message : error.message,
+        code: typeof body.code === "string" ? body.code : (error.errorCode ?? "CORE_HTTP_ERROR"),
+        detail: typeof body.message === "string" ? body.message : null,
       };
     }
-    return { code: error.errorCode ?? "CORE_REJECTED", detail: error.message };
+    return { code: error.errorCode ?? "CORE_HTTP_ERROR", detail: null };
   }
   return { code: "CORE_TRANSPORT_ERROR", detail: error instanceof Error ? error.message : String(error) };
 }
@@ -185,7 +221,7 @@ export async function orchestrateDeveloperPromotion(
     result = { ...result, proposalRecorded: true };
   } catch (error) {
     const r = coreReason(error);
-    return fail(result, "PERSIST_PROPOSAL", r.code, r.detail);
+    return fail(result, "PERSIST_PROPOSAL", r.code, r.detail ?? (error instanceof Error ? error.message : r.code));
   }
 
   if (!identityStillMatches(input.proposal, proposalId0, fingerprint0)) {
@@ -220,7 +256,7 @@ export async function orchestrateDeveloperPromotion(
     result = { ...result, humanReviewId: review.review_id, humanApproved: true };
   } catch (error) {
     const r = coreReason(error);
-    return fail(result, "RECORD_HUMAN_REVIEW", r.code, r.detail);
+    return fail(result, "RECORD_HUMAN_REVIEW", r.code, r.detail ?? (error instanceof Error ? error.message : r.code));
   }
 
   if (!identityStillMatches(input.proposal, proposalId0, fingerprint0)) {
@@ -236,17 +272,19 @@ export async function orchestrateDeveloperPromotion(
       human_review_id: result.humanReviewId!,
     });
   } catch (error) {
-    if (error instanceof SiclCoreHttpError) {
-      const r = coreReason(error);
-      return {
-        ...result,
-        promotionOutcome: "REJECTED",
-        d2Committed: false,
-        reasonCode: r.code,
-        reason: r.detail,
-      };
-    }
     const r = coreReason(error);
+    if (error instanceof SiclCoreHttpError) {
+      const authoritativeCode = classifyAuthoritativeRejection(error.status, r.code);
+      if (authoritativeCode) {
+        return {
+          ...result,
+          promotionOutcome: "REJECTED",
+          d2Committed: false,
+          reasonCode: authoritativeCode,
+          reason: r.detail,
+        };
+      }
+    }
     return {
       ...result,
       promotionOutcome: "UNKNOWN",
@@ -304,6 +342,6 @@ export async function orchestrateDeveloperPromotion(
       return fail(result, "VERIFY_D2", "VERIFY_D2_SNAPSHOT_NOT_FOUND", error.message);
     }
     const r = coreReason(error);
-    return fail(result, "VERIFY_D2", "VERIFY_D2_FAILED", r.detail);
+    return fail(result, "VERIFY_D2", "VERIFY_D2_FAILED", r.detail ?? (error instanceof Error ? error.message : r.code));
   }
 }
