@@ -151,6 +151,56 @@ function verticallyAuthorizedFixture(height = 2800, elevation = 0): DeveloperInp
   return { ...input, cycle, partiContract };
 }
 
+function specialVolumeFixture(baseElevation = 0, extent = 6200, withArchitecturalBase = true): DeveloperInput {
+  const input = fixture();
+  const representation = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id)
+    ? input.cycle.geometry.candidateA
+    : input.cycle.geometry.candidateB;
+  const spaceIds = representation.elements.filter((e) => e.element_type === "SpatialZone").map((e) => `d63-${e.id}`);
+  const levelId = "LEVEL-SPECIAL-BASE";
+  const elevationId = "VD-SPECIAL-ELEVATION";
+  const extentId = "VD-SPECIAL-EXTENT";
+  const volumeId = "SPECIAL-VOLUME-01";
+  const verticalDecisions = [
+    {
+      decisionId: elevationId, target: { kind: "LEVEL" as const, levelId }, dimensionKind: "ELEVATION" as const,
+      selectedDimension_mm: baseElevation, regulatoryConstraints: [], designReferences: [], designDrivers: [],
+      reasoning: "Architect establishes the special-volume base datum.", status: "RESOLVED" as const, epistemicStatus: "HYPOTHESIS" as const,
+      decisionAuthority: "ARCHITECTURAL_DECISION" as const, evidence: [{ kind: "ARCHITECT_DECISION" as const, ref: "ARCH-SPECIAL-BASE" }],
+      provenance: ["PARTI:vertical"], unknowns: [], conflicts: [], humanAuthorityRequired: true,
+    },
+    {
+      decisionId: extentId, target: { kind: "SPECIAL_VOLUME" as const, volumeId, members: spaceIds }, dimensionKind: "SPECIAL_VERTICAL" as const,
+      selectedDimension_mm: extent, regulatoryConstraints: [], designReferences: [], designDrivers: [],
+      reasoning: "Architect establishes the special-volume vertical extent.", status: "RESOLVED" as const, epistemicStatus: "HYPOTHESIS" as const,
+      decisionAuthority: "ARCHITECTURAL_DECISION" as const, evidence: [{ kind: "ARCHITECT_DECISION" as const, ref: "ARCH-SPECIAL-EXTENT" }],
+      provenance: ["PARTI:vertical"], unknowns: [], conflicts: [], humanAuthorityRequired: true,
+    },
+  ];
+  const specialVolume = {
+    volumeId,
+    kind: "DOUBLE_HEIGHT" as const,
+    members: spaceIds,
+    volumeDecisionId: extentId,
+    ...(withArchitecturalBase
+      ? { architecturalBase: { kind: "LEVEL_BASE" as const, levelId, authorization: "ELEVATION_AS_BASE" as const } }
+      : {}),
+  };
+  const partiContract: PartiContract = {
+    ...input.partiContract,
+    verticalDecisions,
+    verticalSystem: {
+      systemId: "VS-SPECIAL",
+      kind: "HYBRID",
+      levels: [{ levelId, name: "Special base level", members: [], elevationDecisionId: elevationId }],
+      specialVolumes: [specialVolume],
+      provenance: ["PARTI:vertical"],
+    },
+  };
+  const cycle = { ...input.cycle, parti: { ...input.cycle.parti, partis: input.cycle.parti.partis.map((p) => p.partiId === partiContract.partiId ? partiContract : p) } };
+  return { ...input, cycle, partiContract };
+}
+
 describe("ARKI Architectural Developer proposal-only", () => {
   it("emits SPACE height_mm only from RESOLVED CLEAR_HEIGHT and z_mm from RESOLVED ELEVATION", () => {
     const proposal = developProposal(verticallyAuthorizedFixture(2800, -3200)).proposal;
@@ -300,4 +350,41 @@ describe("ARKI Architectural Developer proposal-only", () => {
     const proposal = developProposal(fixture()).proposal;
     expect(proposal.proposedElements.every((element) => element.provenance.length > 0)).toBe(true);
   });
+
+  it.each([-3200, 0, 4500])("materializes SPECIAL_VOLUME base %i only from the closed resolver", (baseElevation) => {
+    const proposal = developProposal(specialVolumeFixture(baseElevation, 6200, true)).proposal;
+    const spaces = proposal.proposedElements.filter((el) => el.kind === "SPACE");
+    expect(spaces.length).toBeGreaterThan(0);
+    expect(spaces.every((el) => el.geometry?.z_mm === baseElevation && el.geometry?.height_mm === 6200)).toBe(true);
+    expect(spaces.every((el) => el.provenance.some((p) => p.source === "vertical_dimension_decision" && p.ref === "VD-SPECIAL-EXTENT"))).toBe(true);
+    expect(spaces.every((el) => el.provenance.some((p) => p.source === "vertical_elevation_decision" && p.ref === "VD-SPECIAL-ELEVATION"))).toBe(true);
+    expect(spaces.every((el) => el.provenance.some((p) => p.source === "vertical_base_declaration"))).toBe(true);
+  });
+
+  it("fails closed for SPECIAL_VOLUME without architecturalBase instead of fabricating z=0", () => {
+    const proposal = developProposal(specialVolumeFixture(0, 6200, false)).proposal;
+    expect(proposal.proposedElements.filter((el) => el.kind === "SPACE")).toHaveLength(0);
+    expect(proposal.unresolvedUnknowns.some((u) =>
+      u.field.endsWith(".vertical_geometry") &&
+      u.reason === "SPECIAL_VOLUME_GEOMETRY_RESOLUTION_FAILED:SPECIAL_VOLUME_INDEPENDENT_DATUM_PENDING"
+    )).toBe(true);
+  });
+
+  it("rejects LEVEL_BASED missing elevation authority at the Parti boundary before materialization", () => {
+    const input = verticallyAuthorizedFixture();
+    const level = input.partiContract.verticalSystem.levels?.[0];
+    if (!level) throw new Error("TEST_LEVEL_REQUIRED");
+    const partiContract: PartiContract = {
+      ...input.partiContract,
+      verticalDecisions: input.partiContract.verticalDecisions.filter((d) => d.decisionId !== level.elevationDecisionId),
+    };
+    const cycle = { ...input.cycle, parti: { ...input.cycle.parti, partis: input.cycle.parti.partis.map((p) => p.partiId === partiContract.partiId ? partiContract : p) } };
+    expect(() => developProposal({ ...input, cycle, partiContract })).toThrow(/PARTI_CONTRACT_INVALID: .*VERTICAL_ELEVATION_DECISION_REF_INVALID/);
+  });
+
+  it.each([0, -3200, 4500])("preserves explicit LEVEL_BASED ELEVATION %i without defaulting", (elevation) => {
+    const proposal = developProposal(verticallyAuthorizedFixture(2800, elevation)).proposal;
+    expect(proposal.proposedElements.filter((el) => el.kind === "SPACE").every((el) => el.geometry?.z_mm === elevation)).toBe(true);
+  });
+
 });
