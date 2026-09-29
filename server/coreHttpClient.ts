@@ -157,10 +157,87 @@ export async function appendCoreReasoningExecution(projectId: string, request: R
   return coreRequest<ReasoningExecutionResponse>(`/v1/projects/${encodeURIComponent(projectId)}/reasoning-executions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(request) });
 }
 
-export async function recordCoreHumanReview(projectId: string, payload: Record<string, unknown>) {
-  return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/human-reviews`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...payload, actor: payload.actor ?? payload.actor_id, authority: payload.authority ?? payload.authority_basis, review: payload.review ?? "Recommendation reviewed by human authority", timestamp: payload.timestamp ?? new Date().toISOString() }) });
+export interface BoundHumanReviewRequest {
+  actor: string;
+  timestamp: string;
+  review: string;
+  reason: string;
+  authority: string;
+  referenced_entity_type: "DEVELOPER_PROPOSAL";
+  referenced_entity_id: string;
+  referenced_fingerprint: string;
+}
+
+export interface BoundHumanReviewResponse extends CoreWriteResponse {
+  human_review: {
+    review_id: string;
+    project_id: string;
+    actor: string;
+    timestamp: string;
+    review: string;
+    reason: string;
+    authority: string;
+    status: "APPROVED";
+    version: number;
+    referenced_entity_type: "DEVELOPER_PROPOSAL";
+    referenced_entity_id: string;
+    referenced_fingerprint: string;
+  };
+}
+
+export async function recordCoreHumanReview(projectId: string, payload: BoundHumanReviewRequest): Promise<BoundHumanReviewResponse> {
+  return coreRequest<BoundHumanReviewResponse>(`/v1/projects/${encodeURIComponent(projectId)}/human-reviews`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 }
 
 export async function recordCoreDecision(projectId: string, payload: Record<string, unknown>) {
   return coreRequest<CoreWriteResponse>(`/v1/projects/${encodeURIComponent(projectId)}/decisions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...payload, actor: payload.actor ?? payload.actor_id ?? payload.decision_maker, authority: payload.authority ?? payload.authority_basis, statement: payload.statement ?? payload.rationale }) });
+}
+
+
+export interface DeveloperPromotionRequest {
+  proposal_id: string;
+  proposal_fingerprint: string;
+  human_review_id: string;
+}
+
+export interface DeveloperPromotionResponse extends CoreWriteResponse {
+  status: "COMMITTED";
+  proposal_id: string;
+  snapshot_id: string;
+  d2_version: number;
+  effects_status: "COMPLETE" | "PARTIAL" | "FAILED" | "NOT_ATTEMPTED";
+  reason: string | null;
+}
+
+export interface CoreD2Snapshot {
+  snapshot_id: string;
+  project_id: string;
+  version: number;
+  elements: unknown[];
+  content_hash: string;
+  actor: string;
+  source_event_id: number;
+  created_at: string;
+}
+
+export interface CoreD2SnapshotResponse extends CoreWriteResponse {
+  snapshot: CoreD2Snapshot;
+}
+
+export async function promoteDeveloperProposal(projectId: string, request: DeveloperPromotionRequest): Promise<DeveloperPromotionResponse> {
+  return coreRequest<DeveloperPromotionResponse>(`/v1/projects/${encodeURIComponent(projectId)}/developer-promotions`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(request),
+  });
+}
+
+export async function fetchCoreD2Snapshot(projectId: string, version: number): Promise<CoreD2SnapshotResponse> {
+  return coreRequest<CoreD2SnapshotResponse>(`/v1/projects/${encodeURIComponent(projectId)}/d2/snapshots/${encodeURIComponent(String(version))}`, {
+    method: "GET",
+  });
 }
