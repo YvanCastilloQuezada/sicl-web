@@ -97,3 +97,56 @@ it("writes canonical preferences with explicit scope and provenance", async () =
   expect(JSON.parse(String(request.body))).toMatchObject({ preference_id: "PREF-1", scope_type: "PROJECT", scope_id: "SICL-PREF", provenance: ["brief-1"], expected_project_version: 1 });
   expect(request.headers).toMatchObject({ authorization: "Bearer service-token-test", "content-type": "application/json" });
 });
+
+
+describe("[6] Developer promotion Core client", () => {
+  afterEach(() => {
+    delete process.env.SICL_CORE_URL;
+    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllGlobals();
+  });
+
+  it("records bound HumanReview without inventing defaults or status", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const response = { human_review: { review_id: "REV-1", status: "APPROVED", referenced_entity_type: "DEVELOPER_PROPOSAL", referenced_entity_id: "dev-1", referenced_fingerprint: "a".repeat(64) } };
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: response }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchSpy);
+    const { recordCoreHumanReview } = await import("./coreHttpClient");
+    const payload = {
+      actor: "architect", timestamp: "2026-09-29T18:00:00Z", review: "Approved",
+      reason: "Architecture review", authority: "PRODUCT_OWNER",
+      referenced_entity_type: "DEVELOPER_PROPOSAL" as const, referenced_entity_id: "dev-1", referenced_fingerprint: "a".repeat(64),
+    };
+    await recordCoreHumanReview("P-1", payload);
+    const request = fetchSpy.mock.calls[0][1] as RequestInit;
+    expect(JSON.parse(String(request.body))).toEqual(payload);
+    expect(JSON.parse(String(request.body))).not.toHaveProperty("status");
+  });
+
+  it("posts the exact promotion triple", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: {
+      status: "COMMITTED", proposal_id: "dev-1", snapshot_id: "D2-1", d2_version: 7, effects_status: "COMPLETE", reason: "PROMOTED",
+    } }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchSpy);
+    const { promoteDeveloperProposal } = await import("./coreHttpClient");
+    const requestBody = { proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1" };
+    await promoteDeveloperProposal("P-1", requestBody);
+    expect(fetchSpy.mock.calls[0][0]).toBe("https://core.example.test/v1/projects/P-1/developer-promotions");
+    expect(JSON.parse(String((fetchSpy.mock.calls[0][1] as RequestInit).body))).toEqual(requestBody);
+  });
+
+  it("reads the exact version-addressed D-2 snapshot", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: { snapshot: {
+      snapshot_id: "D2-7", project_id: "P-1", version: 7, elements: [], content_hash: "h", actor: "core", source_event_id: 1, created_at: "t",
+    } } }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchSpy);
+    const { fetchCoreD2Snapshot } = await import("./coreHttpClient");
+    await fetchCoreD2Snapshot("P-1", 7);
+    expect(fetchSpy.mock.calls[0][0]).toBe("https://core.example.test/v1/projects/P-1/d2/snapshots/7");
+  });
+});
