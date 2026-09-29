@@ -142,6 +142,20 @@ describe("[6] controlled Developer promotion orchestration", () => {
     });
   });
 
+
+  it("fails epistemically closed when Core returns an invalid COMMITTED runtime payload", async () => {
+    const d = deps({ promote: vi.fn().mockResolvedValue({
+      status: "COMMITTED", proposal_id: "dev-prop-1", snapshot_id: "D2-1", d2_version: 1,
+      effects_status: "MAGIC", reason: "bad runtime",
+    }) });
+    const out = await orchestrateDeveloperPromotion(input(), d);
+    expect(out).toMatchObject({
+      promotionRequested: true, promotionOutcome: "UNKNOWN", d2Committed: "UNKNOWN",
+      d2Verified: false, reasonCode: "PROMOTION_RESPONSE_INVALID", stage: "REQUEST_PROMOTION",
+    });
+    expect(d.fetchSnapshot).not.toHaveBeenCalled();
+  });
+
   it("maps an authoritative Core rejection to REJECTED, never UNKNOWN", async () => {
     const d = deps({ promote: vi.fn().mockRejectedValue(new SiclCoreHttpError(409, "HUMAN_REVIEW_BINDING_MISMATCH", "rejected")) });
     const out = await orchestrateDeveloperPromotion(input(), d);
