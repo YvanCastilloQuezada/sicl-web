@@ -233,6 +233,9 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
   if (!partiInCycle) {
     throw new Error("PARTI_NOT_IN_CYCLE");
   }
+  if (fingerprint(partiInCycle) !== fingerprint(input.partiContract)) {
+    throw new Error("PARTI_CONTRACT_MISMATCH");
+  }
 
   const representation = selectGeometry(input.cycle, input.partiContract);
   const hasCirculation = representation.elements.some(
