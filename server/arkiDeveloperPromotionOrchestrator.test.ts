@@ -200,3 +200,92 @@ describe("[6] controlled Developer promotion orchestration", () => {
     });
   });
 });
+
+
+describe("[6.7-T630-C.4] V1.5 promotion error classification", () => {
+  function coreError(status: number, code: string, message = code, retryAfter: number | null = null) {
+    return new SiclCoreHttpError(status, code, message, {
+      detail: { status: "ERROR", code, message, data: { status: "REJECTED" } },
+    }, retryAfter);
+  }
+
+  it("maps 503 RETRIABLE_BUSY_EXHAUSTED to the full UNKNOWN tuple and never retries locally", async () => {
+    const promote = vi.fn().mockRejectedValue(coreError(503, "RETRIABLE_BUSY_EXHAUSTED", "busy", 1));
+    const out = await orchestrateDeveloperPromotion(input(), deps({ promote }));
+    expect(out).toMatchObject({
+      promotionRequested: true, promotionOutcome: "UNKNOWN", d2Committed: "UNKNOWN",
+      d2Verified: false, snapshotId: null, d2Version: null, effectsStatus: null,
+      stage: "REQUEST_PROMOTION", reasonCode: "RETRIABLE_BUSY_EXHAUSTED", reason: "busy",
+    });
+    expect(promote).toHaveBeenCalledTimes(1);
+  });
+
+  it("maps 500 INTEGRITY_FAILURE to authoritative REJECTED/false", async () => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockRejectedValue(coreError(500, "INTEGRITY_FAILURE", "integrity failed")),
+    }));
+    expect(out).toMatchObject({ promotionOutcome: "REJECTED", d2Committed: false, reasonCode: "INTEGRITY_FAILURE", reason: "integrity failed" });
+  });
+
+  it("TC-ORQ-24 maps 500 PROMOTION_PERSIST_FAILED to authoritative REJECTED/false", async () => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockRejectedValue(coreError(500, "PROMOTION_PERSIST_FAILED", "persistence failed")),
+    }));
+    expect(out).toMatchObject({
+      promotionOutcome: "REJECTED", d2Committed: false,
+      reasonCode: "PROMOTION_PERSIST_FAILED", reason: "persistence failed",
+    });
+  });
+
+  it("TC-ORQ-25 keeps 500 PROMOTION_FAILED UNKNOWN while preserving reasonCode", async () => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockRejectedValue(coreError(500, "PROMOTION_FAILED", "generic fallback")),
+    }));
+    expect(out).toMatchObject({
+      promotionOutcome: "UNKNOWN", d2Committed: "UNKNOWN", d2Verified: false,
+      effectsStatus: null, reasonCode: "PROMOTION_FAILED", reason: "generic fallback",
+    });
+  });
+
+  it.each([
+    [400, "INVALID_DEVELOPER_PROPOSAL", "INVALID_DEVELOPER_PROPOSAL"],
+    [404, "PROPOSAL_NOT_FOUND", "PROPOSAL_NOT_FOUND"],
+    [409, "HUMAN_REVIEW_BINDING_MISMATCH", "HUMAN_REVIEW_BINDING_MISMATCH"],
+    [400, "GEOMETRY_CONTRACT_NOT_MAPPED:profile", "GEOMETRY_CONTRACT_NOT_MAPPED"],
+    [400, "UNSUPPORTED_PROPERTY_VALUE:canonical", "UNSUPPORTED_PROPERTY_VALUE"],
+  ])("accepts only authoritative HTTP/code pairs: %i %s", async (status, code, canonical) => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockRejectedValue(coreError(status, code)),
+    }));
+    expect(out).toMatchObject({ promotionOutcome: "REJECTED", d2Committed: false, reasonCode: canonical });
+  });
+
+  it.each([
+    [500, "INVALID_DEVELOPER_PROPOSAL"],
+    [409, "PROJECT_NOT_FOUND"],
+    [400, "UNKNOWN_PREFIX:value"],
+    [400, "GEOMETRY_CONTRACT_NOT_MAPPED:"],
+    [500, "SOMETHING_ELSE"],
+  ])("fails closed for incoherent or unknown HTTP/code pair: %i %s", async (status, code) => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockRejectedValue(coreError(status, code, "observed message")),
+    }));
+    expect(out).toMatchObject({
+      promotionOutcome: "UNKNOWN", d2Committed: "UNKNOWN",
+      reasonCode: code, reason: "observed message",
+    });
+  });
+
+  it("represents replay as COMMITTED plus Core reason ALREADY_COMMITTED", async () => {
+    const out = await orchestrateDeveloperPromotion(input(), deps({
+      promote: vi.fn().mockResolvedValue({
+        status: "COMMITTED", proposal_id: "dev-prop-1", snapshot_id: "D2-1", d2_version: 1,
+        effects_status: "NOT_ATTEMPTED", reason: "ALREADY_COMMITTED",
+      }),
+    }));
+    expect(out).toMatchObject({
+      promotionOutcome: "COMMITTED", d2Committed: true, d2Verified: true,
+      effectsStatus: "NOT_ATTEMPTED", reason: "ALREADY_COMMITTED", stage: "COMPLETE",
+    });
+  });
+});
