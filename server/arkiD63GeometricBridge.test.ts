@@ -10,16 +10,19 @@ describe("D6.3-G traceable topology-to-geometry bridge", () => {
     conditions: ["visitor and staff activities may overlap"], constraints: ["No rooms, walls, doors or solution geometry are supplied."], unknowns: ["exact service capacity after peak demand is unknown"], perturbation: { id: "p1", statement: "staff-mediated control is unavailable at peak", changes: { separationCondition: "stronger separation" } }, envelope: { width: 18, height: 12, status: "EXPLICIT_PROJECT_DIMENSION" }, separationCondition: "staff-mediated control must remain legible and non-overlapping",
   };
 
-  it("passes G1-G12 and demonstrates two geometries for one topology", () => {
+  it("reports the hardcoded-template limitation while preserving geometric evidence", () => {
     const snapshot = { ...emptySnapshot(), knowledge: [{ id: "KN-D63-1", kind: "INVARIANT", title: "Topology precedes geometry", statement: "Topology is not geometry.", epistemicStatus: "FACT", sourceIds: ["SRC"], evidenceIds: [], version: 1 }] };
     const result = executeD63G(input, snapshot, 1, "D6.3-G-test");
-    expect(result.finalStatus).toBe("PASS");
-    expect(Object.values(result.gates).every((value) => value === "PASS")).toBe(true);
+    expect(result.finalStatus).toBe("PARTIAL");
+    expect(result.gates.G12_NO_TEMPLATE_HARDCODING).toBe("FAIL");
+    expect(Object.keys(result.gates)).toHaveLength(12);
     expect(result.candidateA.id).not.toBe(result.candidateB.id);
     expect(result.meaningfulDifference.status).toBe("PASS");
     expect(result.validationA.geometricValidity).toBe("PASS");
     expect(result.validationB.geometricValidity).toBe("PASS");
     expect(result.reasoning.retrievedKnowledge.map((item) => item.id)).toContain("KN-D63-1");
+    expect([...result.candidateA.elements, ...result.candidateB.elements].every((item) => item.metadata?.canonical === false)).toBe(true);
+    expect([...result.candidateA.elements, ...result.candidateB.elements].every((item) => item.metadata?.semanticStatus === "HYPOTHESIS")).toBe(true);
   });
 
   it("keeps geometry traceable and parameters exploratory rather than verified", () => {
