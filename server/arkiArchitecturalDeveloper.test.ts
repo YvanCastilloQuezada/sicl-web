@@ -405,6 +405,75 @@ describe("ARKI Architectural Developer proposal-only", () => {
     }
   });
 
+
+  it("emits only d63_element_type and never crosses D6.3 labels into LEVEL_BASED properties", () => {
+    const input = verticallyAuthorizedFixture();
+    const proposal = developProposal(input).proposal;
+    expect(proposal.proposedElements.length).toBeGreaterThan(0);
+    for (const element of proposal.proposedElements) {
+      expect(element.properties).toEqual({ d63_element_type: "SpatialZone" });
+      expect(Object.prototype.hasOwnProperty.call(element.properties, "d63_labels")).toBe(false);
+    }
+  });
+
+  it("emits only d63_element_type and never crosses D6.3 labels into SPECIAL_VOLUME properties", () => {
+    const proposal = developProposal(specialVolumeFixture()).proposal;
+    expect(proposal.proposedElements.length).toBeGreaterThan(0);
+    for (const element of proposal.proposedElements) {
+      expect(element.properties).toEqual({ d63_element_type: "SpatialZone" });
+      expect(Object.prototype.hasOwnProperty.call(element.properties, "d63_labels")).toBe(false);
+    }
+  });
+
+  it("does not let undefined, non-string or unknown runtime element_type materialize", () => {
+    for (const corrupt of [undefined, null, 7, {}, "NewElementType"]) {
+      const input = verticallyAuthorizedFixture();
+      const selected = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id) ? "candidateA" : "candidateB";
+      const representation = input.cycle.geometry[selected];
+      const index = representation.elements.findIndex((element) => element.element_type === "SpatialZone");
+      if (index < 0) throw new Error("TEST_SPATIAL_ZONE_REQUIRED");
+      const target = representation.elements[index];
+      const elements = [...representation.elements];
+      elements[index] = { ...target, element_type: corrupt } as unknown as typeof target;
+      const cycle = { ...input.cycle, geometry: { ...input.cycle.geometry, [selected]: { ...representation, elements } } };
+      const proposal = developProposal({ ...input, cycle }).proposal;
+      const pid = `d63-${target.id}`;
+      expect(proposal.proposedElements.some((element) => element.provisionalId === pid)).toBe(false);
+      const expected = typeof corrupt === "string"
+        ? `UNKNOWN_D63_ELEMENT_TYPE:${corrupt}`
+        : "UNKNOWN_D63_ELEMENT_TYPE:<invalid-runtime-type>";
+      expect(proposal.unresolvedUnknowns.some((unknown) => unknown.field === `${pid}.kind` && unknown.reason === expected)).toBe(true);
+    }
+  });
+
+  it("fails closed when runtime element_type is unreadable and does not retry it", () => {
+    const input = verticallyAuthorizedFixture();
+    const selected = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id) ? "candidateA" : "candidateB";
+    const representation = input.cycle.geometry[selected];
+    const index = representation.elements.findIndex((element) => element.element_type === "SpatialZone");
+    if (index < 0) throw new Error("TEST_SPATIAL_ZONE_REQUIRED");
+    const target = representation.elements[index];
+    let reads = 0;
+    const hostile = { ...target } as Record<string, unknown>;
+    Object.defineProperty(hostile, "element_type", {
+      enumerable: true,
+      get() {
+        reads += 1;
+        throw new Error("boom");
+      },
+    });
+    const elements = [...representation.elements];
+    elements[index] = hostile as unknown as typeof target;
+    const cycle = { ...input.cycle, geometry: { ...input.cycle.geometry, [selected]: { ...representation, elements } } };
+    const proposal = developProposal({ ...input, cycle }).proposal;
+    const pid = `d63-${target.id}`;
+    expect(reads).toBe(1);
+    expect(proposal.proposedElements.some((element) => element.provisionalId === pid)).toBe(false);
+    expect(proposal.unresolvedUnknowns.some((unknown) =>
+      unknown.field === `${pid}.kind` && unknown.reason === "UNKNOWN_D63_ELEMENT_TYPE:<unreadable>"
+    )).toBe(true);
+  });
+
   it("fails closed with the exact bridge code instead of materializing an invalid D6.3 polygon", () => {
     const input = verticallyAuthorizedFixture();
     const selected = input.partiContract.geometryIds.includes(input.cycle.geometry.candidateA.id)
