@@ -93,7 +93,7 @@ function unwrap<T>(body: T): T {
 }
 
 function parseRetryAfter(value: string | null): number | null {
-  if (value === null || !/^[1-9]\\d*$/.test(value.trim())) return null;
+  if (value === null || !/^[1-9]\d*$/.test(value.trim())) return null;
   const seconds = Number(value.trim());
   return Number.isSafeInteger(seconds) ? seconds : null;
 }
