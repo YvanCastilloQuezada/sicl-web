@@ -169,3 +169,53 @@ describe("[6] Developer promotion Core client", () => {
     expect(fetchSpy.mock.calls[0][0]).toBe("https://core.example.test/v1/projects/P-1/d2/snapshots/7");
   });
 });
+
+
+describe("[6.7-T630-C.4] V1.5 Core error wire compatibility", () => {
+  afterEach(() => {
+    delete process.env.SICL_CORE_URL;
+    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllGlobals();
+  });
+
+  it("preserves FastAPI detail.code, detail.message and positive integer Retry-After", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    const envelope = { detail: {
+      status: "ERROR", code: "RETRIABLE_BUSY_EXHAUSTED", message: "promotion deadline exhausted",
+      data: { status: "RETRIABLE_BUSY_EXHAUSTED", proposal_id: "dev-1", reason: "promotion deadline exhausted" },
+    } };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify(envelope), {
+      status: 503, headers: { "content-type": "application/json", "Retry-After": "1" },
+    })));
+    const { promoteDeveloperProposal } = await import("./coreHttpClient");
+    await expect(promoteDeveloperProposal("P-1", {
+      proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1",
+    })).rejects.toMatchObject({
+      status: 503, errorCode: "RETRIABLE_BUSY_EXHAUSTED", retryAfter: 1, envelope,
+      message: expect.stringContaining("promotion deadline exhausted"),
+    });
+  });
+
+  it.each(["0", "-1", "1.5", "soon", ""])("does not invent Retry-After from invalid value %j", async (retryAfter) => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      detail: { status: "ERROR", code: "RETRIABLE_BUSY_EXHAUSTED", message: "busy", data: {} },
+    }), { status: 503, headers: { "Retry-After": retryAfter } })));
+    const { promoteDeveloperProposal } = await import("./coreHttpClient");
+    await expect(promoteDeveloperProposal("P-1", {
+      proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1",
+    })).rejects.toMatchObject({ status: 503, errorCode: "RETRIABLE_BUSY_EXHAUSTED", retryAfter: null });
+  });
+
+  it("preserves HTTP evidence without inventing causal identity for malformed JSON", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("not-json", { status: 500 })));
+    const { promoteDeveloperProposal } = await import("./coreHttpClient");
+    await expect(promoteDeveloperProposal("P-1", {
+      proposal_id: "dev-1", proposal_fingerprint: "b".repeat(64), human_review_id: "REV-1",
+    })).rejects.toMatchObject({ status: 500, retryAfter: null });
+  });
+});
