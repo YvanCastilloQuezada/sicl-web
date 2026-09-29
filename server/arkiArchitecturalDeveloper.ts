@@ -277,6 +277,7 @@ export function developProposal(input: DeveloperInput): DeveloperResult {
     proposedRelations,
     proposedDerivations,
     unresolvedUnknowns,
+    explicitInput: input.explicitInput,
   };
 
   const proposal: DeveloperProposal = {
