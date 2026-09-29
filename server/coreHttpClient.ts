@@ -194,8 +194,8 @@ export async function recordCoreHumanReview(projectId: string, payload: BoundHum
     ? payload
     : {
         ...payload,
-        actor: payload.actor ?? payload.actor_id,
-        authority: payload.authority ?? payload.authority_basis,
+        actor: payload.actor ?? (payload as Record<string, unknown>).actor_id,
+        authority: payload.authority ?? (payload as Record<string, unknown>).authority_basis,
         review: payload.review ?? "Recommendation reviewed by human authority",
         timestamp: payload.timestamp ?? new Date().toISOString(),
       };
