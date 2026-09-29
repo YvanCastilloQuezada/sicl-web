@@ -43,12 +43,15 @@ export interface DeveloperFeedbackLoop {
   reason: string;
 }
 
+export type DeveloperPropertyValue = string | number | boolean | null;
+export type DeveloperProperties = Record<string, DeveloperPropertyValue>;
+
 export interface ProposedArchiElementDTO {
   provisionalId: string;
   /** Mapeo posterior a ElementKind de Core decidido en Commit 8. No enum falso aquí. */
   kind: string;
   geometry: Record<string, unknown> | null;
-  properties: Record<string, unknown>;
+  properties: DeveloperProperties;
   provenance: DeveloperProvenanceRef[];
   epistemicStatus: "FACT" | "ASSUMPTION" | "HYPOTHESIS" | "UNKNOWN";
 }
@@ -94,7 +97,106 @@ export interface DeveloperProposalValidation {
   errors: string[];
 }
 
+
 const SHA256_HEX = /^[0-9a-f]{64}$/;
+
+type PropertyReasonCode =
+  | "PROPERTY_NOT_OBJECT"
+  | "PROPERTY_INVALID_PROTOTYPE"
+  | "PROPERTY_INTROSPECTION_FAILED"
+  | "PROPERTY_DESCRIPTOR_UNREADABLE"
+  | "PROPERTY_SYMBOL_KEY"
+  | "PROPERTY_NON_ENUMERABLE"
+  | "PROPERTY_ACCESSOR_NOT_ALLOWED"
+  | "PROPERTY_INVALID_KEY"
+  | "PROPERTY_FORBIDDEN_PROTO_KEY"
+  | "PROPERTY_RESERVED_KEY"
+  | "PROPERTY_UNSUPPORTED_VALUE"
+  | "PROPERTY_NON_FINITE_NUMBER";
+
+function propertyError(provisionalId: string, key: PropertyKey | null, code: PropertyReasonCode): string {
+  const prefix = `proposedElements[${provisionalId}].properties`;
+  return key === null ? `${prefix}: ${code}` : `${prefix}[${String(key)}]: ${code}`;
+}
+
+function validateProperties(provisionalId: string, raw: unknown): string[] {
+  const errors: string[] = [];
+  if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
+    return [propertyError(provisionalId, null, "PROPERTY_NOT_OBJECT")];
+  }
+
+  let prototype: object | null;
+  try {
+    prototype = Object.getPrototypeOf(raw);
+  } catch {
+    return [propertyError(provisionalId, null, "PROPERTY_INTROSPECTION_FAILED")];
+  }
+  if (prototype !== Object.prototype && prototype !== null) {
+    return [propertyError(provisionalId, null, "PROPERTY_INVALID_PROTOTYPE")];
+  }
+
+  let keys: PropertyKey[];
+  try {
+    keys = Reflect.ownKeys(raw);
+  } catch {
+    return [propertyError(provisionalId, null, "PROPERTY_INTROSPECTION_FAILED")];
+  }
+
+  for (const key of keys) {
+    let descriptor: PropertyDescriptor | undefined;
+    try {
+      descriptor = Object.getOwnPropertyDescriptor(raw, key);
+    } catch {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_DESCRIPTOR_UNREADABLE"));
+      continue;
+    }
+    if (!descriptor) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_DESCRIPTOR_UNREADABLE"));
+      continue;
+    }
+
+    // V1.3 O-4: one deterministic error at most per key.
+    if (!("value" in descriptor)) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_ACCESSOR_NOT_ALLOWED"));
+      continue;
+    }
+    if (!descriptor.enumerable) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_NON_ENUMERABLE"));
+      continue;
+    }
+    if (typeof key !== "string") {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_SYMBOL_KEY"));
+      continue;
+    }
+    if (key.length === 0 || key.trim().length === 0) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_INVALID_KEY"));
+      continue;
+    }
+    if (key === "__proto__") {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_FORBIDDEN_PROTO_KEY"));
+      continue;
+    }
+    if (key === "canonical") {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_RESERVED_KEY"));
+      continue;
+    }
+
+    const value = descriptor.value;
+    if (typeof value === "number" && !Number.isFinite(value)) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_NON_FINITE_NUMBER"));
+      continue;
+    }
+    if (
+      value !== null &&
+      typeof value !== "string" &&
+      typeof value !== "number" &&
+      typeof value !== "boolean"
+    ) {
+      errors.push(propertyError(provisionalId, key, "PROPERTY_UNSUPPORTED_VALUE"));
+    }
+  }
+  return errors;
+}
 
 export function validateDeveloperProposal(
   proposal: DeveloperProposal
@@ -144,15 +246,7 @@ export function validateDeveloperProposal(
         `proposedElements[${el.provisionalId}]: UNKNOWN element must be expressed via unresolvedUnknowns, not as element with epistemicStatus=UNKNOWN`
       );
     }
-    if (
-      el.properties &&
-      Object.prototype.hasOwnProperty.call(el.properties, "canonical") &&
-      (el.properties as Record<string, unknown>).canonical === true
-    ) {
-      errors.push(
-        `proposedElements[${el.provisionalId}]: element cannot declare canonical:true`
-      );
-    }
+    errors.push(...validateProperties(el.provisionalId, el.properties as unknown));
   }
 
   for (const rel of proposal.proposedRelations) {
