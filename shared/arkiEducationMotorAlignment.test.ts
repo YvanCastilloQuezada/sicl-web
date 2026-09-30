@@ -46,3 +46,74 @@ describe("ARKI education to motor practicum gate", () => {
     expect(validateMotorPracticum({ ...base, masterEngines: [] })).toContain("MASTER_ENGINE_REQUIRED");
   });
 });
+
+
+describe("ARKI Delta 6.2 curriculum curator", () => {
+  const undergraduate = {
+    curriculumId: "CURR-STRUCT-UG",
+    stage: "UNDERGRADUATE" as const,
+    specialty: "Structural Engineering",
+    learningOutcomeIds: ["LO-STATICS"],
+    prerequisiteKnowledgeIds: ["K-MATH-001"],
+    motorCapabilityTargets: [],
+    status: "HUMAN_CONFIRMED" as const,
+  };
+  const masters = {
+    curriculumId: "CURR-STRUCT-MSC",
+    stage: "MASTERS" as const,
+    specialty: "Structural Engineering",
+    parentCurriculumId: undergraduate.curriculumId,
+    learningOutcomeIds: ["LO-NONLINEAR"],
+    prerequisiteKnowledgeIds: ["K-STATICS-ADV"],
+    motorCapabilityTargets: ["CAP-OPENSEES"],
+    status: "READY_FOR_HUMAN_REVIEW" as const,
+  };
+
+  it("requires every masters/doctorate curriculum to have a parent curriculum", async () => {
+    const { validateCurriculumHierarchy } = await import("./arkiEducationMotorAlignment");
+    expect(validateCurriculumHierarchy([{ ...masters, parentCurriculumId: undefined }])).toContain("CURR-STRUCT-MSC:PARENT_CURRICULUM_REQUIRED");
+  });
+
+  it("accepts a traceable Delta 6.2 candidate only as curriculum-aligned, never canonical", async () => {
+    const { curateDelta62Candidate } = await import("./arkiEducationMotorAlignment");
+    expect(curateDelta62Candidate({
+      recordId: "D62-STR-001",
+      formatVersion: "DELTA-6.2-FEDERATED-KNOWLEDGE-1.0",
+      domain: "Structural Engineering",
+      knowledgeId: "K-DYNAMICS-001",
+      proposedStage: "MASTERS",
+      proposedCurriculumId: masters.curriculumId,
+      provenance: ["SRC-001"],
+      sourceCommit: "abc123",
+      sourceFile: "source.xlsx",
+      confidence: "EVIDENCED",
+    }, masters)).toEqual({
+      recordId: "D62-STR-001",
+      curriculumId: masters.curriculumId,
+      decision: "ALIGNED",
+      reason: "DELTA_62_CANDIDATE_ALIGNS_WITH_CURRICULUM",
+      humanReviewRequired: true,
+    });
+  });
+
+  it("rejects curriculum-stage mismatch for Delta 6.2 food", async () => {
+    const { curateDelta62Candidate } = await import("./arkiEducationMotorAlignment");
+    expect(curateDelta62Candidate({
+      recordId: "D62-STR-002",
+      formatVersion: "DELTA-6.2-FEDERATED-KNOWLEDGE-1.0",
+      domain: "Structural Engineering",
+      knowledgeId: "K-BRIDGE-001",
+      proposedStage: "DOCTORATE",
+      proposedCurriculumId: masters.curriculumId,
+      provenance: ["SRC-002"],
+      sourceCommit: "def456",
+      sourceFile: "source.xlsx",
+      confidence: "EVIDENCED",
+    }, masters).decision).toBe("OUT_OF_SCOPE");
+  });
+
+  it("preserves the full hierarchy before motor practicum", async () => {
+    const { validateCurriculumHierarchy } = await import("./arkiEducationMotorAlignment");
+    expect(validateCurriculumHierarchy([undergraduate, masters])).toEqual([]);
+  });
+});
