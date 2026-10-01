@@ -16,6 +16,7 @@ export type SynthesisPrimitive = {
 
 export type CapabilityComposition = {
   candidateId: string;
+  artifactKind: "CAPABILITY_CANDIDATE";
   goalCapability: string;
   primitives: readonly SynthesisPrimitive[];
   links: readonly {
@@ -29,6 +30,8 @@ export type CapabilityComposition = {
   requiredOracles: readonly string[];
   status: "SANDBOX_PROPOSAL";
   canonicalMutation: false;
+  geometryAuthority: "NONE";
+  architecturalAuthority: "NONE";
 };
 
 export type SynthesisGateResult = {
@@ -40,6 +43,10 @@ export function validateComposition(candidate: CapabilityComposition): Synthesis
   const failures: string[] = [];
   const primitives = new Map(candidate.primitives.map(p => [p.primitiveId, p]));
 
+  if (candidate.artifactKind !== "CAPABILITY_CANDIDATE") failures.push("INVENTOR_OUTPUT_FORBIDDEN");
+  if (candidate.canonicalMutation !== false || candidate.geometryAuthority !== "NONE" || candidate.architecturalAuthority !== "NONE") {
+    failures.push("INVENTOR_AUTHORITY_FORBIDDEN");
+  }
   if (candidate.primitives.length < 2) failures.push("COMPOSITION_REQUIRES_MULTIPLE_PRIMITIVES");
   if (!candidate.goalCapability.trim()) failures.push("GOAL_CAPABILITY_REQUIRED");
   if (candidate.requiredOracles.length === 0) failures.push("INDEPENDENT_ORACLE_REQUIRED");
