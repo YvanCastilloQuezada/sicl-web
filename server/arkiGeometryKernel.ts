@@ -44,6 +44,22 @@ export type AgkResult<T> =
   | { ok: true; value: T }
   | { ok: false; code: AgkFailureCode };
 
+export interface AgkDraftState {
+  phase: "DRAFT_OPERATIONAL_STATE";
+  baseStateId: string;
+  objects: readonly AgkOperationalObject[];
+  dependencies: readonly AgkDependency[];
+}
+
+export interface AgkProvenanceEvent {
+  kind: "AGK_COMMAND_COMMITTED";
+  transactionId: string;
+  beforeStateId: string;
+  afterStateId: string;
+  command: AgkCommand;
+  affectedObjectIds: readonly string[];
+}
+
 export interface AgkTransactionReceipt {
   transactionId: string;
   beforeStateId: string;
@@ -63,12 +79,28 @@ export interface AgkPlanRectangle {
   depth_mm: number;
 }
 
+function canonicalObjects(objects: readonly AgkOperationalObject[]): readonly AgkOperationalObject[] {
+  return [...objects].sort((a, b) => a.objectId.localeCompare(b.objectId));
+}
+
+function canonicalDependencies(dependencies: readonly AgkDependency[]): readonly AgkDependency[] {
+  return [...dependencies].sort((a, b) =>
+    a.hostObjectId.localeCompare(b.hostObjectId) ||
+    a.dependentObjectId.localeCompare(b.dependentObjectId) ||
+    a.kind.localeCompare(b.kind)
+  );
+}
+
 function stateId(
   revision: number,
   objects: readonly AgkOperationalObject[],
   dependencies: readonly AgkDependency[]
 ): string {
-  return `agk-state-${fingerprint({ revision, objects, dependencies }).slice(0, 24)}`;
+  return `agk-state-${fingerprint({
+    revision,
+    objects: canonicalObjects(objects),
+    dependencies: canonicalDependencies(dependencies),
+  }).slice(0, 24)}`;
 }
 
 function createState(
@@ -80,7 +112,12 @@ function createState(
     objectId: object.objectId,
     geometry: { ...object.geometry, profile: { ...object.geometry.profile } },
   }));
-  const dependencySnapshot = dependencies.map((dependency) => ({ ...dependency }));
+  const dependencySnapshot = dependencies.map((dependency) => Object.freeze({ ...dependency }));
+  for (const object of objectSnapshot) {
+    Object.freeze(object.geometry.profile);
+    Object.freeze(object.geometry);
+    Object.freeze(object);
+  }
   return Object.freeze({
     stateId: stateId(revision, objectSnapshot, dependencySnapshot),
     revision,
@@ -173,7 +210,10 @@ export function applyAgkCommand(
   }
 
   const affected = affectedByMove(current, command.objectId);
-  const objects = current.objects.map((object) =>
+  const draft: AgkDraftState = Object.freeze({
+    phase: "DRAFT_OPERATIONAL_STATE",
+    baseStateId: current.stateId,
+    objects: current.objects.map((object) =>
     !affected.has(object.objectId)
       ? object
       : {
@@ -185,26 +225,39 @@ export function applyAgkCommand(
             z_mm: object.geometry.z_mm + command.delta_mm.z,
           },
         }
-  );
-  const next = createState(current.revision + 1, objects, current.dependencies);
+    ),
+    dependencies: current.dependencies.map((dependency) => ({ ...dependency })),
+  });
+  const draftFailure = validateDependencies(draft.objects, draft.dependencies);
+  if (draftFailure) return { ok: false, code: draftFailure };
+  const next = createState(current.revision + 1, draft.objects, draft.dependencies);
   const affectedObjectIds = current.objects
     .map((object) => object.objectId)
     .filter((objectId) => affected.has(objectId));
+  const transactionId = `agk-tx-${fingerprint({
+    beforeStateId: current.stateId,
+    command,
+    affectedObjectIds,
+    afterStateId: next.stateId,
+  }).slice(0, 24)}`;
   return {
     ok: true,
     value: {
-      transactionId: `agk-tx-${fingerprint({
-        beforeStateId: current.stateId,
-        command,
-        affectedObjectIds,
-        afterStateId: next.stateId,
-      }).slice(0, 24)}`,
+      transactionId,
       beforeStateId: current.stateId,
       afterStateId: next.stateId,
       command,
       affectedObjectIds,
       committed: true,
       state: next,
+      provenance: Object.freeze({
+        kind: "AGK_COMMAND_COMMITTED",
+        transactionId,
+        beforeStateId: current.stateId,
+        afterStateId: next.stateId,
+        command,
+        affectedObjectIds: Object.freeze([...affectedObjectIds]),
+      }),
     },
   };
 }
