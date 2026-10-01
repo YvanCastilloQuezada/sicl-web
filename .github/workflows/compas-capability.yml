@@ -1,0 +1,50 @@
+name: ARKI COMPAS Capability Canary
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "server/capabilityFabric/**"
+      - "tools/arki_compas_worker.py"
+      - "requirements-compas.txt"
+      - ".github/workflows/compas-capability.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compas-capability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Node dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install pinned COMPAS runtime
+        run: python -m pip install -r requirements-compas.txt
+
+      - name: Verify COMPAS runtime identity
+        run: python -m compas
+
+      - name: Run strict Capability Fabric canary
+        env:
+          ARKI_REQUIRE_COMPAS: "1"
+          ARKI_PYTHON_EXECUTABLE: python
+        run: pnpm vitest run server/capabilityFabric
