@@ -28,4 +28,19 @@ describe("COMPAS worker transport", () => {
       expect(String(error)).toMatch(/COMPAS_RUNTIME_UNAVAILABLE|COMPAS_RUNTIME_SPAWN_FAILED/);
     }
   });
+
+  it.runIf(process.env.ARKI_REQUIRE_COMPAS === "1")(
+    "observes the required COMPAS runtime in configured environments",
+    async () => {
+      const transport = createCompasWorkerTransport({ timeoutMs: 5000 });
+      const result = await transport.invoke<
+        Record<string, never>,
+        { runtime: string; version: string | null }
+      >("COMPAS_RUNTIME_IDENTITY", "VERIFY", {});
+      expect(result.runtime.observed).toBe(true);
+      expect(result.runtime.name).toBe("compas");
+      expect(result.runtime.version).toBeTruthy();
+      expect(result.evidenceStatus).toBe("OBSERVED");
+    },
+  );
 });
