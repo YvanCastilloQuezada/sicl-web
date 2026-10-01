@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { CapabilityProviderDescriptor, CapabilityResult } from "./types";
 import { selectCapabilityProvider, validateProviderDescriptor } from "./registry";
+import { createCompasProvider } from "./compasAdapter";
 
 const provider = (
   providerId: string,
@@ -55,6 +56,20 @@ describe("CAPABILITY-FABRIC-001 contract", () => {
       capabilities: ["A", "A"],
     }))).toBe("PROVIDER_DESCRIPTOR_INVALID");
     expect(validateProviderDescriptor(provider("bad-priority", 1.5))).toBe("PROVIDER_DESCRIPTOR_INVALID");
+  });
+
+  it("can route a horizontal COMPAS provider without granting canonical authority", () => {
+    const compas = createCompasProvider(provider("compas", 50, {
+      capabilities: ["MESH_BOOLEAN"],
+      operations: ["VERIFY"],
+      integrationMode: "WRAP",
+    }), { invoke: async () => ({ output: {}, evidenceStatus: "UNKNOWN" as const }) });
+    expect(selectCapabilityProvider(
+      [provider("other", 10, { capabilities: ["MESH_BOOLEAN"], operations: ["VERIFY"] }), compas.descriptor],
+      "MESH_BOOLEAN",
+      "VERIFY",
+    )).toEqual({ ok: true, provider: compas.descriptor });
+    expect(compas.descriptor.authority).toBe("NON_CANONICAL_PROVIDER");
   });
 
   it("makes provider output structurally non-canonical", () => {
