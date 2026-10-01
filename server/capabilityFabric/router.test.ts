@@ -19,7 +19,7 @@ function descriptor(
 }
 
 describe("CapabilityRouter", () => {
-  it("executes the highest-priority provider without director knowledge of provider identity", async () => {
+  it("requires higher-authority provider selection when multiple providers are compatible", async () => {
     const lowInvoke = vi.fn().mockResolvedValue({
       output: { source: "low" },
       evidenceStatus: "SIMULATED",
@@ -37,10 +37,21 @@ describe("CapabilityRouter", () => {
       createCompasProvider(descriptor("high", 20), { invoke: highInvoke }),
     ]);
 
-    const execution = await router.execute({
-      requestId: "route-1",
+    const ambiguous = await router.execute({
+      requestId: "route-1-ambiguous",
       capability: "COMPAS_RUNTIME_IDENTITY",
       operation: "VERIFY",
+      input: {},
+    });
+    expect(ambiguous).toEqual({ ok: false, code: "PROVIDER_SELECTION_REQUIRED" });
+    expect(highInvoke).not.toHaveBeenCalled();
+    expect(lowInvoke).not.toHaveBeenCalled();
+
+    const execution = await router.execute({
+      requestId: "route-1-selected",
+      capability: "COMPAS_RUNTIME_IDENTITY",
+      operation: "VERIFY",
+      selectedProviderId: "high",
       input: {},
     });
 
