@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { generateDynamicBuilding } from "../../shared/arkiDynamicFamilies";
-import { createAgkState } from "../arkiGeometryKernel";
+import { applyAgkCommand, createAgkState } from "../arkiGeometryKernel";
 import { compileDynamicBuildingToAgk } from "./familyCompiler";
 
 describe("AGK-003 dynamic family compiler", () => {
@@ -56,7 +56,6 @@ describe("AGK-003 executable feature regeneration", () => {
     const initial = createAgkState([compiled.object], [], compiled.causalModel);
     expect(initial.ok).toBe(true);
     if (!initial.ok) return;
-    const { applyAgkCommand } = require("../arkiGeometryKernel") as typeof import("../arkiGeometryKernel");
     const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "moving-1", delta_mm: { x: 600, y: 200, z: 0 } });
     expect(moved.ok).toBe(true);
     if (!moved.ok) return;
@@ -76,7 +75,6 @@ describe("AGK-003 executable feature regeneration", () => {
     const initial = createAgkState([compiled.object], [], compiled.causalModel);
     expect(initial.ok).toBe(true);
     if (!initial.ok) return;
-    const { applyAgkCommand } = require("../arkiGeometryKernel") as typeof import("../arkiGeometryKernel");
     let state = initial.value;
     for (const [parameter, value] of [["width_mm", 50000], ["depth_mm", 40000], ["height_mm", 6800]] as const) {
       const changed = applyAgkCommand(state, { kind: "SET_FEATURE_PARAMETER", featureId: compiled.feature.featureId, parameter, value });
