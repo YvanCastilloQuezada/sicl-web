@@ -156,7 +156,7 @@ describe("AGK-001 operational spine", () => {
       {featureId:"f-wall",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall-1",parameters:{width_mm:4000,depth_mm:200,height_mm:2800,x_mm:1000,y_mm:0,z_mm:0},inputFeatureIds:[]},
       {featureId:"f-window",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"window-1",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:2200,y_mm:0,z_mm:0},inputFeatureIds:["f-wall"]},
       {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:400,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
-    ],constraints:[{constraintId:"c-host",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"wall-1",dependentObjectId:"window-1",offset_mm:{x:1200,y:0,z:0},requireWithinHostX:true}]};
+    ],constraints:[{constraintId:"c-host",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"wall-1",dependentObjectId:"window-1",offset_mm:{x:1200,y:0,z:0},requireWithinHostX:true}]};
     const initial=createAgkState(objects,[{kind:"HOSTS",hostObjectId:"wall-1",dependentObjectId:"window-1"}],causalModel);
     expect(initial.ok).toBe(true); if(!initial.ok)return;
     const moved=applyAgkCommand(initial.value,{kind:"MOVE",objectId:"wall-1",delta_mm:{x:600,y:0,z:0}});
@@ -173,7 +173,7 @@ describe("AGK-001 operational spine", () => {
     const model={features:[
       {featureId:"a",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall",parameters:{width_mm:2000,depth_mm:200,height_mm:2800,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]},
       {featureId:"b",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"child",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:1500,y_mm:0,z_mm:0},inputFeatureIds:["a"]},
-    ],constraints:[{constraintId:"bad",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"wall",dependentObjectId:"child",offset_mm:{x:1500,y:0,z:0},requireWithinHostX:true}]};
+    ],constraints:[{constraintId:"bad",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"wall",dependentObjectId:"child",offset_mm:{x:1500,y:0,z:0},requireWithinHostX:true}]};
     const initial=createAgkState([wall,child],[{kind:"HOSTS",hostObjectId:"wall",dependentObjectId:"child"}],model);
     expect(initial.ok).toBe(true); if(!initial.ok)return;
     const before=initial.value;
@@ -255,13 +255,29 @@ describe("AGK-001 operational spine", () => {
     const objects=[mk("a"),mk("b")], deps=[{kind:"HOSTS" as const,hostObjectId:"a",dependentObjectId:"b"}];
     const fa={featureId:"fa",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"a",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]};
     const fb={featureId:"fb",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"b",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:["fa"]};
-    const c1={constraintId:"c1",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"a",dependentObjectId:"b",offset_mm:{x:0,y:0,z:0},requireWithinHostX:true};
+    const c1={constraintId:"c1",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"a",dependentObjectId:"b",offset_mm:{x:0,y:0,z:0},requireWithinHostX:true};
     const x=createAgkState(objects,deps,{features:[fa,fb],constraints:[c1]});
     const y=createAgkState(objects,deps,{features:[fb,fa],constraints:[c1]});
     const z=createAgkState(objects,deps,{features:[fa,fb],constraints:[{...c1,offset_mm:{x:1,y:0,z:0}}]});
     expect(x.ok&&y.ok&&z.ok).toBe(true); if(!x.ok||!y.ok||!z.ok)return;
     expect(x.value.stateId).toBe(y.value.stateId);
     expect(x.value.stateId).not.toBe(z.value.stateId);
+  });
+
+  it("AGK-002 propagates SET_FEATURE_PARAMETER through descendants and rejects constraint failure atomically", () => {
+    const wall={objectId:"wall",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:2000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:2800}};
+    const child={objectId:"child",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:1200,depth_mm:200,radius_mm:null},x_mm:1500,y_mm:0,z_mm:0,height_mm:1200}};
+    const model={features:[
+      {featureId:"fw",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall",parameters:{width_mm:2000,depth_mm:200,height_mm:2800,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]},
+      {featureId:"fc",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"child",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:1500,y_mm:0,z_mm:0},inputFeatureIds:["fw"]},
+    ],constraints:[{constraintId:"bad",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"wall",dependentObjectId:"child",offset_mm:{x:1500,y:0,z:0},requireWithinHostX:true}]};
+    const initial=createAgkState([wall,child],[{kind:"HOSTS",hostObjectId:"wall",dependentObjectId:"child"}],model);
+    expect(initial.ok).toBe(true); if(!initial.ok)return;
+    const before=initial.value;
+    const result=applyAgkCommand(before,{kind:"SET_FEATURE_PARAMETER",featureId:"fw",parameter:"height_mm",value:3200});
+    expect(result).toEqual({ok:false,code:"CONSTRAINT_VIOLATED"});
+    expect(before.objects[0].geometry.height_mm).toBe(2800);
+    expect(before.causalModel?.features.find(f=>f.featureId==="fw")?.parameters.height_mm).toBe(2800);
   });
 
 });
