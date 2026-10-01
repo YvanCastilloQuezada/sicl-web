@@ -32,6 +32,7 @@ export class CapabilityRouter {
       this.#providers.map(provider => provider.descriptor),
       request.capability,
       request.operation,
+      request.selectedProviderId,
     );
     if (!selection.ok) return selection;
 
