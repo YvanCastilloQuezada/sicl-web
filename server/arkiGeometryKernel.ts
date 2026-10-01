@@ -118,7 +118,7 @@ function validateDependencies(
     visited.add(id);
     return false;
   };
-  for (const id of ids) if (hasCycle(id)) return "DEPENDENCY_CYCLE";
+  for (const id of Array.from(ids)) if (hasCycle(id)) return "DEPENDENCY_CYCLE";
   return null;
 }
 
