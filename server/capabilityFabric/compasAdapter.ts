@@ -26,6 +26,11 @@ export interface CompasTransport {
     output: TOutput;
     evidenceStatus: "OBSERVED" | "SIMULATED" | "UNKNOWN";
     diagnostics?: readonly string[];
+    runtime: {
+      observed: boolean;
+      name: string;
+      version: string | null;
+    };
   }>;
 }
 
@@ -64,6 +69,7 @@ export function createCompasProvider<TInput = unknown, TOutput = unknown>(
           capability: request.capability,
           operation: request.operation,
           status: observed.evidenceStatus,
+          runtime: Object.freeze({ ...observed.runtime }),
           diagnostics: Object.freeze([...(observed.diagnostics ?? [])]),
         },
         canonicalMutation: false,
