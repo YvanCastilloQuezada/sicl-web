@@ -68,6 +68,7 @@ export interface AgkTransactionReceipt {
   affectedObjectIds: readonly string[];
   committed: true;
   state: AgkCommittedState;
+  provenance: AgkProvenanceEvent;
 }
 
 export interface AgkPlanRectangle {
