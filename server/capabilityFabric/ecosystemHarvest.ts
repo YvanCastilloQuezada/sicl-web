@@ -1,4 +1,4 @@
-export type EcosystemHost = "DYNAMO" | "GRASSHOPPER" | "RHINO";
+export type EcosystemHost = "DYNAMO" | "GRASSHOPPER" | "RHINO" | "REVIT" | "ARCHICAD";
 export type HarvestDisposition = "REUSE_CODE" | "ADAPT_PATTERN" | "EXTERNAL_HOST" | "REFERENCE_ONLY";
 
 export interface EcosystemAsset {
@@ -13,6 +13,76 @@ export interface EcosystemAsset {
 }
 
 const ASSETS: readonly EcosystemAsset[] = Object.freeze([
+  {
+    assetId: "revit-topology-api",
+    host: "REVIT",
+    capabilities: ["PLAN_TOPOLOGY", "SPATIAL_ELEMENT_TOPOLOGY", "ROOM_SPACE_BOUNDARY_RELATIONS", "MEP_CONNECTIVITY_GRAPH", "FACE_EDGE_VERTEX_ACCESS"],
+    disposition: "EXTERNAL_HOST",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["Revit host topology reference/provider: PlanTopology, SpatialElement/Space boundaries, MEP physical/logical connectors and geometry subelements. Never AGK canonical authority."],
+  },
+  {
+    assetId: "archicad-model-topology-api",
+    host: "ARCHICAD",
+    capabilities: ["BODY_VERTEX_EDGE_POLYGON_TOPOLOGY", "EDGE_POLYGON_ADJACENCY", "PERSISTENT_POLYGON_VERTEX_IDS", "WALL_CONNECTION_RELATIONS", "ZONE_BOUNDARY_RELATIONS", "MEP_PORT_ROUTE_CONNECTIVITY"],
+    disposition: "EXTERNAL_HOST",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["Archicad 29 C++ API exposes body topology, stable polygon vertex IDs, architectural element relations and MEP connectivity. Harvest contracts/patterns; host remains non-canonical."],
+  },
+  {
+    assetId: "archicad-param-o",
+    host: "ARCHICAD",
+    capabilities: ["NODE_BASED_PARAMETRIC_OBJECTS", "PARAMETRIC_INPUTS", "SHAPE_TRANSFORMS", "SOLID_BOOLEAN_GRAPH", "GDL_OBJECT_GENERATION"],
+    disposition: "EXTERNAL_HOST",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["PARAM-O is Archicad's node-based parametric object environment and stores its script in library parts; useful graph-language target/reference."],
+  },
+  {
+    assetId: "archicad-gdl",
+    host: "ARCHICAD",
+    capabilities: ["PARAMETRIC_OBJECT_SCRIPTING", "PARAMETRIC_2D_3D_REPRESENTATION", "OBJECT_PARAMETERS", "LIBRARY_PART_MACROS"],
+    disposition: "ADAPT_PATTERN",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["GDL is a mature parametric-object language. Harvest representation and parameterization concepts; no source-code reuse without an explicit license basis."],
+  },
+  {
+    assetId: "grasshopper-archicad-live-connection",
+    host: "ARCHICAD",
+    capabilities: ["GRASSHOPPER_ARCHICAD_LIVE_BIM", "GENERATIVE_BIM_ELEMENT_CREATION", "ARCHICAD_PROPERTY_CLASSIFICATION_IO"],
+    disposition: "EXTERNAL_HOST",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["Official Archicad 29 connection supports Rhino/Grasshopper as a live generative-design host; candidate projection/materialization path from ARKI Graph IR."],
+  },
+  {
+    assetId: "tapir-archicad-automation",
+    host: "ARCHICAD",
+    capabilities: ["ARCHICAD_JSON_AUTOMATION", "ARCHICAD_EXTENDED_COMMANDS", "GRASSHOPPER_ARCHICAD_API_NODES"],
+    disposition: "REUSE_CODE",
+    licenseSpdx: "MIT",
+    licenseVerified: true,
+    hostRequired: true,
+    notes: ["Open-source Archicad JSON/API bridge with Grasshopper components; candidate bounded external-host adapter after runtime/version verification."],
+  },
+  {
+    assetId: "floorplan6",
+    host: "ARCHICAD",
+    capabilities: ["APARTMENT_LAYOUT_GENERATION", "CP_SAT_ROOM_LAYOUT", "DIJKSTRA_EGRESS_VALIDATION", "ARCHICAD_ZONE_EXPORT"],
+    disposition: "REFERENCE_ONLY",
+    licenseSpdx: "AGPL-3.0",
+    licenseVerified: true,
+    hostRequired: true,
+    notes: ["2026 community floor-plan pipeline using OR-Tools CP-SAT, Shapely and Tapir. Learn/test against patterns only unless AGPL strategy is explicitly approved."],
+  },
   {
     assetId: "dynamo-core",
     host: "DYNAMO",
