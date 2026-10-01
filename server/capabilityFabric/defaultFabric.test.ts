@@ -40,4 +40,37 @@ describe("default Capability Fabric", () => {
       expect(execution.result.canonicalMutation).toBe(false);
     },
   );
+
+  it.runIf(process.env.ARKI_REQUIRE_COMPAS === "1")(
+    "executes real 3D geometry through COMPAS without creating canonical state",
+    async () => {
+      const router = createDefaultCapabilityRouter();
+      const execution = await router.execute<
+        { points: number[][]; matrix: number[][] },
+        { points: number[][] }
+      >({
+        requestId: "compas-transform-canary",
+        capability: "TRANSFORM_POINTS_3D",
+        operation: "VERIFY",
+        input: {
+          points: [[1, 2, 3], [-1, 0, 5]],
+          matrix: [
+            [1, 0, 0, 10],
+            [0, 1, 0, -2],
+            [0, 0, 1, 4],
+            [0, 0, 0, 1],
+          ],
+        },
+      });
+
+      expect(execution.ok).toBe(true);
+      if (!execution.ok) return;
+      expect(execution.result.output.points).toEqual([[11, 0, 7], [9, -2, 9]]);
+      expect(execution.result.evidence).toMatchObject({
+        status: "OBSERVED",
+        runtime: { observed: true, name: "compas", version: "2.15.0" },
+      });
+      expect(execution.result.canonicalMutation).toBe(false);
+    },
+  );
 });
