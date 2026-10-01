@@ -84,8 +84,10 @@ describe("ARKI E2E-001 vertical slice", () => {
       architecturalObjectId: "facade-1",
       operation: "TRANSLATE",
       delta_mm: { x: 600, y: 0, z: 0 },
-      architecturalAuthority: "D2",
-    });
-    expect(result.ok).toBe(true);
+      architecturalAuthority: "FABRIC",
+    } as unknown as Parameters<typeof executeE2E001>[1]);
+    expect(result).toEqual({ ok: false, stage: "INTENT", code: "E2E001_INTENT_INVALID" });
+    expect(initial.value.revision).toBe(0);
+    expect(initial.value.objects[0].geometry.x_mm).toBe(1000);
   });
 });
