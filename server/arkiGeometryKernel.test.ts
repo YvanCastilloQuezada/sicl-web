@@ -155,7 +155,7 @@ describe("AGK-001 operational spine", () => {
     const causalModel={features:[
       {featureId:"f-wall",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall-1",parameters:{width_mm:4000,depth_mm:200,height_mm:2800,x_mm:1000,y_mm:0,z_mm:0},inputFeatureIds:[]},
       {featureId:"f-window",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"window-1",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:2200,y_mm:0,z_mm:0},inputFeatureIds:["f-wall"]},
-      {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:400,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
+      {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:200,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
     ],constraints:[{constraintId:"c-host",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"wall-1",dependentObjectId:"window-1",offset_mm:{x:1200,y:0,z:0},requireWithinHostX:true}]};
     const initial=createAgkState(objects,[{kind:"HOSTS",hostObjectId:"wall-1",dependentObjectId:"window-1"}],causalModel);
     expect(initial.ok).toBe(true); if(!initial.ok)return;
