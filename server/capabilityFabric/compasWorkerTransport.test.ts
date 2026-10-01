@@ -39,7 +39,7 @@ describe("COMPAS worker transport", () => {
       >("COMPAS_RUNTIME_IDENTITY", "VERIFY", {});
       expect(result.runtime.observed).toBe(true);
       expect(result.runtime.name).toBe("compas");
-      expect(result.runtime.version).toBeTruthy();
+      expect(result.runtime.version).toBe("2.15.0");
       expect(result.evidenceStatus).toBe("OBSERVED");
     },
   );
