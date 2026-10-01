@@ -18,6 +18,7 @@ describe("CAPABILITY-FABRIC-001 COMPAS boundary", () => {
       output: { valid: true },
       evidenceStatus: "OBSERVED",
       diagnostics: ["provider-test-double"],
+      runtime: { observed: false, name: "test-double", version: null },
     });
     const provider = createCompasProvider(descriptor, { invoke });
 
