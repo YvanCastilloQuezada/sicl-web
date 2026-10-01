@@ -101,15 +101,32 @@ function canonicalDependencies(dependencies: readonly AgkDependency[]): readonly
   );
 }
 
+function canonicalCausalModel(model?: AgkCausalModel): AgkCausalModel | undefined {
+  if (!model) return undefined;
+  return {
+    features: [...model.features].map(feature => ({
+      ...feature,
+      parameters: { ...feature.parameters },
+      inputFeatureIds: [...feature.inputFeatureIds].sort(),
+    })).sort((a,b)=>a.featureId.localeCompare(b.featureId)),
+    constraints: [...model.constraints].map(constraint => ({
+      ...constraint,
+      offset_mm: { ...constraint.offset_mm },
+    })).sort((a,b)=>a.constraintId.localeCompare(b.constraintId)),
+  };
+}
+
 function stateId(
   revision: number,
   objects: readonly AgkOperationalObject[],
-  dependencies: readonly AgkDependency[]
+  dependencies: readonly AgkDependency[],
+  causalModel?: AgkCausalModel
 ): string {
   return `agk-state-${fingerprint({
     revision,
     objects: canonicalObjects(objects),
     dependencies: canonicalDependencies(dependencies),
+    causalModel: canonicalCausalModel(causalModel),
   }).slice(0, 24)}`;
 }
 
@@ -130,11 +147,11 @@ function createState(
     Object.freeze(object);
   }
   return Object.freeze({
-    stateId: stateId(revision, objectSnapshot, dependencySnapshot),
+    stateId: stateId(revision, objectSnapshot, dependencySnapshot, causalModel),
     revision,
     objects: Object.freeze(objectSnapshot),
     dependencies: Object.freeze(dependencySnapshot),
-    causalModel,
+    causalModel: canonicalCausalModel(causalModel),
   });
 }
 
