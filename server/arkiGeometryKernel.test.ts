@@ -87,4 +87,25 @@ describe("AGK-001 operational spine", () => {
     expect(initial.value.revision).toBe(0);
     expect(initial.value.objects[0].geometry.x_mm).toBe(1000);
   });
+  it("propagates HOSTS dependency and preserves identities", () => {
+    const wall = { objectId: "wall-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 4000, depth_mm: 200, radius_mm: null }, x_mm: 1000, y_mm: 2000, z_mm: 0, height_mm: 2800 } };
+    const window = { objectId: "window-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1200, depth_mm: 200, radius_mm: null }, x_mm: 2200, y_mm: 2000, z_mm: 900, height_mm: 1200 } };
+    const initial = createAgkState([wall, window], [{ kind: "HOSTS", hostObjectId: "wall-1", dependentObjectId: "window-1" }]);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "wall-1", delta_mm: { x: 600, y: 0, z: 0 } });
+    expect(moved.ok).toBe(true);
+    if (!moved.ok) return;
+    expect(moved.value.affectedObjectIds).toEqual(["wall-1", "window-1"]);
+    expect(moved.value.state.objects.map((object) => [object.objectId, object.geometry.x_mm])).toEqual([["wall-1", 1600], ["window-1", 2800]]);
+    expect(moved.value.state.dependencies).toEqual([{ kind: "HOSTS", hostObjectId: "wall-1", dependentObjectId: "window-1" }]);
+    expect(deriveAgkPlan(moved.value.state).map((item) => [item.objectId, item.x_mm])).toEqual([["wall-1", 1600], ["window-1", 2800]]);
+  });
+
+  it("rejects invalid HOSTS graphs before commit", () => {
+    const wall = { objectId: "wall-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1000, depth_mm: 200, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } };
+    expect(createAgkState([wall], [{ kind: "HOSTS", hostObjectId: "wall-1", dependentObjectId: "missing" }])).toEqual({ ok: false, code: "DEPENDENCY_OBJECT_NOT_FOUND" });
+    expect(createAgkState([wall], [{ kind: "HOSTS", hostObjectId: "wall-1", dependentObjectId: "wall-1" }])).toEqual({ ok: false, code: "DEPENDENCY_SELF_REFERENCE" });
+  });
+
 });
