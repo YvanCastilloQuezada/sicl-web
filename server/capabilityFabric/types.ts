@@ -36,6 +36,11 @@ export interface CapabilityRequest<TInput = unknown> {
 
 export interface CapabilityEvidence {
   providerId: string;
+  runtime: {
+    observed: boolean;
+    name: string;
+    version: string | null;
+  };
   capability: string;
   operation: CapabilityOperation;
   status: "OBSERVED" | "SIMULATED" | "UNKNOWN";
