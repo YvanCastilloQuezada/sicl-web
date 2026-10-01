@@ -4,6 +4,7 @@ import { inventionArchiveCell, validateComposition, type CapabilityComposition }
 describe("capability synthesis lab", () => {
   const candidate: CapabilityComposition = {
     candidateId: "invent-park-visibility-paths",
+    artifactKind: "CAPABILITY_CANDIDATE",
     goalCapability: "VISIBILITY_AWARE_PEDESTRIAN_LAYOUT",
     primitives: [
       {
@@ -36,12 +37,23 @@ describe("capability synthesis lab", () => {
     requiredOracles: ["PATH_VALIDITY", "BOUNDARY_CONTAINMENT", "VISIBILITY_RECOMPUTATION"],
     status: "SANDBOX_PROPOSAL",
     canonicalMutation: false,
+    geometryAuthority: "NONE",
+    architecturalAuthority: "NONE",
   };
 
   it("accepts a typed multi-library composition only into sandbox", () => {
     expect(validateComposition(candidate)).toEqual({ acceptedForSandbox: true, failures: [] });
     expect(candidate.status).toBe("SANDBOX_PROPOSAL");
     expect(candidate.canonicalMutation).toBe(false);
+    expect(candidate.geometryAuthority).toBe("NONE");
+    expect(candidate.architecturalAuthority).toBe("NONE");
+  });
+
+
+  it("rejects any attempt by the Inventor to claim geometry authority", () => {
+    const bad = structuredClone(candidate);
+    (bad as any).geometryAuthority = "AGK";
+    expect(validateComposition(bad).failures).toContain("INVENTOR_AUTHORITY_FORBIDDEN");
   });
 
   it("fails closed on incompatible ports", () => {
