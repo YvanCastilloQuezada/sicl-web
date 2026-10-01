@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   applyAgkCommand,
   deriveAgkPlan,
-  materializeD63Geometry,
+  materializeD63Geometry,\n  createAgkState,
 } from "./arkiGeometryKernel";
 
 const input = {
