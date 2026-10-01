@@ -64,6 +64,16 @@ const ASSETS: readonly EcosystemAsset[] = Object.freeze([
     notes: ["Public Dynamo/Refinery reference workflow; harvest architectural algorithms and metrics, not canonical geometry."],
   },
   {
+    assetId: "dynamo-mcp-4.2",
+    host: "DYNAMO",
+    capabilities: ["DYNAMO_WORKSPACE_INSPECTION", "DYNAMO_NODE_CREATION", "DYNAMO_CONNECT_NODES", "DYNAMO_SET_INPUT", "DYNAMO_RUN_GRAPH", "DYNAMO_READ_WARNINGS", "DYNAMO_LAYOUT", "DYNAMO_SAVE_GRAPH"],
+    disposition: "EXTERNAL_HOST",
+    licenseSpdx: null,
+    licenseVerified: false,
+    hostRequired: true,
+    notes: ["Dynamo 4.2 built-in MCP surface can read/edit/run/save graphs. Treat as optional external execution/materialization host; verify package terms and runtime contract before connection."],
+  },
+  {
     assetId: "dynashape",
     host: "DYNAMO",
     capabilities: ["CONSTRAINT_FORM_FINDING", "GEOMETRIC_RELAXATION", "PHYSICS_BASED_FORM_FINDING", "PLANAR_QUAD_OPTIMIZATION", "DEVELOPABLE_STRIP_OPTIMIZATION", "EDGE_LENGTH_EQUALIZATION"],
