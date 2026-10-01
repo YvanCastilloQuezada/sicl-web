@@ -3,6 +3,9 @@ name: ARKI COMPAS Capability Canary
 on:
   workflow_dispatch:
   pull_request:
+    branches:
+      - main
+      - feat/agk-003-parametric-family-unification
     paths:
       - "server/capabilityFabric/**"
       - "tools/arki_compas_worker.py"
