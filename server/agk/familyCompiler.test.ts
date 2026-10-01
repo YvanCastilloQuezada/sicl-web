@@ -45,3 +45,58 @@ describe("AGK-003 dynamic family compiler", () => {
     });
   });
 });
+
+
+describe("AGK-003 executable feature regeneration", () => {
+  it("keeps MOVE feature parameters and committed geometry identical", () => {
+    const building = generateDynamicBuilding({ familyId: "FAM-INDUSTRY", variantId: "WAREHOUSE" });
+    const compiled = compileDynamicBuildingToAgk(building, "moving-1");
+    expect(compiled.ok).toBe(true);
+    if (!compiled.ok) return;
+    const initial = createAgkState([compiled.object], [], compiled.causalModel);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    const { applyAgkCommand } = require("../arkiGeometryKernel") as typeof import("../arkiGeometryKernel");
+    const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "moving-1", delta_mm: { x: 600, y: 200, z: 0 } });
+    expect(moved.ok).toBe(true);
+    if (!moved.ok) return;
+    const feature = moved.value.state.causalModel!.features[0];
+    const object = moved.value.state.objects[0];
+    expect(feature.parameters.x_mm).toBe(600);
+    expect(feature.parameters.y_mm).toBe(200);
+    expect(object.geometry.x_mm).toBe(feature.parameters.x_mm);
+    expect(object.geometry.y_mm).toBe(feature.parameters.y_mm);
+  });
+
+  it("rebuilds width, depth and height from one SET_FEATURE_PARAMETER path", () => {
+    const building = generateDynamicBuilding({ familyId: "FAM-INDUSTRY", variantId: "WAREHOUSE" });
+    const compiled = compileDynamicBuildingToAgk(building, "resize-1");
+    expect(compiled.ok).toBe(true);
+    if (!compiled.ok) return;
+    const initial = createAgkState([compiled.object], [], compiled.causalModel);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    const { applyAgkCommand } = require("../arkiGeometryKernel") as typeof import("../arkiGeometryKernel");
+    let state = initial.value;
+    for (const [parameter, value] of [["width_mm", 50000], ["depth_mm", 40000], ["height_mm", 6800]] as const) {
+      const changed = applyAgkCommand(state, { kind: "SET_FEATURE_PARAMETER", featureId: compiled.feature.featureId, parameter, value });
+      expect(changed.ok).toBe(true);
+      if (!changed.ok) return;
+      state = changed.value.state;
+    }
+    const f = state.causalModel!.features[0];
+    const g = state.objects[0].geometry;
+    expect([g.profile.width_mm, g.profile.depth_mm, g.height_mm]).toEqual([
+      f.parameters.width_mm, f.parameters.depth_mm, f.parameters.height_mm,
+    ]);
+  });
+
+  it("rejects a causal state whose feature recipe disagrees with geometry", () => {
+    const building = generateDynamicBuilding({ familyId: "FAM-INDUSTRY", variantId: "WAREHOUSE" });
+    const compiled = compileDynamicBuildingToAgk(building, "mismatch-1");
+    expect(compiled.ok).toBe(true);
+    if (!compiled.ok) return;
+    const bad = { ...compiled.object, geometry: { ...compiled.object.geometry, height_mm: compiled.object.geometry.height_mm + 1 } };
+    expect(createAgkState([bad], [], compiled.causalModel)).toEqual({ ok: false, code: "FEATURE_GEOMETRY_MISMATCH" });
+  });
+});
