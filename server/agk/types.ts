@@ -17,7 +17,7 @@ export interface AgkFeature {
 
 export interface AgkHostedOffsetConstraint {
   constraintId: string;
-  kind: "HOSTED_LOCAL_OFFSET";
+  kind: "HOSTED_TRANSLATION_OFFSET";
   hostObjectId: string;
   dependentObjectId: string;
   offset_mm: { x: number; y: number; z: number };
