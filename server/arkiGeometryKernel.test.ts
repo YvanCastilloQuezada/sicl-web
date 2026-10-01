@@ -149,4 +149,48 @@ describe("AGK-001 operational spine", () => {
     });
   });
 
+  it("AGK-002 selectively regenerates hosted child and leaves independent object untouched", () => {
+    const g=(id:string,x:number,w:number,h:number)=>({objectId:id,geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:w,depth_mm:200,radius_mm:null},x_mm:x,y_mm:0,z_mm:0,height_mm:h}});
+    const objects=[g("wall-1",1000,4000,2800),g("window-1",2200,1200,1200),g("column-1",9000,400,2800)];
+    const causalModel={features:[
+      {featureId:"f-wall",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall-1",parameters:{width_mm:4000,depth_mm:200,height_mm:2800,x_mm:1000,y_mm:0,z_mm:0},inputFeatureIds:[]},
+      {featureId:"f-window",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"window-1",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:2200,y_mm:0,z_mm:0},inputFeatureIds:["f-wall"]},
+      {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:400,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
+    ],constraints:[{constraintId:"c-host",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"wall-1",dependentObjectId:"window-1",offset_mm:{x:1200,y:0,z:0},requireWithinHostX:true}]};
+    const initial=createAgkState(objects,[{kind:"HOSTS",hostObjectId:"wall-1",dependentObjectId:"window-1"}],causalModel);
+    expect(initial.ok).toBe(true); if(!initial.ok)return;
+    const moved=applyAgkCommand(initial.value,{kind:"MOVE",objectId:"wall-1",delta_mm:{x:600,y:0,z:0}});
+    expect(moved.ok).toBe(true); if(!moved.ok)return;
+    expect(moved.value.state.objects.map(o=>[o.objectId,o.geometry.x_mm])).toEqual([["wall-1",1600],["window-1",2800],["column-1",9000]]);
+    expect(moved.value.regenerationReport?.regeneratedObjectIds).toEqual(["wall-1","window-1"]);
+    expect(moved.value.regenerationReport?.unchangedObjectIds).toEqual(["column-1"]);
+    expect(moved.value.regenerationReport?.executionOrder).toEqual(["f-wall","f-window"]);
+  });
+
+  it("AGK-002 rejects violated hosted range atomically", () => {
+    const wall={objectId:"wall",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:2000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:2800}};
+    const child={objectId:"child",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:1200,depth_mm:200,radius_mm:null},x_mm:1500,y_mm:0,z_mm:0,height_mm:1200}};
+    const model={features:[
+      {featureId:"a",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall",parameters:{width_mm:2000,depth_mm:200,height_mm:2800,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]},
+      {featureId:"b",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"child",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:1500,y_mm:0,z_mm:0},inputFeatureIds:["a"]},
+    ],constraints:[{constraintId:"bad",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"wall",dependentObjectId:"child",offset_mm:{x:1500,y:0,z:0},requireWithinHostX:true}]};
+    const initial=createAgkState([wall,child],[{kind:"HOSTS",hostObjectId:"wall",dependentObjectId:"child"}],model);
+    expect(initial.ok).toBe(true); if(!initial.ok)return;
+    const before=initial.value;
+    expect(applyAgkCommand(before,{kind:"MOVE",objectId:"wall",delta_mm:{x:600,y:0,z:0}})).toEqual({ok:false,code:"CONSTRAINT_VIOLATED"});
+    expect(before.revision).toBe(0);
+    expect(before.objects[0].geometry.x_mm).toBe(0);
+  });
+
+  it("AGK-002 SET_FEATURE_PARAMETER changes height and preserves object identity", () => {
+    const wall={objectId:"wall",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:4000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:2800}};
+    const model={features:[{featureId:"f-wall",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall",parameters:{width_mm:4000,depth_mm:200,height_mm:2800,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]}],constraints:[]};
+    const initial=createAgkState([wall],[],model); expect(initial.ok).toBe(true); if(!initial.ok)return;
+    const changed=applyAgkCommand(initial.value,{kind:"SET_FEATURE_PARAMETER",featureId:"f-wall",parameter:"height_mm",value:3200});
+    expect(changed.ok).toBe(true); if(!changed.ok)return;
+    expect(changed.value.state.objects[0].objectId).toBe("wall");
+    expect(changed.value.state.objects[0].geometry.height_mm).toBe(3200);
+    expect(changed.value.regenerationReport?.regeneratedObjectIds).toEqual(["wall"]);
+  });
+
 });
