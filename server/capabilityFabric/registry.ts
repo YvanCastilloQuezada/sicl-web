@@ -33,11 +33,11 @@ export function validateProviderDescriptor(
   return null;
 }
 
-export function selectCapabilityProvider(
+export function resolveCapabilityProviders(
   providers: readonly CapabilityProviderDescriptor[],
   capability: string,
   operation: CapabilityOperation,
-): CapabilitySelectionResult {
+): { ok: true; providers: readonly CapabilityProviderDescriptor[] } | { ok: false; code: CapabilitySelectionFailure } {
   if (!validToken(capability)) return { ok: false, code: "CAPABILITY_INVALID" };
 
   for (const provider of providers) {
@@ -50,12 +50,33 @@ export function selectCapabilityProvider(
   );
   if (capable.length === 0) return { ok: false, code: "NO_PROVIDER" };
 
-  const operable = capable.filter(provider => provider.operations.includes(operation));
+  const operable = capable
+    .filter(provider => provider.operations.includes(operation))
+    .sort((a, b) => a.providerId.localeCompare(b.providerId));
   if (operable.length === 0) return { ok: false, code: "OPERATION_UNSUPPORTED" };
 
-  const provider = [...operable].sort(
-    (a, b) => b.priority - a.priority || a.providerId.localeCompare(b.providerId),
-  )[0];
+  return { ok: true, providers: Object.freeze(operable) };
+}
 
-  return { ok: true, provider };
+export function selectCapabilityProvider(
+  providers: readonly CapabilityProviderDescriptor[],
+  capability: string,
+  operation: CapabilityOperation,
+  selectedProviderId?: string,
+): CapabilitySelectionResult {
+  const resolved = resolveCapabilityProviders(providers, capability, operation);
+  if (!resolved.ok) return resolved;
+
+  if (selectedProviderId) {
+    const selected = resolved.providers.find(provider => provider.providerId === selectedProviderId);
+    return selected
+      ? { ok: true, provider: selected }
+      : { ok: false, code: "SELECTED_PROVIDER_UNAVAILABLE" };
+  }
+
+  if (resolved.providers.length !== 1) {
+    return { ok: false, code: "PROVIDER_SELECTION_REQUIRED" };
+  }
+
+  return { ok: true, provider: resolved.providers[0] };
 }
