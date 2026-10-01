@@ -5,9 +5,10 @@ describe("solver harvest catalog", () => {
   it("records broad solver coverage without pretending candidates are integrated", () => {
     const candidates = solverCandidates();
     expect(candidates.length).toBeGreaterThanOrEqual(20);
-    expect(new Set(candidates.map(candidate => candidate.domain))).toEqual(
-      expect.objectContaining(new Set(["GEOMETRY", "STRUCTURAL", "ENERGY", "CFD", "BIM_IFC"])),
-    );
+    const domains = new Set(candidates.map(candidate => candidate.domain));
+    for (const domain of ["GEOMETRY", "STRUCTURAL", "ENERGY", "CFD", "BIM_IFC"]) {
+      expect(domains.has(domain as never)).toBe(true);
+    }
     for (const candidate of candidates) {
       expect(candidate.lifecycle).toBe("CANDIDATE");
       expect(candidate.licenseVerified).toBe(false);
