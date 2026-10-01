@@ -43,6 +43,7 @@ export type AgkFailureCode =
   | "DEPENDENCY_OBJECT_NOT_FOUND"
   | "DEPENDENCY_SELF_REFERENCE"
   | "DEPENDENCY_CYCLE"
+  | "DUPLICATE_DEPENDENCY"
   | RegenerationFailure
   | "FEATURE_NOT_FOUND";
 
@@ -103,17 +104,18 @@ function canonicalDependencies(dependencies: readonly AgkDependency[]): readonly
 
 function canonicalCausalModel(model?: AgkCausalModel): AgkCausalModel | undefined {
   if (!model) return undefined;
-  return {
-    features: [...model.features].map(feature => ({
-      ...feature,
-      parameters: { ...feature.parameters },
-      inputFeatureIds: [...feature.inputFeatureIds].sort(),
-    })).sort((a,b)=>a.featureId.localeCompare(b.featureId)),
-    constraints: [...model.constraints].map(constraint => ({
-      ...constraint,
-      offset_mm: { ...constraint.offset_mm },
-    })).sort((a,b)=>a.constraintId.localeCompare(b.constraintId)),
-  };
+  const features = [...model.features].map(feature => {
+    const parameters = Object.freeze({ ...feature.parameters });
+    const inputFeatureIds = Object.freeze([...feature.inputFeatureIds].sort());
+    return Object.freeze({ ...feature, parameters, inputFeatureIds });
+  }).sort((a,b)=>a.featureId.localeCompare(b.featureId));
+  const constraints = [...model.constraints].map(constraint =>
+    Object.freeze({ ...constraint, offset_mm: Object.freeze({ ...constraint.offset_mm }) })
+  ).sort((a,b)=>a.constraintId.localeCompare(b.constraintId));
+  return Object.freeze({
+    features: Object.freeze(features),
+    constraints: Object.freeze(constraints),
+  });
 }
 
 function stateId(
@@ -161,7 +163,11 @@ function validateDependencies(
 ): AgkFailureCode | null {
   const ids = new Set(objects.map((object) => object.objectId));
   const children = new Map<string, string[]>();
+  const dependencyKeys = new Set<string>();
   for (const dependency of dependencies) {
+    const dependencyKey = `${dependency.kind}:${dependency.hostObjectId}:${dependency.dependentObjectId}`;
+    if (dependencyKeys.has(dependencyKey)) return "DUPLICATE_DEPENDENCY";
+    dependencyKeys.add(dependencyKey);
     if (!ids.has(dependency.hostObjectId) || !ids.has(dependency.dependentObjectId)) {
       return "DEPENDENCY_OBJECT_NOT_FOUND";
     }
@@ -221,7 +227,7 @@ export function createAgkState(
   }
   const dependencyFailure = validateDependencies(objects, dependencies);
   if (dependencyFailure) return { ok: false, code: dependencyFailure };
-  if (causalModel) { const causalFailure = validateCausalModel(objects, causalModel); if (causalFailure) return { ok:false, code:causalFailure }; }
+  if (causalModel) { const causalFailure = validateCausalModel(objects, causalModel, dependencies); if (causalFailure) return { ok:false, code:causalFailure }; }
   return { ok: true, value: createState(0, objects, dependencies, causalModel) };
 }
 
