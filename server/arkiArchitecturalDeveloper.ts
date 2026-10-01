@@ -14,7 +14,7 @@ import type { IntegratedArchitectCycle } from "./arkiIntegratedArchitectCycle";
 import { validatePartiContract, type PartiContract } from "./arkiPartiContract";
 import type { CanonicalSpatialElement, CanonicalSpatialRepresentation } from "./arkiD63GeometricBridge";
 import { resolveSpecialVolumeGeometry } from "./arkiVerticalSpecialVolumeGeometryResolver";
-import { bridgeD63ToD2Geometry } from "./arkiD63ToD2GeometryBridge";
+import { materializeD63Geometry } from "./arkiGeometryKernel";
 
 /**
  * ARKI Architectural Developer (proposal-only).
@@ -151,7 +151,7 @@ function buildElements(
       }
 
       const vertical = resolution.value;
-      const bridgedGeometry = bridgeD63ToD2Geometry({
+      const bridgedGeometry = materializeD63Geometry(pid, {
         geometry: element.geometry,
         coordinateSystem: representation.coordinate_system,
         units: representation.units,
@@ -169,7 +169,7 @@ function buildElements(
       result.push({
         provisionalId: pid,
         kind,
-        geometry: bridgedGeometry.value,
+        geometry: bridgedGeometry.value.objects[0].geometry,
         properties: { d63_element_type: elementType },
         provenance: [
           ...provenanceFromElement(element),
@@ -224,7 +224,7 @@ function buildElements(
       continue;
     }
 
-    const bridgedGeometry = bridgeD63ToD2Geometry({
+    const bridgedGeometry = materializeD63Geometry(pid, {
       geometry: element.geometry,
       coordinateSystem: representation.coordinate_system,
       units: representation.units,
@@ -243,7 +243,7 @@ function buildElements(
     result.push({
       provisionalId: pid,
       kind,
-      geometry: bridgedGeometry.value,
+      geometry: bridgedGeometry.value.objects[0].geometry,
       properties: { d63_element_type: elementType },
       provenance: [
         ...provenanceFromElement(element),
