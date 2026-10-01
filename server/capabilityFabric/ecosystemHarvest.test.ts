@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { ecosystemAssets, reusableAssets } from "./ecosystemHarvest";
 
-describe("Dynamo Grasshopper Rhino ecosystem harvest", () => {
+describe("cross-ecosystem architectural capability harvest", () => {
   it("keeps host ecosystems horizontal and outside canonical authority", () => {
     const assets = ecosystemAssets();
     expect(assets.length).toBeGreaterThanOrEqual(14);
     expect(new Set(assets.map(asset => asset.host))).toEqual(
-      new Set(["DYNAMO", "GRASSHOPPER", "RHINO"]),
+      new Set(["DYNAMO", "GRASSHOPPER", "RHINO", "REVIT", "ARCHICAD"]),
     );
     expect(assets.some(asset => asset.assetId === "rhino-compute" && asset.disposition === "EXTERNAL_HOST")).toBe(true);
   });
