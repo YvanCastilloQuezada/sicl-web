@@ -19,15 +19,23 @@ const provider = (
 });
 
 describe("CAPABILITY-FABRIC-001 contract", () => {
-  it("selects deterministically by priority then providerId", () => {
+  it("fails closed on ambiguous providers instead of ranking by priority", () => {
     const providers = [provider("zeta", 10), provider("beta", 20), provider("alpha", 20)];
     expect(selectCapabilityProvider(providers, "GEOMETRY_TRANSFORM", "ANALYZE")).toEqual({
+      ok: false,
+      code: "PROVIDER_SELECTION_REQUIRED",
+    });
+    expect(selectCapabilityProvider([...providers].reverse(), "GEOMETRY_TRANSFORM", "ANALYZE")).toEqual({
+      ok: false,
+      code: "PROVIDER_SELECTION_REQUIRED",
+    });
+    expect(selectCapabilityProvider(providers, "GEOMETRY_TRANSFORM", "ANALYZE", "alpha")).toEqual({
       ok: true,
       provider: providers[2],
     });
-    expect(selectCapabilityProvider([...providers].reverse(), "GEOMETRY_TRANSFORM", "ANALYZE")).toEqual({
-      ok: true,
-      provider: providers[2],
+    expect(selectCapabilityProvider(providers, "GEOMETRY_TRANSFORM", "ANALYZE", "missing")).toEqual({
+      ok: false,
+      code: "SELECTED_PROVIDER_UNAVAILABLE",
     });
   });
 
@@ -68,6 +76,7 @@ describe("CAPABILITY-FABRIC-001 contract", () => {
       [provider("other", 10, { capabilities: ["MESH_BOOLEAN"], operations: ["VERIFY"] }), compas.descriptor],
       "MESH_BOOLEAN",
       "VERIFY",
+      "compas",
     )).toEqual({ ok: true, provider: compas.descriptor });
     expect(compas.descriptor.authority).toBe("NON_CANONICAL_PROVIDER");
   });
