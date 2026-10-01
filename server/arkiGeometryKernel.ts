@@ -6,18 +6,6 @@ import {
   type D63ToD2GeometryBridgeInput,
 } from "./arkiD63ToD2GeometryBridge";
 
-/**
- * AGK-001 operational spine.
- *
- * D-2 owns architectural meaning. AGK owns deterministic operational geometry.
- * This module does not persist canonical state and does not create a second
- * semantic authority. It is a pure transactional geometry executor.
- *
- * The legacy D6.3 -> D-2 rectangle bridge is deliberately hidden behind AGK
- * as a transitional backend adapter. Callers outside AGK must not use it as a
- * competing productive geometry path.
- */
-
 export type AgkGeometry = D2ExtrudedRectangleGeometry;
 
 export interface AgkOperationalObject {
@@ -25,10 +13,18 @@ export interface AgkOperationalObject {
   geometry: AgkGeometry;
 }
 
+export interface AgkHostsDependency {
+  kind: "HOSTS";
+  hostObjectId: string;
+  dependentObjectId: string;
+}
+export type AgkDependency = AgkHostsDependency;
+
 export interface AgkCommittedState {
   stateId: string;
   revision: number;
   objects: readonly AgkOperationalObject[];
+  dependencies: readonly AgkDependency[];
 }
 
 export type AgkCommand =
@@ -39,7 +35,10 @@ export type AgkFailureCode =
   | "OBJECT_NOT_FOUND"
   | "MOVE_DELTA_NOT_INTEGER"
   | "MOVE_DELTA_NOT_FINITE"
-  | "DUPLICATE_OBJECT_ID"\n  | "DEPENDENCY_OBJECT_NOT_FOUND"\n  | "DEPENDENCY_SELF_REFERENCE"\n  | "DEPENDENCY_CYCLE";
+  | "DUPLICATE_OBJECT_ID"
+  | "DEPENDENCY_OBJECT_NOT_FOUND"
+  | "DEPENDENCY_SELF_REFERENCE"
+  | "DEPENDENCY_CYCLE";
 
 export type AgkResult<T> =
   | { ok: true; value: T }
@@ -50,6 +49,7 @@ export interface AgkTransactionReceipt {
   beforeStateId: string;
   afterStateId: string;
   command: AgkCommand;
+  affectedObjectIds: readonly string[];
   committed: true;
   state: AgkCommittedState;
 }
@@ -63,23 +63,77 @@ export interface AgkPlanRectangle {
   depth_mm: number;
 }
 
-function stateId(revision: number, objects: readonly AgkOperationalObject[]): string {
-  return `agk-state-${fingerprint({ revision, objects }).slice(0, 24)}`;
+function stateId(
+  revision: number,
+  objects: readonly AgkOperationalObject[],
+  dependencies: readonly AgkDependency[]
+): string {
+  return `agk-state-${fingerprint({ revision, objects, dependencies }).slice(0, 24)}`;
 }
 
-function createState(revision: number, objects: readonly AgkOperationalObject[]): AgkCommittedState {
-  const snapshot = objects.map((object) => ({
+function createState(
+  revision: number,
+  objects: readonly AgkOperationalObject[],
+  dependencies: readonly AgkDependency[]
+): AgkCommittedState {
+  const objectSnapshot = objects.map((object) => ({
     objectId: object.objectId,
-    geometry: {
-      ...object.geometry,
-      profile: { ...object.geometry.profile },
-    },
+    geometry: { ...object.geometry, profile: { ...object.geometry.profile } },
   }));
+  const dependencySnapshot = dependencies.map((dependency) => ({ ...dependency }));
   return Object.freeze({
-    stateId: stateId(revision, snapshot),
+    stateId: stateId(revision, objectSnapshot, dependencySnapshot),
     revision,
-    objects: Object.freeze(snapshot),
+    objects: Object.freeze(objectSnapshot),
+    dependencies: Object.freeze(dependencySnapshot),
   });
+}
+
+function validateDependencies(
+  objects: readonly AgkOperationalObject[],
+  dependencies: readonly AgkDependency[]
+): AgkFailureCode | null {
+  const ids = new Set(objects.map((object) => object.objectId));
+  const children = new Map<string, string[]>();
+  for (const dependency of dependencies) {
+    if (!ids.has(dependency.hostObjectId) || !ids.has(dependency.dependentObjectId)) {
+      return "DEPENDENCY_OBJECT_NOT_FOUND";
+    }
+    if (dependency.hostObjectId === dependency.dependentObjectId) {
+      return "DEPENDENCY_SELF_REFERENCE";
+    }
+    children.set(dependency.hostObjectId, [
+      ...(children.get(dependency.hostObjectId) ?? []),
+      dependency.dependentObjectId,
+    ]);
+  }
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const hasCycle = (id: string): boolean => {
+    if (visiting.has(id)) return true;
+    if (visited.has(id)) return false;
+    visiting.add(id);
+    for (const child of children.get(id) ?? []) if (hasCycle(child)) return true;
+    visiting.delete(id);
+    visited.add(id);
+    return false;
+  };
+  for (const id of ids) if (hasCycle(id)) return "DEPENDENCY_CYCLE";
+  return null;
+}
+
+function affectedByMove(state: AgkCommittedState, rootObjectId: string): Set<string> {
+  const affected = new Set<string>([rootObjectId]);
+  const queue = [rootObjectId];
+  while (queue.length > 0) {
+    const host = queue.shift()!;
+    for (const dependency of state.dependencies) {
+      if (dependency.hostObjectId !== host || affected.has(dependency.dependentObjectId)) continue;
+      affected.add(dependency.dependentObjectId);
+      queue.push(dependency.dependentObjectId);
+    }
+  }
+  return affected;
 }
 
 export function materializeD63Geometry(
@@ -88,26 +142,28 @@ export function materializeD63Geometry(
 ): AgkResult<AgkCommittedState> {
   const adapted = bridgeD63ToD2Geometry(input);
   if (!adapted.ok) return adapted;
-  return {
-    ok: true,
-    value: createState(0, [{ objectId, geometry: adapted.value }], []),
-  };
+  return { ok: true, value: createState(0, [{ objectId, geometry: adapted.value }], []) };
 }
 
-export function createAgkState(objects: readonly AgkOperationalObject[]): AgkResult<AgkCommittedState> {
+export function createAgkState(
+  objects: readonly AgkOperationalObject[],
+  dependencies: readonly AgkDependency[] = []
+): AgkResult<AgkCommittedState> {
   if (new Set(objects.map((object) => object.objectId)).size !== objects.length) {
     return { ok: false, code: "DUPLICATE_OBJECT_ID" };
   }
-  return { ok: true, value: createState(0, objects) };
+  const dependencyFailure = validateDependencies(objects, dependencies);
+  if (dependencyFailure) return { ok: false, code: dependencyFailure };
+  return { ok: true, value: createState(0, objects, dependencies) };
 }
 
 export function applyAgkCommand(
   current: AgkCommittedState,
   command: AgkCommand
 ): AgkResult<AgkTransactionReceipt> {
-  const target = current.objects.find((object) => object.objectId === command.objectId);
-  if (!target) return { ok: false, code: "OBJECT_NOT_FOUND" };
-
+  if (!current.objects.some((object) => object.objectId === command.objectId)) {
+    return { ok: false, code: "OBJECT_NOT_FOUND" };
+  }
   const deltas = [command.delta_mm.x, command.delta_mm.y, command.delta_mm.z];
   if (deltas.some((value) => !Number.isFinite(value))) {
     return { ok: false, code: "MOVE_DELTA_NOT_FINITE" };
@@ -116,8 +172,9 @@ export function applyAgkCommand(
     return { ok: false, code: "MOVE_DELTA_NOT_INTEGER" };
   }
 
+  const affected = affectedByMove(current, command.objectId);
   const objects = current.objects.map((object) =>
-    object.objectId !== command.objectId
+    !affected.has(object.objectId)
       ? object
       : {
           ...object,
@@ -129,18 +186,23 @@ export function applyAgkCommand(
           },
         }
   );
-  const next = createState(current.revision + 1, objects, current.dependencies);\n  const affectedObjectIds = current.objects.map((object) => object.objectId).filter((id) => affected.has(id));
+  const next = createState(current.revision + 1, objects, current.dependencies);
+  const affectedObjectIds = current.objects
+    .map((object) => object.objectId)
+    .filter((objectId) => affected.has(objectId));
   return {
     ok: true,
     value: {
       transactionId: `agk-tx-${fingerprint({
         beforeStateId: current.stateId,
         command,
+        affectedObjectIds,
         afterStateId: next.stateId,
       }).slice(0, 24)}`,
       beforeStateId: current.stateId,
       afterStateId: next.stateId,
       command,
+      affectedObjectIds,
       committed: true,
       state: next,
     },
