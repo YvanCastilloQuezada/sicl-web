@@ -280,4 +280,31 @@ describe("AGK-001 operational spine", () => {
     expect(before.causalModel?.features.find(f=>f.featureId==="fw")?.parameters.height_mm).toBe(2800);
   });
 
+  it("AGK-002 rejects ambiguous causal identities and mismatched HOSTS graph", () => {
+    const mk=(id:string)=>({objectId:id,geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:1000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:1000}});
+    const a=mk("a"),b=mk("b");
+    const fa={featureId:"fa",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"a",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]};
+    const fb={featureId:"fb",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"b",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:["fa"]};
+    const c1={constraintId:"c1",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"a",dependentObjectId:"b",offset_mm:{x:0,y:0,z:0},requireWithinHostX:true};
+    expect(createAgkState([a,b],[],{features:[fa,{...fb,featureId:"fc",producesObjectId:"a"}],constraints:[]})).toEqual({ok:false,code:"DUPLICATE_FEATURE_PRODUCER"});
+    expect(createAgkState([a,b],[],{features:[fa,fb],constraints:[c1,{...c1,offset_mm:{x:1,y:0,z:0}}]})).toEqual({ok:false,code:"DUPLICATE_CONSTRAINT_ID"});
+    expect(createAgkState([a,b],[{kind:"HOSTS",hostObjectId:"a",dependentObjectId:"b"},{kind:"HOSTS",hostObjectId:"a",dependentObjectId:"b"}],{features:[fa,fb],constraints:[]})).toEqual({ok:false,code:"DUPLICATE_DEPENDENCY"});
+    expect(createAgkState([a,b],[{kind:"HOSTS",hostObjectId:"a",dependentObjectId:"b"}],{features:[fa,{...fb,inputFeatureIds:[]}],constraints:[]})).toEqual({ok:false,code:"CAUSAL_DEPENDENCY_MISMATCH"});
+  });
+
+  it("AGK-002 deep-freezes committed causal model", () => {
+    const obj={objectId:"a",geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:1000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:1000}};
+    const model={features:[{featureId:"fa",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"a",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]}],constraints:[]};
+    const state=createAgkState([obj],[],model); expect(state.ok).toBe(true); if(!state.ok)return;
+    const before=state.value.stateId;
+    expect(Object.isFrozen(state.value.causalModel)).toBe(true);
+    expect(Object.isFrozen(state.value.causalModel?.features)).toBe(true);
+    expect(Object.isFrozen(state.value.causalModel?.features[0])).toBe(true);
+    expect(Object.isFrozen(state.value.causalModel?.features[0].parameters)).toBe(true);
+    expect(Object.isFrozen(state.value.causalModel?.features[0].inputFeatureIds)).toBe(true);
+    expect(() => { (state.value.causalModel!.features[0].parameters as any).height_mm=9999; }).toThrow();
+    expect(state.value.stateId).toBe(before);
+    expect(state.value.causalModel?.features[0].parameters.height_mm).toBe(1000);
+  });
+
 });
