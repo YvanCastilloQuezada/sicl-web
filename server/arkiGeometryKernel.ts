@@ -251,12 +251,15 @@ export function applyAgkCommand(
   if (!current.causalModel) return { ok:false, code:"FEATURE_NOT_FOUND" };
   const feature = current.causalModel.features.find(f => f.featureId === command.featureId);
   if (!feature) return { ok:false, code:"FEATURE_NOT_FOUND" };
-  const objects = current.objects.map(o => o.objectId !== feature.producesObjectId ? o : ({...o, geometry:{...o.geometry,height_mm:command.value}}));
   const model: AgkCausalModel = {...current.causalModel, features: current.causalModel.features.map(f => f.featureId!==command.featureId?f:{...f,parameters:{...f.parameters,height_mm:command.value}})};
-  const next = createState(current.revision+1, objects, current.dependencies, model);
-  const affected=[feature.producesObjectId];
-  const report: AgkRegenerationReport={rootChangedObjectIds:affected,affectedObjectIds:affected,affectedFeatureIds:[feature.featureId],evaluatedConstraintIds:[],regeneratedObjectIds:affected,unchangedObjectIds:current.objects.map(o=>o.objectId).filter(id=>!affected.includes(id)).sort(),executionOrder:[feature.featureId]};
-  return receipt(current, command, next, affected, report);
+  const baseObjects = current.objects.map(o => o.objectId !== feature.producesObjectId ? o : ({...o, geometry:{...o.geometry,height_mm:command.value}}));
+  const regenerated = regenerateMove(baseObjects, current.dependencies, model, feature.producesObjectId, {x:0,y:0,z:0});
+  if (!regenerated.ok) return regenerated;
+  const report: AgkRegenerationReport = {...regenerated.report, rootChangedObjectIds:[feature.producesObjectId]};
+  const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects:regenerated.objects,dependencies:current.dependencies,causalModel:model};
+  const dependencyFailure=validateDependencies(draft.objects,draft.dependencies); if(dependencyFailure)return {ok:false,code:dependencyFailure};
+  const next=createState(current.revision+1,draft.objects,draft.dependencies,draft.causalModel);
+  return receipt(current, command, next, report.affectedObjectIds, report);
 }
 
 function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport): AgkResult<AgkTransactionReceipt> {
