@@ -257,7 +257,13 @@ export function applyAgkCommand(
           },
         })),
       };
-      const regenerated = regenerateFromFeatureChange(current.objects, current.dependencies, model, command.objectId);
+      const regenerated = regenerateFromFeatureChange(
+        current.objects,
+        current.dependencies,
+        model,
+        command.objectId,
+        command.delta_mm,
+      );
       if (!regenerated.ok) return regenerated;
       return commit(current, command, regenerated.objects, regenerated.report, regenerated.model);
     }
