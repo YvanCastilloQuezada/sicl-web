@@ -30,5 +30,7 @@ describe("Dynamo Grasshopper Rhino ecosystem harvest", () => {
       "ADJACENCY_ANALYSIS",
     ]));
     expect(reusable.some(asset => asset.assetId === "rhino-compute")).toBe(false);
+    expect(reusable.some(asset => asset.assetId === "dynashape")).toBe(true);
+    expect(reusable.some(asset => asset.assetId === "topologic-dynamo")).toBe(false);
   });
 });
