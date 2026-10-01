@@ -32,6 +32,7 @@ export interface CapabilityRequest<TInput = unknown> {
   capability: string;
   operation: CapabilityOperation;
   input: TInput;
+  selectedProviderId?: string;
 }
 
 export interface CapabilityEvidence {
@@ -61,4 +62,6 @@ export type CapabilitySelectionFailure =
   | "CAPABILITY_INVALID"
   | "NO_PROVIDER"
   | "OPERATION_UNSUPPORTED"
-  | "PROVIDER_DESCRIPTOR_INVALID";
+  | "PROVIDER_DESCRIPTOR_INVALID"
+  | "PROVIDER_SELECTION_REQUIRED"
+  | "SELECTED_PROVIDER_UNAVAILABLE";
