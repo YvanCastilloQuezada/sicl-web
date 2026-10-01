@@ -110,6 +110,7 @@ export function regenerateFromFeatureChange(
   dependencies: readonly AgkHostsDependency[],
   model: AgkCausalModel,
   rootObjectId: string,
+  translationDelta?: Readonly<{ x: number; y: number; z: number }>,
 ): { ok: true; objects: readonly AgkOperationalObject[]; model: AgkCausalModel; report: AgkRegenerationReport } | { ok:false; code: RegenerationFailure } {
   // Validate graph shape against a temporary object set rebuilt from the features,
   // so a legitimate parameter edit is not rejected as a pre-existing mismatch.
@@ -151,6 +152,13 @@ export function regenerateFromFeatureChange(
       f.parameters.x_mm=host.geometry.x_mm+c.offset_mm.x;
       f.parameters.y_mm=host.geometry.y_mm+c.offset_mm.y;
       f.parameters.z_mm=host.geometry.z_mm+c.offset_mm.z;
+    } else if (translationDelta && f.producesObjectId !== rootObjectId && affected.has(f.producesObjectId)) {
+      // Preserve AGK-002 HOSTS/causal MOVE semantics for descendants that do
+      // not have an explicit positional constraint. Parameter edits pass no
+      // translationDelta, so they regenerate without inventing translation.
+      f.parameters.x_mm += translationDelta.x;
+      f.parameters.y_mm += translationDelta.y;
+      f.parameters.z_mm += translationDelta.z;
     }
     const obj=nextObjects.get(f.producesObjectId)!;
     obj.geometry=geometryFromFeature(f);
