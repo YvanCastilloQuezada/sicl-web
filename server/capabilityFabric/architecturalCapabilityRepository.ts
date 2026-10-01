@@ -1,4 +1,5 @@
 import { ecosystemAssets, type EcosystemHost, type HarvestDisposition } from "./ecosystemHarvest";
+import { evaluateHarvestLicense, type LicenseGateDecision } from "./licenseGate";
 
 export type ArchitecturalCapabilityArea =
   | "GEOMETRY_TOPOLOGY"
@@ -26,6 +27,8 @@ export type CapabilityIdeaRecord = {
   disposition: HarvestDisposition;
   licenseVerified: boolean;
   hostRequired: boolean;
+  licenseGate: LicenseGateDecision;
+  executableIntegrationAllowed: boolean;
 };
 
 const AREA_RULES: ReadonlyArray<readonly [RegExp, ArchitecturalCapabilityArea]> = [
@@ -52,7 +55,9 @@ export function classifyCapability(capability: string): ArchitecturalCapabilityA
 
 export function architecturalCapabilityRepository(): readonly CapabilityIdeaRecord[] {
   return ecosystemAssets()
-    .flatMap(asset => asset.capabilities.map(capability => ({
+    .flatMap(asset => {
+      const license = evaluateHarvestLicense(asset);
+      return asset.capabilities.map(capability => ({
       recordId: `${asset.assetId}:${capability}`,
       capability,
       area: classifyCapability(capability),
@@ -61,7 +66,10 @@ export function architecturalCapabilityRepository(): readonly CapabilityIdeaReco
       disposition: asset.disposition,
       licenseVerified: asset.licenseVerified,
       hostRequired: asset.hostRequired,
-    })))
+      licenseGate: license.decision,
+      executableIntegrationAllowed: license.executableIntegrationAllowed,
+    }));
+    })
     .sort((a, b) => a.area.localeCompare(b.area) || a.capability.localeCompare(b.capability) || a.sourceAssetId.localeCompare(b.sourceAssetId));
 }
 
