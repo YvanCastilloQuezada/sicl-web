@@ -1,0 +1,3 @@
+# COMPAS runtime for ARKI Capability Fabric.
+# Pin only after observing the exact supported release in ARKI CI/runtime.
+compas==2.8.1
