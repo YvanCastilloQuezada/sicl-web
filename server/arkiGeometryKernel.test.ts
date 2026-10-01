@@ -250,4 +250,18 @@ describe("AGK-001 operational spine", () => {
     expect(rx.value.regenerationReport?.executionOrder).toEqual(ry.value.regenerationReport?.executionOrder);
   });
 
+  it("AGK-002 state identity includes causal semantics but ignores causal array order", () => {
+    const mk=(id:string)=>({objectId:id,geometry:{kind:"EXTRUDED_RECTANGLE" as const,profile:{width_mm:1000,depth_mm:200,radius_mm:null},x_mm:0,y_mm:0,z_mm:0,height_mm:1000}});
+    const objects=[mk("a"),mk("b")], deps=[{kind:"HOSTS" as const,hostObjectId:"a",dependentObjectId:"b"}];
+    const fa={featureId:"fa",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"a",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:[]};
+    const fb={featureId:"fb",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"b",parameters:{width_mm:1000,depth_mm:200,height_mm:1000,x_mm:0,y_mm:0,z_mm:0},inputFeatureIds:["fa"]};
+    const c1={constraintId:"c1",kind:"HOSTED_LOCAL_OFFSET" as const,hostObjectId:"a",dependentObjectId:"b",offset_mm:{x:0,y:0,z:0},requireWithinHostX:true};
+    const x=createAgkState(objects,deps,{features:[fa,fb],constraints:[c1]});
+    const y=createAgkState(objects,deps,{features:[fb,fa],constraints:[c1]});
+    const z=createAgkState(objects,deps,{features:[fa,fb],constraints:[{...c1,offset_mm:{x:1,y:0,z:0}}]});
+    expect(x.ok&&y.ok&&z.ok).toBe(true); if(!x.ok||!y.ok||!z.ok)return;
+    expect(x.value.stateId).toBe(y.value.stateId);
+    expect(x.value.stateId).not.toBe(z.value.stateId);
+  });
+
 });
