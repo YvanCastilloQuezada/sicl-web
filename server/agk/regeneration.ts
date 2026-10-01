@@ -3,6 +3,9 @@ import type { AgkCausalModel, AgkFeature, AgkRegenerationReport } from "./types"
 
 export type RegenerationFailure =
   | "DUPLICATE_FEATURE_ID"
+  | "DUPLICATE_FEATURE_PRODUCER"
+  | "DUPLICATE_CONSTRAINT_ID"
+  | "CAUSAL_DEPENDENCY_MISMATCH"
   | "FEATURE_OBJECT_NOT_FOUND"
   | "FEATURE_DEPENDENCY_NOT_FOUND"
   | "FEATURE_DEPENDENCY_CYCLE"
@@ -12,20 +15,36 @@ export type RegenerationFailure =
 
 export function validateCausalModel(
   objects: readonly AgkOperationalObject[],
-  model: AgkCausalModel
+  model: AgkCausalModel,
+  dependencies: readonly AgkHostsDependency[] = []
 ): RegenerationFailure | null {
   const objectIds = new Set(objects.map(o => o.objectId));
   const featureIds = new Set<string>();
+  const producerIds = new Set<string>();
   for (const f of model.features) {
     if (featureIds.has(f.featureId)) return "DUPLICATE_FEATURE_ID";
     featureIds.add(f.featureId);
+    if (producerIds.has(f.producesObjectId)) return "DUPLICATE_FEATURE_PRODUCER";
+    producerIds.add(f.producesObjectId);
     if (!objectIds.has(f.producesObjectId)) return "FEATURE_OBJECT_NOT_FOUND";
     if (Object.values(f.parameters).some(v => !Number.isFinite(v) || !Number.isInteger(v))) return "INVALID_FEATURE_PARAMETER";
   }
   for (const f of model.features) for (const up of f.inputFeatureIds) if (!featureIds.has(up)) return "FEATURE_DEPENDENCY_NOT_FOUND";
   try { topo(model.features, new Set(model.features.map(f => f.featureId))); } catch { return "FEATURE_DEPENDENCY_CYCLE"; }
+  const constraintIds = new Set<string>();
   for (const c of model.constraints) {
+    if (constraintIds.has(c.constraintId)) return "DUPLICATE_CONSTRAINT_ID";
+    constraintIds.add(c.constraintId);
     if (!objectIds.has(c.hostObjectId) || !objectIds.has(c.dependentObjectId)) return "CONSTRAINT_OBJECT_NOT_FOUND";
+  }
+  const producerByObject = new Map(model.features.map(f => [f.producesObjectId, f.featureId]));
+  const featureById = new Map(model.features.map(f => [f.featureId, f]));
+  for (const d of dependencies) {
+    const hostFeatureId = producerByObject.get(d.hostObjectId);
+    const dependentFeatureId = producerByObject.get(d.dependentObjectId);
+    if (!hostFeatureId || !dependentFeatureId) continue;
+    const dependentFeature = featureById.get(dependentFeatureId)!;
+    if (!dependentFeature.inputFeatureIds.includes(hostFeatureId)) return "CAUSAL_DEPENDENCY_MISMATCH";
   }
   return null;
 }
@@ -63,7 +82,7 @@ export function regenerateMove(
   rootObjectId: string,
   delta: {x:number;y:number;z:number}
 ): { ok: true; objects: readonly AgkOperationalObject[]; report: AgkRegenerationReport } | { ok:false; code: RegenerationFailure } {
-  const invalid = validateCausalModel(objects, model);
+  const invalid = validateCausalModel(objects, model, dependencies);
   if (invalid) return {ok:false,code:invalid};
   const affected = new Set<string>([rootObjectId]), queue=[rootObjectId];
   while(queue.length){ const host=queue.shift()!; for(const d of dependencies.filter(d=>d.hostObjectId===host).sort((a,b)=>a.dependentObjectId.localeCompare(b.dependentObjectId))) if(!affected.has(d.dependentObjectId)){affected.add(d.dependentObjectId);queue.push(d.dependentObjectId);} }
