@@ -63,7 +63,7 @@ describe("CAPABILITY-FABRIC-001 contract", () => {
       capabilities: ["MESH_BOOLEAN"],
       operations: ["VERIFY"],
       integrationMode: "WRAP",
-    }), { invoke: async () => ({ output: {}, evidenceStatus: "UNKNOWN" as const }) });
+    }), { invoke: async () => ({ output: {}, evidenceStatus: "UNKNOWN" as const, runtime: { observed: false, name: "test-double", version: null } }) });
     expect(selectCapabilityProvider(
       [provider("other", 10, { capabilities: ["MESH_BOOLEAN"], operations: ["VERIFY"] }), compas.descriptor],
       "MESH_BOOLEAN",
@@ -84,6 +84,7 @@ describe("CAPABILITY-FABRIC-001 contract", () => {
         capability: "GEOMETRY_TRANSFORM",
         operation: "PROPOSE",
         status: "SIMULATED",
+        runtime: { observed: false, name: "test-double", version: null },
         diagnostics: [],
       },
       canonicalMutation: false,
