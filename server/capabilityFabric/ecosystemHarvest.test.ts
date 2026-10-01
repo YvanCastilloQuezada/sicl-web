@@ -21,6 +21,14 @@ describe("Dynamo Grasshopper Rhino ecosystem harvest", () => {
     }
     expect(reusable.some(asset => asset.assetId === "dynamo-core")).toBe(true);
     expect(reusable.some(asset => asset.assetId === "clockwork")).toBe(true);
+    const spacePlanning = reusable.find(asset => asset.assetId === "refinery-space-planning-toolkit");
+    expect(spacePlanning?.capabilities).toEqual(expect.arrayContaining([
+      "BIN_PACKING_2D",
+      "GEOMETRIC_MEDIAN",
+      "ISOVIST_2D",
+      "SHORTEST_PATH_2D",
+      "ADJACENCY_ANALYSIS",
+    ]));
     expect(reusable.some(asset => asset.assetId === "rhino-compute")).toBe(false);
   });
 });
