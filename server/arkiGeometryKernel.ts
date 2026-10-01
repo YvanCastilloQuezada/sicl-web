@@ -39,7 +39,7 @@ export type AgkFailureCode =
   | "OBJECT_NOT_FOUND"
   | "MOVE_DELTA_NOT_INTEGER"
   | "MOVE_DELTA_NOT_FINITE"
-  | "DUPLICATE_OBJECT_ID";
+  | "DUPLICATE_OBJECT_ID"\n  | "DEPENDENCY_OBJECT_NOT_FOUND"\n  | "DEPENDENCY_SELF_REFERENCE"\n  | "DEPENDENCY_CYCLE";
 
 export type AgkResult<T> =
   | { ok: true; value: T }
@@ -90,7 +90,7 @@ export function materializeD63Geometry(
   if (!adapted.ok) return adapted;
   return {
     ok: true,
-    value: createState(0, [{ objectId, geometry: adapted.value }]),
+    value: createState(0, [{ objectId, geometry: adapted.value }], []),
   };
 }
 
@@ -129,7 +129,7 @@ export function applyAgkCommand(
           },
         }
   );
-  const next = createState(current.revision + 1, objects);
+  const next = createState(current.revision + 1, objects, current.dependencies);\n  const affectedObjectIds = current.objects.map((object) => object.objectId).filter((id) => affected.has(id));
   return {
     ok: true,
     value: {
