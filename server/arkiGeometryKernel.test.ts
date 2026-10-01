@@ -109,4 +109,44 @@ describe("AGK-001 operational spine", () => {
     expect(createAgkState([wall], [{ kind: "HOSTS", hostObjectId: "wall-1", dependentObjectId: "wall-1" }])).toEqual({ ok: false, code: "DEPENDENCY_SELF_REFERENCE" });
   });
 
+  it("rejects a dependency cycle before committed state exists", () => {
+    const geometry = { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1000, depth_mm: 200, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 };
+    expect(createAgkState(
+      [{ objectId: "a", geometry }, { objectId: "b", geometry }, { objectId: "c", geometry }],
+      [
+        { kind: "HOSTS", hostObjectId: "a", dependentObjectId: "b" },
+        { kind: "HOSTS", hostObjectId: "b", dependentObjectId: "c" },
+        { kind: "HOSTS", hostObjectId: "c", dependentObjectId: "a" },
+      ]
+    )).toEqual({ ok: false, code: "DEPENDENCY_CYCLE" });
+  });
+
+  it("gives graph-equivalent reordered states the same stateId", () => {
+    const a = { objectId: "a", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1000, depth_mm: 200, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } };
+    const b = { objectId: "b", geometry: { ...a.geometry, x_mm: 1000 } };
+    const first = createAgkState([a, b], [{ kind: "HOSTS", hostObjectId: "a", dependentObjectId: "b" }]);
+    const second = createAgkState([b, a], [{ kind: "HOSTS", hostObjectId: "a", dependentObjectId: "b" }]);
+    expect(first.ok && second.ok && first.value.stateId).toBe(second.ok ? second.value.stateId : "invalid");
+  });
+
+  it("deep-freezes committed geometry and records transaction provenance", () => {
+    const initial = materializeD63Geometry("space-1", input);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    expect(Object.isFrozen(initial.value.objects[0])).toBe(true);
+    expect(Object.isFrozen(initial.value.objects[0].geometry)).toBe(true);
+    expect(Object.isFrozen(initial.value.objects[0].geometry.profile)).toBe(true);
+    const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "space-1", delta_mm: { x: 600, y: 0, z: 0 } });
+    expect(moved.ok).toBe(true);
+    if (!moved.ok) return;
+    expect(moved.value.provenance).toEqual({
+      kind: "AGK_COMMAND_COMMITTED",
+      transactionId: moved.value.transactionId,
+      beforeStateId: initial.value.stateId,
+      afterStateId: moved.value.state.stateId,
+      command: { kind: "MOVE", objectId: "space-1", delta_mm: { x: 600, y: 0, z: 0 } },
+      affectedObjectIds: ["space-1"],
+    });
+  });
+
 });
