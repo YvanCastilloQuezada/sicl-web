@@ -1,11 +1,16 @@
+// Mirrors sicl-core RFC-019 SpatialScope. Layout must not create a second scale ontology.
 export type LayoutScale =
-  | "INTERIOR"
-  | "BUILDING"
-  | "SITE"
-  | "NEIGHBORHOOD"
-  | "CITY"
+  | "PAIS"
+  | "MACRO_REGION"
   | "REGION"
-  | "NATION";
+  | "PROVINCIA_METROPOLI"
+  | "DISTRITO_CIUDAD"
+  | "ZONA_BARRIO_SECTOR"
+  | "PARCELA_SITIO"
+  | "EDIFICACION"
+  | "SISTEMA"
+  | "ESPACIO"
+  | "OBJETO";
 
 export type LayoutEntityKind =
   | "OBJECT"
@@ -65,10 +70,10 @@ export function validateLayoutProblem(problem: MultiscaleLayoutProblem): readonl
   if (!problem.boundaryRef.trim()) failures.push("LAYOUT_BOUNDARY_REQUIRED");
   if (problem.entityKinds.length === 0) failures.push("LAYOUT_ENTITIES_REQUIRED");
   if (problem.objectives.length === 0) failures.push("LAYOUT_OBJECTIVES_REQUIRED");
-  if ((problem.scale === "REGION" || problem.scale === "NATION") && problem.jurisdictionRefs.length === 0) {
+  if (["PAIS", "MACRO_REGION", "REGION", "PROVINCIA_METROPOLI", "DISTRITO_CIUDAD"].includes(problem.scale) && problem.jurisdictionRefs.length === 0) {
     failures.push("LAYOUT_JURISDICTION_REQUIRED");
   }
-  if ((problem.scale === "REGION" || problem.scale === "NATION") && problem.demandRefs.length === 0) {
+  if (["PAIS", "MACRO_REGION", "REGION", "PROVINCIA_METROPOLI", "DISTRITO_CIUDAD"].includes(problem.scale) && problem.demandRefs.length === 0) {
     failures.push("LAYOUT_DEMAND_EVIDENCE_REQUIRED");
   }
   return failures;
@@ -82,10 +87,10 @@ export function layoutCapabilityFamily(scale: LayoutScale): readonly string[] {
     "ACCESSIBILITY_ANALYSIS",
     "MULTIOBJECTIVE_LAYOUT_OPTIMIZATION",
   ];
-  if (scale === "INTERIOR" || scale === "BUILDING") {
+  if (scale === "OBJETO" || scale === "ESPACIO" || scale === "SISTEMA" || scale === "EDIFICACION") {
     return [...common, "SPACE_ALLOCATION", "CIRCULATION_LAYOUT", "EGRESS_DISTANCE_ANALYSIS"];
   }
-  if (scale === "SITE" || scale === "NEIGHBORHOOD" || scale === "CITY") {
+  if (scale === "PARCELA_SITIO" || scale === "ZONA_BARRIO_SECTOR" || scale === "DISTRITO_CIUDAD") {
     return [...common, "LAND_USE_ALLOCATION", "PARCEL_LAYOUT", "STREET_NETWORK_LAYOUT", "FACILITY_SITING"];
   }
   return [...common, "REGIONAL_ALLOCATION", "SETTLEMENT_SYSTEM_LAYOUT", "INFRASTRUCTURE_CORRIDOR_LAYOUT", "SERVICE_COVERAGE", "ECOLOGICAL_CONSTRAINT_LAYOUT"];
