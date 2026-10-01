@@ -26,7 +26,7 @@ const ASSETS: readonly EcosystemAsset[] = Object.freeze([
   {
     assetId: "refinery-space-planning-toolkit",
     host: "DYNAMO",
-    capabilities: ["SPACE_SUBDIVISION", "PROGRAM_ALLOCATION", "AMENITY_SPACE_GENERATION", "SPACE_PLANNING_ANALYSIS"],
+    capabilities: ["SPACE_SUBDIVISION", "PROGRAM_ALLOCATION", "AMENITY_SPACE_GENERATION", "DESK_LAYOUT", "BIN_PACKING_2D", "BIN_PACKING_3D", "GEOMETRIC_MEDIAN", "ISOVIST_2D", "OPENNESS_METRIC", "SHORTEST_PATH_2D", "VIEWS_TO_OUTSIDE", "VISIBLE_POINTS", "ADJACENCY_ANALYSIS", "SPACE_PLANNING_ANALYSIS"],
     disposition: "REUSE_CODE",
     licenseSpdx: "Apache-2.0",
     licenseVerified: true,
