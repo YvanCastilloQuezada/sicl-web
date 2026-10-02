@@ -182,4 +182,17 @@ describe("E2E-002 phase 1 contract spine",()=>{
    expect(assertExecutionIntegrity(begun.value,{...begun.value,knowledgePackHashes:["pack-a","pack-c"]},d)).toEqual({ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"});
  });
 
+ it("enforces nominal space identity and exclusive metric shapes",()=>{
+   const adjacencyMetric:MetricSemantics={measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:0,unit:"mm"};
+   const distanceMetric:MetricSemantics={measurementDomain:"BOUNDARY_CLEARANCE",metricType:"EUCLIDEAN",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",threshold:1000,unit:"mm"};
+   expect(adjacencyMetric.tolerance).toBe(0);
+   expect(distanceMetric.threshold).toBe(1000);
+   // @ts-expect-error metric shapes cannot contain both tolerance and threshold semantics
+   const contradictory:MetricSemantics={measurementDomain:"BOUNDARY_CONTACT",metricType:"EUCLIDEAN",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:0,threshold:1,unit:"mm"};
+   // @ts-expect-error SpaceIdentity requires an explicitly constructed SpaceId
+   const rawSpace:SpaceIdentity={spaceId:"raw-string",provenance:"DECLARED_BY_D2",lifecycle:"CONCEPTUAL"};
+   expect(contradictory).toBeDefined();
+   expect(rawSpace).toBeDefined();
+ });
+
 });
