@@ -49,7 +49,7 @@ describe("E2E-002 phase 1 contract spine",()=>{
    const d=createSolverDeclaration({declarationId:"d1",generationRunId:"run-1",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"});
    const p=prepareExecutionEnvelope({generationRunId:"run-1",programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverClassDeclarationHash:d.declarationHash,solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded"});
    const begun=beginExecution(p,d); expect(begun.ok).toBe(true); if(!begun.ok)return;
-   const post=createSolverDeclaration({...d,declarationId:"d2",solverClass:"DECLARED_NONDETERMINISTIC_SOLVER",nondeterminismSource:"post-facto",repeatabilityLimitations:"none",declarationHash:undefined as never});
+   const post=createSolverDeclaration({declarationId:"d2",generationRunId:d.generationRunId,solverClass:"DECLARED_NONDETERMINISTIC_SOLVER",solverVersion:d.solverVersion,solverConfigurationHash:d.solverConfigurationHash,baselineHashes:d.baselineHashes,searchBounds:d.searchBounds,nondeterminismSource:"post-facto",reproducibilityGuarantee:d.reproducibilityGuarantee,repeatabilityLimitations:"none"});
    expect(assertExecutionIntegrity(begun.value,begun.value,post)).toEqual({ok:false,code:"SOLVER_DECLARATION_MUTATED_AFTER_EXECUTION"});
    expect(assertExecutionIntegrity(begun.value,{...begun.value,programHash:"changed"},d)).toEqual({ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"});
  });
