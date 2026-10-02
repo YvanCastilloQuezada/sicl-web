@@ -61,15 +61,16 @@ export function createCompasWorkerTransport(
             reject(new Error(String(payload.code ?? "COMPAS_RUNTIME_FAILED")));
             return;
           }
+          const runtime = Object.freeze({
+            observed: payload.runtime?.observed === true,
+            name: String(payload.runtime?.name ?? "unknown"),
+            version: payload.runtime?.version == null ? null : String(payload.runtime.version),
+          });
           resolve({
             output: payload.output as TOutput,
-            evidenceStatus: "OBSERVED",
+            evidenceStatus: runtime.observed ? "OBSERVED" : "UNKNOWN",
             diagnostics: Object.freeze([...(payload.diagnostics ?? [])]),
-            runtime: Object.freeze({
-              observed: payload.runtime?.observed === true,
-              name: String(payload.runtime?.name ?? "compas"),
-              version: payload.runtime?.version == null ? null : String(payload.runtime.version),
-            }),
+            runtime,
           });
         });
 
