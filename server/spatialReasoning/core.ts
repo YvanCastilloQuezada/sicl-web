@@ -112,7 +112,7 @@ export function buildUnsatConflictReport(input: {
   if (input.conflictingRuleIds.length < 2) throw new Error("UNSAT_REQUIRES_CONFLICT");
   const universe=new Set(input.conflictingRuleIds);
   const normalized=input.discoveredMus.map(set=>{
-    const unique=[...new Set(set)];
+    const unique=Array.from(new Set(set));
     if(unique.length===0 || unique.some(id=>!universe.has(id))) throw new Error("INVALID_MUS");
     return unique;
   });
