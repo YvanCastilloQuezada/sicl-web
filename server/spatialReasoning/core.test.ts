@@ -124,4 +124,32 @@ describe("E2E-002 phase 1 contract spine",()=>{
    expect(buildGenerationTrace({events:[],terminationReason:"none",searchBounds:"0"})).toEqual({ok:false,code:"GENERATION_TRACE_INCONSISTENT"});
  });
 
+ it("rejects caller-controlled AUTHORIZED stage without a real D2 token",()=>{
+   const rule:SpatialRule={ruleId:"preauthorized-forgery",source:"FUNCTIONAL_REQUIREMENT",applicability:{typologies:["SMALL_OFFICE"],jurisdictions:["PE-LIM"],scales:["EDIFICACION"]},enforcement:"PROJECT_HARD",stage:"AUTHORIZED_EXECUTABLE_RULE",relationship:adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:0,unit:"mm"}),evidence};
+   expect(authorizeRule(rule)).toEqual({ok:false,code:"RULE_AUTHORITY_REQUIRED"});
+   expect(authorizeRule(rule,issueD2AuthorityToken(rule.ruleId)).ok).toBe(true);
+ });
+
+ it("uses canonical Spatial Reasoning hashes without changing the global fingerprint contract",()=>{
+   const a=createSolverDeclaration({declarationId:"canonical",generationRunId:"run",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic"});
+   const b=createSolverDeclaration({searchBounds:"bounded",baselineHashes:["p","r"],solverConfigurationHash:"cfg",solverVersion:"1",solverClass:"DETERMINISTIC_SOLVER",generationRunId:"run",declarationId:"canonical",reproducibilityGuarantee:"semantic"});
+   expect(a.declarationHash).toBe(b.declarationHash);
+   const omitted=createSolverDeclaration({declarationId:"undefined",generationRunId:"run-u",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p"],searchBounds:"bounded",reproducibilityGuarantee:"semantic"});
+   const explicitUndefined=createSolverDeclaration({declarationId:"undefined",generationRunId:"run-u",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p"],searchBounds:"bounded",reproducibilityGuarantee:"semantic",repeatabilityLimitations:undefined});
+   expect(omitted.declarationHash).not.toBe(explicitUndefined.declarationHash);
+ });
+
+ it("labels MUS minimality honestly and deep-freezes remaining returned state",()=>{
+   const report=buildUnsatConflictReport({conflictingRuleIds:["a","b"],affectedSpaceIds:["reception"],discoveredMus:[["a","b"]],diagnosticCompleteness:"BOUNDED",searchBounds:"2",terminationReason:"bound"});
+   expect(report.musMinimalityScope).toBe("DISCOVERED_SET");
+   const rule:SpatialRule={ruleId:"freeze-rule",source:"FUNCTIONAL_REQUIREMENT",applicability:{typologies:["SMALL_OFFICE"],jurisdictions:["PE-LIM"],scales:["EDIFICACION"]},enforcement:"PROJECT_HARD",stage:"CANDIDATE_RULE",relationship:adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:0,unit:"mm"}),evidence};
+   const reclassified=reclassifyRegulatoryHard(rule,"SOFT"); expect(reclassified.ok).toBe(true);
+   if(reclassified.ok) expect(Object.isFrozen(reclassified.value.relationship.evidence)).toBe(true);
+   const base={candidateId:"freeze-select",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:["k"],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-f"}};
+   const made=createCandidate(base); expect(made.ok).toBe(true); if(!made.ok)return;
+   const selected=selectCurrentCandidate(made.value); expect(selected.ok).toBe(true);
+   if(selected.ok) expect(Object.isFrozen(selected.value.generationMetadata.knowledgePackHashes)).toBe(true);
+ });
+
+
 });
