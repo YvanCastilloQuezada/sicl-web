@@ -40,6 +40,8 @@ export type AgkFailureCode =
   | "MOVE_DELTA_NOT_INTEGER"
   | "MOVE_DELTA_NOT_FINITE"
   | "DUPLICATE_OBJECT_ID"
+  | "OPERATIONAL_OBJECT_ID_INVALID"
+  | "OPERATIONAL_GEOMETRY_INVALID"
   | "DEPENDENCY_OBJECT_NOT_FOUND"
   | "DEPENDENCY_SELF_REFERENCE"
   | "DEPENDENCY_CYCLE"
@@ -157,6 +159,41 @@ function createState(
   });
 }
 
+function validateOperationalObjects(objects: readonly AgkOperationalObject[]): AgkFailureCode | null {
+  for (const candidate of objects as readonly unknown[]) {
+    if (!candidate || typeof candidate !== "object") return "OPERATIONAL_GEOMETRY_INVALID";
+    const object = candidate as { objectId?: unknown; geometry?: unknown };
+    if (typeof object.objectId !== "string" || !object.objectId.trim()) return "OPERATIONAL_OBJECT_ID_INVALID";
+    if (!object.geometry || typeof object.geometry !== "object") return "OPERATIONAL_GEOMETRY_INVALID";
+    const geometry = object.geometry as {
+      kind?: unknown;
+      profile?: unknown;
+      x_mm?: unknown;
+      y_mm?: unknown;
+      z_mm?: unknown;
+      height_mm?: unknown;
+    };
+    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !geometry.profile || typeof geometry.profile !== "object") {
+      return "OPERATIONAL_GEOMETRY_INVALID";
+    }
+    const profile = geometry.profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
+    const positiveInteger = (value: unknown): value is number =>
+      typeof value === "number" && Number.isInteger(value) && value > 0;
+    const integer = (value: unknown): value is number =>
+      typeof value === "number" && Number.isInteger(value);
+    if (
+      !positiveInteger(profile.width_mm) ||
+      !positiveInteger(profile.depth_mm) ||
+      profile.radius_mm !== null ||
+      !integer(geometry.x_mm) ||
+      !integer(geometry.y_mm) ||
+      !integer(geometry.z_mm) ||
+      !positiveInteger(geometry.height_mm)
+    ) return "OPERATIONAL_GEOMETRY_INVALID";
+  }
+  return null;
+}
+
 function validateDependencies(
   objects: readonly AgkOperationalObject[],
   dependencies: readonly AgkDependency[]
@@ -214,7 +251,7 @@ export function materializeD63Geometry(
 ): AgkResult<AgkCommittedState> {
   const adapted = bridgeD63ToD2Geometry(input);
   if (!adapted.ok) return adapted;
-  return { ok: true, value: createState(0, [{ objectId, geometry: adapted.value }], []) };
+  return createAgkState([{ objectId, geometry: adapted.value }]);
 }
 
 export function createAgkState(
@@ -222,6 +259,8 @@ export function createAgkState(
   dependencies: readonly AgkDependency[] = [],
   causalModel?: AgkCausalModel
 ): AgkResult<AgkCommittedState> {
+  const objectFailure = validateOperationalObjects(objects);
+  if (objectFailure) return { ok: false, code: objectFailure };
   if (new Set(objects.map((object) => object.objectId)).size !== objects.length) {
     return { ok: false, code: "DUPLICATE_OBJECT_ID" };
   }
@@ -302,6 +341,7 @@ export function applyAgkCommand(
 
 function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport, causalModel: AgkCausalModel | undefined = current.causalModel): AgkResult<AgkTransactionReceipt> {
   const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects,dependencies:current.dependencies,causalModel};
+  const objectFailure=validateOperationalObjects(draft.objects); if(objectFailure)return {ok:false,code:objectFailure};
   const failure=validateDependencies(draft.objects,draft.dependencies); if(failure)return {ok:false,code:failure};
   const next=createState(current.revision+1,draft.objects,draft.dependencies,draft.causalModel);
   const affected=report?.affectedObjectIds ?? current.objects.filter((o,i)=>JSON.stringify(o)!==JSON.stringify(objects[i])).map(o=>o.objectId);
