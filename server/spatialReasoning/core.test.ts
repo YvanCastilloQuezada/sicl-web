@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { issueD2AuthorityToken } from "../d2Authority";
-import { assertExecutionIntegrity, authorizeRule, beginExecution, cannotPromoteCandidateToAgk, createCandidate, createSolverDeclaration, determineApplicability, prepareExecutionEnvelope, reclassifyRegulatoryHard, validateRelationship } from "./core";
+import { assertExecutionIntegrity, authorizeRule, beginExecution, buildUnsatConflictReport, cannotPromoteCandidateToAgk, createCandidate, createSolverDeclaration, determineApplicability, prepareExecutionEnvelope, recordUnknown, reclassifyRegulatoryHard, validateRelationship, verifyReproducibility } from "./core";
 import type { SpatialRelationship, SpatialRule, SpaceIdentity } from "./types";
 
 const spaces:SpaceIdentity[]=[
@@ -44,6 +44,26 @@ describe("E2E-002 phase 1 contract spine",()=>{
    const d=createSolverDeclaration({declarationId:"d1",generationRunId:"run-1",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"});
    const e=prepareExecutionEnvelope({generationRunId:"run-1",programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverClassDeclarationHash:"forged",solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded"});
    expect(beginExecution(e,d)).toEqual({ok:false,code:"SOLVER_DECLARATION_INTEGRITY_FAILED"});
+ });
+ it("keeps UNKNOWN explicit and produces bounded UNSAT diagnostics",()=>{
+   const u=recordUnknown({unknownId:"u1",subject:"meeting acoustic separation",reason:"assembly not selected",blocking:true,evidence:[],resolutionPath:"select and verify assembly"});
+   expect(u.blocking).toBe(true);
+   const report=buildUnsatConflictReport({conflictingRuleIds:["hard-a","hard-b"],affectedSpaceIds:["meeting"],discoveredMus:[["hard-a","hard-b"]],diagnosticCompleteness:"BOUNDED",searchBounds:"2 rules",terminationReason:"declared bound",possibleResolutionPaths:["D2 may revise project requirement"]});
+   expect(report.status).toBe("UNSAT");
+   expect(report.diagnosticCompleteness).toBe("BOUNDED");
+   expect(report.possibleResolutionPaths[0]).toContain("may");
+ });
+ it("detects deterministic and seeded semantic nondeterminism but does not fake verification for declared nondeterminism",()=>{
+   const base={declarationId:"d-r",generationRunId:"run-r",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"};
+   const expected={candidateIds:["c1"],relationshipOutcomes:["r1:SAT"],conflictMusIds:[]};
+   const changed={...expected,relationshipOutcomes:["r1:UNSAT"]};
+   for(const solverClass of ["DETERMINISTIC_SOLVER","SEEDED_STOCHASTIC_SOLVER"] as const){
+     const d=createSolverDeclaration({...base,solverClass,...(solverClass==="SEEDED_STOCHASTIC_SOLVER"?{randomSeed:"42"}:{})});
+     expect(verifyReproducibility({declaration:d,expected,observed:changed})).toEqual({ok:false,code:"SOLVER_NONDETERMINISM_DETECTED"});
+   }
+   const nondet=createSolverDeclaration({...base,solverClass:"DECLARED_NONDETERMINISTIC_SOLVER",nondeterminismSource:"external heuristic",repeatabilityLimitations:"not repeatable"});
+   const check=verifyReproducibility({declaration:nondet,expected,observed:changed});
+   expect(check.ok).toBe(true); if(check.ok) expect(check.value.generationCertificationStatus).toBe("UNVERIFIED");
  });
  it("blocks post-facto solver reclassification and envelope mutation",()=>{
    const d=createSolverDeclaration({declarationId:"d1",generationRunId:"run-1",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"});
