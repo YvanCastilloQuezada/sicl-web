@@ -60,3 +60,5 @@ jobs:
 
       - name: Run Capability Fabric regression
         run: pnpm vitest run server/capabilityFabric
+
+# Phase 1 forensic exact-SHA gate
