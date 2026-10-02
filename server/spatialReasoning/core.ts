@@ -4,6 +4,21 @@ import type { ApplicabilityEnvelope, AuthorizedException, ConflictReport, Execut
 import type { LayoutScale } from "../capabilityFabric/multiscaleLayout";
 
 const validMetricNumber = (v: number | undefined) => typeof v === "number" && Number.isFinite(v) && v >= 0;
+function canonicalizeSpatial(value: unknown): string {
+  if (value === undefined) return '"__ARKI_UNDEFINED__"';
+  if (value === null || typeof value === "string" || typeof value === "boolean") return JSON.stringify(value);
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) throw new Error("SPATIAL_FINGERPRINT_NONFINITE_NUMBER");
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) return `[${value.map(canonicalizeSpatial).join(",")}]`;
+  if (typeof value === "object") {
+    const record=value as Record<string, unknown>;
+    return `{${Object.keys(record).sort().map(key=>`${JSON.stringify(key)}:${canonicalizeSpatial(record[key])}`).join(",")}}`;
+  }
+  throw new Error("SPATIAL_FINGERPRINT_UNSUPPORTED_VALUE");
+}
+const spatialFingerprint = (value: unknown): string => fingerprint(canonicalizeSpatial(value));
 function deepFreeze<T>(value:T):T {
   if (value && typeof value === "object" && !Object.isFrozen(value)) {
     for (const key of Object.getOwnPropertyNames(value)) deepFreeze((value as Record<string, unknown>)[key]);
@@ -50,15 +65,14 @@ export function determineApplicability(envelope: ApplicabilityEnvelope, context:
 export function authorizeRule(rule: SpatialRule, token?: D2AuthorityToken): SpatialResult<SpatialRule> {
   if (rule.enforcement==="REGULATORY_HARD" && rule.source!=="LAW_REGULATION") return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
   if (rule.source==="LAW_REGULATION" && rule.enforcement==="REGULATORY_HARD" && (!rule.authorityRef || rule.evidence.length===0)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-  // No CANDIDATE_RULE may self-promote. D-2 is the Phase-1 authorization boundary.
-  if (rule.stage!=="AUTHORIZED_EXECUTABLE_RULE" && (!token || !verifyD2AuthorityToken(token,rule.ruleId))) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-  if (rule.stage==="AUTHORIZED_EXECUTABLE_RULE" && token && !verifyD2AuthorityToken(token,rule.ruleId)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
+  // Input stage is descriptive only: every executable authorization crosses the D-2 token boundary.
+  if (!token || !verifyD2AuthorityToken(token,rule.ruleId)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
   return {ok:true,value:deepFreeze({...rule,stage:"AUTHORIZED_EXECUTABLE_RULE",...(token?{d2AuthorityToken:token}:{})})};
 }
 
 export function reclassifyRegulatoryHard(rule: SpatialRule, enforcement: SpatialRule["enforcement"]): SpatialResult<SpatialRule> {
   if (rule.enforcement==="REGULATORY_HARD" && enforcement!=="REGULATORY_HARD") return {ok:false,code:"REGULATORY_RECLASSIFICATION_FORBIDDEN"};
-  return {ok:true,value:{...rule,enforcement}};
+  return {ok:true,value:deepFreeze({...rule,enforcement})};
 }
 
 export function validateGenerationMetadata(m: GenerationMetadata): SpatialResult<GenerationMetadata> {
@@ -77,19 +91,19 @@ function declarationPayload(d: Omit<SolverClassDeclaration,"declarationHash">){ 
 export function createSolverDeclaration(input: Omit<SolverClassDeclaration,"declarationHash">): SolverClassDeclaration {
   if(input.solverClass==="SEEDED_STOCHASTIC_SOLVER" && !input.randomSeed) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
   if(input.solverClass==="DECLARED_NONDETERMINISTIC_SOLVER" && (!input.nondeterminismSource || !input.repeatabilityLimitations)) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
-  return deepFreeze({...input,declarationHash:fingerprint(declarationPayload(input))});
+  return deepFreeze({...input,declarationHash:spatialFingerprint(declarationPayload(input))});
 }
 
 function envelopePayload(e: Omit<ExecutionEnvelope,"envelopeHash">){ return e; }
 export function prepareExecutionEnvelope(input: Omit<ExecutionEnvelope,"envelopeHash"|"executionState">): ExecutionEnvelope {
   const prepared={...input,executionState:"PREPARED" as const};
-  return deepFreeze({...prepared,envelopeHash:fingerprint(envelopePayload(prepared))});
+  return deepFreeze({...prepared,envelopeHash:spatialFingerprint(envelopePayload(prepared))});
 }
 
 export function beginExecution(envelope:ExecutionEnvelope,declaration:SolverClassDeclaration):SpatialResult<ExecutionEnvelope>{
   if(envelope.executionState!=="PREPARED" || envelope.solverClassDeclarationHash!==declaration.declarationHash || envelope.generationRunId!==declaration.generationRunId || envelope.solverVersion!==declaration.solverVersion || envelope.solverConfigurationHash!==declaration.solverConfigurationHash || envelope.searchBounds!==declaration.searchBounds || envelope.randomSeed!==declaration.randomSeed) return {ok:false,code:"SOLVER_DECLARATION_INTEGRITY_FAILED"};
   const executing={...envelope,executionState:"EXECUTING" as const};
-  return {ok:true,value:deepFreeze({...executing,envelopeHash:fingerprint(envelopePayload(executing))})};
+  return {ok:true,value:deepFreeze({...executing,envelopeHash:spatialFingerprint(envelopePayload(executing))})};
 }
 
 export function assertExecutionIntegrity(sealed:ExecutionEnvelope,current:ExecutionEnvelope,declaration:SolverClassDeclaration):SpatialResult<ExecutionEnvelope>{
@@ -139,6 +153,7 @@ export function buildUnsatConflictReport(input: {
     conflictingRuleIds:Object.freeze([...input.conflictingRuleIds]),
     affectedSpaceIds:Object.freeze([...input.affectedSpaceIds]),
     reportableMus:Object.freeze(mus),
+    musMinimalityScope:"DISCOVERED_SET",
     diagnosticCompleteness:input.diagnosticCompleteness,
     searchBounds:input.searchBounds,
     terminationReason:input.terminationReason,
@@ -147,7 +162,7 @@ export function buildUnsatConflictReport(input: {
 }
 
 export function semanticTraceHash(trace: SemanticTrace): string {
-  return fingerprint({
+  return spatialFingerprint({
     candidateIds:[...trace.candidateIds],
     relationshipOutcomes:[...trace.relationshipOutcomes],
     conflictMusIds:[...trace.conflictMusIds]
@@ -177,14 +192,14 @@ export function authorizeException(exception:AuthorizedException, rule:SpatialRu
 export function markCandidateOutdated(candidate:LayoutCandidate,current:{programHash:string;ruleSetHash:string;knowledgePackHashes:readonly string[];partiInterpretationHash?:string}):LayoutCandidate{
   const m=candidate.generationMetadata;
   const changed=m.programHash!==current.programHash || m.ruleSetHash!==current.ruleSetHash || JSON.stringify(m.knowledgePackHashes)!==JSON.stringify(current.knowledgePackHashes) || candidate.partiInterpretationHash!==current.partiInterpretationHash;
-  return changed?Object.freeze({...candidate,status:"OUTDATED" as const}):candidate;
+  return changed?deepFreeze({...candidate,status:"OUTDATED" as const}):deepFreeze(candidate);
 }
 export function selectCurrentCandidate(candidate:LayoutCandidate):SpatialResult<LayoutCandidate>{
-  return candidate.status==="CURRENT"?{ok:true,value:candidate}:{ok:false,code:"CANDIDATE_OUTDATED"};
+  return candidate.status==="CURRENT"?{ok:true,value:deepFreeze(candidate)}:{ok:false,code:"CANDIDATE_OUTDATED"};
 }
 
 export function createPartiInterpretation(input:Omit<PartiInterpretation,"interpretationHash">):PartiInterpretation{
-  const snapshot=structuredClone(input); return deepFreeze({...snapshot,interpretationHash:fingerprint(snapshot)});
+  const snapshot=structuredClone(input); return deepFreeze({...snapshot,interpretationHash:spatialFingerprint(snapshot)});
 }
 
 export function validatePreliminaryGeometry(g:PreliminaryGeometry):SpatialResult<PreliminaryGeometry>{
@@ -200,5 +215,5 @@ export function buildGenerationTrace(input:{events:GenerationTrace["events"];ter
   if(retained>evaluated || evaluated>generated || input.events.some(e=>e.kind==="PRUNED" && !e.reason)) return {ok:false,code:"GENERATION_TRACE_INCONSISTENT"};
   if(input.events.length===0) return {ok:false,code:"GENERATION_TRACE_INCONSISTENT"};
   const semantic=input.events.map(e=>({kind:e.kind,candidateId:e.candidateId,reason:e.reason??null}));
-  return {ok:true,value:Object.freeze({events:Object.freeze([...input.events]),terminationReason:input.terminationReason,searchBounds:input.searchBounds,semanticTraceHash:fingerprint({events:semantic,terminationReason:input.terminationReason,searchBounds:input.searchBounds})})};
+  return {ok:true,value:Object.freeze({events:Object.freeze([...input.events]),terminationReason:input.terminationReason,searchBounds:input.searchBounds,semanticTraceHash:spatialFingerprint({events:semantic,terminationReason:input.terminationReason,searchBounds:input.searchBounds})})};
 }
