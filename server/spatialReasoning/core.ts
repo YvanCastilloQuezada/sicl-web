@@ -1,8 +1,16 @@
 import { fingerprint } from "../arkiFingerprint";
 import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
 import type { ApplicabilityEnvelope, AuthorizedException, ConflictReport, ExecutionEnvelope, GenerationMetadata, GenerationTrace, LayoutCandidate, PartiInterpretation, PreliminaryGeometry, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, UnknownRecord } from "./types";
+import type { LayoutScale } from "../capabilityFabric/multiscaleLayout";
 
-const dimensional = (v: number | undefined) => v !== undefined;
+const validMetricNumber = (v: number | undefined) => typeof v === "number" && Number.isFinite(v) && v >= 0;
+function deepFreeze<T>(value:T):T {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const key of Object.getOwnPropertyNames(value)) deepFreeze((value as Record<string, unknown>)[key]);
+    Object.freeze(value);
+  }
+  return value;
+}
 
 export function validateSpaces(spaces: readonly SpaceIdentity[]): SpatialResult<readonly SpaceIdentity[]> {
   if (spaces.some(s => !s.spaceId.trim())) return { ok:false, code:"SPACE_ID_REQUIRED" };
@@ -14,41 +22,38 @@ export function validateRelationship(rel: SpatialRelationship, spaces: readonly 
   const ids=new Set(spaces.map(s=>s.spaceId));
   if (!ids.has(rel.subjectSpaceId) || (rel.objectSpaceId !== undefined && !ids.has(rel.objectSpaceId))) return {ok:false,code:"INVALID_SPACE_REFERENCE"};
   if (rel.relationshipType==="AREA") {
-    if(!rel.area?.areaType || !rel.area.aggregationScope || !rel.area.unit || (rel.area.target===undefined && rel.area.minimum===undefined && rel.area.maximum===undefined)) return {ok:false,code:"AREA_SEMANTICS_REQUIRED"};
+    if(rel.objectSpaceId!==undefined || !rel.area?.areaType || !rel.area.aggregationScope || !rel.area.unit || (rel.area.target===undefined && rel.area.minimum===undefined && rel.area.maximum===undefined)) return {ok:false,code:"AREA_SEMANTICS_REQUIRED"};
+    const values=[rel.area.minimum,rel.area.target,rel.area.maximum].filter((v):v is number=>v!==undefined);
+    if(values.some(v=>!Number.isFinite(v) || v<0) || (rel.area.minimum!==undefined && rel.area.target!==undefined && rel.area.minimum>rel.area.target) || (rel.area.target!==undefined && rel.area.maximum!==undefined && rel.area.target>rel.area.maximum) || (rel.area.minimum!==undefined && rel.area.maximum!==undefined && rel.area.minimum>rel.area.maximum)) return {ok:false,code:"AREA_SEMANTICS_REQUIRED"};
   }
   if (rel.relationshipType==="DIRECT_ADJACENCY") {
     const m=rel.metric;
     if (!m?.measurementDomain || !m.representationSpace) return {ok:false,code:"METRIC_SEMANTICS_REQUIRED"};
-    if (!dimensional(m.tolerance)) return {ok:false,code:"METRIC_TOLERANCE_REQUIRED"};
+    if (!validMetricNumber(m.tolerance)) return {ok:false,code:"METRIC_TOLERANCE_REQUIRED"};
     if (!m.unit) return {ok:false,code:"METRIC_UNIT_REQUIRED"};
   }
   if (rel.relationshipType==="MINIMUM_DISTANCE") {
     const m=rel.metric;
     if (!m?.measurementDomain || !m.metricType || !m.representationSpace) return {ok:false,code:"METRIC_SEMANTICS_REQUIRED"};
-    if (!dimensional(m.threshold)) return {ok:false,code:"METRIC_THRESHOLD_REQUIRED"};
+    if (!validMetricNumber(m.threshold)) return {ok:false,code:"METRIC_THRESHOLD_REQUIRED"};
     if (!m.unit) return {ok:false,code:"METRIC_UNIT_REQUIRED"};
   }
   return {ok:true,value:rel};
 }
 
-export function determineApplicability(envelope: ApplicabilityEnvelope, context:{typology:string;jurisdiction:string;scale:string}): "APPLICABLE"|"NOT_APPLICABLE" {
-  // V0.5: no implicit subtype, territorial or scale inheritance.
-  return envelope.typologies.includes(context.typology) && envelope.jurisdictions.includes(context.jurisdiction) && envelope.scales.includes(context.scale as never) ? "APPLICABLE" : "NOT_APPLICABLE";
+export function determineApplicability(envelope: ApplicabilityEnvelope, context:{typology:string;jurisdiction:string;scale:LayoutScale}): "APPLICABLE"|"NOT_APPLICABLE"|"UNKNOWN" {
+  // V0.5: missing applicability evidence is UNKNOWN; no implicit inheritance.
+  if(envelope.typologies.length===0 || envelope.jurisdictions.length===0 || envelope.scales.length===0) return "UNKNOWN";
+  return envelope.typologies.includes(context.typology) && envelope.jurisdictions.includes(context.jurisdiction) && envelope.scales.includes(context.scale) ? "APPLICABLE" : "NOT_APPLICABLE";
 }
 
 export function authorizeRule(rule: SpatialRule, token?: D2AuthorityToken): SpatialResult<SpatialRule> {
-  if (rule.source==="LAW_REGULATION" && rule.enforcement==="REGULATORY_HARD") {
-    if (!rule.authorityRef || rule.evidence.length===0) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-    return {ok:true,value:{...rule,stage:"AUTHORIZED_EXECUTABLE_RULE"}};
-  }
   if (rule.enforcement==="REGULATORY_HARD" && rule.source!=="LAW_REGULATION") return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-  if (rule.stage==="AUTHORIZED_EXECUTABLE_RULE") {
-    if (!token || !verifyD2AuthorityToken(token,rule.ruleId)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-  }
-  if (["TYPOLOGICAL_KNOWLEDGE","BEST_PRACTICE","REFERENCE_MANUAL","DESIGNER_PREFERENCE"].includes(rule.source) && rule.enforcement==="PROJECT_HARD") {
-    if (!token || !verifyD2AuthorityToken(token,rule.ruleId)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
-  }
-  return {ok:true,value:{...rule,stage:"AUTHORIZED_EXECUTABLE_RULE"}};
+  if (rule.source==="LAW_REGULATION" && rule.enforcement==="REGULATORY_HARD" && (!rule.authorityRef || rule.evidence.length===0)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
+  // No CANDIDATE_RULE may self-promote. D-2 is the Phase-1 authorization boundary.
+  if (rule.stage!=="AUTHORIZED_EXECUTABLE_RULE" && (!token || !verifyD2AuthorityToken(token,rule.ruleId))) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
+  if (rule.stage==="AUTHORIZED_EXECUTABLE_RULE" && token && !verifyD2AuthorityToken(token,rule.ruleId)) return {ok:false,code:"RULE_AUTHORITY_REQUIRED"};
+  return {ok:true,value:deepFreeze({...rule,stage:"AUTHORIZED_EXECUTABLE_RULE",...(token?{d2AuthorityToken:token}:{})})};
 }
 
 export function reclassifyRegulatoryHard(rule: SpatialRule, enforcement: SpatialRule["enforcement"]): SpatialResult<SpatialRule> {
@@ -65,26 +70,26 @@ export function createCandidate(input: Omit<LayoutCandidate,"canonical"|"status"
   if (input.canonical===true) return {ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"};
   if (input.status!==undefined && input.status!=="CURRENT") return {ok:false,code:"CANDIDATE_STATUS_INVALID"};
   const metadata=validateGenerationMetadata(input.generationMetadata); if(!metadata.ok)return metadata;
-  return {ok:true,value:Object.freeze({...input,status:"CURRENT" as const,canonical:false as const})};
+  return {ok:true,value:deepFreeze({...input,status:"CURRENT" as const,canonical:false as const})};
 }
 
 function declarationPayload(d: Omit<SolverClassDeclaration,"declarationHash">){ return d; }
 export function createSolverDeclaration(input: Omit<SolverClassDeclaration,"declarationHash">): SolverClassDeclaration {
   if(input.solverClass==="SEEDED_STOCHASTIC_SOLVER" && !input.randomSeed) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
   if(input.solverClass==="DECLARED_NONDETERMINISTIC_SOLVER" && (!input.nondeterminismSource || !input.repeatabilityLimitations)) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
-  return Object.freeze({...input,declarationHash:fingerprint(declarationPayload(input))});
+  return deepFreeze({...input,declarationHash:fingerprint(declarationPayload(input))});
 }
 
 function envelopePayload(e: Omit<ExecutionEnvelope,"envelopeHash">){ return e; }
 export function prepareExecutionEnvelope(input: Omit<ExecutionEnvelope,"envelopeHash"|"executionState">): ExecutionEnvelope {
   const prepared={...input,executionState:"PREPARED" as const};
-  return Object.freeze({...prepared,envelopeHash:fingerprint(envelopePayload(prepared))});
+  return deepFreeze({...prepared,envelopeHash:fingerprint(envelopePayload(prepared))});
 }
 
 export function beginExecution(envelope:ExecutionEnvelope,declaration:SolverClassDeclaration):SpatialResult<ExecutionEnvelope>{
   if(envelope.executionState!=="PREPARED" || envelope.solverClassDeclarationHash!==declaration.declarationHash || envelope.generationRunId!==declaration.generationRunId || envelope.solverVersion!==declaration.solverVersion || envelope.solverConfigurationHash!==declaration.solverConfigurationHash || envelope.searchBounds!==declaration.searchBounds || envelope.randomSeed!==declaration.randomSeed) return {ok:false,code:"SOLVER_DECLARATION_INTEGRITY_FAILED"};
   const executing={...envelope,executionState:"EXECUTING" as const};
-  return {ok:true,value:Object.freeze({...executing,envelopeHash:fingerprint(envelopePayload(executing))})};
+  return {ok:true,value:deepFreeze({...executing,envelopeHash:fingerprint(envelopePayload(executing))})};
 }
 
 export function assertExecutionIntegrity(sealed:ExecutionEnvelope,current:ExecutionEnvelope,declaration:SolverClassDeclaration):SpatialResult<ExecutionEnvelope>{
@@ -103,7 +108,7 @@ export function recordUnknown(input: UnknownRecord): UnknownRecord {
   if (!input.unknownId.trim() || !input.subject.trim() || !input.reason.trim() || !input.resolutionPath.trim()) {
     throw new Error("UNKNOWN_RECORD_INCOMPLETE");
   }
-  return Object.freeze({...input,evidence:Object.freeze([...input.evidence])});
+  return deepFreeze({...input,evidence:[...input.evidence]});
 }
 
 export function buildUnsatConflictReport(input: {
@@ -117,11 +122,13 @@ export function buildUnsatConflictReport(input: {
 }): ConflictReport {
   if (input.conflictingRuleIds.length < 2) throw new Error("UNSAT_REQUIRES_CONFLICT");
   const universe=new Set(input.conflictingRuleIds);
-  const normalized=input.discoveredMus.map(set=>{
+  const normalizedRaw=input.discoveredMus.map(set=>{
     const unique=Array.from(new Set(set));
     if(unique.length===0 || unique.some(id=>!universe.has(id))) throw new Error("INVALID_MUS");
     return unique;
   });
+  const seen=new Set<string>();
+  const normalized=normalizedRaw.filter(set=>{const key=[...set].sort().join("\\u0000");if(seen.has(key))return false;seen.add(key);return true;});
   for(let i=0;i<normalized.length;i++){
     const current=new Set(normalized[i]);
     if(normalized.some((other,j)=>j!==i && other.length<current.size && other.every(id=>current.has(id)))) throw new Error("NON_MINIMAL_MUS");
@@ -164,7 +171,7 @@ export function verifyReproducibility(input:{
 export function authorizeException(exception:AuthorizedException, rule:SpatialRule, applicability:"APPLICABLE"|"NOT_APPLICABLE"|"UNKNOWN"):SpatialResult<AuthorizedException>{
   if(applicability!=="APPLICABLE") return {ok:false,code:"RULE_NOT_APPLICABLE"};
   if(exception.affectedRuleId!==rule.ruleId || exception.verificationStatus!=="VERIFIED" || !exception.issuingAuthority || !exception.documentReference || !exception.documentHash || !exception.scope || !exception.proof || exception.evidence.length===0) return {ok:false,code:"EXCEPTION_NOT_AUTHORIZED"};
-  return {ok:true,value:Object.freeze({...exception,evidence:Object.freeze([...exception.evidence])})};
+  return {ok:true,value:deepFreeze({...exception,evidence:[...exception.evidence]})};
 }
 
 export function markCandidateOutdated(candidate:LayoutCandidate,current:{programHash:string;ruleSetHash:string;knowledgePackHashes:readonly string[];partiInterpretationHash?:string}):LayoutCandidate{
@@ -177,7 +184,7 @@ export function selectCurrentCandidate(candidate:LayoutCandidate):SpatialResult<
 }
 
 export function createPartiInterpretation(input:Omit<PartiInterpretation,"interpretationHash">):PartiInterpretation{
-  return Object.freeze({...input,evidence:Object.freeze([...input.evidence]),interpretationHash:fingerprint(input)});
+  const snapshot=structuredClone(input); return deepFreeze({...snapshot,interpretationHash:fingerprint(snapshot)});
 }
 
 export function validatePreliminaryGeometry(g:PreliminaryGeometry):SpatialResult<PreliminaryGeometry>{
@@ -191,6 +198,7 @@ export function buildGenerationTrace(input:{events:GenerationTrace["events"];ter
   const evaluated=input.events.filter(e=>e.kind==="EVALUATED").length;
   const retained=input.events.filter(e=>e.kind==="RETAINED").length;
   if(retained>evaluated || evaluated>generated || input.events.some(e=>e.kind==="PRUNED" && !e.reason)) return {ok:false,code:"GENERATION_TRACE_INCONSISTENT"};
-  const semantic=input.events.map(e=>({eventId:e.eventId,kind:e.kind,candidateId:e.candidateId,reason:e.reason??null}));
+  if(input.events.length===0) return {ok:false,code:"GENERATION_TRACE_INCONSISTENT"};
+  const semantic=input.events.map(e=>({kind:e.kind,candidateId:e.candidateId,reason:e.reason??null}));
   return {ok:true,value:Object.freeze({events:Object.freeze([...input.events]),terminationReason:input.terminationReason,searchBounds:input.searchBounds,semanticTraceHash:fingerprint({events:semantic,terminationReason:input.terminationReason,searchBounds:input.searchBounds})})};
 }
