@@ -1,6 +1,6 @@
 import { fingerprint } from "../arkiFingerprint";
 import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
-import type { ApplicabilityEnvelope, ConflictReport, ExecutionEnvelope, GenerationMetadata, LayoutCandidate, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, UnknownRecord } from "./types";
+import type { ApplicabilityEnvelope, AuthorizedException, ConflictReport, ExecutionEnvelope, GenerationMetadata, GenerationTrace, LayoutCandidate, PartiInterpretation, PreliminaryGeometry, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, UnknownRecord } from "./types";
 
 const dimensional = (v: number | undefined) => v !== undefined;
 
@@ -13,6 +13,9 @@ export function validateSpaces(spaces: readonly SpaceIdentity[]): SpatialResult<
 export function validateRelationship(rel: SpatialRelationship, spaces: readonly SpaceIdentity[]): SpatialResult<SpatialRelationship> {
   const ids=new Set(spaces.map(s=>s.spaceId));
   if (!ids.has(rel.subjectSpaceId) || (rel.objectSpaceId !== undefined && !ids.has(rel.objectSpaceId))) return {ok:false,code:"INVALID_SPACE_REFERENCE"};
+  if (rel.relationshipType==="AREA") {
+    if(!rel.area?.areaType || !rel.area.aggregationScope || !rel.area.unit || (rel.area.target===undefined && rel.area.minimum===undefined && rel.area.maximum===undefined)) return {ok:false,code:"AREA_SEMANTICS_REQUIRED"};
+  }
   if (rel.relationshipType==="DIRECT_ADJACENCY") {
     const m=rel.metric;
     if (!m?.measurementDomain || !m.representationSpace) return {ok:false,code:"METRIC_SEMANTICS_REQUIRED"};
@@ -58,10 +61,10 @@ export function validateGenerationMetadata(m: GenerationMetadata): SpatialResult
   return {ok:true,value:m};
 }
 
-export function createCandidate(input: Omit<LayoutCandidate,"canonical"> & {canonical?: boolean}): SpatialResult<LayoutCandidate> {
+export function createCandidate(input: Omit<LayoutCandidate,"canonical"|"status"> & {canonical?: boolean;status?:LayoutCandidate["status"]}): SpatialResult<LayoutCandidate> {
   if (input.canonical===true) return {ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"};
   const metadata=validateGenerationMetadata(input.generationMetadata); if(!metadata.ok)return metadata;
-  return {ok:true,value:Object.freeze({...input,canonical:false as const})};
+  return {ok:true,value:Object.freeze({...input,status:input.status??"CURRENT",canonical:false as const})};
 }
 
 function declarationPayload(d: Omit<SolverClassDeclaration,"declarationHash">){ return d; }
@@ -153,4 +156,38 @@ export function verifyReproducibility(input:{
   }
   if(expectedHash!==observedHash) return {ok:false,code:"SOLVER_NONDETERMINISM_DETECTED"};
   return {ok:true,value:{generationCertificationStatus:"VERIFIED",semanticTraceHash:observedHash}};
+}
+
+export function authorizeException(exception:AuthorizedException, rule:SpatialRule, applicability:"APPLICABLE"|"NOT_APPLICABLE"|"UNKNOWN"):SpatialResult<AuthorizedException>{
+  if(applicability!=="APPLICABLE") return {ok:false,code:"RULE_NOT_APPLICABLE"};
+  if(exception.affectedRuleId!==rule.ruleId || exception.verificationStatus!=="VERIFIED" || !exception.issuingAuthority || !exception.documentReference || !exception.documentHash || !exception.scope || !exception.proof || exception.evidence.length===0) return {ok:false,code:"EXCEPTION_NOT_AUTHORIZED"};
+  return {ok:true,value:Object.freeze({...exception,evidence:Object.freeze([...exception.evidence])})};
+}
+
+export function markCandidateOutdated(candidate:LayoutCandidate,current:{programHash:string;ruleSetHash:string;knowledgePackHashes:readonly string[];partiInterpretationHash?:string}):LayoutCandidate{
+  const m=candidate.generationMetadata;
+  const changed=m.programHash!==current.programHash || m.ruleSetHash!==current.ruleSetHash || JSON.stringify(m.knowledgePackHashes)!==JSON.stringify(current.knowledgePackHashes) || candidate.partiInterpretationHash!==current.partiInterpretationHash;
+  return changed?Object.freeze({...candidate,status:"OUTDATED" as const}):candidate;
+}
+export function selectCurrentCandidate(candidate:LayoutCandidate):SpatialResult<LayoutCandidate>{
+  return candidate.status==="CURRENT"?{ok:true,value:candidate}:{ok:false,code:"CANDIDATE_OUTDATED"};
+}
+
+export function createPartiInterpretation(input:Omit<PartiInterpretation,"interpretationHash">):PartiInterpretation{
+  return Object.freeze({...input,evidence:Object.freeze([...input.evidence]),interpretationHash:fingerprint(input)});
+}
+
+export function validatePreliminaryGeometry(g:PreliminaryGeometry):SpatialResult<PreliminaryGeometry>{
+  if(g.canonical!==false || g.preliminaryGeometry!==true || g.agkOperational!==false) return {ok:false,code:"PRELIMINARY_GEOMETRY_INVALID"};
+  if(g.kind==="BOUNDED_CONVEX_POLYHEDRON" && (g.faceCount<4 || g.faceCount>64)) return {ok:false,code:"PRELIMINARY_GEOMETRY_INVALID"};
+  return {ok:true,value:g};
+}
+
+export function buildGenerationTrace(input:{events:GenerationTrace["events"];terminationReason:string;searchBounds:string}):SpatialResult<GenerationTrace>{
+  const generated=input.events.filter(e=>e.kind==="GENERATED").length;
+  const evaluated=input.events.filter(e=>e.kind==="EVALUATED").length;
+  const retained=input.events.filter(e=>e.kind==="RETAINED").length;
+  if(retained>evaluated || evaluated>generated || input.events.some(e=>e.kind==="PRUNED" && !e.reason)) return {ok:false,code:"GENERATION_TRACE_INCONSISTENT"};
+  const semantic=input.events.map(e=>({eventId:e.eventId,kind:e.kind,candidateId:e.candidateId,reason:e.reason??null}));
+  return {ok:true,value:Object.freeze({events:Object.freeze([...input.events]),terminationReason:input.terminationReason,searchBounds:input.searchBounds,semanticTraceHash:fingerprint({events:semantic,terminationReason:input.terminationReason,searchBounds:input.searchBounds})})};
 }
