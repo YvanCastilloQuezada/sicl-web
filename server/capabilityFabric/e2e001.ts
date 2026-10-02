@@ -110,6 +110,23 @@ export async function executeE2E001(
     kind: "MOVE",
     objectId: intent.architecturalObjectId,
     delta_mm: observedDelta,
+  }, {
+    sourceKind: "E2E001_D2_CAPABILITY_EXECUTION",
+    sourceId: intent.intentId,
+    evidence: {
+      intentId: intent.intentId,
+      architecturalAuthority: intent.architecturalAuthority,
+      capabilityRequestId: execution.result.requestId,
+      capability: execution.result.capability,
+      operation: execution.result.operation,
+      selectedProviderId: execution.result.providerId,
+      providerAuthority: "NON_CANONICAL_PROVIDER",
+      canonicalMutation: execution.result.canonicalMutation,
+      evidenceStatus: execution.result.evidence.status,
+      runtimeObserved: execution.result.evidence.runtime.observed,
+      runtimeName: execution.result.evidence.runtime.name,
+      runtimeVersion: execution.result.evidence.runtime.version,
+    },
   });
   if (!committed.ok) return { ok: false, stage: "AGK", code: committed.code };
 
