@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { issueD2AuthorityToken } from "../d2Authority";
-import { assertExecutionIntegrity, authorizeException, authorizeRule, beginExecution, buildGenerationTrace, buildUnsatConflictReport, cannotPromoteCandidateToAgk, createCandidate, createPartiInterpretation, createSolverDeclaration, determineApplicability, markCandidateOutdated, prepareExecutionEnvelope, recordUnknown, reclassifyRegulatoryHard, selectCurrentCandidate, validatePreliminaryGeometry, validateRelationship, verifyReproducibility } from "./core";
+import { archiveCandidate, assertExecutionIntegrity, authorizeException, authorizeRule, beginExecution, buildGenerationTrace, buildUnsatConflictReport, cannotPromoteCandidateToAgk, createCandidate, createPartiInterpretation, createSolverDeclaration, determineApplicability, markCandidateOutdated, prepareExecutionEnvelope, recordUnknown, reclassifyRegulatoryHard, rejectCandidate, requirePartiInterpretation, selectCurrentCandidate, validatePreliminaryGeometry, validateRelationship, validateSpaces, verifyReproducibility } from "./core";
 import type { SpatialRelationship, SpatialRule, SpaceIdentity } from "./types";
 
 const spaces:SpaceIdentity[]=[
@@ -50,16 +50,16 @@ describe("E2E-002 phase 1 contract spine",()=>{
  });
  it("fails closed on exceptions and cannot use exception to create applicability",()=>{
    const rule:SpatialRule={ruleId:"reg-1",source:"LAW_REGULATION",authorityRef:"authority",applicability:{typologies:["SMALL_OFFICE"],jurisdictions:["PE-LIM"],scales:["EDIFICACION"]},enforcement:"REGULATORY_HARD",stage:"AUTHORIZED_EXECUTABLE_RULE",relationship:adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:10,unit:"mm"}),evidence};
-   const ex={exceptionId:"ex-1",affectedRuleId:"reg-1",issuingAuthority:"authority",documentReference:"doc",documentHash:"hash",effectiveDate:"2026-01-01",scope:"project",proof:"registry",evidence,verificationStatus:"VERIFIED" as const};
-   expect(authorizeException(ex,rule,"NOT_APPLICABLE")).toEqual({ok:false,code:"RULE_NOT_APPLICABLE"});
-   expect(authorizeException({...ex,verificationStatus:"UNVERIFIED"},rule,"APPLICABLE")).toEqual({ok:false,code:"EXCEPTION_NOT_AUTHORIZED"});
-   expect(authorizeException(ex,rule,"APPLICABLE").ok).toBe(true);
+   const ex={exceptionId:"ex-1",affectedRuleId:"reg-1",issuingAuthority:"authority",documentReference:"doc",documentHash:"hash",effectiveDate:"2026-01-01",scope:"reg-1",proof:"registry",evidence,verificationStatus:"VERIFIED" as const};
+   expect(authorizeException(ex,rule,"NOT_APPLICABLE","2026-10-02")).toEqual({ok:false,code:"RULE_NOT_APPLICABLE"});
+   expect(authorizeException({...ex,verificationStatus:"UNVERIFIED"},rule,"APPLICABLE","2026-10-02")).toEqual({ok:false,code:"EXCEPTION_NOT_AUTHORIZED"});
+   expect(authorizeException(ex,rule,"APPLICABLE","2026-10-02").ok).toBe(true);
  });
  it("invalidates stale candidates and binds PARTI interpretation",()=>{
-   const parti=createPartiInterpretation({interpretationId:"pi-1",sourceRef:"brief",sourceVersion:"1",ambiguity:"entry hierarchy",authorizedInterpretation:"public-to-private gradient",authorityRef:"D2",evidence,programVersion:"p1",status:"AUTHORIZED"});
-   const base={candidateId:"c-parti",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],partiInterpretationHash:parti.interpretationHash,generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-p"}};
+   const parti=createPartiInterpretation({interpretationId:"pi-1",sourceRef:"brief",sourceVersion:"1",ambiguity:"entry hierarchy",authorizedInterpretation:"public-to-private gradient",authorityRef:"D2",evidence,programVersion:"p1",status:"AUTHORIZED"}); expect(parti.ok).toBe(true); if(!parti.ok)return;
+   const base={candidateId:"c-parti",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],partiInterpretationHash:parti.value.interpretationHash,generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-p"}};
    const made=createCandidate(base);expect(made.ok).toBe(true);if(!made.ok)return;
-   const stale=markCandidateOutdated(made.value,{programHash:"p2",ruleSetHash:"r",knowledgePackHashes:[],partiInterpretationHash:parti.interpretationHash});
+   const stale=markCandidateOutdated(made.value,{programHash:"p2",ruleSetHash:"r",knowledgePackHashes:[],partiInterpretationHash:parti.value.interpretationHash});
    expect(stale.status).toBe("OUTDATED"); expect(selectCurrentCandidate(stale)).toEqual({ok:false,code:"CANDIDATE_OUTDATED"});
  });
  it("restricts preliminary geometry and generation trace",()=>{
@@ -151,5 +151,33 @@ describe("E2E-002 phase 1 contract spine",()=>{
    if(selected.ok) expect(Object.isFrozen(selected.value.generationMetadata.knowledgePackHashes)).toBe(true);
  });
 
+
+ it("closes remaining Phase 1 fail-closed debt",()=>{
+   const rule:SpatialRule={ruleId:"reg-final",source:"LAW_REGULATION",authorityRef:"authority",applicability:{typologies:["SMALL_OFFICE"],jurisdictions:["PE-LIM"],scales:["EDIFICACION"]},enforcement:"REGULATORY_HARD",stage:"AUTHORIZED_EXECUTABLE_RULE",relationship:adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:0,unit:"mm"}),evidence};
+   const ex={exceptionId:"ex-final",affectedRuleId:"reg-final",issuingAuthority:"authority",documentReference:"doc",documentHash:"hash",effectiveDate:"2026-01-01",expirationDate:"2026-12-31",scope:"reg-final",proof:"registry",evidence,verificationStatus:"VERIFIED" as const};
+   expect(authorizeException({...ex,scope:"other"},rule,"APPLICABLE","2026-10-02")).toEqual({ok:false,code:"EXCEPTION_SCOPE_INVALID"});
+   expect(authorizeException({...ex,effectiveDate:"2026-11-01"},rule,"APPLICABLE","2026-10-02")).toEqual({ok:false,code:"EXCEPTION_DATE_INVALID"});
+   expect(authorizeException({...ex,expirationDate:"2026-09-30"},rule,"APPLICABLE","2026-10-02")).toEqual({ok:false,code:"EXCEPTION_DATE_INVALID"});
+   expect(authorizeException(ex,rule,"APPLICABLE","2026-10-02").ok).toBe(true);
+
+   expect(createPartiInterpretation({interpretationId:"pi-empty",sourceRef:"brief",sourceVersion:"1",ambiguity:"ambiguous",authorizedInterpretation:"",authorityRef:"D2",evidence,programVersion:"p1",status:"AUTHORIZED"})).toEqual({ok:false,code:"PARTI_INTERPRETATION_REQUIRED"});
+   expect(createPartiInterpretation({interpretationId:"pi-rejected",sourceRef:"brief",sourceVersion:"1",ambiguity:"ambiguous",authorizedInterpretation:"chosen",authorityRef:"D2",evidence,programVersion:"p1",status:"REJECTED"})).toEqual({ok:false,code:"PARTI_INTERPRETATION_REQUIRED"});
+
+   const base={candidateId:"lifecycle",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-l"}};
+   const made=createCandidate(base); expect(made.ok).toBe(true); if(!made.ok)return;
+   expect(archiveCandidate(made.value).ok && archiveCandidate(made.value).value.status).toBe("ARCHIVED");
+   expect(rejectCandidate(made.value).ok && rejectCandidate(made.value).value.status).toBe("REJECTED");
+
+   expect(validateSpaces([{spaceId:"x",provenance:"INVALID" as SpaceIdentity["provenance"],lifecycle:"CONCEPTUAL"}])).toEqual({ok:false,code:"SPACE_PROVENANCE_INVALID"});
+   expect(validateSpaces([{spaceId:"x",provenance:"DECLARED_BY_D2",lifecycle:"INVALID" as SpaceIdentity["lifecycle"]}])).toEqual({ok:false,code:"SPACE_LIFECYCLE_INVALID"});
+ });
+
+ it("treats knowledge-pack identity as order independent while preserving membership",()=>{
+   const d=createSolverDeclaration({declarationId:"order",generationRunId:"run-order",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic"});
+   const prepared=prepareExecutionEnvelope({generationRunId:"run-order",programHash:"p",ruleSetHash:"r",knowledgePackHashes:["pack-a","pack-b"],solverClassDeclarationHash:d.declarationHash,solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded"});
+   const begun=beginExecution(prepared,d); expect(begun.ok).toBe(true); if(!begun.ok)return;
+   expect(assertExecutionIntegrity(begun.value,{...begun.value,knowledgePackHashes:["pack-b","pack-a"]},d).ok).toBe(true);
+   expect(assertExecutionIntegrity(begun.value,{...begun.value,knowledgePackHashes:["pack-a","pack-c"]},d)).toEqual({ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"});
+ });
 
 });
