@@ -27,10 +27,14 @@ function deepFreeze<T>(value:T):T {
   return value;
 }
 
+const SPACE_PROVENANCE = new Set<SpaceIdentity["provenance"]>(["DECLARED_BY_D2","DECLARED_BY_ARCHITECT","PROPOSED_BY_LAYOUT","DERIVED_BY_LAYOUT"]);
+const SPACE_LIFECYCLE = new Set<SpaceIdentity["lifecycle"]>(["CONCEPTUAL","TOPOLOGICAL","AUTHORIZED_FOR_MATERIALIZATION","MATERIALIZED"]);
 export function validateSpaces(spaces: readonly SpaceIdentity[]): SpatialResult<readonly SpaceIdentity[]> {
-  if (spaces.some(s => !s.spaceId.trim())) return { ok:false, code:"SPACE_ID_REQUIRED" };
+  if (spaces.some(s => typeof s.spaceId!=="string" || !s.spaceId.trim())) return { ok:false, code:"SPACE_ID_REQUIRED" };
+  if (spaces.some(s => !SPACE_PROVENANCE.has(s.provenance))) return { ok:false, code:"SPACE_PROVENANCE_INVALID" };
+  if (spaces.some(s => !SPACE_LIFECYCLE.has(s.lifecycle))) return { ok:false, code:"SPACE_LIFECYCLE_INVALID" };
   if (new Set(spaces.map(s=>s.spaceId)).size !== spaces.length) return { ok:false, code:"DUPLICATE_SPACE_ID" };
-  return { ok:true, value:Object.freeze([...spaces]) };
+  return { ok:true, value:deepFreeze([...spaces]) };
 }
 
 export function validateRelationship(rel: SpatialRelationship, spaces: readonly SpaceIdentity[]): SpatialResult<SpatialRelationship> {
@@ -110,7 +114,7 @@ export function assertExecutionIntegrity(sealed:ExecutionEnvelope,current:Execut
   if(sealed.executionState!=="EXECUTING") return {ok:false,code:"SOLVER_DECLARATION_INTEGRITY_FAILED"};
   if(sealed.solverClassDeclarationHash!==declaration.declarationHash) return {ok:false,code:"SOLVER_DECLARATION_MUTATED_AFTER_EXECUTION"};
   const immutable=["generationRunId","programHash","ruleSetHash","solverClassDeclarationHash","solverVersion","solverConfigurationHash","searchBounds","randomSeed"] as const;
-  if(immutable.some(k=>JSON.stringify(sealed[k])!==JSON.stringify(current[k])) || JSON.stringify(sealed.knowledgePackHashes)!==JSON.stringify(current.knowledgePackHashes) || sealed.partiInterpretationHash!==current.partiInterpretationHash) return {ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"};
+  if(immutable.some(k=>JSON.stringify(sealed[k])!==JSON.stringify(current[k])) || spatialFingerprint([...sealed.knowledgePackHashes].sort())!==spatialFingerprint([...current.knowledgePackHashes].sort()) || sealed.partiInterpretationHash!==current.partiInterpretationHash) return {ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"};
   return {ok:true,value:sealed};
 }
 
@@ -183,9 +187,13 @@ export function verifyReproducibility(input:{
   return {ok:true,value:{generationCertificationStatus:"VERIFIED",semanticTraceHash:observedHash}};
 }
 
-export function authorizeException(exception:AuthorizedException, rule:SpatialRule, applicability:"APPLICABLE"|"NOT_APPLICABLE"|"UNKNOWN"):SpatialResult<AuthorizedException>{
+export function authorizeException(exception:AuthorizedException, rule:SpatialRule, applicability:"APPLICABLE"|"NOT_APPLICABLE"|"UNKNOWN", evaluationDate:string):SpatialResult<AuthorizedException>{
   if(applicability!=="APPLICABLE") return {ok:false,code:"RULE_NOT_APPLICABLE"};
   if(exception.affectedRuleId!==rule.ruleId || exception.verificationStatus!=="VERIFIED" || !exception.issuingAuthority || !exception.documentReference || !exception.documentHash || !exception.scope || !exception.proof || exception.evidence.length===0) return {ok:false,code:"EXCEPTION_NOT_AUTHORIZED"};
+  if(exception.scope!==rule.ruleId && exception.scope!=="PROJECT_WIDE") return {ok:false,code:"EXCEPTION_SCOPE_INVALID"};
+  const isoDate=/^\d{4}-\d{2}-\d{2}$/;
+  if(!isoDate.test(evaluationDate) || !isoDate.test(exception.effectiveDate) || (exception.expirationDate!==undefined && !isoDate.test(exception.expirationDate))) return {ok:false,code:"EXCEPTION_DATE_INVALID"};
+  if(exception.effectiveDate>evaluationDate || (exception.expirationDate!==undefined && evaluationDate>exception.expirationDate)) return {ok:false,code:"EXCEPTION_DATE_INVALID"};
   return {ok:true,value:deepFreeze({...exception,evidence:[...exception.evidence]})};
 }
 
@@ -198,8 +206,20 @@ export function selectCurrentCandidate(candidate:LayoutCandidate):SpatialResult<
   return candidate.status==="CURRENT"?{ok:true,value:deepFreeze(candidate)}:{ok:false,code:"CANDIDATE_OUTDATED"};
 }
 
-export function createPartiInterpretation(input:Omit<PartiInterpretation,"interpretationHash">):PartiInterpretation{
-  const snapshot=structuredClone(input); return deepFreeze({...snapshot,interpretationHash:spatialFingerprint(snapshot)});
+export function createPartiInterpretation(input:Omit<PartiInterpretation,"interpretationHash">):SpatialResult<PartiInterpretation>{
+  const snapshot=structuredClone(input);
+  if(!snapshot.authorizedInterpretation.trim() || snapshot.status!=="AUTHORIZED") return {ok:false,code:"PARTI_INTERPRETATION_REQUIRED"};
+  return {ok:true,value:deepFreeze({...snapshot,interpretationHash:spatialFingerprint(snapshot)})};
+}
+export function requirePartiInterpretation(parti:PartiInterpretation):SpatialResult<PartiInterpretation>{
+  if(!parti.authorizedInterpretation.trim() || parti.status!=="AUTHORIZED") return {ok:false,code:"PARTI_INTERPRETATION_REQUIRED"};
+  return {ok:true,value:deepFreeze(parti)};
+}
+export function archiveCandidate(candidate:LayoutCandidate):SpatialResult<LayoutCandidate>{
+  return {ok:true,value:deepFreeze({...candidate,status:"ARCHIVED" as const})};
+}
+export function rejectCandidate(candidate:LayoutCandidate):SpatialResult<LayoutCandidate>{
+  return {ok:true,value:deepFreeze({...candidate,status:"REJECTED" as const})};
 }
 
 export function validatePreliminaryGeometry(g:PreliminaryGeometry):SpatialResult<PreliminaryGeometry>{
