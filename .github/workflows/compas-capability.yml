@@ -8,7 +8,12 @@ on:
       - feat/agk-003-parametric-family-unification
     paths:
       - "server/capabilityFabric/**"
+      - "server/d2Authority.ts"
+      - "server/arkiGeometryKernel.ts"
+      - "server/arkiGeometryKernel.test.ts"
+      - "server/agk/**"
       - "tools/arki_compas_worker.py"
+      - "tools/test_fixtures/**"
       - "requirements-compas.txt"
       - ".github/workflows/compas-capability.yml"
 
@@ -19,8 +24,26 @@ jobs:
   compas-capability:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Resolve audited SHA
+        id: audited-sha
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout audited SHA
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.audited-sha.outputs.sha }}
+
+      - name: Verify audited SHA
+        shell: bash
+        run: |
+          echo "ARKI_AUDITED_SHA=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "${{ steps.audited-sha.outputs.sha }}"
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
