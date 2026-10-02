@@ -1,6 +1,6 @@
 import { fingerprint } from "../arkiFingerprint";
 import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
-import type { ApplicabilityEnvelope, AuthorizedException, ConflictReport, ExecutionEnvelope, GenerationMetadata, GenerationTrace, LayoutCandidate, PartiInterpretation, PreliminaryGeometry, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, UnknownRecord } from "./types";
+import type { ApplicabilityEnvelope, AuthorizedException, ConflictReport, ExecutionEnvelope, GenerationMetadata, GenerationTrace, LayoutCandidate, PartiInterpretation, PreliminaryGeometry, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, SpaceId, UnknownRecord } from "./types";
 import type { LayoutScale } from "../capabilityFabric/multiscaleLayout";
 
 const validMetricNumber = (v: number | undefined) => typeof v === "number" && Number.isFinite(v) && v >= 0;
@@ -131,7 +131,7 @@ export function recordUnknown(input: UnknownRecord): UnknownRecord {
 
 export function buildUnsatConflictReport(input: {
   conflictingRuleIds: readonly string[];
-  affectedSpaceIds: readonly string[];
+  affectedSpaceIds: readonly SpaceId[];
   discoveredMus: readonly (readonly string[])[];
   diagnosticCompleteness: ConflictReport["diagnosticCompleteness"];
   searchBounds: string;
