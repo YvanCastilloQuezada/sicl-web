@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { issueD2AuthorityToken } from "../d2Authority";
-import { assertExecutionIntegrity, authorizeRule, beginExecution, buildUnsatConflictReport, cannotPromoteCandidateToAgk, createCandidate, createSolverDeclaration, determineApplicability, prepareExecutionEnvelope, recordUnknown, reclassifyRegulatoryHard, validateRelationship, verifyReproducibility } from "./core";
+import { assertExecutionIntegrity, authorizeException, authorizeRule, beginExecution, buildGenerationTrace, buildUnsatConflictReport, cannotPromoteCandidateToAgk, createCandidate, createPartiInterpretation, createSolverDeclaration, determineApplicability, markCandidateOutdated, prepareExecutionEnvelope, recordUnknown, reclassifyRegulatoryHard, selectCurrentCandidate, validatePreliminaryGeometry, validateRelationship, verifyReproducibility } from "./core";
 import type { SpatialRelationship, SpatialRule, SpaceIdentity } from "./types";
 
 const spaces:SpaceIdentity[]=[
@@ -33,12 +33,38 @@ describe("E2E-002 phase 1 contract spine",()=>{
    const regulatory={...rule,source:"LAW_REGULATION" as const,enforcement:"REGULATORY_HARD" as const,authorityRef:"verified-regulator"};
    expect(reclassifyRegulatoryHard(regulatory,"PROJECT_HARD")).toEqual({ok:false,code:"REGULATORY_RECLASSIFICATION_FORBIDDEN"});
  });
+ it("requires explicit AREA dimensional semantics",()=>{
+   const area:SpatialRelationship={relationshipId:"area-1",relationshipType:"AREA",subjectSpaceId:"reception",evidence};
+   expect(validateRelationship(area,spaces)).toEqual({ok:false,code:"AREA_SEMANTICS_REQUIRED"});
+   expect(validateRelationship({...area,area:{areaType:"USABLE",aggregationScope:"SPACE",target:20,unit:"m2"}},spaces).ok).toBe(true);
+ });
  it("keeps candidates noncanonical and rejects impossible generation counts",()=>{
    const base={candidateId:"c1",programVersion:"p1",spaceIds:["reception","meeting"],satisfiedRelationshipIds:["r1"],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-1"}};
    const c=createCandidate(base); expect(c.ok).toBe(true); if(!c.ok)return;
    expect(c.value.canonical).toBe(false);
    expect(cannotPromoteCandidateToAgk(c.value)).toEqual({ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"});
    expect(createCandidate({...base,generationMetadata:{...base.generationMetadata,generated:1,evaluated:2,retained:1}})).toEqual({ok:false,code:"GENERATION_TRACE_INCONSISTENT"});
+ });
+ it("fails closed on exceptions and cannot use exception to create applicability",()=>{
+   const rule:SpatialRule={ruleId:"reg-1",source:"LAW_REGULATION",authorityRef:"authority",applicability:{typologies:["SMALL_OFFICE"],jurisdictions:["PE-LIM"],scales:["EDIFICACION"]},enforcement:"REGULATORY_HARD",stage:"AUTHORIZED_EXECUTABLE_RULE",relationship:adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:10,unit:"mm"}),evidence};
+   const ex={exceptionId:"ex-1",affectedRuleId:"reg-1",issuingAuthority:"authority",documentReference:"doc",documentHash:"hash",effectiveDate:"2026-01-01",scope:"project",proof:"registry",evidence,verificationStatus:"VERIFIED" as const};
+   expect(authorizeException(ex,rule,"NOT_APPLICABLE")).toEqual({ok:false,code:"RULE_NOT_APPLICABLE"});
+   expect(authorizeException({...ex,verificationStatus:"UNVERIFIED"},rule,"APPLICABLE")).toEqual({ok:false,code:"EXCEPTION_NOT_AUTHORIZED"});
+   expect(authorizeException(ex,rule,"APPLICABLE").ok).toBe(true);
+ });
+ it("invalidates stale candidates and binds PARTI interpretation",()=>{
+   const parti=createPartiInterpretation({interpretationId:"pi-1",sourceRef:"brief",sourceVersion:"1",ambiguity:"entry hierarchy",authorizedInterpretation:"public-to-private gradient",authorityRef:"D2",evidence,programVersion:"p1",status:"AUTHORIZED"});
+   const base={candidateId:"c-parti",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],partiInterpretationHash:parti.interpretationHash,generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-p"}};
+   const made=createCandidate(base);expect(made.ok).toBe(true);if(!made.ok)return;
+   const stale=markCandidateOutdated(made.value,{programHash:"p2",ruleSetHash:"r",knowledgePackHashes:[],partiInterpretationHash:parti.interpretationHash});
+   expect(stale.status).toBe("OUTDATED"); expect(selectCurrentCandidate(stale)).toEqual({ok:false,code:"CANDIDATE_OUTDATED"});
+ });
+ it("restricts preliminary geometry and generation trace",()=>{
+   expect(validatePreliminaryGeometry({kind:"AXIS_ALIGNED_BOX",canonical:false,preliminaryGeometry:true,agkOperational:false}).ok).toBe(true);
+   expect(validatePreliminaryGeometry({kind:"BOUNDED_CONVEX_POLYHEDRON",canonical:false,preliminaryGeometry:true,agkOperational:false,faceCount:100})).toEqual({ok:false,code:"PRELIMINARY_GEOMETRY_INVALID"});
+   expect(buildGenerationTrace({events:[{eventId:"1",kind:"GENERATED",candidateId:"c"},{eventId:"2",kind:"EVALUATED",candidateId:"c"},{eventId:"3",kind:"PRUNED",candidateId:"c"}],terminationReason:"bound",searchBounds:"1"})).toEqual({ok:false,code:"GENERATION_TRACE_INCONSISTENT"});
+   const trace=buildGenerationTrace({events:[{eventId:"1",kind:"GENERATED",candidateId:"c"},{eventId:"2",kind:"EVALUATED",candidateId:"c"},{eventId:"3",kind:"RETAINED",candidateId:"c"}],terminationReason:"bound",searchBounds:"1"});
+   expect(trace.ok).toBe(true);
  });
  it("prebinds solver declaration and rejects timestamp-only/unbound execution",()=>{
    const d=createSolverDeclaration({declarationId:"d1",generationRunId:"run-1",solverClass:"DETERMINISTIC_SOLVER",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"});
