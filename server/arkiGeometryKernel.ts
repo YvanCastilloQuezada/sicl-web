@@ -1,3 +1,4 @@
+// E2E-001 CI path-trigger canary: no runtime behavior change.
 import { fingerprint } from "./arkiFingerprint";
 import {
   bridgeD63ToD2Geometry,
