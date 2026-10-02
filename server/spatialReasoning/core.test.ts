@@ -43,6 +43,7 @@ describe("E2E-002 phase 1 contract spine",()=>{
    const c=createCandidate(base); expect(c.ok).toBe(true); if(!c.ok)return;
    expect(c.value.canonical).toBe(false);
    expect(cannotPromoteCandidateToAgk(c.value)).toEqual({ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"});
+    expect(createCandidate({...base,status:"ARCHIVED"})).toEqual({ok:false,code:"CANDIDATE_STATUS_INVALID"});
    expect(createCandidate({...base,generationMetadata:{...base.generationMetadata,generated:1,evaluated:2,retained:1}})).toEqual({ok:false,code:"GENERATION_TRACE_INCONSISTENT"});
  });
  it("fails closed on exceptions and cannot use exception to create applicability",()=>{
@@ -88,6 +89,8 @@ describe("E2E-002 phase 1 contract spine",()=>{
      const d=createSolverDeclaration({...base,solverClass,...(solverClass==="SEEDED_STOCHASTIC_SOLVER"?{randomSeed:"42"}:{})});
      expect(verifyReproducibility({declaration:d,expected,observed:changed})).toEqual({ok:false,code:"SOLVER_NONDETERMINISM_DETECTED"});
    }
+   expect(()=>createSolverDeclaration({...base,solverClass:"DECLARED_NONDETERMINISTIC_SOLVER"})).toThrow("SOLVER_DECLARATION_INTEGRITY_FAILED");
+   expect(()=>createSolverDeclaration({...base,solverClass:"SEEDED_STOCHASTIC_SOLVER"})).toThrow("SOLVER_DECLARATION_INTEGRITY_FAILED");
    const nondet=createSolverDeclaration({...base,solverClass:"DECLARED_NONDETERMINISTIC_SOLVER",nondeterminismSource:"external heuristic",repeatabilityLimitations:"not repeatable"});
    const check=verifyReproducibility({declaration:nondet,expected,observed:changed});
    expect(check.ok).toBe(true); if(check.ok) expect(check.value.generationCertificationStatus).toBe("UNVERIFIED");
