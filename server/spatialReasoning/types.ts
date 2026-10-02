@@ -7,7 +7,7 @@ export type SpatialReasoningFailureCode =
   | "RULE_AUTHORITY_REQUIRED" | "REGULATORY_RECLASSIFICATION_FORBIDDEN" | "RULE_NOT_APPLICABLE"
   | "GENERATION_TRACE_INCONSISTENT" | "CANDIDATE_CANONICALIZATION_FORBIDDEN"
   | "SOLVER_DECLARATION_INTEGRITY_FAILED" | "SOLVER_DECLARATION_MUTATED_AFTER_EXECUTION"
-  | "EXECUTION_ENVELOPE_IMMUTABLE";
+  | "SOLVER_NONDETERMINISM_DETECTED" | "EXECUTION_ENVELOPE_IMMUTABLE";
 
 export type EvidenceClass = "HECHO" | "SUPUESTO" | "OBJETIVO" | "RESTRICCION" | "PREFERENCIA" | "DECISION" | "UNKNOWN";
 export type RuleSource = "LAW_REGULATION" | "PROJECT_REQUIREMENT" | "FUNCTIONAL_REQUIREMENT" | "TYPOLOGICAL_KNOWLEDGE" | "BEST_PRACTICE" | "REFERENCE_MANUAL" | "DESIGNER_PREFERENCE" | "PROJECT_DECISION";
@@ -28,9 +28,12 @@ export interface AuthorizedSpatialRule extends SpatialRule { stage: "AUTHORIZED_
 
 export interface UnknownRecord { unknownId: string; subject: string; reason: string; blocking: boolean; evidence: readonly EvidenceRef[]; resolutionPath: string; }
 export interface ConflictReport { status: "UNSAT"; conflictingRuleIds: readonly string[]; affectedSpaceIds: readonly string[]; reportableMus: readonly (readonly string[])[]; diagnosticCompleteness: "EXHAUSTIVE" | "BOUNDED" | "PARTIAL"; searchBounds: string; terminationReason: string; possibleResolutionPaths: readonly string[]; }
-export interface GenerationMetadata { generated: number; evaluated: number; retained: number; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; solverVersion: string; solverConfigurationHash: string; searchBounds: string; generationRunId: string; }
+export interface GenerationMetadata { generated: number; evaluated: number; retained: number; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; solverVersion: string; solverConfigurationHash: string; searchBounds: string; generationRunId: string; generationCertificationStatus?: "VERIFIED" | "UNVERIFIED" | "FAILED"; semanticTraceHash?: string; }
 export interface LayoutCandidate { candidateId: string; programVersion: string; spaceIds: readonly string[]; satisfiedRelationshipIds: readonly string[]; violatedRelationshipIds: readonly string[]; unknownRelationshipIds: readonly string[]; unknowns: readonly UnknownRecord[]; generationMetadata: GenerationMetadata; canonical: false; preliminaryGeometry?: { canonical: false; preliminaryGeometry: true; cannotBePromotedToAGK: true }; }
 
 export interface SolverClassDeclaration { declarationId: string; generationRunId: string; solverClass: SolverClass; solverVersion: string; solverConfigurationHash: string; baselineHashes: readonly string[]; searchBounds: string; randomSeed?: string; nondeterminismSource?: string; reproducibilityGuarantee: string; repeatabilityLimitations?: string; declarationHash: string; }
 export interface ExecutionEnvelope { generationRunId: string; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; partiInterpretationHash?: string; solverClassDeclarationHash: string; solverVersion: string; solverConfigurationHash: string; searchBounds: string; randomSeed?: string; envelopeHash: string; executionState: ExecutionState; }
+export interface SemanticTrace { candidateIds: readonly string[]; relationshipOutcomes: readonly string[]; conflictMusIds: readonly string[]; }
+export interface ReproducibilityCheck { generationCertificationStatus: "VERIFIED" | "UNVERIFIED" | "FAILED"; semanticTraceHash: string; }
+
 export type SpatialResult<T> = { ok: true; value: T } | { ok: false; code: SpatialReasoningFailureCode };
