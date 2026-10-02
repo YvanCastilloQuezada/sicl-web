@@ -52,11 +52,11 @@ jobs:
       - name: Run E2E-002 Phase 1 tests
         run: pnpm vitest run server/spatialReasoning
 
-      - name: Run D2 authority regression
-        run: pnpm vitest run server/d2Authority.test.ts
+      - name: Run D2 boundary regression
+        run: pnpm vitest run server/arkiD63ToD2GeometryBridge.test.ts
 
       - name: Run AGK regression
         run: pnpm vitest run server/arkiGeometryKernel.test.ts
 
-      - name: Run E2E-001 contract regression
-        run: pnpm vitest run server/capabilityFabric --exclude server/capabilityFabric/e2e001.test.ts
+      - name: Run Capability Fabric regression
+        run: pnpm vitest run server/capabilityFabric
