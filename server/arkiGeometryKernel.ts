@@ -61,6 +61,12 @@ export interface AgkDraftState {
   causalModel?: AgkCausalModel;
 }
 
+export interface AgkExternalProvenance {
+  readonly sourceKind: string;
+  readonly sourceId: string;
+  readonly evidence: Readonly<Record<string, unknown>>;
+}
+
 export interface AgkProvenanceEvent {
   kind: "AGK_COMMAND_COMMITTED";
   transactionId: string;
@@ -69,6 +75,7 @@ export interface AgkProvenanceEvent {
   command: AgkCommand;
   affectedObjectIds: readonly string[];
   regenerationReport?: AgkRegenerationReport;
+  external?: AgkExternalProvenance;
 }
 
 export interface AgkTransactionReceipt {
@@ -81,6 +88,7 @@ export interface AgkTransactionReceipt {
   state: AgkCommittedState;
   provenance: AgkProvenanceEvent;
   regenerationReport?: AgkRegenerationReport;
+  externalProvenance?: AgkExternalProvenance;
 }
 
 export interface AgkPlanRectangle {
@@ -272,7 +280,8 @@ export function createAgkState(
 
 export function applyAgkCommand(
   current: AgkCommittedState,
-  command: AgkCommand
+  command: AgkCommand,
+  externalProvenance?: AgkExternalProvenance
 ): AgkResult<AgkTransactionReceipt> {
   if (command.kind === "MOVE") {
     const object = current.objects.find(o => o.objectId === command.objectId);
@@ -304,7 +313,7 @@ export function applyAgkCommand(
         command.delta_mm,
       );
       if (!regenerated.ok) return regenerated;
-      return commit(current, command, regenerated.objects, regenerated.report, regenerated.model);
+      return commit(current, command, regenerated.objects, regenerated.report, regenerated.model, externalProvenance);
     }
 
     const affected = affectedByMove(current, command.objectId);
@@ -317,7 +326,7 @@ export function applyAgkCommand(
         z_mm: o.geometry.z_mm + command.delta_mm.z,
       },
     }));
-    return commit(current, command, objects);
+    return commit(current, command, objects, undefined, current.causalModel, externalProvenance);
   }
 
   if (!Number.isFinite(command.value) || !Number.isInteger(command.value)) return { ok:false, code:"INVALID_FEATURE_PARAMETER" };
@@ -336,22 +345,27 @@ export function applyAgkCommand(
   };
   const regenerated = regenerateFromFeatureChange(current.objects, current.dependencies, model, feature.producesObjectId);
   if (!regenerated.ok) return regenerated;
-  return commit(current, command, regenerated.objects, regenerated.report, regenerated.model);
+  return commit(current, command, regenerated.objects, regenerated.report, regenerated.model, externalProvenance);
 }
 
-function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport, causalModel: AgkCausalModel | undefined = current.causalModel): AgkResult<AgkTransactionReceipt> {
+function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport, causalModel: AgkCausalModel | undefined = current.causalModel, externalProvenance?: AgkExternalProvenance): AgkResult<AgkTransactionReceipt> {
   const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects,dependencies:current.dependencies,causalModel};
   const objectFailure=validateOperationalObjects(draft.objects); if(objectFailure)return {ok:false,code:objectFailure};
   const failure=validateDependencies(draft.objects,draft.dependencies); if(failure)return {ok:false,code:failure};
   const next=createState(current.revision+1,draft.objects,draft.dependencies,draft.causalModel);
   const affected=report?.affectedObjectIds ?? current.objects.filter((o,i)=>JSON.stringify(o)!==JSON.stringify(objects[i])).map(o=>o.objectId);
-  return receipt(current,command,next,affected,report);
+  return receipt(current,command,next,affected,report,externalProvenance);
 }
 
-function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedState,affectedObjectIds:readonly string[],regenerationReport?:AgkRegenerationReport):AgkResult<AgkTransactionReceipt>{
+function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedState,affectedObjectIds:readonly string[],regenerationReport?:AgkRegenerationReport,externalProvenance?:AgkExternalProvenance):AgkResult<AgkTransactionReceipt>{
+  const external = externalProvenance ? Object.freeze({
+    sourceKind: externalProvenance.sourceKind,
+    sourceId: externalProvenance.sourceId,
+    evidence: Object.freeze({ ...externalProvenance.evidence }),
+  }) : undefined;
   const transactionId=`agk-tx-${fingerprint({beforeStateId:current.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),afterStateId:next.stateId}).slice(0,24)}`;
-  const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport});
-  return {ok:true,value:{transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),committed:true,state:next,provenance,regenerationReport}};
+  const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport,external});
+  return {ok:true,value:{transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),committed:true,state:next,provenance,regenerationReport,externalProvenance:external}};
 }
 
 export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectangle[] {
