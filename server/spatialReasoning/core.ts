@@ -1,6 +1,6 @@
 import { fingerprint } from "../arkiFingerprint";
 import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
-import type { ApplicabilityEnvelope, ExecutionEnvelope, GenerationMetadata, LayoutCandidate, MetricSemantics, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity } from "./types";
+import type { ApplicabilityEnvelope, ConflictReport, ExecutionEnvelope, GenerationMetadata, LayoutCandidate, ReproducibilityCheck, SemanticTrace, SolverClassDeclaration, SpatialRelationship, SpatialResult, SpatialRule, SpaceIdentity, UnknownRecord } from "./types";
 
 const dimensional = (v: number | undefined) => v !== undefined;
 
@@ -91,4 +91,61 @@ export function assertExecutionIntegrity(sealed:ExecutionEnvelope,current:Execut
 
 export function cannotPromoteCandidateToAgk(_candidate:LayoutCandidate): SpatialResult<never> {
   return {ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"};
+}
+
+export function recordUnknown(input: UnknownRecord): UnknownRecord {
+  if (!input.unknownId.trim() || !input.subject.trim() || !input.reason.trim() || !input.resolutionPath.trim()) {
+    throw new Error("UNKNOWN_RECORD_INCOMPLETE");
+  }
+  return Object.freeze({...input,evidence:Object.freeze([...input.evidence])});
+}
+
+export function buildUnsatConflictReport(input: {
+  conflictingRuleIds: readonly string[];
+  affectedSpaceIds: readonly string[];
+  discoveredMus: readonly (readonly string[])[];
+  diagnosticCompleteness: ConflictReport["diagnosticCompleteness"];
+  searchBounds: string;
+  terminationReason: string;
+  possibleResolutionPaths?: readonly string[];
+}): ConflictReport {
+  if (input.conflictingRuleIds.length < 2) throw new Error("UNSAT_REQUIRES_CONFLICT");
+  const universe=new Set(input.conflictingRuleIds);
+  const mus=input.discoveredMus.map(set=>{
+    const unique=[...new Set(set)];
+    if(unique.length===0 || unique.some(id=>!universe.has(id))) throw new Error("INVALID_MUS");
+    return Object.freeze(unique);
+  });
+  return Object.freeze({
+    status:"UNSAT",
+    conflictingRuleIds:Object.freeze([...input.conflictingRuleIds]),
+    affectedSpaceIds:Object.freeze([...input.affectedSpaceIds]),
+    reportableMus:Object.freeze(mus),
+    diagnosticCompleteness:input.diagnosticCompleteness,
+    searchBounds:input.searchBounds,
+    terminationReason:input.terminationReason,
+    possibleResolutionPaths:Object.freeze([...(input.possibleResolutionPaths??[])])
+  });
+}
+
+export function semanticTraceHash(trace: SemanticTrace): string {
+  return fingerprint({
+    candidateIds:[...trace.candidateIds],
+    relationshipOutcomes:[...trace.relationshipOutcomes],
+    conflictMusIds:[...trace.conflictMusIds]
+  });
+}
+
+export function verifyReproducibility(input:{
+  declaration:SolverClassDeclaration;
+  expected:SemanticTrace;
+  observed:SemanticTrace;
+}): SpatialResult<ReproducibilityCheck> {
+  const expectedHash=semanticTraceHash(input.expected);
+  const observedHash=semanticTraceHash(input.observed);
+  if(input.declaration.solverClass==="DECLARED_NONDETERMINISTIC_SOLVER"){
+    return {ok:true,value:{generationCertificationStatus:"UNVERIFIED",semanticTraceHash:observedHash}};
+  }
+  if(expectedHash!==observedHash) return {ok:false,code:"SOLVER_NONDETERMINISM_DETECTED"};
+  return {ok:true,value:{generationCertificationStatus:"VERIFIED",semanticTraceHash:observedHash}};
 }
