@@ -21,13 +21,18 @@ export type SolverClass = "DETERMINISTIC_SOLVER" | "SEEDED_STOCHASTIC_SOLVER" | 
 export type ExecutionState = "PREPARED" | "EXECUTING" | "COMPLETED" | "FAILED";
 
 export interface EvidenceRef { evidenceId: string; classification: EvidenceClass; sourceRef: string; }
-export interface SpaceIdentity { spaceId: string; provenance: "DECLARED_BY_D2" | "DECLARED_BY_ARCHITECT" | "PROPOSED_BY_LAYOUT" | "DERIVED_BY_LAYOUT"; lifecycle: "CONCEPTUAL" | "TOPOLOGICAL" | "AUTHORIZED_FOR_MATERIALIZATION" | "MATERIALIZED"; }
-export interface MetricSemantics { measurementDomain?: "BOUNDARY_CONTACT" | "BOUNDARY_CLEARANCE" | "CENTROID_DISTANCE" | "BOUNDING_BOX_CLEARANCE"; metricType?: "EUCLIDEAN" | "GEODESIC" | "MANHATTAN"; representationSpace?: "PRELIMINARY_SPATIAL_REPRESENTATION"; tolerance?: number; threshold?: number; unit?: string; }
+declare const spaceIdBrand: unique symbol;
+export type SpaceId = string & { readonly [spaceIdBrand]: "SpaceId" };
+export const spaceId = (value:string):SpaceId => value as SpaceId;
+export interface SpaceIdentity { spaceId: SpaceId; provenance: "DECLARED_BY_D2" | "DECLARED_BY_ARCHITECT" | "PROPOSED_BY_LAYOUT" | "DERIVED_BY_LAYOUT"; lifecycle: "CONCEPTUAL" | "TOPOLOGICAL" | "AUTHORIZED_FOR_MATERIALIZATION" | "MATERIALIZED"; }
+export type MetricSemantics =
+ | { measurementDomain:"BOUNDARY_CONTACT"|"BOUNDARY_CLEARANCE"|"CENTROID_DISTANCE"|"BOUNDING_BOX_CLEARANCE"; representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION"; tolerance:number; unit:string; metricType?:never; threshold?:never }
+ | { measurementDomain:"BOUNDARY_CONTACT"|"BOUNDARY_CLEARANCE"|"CENTROID_DISTANCE"|"BOUNDING_BOX_CLEARANCE"; metricType:"EUCLIDEAN"|"GEODESIC"|"MANHATTAN"; representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION"; threshold:number; unit:string; tolerance?:never };
 export interface ApplicabilityEnvelope { typologies: readonly string[]; jurisdictions: readonly string[]; scales: readonly LayoutScale[]; applicableToSubtypes?: boolean; appliesToDescendants?: boolean; appliesToAncestors?: boolean; }
 export type AreaType = "NET_FLOOR" | "GROSS_FLOOR" | "CONSTRUCTED" | "USABLE" | "FREE";
 export type AreaAggregationScope = "SPACE" | "ZONE" | "LEVEL" | "BUILDING" | "SITE";
 export interface AreaSemantics { areaType: AreaType; aggregationScope: AreaAggregationScope; target?: number; minimum?: number; maximum?: number; unit: "m2"; }
-export interface SpatialRelationship { relationshipId: string; relationshipType: RelationshipType; subjectSpaceId: string; objectSpaceId?: string; metric?: MetricSemantics; area?: AreaSemantics; evidence: readonly EvidenceRef[]; }
+export interface SpatialRelationship { relationshipId: string; relationshipType: RelationshipType; subjectSpaceId: SpaceId; objectSpaceId?: SpaceId; metric?: MetricSemantics; area?: AreaSemantics; evidence: readonly EvidenceRef[]; }
 export interface SpatialRule { ruleId: string; source: RuleSource; authorityRef?: string; applicability: ApplicabilityEnvelope; enforcement: Enforcement; stage: RuleStage; relationship: SpatialRelationship; evidence: readonly EvidenceRef[]; }
 export interface AuthorizedSpatialRule extends SpatialRule { stage: "AUTHORIZED_EXECUTABLE_RULE"; d2AuthorityToken?: D2AuthorityToken; }
 
@@ -40,11 +45,11 @@ export type PreliminaryGeometry =
  | {kind:"CONVEX_PRISM";canonical:false;preliminaryGeometry:true;agkOperational:false}
  | {kind:"BOUNDED_CONVEX_POLYHEDRON";canonical:false;preliminaryGeometry:true;agkOperational:false;faceCount:number}
  | {kind:"ABSTRACT_VOLUMETRIC_CELL";canonical:false;preliminaryGeometry:true;agkOperational:false};
-export interface ConflictReport { status: "UNSAT"; conflictingRuleIds: readonly string[]; affectedSpaceIds: readonly string[]; reportableMus: readonly (readonly string[])[]; musMinimalityScope: "DISCOVERED_SET"; diagnosticCompleteness: "EXHAUSTIVE" | "BOUNDED" | "PARTIAL"; searchBounds: string; terminationReason: string; possibleResolutionPaths: readonly string[]; }
+export interface ConflictReport { status: "UNSAT"; conflictingRuleIds: readonly string[]; affectedSpaceIds: readonly SpaceId[]; reportableMus: readonly (readonly string[])[]; musMinimalityScope: "DISCOVERED_SET"; diagnosticCompleteness: "EXHAUSTIVE" | "BOUNDED" | "PARTIAL"; searchBounds: string; terminationReason: string; possibleResolutionPaths: readonly string[]; }
 export interface GenerationTraceEvent { eventId:string; kind:"GENERATED"|"EVALUATED"|"PRUNED"|"RETAINED"; candidateId:string; reason?:string; }
 export interface GenerationTrace { events:readonly GenerationTraceEvent[]; terminationReason:string; searchBounds:string; semanticTraceHash:string; }
 export interface GenerationMetadata { generated: number; evaluated: number; retained: number; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; solverVersion: string; solverConfigurationHash: string; searchBounds: string; generationRunId: string; generationCertificationStatus?: "VERIFIED" | "UNVERIFIED" | "FAILED"; semanticTraceHash?: string; trace?:GenerationTrace; }
-export interface LayoutCandidate { candidateId: string; programVersion: string; spaceIds: readonly string[]; satisfiedRelationshipIds: readonly string[]; violatedRelationshipIds: readonly string[]; unknownRelationshipIds: readonly string[]; unknowns: readonly UnknownRecord[]; generationMetadata: GenerationMetadata; status:"CURRENT"|"OUTDATED"|"ARCHIVED"|"REJECTED"; partiInterpretationHash?:string; canonical: false; preliminaryGeometry?: PreliminaryGeometry; }
+export interface LayoutCandidate { candidateId: string; programVersion: string; spaceIds: readonly SpaceId[]; satisfiedRelationshipIds: readonly string[]; violatedRelationshipIds: readonly string[]; unknownRelationshipIds: readonly string[]; unknowns: readonly UnknownRecord[]; generationMetadata: GenerationMetadata; status:"CURRENT"|"OUTDATED"|"ARCHIVED"|"REJECTED"; partiInterpretationHash?:string; canonical: false; preliminaryGeometry?: PreliminaryGeometry; }
 
 export interface SolverClassDeclaration { declarationId: string; generationRunId: string; solverClass: SolverClass; solverVersion: string; solverConfigurationHash: string; baselineHashes: readonly string[]; searchBounds: string; randomSeed?: string; nondeterminismSource?: string; reproducibilityGuarantee: string; repeatabilityLimitations?: string; declarationHash: string; }
 export interface ExecutionEnvelope { generationRunId: string; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; partiInterpretationHash?: string; solverClassDeclarationHash: string; solverVersion: string; solverConfigurationHash: string; searchBounds: string; randomSeed?: string; envelopeHash: string; executionState: ExecutionState; }
