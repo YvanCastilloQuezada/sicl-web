@@ -143,6 +143,21 @@ describe("AGK-001 operational spine", () => {
     expect(first.ok && second.ok && first.value.stateId).toBe(second.ok ? second.value.stateId : "invalid");
   });
 
+  it("snapshots opaque external provenance without interpreting its domain semantics", () => {
+    const initial = createAgkState([{ objectId: "space-1", geometry: { kind: "EXTRUDED_RECTANGLE", profile: { width_mm: 1000, depth_mm: 1000, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } }]);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    const external = { sourceKind: "TEST_SOURCE", sourceId: "source-1", evidence: { opaqueKey: "opaque-value", observed: true } };
+    const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "space-1", delta_mm: { x: 1, y: 0, z: 0 } }, external);
+    expect(moved.ok).toBe(true);
+    if (!moved.ok) return;
+    external.evidence.opaqueKey = "mutated-after-commit";
+    expect(moved.value.externalProvenance).toEqual({ sourceKind: "TEST_SOURCE", sourceId: "source-1", evidence: { opaqueKey: "opaque-value", observed: true } });
+    expect(moved.value.provenance.external).toEqual(moved.value.externalProvenance);
+    expect(Object.isFrozen(moved.value.externalProvenance)).toBe(true);
+    expect(Object.isFrozen(moved.value.externalProvenance?.evidence)).toBe(true);
+  });
+
   it("deep-freezes committed geometry and records transaction provenance", () => {
     const initial = materializeD63Geometry("space-1", input);
     expect(initial.ok).toBe(true);
