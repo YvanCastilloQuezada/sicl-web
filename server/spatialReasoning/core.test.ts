@@ -165,8 +165,10 @@ describe("E2E-002 phase 1 contract spine",()=>{
 
    const base={candidateId:"lifecycle",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:[],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-l"}};
    const made=createCandidate(base); expect(made.ok).toBe(true); if(!made.ok)return;
-   expect(archiveCandidate(made.value).ok && archiveCandidate(made.value).value.status).toBe("ARCHIVED");
-   expect(rejectCandidate(made.value).ok && rejectCandidate(made.value).value.status).toBe("REJECTED");
+   const archived=archiveCandidate(made.value); expect(archived.ok).toBe(true); if(archived.ok) expect(archived.value.status).toBe("ARCHIVED");
+   const rejected=rejectCandidate(made.value); expect(rejected.ok).toBe(true); if(rejected.ok) expect(rejected.value.status).toBe("REJECTED");
+   const validParti=createPartiInterpretation({interpretationId:"pi-valid",sourceRef:"brief",sourceVersion:"1",ambiguity:"ambiguous",authorizedInterpretation:"chosen",authorityRef:"D2",evidence,programVersion:"p1",status:"AUTHORIZED"});
+   expect(validParti.ok).toBe(true); if(validParti.ok) expect(requirePartiInterpretation(validParti.value).ok).toBe(true);
 
    expect(validateSpaces([{spaceId:"x",provenance:"INVALID" as SpaceIdentity["provenance"],lifecycle:"CONCEPTUAL"}])).toEqual({ok:false,code:"SPACE_PROVENANCE_INVALID"});
    expect(validateSpaces([{spaceId:"x",provenance:"DECLARED_BY_D2",lifecycle:"INVALID" as SpaceIdentity["lifecycle"]}])).toEqual({ok:false,code:"SPACE_LIFECYCLE_INVALID"});
