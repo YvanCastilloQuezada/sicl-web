@@ -63,12 +63,15 @@ export function validateGenerationMetadata(m: GenerationMetadata): SpatialResult
 
 export function createCandidate(input: Omit<LayoutCandidate,"canonical"|"status"> & {canonical?: boolean;status?:LayoutCandidate["status"]}): SpatialResult<LayoutCandidate> {
   if (input.canonical===true) return {ok:false,code:"CANDIDATE_CANONICALIZATION_FORBIDDEN"};
+  if (input.status!==undefined && input.status!=="CURRENT") return {ok:false,code:"CANDIDATE_STATUS_INVALID"};
   const metadata=validateGenerationMetadata(input.generationMetadata); if(!metadata.ok)return metadata;
-  return {ok:true,value:Object.freeze({...input,status:input.status??"CURRENT",canonical:false as const})};
+  return {ok:true,value:Object.freeze({...input,status:"CURRENT" as const,canonical:false as const})};
 }
 
 function declarationPayload(d: Omit<SolverClassDeclaration,"declarationHash">){ return d; }
 export function createSolverDeclaration(input: Omit<SolverClassDeclaration,"declarationHash">): SolverClassDeclaration {
+  if(input.solverClass==="SEEDED_STOCHASTIC_SOLVER" && !input.randomSeed) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
+  if(input.solverClass==="DECLARED_NONDETERMINISTIC_SOLVER" && (!input.nondeterminismSource || !input.repeatabilityLimitations)) throw new Error("SOLVER_DECLARATION_INTEGRITY_FAILED");
   return Object.freeze({...input,declarationHash:fingerprint(declarationPayload(input))});
 }
 
