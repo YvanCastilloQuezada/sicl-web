@@ -31,6 +31,8 @@ describe("E2E-002 phase 1 contract spine",()=>{
    expect(authorizeRule(rule)).toEqual({ok:false,code:"RULE_AUTHORITY_REQUIRED"});
    expect(authorizeRule(rule,issueD2AuthorityToken("rule-1")).ok).toBe(true);
    const regulatory={...rule,source:"LAW_REGULATION" as const,enforcement:"REGULATORY_HARD" as const,authorityRef:"verified-regulator"};
+   expect(authorizeRule(regulatory)).toEqual({ok:false,code:"RULE_AUTHORITY_REQUIRED"});
+   expect(authorizeRule(regulatory,issueD2AuthorityToken("rule-1")).ok).toBe(true);
    expect(reclassifyRegulatoryHard(regulatory,"PROJECT_HARD")).toEqual({ok:false,code:"REGULATORY_RECLASSIFICATION_FORBIDDEN"});
  });
  it("requires explicit AREA dimensional semantics",()=>{
@@ -103,4 +105,23 @@ describe("E2E-002 phase 1 contract spine",()=>{
    expect(assertExecutionIntegrity(begun.value,begun.value,post)).toEqual({ok:false,code:"SOLVER_DECLARATION_MUTATED_AFTER_EXECUTION"});
    expect(assertExecutionIntegrity(begun.value,{...begun.value,programHash:"changed"},d)).toEqual({ok:false,code:"EXECUTION_ENVELOPE_IMMUTABLE"});
  });
+ it("closes consolidated Red Team counterexamples",()=>{
+   const env={typologies:[] as string[],jurisdictions:["PE-LIM"],scales:["EDIFICACION"] as const};
+   expect(determineApplicability(env,{typology:"SMALL_OFFICE",jurisdiction:"PE-LIM",scale:"EDIFICACION"})).toBe("UNKNOWN");
+   expect(validateRelationship(adjacency({measurementDomain:"BOUNDARY_CONTACT",representationSpace:"PRELIMINARY_SPATIAL_REPRESENTATION",tolerance:Number.NaN,unit:"mm"}),spaces)).toEqual({ok:false,code:"METRIC_TOLERANCE_REQUIRED"});
+   const area:SpatialRelationship={relationshipId:"area-x",relationshipType:"AREA",subjectSpaceId:"reception",area:{areaType:"USABLE",aggregationScope:"SPACE",minimum:50,target:40,maximum:30,unit:"m2"},evidence};
+   expect(validateRelationship(area,spaces)).toEqual({ok:false,code:"AREA_SEMANTICS_REQUIRED"});
+   expect(validateRelationship({...area,area:{areaType:"USABLE",aggregationScope:"SPACE",target:20,unit:"m2"},objectSpaceId:"meeting"},spaces)).toEqual({ok:false,code:"AREA_SEMANTICS_REQUIRED"});
+   const base={candidateId:"immutable",programVersion:"p1",spaceIds:["reception"],satisfiedRelationshipIds:[],violatedRelationshipIds:[],unknownRelationshipIds:[],unknowns:[],generationMetadata:{generated:1,evaluated:1,retained:1,programHash:"p",ruleSetHash:"r",knowledgePackHashes:["k"],solverVersion:"1",solverConfigurationHash:"cfg",searchBounds:"bounded",generationRunId:"run-i"}};
+   const made=createCandidate(base); expect(made.ok).toBe(true); if(!made.ok)return;
+   expect(Object.isFrozen(made.value.spaceIds)).toBe(true);
+   expect(Object.isFrozen(made.value.generationMetadata.knowledgePackHashes)).toBe(true);
+   const report=buildUnsatConflictReport({conflictingRuleIds:["a","b"],affectedSpaceIds:["reception"],discoveredMus:[["a","b"],["b","a"]],diagnosticCompleteness:"BOUNDED",searchBounds:"2",terminationReason:"bound"});
+   expect(report.reportableMus).toHaveLength(1);
+   const t1=buildGenerationTrace({events:[{eventId:"uuid-1",kind:"GENERATED",candidateId:"c"},{eventId:"uuid-2",kind:"EVALUATED",candidateId:"c"}],terminationReason:"done",searchBounds:"1"});
+   const t2=buildGenerationTrace({events:[{eventId:"other-1",kind:"GENERATED",candidateId:"c"},{eventId:"other-2",kind:"EVALUATED",candidateId:"c"}],terminationReason:"done",searchBounds:"1"});
+   expect(t1.ok&&t2.ok&&t1.value.semanticTraceHash===t2.value.semanticTraceHash).toBe(true);
+   expect(buildGenerationTrace({events:[],terminationReason:"none",searchBounds:"0"})).toEqual({ok:false,code:"GENERATION_TRACE_INCONSISTENT"});
+ });
+
 });
