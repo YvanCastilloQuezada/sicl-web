@@ -46,6 +46,27 @@ describe("ARKI E2E-001 vertical slice", () => {
       });
       expect(result.agk.beforeStateId).toBe(initial.value.stateId);
       expect(result.agk.state.revision).toBe(1);
+      expect(result.agk.externalProvenance).toEqual({
+        sourceKind: "E2E001_D2_CAPABILITY_EXECUTION",
+        sourceId: intentId,
+        evidence: {
+          intentId,
+          architecturalAuthority: "D2",
+          capabilityRequestId: `e2e001:${intentId}`,
+          capability: "TRANSFORM_POINTS_3D",
+          operation: "VERIFY",
+          selectedProviderId: "compas-core-2.15.0",
+          providerAuthority: "NON_CANONICAL_PROVIDER",
+          canonicalMutation: false,
+          evidenceStatus: "OBSERVED",
+          runtimeObserved: true,
+          runtimeName: "compas",
+          runtimeVersion: "2.15.0",
+        },
+      });
+      expect(result.agk.provenance.external).toEqual(result.agk.externalProvenance);
+      expect(Object.isFrozen(result.agk.externalProvenance)).toBe(true);
+      expect(Object.isFrozen(result.agk.externalProvenance?.evidence)).toBe(true);
       expect(result.agk.provenance.kind).toBe("AGK_COMMAND_COMMITTED");
       expect(result.agk.provenance.command).toEqual({
         kind: "MOVE",
