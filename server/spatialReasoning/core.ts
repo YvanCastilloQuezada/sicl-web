@@ -111,11 +111,16 @@ export function buildUnsatConflictReport(input: {
 }): ConflictReport {
   if (input.conflictingRuleIds.length < 2) throw new Error("UNSAT_REQUIRES_CONFLICT");
   const universe=new Set(input.conflictingRuleIds);
-  const mus=input.discoveredMus.map(set=>{
+  const normalized=input.discoveredMus.map(set=>{
     const unique=[...new Set(set)];
     if(unique.length===0 || unique.some(id=>!universe.has(id))) throw new Error("INVALID_MUS");
-    return Object.freeze(unique);
+    return unique;
   });
+  for(let i=0;i<normalized.length;i++){
+    const current=new Set(normalized[i]);
+    if(normalized.some((other,j)=>j!==i && other.length<current.size && other.every(id=>current.has(id)))) throw new Error("NON_MINIMAL_MUS");
+  }
+  const mus=normalized.map(set=>Object.freeze(set));
   return Object.freeze({
     status:"UNSAT",
     conflictingRuleIds:Object.freeze([...input.conflictingRuleIds]),
