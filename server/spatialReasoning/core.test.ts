@@ -52,6 +52,7 @@ describe("E2E-002 phase 1 contract spine",()=>{
    expect(report.status).toBe("UNSAT");
    expect(report.diagnosticCompleteness).toBe("BOUNDED");
    expect(report.possibleResolutionPaths[0]).toContain("may");
+   expect(()=>buildUnsatConflictReport({conflictingRuleIds:["a","b","c"],affectedSpaceIds:["meeting"],discoveredMus:[["a","b"],["a","b","c"]],diagnosticCompleteness:"PARTIAL",searchBounds:"bounded",terminationReason:"limit"})).toThrow("NON_MINIMAL_MUS");
  });
  it("detects deterministic and seeded semantic nondeterminism but does not fake verification for declared nondeterminism",()=>{
    const base={declarationId:"d-r",generationRunId:"run-r",solverVersion:"1",solverConfigurationHash:"cfg",baselineHashes:["p","r"],searchBounds:"bounded",reproducibilityGuarantee:"semantic-trace"};
