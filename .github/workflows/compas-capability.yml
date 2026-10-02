@@ -74,4 +74,4 @@ jobs:
         env:
           ARKI_REQUIRE_COMPAS: "1"
           ARKI_PYTHON_EXECUTABLE: python
-        run: pnpm vitest run server/capabilityFabric
+        run: pnpm vitest run server/capabilityFabric server/arkiGeometryKernel.test.ts
