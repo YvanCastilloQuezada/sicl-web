@@ -47,7 +47,7 @@ export function enrichParametricGraph(input: {
   capsules: readonly ArkiGraphCapsule[];
   originStatement: string;
 }): EnrichedArkiGraph {
-  const nodeIds = new Set(input.graph.nodes.map(node => node.id));
+  const nodeIds = new Set(input.graph.nodes.map((node: ParametricGraphIR["nodes"][number]) => node.id));
   const capsuleIds = new Set<string>();
   for (const capsule of input.capsules) {
     if (capsuleIds.has(capsule.capsuleId)) throw new Error(`DUPLICATE_CAPSULE_ID:${capsule.capsuleId}`);
