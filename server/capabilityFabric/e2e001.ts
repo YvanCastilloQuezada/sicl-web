@@ -1,5 +1,6 @@
 import { applyAgkCommand, deriveAgkPlan, type AgkCommittedState, type AgkTransactionReceipt } from "../arkiGeometryKernel";
 import { createDefaultCapabilityRouter } from "./defaultFabric";
+import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
 
 export type E2E001Intent = {
   intentId: string;
@@ -7,6 +8,7 @@ export type E2E001Intent = {
   operation: "TRANSLATE";
   delta_mm: { x: number; y: number; z: number };
   architecturalAuthority: "D2";
+  authorityToken: D2AuthorityToken;
 };
 
 export type E2E001Result =
@@ -43,6 +45,7 @@ export async function executeE2E001(
 ): Promise<E2E001Result> {
   if (
     intent.architecturalAuthority !== "D2" ||
+    !verifyD2AuthorityToken(intent.authorityToken, intent.intentId) ||
     intent.operation !== "TRANSLATE" ||
     !intent.intentId.trim() ||
     !intent.architecturalObjectId.trim() ||
@@ -79,7 +82,10 @@ export async function executeE2E001(
 
   if (
     execution.result.canonicalMutation !== false ||
-    execution.result.evidence.status !== "OBSERVED"
+    execution.result.evidence.status !== "OBSERVED" ||
+    execution.result.evidence.runtime.observed !== true ||
+    execution.result.evidence.runtime.name !== "compas" ||
+    execution.result.evidence.runtime.version !== "2.15.0"
   ) return { ok: false, stage: "FABRIC", code: "E2E001_PROVIDER_NOT_OBSERVED_NONCANONICAL" };
 
   const transformed = execution.result.output.points;
@@ -112,10 +118,13 @@ export async function executeE2E001(
   );
   if (!finalObject) return { ok: false, stage: "ORACLE", code: "E2E001_COMMITTED_OBJECT_MISSING" };
 
+  // Independent cross-engine oracle: COMPAS produced the expected point;
+  // AGK independently materialized the MOVE command. Do not recompute the
+  // expected position with AGK's source + delta semantics here.
   const expected = {
-    x: source.x + intent.delta_mm.x,
-    y: source.y + intent.delta_mm.y,
-    z: source.z + intent.delta_mm.z,
+    x: transformed[0][0],
+    y: transformed[0][1],
+    z: transformed[0][2],
   };
   const observed = {
     x: finalObject.geometry.x_mm,
