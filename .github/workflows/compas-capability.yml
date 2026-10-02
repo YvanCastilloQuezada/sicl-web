@@ -13,6 +13,7 @@ on:
       - "server/arkiGeometryKernel.test.ts"
       - "server/agk/**"
       - "tools/arki_compas_worker.py"
+      - "tools/test_fixtures/**"
       - "requirements-compas.txt"
       - ".github/workflows/compas-capability.yml"
 
