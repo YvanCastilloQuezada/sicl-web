@@ -88,6 +88,20 @@ describe("AGK-001 operational spine", () => {
     expect(initial.value.revision).toBe(0);
     expect(initial.value.objects[0].geometry.x_mm).toBe(1000);
   });
+  it("rejects structurally forged operational geometry before canonical state creation", () => {
+    const valid = { objectId: "valid", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1000, depth_mm: 200, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } };
+    expect(createAgkState([{ ...valid, objectId: "   " }])).toEqual({ ok: false, code: "OPERATIONAL_OBJECT_ID_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, x_mm: Number.NaN } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, profile: { ...valid.geometry.profile, width_mm: -1 } } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, height_mm: 0 } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, kind: "FORGED_KIND" as "EXTRUDED_RECTANGLE" } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, profile: { ...valid.geometry.profile, radius_mm: 10 as null } } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+  });
+
+  it("routes D6.3 materialization through the same operational object validation boundary", () => {
+    expect(materializeD63Geometry("   ", input)).toEqual({ ok: false, code: "OPERATIONAL_OBJECT_ID_INVALID" });
+  });
+
   it("propagates HOSTS dependency and preserves identities", () => {
     const wall = { objectId: "wall-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 4000, depth_mm: 200, radius_mm: null }, x_mm: 1000, y_mm: 2000, z_mm: 0, height_mm: 2800 } };
     const window = { objectId: "window-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1200, depth_mm: 200, radius_mm: null }, x_mm: 2200, y_mm: 2000, z_mm: 900, height_mm: 1200 } };
