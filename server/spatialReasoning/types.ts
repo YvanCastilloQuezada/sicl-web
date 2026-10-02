@@ -40,7 +40,7 @@ export type PreliminaryGeometry =
  | {kind:"CONVEX_PRISM";canonical:false;preliminaryGeometry:true;agkOperational:false}
  | {kind:"BOUNDED_CONVEX_POLYHEDRON";canonical:false;preliminaryGeometry:true;agkOperational:false;faceCount:number}
  | {kind:"ABSTRACT_VOLUMETRIC_CELL";canonical:false;preliminaryGeometry:true;agkOperational:false};
-export interface ConflictReport { status: "UNSAT"; conflictingRuleIds: readonly string[]; affectedSpaceIds: readonly string[]; reportableMus: readonly (readonly string[])[]; diagnosticCompleteness: "EXHAUSTIVE" | "BOUNDED" | "PARTIAL"; searchBounds: string; terminationReason: string; possibleResolutionPaths: readonly string[]; }
+export interface ConflictReport { status: "UNSAT"; conflictingRuleIds: readonly string[]; affectedSpaceIds: readonly string[]; reportableMus: readonly (readonly string[])[]; musMinimalityScope: "DISCOVERED_SET"; diagnosticCompleteness: "EXHAUSTIVE" | "BOUNDED" | "PARTIAL"; searchBounds: string; terminationReason: string; possibleResolutionPaths: readonly string[]; }
 export interface GenerationTraceEvent { eventId:string; kind:"GENERATED"|"EVALUATED"|"PRUNED"|"RETAINED"; candidateId:string; reason?:string; }
 export interface GenerationTrace { events:readonly GenerationTraceEvent[]; terminationReason:string; searchBounds:string; semanticTraceHash:string; }
 export interface GenerationMetadata { generated: number; evaluated: number; retained: number; programHash: string; ruleSetHash: string; knowledgePackHashes: readonly string[]; solverVersion: string; solverConfigurationHash: string; searchBounds: string; generationRunId: string; generationCertificationStatus?: "VERIFIED" | "UNVERIFIED" | "FAILED"; semanticTraceHash?: string; trace?:GenerationTrace; }
