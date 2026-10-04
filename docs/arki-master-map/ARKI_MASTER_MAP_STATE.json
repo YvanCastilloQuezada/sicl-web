@@ -73,7 +73,9 @@
       "AGK integration context",
       "Capability Lab",
       "AI Laboratory reconciliation",
-      "LUCA / AR-LU federation reconciliation"
+      "LUCA / AR-LU federation reconciliation",
+      "Computational Intelligence three-fabric reconciliation",
+      "Pedagogical AI Laboratory repo verification"
     ],
     "last_completed": "Live-map canonical skeleton created in PR #43",
     "next_exact_action": "Turn the master map into a visual system map driven by this structured state, then progressively reconcile evidence from sicl-web and sicl-core.",
@@ -193,6 +195,74 @@
       ],
       "architecture_rule": "Do not merge LUCA Core into ARKI Core; federate via governed contracts.",
       "phase_assignment": "RECONCILIATION_REQUIRED"
+    },
+    "ai_pedagogical_system": {
+      "id": "AI_PEDAGOGICAL_SYSTEM",
+      "classification": "MIXED_EVIDENCE_REQUIRES_REPO_VERIFICATION",
+      "source_evidence": "Uploaded historical material describes Teacher-Tutor and Examiner-RedTeam contracts and a real Python LearningLedger with reported tests; repository presence/current integration must be independently verified before IMPLEMENTED/VERIFIED classification.",
+      "invariants": [
+        "learn processes not memorized answers",
+        "deterministic seeds/versioning/fingerprints",
+        "UNKNOWN by default",
+        "append-only/reproducible learning evidence",
+        "Human Authority final"
+      ],
+      "relation_to_ai_lab": "candidate evolution of AI Laboratory into controlled training/evaluation/maintenance infrastructure"
+    }
+  },
+  "architectural_decisions": {
+    "computational_intelligence": {
+      "id": "ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1",
+      "status": "DOCUMENTED_DECISION_PENDING_REPO_RECONCILIATION",
+      "principle": "ARKI = own verifiable knowledge + explainable reasoning + own deterministic computation + rigorous evaluation + optional external tools/oracles + Human Authority",
+      "fabrics": [
+        "KNOWLEDGE_FABRIC",
+        "REASONING_FABRIC",
+        "COMPUTATION_FABRIC"
+      ],
+      "downstream": [
+        "EVALUATION",
+        "GENERATION",
+        "PROJECT"
+      ],
+      "guardrails": [
+        "Candidate extracted knowledge is not automatically canonical knowledge",
+        "Knowledge must carry provenance, jurisdiction, edition/validity, assumptions, units, confidence, contradictions and competency evidence",
+        "Technical computation must record inputs, method/formula, version, source, result, uncertainty and evidence",
+        "External engineering/simulation engines are validation/benchmarking oracles where feasible, not automatic permanent cognitive dependencies",
+        "Regulated calculations retain professional Human Authority",
+        "Unsupported capability states include UNKNOWN, NOT_DEMONSTRATED and PROFESSIONAL_VALIDATION_REQUIRED"
+      ],
+      "proposed_domains": [
+        "ARKI.Math",
+        "ARKI.Geometry",
+        "ARKI.Structures",
+        "ARKI.Hydraulics",
+        "ARKI.Electrical",
+        "ARKI.Seismic",
+        "ARKI.Geotechnics",
+        "ARKI.HVAC",
+        "ARKI.Fire",
+        "ARKI.Evacuation",
+        "ARKI.Energy",
+        "ARKI.Hospital",
+        "ARKI.Airport",
+        "ARKI.Rail",
+        "ARKI.Port"
+      ],
+      "proposed_sequence": [
+        "ARKI.Math",
+        "ARKI.Geometry",
+        "Result+Units contract",
+        "Provenance+Evidence",
+        "small structural kernel",
+        "benchmark harness against analytical solutions and OpenSees"
+      ],
+      "reconciliation_notes": [
+        "Align with existing D-2/AGK/Capability Fabric/ACS rather than create competing authorities",
+        "The older Learning Engine concept already states external engines as temporary tutors and knowledge independence",
+        "AI Laboratory/Teacher/Examiner/LearningLedger evidence must be reconciled with this architecture before promotion"
+      ]
     }
   }
 }
