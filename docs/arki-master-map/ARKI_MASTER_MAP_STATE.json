@@ -464,6 +464,51 @@
       "Recover funding/finance/risk/IP/infrastructure nodes from AR-LU package",
       "Reconcile Academy/Advisory with current University ARKI, ACS and AI Laboratory",
       "Render single drill-down AR-LU Corporation hierarchy in Command Center"
+    ],
+    "recovery_evidence": [
+      {
+        "source": "ARKI_INVENTARIO_COMPLETO_MEJORAS_BLOQUEOS_TIPOLOGIAS",
+        "findings": [
+          "Agent/specialist registry reported implemented as registry with orchestration/traceability/dependencies/UNKNOWNs",
+          "AR-LU knowledge exchange implemented as governed contract",
+          "LUCA Control Center + AR-LU Orchestrator reported implemented in branches/prototype with agents, handoffs and approve/reject/freeze queue",
+          "Federated operational synchronization still pending"
+        ]
+      }
+    ]
+  },
+  "local_command_center_v1": {
+    "name": "AR-LU / ARKI Local Command Center V1",
+    "status": "ARCHITECTURE_DECIDED_IMPLEMENTATION_NEXT",
+    "deployment": "LOCAL_ONLY",
+    "access": "Browser UI on the same computer only",
+    "bind_policy": "127.0.0.1 / localhost; never 0.0.0.0 by default",
+    "internet_exposure": "PROHIBITED_IN_V1",
+    "recommended_form": "Local web application, not CLI-only terminal",
+    "rationale": [
+      "Best fit for graph/organigram drill-down, evidence inspectors, status panels and future 3D views",
+      "Same web UI can later migrate to LAN/private server/remote deployment without redesigning the interaction model",
+      "Allows local backend/processes while keeping browser as control surface"
+    ],
+    "architecture": [
+      "Local browser UI",
+      "Local application/API server",
+      "Local state/cache/evidence index",
+      "Adapters to ARKI/Core/ACS/AI Lab/LUCA where authorized",
+      "Explicit human gates"
+    ],
+    "security": [
+      "No public listener",
+      "No automatic port forwarding",
+      "No cloud dependency required for shell/navigation",
+      "Secrets remain outside frontend",
+      "Destructive/canonical actions remain gated and auditable"
+    ],
+    "migration_path": [
+      "V1 localhost single-machine",
+      "V1.x local PWA/desktop-like install optional",
+      "V2 private LAN/VPN or private server",
+      "Only later, explicit decision on any internet-facing surface"
     ]
   }
 }
