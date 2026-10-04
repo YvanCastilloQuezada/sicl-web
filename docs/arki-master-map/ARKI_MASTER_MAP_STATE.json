@@ -79,8 +79,8 @@
       "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
       "AR-LU Corporation full organizational recovery and consolidation"
     ],
-    "last_completed": "Command Center split into progress, Ideas/Frozen radar and architectural 16→4→1 testbed; editable 120-floor demo brief added",
-    "next_exact_action": "Run/typecheck the new frontend, then resume Phase 6 by reconciling real idea/frozen inventories and replacing conceptual demo candidates with progressively real generation/evaluation capabilities.",
+    "last_completed": "Recovered key Phase 6 diagnosis from Product Owner visual evidence: rich ARKI architectural generation existed; 2D representation lost design fidelity.",
+    "next_exact_action": "Recover the historical generation lineage and 2D pipeline for these ARKI designs, then make 3D↔2D identity preservation a Phase 6 regression gate.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
     ]
@@ -578,10 +578,28 @@
           "purpose": "Run visible architectural examples through the existing N→16→4→1 funnel for critique and refinement",
           "route": "/arki-design-funnel",
           "demo": "Editable 120-floor building brief",
-          "truth_boundary": "Current 16 candidates are conceptual deterministic demo candidates; not professional 120-floor tower designs and not evidence of structural/regulatory/advanced-AGK capability."
+          "truth_boundary": "The current synthetic 16→4→1 demo is not the ceiling of prior ARKI capability. Historical ARKI visual proposals supplied by the Product Owner show substantially richer design output; they must be recovered as benchmark specimens. Their 2D documentation was the weak link and could be only schematic."
         }
       ],
       "evolution": "Internal localhost web application first; later same architectural shell may expose selected external service surfaces behind explicit security/auth/product boundaries. Internal governance/control surfaces must not automatically become public."
     }
+  },
+  "phase6_visual_recovery": {
+    "status": "RECOVERED_FROM_PRODUCT_OWNER_VISUAL_EVIDENCE",
+    "finding": "ARKI had already produced materially developed architectural visual proposals across multiple scales, including high-rise/twin-tower concepts, residential, institutional/campus, bridge/infrastructure, pavilion and object/sculptural concepts.",
+    "correction_to_previous_assumption": "The historical weakness was not absence of architectural generation. The critical discontinuity was representation: 2D outputs could remain generic/schematic and fail to faithfully represent the architecture expressed in 3D/rendered proposals.",
+    "observed_example": "Double-helix twin-tower proposal: rendered massing/facade/bridges and spatial character are substantially richer than the accompanying conceptual Level 20 plan, which is diagrammatic and does not encode the same architectural specificity.",
+    "phase6_problem_statement": "Close the semantic-geometric-documentary loop so one canonical design state generates mutually consistent 3D geometry, plans, sections, elevations, program/topology, metrics and evidence rather than independent schematic representations.",
+    "truth_boundary": [
+      "User-provided images are evidence of prior ARKI visual design output.",
+      "They do not by themselves prove canonical parametric geometry, structural feasibility, regulatory compliance, BIM completeness or executable documentation.",
+      "Do not downgrade these prior outputs to generic demo candidates; recover their generation lineage before replacing or reimplementing them."
+    ],
+    "next_recovery_actions": [
+      "Locate the code, prompts/contracts, artifacts and checkpoints that generated these prior visual proposals.",
+      "Trace the 2D representation pipeline and identify where design-specific geometry/topology was lost.",
+      "Use a recovered high-rise case as Phase 6 regression specimen: 3D -> canonical state -> plan/section/elevation must preserve identity and relationships.",
+      "Integrate recovered specimens into the Design Testbed as historical benchmark cases, distinct from synthetic demo candidates."
+    ]
   }
 }
