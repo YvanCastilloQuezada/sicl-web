@@ -79,8 +79,8 @@
       "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
       "AR-LU Corporation full organizational recovery and consolidation"
     ],
-    "last_completed": "Local Command Center frontend evolved with professional ARKI visual language and Delta 6.2 knowledge-system view",
-    "next_exact_action": "Reconcile historical KR-6.2 + DELTA-6.2 artifacts with University/Curator/Examiner/ACS/R&D/Version Watcher and replace static frontend summaries with live structured state/evidence.",
+    "last_completed": "Command Center split into progress, Ideas/Frozen radar and architectural 16→4→1 testbed; editable 120-floor demo brief added",
+    "next_exact_action": "Run/typecheck the new frontend, then resume Phase 6 by reconciling real idea/frozen inventories and replacing conceptual demo candidates with progressively real generation/evaluation capabilities.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
     ]
@@ -555,6 +555,33 @@
       "V1.x local PWA/desktop-like install optional",
       "V2 private LAN/VPN or private server",
       "Only later, explicit decision on any internet-facing surface"
-    ]
+    ],
+    "dashboard_architecture": {
+      "status": "FIRST_IMPLEMENTATION",
+      "dashboards": [
+        {
+          "id": "PROGRESS",
+          "name": "Cuadro de mando de avance",
+          "purpose": "Generic project/system progress; phases, organs, evidence, current focus and next action",
+          "route": "/arki-command-center"
+        },
+        {
+          "id": "IDEAS",
+          "name": "Ideas / Frozen / Implementation Radar",
+          "purpose": "Preserve pure ideas without auto-implementation; show frozen items, implementation state and target phase",
+          "route": "/arki-command-center → IDEAS / FROZEN",
+          "data_status": "REAL_INVENTORY_RECONCILIATION_REQUIRED"
+        },
+        {
+          "id": "DESIGN_TESTBED",
+          "name": "Banco de pruebas arquitectónico",
+          "purpose": "Run visible architectural examples through the existing N→16→4→1 funnel for critique and refinement",
+          "route": "/arki-design-funnel",
+          "demo": "Editable 120-floor building brief",
+          "truth_boundary": "Current 16 candidates are conceptual deterministic demo candidates; not professional 120-floor tower designs and not evidence of structural/regulatory/advanced-AGK capability."
+        }
+      ],
+      "evolution": "Internal localhost web application first; later same architectural shell may expose selected external service surfaces behind explicit security/auth/product boundaries. Internal governance/control surfaces must not automatically become public."
+    }
   }
 }
