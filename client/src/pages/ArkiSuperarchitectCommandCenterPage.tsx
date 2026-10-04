@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { organismNodes, commandCenterPhases, statusClass, type CommandCenterNode } from "@shared/arkiCommandCenterMap";
 
-type MainTab = "OVERVIEW" | "KNOWLEDGE" | "SYSTEM" | "PHASES" | "EVOLUTION";
+type MainTab = "OVERVIEW" | "KNOWLEDGE" | "SYSTEM" | "PHASES" | "IDEAS" | "EVOLUTION";
 
 const icon = (kind:string) =>
   kind === "LEARNING" ? GraduationCap :
@@ -102,7 +102,7 @@ export default function ArkiSuperarchitectCommandCenterPage(){
       </section>
 
       <nav className="mt-5 flex gap-1 overflow-x-auto border-b border-[#28445b]">{([
-        ["OVERVIEW","RESUMEN"],["KNOWLEDGE","DELTA 6.2"],["SYSTEM","SUPERARQUITECTO"],["PHASES","10 FASES"],["EVOLUTION","EVOLUCIÓN / IDEAS"]
+        ["OVERVIEW","RESUMEN"],["KNOWLEDGE","DELTA 6.2"],["SYSTEM","SUPERARQUITECTO"],["PHASES","10 FASES"],["IDEAS","IDEAS / FROZEN"],["EVOLUTION","PRUEBA 16→4→1"]
       ] as [MainTab,string][]).map(([id,label])=><button key={id} onClick={()=>setTab(id)} className={`whitespace-nowrap border-b-2 px-4 py-3 text-[11px] font-semibold tracking-[.08em] ${tab===id?"border-[#d4ff3a] text-[#d4ff3a]":"border-transparent text-[#8fa8bc] hover:text-white"}`}>{label}</button>)}</nav>
 
       <div className="mt-4">
@@ -125,7 +125,17 @@ export default function ArkiSuperarchitectCommandCenterPage(){
 
         {tab==="PHASES"&&<div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">{commandCenterPhases.map(n=><NodeCard key={n.id} node={n} onOpen={setSelected}/>)}</div>}
 
-        {tab==="EVOLUTION"&&<div className="grid gap-4 lg:grid-cols-2"><div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#d4ff3a]"><Lightbulb className="size-4"/><b>Ideas y capacidades futuras</b></div><p className="mt-3 text-sm leading-6 text-[#9eb5c4]">CAPTURED → DUPLICATE CHECK → INVESTIGATE → ACCEPT / HOLD / REJECT → ASSIGN PHASE → IMPLEMENT → VERIFY → INTEGRATE → FREEZE → RECONSIDER.</p></div><div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#7dd3fc]"><Sparkles className="size-4"/><b>Aprendizaje continuo gobernado</b></div><p className="mt-3 text-sm leading-6 text-[#9eb5c4]">Version Watcher detecta cambios; R&D Scout busca conocimiento nuevo; ambos alimentan candidatos, nunca verdad automática. Delta 6.2 sigue siendo la única puerta.</p></div></div>}
+        {tab==="IDEAS"&&<div className="grid gap-4 lg:grid-cols-3">
+          <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="text-[9px] font-bold tracking-[.16em] text-[#7dd3fc]">IDEAS PURAS</div><h3 className="mt-2 font-semibold">Capturadas / investigar</h3><p className="mt-2 text-xs leading-5 text-[#9eb5c4]">No se implementan por estar aquí. Deben conservar origen, motivo, dependencias, fase candidata y estado CAPTURED / INVESTIGATE / HOLD / REJECT.</p></div>
+          <div className="rounded-[6px] border border-violet-400/40 bg-violet-400/5 p-5"><div className="text-[9px] font-bold tracking-[.16em] text-violet-200">FROZEN</div><h3 className="mt-2 font-semibold">Congeladas / preservadas</h3><p className="mt-2 text-xs leading-5 text-[#9eb5c4]">Decisiones o capacidades congeladas permanecen visibles, con razón, evidencia y condición explícita para reabrirse. Frozen ≠ olvidado.</p></div>
+          <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="text-[9px] font-bold tracking-[.16em] text-[#d4ff3a]">IMPLEMENTACIÓN</div><h3 className="mt-2 font-semibold">Cuándo entra cada idea</h3><p className="mt-2 text-xs leading-5 text-[#9eb5c4]">Cada registro debe mostrar NOT_IMPLEMENTED / IMPLEMENTED / VERIFIED / FROZEN, fase objetivo, prerequisitos, responsable, evidencia y último movimiento.</p></div>
+          <div className="lg:col-span-3 rounded-[6px] border border-[#28445b] bg-[#091827] p-5"><div className="text-[10px] uppercase tracking-[.18em] text-[#f0a35b]">PENDIENTE DE RECONCILIACIÓN</div><p className="mt-2 text-sm text-[#b9cbd6]">Este tablero ya fija la taxonomía visual, pero todavía no inventa el inventario. La siguiente pasada debe cargar las ideas reales y los registros Frozen existentes del repositorio y documentos históricos.</p></div>
+        </div>}
+        {tab==="EVOLUTION"&&<div className="grid gap-4 lg:grid-cols-[1fr_360px]">
+          <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#d4ff3a]"><Sparkles className="size-4"/><b>Banco de pruebas arquitectónico</b></div><h3 className="mt-3 text-xl font-semibold">Ejemplo: edificio de 120 pisos</h3><p className="mt-2 text-sm leading-6 text-[#9eb5c4]">Ya existe un embudo ejecutable N→16→4→1. Preparé el modo demo para editar brief, pisos, área y ubicación, generar 16 candidatos conceptuales, escoger 4 y después 1, preservando los descartados y el historial.</p><a href="/arki-design-funnel" className="mt-4 inline-flex items-center rounded bg-[#d4ff3a] px-4 py-2 text-xs font-bold text-[#07121e]">Abrir prueba 16→4→1 <ChevronRight className="ml-1 size-4"/></a></div>
+          <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/5 p-5"><div className="text-[9px] font-bold tracking-[.16em] text-[#f0a35b]">LÍMITE ACTUAL</div><p className="mt-3 text-xs leading-5 text-[#b9cbd6]">La corrida actual sirve para pulir interacción, selección y trazabilidad. Los 16 son candidatos conceptuales del demo existente; todavía no son 16 diseños profesionales de una torre de 120 pisos ni prueban estructura, normativa, viento, sismo, evacuación o AGK avanzado.</p></div>
+        </div>}
+        {false&&<div className="grid gap-4 lg:grid-cols-2"><div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#d4ff3a]"><Lightbulb className="size-4"/><b>Ideas y capacidades futuras</b></div><p className="mt-3 text-sm leading-6 text-[#9eb5c4]">CAPTURED → DUPLICATE CHECK → INVESTIGATE → ACCEPT / HOLD / REJECT → ASSIGN PHASE → IMPLEMENT → VERIFY → INTEGRATE → FREEZE → RECONSIDER.</p></div><div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#7dd3fc]"><Sparkles className="size-4"/><b>Aprendizaje continuo gobernado</b></div><p className="mt-3 text-sm leading-6 text-[#9eb5c4]">Version Watcher detecta cambios; R&D Scout busca conocimiento nuevo; ambos alimentan candidatos, nunca verdad automática. Delta 6.2 sigue siendo la única puerta.</p></div></div>}
       </div>
     </div>
   </main>;
