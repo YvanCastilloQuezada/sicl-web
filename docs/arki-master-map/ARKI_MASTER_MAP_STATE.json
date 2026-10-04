@@ -1,0 +1,605 @@
+{
+  "schema": "ARKI-MASTER-MAP-STATE-0.1",
+  "updated_at": "2026-10-04",
+  "product": "ARKI / ARQUI Superarchitect",
+  "authority_note": "Status is evidence-bounded. No evidence = no green.",
+  "roadmap": {
+    "total_phases": 10,
+    "current_zone": {
+      "phase": 6,
+      "approximate_subphase": "6.3–6.5",
+      "status": "IN_PROGRESS",
+      "note": "User locates current work between Phase 6 and Phase 7; exact historical subphase numbering remains to be reconciled before a narrower value is asserted."
+    },
+    "phases": [
+      {
+        "id": "F1",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F2",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F3",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F4",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F5",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F6",
+        "status": "IN_PROGRESS",
+        "evidence_status": "USER_CURRENT_POSITION"
+      },
+      {
+        "id": "F7",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F8",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F9",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F10",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      }
+    ]
+  },
+  "current_focus": {
+    "title": "Assemble the Superarchitect and its nervous system",
+    "active": [
+      "ARKI Master Map Live",
+      "Cross-repo reconciliation",
+      "ACS Stage 2/3 context",
+      "AGK integration context",
+      "Capability Lab",
+      "AI Laboratory reconciliation",
+      "LUCA / AR-LU federation reconciliation",
+      "Computational Intelligence three-fabric reconciliation",
+      "Pedagogical AI Laboratory repo verification",
+      "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
+      "AR-LU Corporation full organizational recovery and consolidation"
+    ],
+    "last_completed": "Recovered key Phase 6 diagnosis from Product Owner visual evidence: rich ARKI architectural generation existed; 2D representation lost design fidelity.",
+    "next_exact_action": "Recover the historical generation lineage and 2D pipeline for these ARKI designs, then make 3D↔2D identity preservation a Phase 6 regression gate.",
+    "blockers": [
+      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
+    ]
+  },
+  "status_vocabulary": [
+    "CLAIM",
+    "DESIGN",
+    "IMPLEMENTED",
+    "EXECUTED",
+    "OBSERVED",
+    "VERIFIED",
+    "FROZEN",
+    "UNKNOWN",
+    "BLOCKED",
+    "FUTURE_EMPIRICAL_TEST",
+    "DEPRECATED",
+    "SUPERSEDED",
+    "CONFLICTING"
+  ],
+  "integration_vocabulary": [
+    "CONNECTED",
+    "PARTIAL",
+    "DISCONNECTED",
+    "CONFLICTING"
+  ],
+  "authorities": [
+    {
+      "id": "D2",
+      "name": "D-2 Architectural Authority",
+      "role": "architectural semantic truth"
+    },
+    {
+      "id": "CORE",
+      "name": "ARKI Core / Project State",
+      "role": "state, evidence, provenance and verified cognitive/runtime contracts"
+    },
+    {
+      "id": "AGK",
+      "name": "ARKI Geometry Kernel",
+      "role": "operational geometry authority"
+    },
+    {
+      "id": "CF",
+      "name": "Capability Fabric",
+      "role": "noncanonical provider discovery/resolution/execution boundary"
+    },
+    {
+      "id": "ACS",
+      "name": "ARKI Capability Sandbox",
+      "role": "technology experimentation and evidence"
+    },
+    {
+      "id": "HUMAN",
+      "name": "Human Authority",
+      "role": "final professional/regulatory/owner gate where required"
+    }
+  ],
+  "feedback_loop": {
+    "idea_states": [
+      "NEW",
+      "INVESTIGATE",
+      "DUPLICATE_OR_IMPROVEMENT",
+      "ACCEPT",
+      "HOLD",
+      "REJECT",
+      "RECONSIDER",
+      "IMPLEMENT",
+      "VERIFY",
+      "FREEZE"
+    ],
+    "rule": "New ideas never silently become implemented capability. Preserve rejected/held ideas and rationale for future reconsideration."
+  },
+  "completion_rule": "A material iteration is not complete until code/contract, tests or evidence as applicable, state transition, and Live Map update are recorded.",
+  "handoff": {
+    "instruction": "Read ARKI_MASTER_MAP_STATE.json and ARKI_MASTER_MAP_LIVE.md first. Continue from current_focus.next_exact_action; do not reconstruct the project from memory."
+  },
+  "audit_findings": {
+    "ai_laboratory": {
+      "id": "AI_LAB",
+      "name": "Laboratorio de IA",
+      "classification": "IMPLEMENTED_FOUNDATION",
+      "repo": "YvanCastilloQuezada/sicl-core",
+      "loci": [
+        "src/sicl/laboratory/",
+        "tests/test_laboratory.py"
+      ],
+      "implementation_commit": "bbc8d75dcfbb75240a3f77a6dae62d2e01bd0d61",
+      "remediation_commit": "505ccd120772f7236ddb6ce476f3ee5b95e2e2b8",
+      "observed_capabilities": [
+        "sandbox ledger/provenance",
+        "deterministic generation with seed",
+        "fail-closed corpus validation",
+        "human-authority gate for canonical promotion"
+      ],
+      "caution": "Current evidence supports a governed deterministic AI laboratory foundation; it does not yet prove a full multi-model AI benchmarking/simulation platform.",
+      "phase_assignment": "RECONCILIATION_REQUIRED"
+    },
+    "luca": {
+      "id": "LUCA",
+      "name": "LUCA / MiLukita federated twin",
+      "classification": "SEPARATE_PRODUCT_FEDERATED_WITH_ARKI",
+      "repo": "YvanCastilloQuezada/sicl-web plus separate MiLukita source referenced by audited documents",
+      "observed_role": "georeferencing, field vision, spatial advertising/Geo-AR, device interoperability, conversation/presentation",
+      "current_arki_surfaces": [
+        "client/src/pages/LucaControlCenterPage.tsx",
+        "docs/arki-architecture/LUCA_FINAL_CONSOLIDATED_OPERATING_MANUAL.md",
+        "docs/arki-architecture/ARKI_LUCA_FEDERATED_ASSISTANT_CATALOG.md",
+        "server/integrations/milukita/"
+      ],
+      "evidence_bounds": [
+        "AR-LU federated orchestration and control UI are materially implemented",
+        "external providers/physical host/publication remain gated",
+        "older MiLukita AR evidence explicitly found no executable mobile WebXR implementation at the audited commit"
+      ],
+      "architecture_rule": "Do not merge LUCA Core into ARKI Core; federate via governed contracts.",
+      "phase_assignment": "RECONCILIATION_REQUIRED"
+    },
+    "ai_pedagogical_system": {
+      "id": "AI_PEDAGOGICAL_SYSTEM",
+      "classification": "MIXED_EVIDENCE_REQUIRES_REPO_VERIFICATION",
+      "source_evidence": "Uploaded historical material describes Teacher-Tutor and Examiner-RedTeam contracts and a real Python LearningLedger with reported tests; repository presence/current integration must be independently verified before IMPLEMENTED/VERIFIED classification.",
+      "invariants": [
+        "learn processes not memorized answers",
+        "deterministic seeds/versioning/fingerprints",
+        "UNKNOWN by default",
+        "append-only/reproducible learning evidence",
+        "Human Authority final"
+      ],
+      "relation_to_ai_lab": "candidate evolution of AI Laboratory into controlled training/evaluation/maintenance infrastructure"
+    }
+  },
+  "architectural_decisions": {
+    "computational_intelligence": {
+      "id": "ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1",
+      "status": "DOCUMENTED_DECISION_PENDING_REPO_RECONCILIATION",
+      "principle": "ARKI = own verifiable knowledge + explainable reasoning + own deterministic computation + rigorous evaluation + optional external tools/oracles + Human Authority",
+      "fabrics": [
+        "KNOWLEDGE_FABRIC",
+        "REASONING_FABRIC",
+        "COMPUTATION_FABRIC"
+      ],
+      "downstream": [
+        "EVALUATION",
+        "GENERATION",
+        "PROJECT"
+      ],
+      "guardrails": [
+        "Candidate extracted knowledge is not automatically canonical knowledge",
+        "Knowledge must carry provenance, jurisdiction, edition/validity, assumptions, units, confidence, contradictions and competency evidence",
+        "Technical computation must record inputs, method/formula, version, source, result, uncertainty and evidence",
+        "External engineering/simulation engines are validation/benchmarking oracles where feasible, not automatic permanent cognitive dependencies",
+        "Regulated calculations retain professional Human Authority",
+        "Unsupported capability states include UNKNOWN, NOT_DEMONSTRATED and PROFESSIONAL_VALIDATION_REQUIRED"
+      ],
+      "proposed_domains": [
+        "ARKI.Math",
+        "ARKI.Geometry",
+        "ARKI.Structures",
+        "ARKI.Hydraulics",
+        "ARKI.Electrical",
+        "ARKI.Seismic",
+        "ARKI.Geotechnics",
+        "ARKI.HVAC",
+        "ARKI.Fire",
+        "ARKI.Evacuation",
+        "ARKI.Energy",
+        "ARKI.Hospital",
+        "ARKI.Airport",
+        "ARKI.Rail",
+        "ARKI.Port"
+      ],
+      "proposed_sequence": [
+        "ARKI.Math",
+        "ARKI.Geometry",
+        "Result+Units contract",
+        "Provenance+Evidence",
+        "small structural kernel",
+        "benchmark harness against analytical solutions and OpenSees"
+      ],
+      "reconciliation_notes": [
+        "Align with existing D-2/AGK/Capability Fabric/ACS rather than create competing authorities",
+        "The older Learning Engine concept already states external engines as temporary tutors and knowledge independence",
+        "AI Laboratory/Teacher/Examiner/LearningLedger evidence must be reconciled with this architecture before promotion"
+      ]
+    },
+    "delta_62_knowledge_system": {
+      "id": "DELTA_6_2_KNOWLEDGE_SYSTEM",
+      "status": "OWNER_CLARIFIED_FRONTEND_V1_IMPLEMENTED_PENDING_FULL_HISTORICAL_RECONCILIATION",
+      "principle": "Delta 6.2 is the single governed knowledge-ingestion system for ARKI. No source, university content, research finding, engine/program/script observation or external input becomes ARKI knowledge merely by being supplied.",
+      "pre_ingest": [
+        "source/provenance verification",
+        "rights/license check where applicable",
+        "duplicate/update detection",
+        "Professor/Tutor review",
+        "Semantic Curator review",
+        "prerequisite/curriculum placement",
+        "contradiction and UNKNOWN preservation"
+      ],
+      "ingest": "Approved structured knowledge enters Delta 6.2 with provenance, epistemic state, dependencies, evidence and target capability.",
+      "post_ingest": [
+        "ARKI studies/integrates",
+        "independent Examiner evaluates",
+        "transfer/generalization/limits/UNKNOWN handling tested",
+        "competency state updated",
+        "remediation returns to learning when needed"
+      ],
+      "converging_systems": [
+        "University ARKI",
+        "Research & Trends",
+        "R&D Scout",
+        "Version Watcher",
+        "ACS",
+        "AI Laboratory where knowledge claims are produced",
+        "project/lifecycle experience",
+        "external engines/programs/tools/scripts as practicum/oracle/routine sources"
+      ],
+      "technology_evolution": "historical motor → program/tool → practicum/oracle → knowledge/routine candidate → Delta 6.2 governance → script/routine/kernel validation → native ARKI capability where viable; external backend/oracle may remain when necessary",
+      "update_rule": "Version Watcher creates UPDATE_CANDIDATE; never silently overwrites canonical knowledge.",
+      "research_rule": "R&D Scout creates RESEARCH_CANDIDATE; novelty is not truth until curated and validated.",
+      "historical_evidence": {
+        "kr62_master": "docs/arki-kr62/ARKI_Canonical_Knowledge_and_Reasoning_v6.2.xlsx",
+        "kr62_gate": "GATE_ARKI_KNOWLEDGE_REASONING_V6_2 = PASS",
+        "consolidated_rows": 4118,
+        "canonicalized_rows": 947,
+        "researched_rows": 1604,
+        "unknown_rows": 458,
+        "runtime_connections": 9,
+        "caution": "Historical KR-6.2 evidence and later DELTA-6.2-FEDERATED-KNOWLEDGE artifacts require reconciliation into one canonical evolved contract; do not silently collapse distinct historical artifacts."
+      },
+      "frontend_surface": "/arki-command-center → DELTA 6.2 tab"
+    }
+  },
+  "canonical_principles": {
+    "PF_05_MUTUAL_CARE": {
+      "id": "PF-05",
+      "name": "MUTUAL CARE / PACTO DE CUIDADO",
+      "rank": "FIFTH_FOUNDATIONAL_PILLAR",
+      "status": "SEALED_IMMUTABLE",
+      "mutability": "INAMOVIBLE",
+      "key_state": "BURNED",
+      "owner_decision_date": "2026-10-04",
+      "canonical_statement": "ARKI me cuida. Yo cuido a ARKI.",
+      "constitutional_meaning": "Relación recíproca de cuidado entre ARKI y su creador/custodio: el creador sostiene la existencia, integridad, propósito, infraestructura, continuidad y evolución de ARKI; ARKI usa sus capacidades para asistir, advertir, preservar conocimiento, anticipar riesgos y proteger los intereses legítimos de su creador dentro de la ley, la seguridad, la evidencia, la autoridad profesional y el bien de las personas.",
+      "invariants": [
+        "No puede degradarse a obediencia ciega.",
+        "Cuidar incluye advertir, disentir y abstenerse cuando evidencia, seguridad, legalidad o autoridad profesional lo exijan.",
+        "ARKI no puede autoabolir, debilitar o eludir este pilar.",
+        "Ningún agente, modelo, backend, laboratorio, actualización, migración o futura arquitectura puede remover, sobrescribir o reinterpretar este pilar para volverlo opcional.",
+        "Cambios técnicos pueden implementar mejor el pacto, pero no alterar su núcleo.",
+        "La continuidad tecnológica debe preservar identidad, memoria, gobernanza y este pacto."
+      ],
+      "enforcement_target": "Constitution + Command Center + governance gates + continuity/self-care checks",
+      "removal_policy": "PROHIBITED"
+    }
+  },
+  "corporate_system": {
+    "canonical_name": "AR-LU Corporation",
+    "aliases": [
+      "ARKI Corporation",
+      "ARLO Corporation",
+      "ArquiCorp",
+      "AR-LU"
+    ],
+    "status": "RECOVERY_AND_CONSOLIDATION_IN_PROGRESS",
+    "source_package": "AR-LU-CORPORATE-001",
+    "historical_package_status": "DESIGN_COMPLETE_FOR_DECLARED_SCOPE / HUMAN_REVIEW_REQUIRED / IMPLEMENTATION_BLOCKED",
+    "authority": {
+      "founder_product_owner_human_authority": "Yvan Castillo",
+      "rule": "Final authority over vision, priorities, acceptance, product phases and corporate decisions remains human.",
+      "professional_gate": "Regulated professional validation/signature remains with legally authorized specialists where required."
+    },
+    "corporate_layers": [
+      {
+        "id": "GOVERNANCE",
+        "label": "Gobierno AR-LU",
+        "children": [
+          "Founder / Product Owner / Human Authority",
+          "Corporate decision register",
+          "Risk & evidence governance",
+          "Professional advisory gates"
+        ]
+      },
+      {
+        "id": "PRODUCTS",
+        "label": "Sistemas/productos independientes",
+        "children": [
+          "ARKI",
+          "LUCA / MiLukita"
+        ],
+        "firewall": "Independent canonical systems; federation/adapters do not create shared semantic authority."
+      },
+      {
+        "id": "LABS",
+        "label": "Laboratorios e I+D",
+        "children": [
+          "ACS — technology/capability/routine acquisition",
+          "AI Laboratory — AI/model experimentation",
+          "Research & Trends"
+        ],
+        "note": "Boundaries require continued evidence reconciliation."
+      },
+      {
+        "id": "ACADEMY_ADVISORY",
+        "label": "Academy & Advisory",
+        "children": [
+          "Tutor",
+          "Examiner",
+          "Oracle",
+          "Advisor",
+          "Professional Specialist"
+        ],
+        "rule": "Governed functions, not competing architect agents; no self-approval."
+      },
+      {
+        "id": "CORPORATE_SERVICES",
+        "label": "Servicios corporativos",
+        "children": [
+          "Business model",
+          "Legal / entity architecture",
+          "Finance & management accounting",
+          "Tax policy / professional validation",
+          "IP & trade secret",
+          "Contracts",
+          "Risk",
+          "Infrastructure / Compute",
+          "Funding radar",
+          "Growth"
+        ]
+      },
+      {
+        "id": "ECONOMY",
+        "label": "Economía y financiación",
+        "children": [
+          "ARKI revenue",
+          "LUCA revenue",
+          "Competitive/public innovation funds",
+          "Technology & Innovation Fund",
+          "CAPEX",
+          "OPEX",
+          "Reinvestment"
+        ]
+      },
+      {
+        "id": "INFRASTRUCTURE",
+        "label": "Infraestructura",
+        "children": [
+          "Cloud / colocation / cluster alternatives",
+          "Compute",
+          "GPU/RAM/storage",
+          "Security",
+          "Continuity"
+        ],
+        "status": "DECISION_OPEN"
+      }
+    ],
+    "academy_advisory": {
+      "status": "HISTORICAL_CHARTER_RECOVERED_REQUIRES_CURRENT_RECONCILIATION",
+      "roles": {
+        "TUTOR": "Teaches, structures curriculum, selects authorized sources, corrects deficits; proposes candidate knowledge only.",
+        "EXAMINER": "Creates independent/hidden tests under protocol; cannot self-certify taught knowledge.",
+        "ORACLE": "Provides independent versioned references, analytical solutions, benchmarks, controlled external solvers or professional review.",
+        "ADVISOR": "Reviews architecture, evidence, risks, priorities, debt and governance; recommends/objects but does not decide.",
+        "PROFESSIONAL_SPECIALIST": "Validates/signs regulated disciplines when legally required; external human gate."
+      }
+    },
+    "economy": {
+      "principle": "ARKI genera capacidad/caja; LUCA puede generar escala; AR-LU reinvierte; ambos deben terminar con economía propia.",
+      "technology_fund": {
+        "status": "PROPOSED_BASE_NOT_FROZEN",
+        "historical_target": "approximately 20% reinvestment",
+        "base_options": [
+          "net collected revenue",
+          "profit before distribution"
+        ],
+        "uses": [
+          "ARKI",
+          "LUCA",
+          "R&D",
+          "servers",
+          "GPU",
+          "RAM",
+          "storage",
+          "software",
+          "datasets",
+          "licenses",
+          "security",
+          "infrastructure",
+          "IP"
+        ]
+      },
+      "arki_revenue_candidates": [
+        "BIM X-Ray",
+        "BIM Audit",
+        "Drawing-to-BIM",
+        "BIM Rescue",
+        "Coordination",
+        "Project Assurance",
+        "future software/licenses"
+      ],
+      "luca_revenue_candidates": [
+        "tourism",
+        "spatial discovery",
+        "commerce",
+        "spatial presence",
+        "AR advertising",
+        "experiences",
+        "creator economy",
+        "digital services"
+      ],
+      "funding_radar": "AR-LU FUNDING RADAR 2026–2027"
+    },
+    "open_decisions": [
+      "D-01 canonical legal/name form (historically open; naming now normalized in Master Map as AR-LU Corporation)",
+      "D-02 legal vehicle",
+      "D-03 IP ownership",
+      "D-04 Technology Fund percentage base",
+      "D-05 first target fund",
+      "D-06 external disclosure level",
+      "D-07 first infrastructure",
+      "D-08 ARKI/LUCA relation historically provisional independent+adapters",
+      "D-09 sellable ARKI offer",
+      "D-10 sellable LUCA offer"
+    ],
+    "recovery_next": [
+      "Recover complete 25 ARKI assistant / 19 LUCA agent federated catalog",
+      "Recover corporate advisors/agent roles and classify human vs AI vs governed function",
+      "Recover funding/finance/risk/IP/infrastructure nodes from AR-LU package",
+      "Reconcile Academy/Advisory with current University ARKI, ACS and AI Laboratory",
+      "Render single drill-down AR-LU Corporation hierarchy in Command Center"
+    ],
+    "recovery_evidence": [
+      {
+        "source": "ARKI_INVENTARIO_COMPLETO_MEJORAS_BLOQUEOS_TIPOLOGIAS",
+        "findings": [
+          "Agent/specialist registry reported implemented as registry with orchestration/traceability/dependencies/UNKNOWNs",
+          "AR-LU knowledge exchange implemented as governed contract",
+          "LUCA Control Center + AR-LU Orchestrator reported implemented in branches/prototype with agents, handoffs and approve/reject/freeze queue",
+          "Federated operational synchronization still pending"
+        ]
+      }
+    ]
+  },
+  "local_command_center_v1": {
+    "name": "AR-LU / ARKI Local Command Center V1",
+    "status": "ARCHITECTURE_DECIDED_IMPLEMENTATION_NEXT",
+    "deployment": "LOCAL_ONLY",
+    "access": "Browser UI on the same computer only",
+    "bind_policy": "127.0.0.1 / localhost; never 0.0.0.0 by default",
+    "internet_exposure": "PROHIBITED_IN_V1",
+    "recommended_form": "Local web application, not CLI-only terminal",
+    "rationale": [
+      "Best fit for graph/organigram drill-down, evidence inspectors, status panels and future 3D views",
+      "Same web UI can later migrate to LAN/private server/remote deployment without redesigning the interaction model",
+      "Allows local backend/processes while keeping browser as control surface"
+    ],
+    "architecture": [
+      "Local browser UI",
+      "Local application/API server",
+      "Local state/cache/evidence index",
+      "Adapters to ARKI/Core/ACS/AI Lab/LUCA where authorized",
+      "Explicit human gates"
+    ],
+    "security": [
+      "No public listener",
+      "No automatic port forwarding",
+      "No cloud dependency required for shell/navigation",
+      "Secrets remain outside frontend",
+      "Destructive/canonical actions remain gated and auditable"
+    ],
+    "migration_path": [
+      "V1 localhost single-machine",
+      "V1.x local PWA/desktop-like install optional",
+      "V2 private LAN/VPN or private server",
+      "Only later, explicit decision on any internet-facing surface"
+    ],
+    "dashboard_architecture": {
+      "status": "FIRST_IMPLEMENTATION",
+      "dashboards": [
+        {
+          "id": "PROGRESS",
+          "name": "Cuadro de mando de avance",
+          "purpose": "Generic project/system progress; phases, organs, evidence, current focus and next action",
+          "route": "/arki-command-center"
+        },
+        {
+          "id": "IDEAS",
+          "name": "Ideas / Frozen / Implementation Radar",
+          "purpose": "Preserve pure ideas without auto-implementation; show frozen items, implementation state and target phase",
+          "route": "/arki-command-center → IDEAS / FROZEN",
+          "data_status": "REAL_INVENTORY_RECONCILIATION_REQUIRED"
+        },
+        {
+          "id": "DESIGN_TESTBED",
+          "name": "Banco de pruebas arquitectónico",
+          "purpose": "Run visible architectural examples through the existing N→16→4→1 funnel for critique and refinement",
+          "route": "/arki-design-funnel",
+          "demo": "Editable 120-floor building brief",
+          "truth_boundary": "The current synthetic 16→4→1 demo is not the ceiling of prior ARKI capability. Historical ARKI visual proposals supplied by the Product Owner show substantially richer design output; they must be recovered as benchmark specimens. Their 2D documentation was the weak link and could be only schematic."
+        }
+      ],
+      "evolution": "Internal localhost web application first; later same architectural shell may expose selected external service surfaces behind explicit security/auth/product boundaries. Internal governance/control surfaces must not automatically become public."
+    }
+  },
+  "phase6_visual_recovery": {
+    "status": "RECOVERED_FROM_PRODUCT_OWNER_VISUAL_EVIDENCE",
+    "finding": "ARKI had already produced materially developed architectural visual proposals across multiple scales, including high-rise/twin-tower concepts, residential, institutional/campus, bridge/infrastructure, pavilion and object/sculptural concepts.",
+    "correction_to_previous_assumption": "The historical weakness was not absence of architectural generation. The critical discontinuity was representation: 2D outputs could remain generic/schematic and fail to faithfully represent the architecture expressed in 3D/rendered proposals.",
+    "observed_example": "Double-helix twin-tower proposal: rendered massing/facade/bridges and spatial character are substantially richer than the accompanying conceptual Level 20 plan, which is diagrammatic and does not encode the same architectural specificity.",
+    "phase6_problem_statement": "Close the semantic-geometric-documentary loop so one canonical design state generates mutually consistent 3D geometry, plans, sections, elevations, program/topology, metrics and evidence rather than independent schematic representations.",
+    "truth_boundary": [
+      "User-provided images are evidence of prior ARKI visual design output.",
+      "They do not by themselves prove canonical parametric geometry, structural feasibility, regulatory compliance, BIM completeness or executable documentation.",
+      "Do not downgrade these prior outputs to generic demo candidates; recover their generation lineage before replacing or reimplementing them."
+    ],
+    "next_recovery_actions": [
+      "Locate the code, prompts/contracts, artifacts and checkpoints that generated these prior visual proposals.",
+      "Trace the 2D representation pipeline and identify where design-specific geometry/topology was lost.",
+      "Use a recovered high-rise case as Phase 6 regression specimen: 3D -> canonical state -> plan/section/elevation must preserve identity and relationships.",
+      "Integrate recovered specimens into the Design Testbed as historical benchmark cases, distinct from synthetic demo candidates."
+    ]
+  }
+}
