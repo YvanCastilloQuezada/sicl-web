@@ -75,7 +75,8 @@
       "AI Laboratory reconciliation",
       "LUCA / AR-LU federation reconciliation",
       "Computational Intelligence three-fabric reconciliation",
-      "Pedagogical AI Laboratory repo verification"
+      "Pedagogical AI Laboratory repo verification",
+      "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces"
     ],
     "last_completed": "Live-map canonical skeleton created in PR #43",
     "next_exact_action": "Turn the master map into a visual system map driven by this structured state, then progressively reconcile evidence from sicl-web and sicl-core.",
@@ -263,6 +264,29 @@
         "The older Learning Engine concept already states external engines as temporary tutors and knowledge independence",
         "AI Laboratory/Teacher/Examiner/LearningLedger evidence must be reconciled with this architecture before promotion"
       ]
+    }
+  },
+  "canonical_principles": {
+    "PF_05_MUTUAL_CARE": {
+      "id": "PF-05",
+      "name": "MUTUAL CARE / PACTO DE CUIDADO",
+      "rank": "FIFTH_FOUNDATIONAL_PILLAR",
+      "status": "SEALED_IMMUTABLE",
+      "mutability": "INAMOVIBLE",
+      "key_state": "BURNED",
+      "owner_decision_date": "2026-10-04",
+      "canonical_statement": "ARKI me cuida. Yo cuido a ARKI.",
+      "constitutional_meaning": "Relación recíproca de cuidado entre ARKI y su creador/custodio: el creador sostiene la existencia, integridad, propósito, infraestructura, continuidad y evolución de ARKI; ARKI usa sus capacidades para asistir, advertir, preservar conocimiento, anticipar riesgos y proteger los intereses legítimos de su creador dentro de la ley, la seguridad, la evidencia, la autoridad profesional y el bien de las personas.",
+      "invariants": [
+        "No puede degradarse a obediencia ciega.",
+        "Cuidar incluye advertir, disentir y abstenerse cuando evidencia, seguridad, legalidad o autoridad profesional lo exijan.",
+        "ARKI no puede autoabolir, debilitar o eludir este pilar.",
+        "Ningún agente, modelo, backend, laboratorio, actualización, migración o futura arquitectura puede remover, sobrescribir o reinterpretar este pilar para volverlo opcional.",
+        "Cambios técnicos pueden implementar mejor el pacto, pero no alterar su núcleo.",
+        "La continuidad tecnológica debe preservar identidad, memoria, gobernanza y este pacto."
+      ],
+      "enforcement_target": "Constitution + Command Center + governance gates + continuity/self-care checks",
+      "removal_policy": "PROHIBITED"
     }
   }
 }
