@@ -1,0 +1,154 @@
+{
+  "schema": "ARKI-MASTER-MAP-STATE-0.1",
+  "updated_at": "2026-10-04",
+  "product": "ARKI / ARQUI Superarchitect",
+  "authority_note": "Status is evidence-bounded. No evidence = no green.",
+  "roadmap": {
+    "total_phases": 10,
+    "current_zone": {
+      "phase": 6,
+      "approximate_subphase": "6.3–6.5",
+      "status": "IN_PROGRESS",
+      "note": "User locates current work between Phase 6 and Phase 7; exact historical subphase numbering remains to be reconciled before a narrower value is asserted."
+    },
+    "phases": [
+      {
+        "id": "F1",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F2",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F3",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F4",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F5",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F6",
+        "status": "IN_PROGRESS",
+        "evidence_status": "USER_CURRENT_POSITION"
+      },
+      {
+        "id": "F7",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F8",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F9",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      },
+      {
+        "id": "F10",
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "NOT_YET_RECONCILED"
+      }
+    ]
+  },
+  "current_focus": {
+    "title": "Assemble the Superarchitect and its nervous system",
+    "active": [
+      "ARKI Master Map Live",
+      "Cross-repo reconciliation",
+      "ACS Stage 2/3 context",
+      "AGK integration context",
+      "Capability Lab"
+    ],
+    "last_completed": "Live-map canonical skeleton created in PR #43",
+    "next_exact_action": "Turn the master map into a visual system map driven by this structured state, then progressively reconcile evidence from sicl-web and sicl-core.",
+    "blockers": [
+      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
+    ]
+  },
+  "status_vocabulary": [
+    "CLAIM",
+    "DESIGN",
+    "IMPLEMENTED",
+    "EXECUTED",
+    "OBSERVED",
+    "VERIFIED",
+    "FROZEN",
+    "UNKNOWN",
+    "BLOCKED",
+    "FUTURE_EMPIRICAL_TEST",
+    "DEPRECATED",
+    "SUPERSEDED",
+    "CONFLICTING"
+  ],
+  "integration_vocabulary": [
+    "CONNECTED",
+    "PARTIAL",
+    "DISCONNECTED",
+    "CONFLICTING"
+  ],
+  "authorities": [
+    {
+      "id": "D2",
+      "name": "D-2 Architectural Authority",
+      "role": "architectural semantic truth"
+    },
+    {
+      "id": "CORE",
+      "name": "ARKI Core / Project State",
+      "role": "state, evidence, provenance and verified cognitive/runtime contracts"
+    },
+    {
+      "id": "AGK",
+      "name": "ARKI Geometry Kernel",
+      "role": "operational geometry authority"
+    },
+    {
+      "id": "CF",
+      "name": "Capability Fabric",
+      "role": "noncanonical provider discovery/resolution/execution boundary"
+    },
+    {
+      "id": "ACS",
+      "name": "ARKI Capability Sandbox",
+      "role": "technology experimentation and evidence"
+    },
+    {
+      "id": "HUMAN",
+      "name": "Human Authority",
+      "role": "final professional/regulatory/owner gate where required"
+    }
+  ],
+  "feedback_loop": {
+    "idea_states": [
+      "NEW",
+      "INVESTIGATE",
+      "DUPLICATE_OR_IMPROVEMENT",
+      "ACCEPT",
+      "HOLD",
+      "REJECT",
+      "RECONSIDER",
+      "IMPLEMENT",
+      "VERIFY",
+      "FREEZE"
+    ],
+    "rule": "New ideas never silently become implemented capability. Preserve rejected/held ideas and rationale for future reconsideration."
+  },
+  "completion_rule": "A material iteration is not complete until code/contract, tests or evidence as applicable, state transition, and Live Map update are recorded.",
+  "handoff": {
+    "instruction": "Read ARKI_MASTER_MAP_STATE.json and ARKI_MASTER_MAP_LIVE.md first. Continue from current_focus.next_exact_action; do not reconstruct the project from memory."
+  }
+}
