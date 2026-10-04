@@ -228,6 +228,68 @@ These remain source evidence. This live map becomes the continuity index over th
 5. Establish the minimum end-to-end path for a real project: assignment -> design exploration -> 16 -> 4 -> 1 -> selected design development -> geometry -> BIM/drawings -> technical dossier -> human validation.
 6. Only then resume ACS Stage 2/3 and its frontend against this global map.
 
+## 13. Visual Live Map contract — v0.2
+
+The Master Map is not complete as a product if it exists only as Markdown. The operational target is a visible **ARKI SUPERARCHITECT — LIVE MAP** driven by the machine-readable registry `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json`.
+
+### 13.1 Permanent screen header
+
+The screen MUST expose without opening documentation:
+
+- **10-phase roadmap** with explicit `DONE / CURRENT / NEXT / RECONCILIATION_REQUIRED` state.
+- **YOU ARE HERE / ESTAMOS AQUÍ** at macro phase and micro iteration/contract level.
+- Current Focus.
+- Last Completed.
+- Next Exact Action / next gate.
+- Open blockers / UNKNOWNs.
+- Last evidence date and verified SHA when available.
+
+The current user-declared position is **Phase 6, approximately the F6.3–F6.5 transition toward F7**. This is a navigation fact, not evidence that F1–F5 are technically frozen. Their exact historical contracts and completion evidence remain to be reconciled before green status is shown.
+
+### 13.2 Organ/system view
+
+The visual organism MUST make the Superarchitect legible as one system. Initial organ groups:
+
+`PERCEPTION -> PROJECT STATE/MEMORY -> D-2/REASONING -> PROGRAM/TOPOLOGY/SPATIAL -> GENERATION -> N→16→4→1 -> EVALUATION/OPTIMIZATION -> AGK/3D-FIRST -> BIM/DRAWINGS/DOSSIER -> CONSTRUCTION/OPERATION/MAINTENANCE -> LEARNING`
+
+ACS and Capability Fabric are transverse nervous-system services and MUST NOT be drawn as competing architectural or geometry authorities.
+
+Each organ opens a detail panel containing at minimum: epistemic state, integration state, applicable phase(s), authority, repo/branch/path, contract, evidence/test/SHA, dependencies, blockers, next transition and acceptance gate.
+
+### 13.3 Live progression rule
+
+A material process/product iteration is not closed until the Live Map records its state transition. Example:
+
+`IN_PROGRESS -> EXECUTED -> VERIFIED -> FROZEN`
+
+The exact states used depend on evidence; no step is automatic. Closing one gate moves `CURRENT` to the next accepted gate while preserving the prior state and lineage.
+
+### 13.4 Idea / feedback loop
+
+New ideas enter a visible Evolution Radar rather than silently changing architecture:
+
+`NEW -> INVESTIGATE -> {ACCEPT | HOLD | REJECT} -> IMPLEMENT -> VERIFY -> FREEZE`
+
+An idea may also be classified `DUPLICATE_OR_IMPROVEMENT` or later `RECONSIDER`. Rejected/held ideas remain in history with rationale. Technology-dependent claims route through ACS when empirical evidence is required.
+
+### 13.5 Single-source rule
+
+The UI, handoff, Markdown summary and future automation MUST derive status from the structured state registry rather than maintain independent manual truth. Markdown remains human-readable continuity documentation; the structured registry is the machine-readable state surface.
+
+### 13.6 Handoff behavior
+
+A future session should be able to read the structured registry and answer immediately:
+
+1. What is ARKI trying to become?
+2. Which of the 10 phases is current?
+3. What exact sub-process is active?
+4. What was just completed?
+5. What is blocked or unknown?
+6. What is the next exact action?
+7. Which evidence supports every green/frozen claim?
+
+If any of those cannot be answered, the Live Map is incomplete.
+
 ---
 
 ## Handoff rule
