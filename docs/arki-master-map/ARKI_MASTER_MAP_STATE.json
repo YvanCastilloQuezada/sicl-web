@@ -71,7 +71,9 @@
       "Cross-repo reconciliation",
       "ACS Stage 2/3 context",
       "AGK integration context",
-      "Capability Lab"
+      "Capability Lab",
+      "AI Laboratory reconciliation",
+      "LUCA / AR-LU federation reconciliation"
     ],
     "last_completed": "Live-map canonical skeleton created in PR #43",
     "next_exact_action": "Turn the master map into a visual system map driven by this structured state, then progressively reconcile evidence from sicl-web and sicl-core.",
@@ -150,5 +152,47 @@
   "completion_rule": "A material iteration is not complete until code/contract, tests or evidence as applicable, state transition, and Live Map update are recorded.",
   "handoff": {
     "instruction": "Read ARKI_MASTER_MAP_STATE.json and ARKI_MASTER_MAP_LIVE.md first. Continue from current_focus.next_exact_action; do not reconstruct the project from memory."
+  },
+  "audit_findings": {
+    "ai_laboratory": {
+      "id": "AI_LAB",
+      "name": "Laboratorio de IA",
+      "classification": "IMPLEMENTED_FOUNDATION",
+      "repo": "YvanCastilloQuezada/sicl-core",
+      "loci": [
+        "src/sicl/laboratory/",
+        "tests/test_laboratory.py"
+      ],
+      "implementation_commit": "bbc8d75dcfbb75240a3f77a6dae62d2e01bd0d61",
+      "remediation_commit": "505ccd120772f7236ddb6ce476f3ee5b95e2e2b8",
+      "observed_capabilities": [
+        "sandbox ledger/provenance",
+        "deterministic generation with seed",
+        "fail-closed corpus validation",
+        "human-authority gate for canonical promotion"
+      ],
+      "caution": "Current evidence supports a governed deterministic AI laboratory foundation; it does not yet prove a full multi-model AI benchmarking/simulation platform.",
+      "phase_assignment": "RECONCILIATION_REQUIRED"
+    },
+    "luca": {
+      "id": "LUCA",
+      "name": "LUCA / MiLukita federated twin",
+      "classification": "SEPARATE_PRODUCT_FEDERATED_WITH_ARKI",
+      "repo": "YvanCastilloQuezada/sicl-web plus separate MiLukita source referenced by audited documents",
+      "observed_role": "georeferencing, field vision, spatial advertising/Geo-AR, device interoperability, conversation/presentation",
+      "current_arki_surfaces": [
+        "client/src/pages/LucaControlCenterPage.tsx",
+        "docs/arki-architecture/LUCA_FINAL_CONSOLIDATED_OPERATING_MANUAL.md",
+        "docs/arki-architecture/ARKI_LUCA_FEDERATED_ASSISTANT_CATALOG.md",
+        "server/integrations/milukita/"
+      ],
+      "evidence_bounds": [
+        "AR-LU federated orchestration and control UI are materially implemented",
+        "external providers/physical host/publication remain gated",
+        "older MiLukita AR evidence explicitly found no executable mobile WebXR implementation at the audited commit"
+      ],
+      "architecture_rule": "Do not merge LUCA Core into ARKI Core; federate via governed contracts.",
+      "phase_assignment": "RECONCILIATION_REQUIRED"
+    }
   }
 }
