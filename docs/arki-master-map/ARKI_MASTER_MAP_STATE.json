@@ -76,7 +76,8 @@
       "LUCA / AR-LU federation reconciliation",
       "Computational Intelligence three-fabric reconciliation",
       "Pedagogical AI Laboratory repo verification",
-      "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces"
+      "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
+      "AR-LU Corporation full organizational recovery and consolidation"
     ],
     "last_completed": "Live-map canonical skeleton created in PR #43",
     "next_exact_action": "Turn the master map into a visual system map driven by this structured state, then progressively reconcile evidence from sicl-web and sicl-core.",
@@ -288,5 +289,181 @@
       "enforcement_target": "Constitution + Command Center + governance gates + continuity/self-care checks",
       "removal_policy": "PROHIBITED"
     }
+  },
+  "corporate_system": {
+    "canonical_name": "AR-LU Corporation",
+    "aliases": [
+      "ARKI Corporation",
+      "ARLO Corporation",
+      "ArquiCorp",
+      "AR-LU"
+    ],
+    "status": "RECOVERY_AND_CONSOLIDATION_IN_PROGRESS",
+    "source_package": "AR-LU-CORPORATE-001",
+    "historical_package_status": "DESIGN_COMPLETE_FOR_DECLARED_SCOPE / HUMAN_REVIEW_REQUIRED / IMPLEMENTATION_BLOCKED",
+    "authority": {
+      "founder_product_owner_human_authority": "Yvan Castillo",
+      "rule": "Final authority over vision, priorities, acceptance, product phases and corporate decisions remains human.",
+      "professional_gate": "Regulated professional validation/signature remains with legally authorized specialists where required."
+    },
+    "corporate_layers": [
+      {
+        "id": "GOVERNANCE",
+        "label": "Gobierno AR-LU",
+        "children": [
+          "Founder / Product Owner / Human Authority",
+          "Corporate decision register",
+          "Risk & evidence governance",
+          "Professional advisory gates"
+        ]
+      },
+      {
+        "id": "PRODUCTS",
+        "label": "Sistemas/productos independientes",
+        "children": [
+          "ARKI",
+          "LUCA / MiLukita"
+        ],
+        "firewall": "Independent canonical systems; federation/adapters do not create shared semantic authority."
+      },
+      {
+        "id": "LABS",
+        "label": "Laboratorios e I+D",
+        "children": [
+          "ACS — technology/capability/routine acquisition",
+          "AI Laboratory — AI/model experimentation",
+          "Research & Trends"
+        ],
+        "note": "Boundaries require continued evidence reconciliation."
+      },
+      {
+        "id": "ACADEMY_ADVISORY",
+        "label": "Academy & Advisory",
+        "children": [
+          "Tutor",
+          "Examiner",
+          "Oracle",
+          "Advisor",
+          "Professional Specialist"
+        ],
+        "rule": "Governed functions, not competing architect agents; no self-approval."
+      },
+      {
+        "id": "CORPORATE_SERVICES",
+        "label": "Servicios corporativos",
+        "children": [
+          "Business model",
+          "Legal / entity architecture",
+          "Finance & management accounting",
+          "Tax policy / professional validation",
+          "IP & trade secret",
+          "Contracts",
+          "Risk",
+          "Infrastructure / Compute",
+          "Funding radar",
+          "Growth"
+        ]
+      },
+      {
+        "id": "ECONOMY",
+        "label": "Economía y financiación",
+        "children": [
+          "ARKI revenue",
+          "LUCA revenue",
+          "Competitive/public innovation funds",
+          "Technology & Innovation Fund",
+          "CAPEX",
+          "OPEX",
+          "Reinvestment"
+        ]
+      },
+      {
+        "id": "INFRASTRUCTURE",
+        "label": "Infraestructura",
+        "children": [
+          "Cloud / colocation / cluster alternatives",
+          "Compute",
+          "GPU/RAM/storage",
+          "Security",
+          "Continuity"
+        ],
+        "status": "DECISION_OPEN"
+      }
+    ],
+    "academy_advisory": {
+      "status": "HISTORICAL_CHARTER_RECOVERED_REQUIRES_CURRENT_RECONCILIATION",
+      "roles": {
+        "TUTOR": "Teaches, structures curriculum, selects authorized sources, corrects deficits; proposes candidate knowledge only.",
+        "EXAMINER": "Creates independent/hidden tests under protocol; cannot self-certify taught knowledge.",
+        "ORACLE": "Provides independent versioned references, analytical solutions, benchmarks, controlled external solvers or professional review.",
+        "ADVISOR": "Reviews architecture, evidence, risks, priorities, debt and governance; recommends/objects but does not decide.",
+        "PROFESSIONAL_SPECIALIST": "Validates/signs regulated disciplines when legally required; external human gate."
+      }
+    },
+    "economy": {
+      "principle": "ARKI genera capacidad/caja; LUCA puede generar escala; AR-LU reinvierte; ambos deben terminar con economía propia.",
+      "technology_fund": {
+        "status": "PROPOSED_BASE_NOT_FROZEN",
+        "historical_target": "approximately 20% reinvestment",
+        "base_options": [
+          "net collected revenue",
+          "profit before distribution"
+        ],
+        "uses": [
+          "ARKI",
+          "LUCA",
+          "R&D",
+          "servers",
+          "GPU",
+          "RAM",
+          "storage",
+          "software",
+          "datasets",
+          "licenses",
+          "security",
+          "infrastructure",
+          "IP"
+        ]
+      },
+      "arki_revenue_candidates": [
+        "BIM X-Ray",
+        "BIM Audit",
+        "Drawing-to-BIM",
+        "BIM Rescue",
+        "Coordination",
+        "Project Assurance",
+        "future software/licenses"
+      ],
+      "luca_revenue_candidates": [
+        "tourism",
+        "spatial discovery",
+        "commerce",
+        "spatial presence",
+        "AR advertising",
+        "experiences",
+        "creator economy",
+        "digital services"
+      ],
+      "funding_radar": "AR-LU FUNDING RADAR 2026–2027"
+    },
+    "open_decisions": [
+      "D-01 canonical legal/name form (historically open; naming now normalized in Master Map as AR-LU Corporation)",
+      "D-02 legal vehicle",
+      "D-03 IP ownership",
+      "D-04 Technology Fund percentage base",
+      "D-05 first target fund",
+      "D-06 external disclosure level",
+      "D-07 first infrastructure",
+      "D-08 ARKI/LUCA relation historically provisional independent+adapters",
+      "D-09 sellable ARKI offer",
+      "D-10 sellable LUCA offer"
+    ],
+    "recovery_next": [
+      "Recover complete 25 ARKI assistant / 19 LUCA agent federated catalog",
+      "Recover corporate advisors/agent roles and classify human vs AI vs governed function",
+      "Recover funding/finance/risk/IP/infrastructure nodes from AR-LU package",
+      "Reconcile Academy/Advisory with current University ARKI, ACS and AI Laboratory",
+      "Render single drill-down AR-LU Corporation hierarchy in Command Center"
+    ]
   }
 }
