@@ -752,7 +752,7 @@
     "second_geometry_kernel_required": "NO"
   },
   "agk_delta_005": {
-    "status": "PHASE_1_EXECUTED",
+    "status": "DISCOVERY_CONTRACT_EVIDENCE_COMPLETE_READY_TO_FREEZE",
     "evidence_commit": "0f8c53b0b06a3337899451e76408c4b2bbc2aa25",
     "authority": {
       "semantic_identity": "ARKI",
@@ -837,6 +837,29 @@
       "split": "DEMONSTRATED_PHASE3R",
       "merge": "DEMONSTRATED_PHASE3M",
       "production_persistent_naming": "NOT_YET_CLAIMED"
+    },
+    "phase4": {
+      "status": "PASS_12_OF_12",
+      "evidence_commit": "48956ad0838263a38d6f3c7d08b7aadaaf829024",
+      "process_exit": 0,
+      "contract": "SEMANTIC_ID + FEATURE_PROVENANCE + ROLE_CONTEXT + OP_HISTORY + GEOM_TOPO_EVIDENCE -> CANDIDATES -> CONFIDENCE/AMBIGUITY -> EVENT -> ACCEPT_OR_FAIL_CLOSED",
+      "events": [
+        "PRESERVE",
+        "REMAP",
+        "SPLIT",
+        "MERGE",
+        "NEW",
+        "DELETED",
+        "AMBIGUOUS"
+      ],
+      "authority": {
+        "semantic_identity": "ARKI",
+        "canonical_brep_geometry": "OCCT",
+        "brep_index": "NOT_AUTHORITY",
+        "transient_handle": "NOT_AUTHORITY"
+      },
+      "boundary": "PRODUCTION_NAMING_SERVICE_NOT_YET_DEMONSTRATED",
+      "next": "freeze contract then implement minimal ARKI-owned naming service"
     }
   }
 }
