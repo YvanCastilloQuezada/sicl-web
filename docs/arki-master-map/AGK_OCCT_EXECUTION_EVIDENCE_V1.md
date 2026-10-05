@@ -482,3 +482,14 @@ The lineage graph itself executed and accounted correctly for continuity/new/del
 However, the intended concrete 1->N and N->1 tests were **NOT demonstrated**. D005P3-02 found only one TOP child (`children=1`) and D005P3-03 only one TOP parent (`parents=1`), so both correctly reported OBSERVATION. The selected cut changed topology but did not split the selected semantic TOP face into multiple disconnected descendants. This is a test-specimen defect/insufficiency, not evidence that OCCT cannot expose split/merge history.
 
 **Decision:** do not advance to a production contract yet. Run Phase 3R with a geometry that actually partitions one source face into multiple descendants and the inverse merge, and inspect OCCT operation history (`Modified` / `Generated` / `IsDeleted`) where applicable. Only after true 1->N and N->1 are demonstrated should Delta-005 move to adversarial/product-contract work.
+
+
+## 23. AGK-DELTA-005 Phase 3R V4
+
+Status: PARTIAL. Configure/build succeeded; process exit 3 by the harness gate. Product AGK unchanged and no second kernel added.
+
+True 1-to-N face lineage was demonstrated. Source roof area was 280; the cut produced 2 roof descendants with aggregate area 252, equal to expected remaining area 252. OCCT history reported Modified(sourceTop)=2, Generated(sourceTop)=2, IsDeleted=NO. Split coverage passed.
+
+The inverse fill did not demonstrate N-to-1 merge. It produced 4 coplanar top faces with aggregate area 268 rather than one recovered face of area 280. This is NOT_DEMONSTRATED, not an OCCT limitation claim.
+
+Governance remains: ARKI owns semantic lineage; OCCT operation history is evidence only; incomplete or ambiguous lineage fails closed. Next is a dedicated Phase 3M true N-to-1 merge specimen before any production-contract claim.
