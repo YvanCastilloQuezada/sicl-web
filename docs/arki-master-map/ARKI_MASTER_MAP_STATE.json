@@ -718,5 +718,19 @@
       "Use a recovered high-rise case as Phase 6 regression specimen: 3D -> canonical state -> plan/section/elevation must preserve identity and relationships.",
       "Integrate recovered specimens into the Design Testbed as historical benchmark cases, distinct from synthetic demo candidates."
     ]
+  },
+  "agk_t7_solver_discovery": {
+    "status": "COMPLETED_WITH_T714_OPEN",
+    "evidence_commit": "bb61981875b9498e419f0318fa7fa2dc8da93cfb",
+    "findings": {
+      "branch_continuity": "DEMONSTRATED_IN_TESTED_SPECIMEN",
+      "solution_intent": "REQUIRED",
+      "solver_handle_identity": "DEMONSTRATED_IN_TESTED_EDIT",
+      "brep_topological_identity": "NOT_DEMONSTRATED",
+      "libslvs_scale_20_to_1000": "PASS_LOCAL_DISCOVERY",
+      "libslvs_disposition": "KEEP_ORACLE / RESEARCH_MASTER",
+      "second_geometry_kernel_required": "NO_EVIDENCE"
+    },
+    "next": "T714 persistent BRep topological identity/naming across AGK regeneration"
   }
 }
