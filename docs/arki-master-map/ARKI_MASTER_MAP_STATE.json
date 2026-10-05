@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 7: canonical element selection now propagates from PLAN and 3D into the Professional BIM shell. LEFT carries project/context information; RIGHT activates contextual modification controls for the selected canonical spatial element; center remains the Digital World.",
-    "next_exact_action": "Replace remaining duplicated in-canvas inspector/cost cards with shell-native contextual panels, add selection regression tests across PLAN/3D, then resolve PR #46 branch divergence and run CI/runtime visual verification.",
+    "last_completed": "Frontend Wave 8: Professional shell separates ARKI CONTROL from PROJECT CYCLE and restores the contextual information strip.",
+    "next_exact_action": "Recover historical module legend, connect verified lifecycle routes, add state indicators, and avoid invented semantics.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
