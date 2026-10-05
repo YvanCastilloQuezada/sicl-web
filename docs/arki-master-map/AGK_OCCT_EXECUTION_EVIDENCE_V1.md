@@ -553,3 +553,12 @@ Product-owner direction after this result: increase test density in an ordered p
 Incidental stderr observations from jsdom/chart rendering (`HTMLCanvasElement.getContext` unavailable without canvas package; zero-size chart warnings) did not fail tests and are not classified as DELTA-005 defects. The V1/V2 P5 runner attempts are recorded as test-filter harness defects / NOT_EXECUTED, superseded by this successful V3 execution.
 
 Next ordered gate: P6 transaction/rollback atomicity. No production-readiness claim yet.
+
+
+## 30. AGK-DELTA-005 P6 transaction / rollback atomicity
+
+**Status: PASS.** Windows-native execution at HEAD `b113507bf68c542d427792ba100fffe7bd46c965`: `server/arkiPersistentNamingTransaction.test.ts` executed 10/10 tests PASS; 1/1 test file PASS; Vitest exit 0; duration 1.43 s. Demonstrated in the tested service boundary: staging does not mutate ledger, commit publishes staged records, rollback publishes nothing, AMBIGUOUS is fail-closed, nested/no-open transaction misuse is rejected, sequence gaps and stale bases are rejected, and duplicate staged record IDs are rejected.
+
+The later interactive PowerShell `else` CommandNotFoundException occurred after Vitest had already returned exit 0 and after `ARKI_DELTA005_P6=PASS`; it is a shell-paste artifact and does not invalidate P6 evidence.
+
+Boundary: unit/service transaction atomicity is demonstrated; durable persistence/restart replay is not yet demonstrated. Next ordered gate: **P7 persistence + replay**.
