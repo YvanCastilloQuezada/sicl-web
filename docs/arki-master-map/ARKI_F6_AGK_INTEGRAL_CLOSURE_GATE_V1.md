@@ -108,3 +108,39 @@ These classifications do not waive the work. They prevent unrelated runtime/infr
 **Preliminary verdict: GO_PENDING_FINAL_GATE.** No currently recorded reproducible correctable defect has been found inside the bounded F6 capability claims. The remaining items are either explicit numerical/semantic limits, deliberately unclaimed production capabilities, or responsibilities of later integration/infrastructure layers.
 
 Before issuing final GO, run one focused repository regression covering the actual AGK/DELTA service tests available on this branch plus TypeScript/build integrity. Do not rerun the entire native discovery history unless that regression exposes counterevidence.
+
+
+## 10. Final local repository gate — PASS
+
+**Execution environment:** HP Z840 / Windows local repository.  
+**Tested HEAD before evidence persistence:** `0d6bdd792e7d733622a31185f304bc189b80e7c5`.
+
+Observed final gate:
+- TypeScript: `pnpm.cmd exec tsc --noEmit` -> exit 0.
+- DELTA-005 regression: 8/8 test files PASS, 88/88 tests PASS -> exit 0.
+- Production build: Vite production build + server esbuild -> exit 0.
+- Build completed with chunk-size warnings only; these are frontend performance/packaging observations, not F6 geometry failures.
+- Working tree contained untracked `p9.obj`; this is a local native-test artifact and was not part of the tested committed source.
+
+### Final F6 verdict
+
+**F6 / AGK 3D Constructive Spine = GO at the bounded demonstrated product boundary.**
+
+This verdict means the geometry spine has sufficient demonstrated capability and governance to become the stable base for F7. It does **not** mean every future production capability of AGK is complete.
+
+Constituent disposition at this boundary:
+- AGK-DELTA-001 Local Engineering Frame -> FREEZE at demonstrated policy boundary.
+- AGK-DELTA-002 Geometric Acceptance Contract -> FREEZE at demonstrated policy boundary.
+- AGK-DELTA-003 Parametric Transaction Contract -> FREEZE at demonstrated bounded contract.
+- AGK-DELTA-004 Constraint Solver Capability -> FREEZE bounded internal-capability contract; production industrial solver not claimed.
+- AGK-DELTA-004.1 Conflict Diagnosis -> FREEZE bounded evidence-supported contract; minimal conflict-set optimality not claimed.
+- AGK-DELTA-004.2 Solution Intent / Branch Continuity -> FREEZE bounded evidence-supported contract; general branch policy not claimed.
+- AGK-DELTA-005 Persistent Naming / Semantic Identity -> FREEZE minimal verified contract.
+- OCCT -> sole canonical BRep geometry authority.
+- SolveSpace/libslvs -> KEEP_ORACLE / RESEARCH_MASTER; not runtime backend.
+
+### Explicit non-claims carried forward
+
+Native C++ evidence-to-TypeScript packaged ingestion, durable crash recovery, multi-process/distributed concurrency, production industrial sketch completeness and long-duration industrial performance remain later integration/production gates. They must not be represented as already demonstrated.
+
+**Transition:** F6 may now stop discovery-by-default. Reopening requires reproducible counterevidence or a new versioned requirement. Next product phase: F7 Professional Technical Development.
