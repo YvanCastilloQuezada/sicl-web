@@ -54,13 +54,13 @@ function fidelityFor(stage: DesignFunnelState["stage"]): CostFidelity {
   return stage === "DESIGN_EXPLORER_16" ? "RAPID_16" : stage === "FINALIST_4" || stage === "RETURNED_TO_FINALISTS" ? "DEEP_4" : "DEVELOPMENT_1";
 }
 
-function estimateFor(candidate: DesignCandidate, state: DesignFunnelState, revision: number): CostEstimate {
+function estimateFor(candidate: DesignCandidate, state: DesignFunnelState, revision: number, location: string): CostEstimate {
   return estimateCandidateCost({
     projectId: state.projectId,
     candidateId: candidate.id,
     generationId: state.generationId,
     areaM2: Number(candidate.metrics.area),
-    location: "Trujillo",
+    location: location.trim() || "UNKNOWN",
     currency: "PEN",
     baseDate: "2026-09-24",
     designRevision: revision,
@@ -212,7 +212,7 @@ export default function ArkiDesignFunnelPage() {
   const selectOne = () => { try { setState(selectForDevelopment(state, activeId, "HUMAN_ARCHITECT", reason)); setSelected([]); setNotice(`${displayId(activeId, state.candidates)} quedó en SELECTED_FOR_DEVELOPMENT. Los otros finalistas siguen recuperables.`); } catch (error) { setNotice(error instanceof Error ? error.message : "Selecciona un candidato"); } };
   const restore = () => { try { setState(returnToFinalFour(state, "Reconsideración humana / fallo técnico reversible")); setSelected([]); setNotice("Retorno reversible al Final Four ejecutado. No se eliminó la exploración."); } catch (error) { setNotice(error instanceof Error ? error.message : "No hay Final Four archivado para restaurar"); } };
   const changeMode = (next: ComparisonMode) => { setMode(next); setState(setComparisonMode(state, next)); };
-  const recalculate = () => { if (!active) return; const current = estimateFor(active, state, revision); const stale = markCostStale(current, "Geometry revision changed by human action"); const nextInput = { projectId: state.projectId, candidateId: active.id, generationId: state.generationId, areaM2: Number(active.metrics.area) + 250, location: "Trujillo", currency: "PEN", baseDate: "2026-09-24", designRevision: revision + 1 }; const result = recalculateCost(stale, nextInput, fidelityFor(state.stage)); setLastDelta(result.delta); setRevision((value) => value + 1); setNotice(`La estimación anterior quedó STALE y se generó un CostDelta para ${displayId(active.id, state.candidates)}. La versión anterior permanece preservada.`); };
+  const recalculate = () => { if (!active) return; const current = estimateFor(active, state, revision, brief.location); const stale = markCostStale(current, "Geometry revision changed by human action"); const nextInput = { projectId: state.projectId, candidateId: active.id, generationId: state.generationId, areaM2: Number(active.metrics.area) + 250, location: brief.location.trim() || "UNKNOWN", currency: "PEN", baseDate: "2026-09-24", designRevision: revision + 1 }; const result = recalculateCost(stale, nextInput, fidelityFor(state.stage)); setLastDelta(result.delta); setRevision((value) => value + 1); setNotice(`La estimación anterior quedó STALE y se generó un CostDelta para ${displayId(active.id, state.candidates)}. La versión anterior permanece preservada.`); };
 
   return <ArkiProfessionalBimShell projectName={brief.projectId} location={brief.location} activeView={mode === "PREVIEW" ? "Modelo" : mode}
     informationPanel={<div className="space-y-2 text-[9px] text-[#8fa8bc]"><div className="font-bold text-[#7dd3fc]">ACTIVE CONTEXT</div><div>Alternative: <b className="text-[#e8f1f7]">{active ? displayId(active.id,state.candidates) : "—"}</b></div><div>Representation: <b className="break-all text-[#e8f1f7]">{selectedRepresentation?.id ?? "UNKNOWN"}</b></div><div>Site: <b className="text-[#e8f1f7]">{siteLocation ? "CONFIRMED" : "UNKNOWN"}</b></div><div>Missing site variables: <b className="text-[#f0a35b]">{siteMissing ? siteMissing.variables.filter(v=>v.state==="MISSING").length : "UNKNOWN"}</b></div></div>}
