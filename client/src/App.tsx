@@ -4,7 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-import OfflineSyncManager from "./components/OfflineSyncManager";
+const OfflineSyncManager = lazy(() => import("./components/OfflineSyncManager"));
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
@@ -132,7 +132,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <OfflineSyncManager />
+            <Suspense fallback={null}><OfflineSyncManager /></Suspense>
             <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
           </TooltipProvider>
