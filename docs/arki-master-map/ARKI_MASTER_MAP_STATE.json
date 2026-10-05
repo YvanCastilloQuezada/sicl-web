@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 6: Design Studio is mounted inside the ARKI Professional BIM shell. The approved anatomy is now present in the real workflow: PROJECT TREE | DIGITAL WORLD | ARKI INTELLIGENCE with bottom 4D/5D/Energy/Carbon/Scenarios/Operations tray.",
-    "next_exact_action": "Move candidate inspector, evidence/unknowns and cost state into the BIM shell contextual slots; reduce duplicated in-canvas panels; then run CI and runtime visual verification at desktop workstation dimensions.",
+    "last_completed": "Frontend Wave 7: canonical element selection now propagates from PLAN and 3D into the Professional BIM shell. LEFT carries project/context information; RIGHT activates contextual modification controls for the selected canonical spatial element; center remains the Digital World.",
+    "next_exact_action": "Replace remaining duplicated in-canvas inspector/cost cards with shell-native contextual panels, add selection regression tests across PLAN/3D, then resolve PR #46 branch divergence and run CI/runtime visual verification.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -344,7 +344,7 @@
     },
     "frontend_first_assembly": {
       "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
-      "status": "IMPLEMENTED_WAVE_6_PENDING_CI",
+      "status": "IMPLEMENTED_WAVE_7_PENDING_CI",
       "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
       "surfaces": [
         {
@@ -449,7 +449,19 @@
           "Human Authority remains explicit"
         ],
         "design_studio": "mounted inside DIGITAL WORLD",
-        "next": "bind live selected-candidate context to intelligence and multidimension panels"
+        "next": "bind live selected-candidate context to intelligence and multidimension panels",
+        "selection_contract": {
+          "status": "IMPLEMENTED_INITIAL",
+          "sources": [
+            "PLAN SpatialSvgViewer",
+            "3D UPAO001MassingViewer3D"
+          ],
+          "identity": "SpatialElement.id from the active SpatialRepresentation",
+          "left": "information/context only",
+          "center": "canonical project geometry and design workflow",
+          "right": "contextual modification controls; proposal/preview until governed commit",
+          "invariant": "selection does not create a second geometry truth"
+        }
       }
     }
   },
