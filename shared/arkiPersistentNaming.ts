@@ -64,3 +64,32 @@ export function assertNamingCommitAllowed(decision:NamingDecision): void {
   if(decision.event==="AMBIGUOUS" || !decision.committed)
     throw new Error("ARKI_NAMING_FAIL_CLOSED");
 }
+
+
+export interface NamingLedgerRecord {
+  recordId: string;
+  sequence: number;
+  recordedAt: string;
+  decision: NamingDecision;
+  evidence: readonly NamingEvidence[];
+}
+
+export class ArkiNamingLedger {
+  private readonly records: NamingLedgerRecord[] = [];
+  append(record: NamingLedgerRecord): NamingLedgerRecord {
+    assertNamingCommitAllowed(record.decision);
+    if (this.records.some((r) => r.recordId === record.recordId))
+      throw new Error("ARKI_NAMING_DUPLICATE_RECORD");
+    const last=this.records.at(-1);
+    if (last && record.sequence !== last.sequence + 1)
+      throw new Error("ARKI_NAMING_SEQUENCE_VIOLATION");
+    if (!last && record.sequence !== 1)
+      throw new Error("ARKI_NAMING_SEQUENCE_VIOLATION");
+    const frozen=Object.freeze({...record,decision:Object.freeze({...record.decision}),evidence:Object.freeze([...record.evidence])});
+    this.records.push(frozen);
+    return frozen;
+  }
+  snapshot(): readonly NamingLedgerRecord[] {
+    return Object.freeze([...this.records]);
+  }
+}
