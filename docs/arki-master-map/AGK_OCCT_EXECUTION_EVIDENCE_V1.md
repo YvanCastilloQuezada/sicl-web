@@ -6,117 +6,155 @@
 
 ## 1. Result
 
-**OCCT is now an EXECUTED BASE for AGK.**
+**OCCT is an EXECUTED BASE for AGK.**
 
-The local evidence chain has three successful bounded gates:
+Validated local evidence chain:
 
 1. **Installation gate — PASS**
    - OCCT 8.0.1 installed through vcpkg.
    - Headers, libraries and CMake toolchain available.
-
 2. **Basic G0/G1/G2 canary — PASS**
-   - Real BRep created.
-   - Unique topology: 8 vertices, 12 edges, 6 faces, 1 solid.
-   - Box volume invariant: 6000.
-   - Box area invariant: 2200.
+   - real BRep created;
+   - 8 vertices, 12 edges, 6 faces, 1 solid;
+   - volume 6000 and area 2200 invariants;
    - BRep validity PASS.
-
 3. **Advanced canary — PASS (16/16)**
-   - extrusion;
-   - transform;
-   - boolean fuse/common/cut;
-   - curved edge;
-   - STEP write/read round-trip;
+   - extrusion, transform, fuse/common/cut, curved edge;
+   - STEP write/read;
    - volume and face-count preservation.
-
 4. **Torture T1 — PASS (22/22)**
-   - revolution;
-   - multi-section loft;
-   - sweep/pipe;
-   - fillet;
-   - chamfer;
-   - shell/thickness;
-   - shape healing;
-   - native BREP write/read round-trip;
-   - 25 sequential boolean cuts;
-   - post-stress BRep validity;
-   - volume invariant;
-   - substantial topology.
-
-Observed T1 values:
-- revolution volume: 2450.44;
-- loft volume: 5768.55;
-- fillet faces: 10;
-- chamfer faces: 7;
-- sequential cuts: 25;
-- stressed faces: 31;
-- stressed volume: 185863;
-- expected stress volume: 185863;
-- process exit code: 0.
+   - revolution, loft, sweep, fillet, chamfer, thickness, healing;
+   - BREP round-trip;
+   - 25 sequential cuts;
+   - stressed BRep validity, volume and topology.
+5. **T2 coordinate/tolerance discovery — EXECUTED**
+   - local near-coincident boolean boundary reproduced: overlap 5e-7 resolves; 2.5e-7 collapses to zero in the tested configuration;
+   - T2.2: local-frame strategy won 9/13 comparisons, direct-global won 0, 4 equal;
+   - T2.3 origin sweep: first detectable degradation at origin magnitude 1e5 under the test criterion, severe degradation at 1e8, first tested collapse at 5e8;
+   - consequence: large GIS/global coordinates must not be the canonical OCCT BRep working frame.
+6. **T3 Degeneracy & Surface Torture — PASS within designed interpretation**
+   - 12 tests executed;
+   - 11 invariant PASS;
+   - 1 invariant FAIL = T303, deliberately below the already observed tolerance boundary;
+   - 0 invalid outputs;
+   - 0 unexplained failures;
+   - process exit code 0;
+   - harness verdict: NO_NEW_UNEXPLAINED_BOUNDARY.
 
 ## 2. Harness corrections before valid T1 evidence
 
-Earlier T1 attempts are explicitly **not kernel failures**. They were harness/integration defects and are excluded from OCCT capability scoring:
-
+Earlier T1 attempts are explicitly **not kernel failures**:
 - nested PowerShell here-string defect: TEST_HARNESS_DEFECT;
 - OCCT 8.0.1 chamfer API misuse: API_MISUSE;
 - missing TKOffset/TKFillet link dependencies: LINK_CONTRACT_DEFECT.
 
-The final valid run used the installed OCCT API contract and linked:
-- TKOffset for ThruSections / MakePipe / MakeThickSolid;
-- TKFillet for MakeFillet / MakeChamfer.
+The final valid T1 run used the installed OCCT API contract and linked TKOffset and TKFillet.
 
-## 3. Status transition
+## 3. T2 — first demonstrated ARKI kernel delta policy
 
-Previous body-map status:
+### AGK-DELTA-001 — Local Engineering Frame
 
-`AGK = FROZEN ARCHITECTURE / PARTIAL IMPLEMENTATION`
+**Status: DEMONSTRATED / policy candidate; whole ARKI_KERNEL_DELTA remains NOT FINALIZED.**
 
-Evidence-bounded refinement:
+Evidence supports the following architecture:
+
+```text
+SITE / TERRITORY / GIS
+        |
+        | CRS + global coordinates + provenance
+        v
+GLOBAL PLACEMENT FRAME
+        |
+        | explicit reversible transform
+        v
+LOCAL ENGINEERING FRAME
+        |
+        v
+OCCT CANONICAL BREP OPERATIONS
+```
+
+Policy:
+- canonical BRep geometry and geometric computation remain in a numerically conditioned local engineering frame;
+- CRS/geolocation/global placement are retained as explicit placement metadata/transforms;
+- AGK must not naively perform canonical BRep computation at very large GIS coordinate magnitudes.
+
+The numerical thresholds observed in T2.3 are **benchmark observations, not universal constants**. They depend on geometry scale, tolerance and operation.
+
+## 4. AGK-DELTA-002 — Geometric Acceptance Contract
+
+**Status: DEMONSTRATED NEED / policy candidate.**
+
+T2/T3 show that `IsDone()==true` and `BRepCheck_Analyzer::IsValid()==true` are not sufficient evidence of semantic geometric correctness near tolerance boundaries.
+
+Candidate acceptance chain:
+
+```text
+operation completed
++ BRep validity
++ geometric invariants
++ topological invariants
++ expected relationships / semantic expectations
++ tolerance policy
+= ACCEPT | REJECT | UNKNOWN
+```
+
+T303 is the canonical bounded counterexample in the current benchmark family: the operation executes and reports a valid result, but the tested 2.5e-7 overlap collapses to zero volume.
+
+## 5. T3 detailed result
+
+| Test | Result | Interpretation |
+|---|---|---|
+| T301 ultra-thin solid 1e-6 | PASS | RESOLVED |
+| T302 sliver boolean 5e-7 | PASS | RESOLVED |
+| T303 sliver 2.5e-7 | EXPECTED BOUNDARY | KNOWN_TOLERANCE_BOUNDARY |
+| T304 near-coplanar shallow cut | PASS | RESOLVED |
+| T305 exact tangential boolean | PASS | RESOLVED |
+| T306 near-limit fillet r=4.999999 | PASS | RESOLVED |
+| T307 fillet r=6 | VALID RESULT | OBSERVATION; not classified as limitation |
+| T308 aggressive twisted loft | PASS | RESOLVED |
+| T309 thin closed shell 1e-5 | PASS | RESOLVED |
+| T310 healing after stressed chain | PASS | HEALING_STABLE |
+| T311 near-coincident fuse 5e-7 | PASS | RESOLVED |
+| T312 dense topology / 36 cuts | PASS | 42 faces, 240 edges |
+
+T307 correction: the original assumption that r=6 must be geometrically impossible for the first enumerated edge was too simplistic. OCCT produced a valid result. Therefore this is not evidence of an OCCT limitation.
+
+## 6. Current bounded status
 
 `AGK architecture = FROZEN`  
 `OCCT base = EXECUTED / VERIFIED IN BOUNDED LOCAL CANARIES`  
 `AGK unified production integration = PARTIAL / NOT YET VERIFIED`  
-`ARKI_KERNEL_DELTA = NOT YET FINALIZED`
+`AGK-DELTA-001 Local Engineering Frame = DEMONSTRATED policy candidate`  
+`AGK-DELTA-002 Geometric Acceptance Contract = DEMONSTRATED NEED / policy candidate`  
+`ARKI_KERNEL_DELTA = NOT FINALIZED`
 
-This does **not** justify claiming the whole AGK is production-ready.
+No evidence currently justifies adding CGAL, Manifold, OpenVDB, libfive, PicoGK, SolveSpace/libslvs or Topologic as a runtime dependency. Each must earn a role through a reproducible OCCT limitation.
 
-## 4. What OCCT has demonstrated
+## 7. Next benchmark family — T4 architectural freeform geometry
 
-The current evidence supports retaining OCCT as the principal body of the AGK hypothesis. It has demonstrated a substantial architectural solid-modeling surface without requiring another runtime kernel for these tested operations.
+Next target is not more boxes. It must test geometry relevant to a superarchitect:
+- B-Spline/NURBS surfaces;
+- double curvature;
+- ruled/freeform surfaces;
+- shells derived from curved surfaces;
+- nontrivial section-changing lofts;
+- curved-path sweeps and torsion;
+- curved-surface offsets and thickening;
+- curved-solid booleans;
+- curve/surface and surface/surface intersection behavior;
+- continuity checks;
+- parametrically regenerable deformation;
+- BREP/STEP persistence;
+- deterministic regeneration.
 
-No CGAL, Manifold, OpenVDB, libfive, PicoGK, SolveSpace/libslvs or Topologic dependency should be added merely because it was previously listed as a candidate. Each candidate must earn a delta role through a reproducible gap.
+Acceptance must include validity plus geometric/topological invariants, continuity/repeatability where applicable, and tolerance-aware semantic expectations.
 
-## 5. Next benchmark family — DELTA DISCOVERY
+## 8. Architectural consequence
 
-The next benchmark must stop proving ordinary happy-path features and begin searching for real OCCT limits relevant to ARKI:
-
-- difficult/near-coincident booleans;
-- tolerance sensitivity and accumulated numerical drift;
-- self-intersection and degenerate input handling;
-- complex double-curvature and nontrivial loft/sweep cases;
-- shell/thickness failure boundaries;
-- fillet/chamfer failure boundaries;
-- healing effectiveness and topology preservation;
-- repeated transforms/regeneration;
-- BREP/STEP persistence under complex geometry;
-- determinism/repeatability;
-- performance under architectural-scale topology.
-
-Every failure must be classified before any new backend is admitted:
-
-`TEST_DEFECT | API_MISUSE | NUMERICAL_TOLERANCE | INPUT_INVALID | OCCT_LIMITATION | AGK_DELTA_CANDIDATE`
-
-Only reproducible `OCCT_LIMITATION` evidence can promote another engine/algorithm into `ARKI_KERNEL_DELTA`.
-
-## 6. Architectural consequence
-
-The AGK hypothesis remains:
+The hypothesis remains:
 
 `AGK = OCCT + minimal evidence-derived ARKI_KERNEL_DELTA`
 
-Not:
+Not a runtime chain of geometry engines.
 
-`AGK = runtime chain of multiple geometry engines`
-
-OCCT remains the sole tested candidate for the canonical BRep body at this checkpoint. Specialized technologies remain potential teachers/oracles/delta sources until a benchmark demonstrates a necessary role.
+OCCT remains the only executed candidate for the canonical BRep body at this checkpoint. Specialized technologies remain teachers/oracles/delta candidates until evidence demonstrates a necessary role.
