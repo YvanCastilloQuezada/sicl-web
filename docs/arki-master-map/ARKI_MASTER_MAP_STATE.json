@@ -752,7 +752,7 @@
     "second_geometry_kernel_required": "NO"
   },
   "agk_delta_005": {
-    "status": "MINIMAL_CONTRACT_VERIFIED_READY_FOR_FREEZE",
+    "status": "FROZEN_MINIMAL_VERIFIED_CONTRACT",
     "evidence_commit": "0f8c53b0b06a3337899451e76408c4b2bbc2aa25",
     "authority": {
       "semantic_identity": "ARKI",
@@ -954,5 +954,39 @@
     ],
     "frontend_commit": "213e017f9250d6cddf119327f00e9f531a943a53",
     "boundary": "Planning and UI map do not promote historical documentary claims to current verified capability."
+  },
+  "f6_agk_integral_closure": {
+    "status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY",
+    "decision_date": "2026-10-05",
+    "tested_head": "0d6bdd792e7d733622a31185f304bc189b80e7c5",
+    "final_local_gate": {
+      "typescript": "PASS_EXIT_0",
+      "delta005_regression": "PASS_8_FILES_88_TESTS_EXIT_0",
+      "production_build": "PASS_EXIT_0"
+    },
+    "authority": {
+      "canonical_brep": "OCCT",
+      "semantic_identity": "ARKI",
+      "second_geometry_kernel": "NOT_JUSTIFIED"
+    },
+    "constituent_disposition": {
+      "AGK-DELTA-001": "FREEZE_DEMONSTRATED_POLICY_BOUNDARY",
+      "AGK-DELTA-002": "FREEZE_DEMONSTRATED_POLICY_BOUNDARY",
+      "AGK-DELTA-003": "FREEZE_BOUNDED_CONTRACT",
+      "AGK-DELTA-004": "FREEZE_BOUNDED_INTERNAL_CAPABILITY_PRODUCTION_SOLVER_NOT_CLAIMED",
+      "AGK-DELTA-004.1": "FREEZE_BOUNDED_EVIDENCE_SUPPORTED",
+      "AGK-DELTA-004.2": "FREEZE_BOUNDED_EVIDENCE_SUPPORTED",
+      "AGK-DELTA-005": "FREEZE_MINIMAL_VERIFIED_CONTRACT"
+    },
+    "oracle_policy": "SolveSpace/libslvs=KEEP_ORACLE_RESEARCH_MASTER_NOT_RUNTIME_BACKEND",
+    "non_claims": [
+      "native C++ evidence to TypeScript packaged ingestion",
+      "durable crash recovery",
+      "multi-process/database/distributed concurrency",
+      "production industrial sketch completeness",
+      "long-duration industrial performance"
+    ],
+    "reopen_rule": "REPRODUCIBLE_COUNTEREVIDENCE_OR_NEW_VERSIONED_REQUIREMENT_ONLY",
+    "next_phase": "F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT"
   }
 }
