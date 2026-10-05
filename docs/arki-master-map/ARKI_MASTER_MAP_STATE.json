@@ -816,6 +816,27 @@
       "merge_recovered_area": 268,
       "merge_expected_area": 280,
       "next": "Phase 3M dedicated true N-to-1 merge specimen"
+    },
+    "phase3m": {
+      "status": "PASS_TRUE_N_TO_1_DEMONSTRATED",
+      "evidence_commit": "6d47b58e3473261381eee21688ab5943af3c3b33",
+      "process_exit": 0,
+      "parents": 2,
+      "children": 1,
+      "parent_area": 280,
+      "child_area": 280,
+      "raw_fuse_top_faces": 2,
+      "same_domain_unified_top_faces": 1,
+      "gap_negative_control": "PASS_NO_SILENT_MERGE",
+      "semantic_event": "MERGE SEM:ROOF_A + SEM:ROOF_B -> SEM:ROOF",
+      "authority": "ARKI_SEMANTIC_IDENTITY; OCCT_GEOMETRIC_EVIDENCE",
+      "next": "Delta-005 Phase 4 adversarial identity + production contract"
+    },
+    "split_merge_discovery": {
+      "status": "CLOSED",
+      "split": "DEMONSTRATED_PHASE3R",
+      "merge": "DEMONSTRATED_PHASE3M",
+      "production_persistent_naming": "NOT_YET_CLAIMED"
     }
   }
 }
