@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ChevronRight, GitBranch, RefreshCw, RotateCcw, ShieldCheck, SlidersHorizontal, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -16,6 +16,8 @@ import {
   type DesignFunnelState,
 } from "@shared/arkiDesignFunnel";
 import { estimateCandidateCost, markCostStale, recalculateCost, type CostDelta, type CostEstimate, type CostFidelity } from "@shared/arkiCostBudgetS2";
+import LocationPicker from "@/components/LocationPicker";
+import { apiErrorMessage, siclClient, type MissingDataReport, type SpatialLocation } from "@/api/sicl-client";
 
 const DEFAULT_PROJECT_ID = "DEMO-PROJECT";
 type DemoBrief = { projectId: string; prompt: string; floors: number; location: string; areaM2: number };
@@ -128,10 +130,34 @@ export default function ArkiDesignFunnelPage() {
   const [reason, setReason] = useState("");
   const [revision, setRevision] = useState(1);
   const [lastDelta, setLastDelta] = useState<CostDelta>();
+  const [siteLocation, setSiteLocation] = useState<SpatialLocation | null>(null);
+  const [siteMissing, setSiteMissing] = useState<MissingDataReport | null>(null);
+  const [siteBusy, setSiteBusy] = useState(true);
+  const [siteError, setSiteError] = useState("");
+
+  const refreshSite = async () => {
+    setSiteBusy(true); setSiteError("");
+    try {
+      const [location, missing] = await Promise.all([
+        siclClient.currentLocation(brief.projectId),
+        siclClient.missingData(brief.projectId, "parcela_sitio"),
+      ]);
+      setSiteLocation(location); setSiteMissing(missing);
+      if (location) {
+        const siteLabel = location.place_label || (location.longitude != null && location.latitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado");
+        setBrief((current) => ({ ...current, location: siteLabel }));
+      }
+    } catch (error) {
+      setSiteError(apiErrorMessage(error));
+      setSiteLocation(null); setSiteMissing(null);
+    } finally { setSiteBusy(false); }
+  };
+  useEffect(() => { void refreshSite(); }, [brief.projectId]);
   const visible = state.stage === "DESIGN_EXPLORER_16" ? state.candidates : state.candidates.filter((candidate) => candidate.stage === "FINALIST_4" || candidate.stage === "SELECTED_FOR_DEVELOPMENT" || candidate.stage === "BLOCKED");
   const active = state.candidates.find((candidate) => candidate.id === activeId) ?? visible[0];
 
   const runDemo = () => {
+    if (!siteLocation) { setNotice("SITE-FIRST: confirma primero la ubicación del proyecto. ARKI no debe generar y colocar después."); return; }
     const normalized = { ...brief, projectId: brief.projectId.trim() || DEFAULT_PROJECT_ID, floors: Math.max(1, Math.round(brief.floors || 1)), areaM2: Math.max(100, Math.round(brief.areaM2 || 100)), prompt: brief.prompt.trim() || "Edificio de 120 pisos", location: brief.location.trim() || "UNKNOWN" };
     setBrief(normalized);
     setState(initialState(normalized));
@@ -162,8 +188,14 @@ export default function ArkiDesignFunnelPage() {
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Pisos</label><input type="number" min="1" value={brief.floors} onChange={(e)=>setBrief(v=>({...v,floors:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Área objetivo m²</label><input type="number" min="100" value={brief.areaM2} onChange={(e)=>setBrief(v=>({...v,areaM2:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Ubicación</label><input value={brief.location} onChange={(e)=>setBrief(v=>({...v,location:e.target.value}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <Button onClick={runDemo} className="self-end">Generar 16</Button>
+    <Button onClick={runDemo} disabled={!siteLocation || siteBusy} className="self-end">Generar 16</Button>
   </div>
   <div className="mt-2 text-[10px] text-[#f5aa56]">MODO DEMO: el brief alimenta candidatos conceptuales deterministas del embudo existente. “120 pisos” todavía NO implica solver estructural, normativa de altura ni geometría profesional.</div>
+  <div className="mt-4 rounded border border-[#28445b] bg-[#091827] p-3">
+    <div className="flex flex-wrap items-center justify-between gap-3"><div><div className="text-[9px] font-bold uppercase tracking-[.18em] text-[#7dd3fc]">SITE-FIRST GATE</div><div className="mt-1 text-sm font-semibold">{siteLocation ? "Sitio confirmado · habilitado para explorar" : siteBusy ? "Leyendo estado del sitio…" : "Sitio aún no confirmado"}</div></div><Button size="sm" variant="outline" onClick={()=>void refreshSite()}>Actualizar sitio</Button></div>
+    <div className="mt-2 grid gap-2 md:grid-cols-3 text-[10px] text-[#9eb5c4]"><div>Ubicación: <span className="text-[#d7e8f2]">{siteLocation?.place_label || (siteLocation?.latitude != null && siteLocation?.longitude != null ? `${siteLocation.latitude}, ${siteLocation.longitude}` : "UNKNOWN")}</span></div><div>Provenance: <span className="text-[#d7e8f2]">{siteLocation?.provenance || "UNKNOWN"}</span></div><div>Datos faltantes: <span className="text-[#f5aa56]">{siteMissing ? siteMissing.variables.filter((item)=>item.state==="MISSING").length : "UNKNOWN"}</span></div></div>
+    {siteError && <div className="mt-2 text-[10px] text-[#f5aa56]">Core/site no disponible: {siteError}. No se fabrica contexto del sitio.</div>}
+  </div>
+  <LocationPicker projectId={brief.projectId} />
 </header><section className="mx-auto mt-5 grid max-w-[1500px] gap-4 xl:grid-cols-[280px_minmax(0,1fr)_320px]"><aside><CostPanel state={state} revision={revision} activeId={active?.id} onSelect={activate} /></aside><section className="min-w-0"><div className="mb-3 flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-2 text-xs uppercase tracking-[.18em] text-[#9eb5c4]"><GitBranch className="size-4 text-[#d4ff3a]" />Arquitectura / {state.stage}</div><div className="flex flex-wrap gap-1">{visualModes.map((item) => <Button key={item.key} size="sm" variant={mode === item.key ? "default" : "outline"} onClick={() => changeMode(item.key)}>{item.label}</Button>)}</div></div><div className={`grid gap-3 ${state.stage === "DESIGN_EXPLORER_16" ? "grid-cols-2 md:grid-cols-4" : "grid-cols-1 md:grid-cols-2"}`}>{visible.map((candidate) => { const activeCard = candidate.id === active?.id; const label = displayId(candidate.id, state.candidates); return <Card key={candidate.id} onClick={() => activate(candidate.id)} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(candidate.id); } }} aria-label={`Activar ${label}`} className={`cursor-pointer overflow-hidden border-[#28445b] bg-[#0b2031] p-2 ${activeCard ? "ring-2 ring-[#d4ff3a]" : "hover:border-[#7893af]"}`}><Visual id={label} mode={mode} large={state.stage !== "DESIGN_EXPLORER_16"} /></Card>; })}</div></section><aside className="space-y-3"><Inspector candidate={active} state={state} revision={revision} lastDelta={lastDelta} /><Card className="border-[#28445b] bg-[#0b2031] p-4"><div className="flex items-center gap-2 text-sm font-semibold"><SlidersHorizontal className="size-4 text-[#d4ff3a]" />Decisión humana</div><p className="mt-2 text-sm text-[#9eb5c4]">{notice}</p><label className="mt-3 block text-xs text-[#9eb5c4]">Razón opcional</label><textarea value={reason} onChange={(event) => setReason(event.target.value)} className="mt-1 min-h-20 w-full rounded border border-[#28445b] bg-[#071726] p-2 text-sm outline-none focus:border-[#d4ff3a]" placeholder="Puedes omitirla" />{state.stage === "DESIGN_EXPLORER_16" && <Button className="mt-3 w-full" disabled={selected.length !== 4} onClick={promote}>Promover 4 <ChevronRight /></Button>}{(state.stage === "FINALIST_4" || state.stage === "RETURNED_TO_FINALISTS") && <><Button className="mt-3 w-full" variant="secondary" onClick={evaluate}>Ejecutar evaluación profunda</Button><Button className="mt-2 w-full" disabled={!active} onClick={selectOne}>Seleccionar para desarrollo</Button></>}{state.stage === "SELECTED_FOR_DEVELOPMENT" && <><Button className="mt-3 w-full" variant="outline" onClick={recalculate}><RefreshCw /> Propagar geometría y recalcular</Button><Button className="mt-2 w-full" variant="outline" onClick={restore}><RotateCcw /> Volver al Final Four</Button></>}<div className="mt-4 border-t border-[#28445b] pt-3 text-xs text-[#9eb5c4]"><div className="flex justify-between"><span>Propuestas seleccionadas</span><strong className="text-[#d4ff3a]">{selected.length} / {state.stage === "DESIGN_EXPLORER_16" ? 4 : 1}</strong></div><div className="mt-2 flex items-center gap-2"><ShieldCheck className="size-4 text-[#d4ff3a]" />Sin ganador automático</div></div></Card><Card className="border-[#28445b] bg-[#0b2031] p-4"><div className="text-xs uppercase tracking-[.18em] text-[#d4ff3a]">Historial</div><div className="mt-3 space-y-2 text-xs text-[#9eb5c4]">{state.events.slice(-5).map((event) => <div key={event.eventId} className="border-l border-[#d4ff3a]/50 pl-2"><div className="text-[#d7e8f2]">{event.type}</div><div>{"candidateIds" in event ? event.candidateIds.join(", ") : event.selectedCandidateIds.join(", ")}</div></div>)}</div></Card></aside></section><footer className="mx-auto mt-5 flex max-w-[1500px] items-center gap-2 text-xs text-[#718b9a]"><ArrowLeft className="size-3" />Los costos son estimaciones trazables; no sustituyen expediente, cotización, cálculo ni firma profesional.</footer></main>;
 }
