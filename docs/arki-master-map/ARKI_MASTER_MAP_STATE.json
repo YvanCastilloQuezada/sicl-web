@@ -771,6 +771,22 @@
       "topology_role_change": "5 HIGH / 1 MEDIUM / 4 NO_MATCH",
       "fail_closed": "REQUIRED"
     },
-    "next": "DELTA-005 Phase 2: provenance + architectural role + split/merge lineage"
+    "next": "DELTA-005 Phase 2: provenance + architectural role + split/merge lineage",
+    "phase2": {
+      "status": "EXECUTED_PASS_WITH_EXPECTED_AMBIGUITY",
+      "evidence_commit": "dac4f570bbabadb57a255e5c4b570def45cfe02c",
+      "parametric_role_continuity": "6 PRESERVE",
+      "boolean_lineage_continuity": "6 PRESERVE / 4 AMBIGUOUS",
+      "feature_add": "6 predecessor faces PRESERVE; 5 new topology faces",
+      "feature_delete": "6 PRESERVE / 5 DELETED_OR_NO_MATCH",
+      "role_change_guard": "6 PRESERVE / 4 DELETED_OR_NO_MATCH",
+      "policies": [
+        "explicit lineage required for SPLIT/MERGE",
+        "AMBIGUOUS fails closed",
+        "semantic identity ARKI-owned",
+        "event vocabulary frozen provisionally"
+      ],
+      "next": "Phase 3 explicit lineage graph + concrete 1->N / N->1 tests"
+    }
   }
 }
