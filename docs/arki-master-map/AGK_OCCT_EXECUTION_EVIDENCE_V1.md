@@ -381,3 +381,39 @@ The target for ARKI is deliberately stronger than returning opaque numeric handl
 **Disposition remains:** `SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER (provisional)`.
 
 **Next exact action:** T7-B3 industrial constraint-semantics comparison (T715), followed by branch-continuity and richer conflict-set probes before any runtime dependency decision.
+
+
+## 16. T7-B3.1R / T7-B3.2 / T7-B3.3 — libslvs constraint semantics
+
+**Status: EXECUTED / T715 SUBSTANTIALLY DEMONSTRATED IN TESTED SCOPE.**
+
+Local oracle evidence now demonstrates the following real constraint semantics: points coincident, point-point distance, equal line lengths, parallel, perpendicular, angle, horizontal in a real workplane, vertical in a real workplane, arc-line tangency, and curve-curve tangency. The earlier FREE_IN_3D horizontal/vertical assertion was a harness-context defect, not a solver defect.
+
+T7-B3.3 execution:
+- `ARC_LINE_TANGENT` — PASS, result=0, dof=6, failed=0;
+- `CURVE_CURVE_TANGENT` — PASS, result=0, dof=7, failed=0;
+- process exit — 0;
+- AGK modified — NO;
+- SolveSpace source modified — NO;
+- GPL code copied into ARKI — NO;
+- libslvs role — ORACLE_ONLY.
+
+This demonstrates solver acceptance of the tested tangency relations. Production industrial-sketch completeness is still not established.
+
+## 17. T7-B4 — Conflict and redundancy behavior
+
+**Status: EXECUTED / CONFLICT LOCALIZATION BEHAVIOR DEMONSTRATED, MINIMALITY NOT PROVEN.**
+
+Observed oracle behavior:
+- single contradiction: result=1, failed handle `2`;
+- two independent contradictions: result=1, failed handles `2,4`;
+- compatible redundant constraints: result=4, failed handles `1,2`;
+- redundant plus contradiction: result=1, failed handle `3`.
+
+The evidence is stronger than T7-B2: libslvs can distinguish the tested inconsistent/redundant systems and return useful problematic handles. However, `failed[]` must not yet be described as a mathematically minimal conflict set. T713 therefore remains PARTIAL, now with richer localization evidence.
+
+**AGK-DELTA-004.1 remains provisional.** ARKI's target remains stronger than the oracle: conflict candidates must be mapped to architectural intent, explained semantically, and paired with repair options before decision.
+
+**Disposition:** `SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER`. No runtime admission decision has been made.
+
+**Next exact action:** T7-B5 branch/solution continuity, T7-B6 identity separation, then T7-B7 scale/performance comparison.
