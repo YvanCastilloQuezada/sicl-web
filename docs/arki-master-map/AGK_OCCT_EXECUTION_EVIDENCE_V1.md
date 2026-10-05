@@ -585,3 +585,20 @@ Boundary: this is deterministic in-process optimistic-concurrency evidence, not 
 Harness/link discovery evidence: `GProp_GProps` exports were located in `TKGeomBase.dll`; `BRepGProp::VolumeProperties` exports were located in `TKTopAlgo.dll`. Earlier attempts were NOT_EXECUTED harness/link/workdir failures and are not geometry failures. Final successful link included `TKGeomBase.lib` and explicitly placed the object/executable under `C:\\ARKI\\labs\\delta005-p9`.
 
 Boundary: P9 demonstrates a real native OCCT producer emitting an ARKI-compatible evidence envelope; it does not yet prove end-to-end machine ingestion of that native envelope by the TypeScript naming service. Next ordered gate: **P10 adversarial / stress / regression**, followed by freeze-readiness review without inflating claims.
+
+
+## 34. AGK-DELTA-005 P10 adversarial / stress / regression
+
+**Status: PASS.** Windows-native verification at HEAD `c8c7a2428a4bcf1056bc3ca7a368bd1c07c86622`: targeted P10 executed **25/25 PASS** (1/1 file, exit 0, 716 ms). The complete DELTA-005 regression then executed **88/88 PASS** across 8/8 files (exit 0, 821 ms).
+
+P10 exercised trusted/tampered AGK evidence envelopes, authority/schema/revision/input rejection, confidence and competing-candidate fail-closed behavior, PRESERVE/SPLIT/MERGE/NEW/DELETED semantics, a 1,000-record transaction, deterministic 1,000-record persistence replay, 100 consecutive replay cycles, tampered sequence and ambiguous-decision rejection, a stale competing 100-record writer with zero partial publication, rollback after 500 staged records, geometric perturbation and rigid-coordinate evidence without semantic-ID promotion, 100-entry operation-history provenance, and the rule that trusted OCCT evidence with weak naming confidence still fails closed.
+
+Regression composition: geometry-envelope 5 + naming 7 + concurrency 12 + ledger 5 + ordered hardening 12 + P10 25 + persistence 12 + transaction 10 = **88 tests**.
+
+### Freeze-readiness review
+
+**Verdict: DELTA-005 minimal service contract is READY_FOR_FREEZE at its demonstrated boundary, but production persistent naming as a whole is NOT claimed complete.** The campaign demonstrates an ARKI-owned semantic naming decision layer, explicit lineage vocabulary, confidence/ambiguity fail-closed behavior, append-only ledger invariants, transaction/rollback semantics, deterministic serialization/replay, in-process optimistic stale-writer protection, typed AGK/OCCT authority envelopes, real native OCCT geometry evidence production (P9), and adversarial/stress regression (P10).
+
+Known boundaries that remain outside this freeze and therefore must not be silently promoted: (1) P9 native envelope text was not machine-ingested end-to-end by the TypeScript service; (2) durable filesystem/database persistence and crash recovery are not demonstrated; (3) multi-process/database/distributed concurrency is not demonstrated; (4) industrial-scale long-duration performance is not demonstrated; (5) semantic correctness still depends on ARKI provenance/role/operation context and must never fall back to raw BRep indices, transient handles, world coordinates, or geometry-only identity.
+
+Freeze scope: **AGK-DELTA-005 MINIMAL PERSISTENT NAMING / SEMANTIC IDENTITY CONTRACT V1 — VERIFIED / READY_FOR_FREEZE.** Further hardening belongs to later integration/production gates and must preserve this contract unless new counterevidence justifies a versioned change.
