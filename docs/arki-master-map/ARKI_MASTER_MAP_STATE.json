@@ -799,6 +799,23 @@
       "merge_n_to_1": "NOT_DEMONSTRATED_parents_1",
       "classification": "TEST_SPECIMEN_INSUFFICIENT_NOT_OCCT_LIMITATION",
       "next": "Phase 3R true split/merge specimen + OCCT operation history"
+    },
+    "phase3r": {
+      "status": "PARTIAL_SPLIT_PASS_MERGE_OPEN",
+      "evidence_commit": "ef26bb4be9899ec4153431ce5873bd2eaefb1dd4",
+      "process_exit": 3,
+      "split_status": "DEMONSTRATED_1_TO_N",
+      "split_children": 2,
+      "split_source_area": 280,
+      "split_descendant_area": 252,
+      "split_expected_area": 252,
+      "occt_modified": 2,
+      "occt_generated": 2,
+      "merge_status": "NOT_DEMONSTRATED_N_TO_1",
+      "merge_top_faces": 4,
+      "merge_recovered_area": 268,
+      "merge_expected_area": 280,
+      "next": "Phase 3M dedicated true N-to-1 merge specimen"
     }
   }
 }
