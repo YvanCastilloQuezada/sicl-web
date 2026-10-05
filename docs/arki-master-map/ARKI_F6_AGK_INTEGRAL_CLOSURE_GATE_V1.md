@@ -73,3 +73,38 @@ F6 may close only if:
 3. Run a focused F6 regression/gate only for unresolved closure claims; do not repeat already-proven campaigns without cause.
 4. Issue F6 GO / NO-GO.
 5. If GO: freeze constituent contracts, update Master Map, then move to F7 Professional Technical Development.
+
+
+## 8. Reconciliation decision — DELTA-003 / DELTA-004 / runtime boundaries
+
+### DELTA-003 — Parametric Transaction Contract
+
+**Disposition: FREEZE_CANDIDATE / F6-SCOPE.** T5 executed 14/14 PASS and demonstrated deterministic regeneration, dirty/dependency propagation, semantic validation before mutation, dependent boolean regeneration, rejected-edit preservation, return-to-origin repeatability and a 27/27 architectural family. This is sufficient for the F6 contract it actually claims. It does not claim a geometric-constraint solver. No additional discovery test is required to close this bounded contract.
+
+### DELTA-004 — Constraint Solver Capability
+
+**Disposition: BOUNDED_INTERNAL_CAPABILITY + KEEP_ORACLE; NOT A HARD F6 PRODUCTION-SOLVER GATE.** T6 demonstrated ARKI's own bounded constraint-math capability (14/14 harness assertions). T7 then demonstrated stress behavior, real libslvs semantics, conflict/problematic-handle diagnostics, branch continuity evidence, solver-handle continuity and local chain scale through 1000 segments / 2000 constraints. The evidence does not justify embedding GPL libslvs as an AGK runtime backend, and F6 does not need to claim a production industrial sketch solver in order to close the canonical geometry spine. Production-grade solver expansion remains a later versioned capability gate above the OCCT body.
+
+Subcontracts 004.1 conflict diagnosis and 004.2 solution intent/branch continuity remain evidence-supported bounded contracts. Minimal-conflict-set optimality, general branch-selection policy and complete industrial sketch semantics are not claimed.
+
+### DELTA-005 — Persistent Naming
+
+**Disposition: VERIFIED_FREEZE_CANDIDATE pending final whole-F6 GO.** P5-P10 evidence is sufficient for its minimal contract. It must not be expanded to absorb infrastructure responsibilities.
+
+### Architectural ownership of remaining integration items
+
+| Item | Ownership classification | F6 blocker? |
+|---|---|---|
+| native OCCT evidence -> TypeScript machine ingestion | runtime/integration adapter | NO for geometry-spine closure; required before claiming packaged end-to-end naming runtime |
+| durable filesystem/database persistence + crash recovery | Project State / runtime infrastructure | NO |
+| multi-process/database/distributed concurrency | runtime infrastructure / deployment | NO |
+| long-duration industrial performance | production qualification | NO for bounded F6; YES before corresponding production-scale claim |
+| semantic explanation/repair of constraint conflicts | Architectural Intelligence above solver | NO |
+
+These classifications do not waive the work. They prevent unrelated runtime/infrastructure concerns from being mislabeled as defects in the geometry kernel boundary.
+
+## 9. Current F6 closure audit result
+
+**Preliminary verdict: GO_PENDING_FINAL_GATE.** No currently recorded reproducible correctable defect has been found inside the bounded F6 capability claims. The remaining items are either explicit numerical/semantic limits, deliberately unclaimed production capabilities, or responsibilities of later integration/infrastructure layers.
+
+Before issuing final GO, run one focused repository regression covering the actual AGK/DELTA service tests available on this branch plus TypeScript/build integrity. Do not rerun the entire native discovery history unless that regression exposes counterevidence.
