@@ -4,6 +4,7 @@ import {
   HeartHandshake, Lightbulb, Network, Search, ShieldCheck, Sparkles, Trophy,
 } from "lucide-react";
 import { organismNodes, commandCenterPhases, statusClass, type CommandCenterNode } from "@shared/arkiCommandCenterMap";
+import { Link } from "wouter";
 
 type MainTab = "OVERVIEW" | "KNOWLEDGE" | "SYSTEM" | "PHASES" | "IDEAS" | "EVOLUTION";
 
@@ -32,6 +33,24 @@ const knowledgeFlow = [
   ["05", "APRENDIZAJE", "ARKI integra; recibir información no equivale a aprenderla"],
   ["06", "EXAMEN", "Evaluador independiente · transferencia · generalización · límites"],
   ["07", "COMPETENCIA", "No demostrada → implementada → verificada → E2E / gate profesional"],
+];
+
+const primarySurfaces = [
+  { href:"/", eyebrow:"PROFESSIONAL", title:"ARKI Professional", body:"Proyecto, contexto, alternativas, evidencia, evaluación y decisión en el workspace profesional.", accent:"text-[#7dd3fc]" },
+  { href:"/arki-command-center", eyebrow:"SYSTEM", title:"Command Center", body:"Cuerpo vivo de ARKI: órganos, Delta 6.2, fases, evidencia, estado y próximos gates.", accent:"text-[#d4ff3a]" },
+  { href:"/control-center", eyebrow:"AUTHORITY", title:"Director / Control", body:"Superficie de Human Authority para control, revisión, gobernanza y decisiones.", accent:"text-[#f0a35b]" },
+  { href:"/arki-design-funnel", eyebrow:"DESIGN", title:"Design Studio", body:"Exploración arquitectónica N→16→4→1 con comparación, trazabilidad y selección para desarrollo.", accent:"text-[#70e1a2]" },
+];
+
+const productionChain = [
+  ["01","SITIO","Ubicación confirmada y contexto territorial"],
+  ["02","INTELIGENCIA","Clima · solar · GIS · restricciones · UNKNOWN"],
+  ["03","BRIEF","Programa, objetivos, preferencias y restricciones"],
+  ["04","PARTI","Intención → relaciones → topología"],
+  ["05","EXPLORAR","Generación y divergencia arquitectónica"],
+  ["06","16 → 4 → 1","Comparar · evaluar · seleccionar sin borrar genealogía"],
+  ["07","AGK","Geometría canónica 3D en Local Engineering Frame"],
+  ["08","DOCUMENTAR","Planta · corte · elevación · BIM desde el mismo estado"],
 ];
 
 const watchCards = [
@@ -96,6 +115,22 @@ export default function ArkiSuperarchitectCommandCenterPage(){
     </header>
 
     <div className="mx-auto max-w-[1680px] p-4 md:p-6">
+      <section className="mb-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {primarySurfaces.map((surface)=><Link key={surface.title} href={surface.href} className="group rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4 transition hover:-translate-y-0.5 hover:border-[#d4ff3a]/70 hover:bg-[#102538]">
+          <div className={`text-[9px] font-bold tracking-[.18em] ${surface.accent}`}>{surface.eyebrow}</div>
+          <div className="mt-2 flex items-center justify-between gap-3"><h2 className="font-semibold text-[#eef6fb]">{surface.title}</h2><ChevronRight className="size-4 text-[#718b9a] transition group-hover:text-[#d4ff3a]"/></div>
+          <p className="mt-2 text-[11px] leading-5 text-[#9eb5c4]">{surface.body}</p>
+        </Link>)}
+      </section>
+
+      <section className="mb-5 rounded-[6px] border border-[#28445b] bg-[#091827] p-4">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div><div className="text-[9px] font-bold tracking-[.18em] text-[#7dd3fc]">NERVIOUS SYSTEM · SITE-FIRST</div><h2 className="mt-1 font-semibold">Cadena principal del Superarquitecto</h2></div>
+          <Link href="/arki-design-funnel" className="rounded border border-[#60731d] px-3 py-1.5 text-[10px] font-bold text-[#d4ff3a] hover:bg-[#d4ff3a]/10">ABRIR DESIGN STUDIO</Link>
+        </div>
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">{productionChain.map(([n,title,body])=><div key={n} className="rounded-[5px] border border-[#28445b] bg-[#0d1d2c] p-3"><div className="text-[9px] text-[#718b9a]">{n}</div><div className="mt-1 text-[10px] font-bold text-[#d4ff3a]">{title}</div><p className="mt-1 text-[9px] leading-4 text-[#8fa8bc]">{body}</p></div>)}</div>
+      </section>
+
       <section className="grid gap-3 xl:grid-cols-[1fr_auto]">
         <div><div className="text-[10px] uppercase tracking-[.25em] text-[#7dd3fc]">ESTADO VIVO DEL SISTEMA</div><h1 className="mt-1 text-2xl font-semibold">ARKI · Retomar exactamente donde nos quedamos</h1><p className="mt-2 max-w-4xl text-xs leading-5 text-[#8fa8bc]">Una sola superficie para ver avance, conocimiento, órganos, fases, evidencia y próximos pasos. Sin inventar verde: lo no reconciliado permanece explícito.</p></div>
         <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/10 px-4 py-3"><div className="text-[9px] tracking-[.18em] text-[#f6c995]">POSICIÓN ACTUAL DECLARADA</div><div className="mt-1 font-semibold">FASE 6 → FASE 7</div><div className="text-[10px] text-[#9eb5c4]">subfase exacta aún por reconciliar</div></div>
@@ -114,8 +149,8 @@ export default function ArkiSuperarchitectCommandCenterPage(){
           </section>
           <aside className="space-y-3">
             <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#7dd3fc]">ÚLTIMO HITO RECUPERADO</div><h3 className="mt-2 font-semibold">KR-6.2 · Gate PASS</h3><p className="mt-2 text-xs leading-5 text-[#9eb5c4]">Master histórico de conocimiento/razonamiento: 4,118 filas consolidadas, lineage v1–v6.1, conexiones runtime y UNKNOWN explícito.</p><button onClick={()=>setTab("KNOWLEDGE")} className="mt-3 flex items-center text-xs font-semibold text-[#d4ff3a]">Abrir Delta 6.2 <ChevronRight className="ml-1 size-3"/></button></div>
-            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#f0a35b]">TRABAJANDO AHORA</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Consolidación AR-LU + sistema nervioso del Superarquitecto + evolución Delta 6.2 + recuperación del frontend profesional.</p></div>
-            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#d4ff3a]">SIGUIENTE</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Reconciliar el Delta histórico con Universidad, Curator, Examiner, ACS, I+D y ruta motores→programas→scripts→capacidad; después conectar datos vivos.</p></div>
+            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#f0a35b]">TRABAJANDO AHORA</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Frontend-first: ensamblaje de Professional + Command Center + Director/Control + Design Studio. AGK continúa como soporte, no como bloqueo del frontend.</p></div>
+            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#d4ff3a]">SIGUIENTE</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Conectar el flujo SITE-FIRST con Design Studio y el estado canónico: sitio → inteligencia → brief → Parti → 16→4→1 → AGK → planta/3D/BIM.</p></div>
           </aside>
         </div>}
 

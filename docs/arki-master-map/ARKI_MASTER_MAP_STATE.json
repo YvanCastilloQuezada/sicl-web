@@ -65,25 +65,21 @@
     ]
   },
   "current_focus": {
-    "title": "Assemble the Superarchitect and its nervous system",
+    "title": "Frontend-first assembly of the ARKI Superarchitect",
     "active": [
-      "ARKI Master Map Live",
-      "Cross-repo reconciliation",
-      "ACS Stage 2/3 context",
-      "AGK integration context",
-      "Capability Lab",
-      "AI Laboratory reconciliation",
-      "LUCA / AR-LU federation reconciliation",
-      "Computational Intelligence three-fabric reconciliation",
-      "Pedagogical AI Laboratory repo verification",
-      "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
-      "AR-LU Corporation full organizational recovery and consolidation",
-      "AGK OCCT bounded execution / ARKI_KERNEL_DELTA discovery"
+      "ARKI frontend assembly",
+      "ARKI Professional",
+      "ARKI Command Center",
+      "ARKI Director / Control",
+      "ARKI Design Studio",
+      "SITE-FIRST nervous system",
+      "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "AGK OCCT benchmark through T3: T1 22/22 PASS; T2 demonstrated Local Engineering Frame need and tolerance-aware acceptance; T3 11/12 invariant PASS with sole failure the known deliberate tolerance-boundary probe, 0 unexplained failures.",
-    "next_exact_action": "Execute T4 architectural freeform/double-curvature benchmark; admit no alternate geometry backend unless a reproducible OCCT limitation earns a minimal ARKI_KERNEL_DELTA role.",
+    "last_completed": "Frontend assembly Wave 1: Command Center now exposes the four primary ARKI surfaces and the SITE-FIRST production chain.",
+    "next_exact_action": "Connect Design Studio to real site/location state and progressively replace conceptual preview placeholders with canonical site/design representations without duplicating existing engines.",
     "blockers": [
-      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
+      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
+      "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
     ]
   },
   "status_vocabulary": [
@@ -345,6 +341,49 @@
         "caution": "Historical KR-6.2 evidence and later DELTA-6.2-FEDERATED-KNOWLEDGE artifacts require reconciliation into one canonical evolved contract; do not silently collapse distinct historical artifacts."
       },
       "frontend_surface": "/arki-command-center → DELTA 6.2 tab"
+    },
+    "frontend_first_assembly": {
+      "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
+      "status": "IMPLEMENTED_WAVE_1",
+      "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
+      "surfaces": [
+        {
+          "name": "ARKI Professional",
+          "route": "/",
+          "role": "professional project workspace"
+        },
+        {
+          "name": "ARKI Command Center",
+          "route": "/arki-command-center",
+          "role": "organism/body-map and system status"
+        },
+        {
+          "name": "ARKI Director / Control",
+          "route": "/control-center",
+          "role": "Human Authority/control/governance"
+        },
+        {
+          "name": "ARKI Design Studio",
+          "route": "/arki-design-funnel",
+          "role": "architectural exploration and N→16→4→1"
+        }
+      ],
+      "site_first_chain": [
+        "SITE",
+        "SITE_INTELLIGENCE",
+        "BRIEF_PROGRAM",
+        "PARTI",
+        "EXPLORE",
+        "N_TO_16_TO_4_TO_1",
+        "AGK_CANONICAL_3D",
+        "PLAN_SECTION_ELEVATION_BIM"
+      ],
+      "guardrails": [
+        "Reuse existing frontend modules instead of creating competing brains.",
+        "Preserve DeepSeek visual identity/palette.",
+        "Site Intelligence claims remain evidence-bounded until current runtime E2E is revalidated.",
+        "Canonical 2D/3D/BIM representations must converge on one project/geometric state."
+      ]
     }
   },
   "canonical_principles": {
