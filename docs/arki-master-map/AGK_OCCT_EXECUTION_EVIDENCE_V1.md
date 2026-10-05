@@ -569,3 +569,10 @@ Boundary: unit/service transaction atomicity is demonstrated; durable persistenc
 **Status: PASS.** Windows-native execution at HEAD `46daeb3da039c8c985541785b6c11512f4cd43ef`: `server/arkiPersistentNamingPersistence.test.ts` executed 12/12 tests PASS; 1/1 test file PASS; Vitest exit 0; duration 643 ms. Demonstrated at the tested service boundary: canonical schema serialization, one/multi-record round-trip, deterministic replay, preservation of evidence payload, and fail-closed rejection of malformed JSON, wrong/missing schema, sequence gaps, duplicate record IDs, ambiguous decisions and blank record identity.
 
 Boundary: in-memory serialization/replay contract is demonstrated. Durable filesystem/database crash recovery is not yet claimed. Next ordered gate: **P8 concurrency / stale-writer protection**.
+
+
+## 32. AGK-DELTA-005 P8 concurrency / stale-writer protection
+
+**Status: PASS.** Windows-native execution at HEAD `d43aa0c09cb571af932e287c7fbbad0e3d474da3`: `server/arkiPersistentNamingConcurrency.test.ts` executed 12/12 tests PASS; 1/1 test file PASS; Vitest exit 0; duration 634 ms. Demonstrated at the tested in-process service boundary: shared-base readers, first-writer commit, stale-writer rejection, no stale overwrite, retry from fresh base, duplicate-ID rejection across managers, no partial publication from failed stale batches, contiguous batch commit, competing semantic edit protection, independent rollback, local overlapping-transaction rejection, and deterministic order after conflict/retry.
+
+Boundary: this is deterministic in-process optimistic-concurrency evidence, not yet multi-process/database/distributed concurrency. Next ordered gate: **P9 real OCCT/AGK geometry evidence integration**; mocks are not sufficient for that gate.
