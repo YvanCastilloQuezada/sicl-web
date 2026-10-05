@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 5: SECTION and ELEVATION are now deterministically derived from the same SpatialRepresentation used by PLAN/3D, with explicit representation_id/input_fingerprint provenance and focused regression tests.",
-    "next_exact_action": "Run/repair CI and runtime visual verification for PR #45; then connect selected winner to canonical development/BIM handoff and remove remaining conceptual-only discontinuities.",
+    "last_completed": "Frontend Wave 6: Design Studio is mounted inside the ARKI Professional BIM shell. The approved anatomy is now present in the real workflow: PROJECT TREE | DIGITAL WORLD | ARKI INTELLIGENCE with bottom 4D/5D/Energy/Carbon/Scenarios/Operations tray.",
+    "next_exact_action": "Move candidate inspector, evidence/unknowns and cost state into the BIM shell contextual slots; reduce duplicated in-canvas panels; then run CI and runtime visual verification at desktop workstation dimensions.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -344,7 +344,7 @@
     },
     "frontend_first_assembly": {
       "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
-      "status": "IMPLEMENTED_WAVE_5_PENDING_CI",
+      "status": "IMPLEMENTED_WAVE_6_PENDING_CI",
       "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
       "surfaces": [
         {
@@ -407,6 +407,49 @@
           "input_fingerprint",
           "stable spatial element ids"
         ]
+      },
+      "professional_bim_shell": {
+        "status": "IMPLEMENTED_INITIAL",
+        "anatomy": [
+          "PROJECT TREE",
+          "DIGITAL WORLD",
+          "ARKI INTELLIGENCE",
+          "BOTTOM MULTIDIMENSION TRAY"
+        ],
+        "left_hierarchy": [
+          "PORTFOLIO",
+          "PROJECT",
+          "SITE",
+          "BUILDING",
+          "SYSTEMS",
+          "SPACES",
+          "OBJECTS/COMPONENTS"
+        ],
+        "right_tabs": [
+          "Properties",
+          "Relationships",
+          "Evidence",
+          "Unknowns",
+          "Reasoning",
+          "Alternatives",
+          "Simulation",
+          "Coordination"
+        ],
+        "bottom_dimensions": [
+          "4D Time",
+          "5D Cost",
+          "Energy",
+          "Carbon",
+          "Scenarios",
+          "Operations"
+        ],
+        "governance": [
+          "PREVIEW != DECISION",
+          "AI PROPOSAL != CANONICAL MUTATION",
+          "Human Authority remains explicit"
+        ],
+        "design_studio": "mounted inside DIGITAL WORLD",
+        "next": "bind live selected-candidate context to intelligence and multidimension panels"
       }
     }
   },
