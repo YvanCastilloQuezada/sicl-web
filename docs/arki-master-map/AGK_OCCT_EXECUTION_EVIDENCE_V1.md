@@ -504,3 +504,16 @@ Two adjacent semantic predecessor solids each exposed one coplanar roof face; to
 Negative control also passed: a 0.01 gap retained two top faces and no silent merge. This supports fail-closed behavior and shows same-domain normalization is geometric evidence, not semantic identity authority.
 
 Combined with Phase 3R, Delta-005 discovery now has concrete tested evidence for both 1-to-N SPLIT and N-to-1 MERGE. This closes the specific split/merge discovery gap. Next gate: Phase 4 adversarial identity campaign and production contract. Do not yet claim production persistent naming is solved.
+
+
+## 25. AGK-DELTA-005 Phase 4 — adversarial identity contract campaign
+
+**Status: PASS (12/12), process exit 0.** Configure/build/run succeeded. AGK product unchanged; no second kernel.
+
+Passed cases: exact regeneration; symmetry ambiguity guard; rigid-transform identity guard; true SPLIT; true MERGE; near-gap negative control; DELETE; ADD/NEW; BRep index/transient-handle non-authority; confidence/ambiguity fail-closed gate; complete event model; explicit production boundary.
+
+The evidence supports freezing the Delta-005 production contract candidate as: `SEMANTIC_ID + FEATURE_PROVENANCE + ROLE_CONTEXT + OP_HISTORY + GEOM_TOPO_EVIDENCE -> CANDIDATES -> CONFIDENCE/AMBIGUITY -> EVENT -> ACCEPT OR FAIL_CLOSED`.
+
+Event model: `PRESERVE, REMAP, SPLIT, MERGE, NEW, DELETED, AMBIGUOUS`. Semantic identity remains ARKI-owned. OCCT/BRep provides canonical geometry and operation/history evidence but BRep enumeration, transient handles and world-coordinate signatures are not semantic identity authorities.
+
+**Boundary:** this closes the discovery/contract-evidence campaign; it does not demonstrate a production persistent-naming service. Next is contract freeze followed by the minimal ARKI-owned naming/identity service implementation and its own tests.
