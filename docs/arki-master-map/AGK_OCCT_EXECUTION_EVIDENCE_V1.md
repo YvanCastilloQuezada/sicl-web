@@ -517,3 +517,12 @@ The evidence supports freezing the Delta-005 production contract candidate as: `
 Event model: `PRESERVE, REMAP, SPLIT, MERGE, NEW, DELETED, AMBIGUOUS`. Semantic identity remains ARKI-owned. OCCT/BRep provides canonical geometry and operation/history evidence but BRep enumeration, transient handles and world-coordinate signatures are not semantic identity authorities.
 
 **Boundary:** this closes the discovery/contract-evidence campaign; it does not demonstrate a production persistent-naming service. Next is contract freeze followed by the minimal ARKI-owned naming/identity service implementation and its own tests.
+
+
+## 26. AGK-DELTA-005 minimal ARKI Naming Service — first executable verification
+
+**Status: PASS.** Windows-native verification at branch HEAD `0218103f6ea7eac16d96ab00a49ea719a793f4ab`: Vitest executed `server/arkiPersistentNaming.test.ts`; 1 test file passed, 7/7 tests passed, exit 0. Duration 639 ms.
+
+Verified behaviors: unique high-confidence PRESERVE; symmetric competing candidates fail closed as AMBIGUOUS; explicit SPLIT; explicit MERGE; NEW; DELETED; low-confidence evidence does not become authority. The earlier `shared/` test-discovery failure was a harness/configuration placement defect, corrected by placing the executable suite under the repository's configured `server/**/*.test.ts` scope.
+
+Boundary: this verifies the minimal TypeScript decision service against its unit contract. It does not yet prove end-to-end OCCT/BRep integration, persistence across sessions, concurrent edit behavior, or production readiness. Next: integrate an evidence adapter/ledger boundary and test committed naming decisions without granting TypeScript or the web layer geometry authority.
