@@ -129,3 +129,41 @@ export function evidenceFromAgkEnvelope(e: AgkGeometryEvidenceEnvelope): NamingE
     topologySignature:e.topologySignatures?.join("|"),
   };
 }
+
+
+export interface NamingTransaction {
+  transactionId: string;
+  baseSequence: number;
+  staged: readonly NamingLedgerRecord[];
+  state: "OPEN" | "COMMITTED" | "ROLLED_BACK";
+}
+
+export class ArkiNamingTransactionManager {
+  private tx?: NamingTransaction;
+  constructor(private readonly ledger: ArkiNamingLedger) {}
+  begin(transactionId:string): NamingTransaction {
+    if(this.tx?.state==="OPEN") throw new Error("ARKI_NAMING_TRANSACTION_ALREADY_OPEN");
+    this.tx={transactionId,baseSequence:this.ledger.snapshot().length,staged:[],state:"OPEN"}; return this.tx;
+  }
+  stage(record:NamingLedgerRecord): void {
+    if(!this.tx || this.tx.state!=="OPEN") throw new Error("ARKI_NAMING_NO_OPEN_TRANSACTION");
+    assertNamingCommitAllowed(record.decision);
+    if(this.tx.staged.some(r=>r.recordId===record.recordId)) throw new Error("ARKI_NAMING_DUPLICATE_RECORD");
+    this.tx={...this.tx,staged:[...this.tx.staged,record]};
+  }
+  commit(): readonly NamingLedgerRecord[] {
+    if(!this.tx || this.tx.state!=="OPEN") throw new Error("ARKI_NAMING_NO_OPEN_TRANSACTION");
+    const expected=this.ledger.snapshot().length+1;
+    if(this.tx.baseSequence!==this.ledger.snapshot().length) throw new Error("ARKI_NAMING_TRANSACTION_STALE_BASE");
+    this.tx.staged.forEach((r,i)=>{if(r.sequence!==expected+i) throw new Error("ARKI_NAMING_SEQUENCE_VIOLATION")});
+    const staged=this.tx.staged;
+    for(const r of staged) this.ledger.append(r);
+    this.tx={...this.tx,state:"COMMITTED"};
+    return staged;
+  }
+  rollback(): void {
+    if(!this.tx || this.tx.state!=="OPEN") throw new Error("ARKI_NAMING_NO_OPEN_TRANSACTION");
+    this.tx={...this.tx,staged:[],state:"ROLLED_BACK"};
+  }
+  current(): NamingTransaction|undefined { return this.tx ? {...this.tx,staged:[...this.tx.staged]} : undefined; }
+}
