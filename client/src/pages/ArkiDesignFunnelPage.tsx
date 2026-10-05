@@ -232,7 +232,7 @@ export default function ArkiDesignFunnelPage() {
     {siteError && <div className="mt-2 text-[10px] text-[#f5aa56]">Core/site no disponible: {siteError}. No se fabrica contexto del sitio.</div>}
   </div>
   <LocationPicker projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing) setSiteMissing(missing); const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />
-  {siteLocation && <div className="mt-4"><SolarTemporalOverlay selectedAlternativeId={activeId} onAnalysisChange={setSolarAnalysis} /></div>}
+  {siteLocation && <div className="mt-4"><SolarTemporalOverlay projectId={brief.projectId} selectedAlternativeId={activeId} onAnalysisChange={setSolarAnalysis} /></div>}
   {siteLocation && <div className="mt-3 grid gap-2 md:grid-cols-4">{[
     ["LOCATION", siteLocation.status || "CONFIRMED", siteLocation.provenance || "UNKNOWN"],
     ["SOLAR", solarAnalysis ? "OBSERVED" : "UNKNOWN", solarAnalysis ? `${solarAnalysis.selected_date} · ${solarAnalysis.selected_time}` : "Sin análisis disponible"],
