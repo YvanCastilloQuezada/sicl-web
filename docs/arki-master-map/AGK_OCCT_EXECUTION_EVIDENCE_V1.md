@@ -544,3 +544,12 @@ Boundary: this is executable TypeScript service/ledger verification, not yet OCC
 The accumulated executable suite now verifies naming decisions, append-only ledger gates, and the typed `ARKI_AGK_GEOMETRY_EVIDENCE_V1` authority boundary. The naming layer consumes validated AGK/OCCT evidence but does not become geometry authority.
 
 Product-owner direction after this result: increase test density in an ordered progression rather than adding isolated cases. Next campaign is ordered P5: schema/provenance -> confidence thresholds -> lineage events -> ledger invariants -> replay/determinism -> adversarial/tamper -> transaction/concurrency boundaries.
+
+
+## 29. AGK-DELTA-005 P5 ordered hardening + repository regression
+
+**Status: PASS.** Windows-native execution at HEAD `fc4c2858a36aa89fcaa734e67e41962fac0cf1bd`: 24 test files passed; 146/146 tests passed; exit 0; duration 8.39 s. The four DELTA-005 suites all executed: 7 naming contract + 5 ledger + 5 AGK evidence-envelope + 12 ordered-hardening = 29/29 DELTA-005 tests PASS.
+
+Incidental stderr observations from jsdom/chart rendering (`HTMLCanvasElement.getContext` unavailable without canvas package; zero-size chart warnings) did not fail tests and are not classified as DELTA-005 defects. The V1/V2 P5 runner attempts are recorded as test-filter harness defects / NOT_EXECUTED, superseded by this successful V3 execution.
+
+Next ordered gate: P6 transaction/rollback atomicity. No production-readiness claim yet.
