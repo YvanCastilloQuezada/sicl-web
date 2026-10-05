@@ -526,3 +526,12 @@ Event model: `PRESERVE, REMAP, SPLIT, MERGE, NEW, DELETED, AMBIGUOUS`. Semantic 
 Verified behaviors: unique high-confidence PRESERVE; symmetric competing candidates fail closed as AMBIGUOUS; explicit SPLIT; explicit MERGE; NEW; DELETED; low-confidence evidence does not become authority. The earlier `shared/` test-discovery failure was a harness/configuration placement defect, corrected by placing the executable suite under the repository's configured `server/**/*.test.ts` scope.
 
 Boundary: this verifies the minimal TypeScript decision service against its unit contract. It does not yet prove end-to-end OCCT/BRep integration, persistence across sessions, concurrent edit behavior, or production readiness. Next: integrate an evidence adapter/ledger boundary and test committed naming decisions without granting TypeScript or the web layer geometry authority.
+
+
+## 27. AGK-DELTA-005 Naming Service + append-only ledger integration verification
+
+**Status: PASS.** Windows-native verification at HEAD `694b8b2671f6569d7d76a2b3846e208555dcd300`: 2 Vitest files passed; 12/12 tests passed; exit 0; duration 628 ms.
+
+The verified scope combines the seven naming-decision contract tests with five ledger integration gates: accepted decisions are recorded with evidence; AMBIGUOUS decisions are rejected fail-closed; duplicate record IDs are rejected; sequence gaps are rejected; snapshots expose an immutable boundary.
+
+Boundary: this is executable TypeScript service/ledger verification, not yet OCCT/BRep end-to-end evidence ingestion or durable on-disk persistence. Next is a typed AGK evidence-envelope adapter that accepts geometry evidence produced by the canonical AGK/OCCT side, validates provenance, and feeds the ARKI-owned naming decision layer without granting the web layer geometry authority.
