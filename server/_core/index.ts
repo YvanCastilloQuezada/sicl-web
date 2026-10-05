@@ -112,7 +112,7 @@ async function startServer() {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
   }
 
-  server.listen(port, () => {
+  server.listen(port, "127.0.0.1", () => {
     attachParametricWebSocket(server);
     console.log(`Server running on http://localhost:${port}/`);
   });
