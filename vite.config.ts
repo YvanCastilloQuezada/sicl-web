@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
-import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -160,8 +159,7 @@ function vitePluginManusDebugCollector(): Plugin {
 const plugins = [
   ...(process.env.NODE_ENV !== "development" ? [react()] : []),
   tailwindcss(),
-  vitePluginManusRuntime(),
-  vitePluginManusDebugCollector(),
+  ...(process.env.ARKI_ENABLE_MANUS_RUNTIME === "1" ? [vitePluginManusDebugCollector()] : []),
 ];
 
 export default defineConfig({
@@ -181,7 +179,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: true,
+    host: "127.0.0.1",
     // The Manus preview proxy cannot execute Vite's virtual React Refresh
     // module; disabling HMR keeps normal ESM bootstrap and production intact.
     hmr: false,
