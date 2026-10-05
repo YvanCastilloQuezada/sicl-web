@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend assembly Wave 1: Command Center now exposes the four primary ARKI surfaces and the SITE-FIRST production chain.",
-    "next_exact_action": "Connect Design Studio to real site/location state and progressively replace conceptual preview placeholders with canonical site/design representations without duplicating existing engines.",
+    "last_completed": "AGK discovery persisted through T7-B1: T4 12/12, T5 14/14, T6 bounded constraint prototype, T7-A stress/gap discovery, and isolated libslvs oracle build PASS with no AGK integration.",
+    "next_exact_action": "T7-B2 comparative execution against locally built libslvs: T713 conflict localization, T715 sketch semantics, T709 branch continuity, DOF/redundancy and incremental editing",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -219,7 +219,12 @@
         "advanced_canary": "PASS_16_OF_16",
         "torture_t1": "PASS_22_OF_22",
         "t2_coordinate_tolerance": "EXECUTED_BOUNDARIES_FOUND_AND_CLASSIFIED",
-        "t3_degeneracy_surface": "EXECUTED_11_INVARIANT_PASS_1_KNOWN_TOLERANCE_BOUNDARY_0_UNEXPLAINED"
+        "t3_degeneracy_surface": "EXECUTED_11_INVARIANT_PASS_1_KNOWN_TOLERANCE_BOUNDARY_0_UNEXPLAINED",
+        "t4_architectural_freeform": "PASS_12_OF_12_WITH_BOUNDED_INTERPRETATION",
+        "t5_parametric_editability": "PASS_14_OF_14",
+        "t6_constraint_math": "PASS_14_OF_14_HARNESS_ASSERTIONS_PRODUCTION_SOLVER_NOT_DEMONSTRATED",
+        "t7a_solver_stress": "EXECUTED_11_PASS_0_FAIL_1_OBSERVATION_3_EXPLICIT_GAPS",
+        "t7b1_libslvs_oracle_build": "PASS_CONFIGURE_AND_BUILD_ORACLE_ONLY"
       },
       "demonstrated_delta_policies": [
         {
@@ -231,15 +236,44 @@
           "id": "AGK-DELTA-002",
           "name": "Geometric Acceptance Contract",
           "status": "DEMONSTRATED_NEED_POLICY_CANDIDATE"
+        },
+        {
+          "id": "AGK-DELTA-003",
+          "name": "Parametric Transaction Contract",
+          "status": "PROVISIONAL_EVIDENCE_SUPPORTED"
+        },
+        {
+          "id": "AGK-DELTA-004",
+          "name": "Constraint Solver Capability",
+          "status": "SPECIALIZED_DELTA_CANDIDATE"
         }
       ],
       "guardrails": [
         "Whole AGK is not yet VERIFIED/FROZEN as a production integration",
         "ARKI_KERNEL_DELTA is not finalized",
         "Observed numeric thresholds are benchmark-specific, not universal constants",
-        "Do not add CGAL/Manifold/OpenVDB/libfive/PicoGK/SolveSpace/Topologic without reproducible OCCT limitation evidence"
+        "OCCT remains the sole canonical BRep geometry body at this checkpoint",
+        "Constraint solving is a specialized layer above OCCT, not a second geometry authority",
+        "SolveSpace/libslvs is oracle/research evidence only; no AGK runtime integration is approved",
+        "OWN CAPABILITY FIRST / EXTERNAL ENGINE WHEN NECESSARY"
       ],
-      "next": "T4 architectural freeform/double-curvature benchmark"
+      "next": "T7-B2 comparative execution against locally built libslvs: T713 conflict localization, T715 sketch semantics, T709 branch continuity, DOF/redundancy and incremental editing",
+      "constraint_solver_discovery": {
+        "own_solver": "EXPERIMENTAL_BOUNDED_CAPABILITY",
+        "t7a_gaps": [
+          "T713 minimal conflict localization",
+          "T714 stable geometric entity identity across solve/regeneration",
+          "T715 industrial sketch constraint semantics"
+        ],
+        "solution_intent": "T709 demonstrates branch sensitivity; production contract must preserve solution/branch intent",
+        "solvespace_libslvs": {
+          "disposition": "KEEP_ORACLE_RESEARCH_MASTER_PROVISIONAL",
+          "upstream_head": "581f4cbf5617bf32ba5856e93ee06a25842128fd",
+          "local_build": "PASS",
+          "runtime_integration": "NONE",
+          "license_boundary": "GPL; no proprietary code copying or runtime admission without explicit architecture/legal decision"
+        }
+      }
     }
   },
   "architectural_decisions": {
