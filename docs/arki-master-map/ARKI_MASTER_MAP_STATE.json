@@ -787,6 +787,18 @@
         "event vocabulary frozen provisionally"
       ],
       "next": "Phase 3 explicit lineage graph + concrete 1->N / N->1 tests"
+    },
+    "phase3": {
+      "status": "PARTIAL_TRUE_SPLIT_MERGE_NOT_DEMONSTRATED",
+      "evidence_commit": "e46555e8d06cda75511ccd7fa5d33ecbfe5757d3",
+      "graph": "EXECUTED",
+      "continuity": "6/6 predecessor faces covered; 6/11 successor faces covered",
+      "new_event": "5 detected",
+      "deleted_event": "5 detected",
+      "split_1_to_n": "NOT_DEMONSTRATED_children_1",
+      "merge_n_to_1": "NOT_DEMONSTRATED_parents_1",
+      "classification": "TEST_SPECIMEN_INSUFFICIENT_NOT_OCCT_LIMITATION",
+      "next": "Phase 3R true split/merge specimen + OCCT operation history"
     }
   }
 }
