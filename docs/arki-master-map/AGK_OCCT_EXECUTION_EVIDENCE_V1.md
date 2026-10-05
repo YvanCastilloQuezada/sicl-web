@@ -434,3 +434,18 @@ AGK-DELTA-004.2 Solution Intent / Branch Continuity is supported as a provisiona
 Disposition remains: SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER; no production runtime admission; no GPL code copied into ARKI. No evidence requires a second geometry kernel.
 
 Next exact action: freeze evidence-supported portions of AGK-DELTA-003/004/004.1/004.2, keep T714 open as a separate topology-identity delta, and move discovery to that geometry-identity problem.
+
+
+## 19. T714 — Persistent topological identity discovery
+
+**Status: EXECUTED / GAP CONFIRMED / OWN DELTA JUSTIFIED.**
+
+OCCT 8.0.1 harness configured, built and executed successfully (process exit 0). Exact regeneration preserved all tested geometric face/edge signatures (6/6, 24/24); exact boolean regeneration 10/10 faces and 48/48 edges; exact fillet regeneration 7/7 and 30/30; BREP roundtrip 10/10 and 48/48. Exact boolean regeneration also preserved same geometry at the same enumerated face index 10/10, but this is observation only and must not be treated as persistent identity.
+
+Edits expose the identity problem: dimension edit retained only 1/6 face and 8/24 edge geometric matches; local boolean edit 4/10 and 24/48; fillet-radius edit 2/7 and 14/30. A rigid transform copy produced 0 world-coordinate geometric matches despite unchanged volume. These results show why raw geometry, enumeration order, or transient implementation identity cannot serve as ARKI semantic identity.
+
+T714 conclusion: semantic identity and parametric identity must be ARKI-owned; solver handles remain solver-local; persistent BRep subshape identity is NOT provided by the tested evidence. This is not an OCCT failure: it is an architectural requirement above the BRep kernel.
+
+**AGK-DELTA-005 — Persistent Topological Naming / Semantic Identity Bridge: JUSTIFIED FOR DESIGN.** Target contract: ARKI semantic entity ID + feature/provenance lineage + role/context signature + geometric/topological evidence -> correspondence candidates -> confidence/ambiguity -> preserve/remap/split/merge/new/deleted -> acceptance -> commit. Fail closed on ambiguous correspondence; never silently rebind architectural semantics to a different BRep subshape.
+
+No second geometry kernel is justified. AGK remains OCCT canonical BRep body + evidence-derived ARKI_KERNEL_DELTA.
