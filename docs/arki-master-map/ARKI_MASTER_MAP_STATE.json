@@ -872,5 +872,51 @@
       "boundary": "Unit contract verified; OCCT/BRep E2E integration, durable persistence, concurrency and production readiness not yet demonstrated",
       "next": "evidence adapter + append-only naming decision ledger + integration tests"
     }
+  },
+  "ten_phase_product_integration": {
+    "status": "IMPLEMENTED_PLANNING_SPINE_PENDING_RUNTIME_VERIFICATION",
+    "roadmap": "docs/arki-master-map/ARKI_TEN_PHASE_PRODUCT_INTEGRATION_ROADMAP_V1.md",
+    "phases": {
+      "F1": "RECONCILIATION_REQUIRED",
+      "F2": "RECONCILIATION_REQUIRED",
+      "F3": "RECONCILIATION_REQUIRED",
+      "F4": "RECONCILIATION_REQUIRED",
+      "F5": "RECONCILIATION_REQUIRED",
+      "F6": "IN_PROGRESS",
+      "F7": "DESIGN",
+      "F8": "DESIGN",
+      "F9": "DESIGN",
+      "F10": "DESIGN"
+    },
+    "current": "F6",
+    "sequence": [
+      "F6 AGK closure",
+      "Command Center roadmap + idea registry",
+      "F1-F5 historical gate reconciliation",
+      "F7 technical development",
+      "F8 super technical dossier",
+      "F9 field/digital twin",
+      "F10 operations/economic learning loop"
+    ],
+    "recovered_idea_families": [
+      "remote/core E2E",
+      "adaptive ARKI Book",
+      "jurisdictional normative reasoning",
+      "constructive BIM/CAD/MEP/structure",
+      "three PARTI realizations + reject/backtrack",
+      "site-building-operations continuity",
+      "ARKI-CONSTRUCT",
+      "ARKI-BUILDING",
+      "GIS/CRS precision",
+      "robust AR",
+      "cost/quantities",
+      "multi-scale lineage",
+      "specialist coordination",
+      "corporate/marketplace",
+      "competitions/revenue",
+      "AI Lab/technology internalization"
+    ],
+    "frontend_commit": "213e017f9250d6cddf119327f00e9f531a943a53",
+    "boundary": "Planning and UI map do not promote historical documentary claims to current verified capability."
   }
 }
