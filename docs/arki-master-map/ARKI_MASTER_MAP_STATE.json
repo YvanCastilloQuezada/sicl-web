@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 14: fixed cost locality provenance; solar UPAO-001 example now fails closed as EXAMPLE_REFERENCE outside UPAO-001; added evidence-bounded EXP+ Super Technical Dossier dashboard; connected verified DSN/SEL/DEV/EXP+/BIM project-cycle routes.",
-    "next_exact_action": "Run frontend build/tests for Waves 7-14, fix any compile/runtime defects, then continue connecting SITE/PRG/OBR/O&M only where verified routes/capabilities exist and deepen EXP+ completeness from repository evidence.",
+    "last_completed": "ARKI Live Command Center promoted as primary owner status surface; exact recovered 10-phase roadmap restored (F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE) and Body Map remains visible.",
+    "next_exact_action": "Turn /arki-command-center into the live owner dashboard: reconcile organ/superpower/idea/dossier counts from evidence, expose last verified movement and blockers, and automate projections from canonical registries without making the UI a second source of truth.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -502,6 +502,16 @@
         "AI Lab"
       ],
       "evidence_commit": "d96c13e38392aa3d2374cc2e3031715cdd950278"
+    },
+    "arki_live_page": {
+      "status": "PRIMARY_OWNER_SURFACE",
+      "route": "/arki-command-center",
+      "rule": "Read-only live projection; UI is not source of truth.",
+      "phase_source": "Recovered ARKI_MASTER_STATE v1.0: F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE",
+      "evidence_commits": [
+        "898d31be0fad9a06c3001ad69ec6d2c0caa07fe6",
+        "4aac2420bba7b359f7933c67a2ff0400249473b0"
+      ]
     }
   },
   "canonical_principles": {
