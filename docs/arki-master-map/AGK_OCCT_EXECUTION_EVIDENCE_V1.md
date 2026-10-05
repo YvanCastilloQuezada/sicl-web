@@ -535,3 +535,12 @@ Boundary: this verifies the minimal TypeScript decision service against its unit
 The verified scope combines the seven naming-decision contract tests with five ledger integration gates: accepted decisions are recorded with evidence; AMBIGUOUS decisions are rejected fail-closed; duplicate record IDs are rejected; sequence gaps are rejected; snapshots expose an immutable boundary.
 
 Boundary: this is executable TypeScript service/ledger verification, not yet OCCT/BRep end-to-end evidence ingestion or durable on-disk persistence. Next is a typed AGK evidence-envelope adapter that accepts geometry evidence produced by the canonical AGK/OCCT side, validates provenance, and feeds the ARKI-owned naming decision layer without granting the web layer geometry authority.
+
+
+## 28. AGK-DELTA-005 geometry-evidence authority boundary verification
+
+**Status: PASS.** Windows-native verification at HEAD `04f5b5588c5de2da901cc11cd2867eba7d43af05`: 3 test files passed; 17/17 tests passed; exit 0; duration 670 ms.
+
+The accumulated executable suite now verifies naming decisions, append-only ledger gates, and the typed `ARKI_AGK_GEOMETRY_EVIDENCE_V1` authority boundary. The naming layer consumes validated AGK/OCCT evidence but does not become geometry authority.
+
+Product-owner direction after this result: increase test density in an ordered progression rather than adding isolated cases. Next campaign is ordered P5: schema/provenance -> confidence thresholds -> lineage events -> ledger invariants -> replay/determinism -> adversarial/tamper -> transaction/concurrency boundaries.
