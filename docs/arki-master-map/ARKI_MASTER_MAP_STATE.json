@@ -752,7 +752,7 @@
     "second_geometry_kernel_required": "NO"
   },
   "agk_delta_005": {
-    "status": "DISCOVERY_CONTRACT_EVIDENCE_COMPLETE_READY_TO_FREEZE",
+    "status": "MINIMAL_CONTRACT_VERIFIED_READY_FOR_FREEZE",
     "evidence_commit": "0f8c53b0b06a3337899451e76408c4b2bbc2aa25",
     "authority": {
       "semantic_identity": "ARKI",
@@ -771,7 +771,7 @@
       "topology_role_change": "5 HIGH / 1 MEDIUM / 4 NO_MATCH",
       "fail_closed": "REQUIRED"
     },
-    "next": "DELTA-005 Phase 2: provenance + architectural role + split/merge lineage",
+    "next": "Freeze DELTA-005 minimal contract; continue F6 AGK closure without reopening frozen semantics absent counterevidence",
     "phase2": {
       "status": "EXECUTED_PASS_WITH_EXPECTED_AMBIGUITY",
       "evidence_commit": "dac4f570bbabadb57a255e5c4b570def45cfe02c",
@@ -871,6 +871,42 @@
       "process_exit": 0,
       "boundary": "Unit contract verified; OCCT/BRep E2E integration, durable persistence, concurrency and production readiness not yet demonstrated",
       "next": "evidence adapter + append-only naming decision ledger + integration tests"
+    },
+    "p9": {
+      "status": "PASS_NATIVE_OCCT",
+      "tests": "8/8 (6 substantive OCCT + 2 governance assertions)",
+      "process_exit": 0,
+      "boundary": "Native OCCT produced ARKI-compatible envelope; machine ingestion into TypeScript service not yet demonstrated"
+    },
+    "p10": {
+      "status": "PASS_ADVERSARIAL_STRESS_REGRESSION",
+      "verification_head": "c8c7a2428a4bcf1056bc3ca7a368bd1c07c86622",
+      "target_tests": "25/25",
+      "full_delta005_regression": "88/88 across 8 files",
+      "process_exit": 0
+    },
+    "freeze_readiness": {
+      "verdict": "READY_FOR_FREEZE_MINIMAL_CONTRACT_ONLY",
+      "evidence_commit": "570a48d62d0e55e4db83634637218408284fe544",
+      "demonstrated": [
+        "semantic naming decisions",
+        "explicit lineage events",
+        "fail-closed ambiguity",
+        "append-only ledger",
+        "transaction/rollback",
+        "deterministic serialization/replay",
+        "in-process optimistic stale-writer protection",
+        "typed AGK/OCCT evidence boundary",
+        "native OCCT evidence producer",
+        "adversarial/stress regression"
+      ],
+      "not_claimed": [
+        "native C++ envelope -> TypeScript machine-ingestion E2E",
+        "durable filesystem/database crash recovery",
+        "multi-process/database/distributed concurrency",
+        "industrial long-duration performance",
+        "geometry-only semantic identity"
+      ]
     }
   },
   "ten_phase_product_integration": {
