@@ -1,13 +1,19 @@
 export type CommandCenterStatus = "VERIFIED" | "IMPLEMENTED" | "IN_PROGRESS" | "FROZEN" | "DESIGN" | "UNKNOWN" | "RECONCILIATION_REQUIRED";
 export type CommandCenterNode = { id:string; name:string; kind:string; status:CommandCenterStatus; summary:string; gained:string; missing:string; phase:string; children?:CommandCenterNode[] };
 
-export const commandCenterPhases: CommandCenterNode[] = Array.from({length:10},(_,i)=>({
-  id:`F${i+1}`, name:`Fase ${i+1}`, kind:"PHASE",
-  status:i===5?"IN_PROGRESS":"RECONCILIATION_REQUIRED",
-  summary:i===5?"Zona de trabajo actual declarada; subfase histórica exacta pendiente de reconciliación.":"Nombre, subfases y gates históricos pendientes de reconciliar con evidencia del repositorio.",
-  gained:i===5?"Ensamblaje del Superarquitecto y su sistema nervioso.":"Pendiente de inventario canónico.",
-  missing:"Reconciliación documental + código + tests + SHA.", phase:`F${i+1}`
-}));
+export const commandCenterPhases: CommandCenterNode[] = [
+ {id:"F0",name:"Fase 0 · Genealogy recovery",kind:"PHASE",status:"VERIFIED",summary:"Recuperación de genealogía, fuentes y continuidad histórica.",gained:"DONE / PASS reportado en el Master State.",missing:"Mantener trazabilidad al incorporar nueva evidencia.",phase:"F0"},
+ {id:"F1",name:"Fase 1 · Knowledge & reasoning consolidation",kind:"PHASE",status:"VERIFIED",summary:"Consolidación del conocimiento y razonamiento de ARKI.",gained:"DONE / PASS reportado.",missing:"Mantener Delta 6.2 como única puerta epistemológica.",phase:"F1"},
+ {id:"F2",name:"Fase 2 · Frozen architecture preservation",kind:"PHASE",status:"VERIFIED",summary:"Preservación de arquitectura, contratos y decisiones congeladas.",gained:"DONE / PASS reportado.",missing:"Evitar regresiones o activaciones silenciosas.",phase:"F2"},
+ {id:"F3",name:"Fase 3 · Corporation consolidation",kind:"PHASE",status:"VERIFIED",summary:"Consolidación documental y estructural de la corporación.",gained:"DONE / PASS reportado.",missing:"Distinguir consolidación de operación empresarial efectiva.",phase:"F3"},
+ {id:"F4",name:"Fase 4 · Complete assembly",kind:"PHASE",status:"VERIFIED",summary:"Ensamblaje completo de piezas existentes bajo una arquitectura común.",gained:"DONE / PASS reportado.",missing:"Mantener una sola autoridad semántica y geométrica.",phase:"F4"},
+ {id:"F5",name:"Fase 5 · Deterministic boundary",kind:"PHASE",status:"VERIFIED",summary:"Cierre de la frontera determinista y contratos fail-closed.",gained:"DONE / PASS reportado.",missing:"Preservar UNKNOWN, provenance y Human Authority.",phase:"F5"},
+ {id:"F6",name:"Fase 6 · Preservation infrastructure",kind:"PHASE",status:"IN_PROGRESS",summary:"Infraestructura de preservación y continuidad del sistema.",gained:"Fase actual recuperada en el Master State.",missing:"Cerrar reconciliación y evidencia de los frentes todavía parciales.",phase:"F6"},
+ {id:"F7",name:"Fase 7 · Post-assembly capability closure",kind:"PHASE",status:"DESIGN",summary:"Cierre de capacidades después del ensamblaje.",gained:"NEXT en el Master State.",missing:"No adelantar cierre sin gates y demostraciones.",phase:"F7"},
+ {id:"F8",name:"Fase 8 · Professionalization",kind:"PHASE",status:"DESIGN",summary:"Profesionalización del sistema y de sus entregables.",gained:"FUTURE en el Master State.",missing:"Definir/cerrar gates profesionales con evidencia.",phase:"F8"},
+ {id:"F9",name:"Fase 9 · Lifecycle intelligence",kind:"PHASE",status:"DESIGN",summary:"Inteligencia durante el ciclo de vida completo del activo.",gained:"FUTURE en el Master State.",missing:"Conectar diseño, entrega, operación, mantenimiento y aprendizaje.",phase:"F9"},
+ {id:"F10",name:"Fase 10 · Corporation activation",kind:"PHASE",status:"DESIGN",summary:"Activación de AR-LU Corporation sobre capacidades demostradas.",gained:"FUTURE en el Master State.",missing:"No confundir arquitectura corporativa con operación activada.",phase:"F10"}
+];
 
 export const organismNodes: CommandCenterNode[] = [
  {id:"ARKI",name:"ARKI",kind:"SUPERARCHITECT",status:"IN_PROGRESS",phase:"F6→F7",summary:"Superarquitecto: aprende, razona, genera, evalúa, materializa y conserva autoridad humana.",gained:"D-2, Funnel, familias, superpoderes, AGK y otras capacidades ya tienen evidencia material.",missing:"Conectar los órganos en un E2E integral y reconciliar el mapa completo."},
