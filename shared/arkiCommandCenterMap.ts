@@ -1,19 +1,18 @@
 export type CommandCenterStatus = "VERIFIED" | "IMPLEMENTED" | "IN_PROGRESS" | "FROZEN" | "DESIGN" | "UNKNOWN" | "RECONCILIATION_REQUIRED";
 export type CommandCenterNode = { id:string; name:string; kind:string; status:CommandCenterStatus; summary:string; gained:string; missing:string; phase:string; children?:CommandCenterNode[] };
 
-export const commandCenterPhases: CommandCenterNode[] = [
- {id:"F0",name:"Fase 0 · Genealogy recovery",kind:"PHASE",status:"VERIFIED",summary:"Recuperación de genealogía, fuentes y continuidad histórica.",gained:"DONE / PASS reportado en el Master State.",missing:"Mantener trazabilidad al incorporar nueva evidencia.",phase:"F0"},
- {id:"F1",name:"Fase 1 · Knowledge & reasoning consolidation",kind:"PHASE",status:"VERIFIED",summary:"Consolidación del conocimiento y razonamiento de ARKI.",gained:"DONE / PASS reportado.",missing:"Mantener Delta 6.2 como única puerta epistemológica.",phase:"F1"},
- {id:"F2",name:"Fase 2 · Frozen architecture preservation",kind:"PHASE",status:"VERIFIED",summary:"Preservación de arquitectura, contratos y decisiones congeladas.",gained:"DONE / PASS reportado.",missing:"Evitar regresiones o activaciones silenciosas.",phase:"F2"},
- {id:"F3",name:"Fase 3 · Corporation consolidation",kind:"PHASE",status:"VERIFIED",summary:"Consolidación documental y estructural de la corporación.",gained:"DONE / PASS reportado.",missing:"Distinguir consolidación de operación empresarial efectiva.",phase:"F3"},
- {id:"F4",name:"Fase 4 · Complete assembly",kind:"PHASE",status:"VERIFIED",summary:"Ensamblaje completo de piezas existentes bajo una arquitectura común.",gained:"DONE / PASS reportado.",missing:"Mantener una sola autoridad semántica y geométrica.",phase:"F4"},
- {id:"F5",name:"Fase 5 · Deterministic boundary",kind:"PHASE",status:"VERIFIED",summary:"Cierre de la frontera determinista y contratos fail-closed.",gained:"DONE / PASS reportado.",missing:"Preservar UNKNOWN, provenance y Human Authority.",phase:"F5"},
- {id:"F6",name:"Fase 6 · Preservation infrastructure",kind:"PHASE",status:"IN_PROGRESS",summary:"Infraestructura de preservación y continuidad del sistema.",gained:"Fase actual recuperada en el Master State.",missing:"Cerrar reconciliación y evidencia de los frentes todavía parciales.",phase:"F6"},
- {id:"F7",name:"Fase 7 · Post-assembly capability closure",kind:"PHASE",status:"DESIGN",summary:"Cierre de capacidades después del ensamblaje.",gained:"NEXT en el Master State.",missing:"No adelantar cierre sin gates y demostraciones.",phase:"F7"},
- {id:"F8",name:"Fase 8 · Professionalization",kind:"PHASE",status:"DESIGN",summary:"Profesionalización del sistema y de sus entregables.",gained:"FUTURE en el Master State.",missing:"Definir/cerrar gates profesionales con evidencia.",phase:"F8"},
- {id:"F9",name:"Fase 9 · Lifecycle intelligence",kind:"PHASE",status:"DESIGN",summary:"Inteligencia durante el ciclo de vida completo del activo.",gained:"FUTURE en el Master State.",missing:"Conectar diseño, entrega, operación, mantenimiento y aprendizaje.",phase:"F9"},
- {id:"F10",name:"Fase 10 · Corporation activation",kind:"PHASE",status:"DESIGN",summary:"Activación de AR-LU Corporation sobre capacidades demostradas.",gained:"FUTURE en el Master State.",missing:"No confundir arquitectura corporativa con operación activada.",phase:"F10"}
-];
+export const commandCenterPhases: CommandCenterNode[] = Array.from({length:10},(_,i)=>{
+ const phase=i+1;
+ const current=phase===6;
+ return {
+  id:`F${phase}`,name:`Fase ${phase}`,kind:"PHASE",
+  status:current?"IN_PROGRESS":phase<6?"RECONCILIATION_REQUIRED":"DESIGN",
+  summary:current?"Fase actual declarada por Product Owner; definición histórica exacta y subfase aún deben reconciliarse con evidencia.":"Definición, subfases y gates históricos pendientes de recuperación; no se inventa un nombre.",
+  gained:current?"Zona actual de trabajo: ensamblaje, fidelidad canónica y frontend vivo, con evidencia parcial ya recuperada.":phase<6?"Existe trabajo histórico previo, pero esta vista no lo declara cerrado sin reconciliación fase por fase.":"Fase futura dentro del esquema de diez fases; alcance exacto pendiente de evidencia.",
+  missing:"Recuperar definición histórica exacta, gates, artefactos, pruebas y SHA antes de elevar el estado.",
+  phase:`F${phase}`
+ };
+});
 
 export const organismNodes: CommandCenterNode[] = [
  {id:"ARKI",name:"ARKI",kind:"SUPERARCHITECT",status:"IN_PROGRESS",phase:"F6→F7",summary:"Superarquitecto: aprende, razona, genera, evalúa, materializa y conserva autoridad humana.",gained:"D-2, Funnel, familias, superpoderes, AGK y otras capacidades ya tienen evidencia material.",missing:"Conectar los órganos en un E2E integral y reconciliar el mapa completo."},
