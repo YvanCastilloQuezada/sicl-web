@@ -327,3 +327,57 @@ Current evidence continues to support:
 No second canonical geometry kernel has earned admission. Constraint solving is being evaluated as a specialized intelligence/delta layer above OCCT, under **OWN CAPABILITY FIRST / EXTERNAL ENGINE WHEN NECESSARY**.
 
 **Next exact action:** execute T7-B2 against the locally built libslvs oracle, then classify each demonstrated delta as INTERNALIZE_ROUTINE, KEEP_ORACLE, KEEP_BACKEND, REFERENCE_ONLY, REJECT or UNKNOWN.
+
+
+## 15. T7-B2 — Real libslvs conflict-diagnosis oracle
+
+**Status: EXECUTED / LOCAL ORACLE CAPABILITY DEMONSTRATED.**
+
+The locally built libslvs oracle was linked and executed in two controlled specimens derived from the official C demo.
+
+Execution evidence:
+- baseline specimen compile — PASS;
+- contradiction specimen compile — PASS;
+- baseline run — PASS / process exit 0;
+- baseline exposed solver DOF reporting;
+- contradictory run reported `solve failed: problematic constraints are: 1819231068`;
+- contradictory run reported `system inconsistent`;
+- diagnostic extractor observed the conflict output;
+- AGK modified — NO;
+- SolveSpace source modified — NO;
+- libslvs role — ORACLE ONLY.
+
+### T713 update
+
+T713 is no longer merely an external capability hypothesis. The local oracle demonstrated that libslvs can return at least a **problematic constraint handle** for the tested inconsistent system.
+
+This does **not** yet prove:
+- minimal conflicting-set extraction;
+- quality of diagnosis for multiple simultaneous conflicts;
+- semantic/architectural explanation of the conflict;
+- automatic repair planning.
+
+Therefore T713 becomes:
+
+`PARTIAL — PROBLEMATIC_CONSTRAINT_LOCALIZATION_DEMONSTRATED / MINIMAL_CONFLICT_SET_NOT_YET_DEMONSTRATED`
+
+### AGK-DELTA-004.1 — Constraint Conflict Diagnosis
+
+**Status: PROVISIONAL CAPABILITY CONTRACT.**
+
+```text
+CONSTRAINT GRAPH
+  -> SOLVE
+  -> INCONSISTENT
+  -> CONFLICT CANDIDATES
+  -> MINIMAL / NEAR-MINIMAL CONFLICT SET
+  -> SEMANTIC EXPLANATION
+  -> REPAIR OPTIONS
+  -> ARKI / HUMAN DECISION
+```
+
+The target for ARKI is deliberately stronger than returning opaque numeric handles: conflict evidence must be mapped back to architectural intent and actionable repair alternatives.
+
+**Disposition remains:** `SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER (provisional)`.
+
+**Next exact action:** T7-B3 industrial constraint-semantics comparison (T715), followed by branch-continuity and richer conflict-set probes before any runtime dependency decision.
