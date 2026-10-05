@@ -4,8 +4,6 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-import ArkiFirstContact from "./components/ArkiFirstContact";
-import ArkiContextGate from "./components/ArkiContextGate";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -76,7 +74,7 @@ function Router() {
   return (
     <Suspense fallback={<PageLoadingFallback />}>
     <Switch>
-      <Route path={"/"}>{() => <HashWorkspaceRoute />}</Route>
+      <Route path={"/"}>{() => <ArkiSuperarchitectCommandCenterPage />}</Route>
       <Route path={"/arki"}>{() => <HashWorkspaceRoute />}</Route>
       <Route path={"/evidence"} component={EvidencePage} />
       <Route path={"/evaluations"} component={EvaluationsPage} />
@@ -135,8 +133,6 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <ArkiFirstContact />
-            <ArkiContextGate />
             <PwaInstallPrompt />
             <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
