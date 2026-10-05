@@ -75,7 +75,7 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 12: ARKI CONTROL ribbon now routes to working EVD/EVA/CMP/AUD modules and new SUP/IDE/AIL dashboard surfaces; SUP avoids fabricated counts, IDE exposes lifecycle accounting, AIL exposes verified LAB-001..004 governance.",
+    "last_completed": "Frontend Wave 13: ARKI CONTROL labels simplified and ordered by Product Owner: Evidencia → Evaluaciones → Comparaciones → Auditoría → Superpoderes → Ideas → AI Lab.",
     "next_exact_action": "Continue frontend assembly: add EXP+ Super Expediente completeness dashboard, connect project-cycle ribbon to verified existing routes, then run focused build/tests and fix hardcoded solar/cost provenance defects before PR merge.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
@@ -489,6 +489,19 @@
       "boundary": "Laboratory candidates are experimental and cannot silently mutate ARKI or LUCA canonical state.",
       "knowledge_rule": "Any learned knowledge intended for ARKI must pass Delta 6.2; laboratory evidence does not itself become canonical knowledge.",
       "ui_commit": "211ddd4be273d1c2b5687c2d0c7c67827a6411c8"
+    },
+    "frontend_control_ribbon": {
+      "status": "OWNER_ORDER_LOCKED_FOR_CURRENT_FRONTEND",
+      "labels": [
+        "Evidencia",
+        "Evaluaciones",
+        "Comparaciones",
+        "Auditoría",
+        "Superpoderes",
+        "Ideas",
+        "AI Lab"
+      ],
+      "evidence_commit": "d96c13e38392aa3d2374cc2e3031715cdd950278"
     }
   },
   "canonical_principles": {
