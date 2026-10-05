@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 9: SUP Superpoderes added to ARKI CONTROL; EXP+ Super Expediente added to PROJECT CYCLE after recovering the 2026-09-29 Super Expediente source.",
-    "next_exact_action": "Build SUP inventory view with demonstrated/partial/missing/unknown accounting; build EXP+ dossier completeness view grounded in recovered Super Expediente capabilities and current implementation evidence.",
+    "last_completed": "Frontend Wave 10: IDE Ideas added to ARKI CONTROL as the visible ledger for idea intake and lifecycle tracking.",
+    "next_exact_action": "Implement IDE registry view with provenance, state, priority, destination and evidence; connect SUP and EXP+ dashboards without duplicating Delta 6.2.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -463,6 +463,23 @@
           "invariant": "selection does not create a second geometry truth"
         }
       }
+    },
+    "idea_ledger": {
+      "status": "UI_ENTRYPOINT_IMPLEMENTED_REGISTRY_PENDING",
+      "code": "IDE",
+      "purpose": "Capture every material idea and track it from intake through evaluation, prioritization, implementation, incorporation, rejection or freeze.",
+      "states": [
+        "CAPTURED",
+        "UNDER_REVIEW",
+        "PRIORITIZED",
+        "IN_DEVELOPMENT",
+        "IMPLEMENTED",
+        "INCORPORATED",
+        "REJECTED",
+        "FROZEN"
+      ],
+      "rule": "Ideas are proposals, not canonical knowledge. If an idea becomes knowledge it must pass the Delta 6.2 epistemic gate.",
+      "evidence_commit": "fd84137a6276344273391869b0a23aa539142b61"
     }
   },
   "canonical_principles": {
