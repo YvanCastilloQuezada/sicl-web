@@ -167,3 +167,32 @@ export class ArkiNamingTransactionManager {
   }
   current(): NamingTransaction|undefined { return this.tx ? {...this.tx,staged:[...this.tx.staged]} : undefined; }
 }
+
+
+export interface NamingLedgerSnapshotV1 {
+  schema: "ARKI_NAMING_LEDGER_V1";
+  records: readonly NamingLedgerRecord[];
+}
+
+export function serializeNamingLedger(ledger: ArkiNamingLedger): string {
+  return JSON.stringify({schema:"ARKI_NAMING_LEDGER_V1",records:ledger.snapshot()} satisfies NamingLedgerSnapshotV1);
+}
+
+export function replayNamingLedger(serialized:string): ArkiNamingLedger {
+  let parsed: unknown;
+  try { parsed=JSON.parse(serialized); } catch { throw new Error("ARKI_NAMING_PERSISTENCE_INVALID_JSON"); }
+  if(!parsed || typeof parsed!=="object") throw new Error("ARKI_NAMING_PERSISTENCE_INVALID_SCHEMA");
+  const x=parsed as {schema?:unknown;records?:unknown};
+  if(x.schema!=="ARKI_NAMING_LEDGER_V1" || !Array.isArray(x.records))
+    throw new Error("ARKI_NAMING_PERSISTENCE_INVALID_SCHEMA");
+  const ledger=new ArkiNamingLedger();
+  for(const raw of x.records){
+    if(!raw || typeof raw!=="object") throw new Error("ARKI_NAMING_PERSISTENCE_INVALID_RECORD");
+    const r=raw as NamingLedgerRecord;
+    if(typeof r.recordId!=="string" || !r.recordId.trim() || !Number.isInteger(r.sequence) ||
+       typeof r.recordedAt!=="string" || !r.recordedAt.trim() || !r.decision || !Array.isArray(r.evidence))
+      throw new Error("ARKI_NAMING_PERSISTENCE_INVALID_RECORD");
+    ledger.append(r);
+  }
+  return ledger;
+}
