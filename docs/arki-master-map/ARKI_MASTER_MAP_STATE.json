@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend assembly Wave 4: Design Studio now attempts to consume Core SpatialRepresentation per project; PLAN and 3D reuse the existing canonical-source viewers when candidate IDs match, otherwise UI explicitly remains conceptual fallback. SECTION remains NOT_YET_DERIVED.",
-    "next_exact_action": "Add section/elevation derivation contract from the same SpatialRepresentation/canonical geometry, add regression tests proving PLAN and 3D share representation ID/input fingerprint, then run CI/runtime visual verification.",
+    "last_completed": "Frontend Wave 5: SECTION and ELEVATION are now deterministically derived from the same SpatialRepresentation used by PLAN/3D, with explicit representation_id/input_fingerprint provenance and focused regression tests.",
+    "next_exact_action": "Run/repair CI and runtime visual verification for PR #45; then connect selected winner to canonical development/BIM handoff and remove remaining conceptual-only discontinuities.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -344,7 +344,7 @@
     },
     "frontend_first_assembly": {
       "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
-      "status": "IMPLEMENTED_WAVE_4",
+      "status": "IMPLEMENTED_WAVE_5_PENDING_CI",
       "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
       "surfaces": [
         {
@@ -397,9 +397,16 @@
         "source": "Core /v1/projects/{projectId}/spatial-representations",
         "plan": "existing SpatialSvgViewer consumes SpatialRepresentation",
         "three_d": "existing UPAO001MassingViewer3D consumes the same SpatialRepresentation",
-        "section": "NOT_YET_DERIVED",
+        "section": "derived from BuildingMass coordinates in the same SpatialRepresentation; no independent design geometry",
         "fallback": "explicit conceptual fallback; no canonical geometry fabricated",
-        "invariant_target": "PLAN/3D/SECTION/ELEVATION/BIM must derive from one canonical candidate state and preserve representation identity/provenance"
+        "invariant_target": "PLAN/3D/SECTION/ELEVATION/BIM must derive from one canonical candidate state and preserve representation identity/provenance",
+        "elevation": "derived from BuildingMass coordinates in the same SpatialRepresentation; no independent design geometry",
+        "identity_contract": [
+          "representation.id",
+          "alternative_id",
+          "input_fingerprint",
+          "stable spatial element ids"
+        ]
       }
     }
   },
