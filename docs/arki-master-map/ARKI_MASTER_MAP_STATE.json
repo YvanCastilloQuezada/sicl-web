@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 10: IDE Ideas added to ARKI CONTROL as the visible ledger for idea intake and lifecycle tracking.",
-    "next_exact_action": "Implement IDE registry view with provenance, state, priority, destination and evidence; connect SUP and EXP+ dashboards without duplicating Delta 6.2.",
+    "last_completed": "Frontend Wave 11: AIL AI Lab added to ARKI CONTROL, explicitly recovering the existing governed AI Laboratory lineage in sicl-core.",
+    "next_exact_action": "Build the AI Lab dashboard around experiment registry, candidate intelligence lineage, evidence, evaluation and promotion gates; keep experiments isolated from ARKI/LUCA canonical state.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -480,6 +480,15 @@
       ],
       "rule": "Ideas are proposals, not canonical knowledge. If an idea becomes knowledge it must pass the Delta 6.2 epistemic gate.",
       "evidence_commit": "fd84137a6276344273391869b0a23aa539142b61"
+    },
+    "ai_laboratory_control_surface": {
+      "status": "ENTRYPOINT_IMPLEMENTED_EXISTING_CORE_LINEAGE_VERIFIED",
+      "code": "AIL",
+      "purpose": "Experiment with, create and evaluate candidate artificial intelligences that may improve ARKI or LUCA.",
+      "existing_core_evidence": "sicl-core commit bbc8d75d: AI Laboratory with LAB-001 traceability, LAB-002 determinism, LAB-003 fail-closed corpus validation, LAB-004 Human Authority promotion gate, plus 10 tests.",
+      "boundary": "Laboratory candidates are experimental and cannot silently mutate ARKI or LUCA canonical state.",
+      "knowledge_rule": "Any learned knowledge intended for ARKI must pass Delta 6.2; laboratory evidence does not itself become canonical knowledge.",
+      "ui_commit": "211ddd4be273d1c2b5687c2d0c7c67827a6411c8"
     }
   },
   "canonical_principles": {
