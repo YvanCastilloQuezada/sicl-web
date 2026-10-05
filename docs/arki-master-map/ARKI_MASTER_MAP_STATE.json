@@ -6,10 +6,10 @@
   "roadmap": {
     "total_phases": 10,
     "current_zone": {
-      "phase": 6,
-      "approximate_subphase": "6.3–6.5",
+      "phase": 7,
+      "approximate_subphase": "F7.0",
       "status": "IN_PROGRESS",
-      "note": "User locates current work between Phase 6 and Phase 7; exact historical subphase numbering remains to be reconciled before a narrower value is asserted."
+      "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
     },
     "phases": [
       {
@@ -39,13 +39,13 @@
       },
       {
         "id": "F6",
-        "status": "IN_PROGRESS",
-        "evidence_status": "USER_CURRENT_POSITION"
+        "status": "FROZEN",
+        "evidence_status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY"
       },
       {
         "id": "F7",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "IN_PROGRESS",
+        "evidence_status": "CONTRACT_FORMATION_AND_REPOSITORY_RECONCILIATION"
       },
       {
         "id": "F8",
@@ -65,22 +65,20 @@
     ]
   },
   "current_focus": {
-    "title": "Frontend-first assembly of the ARKI Superarchitect",
+    "title": "F7 — Professional Technical Development",
     "active": [
-      "ARKI frontend assembly",
-      "ARKI Professional",
-      "ARKI Command Center",
-      "ARKI Director / Control",
-      "ARKI Design Studio",
-      "SITE-FIRST nervous system",
-      "AGK integration as supporting geometry authority"
+      "F7.0 Professional Model Contract",
+      "F7 repository capability reconciliation",
+      "jurisdiction/applicability",
+      "architectural technical development",
+      "structure/MEP coordination",
+      "accessibility/life safety",
+      "quantities/cost",
+      "BIM/IFC/CAD interoperability"
     ],
-    "last_completed": "T7-B2 executed locally: libslvs baseline and contradiction specimens compiled and ran; problematic constraint localization demonstrated; T713 now PARTIAL, not closed.",
-    "next_exact_action": "T7-B3 industrial constraint-semantics comparison (T715), then branch continuity and richer conflict-set probes",
-    "blockers": [
-      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
-      "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
-    ]
+    "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
+    "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",
+    "blockers": []
   },
   "status_vocabulary": [
     "CLAIM",
@@ -988,5 +986,23 @@
     ],
     "reopen_rule": "REPRODUCIBLE_COUNTEREVIDENCE_OR_NEW_VERSIONED_REQUIREMENT_ONLY",
     "next_phase": "F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT"
+  },
+  "f7_professional_technical_development": {
+    "status": "OPEN_CONTRACT_FORMATION",
+    "gate_document": "docs/arki-master-map/ARKI_F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT_GATE_V1.md",
+    "entry_dependency": "F6_GO_SATISFIED",
+    "work_packages": [
+      "F7.0 Professional Model Contract",
+      "F7.1 Jurisdiction & Applicability",
+      "F7.2 Architectural Technical Development",
+      "F7.3 Structural Coordination",
+      "F7.4 MEP Coordination",
+      "F7.5 Accessibility & Life Safety",
+      "F7.6 Quantities & Cost",
+      "F7.7 BIM / IFC / CAD Interoperability",
+      "F7.8 Professional Coordination Gate",
+      "F7.9 F8 Handoff"
+    ],
+    "next": "REPOSITORY_CAPABILITY_MATRIX"
   }
 }
