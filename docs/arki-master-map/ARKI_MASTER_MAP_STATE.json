@@ -1,6 +1,6 @@
 {
   "schema": "ARKI-MASTER-MAP-STATE-0.1",
-  "updated_at": "2026-10-04",
+  "updated_at": "2026-10-05",
   "product": "ARKI / ARQUI Superarchitect",
   "authority_note": "Status is evidence-bounded. No evidence = no green.",
   "roadmap": {
@@ -77,10 +77,11 @@
       "Computational Intelligence three-fabric reconciliation",
       "Pedagogical AI Laboratory repo verification",
       "Propagate sealed PF-05 Mutual Care through constitutional/governance surfaces",
-      "AR-LU Corporation full organizational recovery and consolidation"
+      "AR-LU Corporation full organizational recovery and consolidation",
+      "AGK OCCT bounded execution / ARKI_KERNEL_DELTA discovery"
     ],
-    "last_completed": "Recovered key Phase 6 diagnosis from Product Owner visual evidence: rich ARKI architectural generation existed; 2D representation lost design fidelity.",
-    "next_exact_action": "Recover the historical generation lineage and 2D pipeline for these ARKI designs, then make 3D↔2D identity preservation a Phase 6 regression gate.",
+    "last_completed": "AGK OCCT benchmark through T3: T1 22/22 PASS; T2 demonstrated Local Engineering Frame need and tolerance-aware acceptance; T3 11/12 invariant PASS with sole failure the known deliberate tolerance-boundary probe, 0 unexplained failures.",
+    "next_exact_action": "Execute T4 architectural freeform/double-curvature benchmark; admit no alternate geometry backend unless a reproducible OCCT limitation earns a minimal ARKI_KERNEL_DELTA role.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation."
     ]
@@ -210,6 +211,39 @@
         "Human Authority final"
       ],
       "relation_to_ai_lab": "candidate evolution of AI Laboratory into controlled training/evaluation/maintenance infrastructure"
+    },
+    "agk_occt_execution": {
+      "id": "AGK_OCCT_EXECUTION",
+      "classification": "EXECUTED_VERIFIED_BOUNDED",
+      "platform": "HP Z840 / Windows x64 / OCCT 8.0.1",
+      "evidence_document": "docs/arki-master-map/AGK_OCCT_EXECUTION_EVIDENCE_V1.md",
+      "gates": {
+        "installation": "PASS",
+        "basic_g0_g1_g2": "PASS",
+        "advanced_canary": "PASS_16_OF_16",
+        "torture_t1": "PASS_22_OF_22",
+        "t2_coordinate_tolerance": "EXECUTED_BOUNDARIES_FOUND_AND_CLASSIFIED",
+        "t3_degeneracy_surface": "EXECUTED_11_INVARIANT_PASS_1_KNOWN_TOLERANCE_BOUNDARY_0_UNEXPLAINED"
+      },
+      "demonstrated_delta_policies": [
+        {
+          "id": "AGK-DELTA-001",
+          "name": "Local Engineering Frame",
+          "status": "DEMONSTRATED_POLICY_CANDIDATE"
+        },
+        {
+          "id": "AGK-DELTA-002",
+          "name": "Geometric Acceptance Contract",
+          "status": "DEMONSTRATED_NEED_POLICY_CANDIDATE"
+        }
+      ],
+      "guardrails": [
+        "Whole AGK is not yet VERIFIED/FROZEN as a production integration",
+        "ARKI_KERNEL_DELTA is not finalized",
+        "Observed numeric thresholds are benchmark-specific, not universal constants",
+        "Do not add CGAL/Manifold/OpenVDB/libfive/PicoGK/SolveSpace/Topologic without reproducible OCCT limitation evidence"
+      ],
+      "next": "T4 architectural freeform/double-curvature benchmark"
     }
   },
   "architectural_decisions": {
