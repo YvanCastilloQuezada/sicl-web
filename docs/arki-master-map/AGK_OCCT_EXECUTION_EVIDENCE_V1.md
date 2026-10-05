@@ -417,3 +417,20 @@ The evidence is stronger than T7-B2: libslvs can distinguish the tested inconsis
 **Disposition:** `SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER`. No runtime admission decision has been made.
 
 **Next exact action:** T7-B5 branch/solution continuity, T7-B6 identity separation, then T7-B7 scale/performance comparison.
+
+
+## 18. T7-B5 / B6 / B7 — Branch continuity, identity boundary and scale
+
+**Status: EXECUTED / PHASE 2 COMPLETED.**
+
+T7-B5: four branch specimens solved successfully. Positive initial guesses remained positive and negative initial guesses remained negative, including ±1e-6 perturbations. Solution intent is therefore an explicit ARKI requirement; this does not prove a general branch-selection policy.
+
+T7-B6: solver handles 103/104 and constraint handle 1 remained stable across the tested driving edit; both solves returned result=0. This demonstrates solver-handle continuity only. BRep topological identity remains NOT_DEMONSTRATED; T714 stays open.
+
+T7-B7: all chain systems passed with result=0, failed=0, dof=2. Reported local CPU times: 20 segments ~0 ms; 100 ~1 ms; 250 ~2 ms; 500 ~4 ms; 1000 ~7 ms. Whole harness wall time: 1301 ms. These are discovery measurements, not production benchmarks or matched comparisons to T7-A.
+
+AGK-DELTA-004.2 Solution Intent / Branch Continuity is supported as a provisional contract. T7 now demonstrates own small-solver viability, real libslvs sketch semantics, conflict/problematic-handle diagnostics, branch sensitivity, solver-handle continuity, and local chain-scale behavior. Remaining material gap: T714 persistent BRep topological identity/naming across AGK regeneration.
+
+Disposition remains: SolveSpace/libslvs = KEEP_ORACLE / RESEARCH_MASTER; no production runtime admission; no GPL code copied into ARKI. No evidence requires a second geometry kernel.
+
+Next exact action: freeze evidence-supported portions of AGK-DELTA-003/004/004.1/004.2, keep T714 open as a separate topology-identity delta, and move discovery to that geometry-identity problem.
