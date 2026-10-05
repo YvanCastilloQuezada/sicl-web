@@ -471,3 +471,14 @@ The enriched discovery matcher combined geometry with coarse role and feature/pr
 Policies exercised: one-to-many and many-to-one require explicit lineage; ambiguity fails closed; semantic ID survives only through ARKI evidence, never BRep enumeration; event vocabulary PRESERVE / REMAP / SPLIT / MERGE / NEW / DELETED / AMBIGUOUS.
 
 **Conclusion:** Phase 2 validates the architecture but does not yet demonstrate true SPLIT/MERGE lineage. Phase 3 must create an explicit lineage graph and test concrete 1->N and N->1 transformations, including conservation/coverage checks and ambiguity handling.
+
+
+## 22. AGK-DELTA-005 Phase 3 — explicit lineage graph discovery
+
+**Status: EXECUTED / PARTIAL.** Process exit 0; AGK product unchanged; no second kernel.
+
+The lineage graph itself executed and accounted correctly for continuity/new/deleted topology: baseline-to-modified graph covered 6/6 predecessor faces and 6/11 successor faces; NEW accounting detected 5 faces; reverse DELETED accounting detected 5 faces. Governance invariants passed: semantic parentage is ARKI-owned, BRep index has no identity authority, silent ambiguous rebinding is forbidden, and the provisional event set remains PRESERVE / REMAP / SPLIT / MERGE / NEW / DELETED / AMBIGUOUS.
+
+However, the intended concrete 1->N and N->1 tests were **NOT demonstrated**. D005P3-02 found only one TOP child (`children=1`) and D005P3-03 only one TOP parent (`parents=1`), so both correctly reported OBSERVATION. The selected cut changed topology but did not split the selected semantic TOP face into multiple disconnected descendants. This is a test-specimen defect/insufficiency, not evidence that OCCT cannot expose split/merge history.
+
+**Decision:** do not advance to a production contract yet. Run Phase 3R with a geometry that actually partitions one source face into multiple descendants and the inverse merge, and inspect OCCT operation history (`Modified` / `Generated` / `IsDeleted`) where applicable. Only after true 1->N and N->1 are demonstrated should Delta-005 move to adversarial/product-contract work.
