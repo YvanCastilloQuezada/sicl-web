@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "AGK discovery persisted through T7-B1: T4 12/12, T5 14/14, T6 bounded constraint prototype, T7-A stress/gap discovery, and isolated libslvs oracle build PASS with no AGK integration.",
-    "next_exact_action": "T7-B2 comparative execution against locally built libslvs: T713 conflict localization, T715 sketch semantics, T709 branch continuity, DOF/redundancy and incremental editing",
+    "last_completed": "T7-B2 executed locally: libslvs baseline and contradiction specimens compiled and ran; problematic constraint localization demonstrated; T713 now PARTIAL, not closed.",
+    "next_exact_action": "T7-B3 industrial constraint-semantics comparison (T715), then branch continuity and richer conflict-set probes",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -224,7 +224,8 @@
         "t5_parametric_editability": "PASS_14_OF_14",
         "t6_constraint_math": "PASS_14_OF_14_HARNESS_ASSERTIONS_PRODUCTION_SOLVER_NOT_DEMONSTRATED",
         "t7a_solver_stress": "EXECUTED_11_PASS_0_FAIL_1_OBSERVATION_3_EXPLICIT_GAPS",
-        "t7b1_libslvs_oracle_build": "PASS_CONFIGURE_AND_BUILD_ORACLE_ONLY"
+        "t7b1_libslvs_oracle_build": "PASS_CONFIGURE_AND_BUILD_ORACLE_ONLY",
+        "t7b2_libslvs_conflict_diagnosis": "PARTIAL_PROBLEMATIC_CONSTRAINT_LOCALIZATION_DEMONSTRATED"
       },
       "demonstrated_delta_policies": [
         {
@@ -257,7 +258,7 @@
         "SolveSpace/libslvs is oracle/research evidence only; no AGK runtime integration is approved",
         "OWN CAPABILITY FIRST / EXTERNAL ENGINE WHEN NECESSARY"
       ],
-      "next": "T7-B2 comparative execution against locally built libslvs: T713 conflict localization, T715 sketch semantics, T709 branch continuity, DOF/redundancy and incremental editing",
+      "next": "T7-B3 industrial constraint-semantics comparison (T715), then branch continuity and richer conflict-set probes",
       "constraint_solver_discovery": {
         "own_solver": "EXPERIMENTAL_BOUNDED_CAPABILITY",
         "t7a_gaps": [
@@ -272,6 +273,15 @@
           "local_build": "PASS",
           "runtime_integration": "NONE",
           "license_boundary": "GPL; no proprietary code copying or runtime admission without explicit architecture/legal decision"
+        },
+        "t7b2": {
+          "status": "EXECUTED",
+          "baseline": "PASS",
+          "contradiction": "PASS",
+          "t713": "PARTIAL_PROBLEMATIC_CONSTRAINT_HANDLE_DEMONSTRATED_MINIMAL_CONFLICT_SET_NOT_YET_DEMONSTRATED",
+          "agk_modified": false,
+          "solvespace_source_modified": false,
+          "libslvs_role": "ORACLE_ONLY"
         }
       }
     }
