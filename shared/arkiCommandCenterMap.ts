@@ -1,13 +1,18 @@
 export type CommandCenterStatus = "VERIFIED" | "IMPLEMENTED" | "IN_PROGRESS" | "FROZEN" | "DESIGN" | "UNKNOWN" | "RECONCILIATION_REQUIRED";
 export type CommandCenterNode = { id:string; name:string; kind:string; status:CommandCenterStatus; summary:string; gained:string; missing:string; phase:string; children?:CommandCenterNode[] };
 
-export const commandCenterPhases: CommandCenterNode[] = Array.from({length:10},(_,i)=>({
-  id:`F${i+1}`, name:`Fase ${i+1}`, kind:"PHASE",
-  status:i===5?"IN_PROGRESS":"RECONCILIATION_REQUIRED",
-  summary:i===5?"Zona de trabajo actual declarada; subfase histórica exacta pendiente de reconciliación.":"Nombre, subfases y gates históricos pendientes de reconciliar con evidencia del repositorio.",
-  gained:i===5?"Ensamblaje del Superarquitecto y su sistema nervioso.":"Pendiente de inventario canónico.",
-  missing:"Reconciliación documental + código + tests + SHA.", phase:`F${i+1}`
-}));
+export const commandCenterPhases: CommandCenterNode[] = [
+ {id:"F1",name:"F1 · Identidad, Trust & Project State",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F1",summary:"Identidad reproducible, provenance, autoridad humana y estado versionado del proyecto.",gained:"Project/version, provenance, snapshots y revisión humana tienen activos históricos.",missing:"Reconciliar gates históricos, custodia, firmas/revocación y evidencia actual."},
+ {id:"F2",name:"F2 · Conocimiento & Universidad",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F2",summary:"Delta 6.2 como única puerta de conocimiento; Universidad, Tutor, Curator y Examiner.",gained:"M0-K, D6.1, KR-6.2, Book y currículos existen.",missing:"Conectar aprendizaje, examen, Version Watcher y R&D Scout sin crear un segundo conocimiento."},
+ {id:"F3",name:"F3 · Inteligencia Arquitectónica",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F3",summary:"Brief, razonamiento, transferencia, semántica, agentes y razonamiento jurisdiccional.",gained:"D6.2 y reasoning/transfer tienen evidencia histórica acotada.",missing:"Reconciliar runtime actual y ampliar jurisdicción/especialistas con provenance."},
+ {id:"F4",name:"F4 · Parti, Topología & Exploración",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F4",summary:"Parti divergente, topología, generación, mutación, rechazo y backtracking.",gained:"PARTI, integrated cycle y D6.3 bridge existen en alcance conceptual.",missing:"Reconciliar tres realizaciones, multi-escala y gates actuales."},
+ {id:"F5",name:"F5 · Evaluación & 16→4→1",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F5",summary:"Evaluación multiobjetivo, superpoderes y selección humana con genealogía.",gained:"Funnel, Pareto/evaluaciones y superpoderes tienen activos materiales.",missing:"Cerrar integración E2E generación→evaluación→selección→AGK."},
+ {id:"F6",name:"F6 · AGK / Espina 3D Constructiva",kind:"PHASE",status:"IN_PROGRESS",phase:"F6",summary:"Geometría canónica 3D, paramétricos, identidad persistente y commits fail-closed.",gained:"OCCT discovery, DELTA-005 naming y contratos geométricos avanzan con evidencia ejecutable.",missing:"P6→P10: transacción, persistencia/replay, concurrencia, OCCT E2E y estrés/regresión."},
+ {id:"F7",name:"F7 · Desarrollo Técnico Profesional",kind:"PHASE",status:"DESIGN",phase:"F7",summary:"Modelo coordinado, normativa y especialidades sobre la misma verdad geométrica.",gained:"BIM viewer, investigación de especialidades y contratos históricos reutilizables.",missing:"RNE/jurisdicción, estructura/MEP, accesibilidad/incendio, cantidades/costos, IFC/CAD verificables."},
+ {id:"F8",name:"F8 · Súper Expediente & Entrega",kind:"PHASE",status:"DESIGN",phase:"F8",summary:"Documentación técnica trazable derivada del estado canónico.",gained:"Roadmap de Súper Expediente y superficies documentales existentes.",missing:"Planos, cortes, elevaciones, especificaciones, metrados y paquete de revisión desde un único estado."},
+ {id:"F9",name:"F9 · Obra, Campo & Digital Twin",kind:"PHASE",status:"DESIGN",phase:"F9",summary:"Continuidad diseño→obra→as-built con evidencia de campo.",gained:"Field Mode, AR/WebXR, OCR/Visual Field y activos lifecycle.",missing:"ARKI-CONSTRUCT, correspondencia espacial, change sets, as-built y control de calidad E2E."},
+ {id:"F10",name:"F10 · Operación, Aprendizaje & Ecosistema",kind:"PHASE",status:"DESIGN",phase:"F10",summary:"Operación/mantenimiento, aprendizaje por resultados y sostenibilidad económica AR-LU.",gained:"Operations, Self-Care, Marketplace, LUCA federation y arquitectura corporativa existen.",missing:"ARKI-BUILDING, telemetría, mantenimiento, concursos/ingresos y retorno gobernado a Delta 6.2."}
+];
 
 export const organismNodes: CommandCenterNode[] = [
  {id:"ARKI",name:"ARKI",kind:"SUPERARCHITECT",status:"IN_PROGRESS",phase:"F6→F7",summary:"Superarquitecto: aprende, razona, genera, evalúa, materializa y conserva autoridad humana.",gained:"D-2, Funnel, familias, superpoderes, AGK y otras capacidades ya tienen evidencia material.",missing:"Conectar los órganos en un E2E integral y reconciliar el mapa completo."},
