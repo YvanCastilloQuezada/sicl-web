@@ -860,6 +860,17 @@
       },
       "boundary": "PRODUCTION_NAMING_SERVICE_NOT_YET_DEMONSTRATED",
       "next": "freeze contract then implement minimal ARKI-owned naming service"
+    },
+    "minimal_naming_service": {
+      "status": "VERIFIED_UNIT_CONTRACT_7_OF_7",
+      "verification_head": "0218103f6ea7eac16d96ab00a49ea719a793f4ab",
+      "evidence_commit": "1472978dd440f11a7703c9b58d9718c93c4bd7a9",
+      "test_file": "server/arkiPersistentNaming.test.ts",
+      "tests_passed": 7,
+      "tests_failed": 0,
+      "process_exit": 0,
+      "boundary": "Unit contract verified; OCCT/BRep E2E integration, durable persistence, concurrency and production readiness not yet demonstrated",
+      "next": "evidence adapter + append-only naming decision ledger + integration tests"
     }
   }
 }
