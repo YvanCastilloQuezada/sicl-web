@@ -576,3 +576,12 @@ Boundary: in-memory serialization/replay contract is demonstrated. Durable files
 **Status: PASS.** Windows-native execution at HEAD `d43aa0c09cb571af932e287c7fbbad0e3d474da3`: `server/arkiPersistentNamingConcurrency.test.ts` executed 12/12 tests PASS; 1/1 test file PASS; Vitest exit 0; duration 634 ms. Demonstrated at the tested in-process service boundary: shared-base readers, first-writer commit, stale-writer rejection, no stale overwrite, retry from fresh base, duplicate-ID rejection across managers, no partial publication from failed stale batches, contiguous batch commit, competing semantic edit protection, independent rollback, local overlapping-transaction rejection, and deterministic order after conflict/retry.
 
 Boundary: this is deterministic in-process optimistic-concurrency evidence, not yet multi-process/database/distributed concurrency. Next ordered gate: **P9 real OCCT/AGK geometry evidence integration**; mocks are not sufficient for that gate.
+
+
+## 33. AGK-DELTA-005 P9 native OCCT geometry evidence integration
+
+**Status: PASS.** Windows-native MSVC/OCCT execution against the installed x64-windows OCCT toolchain produced `P9_COMPILE_EXIT=0`, `P9_TOTAL=8 P9_PASS=8 P9_FAIL=0`, `ARKI_DELTA005_P9_NATIVE_OCCT=PASS`, and process exit 0. Six substantive native OCCT checks passed: box BRep validity, expected volume, expected topology, boolean cut completion, cut-result BRep validity, and observable changed geometry/topology. The emitted evidence envelope declared `schema=ARKI_AGK_GEOMETRY_EVIDENCE_V1`, `authority=AGK_OCCT`, operation `P9-CUT-001`, resulting volume `207.99999999999997`, faces `11`, edges `48`. Two additional assertions passed for the architectural authority boundary and the rule that ARKI semantic identity is not a transient BRep handle.
+
+Harness/link discovery evidence: `GProp_GProps` exports were located in `TKGeomBase.dll`; `BRepGProp::VolumeProperties` exports were located in `TKTopAlgo.dll`. Earlier attempts were NOT_EXECUTED harness/link/workdir failures and are not geometry failures. Final successful link included `TKGeomBase.lib` and explicitly placed the object/executable under `C:\\ARKI\\labs\\delta005-p9`.
+
+Boundary: P9 demonstrates a real native OCCT producer emitting an ARKI-compatible evidence envelope; it does not yet prove end-to-end machine ingestion of that native envelope by the TypeScript naming service. Next ordered gate: **P10 adversarial / stress / regression**, followed by freeze-readiness review without inflating claims.
