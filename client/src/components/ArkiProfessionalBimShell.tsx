@@ -7,14 +7,13 @@ const tree=[["SITE","Sitio / contexto"],["BUILDING","Edificación"],["SYSTEMS","
 const intel=["Properties","Relationships","Evidence","Unknowns","Reasoning","Alternatives","Simulation","Coordination"];
 const dimensions=[["4D","Tiempo",Clock3],["5D","Costo",Coins],["ENERGY","Energía",Sun],["CARBON","Carbono",Trees],["SCENARIOS","Escenarios",Layers3],["OPS","Operaciones",Wrench]] as const;
 const commandModules=[
- {code:"EVD",name:"Evidencia",description:"Trazabilidad observable del sistema",href:"/evidence"},
- {code:"EVA",name:"Evaluación",description:"Evaluación del proyecto y sus resultados",href:"/evaluations"},
- {code:"CMP",name:"Comparación",description:"Comparación gobernada de alternativas",href:"/comparisons"},
- {code:"SUP",name:"Superpoderes",description:"Inventario de capacidades extraordinarias: demostradas, parciales, faltantes y por verificar",href:"/arki-superpowers"},
- {code:"IDE",name:"Ideas",description:"Bandeja viva de ideas: capturadas, evaluadas, priorizadas, en desarrollo, incorporadas, descartadas o congeladas",href:"/arki-ideas"},
- {code:"AIL",name:"AI Lab",description:"Laboratorio gobernado para experimentar, crear y evaluar nuevas inteligencias artificiales que mejoren ARKI y LUCA",href:"/arki-ai-lab"},
- {code:"AUD",name:"Auditoría",description:"Revisión, control y trazabilidad de decisiones",href:"/audit"},
- {code:"HST",name:"Historial",description:"Historia y evolución verificable del proyecto",href:null}
+ {code:"EVIDENCIA",name:"Evidencia",description:"Trazabilidad observable del sistema",href:"/evidence"},
+ {code:"EVALUACIONES",name:"Evaluaciones",description:"Evaluación del proyecto y sus resultados",href:"/evaluations"},
+ {code:"COMPARACIONES",name:"Comparaciones",description:"Comparación gobernada de alternativas",href:"/comparisons"},
+ {code:"AUDITORÍA",name:"Auditoría",description:"Revisión, control y trazabilidad de decisiones",href:"/audit"},
+ {code:"SUPERPODERES",name:"Superpoderes",description:"Inventario de capacidades extraordinarias: demostradas, parciales, faltantes y por verificar",href:"/arki-superpowers"},
+ {code:"IDEAS",name:"Ideas",description:"Bandeja viva de ideas: capturadas, evaluadas, priorizadas, en desarrollo, incorporadas, descartadas o congeladas",href:"/arki-ideas"},
+ {code:"AI LAB",name:"AI Lab",description:"Laboratorio gobernado para experimentar, crear y evaluar nuevas inteligencias artificiales que mejoren ARKI y LUCA",href:"/arki-ai-lab"}
 ] as const;
 const projectCycle=[["SITE","Sitio","Captura y contexto"],["PRG","Programa","Programa arquitectónico y restricciones"],["DSN","Diseño","Generación y desarrollo espacial"],["SEL","16→4→1","Selección gobernada de alternativas"],["DEV","Desarrollo","Desarrollo del candidato seleccionado"],["EXP+","Súper expediente","Expediente técnico ampliado: documentación, análisis, simulaciones, evidencia y trazabilidad derivados del estado canónico"],["BIM","BIM","Modelo y coordinación multidimensional"],["OBR","Obra","Construcción y seguimiento"],["O&M","Operación","Operación, mantenimiento y aprendizaje"]] as const;
 
