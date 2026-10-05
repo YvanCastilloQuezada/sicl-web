@@ -732,5 +732,23 @@
       "second_geometry_kernel_required": "NO_EVIDENCE"
     },
     "next": "T714 persistent BRep topological identity/naming across AGK regeneration"
+  },
+  "agk_t714_topological_identity": {
+    "status": "GAP_CONFIRMED_OWN_DELTA_JUSTIFIED",
+    "evidence_commit": "00ea439968065378bc2dff73e2401990ddbb15f8",
+    "process_exit": 0,
+    "findings": {
+      "exact_regeneration": "GEOMETRIC_CORRESPONDENCE_FULL_IN_TESTED_CASES",
+      "parametric_edit": "CORRESPONDENCE_PARTIAL",
+      "boolean_local_edit": "CORRESPONDENCE_PARTIAL",
+      "fillet_edit": "CORRESPONDENCE_PARTIAL",
+      "rigid_transform": "WORLD_COORDINATE_MATCH_NOT_IDENTITY",
+      "brep_roundtrip": "GEOMETRIC_CORRESPONDENCE_FULL_IN_TESTED_CASE",
+      "index_order": "OBSERVATION_ONLY_NOT_IDENTITY",
+      "brep_subshape_persistent_identity": "NOT_PROVEN"
+    },
+    "delta": "AGK-DELTA-005 Persistent Topological Naming / Semantic Identity Bridge",
+    "authority": "ARKI owns semantic and parametric identity; OCCT remains canonical BRep body",
+    "second_geometry_kernel_required": "NO"
   }
 }
