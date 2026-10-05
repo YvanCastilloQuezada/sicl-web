@@ -93,3 +93,39 @@ export class ArkiNamingLedger {
     return Object.freeze([...this.records]);
   }
 }
+
+
+export interface AgkGeometryEvidenceEnvelope {
+  schema: "ARKI_AGK_GEOMETRY_EVIDENCE_V1";
+  authority: "AGK_OCCT";
+  operationId: string;
+  revision: number;
+  producedAt: string;
+  predecessors: readonly string[];
+  successors: readonly string[];
+  featureId?: string;
+  role?: string;
+  operationHistory?: readonly string[];
+  geometrySignatures?: readonly string[];
+  topologySignatures?: readonly string[];
+}
+
+export function validateAgkGeometryEvidenceEnvelope(e: AgkGeometryEvidenceEnvelope): void {
+  if (e.schema !== "ARKI_AGK_GEOMETRY_EVIDENCE_V1" || e.authority !== "AGK_OCCT")
+    throw new Error("ARKI_NAMING_UNTRUSTED_GEOMETRY_EVIDENCE");
+  if (!e.operationId.trim() || !Number.isInteger(e.revision) || e.revision < 1 || !e.producedAt.trim())
+    throw new Error("ARKI_NAMING_INVALID_GEOMETRY_EVIDENCE");
+  if (e.predecessors.length === 0 && e.successors.length === 0)
+    throw new Error("ARKI_NAMING_EMPTY_GEOMETRY_EVIDENCE");
+}
+
+export function evidenceFromAgkEnvelope(e: AgkGeometryEvidenceEnvelope): NamingEvidence {
+  validateAgkGeometryEvidenceEnvelope(e);
+  return {
+    featureId:e.featureId,
+    role:e.role,
+    operationHistory:e.operationHistory,
+    geometrySignature:e.geometrySignatures?.join("|"),
+    topologySignature:e.topologySignatures?.join("|"),
+  };
+}
