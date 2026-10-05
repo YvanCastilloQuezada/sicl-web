@@ -4,7 +4,6 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -133,7 +132,6 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <PwaInstallPrompt />
             <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
