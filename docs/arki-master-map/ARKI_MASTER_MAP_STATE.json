@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend assembly Wave 3: Design Studio receives confirmed site state immediately, surfaces solar analysis when available, exposes missing-data state, and keeps GIS/topography UNKNOWN until current E2E evidence exists.",
-    "next_exact_action": "Build canonical representation bridge so Preview/Plan/3D/Section derive from one candidate representation state instead of independent schematic placeholders; then run CI/runtime regression.",
+    "last_completed": "Frontend assembly Wave 4: Design Studio now attempts to consume Core SpatialRepresentation per project; PLAN and 3D reuse the existing canonical-source viewers when candidate IDs match, otherwise UI explicitly remains conceptual fallback. SECTION remains NOT_YET_DERIVED.",
+    "next_exact_action": "Add section/elevation derivation contract from the same SpatialRepresentation/canonical geometry, add regression tests proving PLAN and 3D share representation ID/input fingerprint, then run CI/runtime visual verification.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
@@ -344,7 +344,7 @@
     },
     "frontend_first_assembly": {
       "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
-      "status": "IMPLEMENTED_WAVE_3",
+      "status": "IMPLEMENTED_WAVE_4",
       "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
       "surfaces": [
         {
@@ -391,6 +391,15 @@
         "missing_data": "visible from Core missing-data report",
         "gis_topography": "UNKNOWN until current E2E revalidation",
         "principle": "No live-provider or site-fact claim is manufactured by the UI."
+      },
+      "canonical_representation_bridge": {
+        "status": "IMPLEMENTED_PARTIAL",
+        "source": "Core /v1/projects/{projectId}/spatial-representations",
+        "plan": "existing SpatialSvgViewer consumes SpatialRepresentation",
+        "three_d": "existing UPAO001MassingViewer3D consumes the same SpatialRepresentation",
+        "section": "NOT_YET_DERIVED",
+        "fallback": "explicit conceptual fallback; no canonical geometry fabricated",
+        "invariant_target": "PLAN/3D/SECTION/ELEVATION/BIM must derive from one canonical candidate state and preserve representation identity/provenance"
       }
     }
   },
