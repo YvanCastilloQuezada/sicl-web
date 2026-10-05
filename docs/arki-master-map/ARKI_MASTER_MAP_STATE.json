@@ -750,5 +750,27 @@
     "delta": "AGK-DELTA-005 Persistent Topological Naming / Semantic Identity Bridge",
     "authority": "ARKI owns semantic and parametric identity; OCCT remains canonical BRep body",
     "second_geometry_kernel_required": "NO"
+  },
+  "agk_delta_005": {
+    "status": "PHASE_1_EXECUTED",
+    "evidence_commit": "0f8c53b0b06a3337899451e76408c4b2bbc2aa25",
+    "authority": {
+      "semantic_identity": "ARKI",
+      "brep_representation": "OCCT"
+    },
+    "phase1": {
+      "exact_regen": "6 HIGH",
+      "boolean_exact": "10 HIGH",
+      "parametric_edit": "1 HIGH / 5 MEDIUM",
+      "boolean_local_move": "6 HIGH / 4 MEDIUM",
+      "fillet_edit": "4 HIGH / 2 MEDIUM / 1 NO_MATCH",
+      "feature_add": "5 HIGH / 1 MEDIUM",
+      "feature_delete": "5 HIGH / 1 MEDIUM / 5 NO_MATCH",
+      "rigid_transform": "6 AMBIGUOUS",
+      "symmetry_area_only": "6 AMBIGUOUS",
+      "topology_role_change": "5 HIGH / 1 MEDIUM / 4 NO_MATCH",
+      "fail_closed": "REQUIRED"
+    },
+    "next": "DELTA-005 Phase 2: provenance + architectural role + split/merge lineage"
   }
 }
