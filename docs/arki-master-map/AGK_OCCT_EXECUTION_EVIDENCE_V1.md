@@ -562,3 +562,10 @@ Next ordered gate: P6 transaction/rollback atomicity. No production-readiness cl
 The later interactive PowerShell `else` CommandNotFoundException occurred after Vitest had already returned exit 0 and after `ARKI_DELTA005_P6=PASS`; it is a shell-paste artifact and does not invalidate P6 evidence.
 
 Boundary: unit/service transaction atomicity is demonstrated; durable persistence/restart replay is not yet demonstrated. Next ordered gate: **P7 persistence + replay**.
+
+
+## 31. AGK-DELTA-005 P7 persistence / replay
+
+**Status: PASS.** Windows-native execution at HEAD `46daeb3da039c8c985541785b6c11512f4cd43ef`: `server/arkiPersistentNamingPersistence.test.ts` executed 12/12 tests PASS; 1/1 test file PASS; Vitest exit 0; duration 643 ms. Demonstrated at the tested service boundary: canonical schema serialization, one/multi-record round-trip, deterministic replay, preservation of evidence payload, and fail-closed rejection of malformed JSON, wrong/missing schema, sequence gaps, duplicate record IDs, ambiguous decisions and blank record identity.
+
+Boundary: in-memory serialization/replay contract is demonstrated. Durable filesystem/database crash recovery is not yet claimed. Next ordered gate: **P8 concurrency / stale-writer protection**.
