@@ -493,3 +493,14 @@ True 1-to-N face lineage was demonstrated. Source roof area was 280; the cut pro
 The inverse fill did not demonstrate N-to-1 merge. It produced 4 coplanar top faces with aggregate area 268 rather than one recovered face of area 280. This is NOT_DEMONSTRATED, not an OCCT limitation claim.
 
 Governance remains: ARKI owns semantic lineage; OCCT operation history is evidence only; incomplete or ambiguous lineage fails closed. Next is a dedicated Phase 3M true N-to-1 merge specimen before any production-contract claim.
+
+
+## 24. AGK-DELTA-005 Phase 3M — true N-to-1 merge demonstrated
+
+**Status: PASS.** Configure/build/run all succeeded; process exit 0. AGK product unchanged; no second kernel.
+
+Two adjacent semantic predecessor solids each exposed one coplanar roof face; total parent area was 280. Raw fuse preserved two top faces and area 280. Explicit `ShapeUpgrade_UnifySameDomain` normalization produced one valid top face with area 280. Therefore the tested N-to-1 event is demonstrated: parents `SEM:ROOF_A, SEM:ROOF_B` -> child `SEM:ROOF`, with coverage conserved exactly.
+
+Negative control also passed: a 0.01 gap retained two top faces and no silent merge. This supports fail-closed behavior and shows same-domain normalization is geometric evidence, not semantic identity authority.
+
+Combined with Phase 3R, Delta-005 discovery now has concrete tested evidence for both 1-to-N SPLIT and N-to-1 MERGE. This closes the specific split/merge discovery gap. Next gate: Phase 4 adversarial identity campaign and production contract. Do not yet claim production persistent naming is solved.
