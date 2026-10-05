@@ -1,0 +1,8 @@
+const powers=[
+ {name:"Consequence Radar",state:"RECOVERED / VERIFY CURRENT",proof:"Historical capability lineage"},
+ {name:"Value of Information",state:"RECOVERED / VERIFY CURRENT",proof:"Historical capability lineage"},
+ {name:"Design Divergence",state:"RECOVERED / VERIFY CURRENT",proof:"Historical capability lineage"},
+ {name:"Architectural Debt",state:"RECOVERED / VERIFY CURRENT",proof:"Historical capability lineage"},
+ {name:"Counterfactual Explorer",state:"RECOVERED / VERIFY CURRENT",proof:"Historical capability lineage"},
+];
+export default function ArkiSuperpowersPage(){return <main className="min-h-screen bg-[#07121e] p-6 text-[#e8f1f7]"><div className="mx-auto max-w-[1500px]"><div className="text-[10px] font-bold tracking-[.2em] text-[#7dd3fc]">ARKI CONTROL · SUP</div><h1 className="mt-2 text-3xl font-semibold">Superpoderes</h1><p className="mt-2 text-sm text-[#8fa8bc]">Contabilidad de capacidades extraordinarias. Recuperado no significa verificado en el runtime actual.</p><div className="mt-5 grid gap-3 md:grid-cols-5">{["DEMOSTRADOS","PARCIALES","FALTANTES","UNKNOWN","BLOQUEADOS"].map(x=><div key={x} className="rounded border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] text-[#718b9a]">{x}</div><div className="mt-2 text-2xl">—</div></div>)}</div><div className="mt-5 overflow-hidden rounded border border-[#28445b]">{powers.map((p,i)=><div key={p.name} className={`grid grid-cols-[1fr_240px_1fr] px-4 py-3 text-xs ${i?"border-t border-[#28445b]":""}`}><b>{p.name}</b><span className="text-[#f0a35b]">{p.state}</span><span className="text-[#8fa8bc]">{p.proof}</span></div>)}</div></div></main>}
