@@ -449,3 +449,14 @@ T714 conclusion: semantic identity and parametric identity must be ARKI-owned; s
 **AGK-DELTA-005 — Persistent Topological Naming / Semantic Identity Bridge: JUSTIFIED FOR DESIGN.** Target contract: ARKI semantic entity ID + feature/provenance lineage + role/context signature + geometric/topological evidence -> correspondence candidates -> confidence/ambiguity -> preserve/remap/split/merge/new/deleted -> acceptance -> commit. Fail closed on ambiguous correspondence; never silently rebind architectural semantics to a different BRep subshape.
 
 No second geometry kernel is justified. AGK remains OCCT canonical BRep body + evidence-derived ARKI_KERNEL_DELTA.
+
+
+## 20. AGK-DELTA-005 Phase 1 — Evidence bridge discovery
+
+**Status: EXECUTED / PHASE 1 PASS WITH EXPECTED AMBIGUITY.** Process exit 0; AGK product unchanged; no second kernel.
+
+A deliberately simple discovery matcher classified face correspondence using geometric evidence. Exact regeneration and exact boolean regeneration mapped all faces HIGH. Parametric edit retained 1 HIGH + 5 MEDIUM. Local boolean movement retained 6 HIGH + 4 MEDIUM. Fillet-radius edit produced 4 HIGH + 2 MEDIUM + 1 NO_MATCH. Feature addition retained 5 HIGH + 1 MEDIUM while introducing new topology; feature deletion produced 5 HIGH + 1 MEDIUM + 5 NO_MATCH, correctly exposing deleted feature faces. Topology-role change produced 5 HIGH + 1 MEDIUM + 4 NO_MATCH.
+
+Two deliberate ambiguity probes behaved correctly: rigid world-coordinate transform yielded 6 AMBIGUOUS, and symmetric area-only matching yielded 6 AMBIGUOUS. Therefore geometry-only matching is useful evidence but insufficient identity authority. Fail-closed on ambiguity is confirmed as a required policy.
+
+**Delta-005 design direction confirmed:** ARKI owns semantic IDs. OCCT owns BRep representation. The bridge must combine provenance/feature lineage, architectural role/context, topology and geometry, explicitly handling PRESERVE / REMAP / SPLIT / MERGE / NEW / DELETED / AMBIGUOUS. Next phase must add provenance and role-aware matching rather than merely tune geometric thresholds.
