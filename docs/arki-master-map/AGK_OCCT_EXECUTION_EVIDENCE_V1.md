@@ -460,3 +460,14 @@ A deliberately simple discovery matcher classified face correspondence using geo
 Two deliberate ambiguity probes behaved correctly: rigid world-coordinate transform yielded 6 AMBIGUOUS, and symmetric area-only matching yielded 6 AMBIGUOUS. Therefore geometry-only matching is useful evidence but insufficient identity authority. Fail-closed on ambiguity is confirmed as a required policy.
 
 **Delta-005 design direction confirmed:** ARKI owns semantic IDs. OCCT owns BRep representation. The bridge must combine provenance/feature lineage, architectural role/context, topology and geometry, explicitly handling PRESERVE / REMAP / SPLIT / MERGE / NEW / DELETED / AMBIGUOUS. Next phase must add provenance and role-aware matching rather than merely tune geometric thresholds.
+
+
+## 21. AGK-DELTA-005 Phase 2 — provenance + role-aware discovery
+
+**Status: EXECUTED / PASS WITH EXPECTED BOOLEAN AMBIGUITY.** Process exit 0; AGK product unchanged; no second kernel.
+
+The enriched discovery matcher combined geometry with coarse role and feature/provenance evidence. Parametric role continuity preserved 6/6 faces. Feature addition preserved 6/6 predecessor faces while allowing five new faces. Feature deletion preserved 6/11 predecessor faces and classified the five removed feature faces as DELETED_OR_NO_MATCH. Role-change guard preserved the six surviving base faces and rejected four cut-specific faces. Boolean local-lineage continuity preserved six base faces but correctly left four generated side faces AMBIGUOUS: coarse role + shared feature label is insufficient to distinguish symmetric/generated boolean descendants.
+
+Policies exercised: one-to-many and many-to-one require explicit lineage; ambiguity fails closed; semantic ID survives only through ARKI evidence, never BRep enumeration; event vocabulary PRESERVE / REMAP / SPLIT / MERGE / NEW / DELETED / AMBIGUOUS.
+
+**Conclusion:** Phase 2 validates the architecture but does not yet demonstrate true SPLIT/MERGE lineage. Phase 3 must create an explicit lineage graph and test concrete 1->N and N->1 transformations, including conservation/coverage checks and ambiguity handling.
