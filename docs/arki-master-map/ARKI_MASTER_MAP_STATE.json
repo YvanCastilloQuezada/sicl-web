@@ -75,8 +75,8 @@
       "SITE-FIRST nervous system",
       "AGK integration as supporting geometry authority"
     ],
-    "last_completed": "Frontend Wave 13: ARKI CONTROL labels simplified and ordered by Product Owner: Evidencia → Evaluaciones → Comparaciones → Auditoría → Superpoderes → Ideas → AI Lab.",
-    "next_exact_action": "Continue frontend assembly: add EXP+ Super Expediente completeness dashboard, connect project-cycle ribbon to verified existing routes, then run focused build/tests and fix hardcoded solar/cost provenance defects before PR merge.",
+    "last_completed": "Frontend Wave 14: fixed cost locality provenance; solar UPAO-001 example now fails closed as EXAMPLE_REFERENCE outside UPAO-001; added evidence-bounded EXP+ Super Technical Dossier dashboard; connected verified DSN/SEL/DEV/EXP+/BIM project-cycle routes.",
+    "next_exact_action": "Run frontend build/tests for Waves 7-14, fix any compile/runtime defects, then continue connecting SITE/PRG/OBR/O&M only where verified routes/capabilities exist and deepen EXP+ completeness from repository evidence.",
     "blockers": [
       "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
       "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
