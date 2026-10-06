@@ -95,3 +95,75 @@ F7 cannot close with a known reproducible correctable defect inside its declared
 5. Only then implement missing contracts/tests.
 
 **Initial candidate E2E slice:** one architectural opening/penetration whose semantic intent is preserved through AGK geometry, structural/MEP coordination evidence, conflict/clearance evaluation, accepted mutation and IFC/BIM projection. This is a candidate until repository audit confirms the best existing path.
+
+
+## 8. Product Owner decision — Existing-project intervention modes
+
+**Decision date:** 2026-10-05
+
+F7 must support existing projects as first-class inputs, not only projects generated natively by ARKI. The professional-development product is therefore organized by intervention depth over an immutable imported baseline.
+
+### Input families
+
+ARKI must be able to receive, subject to adapter support and evidence:
+- a complete BIM model such as RVT/IFC;
+- CAD project packages such as DWG/DXF and other supported exchange geometry;
+- a complete technical dossier containing drawings, specifications, quantities, unit-price analyses, budgets and discipline documents;
+- combinations of model + dossier.
+
+An imported source is never silently overwritten. It becomes a versioned **BASELINE_0** with provenance, source files, extraction confidence and UNKNOWNs.
+
+### Four intervention levels
+
+| Level | Product mode | Required behavior |
+|---|---|---|
+| L1 | DIGITAL RECONSTRUCTION / NORMALIZATION | ingest the delivered project as-is; reconstruct/normalize it into ARKI's coordinated digital/3D representation while preserving provenance and without claiming design improvement |
+| L2 | TECHNICAL COORDINATION / QA | inspect architecture and specialties; detect clashes, overlaps, missing clearances, inconsistencies and coordination problems; propose traceable corrections |
+| L3 | ARCHITECTURAL IMPROVEMENT | evaluate the existing architecture and propose functional, spatial, environmental, regulatory and technical improvements while measuring consequences against baseline |
+| L4 | CONTROLLED REDESIGN / VALUE IMPROVEMENT | generate architecturally better alternatives with controlled change, initially targeting roughly 5–10% modification where appropriate, while keeping the project inside an explicitly defined budget/cost envelope and other owner constraints |
+
+The 5–10% range is an owner target/strategy, not a universal geometric rule. Each project must define what “modification percentage” means (cost, quantities, affected elements, area, scope or a composite metric).
+
+### Technical-dossier reconstruction mode
+
+A complete CAD/document dossier may be used to reconstruct a coordinated 3D project state. Drawings alone are not assumed to contain all semantics: ARKI must preserve source confidence and UNKNOWNs, cross-check plans/sections/elevations/schedules/specifications and use quantities/budgets as independent evidence where available.
+
+Once reconstructed, the same L2–L4 pipeline applies.
+
+### Project-local cost intelligence
+
+Unit prices, quantities, analyses and budget values supplied in a technical dossier may form a **PROJECT_COST_BASELINE** for that project. They are not silently promoted to global canonical cost knowledge.
+
+Every proposed mutation must be capable of producing a cost delta against the project baseline:
+
+```
+BASELINE DESIGN + PROJECT_COST_BASELINE
+        -> proposed mutation
+        -> quantity delta
+        -> applicable unit-price mapping
+        -> direct/derived cost delta
+        -> uncertainty / missing-price evidence
+        -> revised total + variance
+```
+
+This enables controlled questions such as: “Can ARKI produce a better architectural solution within the same budget?” A PASS requires demonstrated quantities, applicable prices and explicit uncertainty; missing cost mappings remain UNKNOWN.
+
+### Comparison contract
+
+Every improvement proposal preserves at least:
+- BASELINE_0 immutable source state;
+- proposal/version ID;
+- changed semantic entities;
+- geometric/discipline consequences;
+- regulatory consequences;
+- quantity changes;
+- cost impact;
+- quality/performance evaluation;
+- rejected alternatives and rationale;
+- Human Authority decision.
+
+Thus ARKI can compare **AS-RECEIVED vs COORDINATED vs IMPROVED vs CONTROLLED-REDESIGN** without losing the original project.
+
+### Architectural consequence for F7/F8
+
+F7 owns reconstruction/normalization, technical coordination, professional analysis and cost-aware mutation evidence. F8 consumes the accepted coordinated/improved state to generate or regenerate the technical dossier. This prevents a separate dossier truth from diverging from the canonical project state.
