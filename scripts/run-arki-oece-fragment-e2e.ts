@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { ingestOeceEvidenceEnvelope, oecePackageToBaseline0 } from "../server/arkiOeceEvidence";
 import { attachOeceEmbeddedTechnicalFragment, ingestOeceEmbeddedTechnicalFragment } from "../server/arkiOeceEmbeddedTechnicalFragment";
+import { assessF7SourceReadiness } from "../server/arkiProfessionalState";
 
 const hash = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
 
@@ -41,6 +42,11 @@ if (pkg.technicalDossierClaim !== "NOT_DEMONSTRATED" || !enriched.immutable) {
   throw new Error("OECE_DERIVED_FRAGMENT_AUTHORITY_VIOLATION");
 }
 
+const f7Readiness = assessF7SourceReadiness(enriched);
+if (f7Readiness.status !== "EVIDENCE_ONLY_BLOCKED" || f7Readiness.blockers.length !== 1) {
+  throw new Error("OECE_DERIVED_FRAGMENT_F7_ADMISSION_GATE_BYPASS");
+}
+
 console.log(JSON.stringify({
   gate: "OECE_ACS_DERIVED_FRAGMENT_TO_ARKI_BASELINE0",
   status: "PASS",
@@ -53,6 +59,8 @@ console.log(JSON.stringify({
   start: `${fragment.StartPage}:${fragment.StartBoundary}`,
   end: `${fragment.EndPage}:${fragment.EndBoundary}`,
   derivedClaims: derived.length,
+  f7SourceReadiness: f7Readiness.status,
+  f7SourceBlockers: f7Readiness.blockers,
   derivedClaimEvidenceState: derived[0].evidenceState,
   technicalDossierClaim: pkg.technicalDossierClaim,
   wholeDocumentPromotion: fragment.WholeDocumentPromotion,
