@@ -55,6 +55,12 @@ describe("S10 project-local interoperability", () => {
     expect(S10_INTEROP_BOUNDARY.notClaimed).toContain("S10_ROUND_TRIP");
   });
 
+  it("rejects dangling APU references instead of reconciling unverifiable cost structure", () => {
+    expect(() => s10([
+      { itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:A", apuRef: "MISSING-APU" },
+    ])).toThrow("S10_ITEM_APU_NOT_FOUND:I1:MISSING-APU");
+  });
+
   it("preserves budget hierarchy, APU resources and reconciles declared direct cost", () => {
     const project = normalizeS10Project({
       projectId: "P1", sourceId: "NATIVE-1", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:s10",
