@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "Bounded OCR passed E3: 47/47 proven image-only pages, 187,608 characters, three documents, no semantic promotion.",
-    "next_exact_action": "Execute page-level OCR evidence persistence at ACS ad013ca..., then inspect exact pages/contexts for EXPEDIENTE_TECNICO, MEMORIA_DESCRIPTIVA, PLANOS and PRESUPUESTO_TERM before any document-kind promotion.",
+    "last_completed": "OECE OCR page evidence persisted and hash-verified: 223,856 bytes, SHA-256 a7033042..., 47 pages; OCR rerun no longer required.",
+    "next_exact_action": "Run ACS persisted-evidence context probe at b06b7d4... (no OCR) and classify exact page contexts for EXPEDIENTE_TECNICO, MEMORIA_DESCRIPTIVA, PLANOS, PRESUPUESTO_TERM.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1301,6 +1301,16 @@
           }
         ],
         "semantic_promotion": "NOT_PERFORMED"
+      },
+      "page_evidence": {
+        "status": "PASS_E3_PERSISTED",
+        "producer_head": "ad013ca4bad2b257d8e7936be54eccaa169c1d77",
+        "path": "C:\\acs-v1\\test-artifacts\\oece-documents\\ocds-dgv273-seacev3-1237735\\oece-ocr-page-evidence.json",
+        "bytes": 223856,
+        "sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "model_sha256": "6f2e04d02774a18f01bed44b1111f2cd7f3ba7ac9dc4373cd3f898a40ea6b464",
+        "pages": 47,
+        "semantic_promotion": false
       }
     }
   }
