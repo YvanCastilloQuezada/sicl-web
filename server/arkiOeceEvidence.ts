@@ -41,6 +41,7 @@ export type OeceEvidencePackage = {
   procedureId?: string;
   records: OeceEvidenceRecord[];
   documents: OeceDocumentEvidence[];
+  expectedSurfaces?: OeceDatasetKind[];
   missingSurfaces: OeceDatasetKind[];
   completeness: "METADATA_ONLY" | "PARTIAL_EVIDENCE" | "SOURCE_PACKAGE_VERIFIED";
   technicalDossierClaim: "NOT_DEMONSTRATED" | "PARTIAL" | "TECHNICAL_CORE_SET_VERIFIED";
@@ -77,6 +78,7 @@ const OecePackageInputSchema = z.object({
   procedureId: z.string().min(1).optional(),
   records: z.array(OeceRecordInputSchema),
   documents: z.array(OeceDocumentInputSchema),
+  expectedSurfaces: z.array(z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"])).optional(),
   missingSurfaces: z.array(z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"])),
 }).strict().refine(value => Boolean(value.ocid || value.procedureId), { message: "OECE_PROCEDURE_IDENTITY_REQUIRED" });
 
@@ -115,9 +117,18 @@ export function createOeceEvidencePackage(input: Omit<OeceEvidencePackage, "sche
   }
 
   const verifiedDocs = input.documents.filter(d => d.acquisitionStatus === "VERIFIED");
+  const presentSurfaces = new Set<OeceDatasetKind>(input.records.map(r => r.dataset));
+  if (input.documents.length) presentSurfaces.add("DOCUMENT");
+  for (const surface of input.missingSurfaces) {
+    if (presentSurfaces.has(surface)) throw new Error(`OECE_SURFACE_PRESENT_AND_MISSING:${surface}`);
+  }
+  const derivedMissing = (input.expectedSurfaces ?? []).filter(surface => !presentSurfaces.has(surface));
+  const missingMismatch = derivedMissing.some(surface => !input.missingSurfaces.includes(surface));
+  if (missingMismatch) throw new Error("OECE_MISSING_SURFACES_UNDERREPORTED");
+  const hasProcedure = input.records.some(r => r.dataset === "PROCEDURE");
   const hasStructuredProcurement = input.records.some(r => ["PROCEDURE", "AWARD", "CONTRACT"].includes(r.dataset));
   const completeness: OeceEvidencePackage["completeness"] =
-    verifiedDocs.length && hasStructuredProcurement && input.missingSurfaces.length === 0 ? "SOURCE_PACKAGE_VERIFIED"
+    verifiedDocs.length && hasProcedure && Boolean(input.expectedSurfaces?.length) && derivedMissing.length === 0 && input.missingSurfaces.length === 0 ? "SOURCE_PACKAGE_VERIFIED"
       : verifiedDocs.length || hasStructuredProcurement ? "PARTIAL_EVIDENCE"
       : "METADATA_ONLY";
 
