@@ -23,6 +23,14 @@ describe("OECE/ACS evidence boundary", () => {
     expect(OECE_ARKI_BOUNDARY.directF8Publication).toBe(false);
   });
 
+  it("cannot claim source-package completeness by omitting expected missing surfaces", () => {
+    expect(() => createOeceEvidencePackage({
+      packageId: "OECE-M", projectId: "P1", procedureId: "PROC-M",
+      records: [{ recordId: "P", dataset: "PROCEDURE", sourceRef: "S:P", sourceChecksum: "p", observedAt: "2026-10-07", fields: {} }],
+      documents: [], expectedSurfaces: ["PROCEDURE", "AWARD", "CONTRACT"], missingSurfaces: [],
+    })).toThrow("OECE_MISSING_SURFACES_UNDERREPORTED");
+  });
+
   it("requires checksum plus local evidence reference before a document is VERIFIED", () => {
     expect(() => createOeceEvidencePackage({
       packageId: "OECE-P2", projectId: "P1", procedureId: "PROC-2", records: [],
