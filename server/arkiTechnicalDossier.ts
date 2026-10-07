@@ -21,7 +21,7 @@ export function generateTechnicalDossier(input: {
   if (input.state.issues.some(i => i.status === "OPEN")) throw new Error("F8_REJECTS_OPEN_F7_ISSUES");
   const requiredKinds = new Set<DossierArtifact["kind"]>(["DRAWING", "SPECIFICATION", "QUANTITY_SCHEDULE", "BUDGET", "COORDINATION_REPORT", "EVIDENCE_REGISTER"]);
   const observedKinds = new Set(input.artifacts.map(a => a.kind));
-  const missing = [...requiredKinds].filter(k => !observedKinds.has(k));
+  const missing = Array.from(requiredKinds).filter(k => !observedKinds.has(k));
   if (missing.length) throw new Error(`F8_DOSSIER_INCOMPLETE:${missing.join(",")}`);
   const artifacts: DossierArtifact[] = input.artifacts.map(a => {
     if (!a.provenance.length) throw new Error(`F8_ARTIFACT_PROVENANCE_REQUIRED:${a.artifactId}`);
