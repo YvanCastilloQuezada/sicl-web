@@ -65,20 +65,20 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — OECE verified document content characterization",
+    "title": "F7→F8 — OECE image-only verified documents require bounded OCR",
     "active": [
-      "Characterize three verified PDFs with no extractable text",
-      "Keep lexical observations separate from technical semantic classification",
+      "Select available local OCR capability for three proven image-only PDFs",
+      "Keep OCR output observational until evidence-backed semantic classification",
       "OECE/ACS evidence → BASELINE_0",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE verified-content inspection passed E3 at ACS fd4ac7276125338cfda1d0c18cf1c9454d8f6929. Five unique relevant PDFs were inspected: 2 TEXT_EXTRACTED and 3 TEXT_NOT_AVAILABLE. Extracted texts demonstrate proposal-presentation and award-report administrative content; the award report exposes reference value S/ 99,870.00 but does not demonstrate a project budget/APU/quantities/technical dossier. No semantic promotion was performed.",
-    "next_exact_action": "Characterize the three TEXT_NOT_AVAILABLE PDFs as image/scanned/other PDF content using bounded structural inspection; only then decide whether OCR is justified. Keep technicalDossierClaim NOT_DEMONSTRATED.",
+    "last_completed": "OECE PDF structural inspection passed E3 at ACS 8c76492eb646dd7ee7f5a257b8af066db4178fc4. Contract: 6/6 pages image-only; Administrative Bases: 38/38 image-only; Award Act: 3/3 image-only. All have zero PDF letters and one image per page. OCR is justified only for these three PDFs. The two machine-text reports remain directly extractable; award report lexical signals are BUENA_PRO and VALOR_REFERENCIAL, not budget.",
+    "next_exact_action": "Detect an already available local OCR engine/capability. If none is available, add one explicit reproducible OCR dependency to ACS. OCR only the 47 proven image-only pages; preserve source SHA/page provenance and do not semantically promote from OCR without evidence.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
-      "OECE_THREE_PDFS_CONTENT_UNREADABLE_BY_TEXT_EXTRACTION",
+      "OECE_IMAGE_ONLY_PDFS_REQUIRE_OCR_FOR_CONTENT",
       "OECE_TECHNICAL_CORE_CONTENT_NOT_DEMONSTRATED"
     ]
   },
@@ -1189,6 +1189,36 @@
         "Award act: 3 pages; no extractable text."
       ],
       "semantic_promotion": "NOT_PERFORMED",
+      "technical_dossier_claim": "NOT_DEMONSTRATED"
+    },
+    "oece_pdf_structure": {
+      "status": "PASS_E3_IMAGE_ONLY_CONFIRMED",
+      "verification_head": "8c76492eb646dd7ee7f5a257b8af066db4178fc4",
+      "image_only_documents": [
+        {
+          "identity": "contract content (duplicate OECE identities)",
+          "pages": 6,
+          "letters": 0,
+          "images": 6,
+          "imageOnlyCandidatePages": 6
+        },
+        {
+          "identity": "Administrative Bases",
+          "pages": 38,
+          "letters": 0,
+          "images": 38,
+          "imageOnlyCandidatePages": 38
+        },
+        {
+          "identity": "Award Act",
+          "pages": 3,
+          "letters": 0,
+          "images": 3,
+          "imageOnlyCandidatePages": 3
+        }
+      ],
+      "image_only_pages_total": 47,
+      "ocr_scope": "JUSTIFIED_FOR_47_IMAGE_ONLY_PAGES_ONLY",
       "technical_dossier_claim": "NOT_DEMONSTRATED"
     }
   }
