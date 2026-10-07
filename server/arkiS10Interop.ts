@@ -1,6 +1,48 @@
 import { createHash } from "node:crypto";
 import { createProjectCostBaseline, type ProjectCostBaseline } from "./arkiProjectEconomicTwin";
 
+export type S10Resource = {
+  resourceId: string;
+  code: string;
+  description: string;
+  unit: string;
+  unitPrice: number;
+  resourceType: "LABOR" | "MATERIAL" | "EQUIPMENT" | "SUBCONTRACT" | "OTHER";
+  sourceRef: string;
+};
+
+export type S10ApuComponent = {
+  resourceId: string;
+  quantity: number;
+  wasteFactor?: number;
+  sourceRef: string;
+};
+
+export type S10Apu = {
+  apuId: string;
+  itemCode: string;
+  components: S10ApuComponent[];
+  sourceRef: string;
+};
+
+export type S10BudgetNode = {
+  nodeId: string;
+  code: string;
+  description: string;
+  parentNodeId?: string;
+  itemCodes: string[];
+  sourceRef: string;
+};
+
+export type S10BudgetTotals = {
+  directCost: number;
+  generalExpenses?: number;
+  utility?: number;
+  tax?: number;
+  total: number;
+  sourceRef: string;
+};
+
 export type S10NormalizedItem = {
   itemId: string;
   code: string;
@@ -22,6 +64,10 @@ export type S10NormalizedProject = {
   currency: string;
   location?: string;
   items: S10NormalizedItem[];
+  resources?: S10Resource[];
+  apus?: S10Apu[];
+  budgetNodes?: S10BudgetNode[];
+  declaredTotals?: S10BudgetTotals;
   evidenceState: "VERIFIED_STRUCTURE" | "PARTIAL" | "UNKNOWN";
   unknowns: string[];
   fingerprint: string;
@@ -52,6 +98,42 @@ export function normalizeS10Project(input: Omit<S10NormalizedProject, "schema" |
     if (!Number.isFinite(item.unitPrice) || item.unitPrice < 0) throw new Error(`S10_INVALID_UNIT_PRICE:${item.itemId}`);
     ids.add(item.itemId); codes.add(item.code);
   }
+  const resourceIds = new Set<string>();
+  for (const resource of input.resources ?? []) {
+    required(resource.resourceId, "S10_RESOURCE_ID_REQUIRED");
+    required(resource.code, `S10_RESOURCE_CODE_REQUIRED:${resource.resourceId}`);
+    required(resource.sourceRef, `S10_RESOURCE_PROVENANCE_REQUIRED:${resource.resourceId}`);
+    if (resourceIds.has(resource.resourceId)) throw new Error(`S10_DUPLICATE_RESOURCE_ID:${resource.resourceId}`);
+    if (!Number.isFinite(resource.unitPrice) || resource.unitPrice < 0) throw new Error(`S10_INVALID_RESOURCE_PRICE:${resource.resourceId}`);
+    resourceIds.add(resource.resourceId);
+  }
+  const apuIds = new Set<string>();
+  for (const apu of input.apus ?? []) {
+    required(apu.apuId, "S10_APU_ID_REQUIRED");
+    required(apu.sourceRef, `S10_APU_PROVENANCE_REQUIRED:${apu.apuId}`);
+    if (apuIds.has(apu.apuId)) throw new Error(`S10_DUPLICATE_APU_ID:${apu.apuId}`);
+    if (!codes.has(apu.itemCode)) throw new Error(`S10_APU_ITEM_NOT_FOUND:${apu.apuId}`);
+    for (const component of apu.components) {
+      if (!resourceIds.has(component.resourceId)) throw new Error(`S10_APU_RESOURCE_NOT_FOUND:${apu.apuId}:${component.resourceId}`);
+      if (!Number.isFinite(component.quantity) || component.quantity < 0) throw new Error(`S10_INVALID_APU_QUANTITY:${apu.apuId}`);
+      if (component.wasteFactor !== undefined && (!Number.isFinite(component.wasteFactor) || component.wasteFactor < 0)) throw new Error(`S10_INVALID_WASTE_FACTOR:${apu.apuId}`);
+      required(component.sourceRef, `S10_APU_COMPONENT_PROVENANCE_REQUIRED:${apu.apuId}`);
+    }
+    apuIds.add(apu.apuId);
+  }
+  const nodeIds = new Set((input.budgetNodes ?? []).map(n => n.nodeId));
+  for (const node of input.budgetNodes ?? []) {
+    required(node.nodeId, "S10_BUDGET_NODE_ID_REQUIRED");
+    required(node.sourceRef, `S10_BUDGET_NODE_PROVENANCE_REQUIRED:${node.nodeId}`);
+    if (node.parentNodeId && !nodeIds.has(node.parentNodeId)) throw new Error(`S10_BUDGET_PARENT_NOT_FOUND:${node.nodeId}`);
+    if (node.itemCodes.some(code => !codes.has(code))) throw new Error(`S10_BUDGET_ITEM_NOT_FOUND:${node.nodeId}`);
+  }
+  if (input.declaredTotals) {
+    required(input.declaredTotals.sourceRef, "S10_TOTALS_PROVENANCE_REQUIRED");
+    for (const [key, value] of Object.entries(input.declaredTotals)) {
+      if (key !== "sourceRef" && value !== undefined && (!Number.isFinite(value) || (value as number) < 0)) throw new Error(`S10_INVALID_TOTAL:${key}`);
+    }
+  }
   const payload = { ...input, schema: "ARKI-S10-NORMALIZED-1.0" as const };
   return { ...payload, fingerprint: hash(payload) };
 }
@@ -76,10 +158,32 @@ export function toProjectCostBaseline(project: S10NormalizedProject): ProjectCos
   });
 }
 
+export function verifyS10Totals(project: S10NormalizedProject, tolerance = 0.01) {
+  if (!Number.isFinite(tolerance) || tolerance < 0) throw new Error("S10_INVALID_TOLERANCE");
+  const calculatedDirectCost = project.items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0);
+  if (!project.declaredTotals) return {
+    status: "UNKNOWN" as const,
+    calculatedDirectCost,
+    declaredDirectCost: undefined,
+    delta: undefined,
+    tolerance,
+    unknowns: ["S10_DECLARED_TOTALS_NOT_AVAILABLE"],
+  };
+  const delta = calculatedDirectCost - project.declaredTotals.directCost;
+  return {
+    status: Math.abs(delta) <= tolerance ? "RECONCILED" as const : "MISMATCH" as const,
+    calculatedDirectCost,
+    declaredDirectCost: project.declaredTotals.directCost,
+    delta,
+    tolerance,
+    unknowns: [] as string[],
+  };
+}
+
 export type S10ReconciliationChange = {
   itemId: string;
   code: string;
-  kind: "ADDED" | "REMOVED" | "QUANTITY_CHANGED" | "PRICE_CHANGED" | "APU_CHANGED";
+  kind: "ADDED" | "REMOVED" | "QUANTITY_CHANGED" | "PRICE_CHANGED" | "APU_CHANGED" | "RESOURCE_PRICE_CHANGED" | "TOTAL_CHANGED";
   before?: number | string;
   after?: number | string;
 };
@@ -98,6 +202,15 @@ export function reconcileS10Projects(before: S10NormalizedProject, after: S10Nor
     if ((oldItem.apuRef ?? "") !== (next.apuRef ?? "")) changes.push({ itemId: next.itemId, code, kind: "APU_CHANGED", before: oldItem.apuRef ?? "", after: next.apuRef ?? "" });
   }
   for (const [code, item] of afterByCode) if (!beforeByCode.has(code)) changes.push({ itemId: item.itemId, code, kind: "ADDED" });
+  const beforeResources = new Map((before.resources ?? []).map(r => [r.code, r]));
+  const afterResources = new Map((after.resources ?? []).map(r => [r.code, r]));
+  for (const [code, oldResource] of beforeResources) {
+    const next = afterResources.get(code);
+    if (next && oldResource.unitPrice !== next.unitPrice) changes.push({ itemId: next.resourceId, code, kind: "RESOURCE_PRICE_CHANGED", before: oldResource.unitPrice, after: next.unitPrice });
+  }
+  if (before.declaredTotals && after.declaredTotals && before.declaredTotals.total !== after.declaredTotals.total) {
+    changes.push({ itemId: "BUDGET_TOTAL", code: "TOTAL", kind: "TOTAL_CHANGED", before: before.declaredTotals.total, after: after.declaredTotals.total });
+  }
   const direct = (p: S10NormalizedProject) => p.items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0);
   return {
     schema: "ARKI-S10-RECONCILIATION-1.0" as const,
@@ -115,7 +228,7 @@ export function reconcileS10Projects(before: S10NormalizedProject, after: S10Nor
 }
 
 export const S10_INTEROP_BOUNDARY = Object.freeze({
-  implemented: ["NORMALIZE", "RECONCILE", "PROJECT_COST_BASELINE_PROJECTION"],
+  implemented: ["NORMALIZE", "BUDGET_HIERARCHY", "APU_RESOURCES", "TOTAL_RECONCILIATION", "RECONCILE", "PROJECT_COST_BASELINE_PROJECTION"],
   notClaimed: ["NATIVE_S10_WRITE", "S10_ROUND_TRIP"],
   sourceAuthority: "PROJECT_LOCAL_EVIDENCE",
   canonicalGeometryAuthority: false,
