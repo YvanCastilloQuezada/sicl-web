@@ -27,16 +27,23 @@ describe("S10 project-local interoperability", () => {
   });
 
   it("reconciles quantity, price, APU, additions and removals deterministically", () => {
-    const before = s10([
-      { itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:A", apuRef: "APU-1" },
-      { itemId: "I2", code: "02.01", description: "Old", unit: "u", quantity: 1, unitPrice: 50, sourceRef: "S10:B" },
-    ]);
+    const before = normalizeS10Project({
+      projectId: "P1", sourceId: "EXPORT-1", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:abc",
+      effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "VERIFIED_STRUCTURE", unknowns: [],
+      items: [
+        { itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:A", apuRef: "APU-1" },
+        { itemId: "I2", code: "02.01", description: "Old", unit: "u", quantity: 1, unitPrice: 50, sourceRef: "S10:B" },
+      ],
+      apus: [{ apuId: "APU-1", itemCode: "01.01", sourceRef: "S10:APU-1", components: [] }],
+    });
     const after = normalizeS10Project({
-      ...before, sourceId: "EXPORT-2", sourceChecksum: "sha256:def",
+      projectId: "P1", sourceId: "EXPORT-2", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:def",
+      effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "VERIFIED_STRUCTURE", unknowns: [],
       items: [
         { itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 12, unitPrice: 110, sourceRef: "S10:C", apuRef: "APU-2" },
         { itemId: "I3", code: "03.01", description: "New", unit: "u", quantity: 1, unitPrice: 30, sourceRef: "S10:D" },
       ],
+      apus: [{ apuId: "APU-2", itemCode: "01.01", sourceRef: "S10:APU-2", components: [] }],
     });
     const result = reconcileS10Projects(before, after);
     expect(result.status).toBe("RECONCILED");
