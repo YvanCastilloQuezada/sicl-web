@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { buildCoordinatedProfessionalState, createBaseline0, type ProfessionalProjection } from "./arkiProfessionalState";
 import { createProjectCostBaseline, evaluateEconomicMutation } from "./arkiProjectEconomicTwin";
 import { generateTechnicalDossier, verifyDossierLineage } from "./arkiTechnicalDossier";
+import type { F7CanonicalRefs } from "../shared/arkiCanonicalRefs";
+
+const canonicalRefs: F7CanonicalRefs = {
+  coreProject: { authority: "CORE", projectId: "P1", stateId: "CORE-P1-R1", revision: 1, sourceRepo: "sicl-core" },
+  d2State: { authority: "D2", projectId: "P1", stateId: "D2-1", sourceRepo: "sicl-core" },
+  agkState: { authority: "AGK", projectId: "P1", stateId: "AGK-S1", sourceRepo: "sicl-web" },
+};
 
 function baseline() {
   return createBaseline0({
@@ -24,10 +31,10 @@ describe("F7 professional state and F8 dossier closure spine", () => {
       ],
       contradictions: [{ contradictionId: "X1", subjectId: "S1", field: "height", claimIds: ["CA", "CB"], status: "UNRESOLVED" }],
     });
-    const state = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", d2StateRef: "D2-1", agkStateRef: "AGK-S1", baseline: b, projections, issues: [] });
+    const state = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [] });
     expect(state.status).toBe("BLOCKED");
     expect(state.unknowns).toContain("UNRESOLVED_SOURCE_CONTRADICTION:X1");
-    expect(() => buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", d2StateRef: "D2-1", agkStateRef: "AGK-S1", baseline: b, projections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-1" } })).toThrow("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
+    expect(() => buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-1" } })).toThrow("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
   });
 
   it("requires accepted mappings and preserves designed-to-cost provenance", () => {
@@ -44,10 +51,10 @@ describe("F7 professional state and F8 dossier closure spine", () => {
 
   it("allows F8 only from accepted F7 and verifies dossier lineage", () => {
     const b = baseline();
-    const ready = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", d2StateRef: "D2-1", agkStateRef: "AGK-S1", baseline: b, projections, issues: [] });
+    const ready = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [] });
     expect(ready.status).toBe("READY_FOR_HUMAN_ACCEPTANCE");
     expect(() => generateTechnicalDossier({ state: ready, dossierId: "D1", artifacts: [] })).toThrow("F8_REQUIRES_ACCEPTED_F7_STATE");
-    const accepted = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", d2StateRef: "D2-1", agkStateRef: "AGK-S1", baseline: b, projections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-F7" } });
+    const accepted = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-F7" } });
     const kinds = ["DRAWING", "SPECIFICATION", "QUANTITY_SCHEDULE", "BUDGET", "COORDINATION_REPORT", "EVIDENCE_REGISTER"] as const;
     const dossier = generateTechnicalDossier({ state: accepted, dossierId: "D1", artifacts: kinds.map((kind, i) => ({ artifactId: `A${i}`, kind, semanticIds: ["S1"], provenance: [`GEN:${kind}`], contentFingerprint: `sha256:${i}` })) });
     expect(dossier.exportIsCanonicalTruth).toBe(false);
