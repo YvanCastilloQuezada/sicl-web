@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE persisted OCR context probe PASS/E3: administrative false positives separated from an actual embedded technical-content fragment on Bases page 13.",
-    "next_exact_action": "Characterize the full persisted OCR text of Bases page 13 without rerunning OCR: inventory technical sections/fields and determine bounded embedded fragment scope. Do not promote the whole Bases document to EXPEDIENTE_TECNICO.",
+    "last_completed": "Bases page 13 reviewed in full: embedded technical scope/activities/deliverables demonstrated E3; source technical dossier/plans/specifications remain not demonstrated as attached; exact table values remain unverified.",
+    "next_exact_action": "Inspect the contiguous Bases technical section after page 13 (pages 14-15 first) from the already persisted OCR evidence, without rerunning OCR, to establish the bounded end of the embedded technical fragment.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1328,6 +1328,32 @@
         "technical_core_set_verified": false,
         "technical_dossier": "NOT_DEMONSTRATED",
         "semantic_promotion": false
+      },
+      "bases_page_13": {
+        "status": "TECHNICAL_FRAGMENT_DEMONSTRATED_E3",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "page": 13,
+        "ocr_characters": 6226,
+        "ocr_mean_confidence": 0.86,
+        "demonstrated": [
+          "Execution is governed by an approved maintenance technical sheet",
+          "The approved technical sheet is stated to contain plans and technical specifications",
+          "Embedded technical activity/table fragment exposes description/unit/metrado/price-style columns, but OCR is insufficient for exact numeric reconstruction",
+          "Contractor disposal obligation for surplus material is stated",
+          "Final report requirements include maintenance summary, activity narrative, executed quantities, current contract amount, photographic record and digital medium",
+          "Final-report annex list references an approved technical dossier"
+        ],
+        "epistemic_limits": [
+          "The approved technical dossier itself is not demonstrated as attached",
+          "Plans themselves are not demonstrated as attached",
+          "Technical specifications as a standalone source document are not demonstrated as attached",
+          "Exact table quantities/prices are not verified from OCR",
+          "Reference to approved technical dossier in final-report annexes is a deliverable requirement, not proof of current possession"
+        ],
+        "classification": "EMBEDDED_TECHNICAL_CONTENT_FRAGMENT",
+        "whole_document_promotion": "FORBIDDEN",
+        "technical_core_set_verified": false,
+        "technical_dossier": "NOT_DEMONSTRATED"
       }
     }
   }
