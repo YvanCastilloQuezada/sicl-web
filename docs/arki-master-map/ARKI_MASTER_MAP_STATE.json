@@ -73,7 +73,7 @@
       "S10 real specimen resume-on-input"
     ],
     "last_completed": "OECE PDF structural inspection passed E3 at ACS 8c76492eb646dd7ee7f5a257b8af066db4178fc4. Contract: 6/6 pages image-only; Administrative Bases: 38/38 image-only; Award Act: 3/3 image-only. All have zero PDF letters and one image per page. OCR is justified only for these three PDFs. The two machine-text reports remain directly extractable; award report lexical signals are BUENA_PRO and VALOR_REFERENCIAL, not budget.",
-    "next_exact_action": "Download pinned spa.traineddata to local test-artifacts, verify its Git blob identity, build ACS OCR integration, then execute OCR over exactly the 47 proven image-only pages. Record OCR as observation only.",
+    "next_exact_action": "Pull ACS OCR fix, restore/build integration project, require zero MSB3277 logging-version warnings, then execute the bounded 47-page OCR gate.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1229,12 +1229,20 @@
         "ghostscript": "NOT_FOUND"
       },
       "decision": "ACS_PINNED_TESSERACT_FALLBACK",
-      "package": "TesseractOCR 5.5.2",
+      "package": "TesseractOCR 5.4.2",
       "model_source": "tesseract-ocr/tessdata_fast",
       "model_commit": "87416418657359cb625c412a48b6e1d6d41c29bd",
       "spanish_model_git_blob_sha1": "72e901f13ca52cfe34cf239a368b9ed3c0ddaf26",
       "scope": "47_PROVEN_IMAGE_ONLY_PAGES",
-      "semantic_promotion": "FORBIDDEN_BY_OCR_STEP"
+      "semantic_promotion": "FORBIDDEN_BY_OCR_STEP",
+      "initial_runtime_attempt": {
+        "package": "TesseractOCR 5.5.2",
+        "result": "FAIL",
+        "evidence": "Test host FileNotFoundException for TesseractOCR 5.5.2; MSBuild also exposed Logging.Abstractions 8.x/10.x conflict",
+        "classification": "KNOWN_FIXABLE_INTEGRATION_DEFECT"
+      },
+      "package_reason": "Aligns with .NET 8 / Microsoft.Extensions.Logging.Abstractions >=8.0.2; explicit integration-test reference materializes OCR runtime in test host.",
+      "status": "FIX_APPLIED_AWAITING_E3_RERUN"
     }
   }
 }
