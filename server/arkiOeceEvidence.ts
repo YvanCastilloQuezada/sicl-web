@@ -42,7 +42,7 @@ export type OeceEvidencePackage = {
   documents: OeceDocumentEvidence[];
   missingSurfaces: OeceDatasetKind[];
   completeness: "METADATA_ONLY" | "PARTIAL_EVIDENCE" | "SOURCE_PACKAGE_VERIFIED";
-  technicalDossierClaim: "NOT_DEMONSTRATED" | "PARTIAL" | "DOCUMENT_SET_VERIFIED";
+  technicalDossierClaim: "NOT_DEMONSTRATED" | "PARTIAL" | "TECHNICAL_CORE_SET_VERIFIED";
   canonicalMutation: false;
   immutable: true;
   fingerprint: string;
@@ -87,7 +87,7 @@ export function createOeceEvidencePackage(input: Omit<OeceEvidencePackage, "sche
     && technicalKinds.has("BUDGET")
     && technicalKinds.has("SPECIFICATION");
   const technicalDossierClaim: OeceEvidencePackage["technicalDossierClaim"] =
-    hasTechnicalCore ? "DOCUMENT_SET_VERIFIED" : verifiedDocs.length ? "PARTIAL" : "NOT_DEMONSTRATED";
+    hasTechnicalCore ? "TECHNICAL_CORE_SET_VERIFIED" : verifiedDocs.length ? "PARTIAL" : "NOT_DEMONSTRATED";
 
   const payload = {
     ...input,
@@ -126,7 +126,7 @@ export function oecePackageToBaseline0(pkg: OeceEvidencePackage): Baseline0 {
         subjectId: pkg.ocid ?? pkg.procedureId!,
         field: `oece.${record.dataset.toLowerCase()}.${field}`,
         value,
-        evidenceState: "VERIFIED",
+        evidenceState: "PARTIAL",
         provenance: [record.sourceRef, record.sourceChecksum],
       });
     }
