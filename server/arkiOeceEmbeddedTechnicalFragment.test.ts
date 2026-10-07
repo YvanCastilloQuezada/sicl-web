@@ -71,7 +71,7 @@ describe("OECE embedded technical fragment authority boundary", () => {
     expect(() => attachOeceEmbeddedTechnicalFragment({
       pkg, baseline, fragment: { ...fragment, SourceSha256: "b".repeat(64) },
       artifactSha256: "a".repeat(64), ocrArtifactSha256: ocrSha, ocrEvidencePath: "ACS:OCR-EVIDENCE",
-    })).toThrow("OECE_FRAGMENT_VERIFIED_SOURCE_NOT_FOUND");
+    })).toThrow("OECE_FRAGMENT_FINGERPRINT_MISMATCH");
     expect(() => attachOeceEmbeddedTechnicalFragment({
       pkg, baseline, fragment, artifactSha256: "a".repeat(64),
       ocrArtifactSha256: "b".repeat(64), ocrEvidencePath: "ACS:OCR-EVIDENCE",
