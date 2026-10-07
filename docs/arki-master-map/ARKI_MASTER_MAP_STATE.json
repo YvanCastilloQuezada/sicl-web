@@ -288,7 +288,7 @@
       "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
       "baselines": {
         "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
-        "sicl_web_f7_f8_branch": "46b6ba983228ba393f120f9623de1fd5751f8e19",
+        "sicl_web_f7_f8_branch": "deb4746a32748fed9e1822b12037de7355cdf041",
         "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
       },
       "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
@@ -305,7 +305,9 @@
         "server/arkiProfessionalState.ts",
         "server/arkiProjectEconomicTwin.ts",
         "server/arkiTechnicalDossier.ts",
-        "server/arkiF7F8Closure.test.ts"
+        "server/arkiF7F8Closure.test.ts",
+        "server/arkiProfessionalAdapters.ts",
+        "server/arkiProfessionalAdapters.test.ts"
       ],
       "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
       "known_reconciliation_items": [
@@ -314,7 +316,13 @@
         "Delta 6.2 promotion enforcement requires hardening/reconciliation",
         "RVT remains HOST_REQUIRED; no proprietary browser parser claim",
         "OECE/ACS document acquisition to ARKI BASELINE_0 remains not yet demonstrated E2E"
-      ]
+      ],
+      "core_reconciliation_branch": "reconcile/arki-live-map-2026-10-07",
+      "core_reconciliation_head": "bad480272140109e9529c3e269d525515624fc0c",
+      "review_surfaces": {
+        "sicl_web_draft_pr": 49,
+        "sicl_core_draft_pr": 45
+      }
     }
   },
   "architectural_decisions": {
