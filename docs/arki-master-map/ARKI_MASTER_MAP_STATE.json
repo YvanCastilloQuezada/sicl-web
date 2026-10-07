@@ -71,8 +71,8 @@
       "Preserve PARTIAL source claim, NOT_DEMONSTRATED technical dossier, D-2/AGK authority boundaries",
       "S10 real specimen resume only when input becomes available"
     ],
-    "last_completed": "At sicl-web HEAD c98b87e: pnpm check PASS; fragment adversarial tests 2/2 PASS; physical OECE→ARKI derived-fragment E2E PASS, 22 source artifacts/148 claims; baseline fingerprint 1bd8407a...; p9.obj untouched.",
-    "next_exact_action": "No further OECE specimen page mining or rerun required. Continue higher-priority ARKI integration from Master Map, or resume S10 only on new legitimate specimen. Do not promote the embedded fragment to a verified technical dossier.",
+    "last_completed": "OECE physical handoff PASS/E3 persisted. F7 fail-closed admission guard and adversarial tests implemented on web HEAD be33a28; awaiting local execution.",
+    "next_exact_action": "Pull sicl-web feature branch; run pnpm check, focused F7 OECE admission + prior F7 closure + fragment tests, then physical pnpm e2e:oece:fragment using the existing pinned env artifact paths. No OCR.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1415,6 +1415,22 @@
         "canonical_mutation": false,
         "original_baseline_unchanged": true,
         "local_untracked_file": "p9.obj (untouched)"
+      },
+      "f7_source_readiness_gate": {
+        "status": "IMPLEMENTED_AWAITING_E3_EXECUTION",
+        "implementation_head": "be33a28fb9d3fcf9eca94aa1c99b670f819e336b",
+        "scope": "OECE embedded technical fragment claim, not unrelated procurement metadata",
+        "contract": "server/arkiProfessionalState.ts::assessF7SourceReadiness",
+        "adversarial_tests": "server/arkiF7OeceSourceGate.test.ts",
+        "physical_e2e": "scripts/run-arki-oece-fragment-e2e.ts",
+        "invariants": [
+          "PARTIAL derived technical fragment cannot be silently omitted from F7 projection to enable acceptance",
+          "Forged VERIFIED status on a derived fragment cannot bypass the gate",
+          "Existing unrelated F7 ready paths remain unchanged",
+          "Actual OECE specimen remains EVIDENCE_ONLY_BLOCKED for F7 acceptance",
+          "No D2/AGK authority refs fabricated by physical E2E"
+        ],
+        "resolution_path": "Require actual verified technical core and a separately governed review/reconciliation before lifting the fragment blocker; not claimed or implemented by this bounded gate."
       }
     }
   }
