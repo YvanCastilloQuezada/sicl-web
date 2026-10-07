@@ -407,3 +407,14 @@ Two regression failures observed during hardening were stale fixtures, not reaso
 - Existing untracked `p9.obj` observed in sicl-web and deliberately left untouched.
 
 **Decision:** OECE embedded-fragment autopsy and physical ACS→ARKI derived-evidence handoff **CLOSED / PASS E3 (bounded specimen)**. This does not establish a complete technical dossier, native S10 WRITE/roundtrip, or downstream D-2/F7 acceptance. Do not repeat OCR, document mining, or these exact tests without new evidence or code changes. S10 remains resume-on-legitimate-input.
+
+
+### 16.1 Next vertical guard — F7 cannot silently promote incomplete OECE fragment
+
+**Implementation HEAD:** `be33a28fb9d3fcf9eca94aa1c99b670f819e336b`; **status: IMPLEMENTED / E3 EXECUTION PENDING**.
+
+The prior physical ACS→ARKI handoff is PASS/E3. A separate F7 admission gap was identified: `buildCoordinatedProfessionalState` previously checked evidence completeness only in *supplied projections*. A caller could omit the known PARTIAL OECE embedded-fragment claim, supply a VERIFIED projection of the Bases PDF, and reach `READY_FOR_HUMAN_ACCEPTANCE` despite the unverified technical core.
+
+Correction in `server/arkiProfessionalState.ts`: `assessF7SourceReadiness(baseline)` detects the exact `oece.derived.embedded_technical_fragment` claim in the source baseline and adds a non-waivable `OECE_EMBEDDED_TECHNICAL_FRAGMENT_REQUIRES_VERIFIED_CORE:<claimId>` blocker to F7 unknowns. This is scoped to the derived technical fragment, **not all procurement metadata**. A forged `VERIFIED` claim status does not bypass it. This prevents F7 acceptance and downstream F8 generation for this incomplete specimen; no D-2/AGK authority is fabricated or mutated.
+
+Added adversarial tests `server/arkiF7OeceSourceGate.test.ts` (omission, forged VERIFIED, unrelated ready baseline) and strengthened `pnpm e2e:oece:fragment` to assert `EVIDENCE_ONLY_BLOCKED` on the physically verified specimen. **Do not mark PASS until the exact updated branch executes locally.** Future resolution requires real verified technical-core evidence and separately governed review/reconciliation; this gate does not claim to implement that future clearance.
