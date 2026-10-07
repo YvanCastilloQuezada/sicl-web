@@ -65,20 +65,21 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — OECE verified documents → observed content classification",
+    "title": "F7→F8 — OECE verified document content characterization",
     "active": [
-      "OECE verified document content inventory/classification",
-      "OECE/ACS immutable evidence → BASELINE_0",
-      "Core/D-2/AGK/F7/F8 authority lineage",
+      "Characterize three verified PDFs with no extractable text",
+      "Keep lexical observations separate from technical semantic classification",
+      "OECE/ACS evidence → BASELINE_0",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE verified-document physical handoff passed E3 at sicl-web ca3ce90e6e7a25ba308c8b99c0bd025b156484f1: 5/5 documents VERIFIED; SOURCE_PACKAGE_VERIFIED; 142 procurement claims remain PARTIAL; 5 document claims VERIFIED; technicalDossierClaim remains NOT_DEMONSTRATED; canonicalMutation=false; immutable BASELINE_0 has 21 source artifacts and 147 claims. Duplicate binary content observed for contract:153191064 and contract:153191464 with SHA-256 d8a8c52466f4ca08ae9a9958911309b18ca307b0110fb6a5ebabb55cc15a89c3.",
-    "next_exact_action": "Inspect verified document bytes safely: inventory ZIP members without extraction, determine existing PDF parsing capability, then classify content only from observed bytes/text. Preserve duplicate-content observation and do not infer technical dossier status from filenames.",
+    "last_completed": "OECE verified-content inspection passed E3 at ACS fd4ac7276125338cfda1d0c18cf1c9454d8f6929. Five unique relevant PDFs were inspected: 2 TEXT_EXTRACTED and 3 TEXT_NOT_AVAILABLE. Extracted texts demonstrate proposal-presentation and award-report administrative content; the award report exposes reference value S/ 99,870.00 but does not demonstrate a project budget/APU/quantities/technical dossier. No semantic promotion was performed.",
+    "next_exact_action": "Characterize the three TEXT_NOT_AVAILABLE PDFs as image/scanned/other PDF content using bounded structural inspection; only then decide whether OCR is justified. Keep technicalDossierClaim NOT_DEMONSTRATED.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
-      "OECE_TECHNICAL_CORE_CONTENT_NOT_YET_DEMONSTRATED"
+      "OECE_THREE_PDFS_CONTENT_UNREADABLE_BY_TEXT_EXTRACTION",
+      "OECE_TECHNICAL_CORE_CONTENT_NOT_DEMONSTRATED"
     ]
   },
   "status_vocabulary": [
@@ -1173,6 +1174,22 @@
         "source_artifacts": 21,
         "immutable": true
       }
+    },
+    "oece_verified_content_inspection": {
+      "status": "PASS_E3_NO_SEMANTIC_PROMOTION",
+      "verification_head": "fd4ac7276125338cfda1d0c18cf1c9454d8f6929",
+      "unique_relevant_pdfs": 5,
+      "text_extracted": 2,
+      "text_not_available": 3,
+      "observations": [
+        "Proposal-presentation report: text extracted; proposal lexical signal.",
+        "Award report: text extracted; Buena Pro and reference-value wording; S/ 99,870.00 observed.",
+        "Contract binary: 6 pages; no extractable text; duplicated under two OECE document identities.",
+        "Administrative Bases: 38 pages; no extractable text.",
+        "Award act: 3 pages; no extractable text."
+      ],
+      "semantic_promotion": "NOT_PERFORMED",
+      "technical_dossier_claim": "NOT_DEMONSTRATED"
     }
   }
 }
