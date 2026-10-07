@@ -47,14 +47,31 @@ const documentStatusCounts = Object.fromEntries(
     .map(status => [status, pkg.documents.filter(document => document.acquisitionStatus === status).length]),
 );
 const verifiedDocuments = pkg.documents.filter(document => document.acquisitionStatus === "VERIFIED").length;
+const duplicateDocumentContent = Object.entries(
+  pkg.documents
+    .filter(document => document.checksum)
+    .reduce<Record<string, string[]>>((groups, document) => {
+      (groups[document.checksum!] ??= []).push(document.documentId);
+      return groups;
+    }, {}),
+)
+  .filter(([, documentIds]) => documentIds.length > 1)
+  .map(([checksum, documentIds]) => ({ checksum, documentIds }));
 const allExpectedSurfacesPresent = Boolean(pkg.expectedSurfaces?.length)
   && pkg.expectedSurfaces.every(surface => !pkg.missingSurfaces.includes(surface));
 
 if (verifiedDocuments === 0 && pkg.technicalDossierClaim !== "NOT_DEMONSTRATED") {
   throw new Error("OECE_ARKI_TECHNICAL_DOSSIER_OVERCLAIM");
 }
-if (allExpectedSurfacesPresent && verifiedDocuments === 0 && pkg.completeness === "SOURCE_PACKAGE_VERIFIED") {
+if (allExpectedSurfacesPresent && verifiedDocuments < pkg.documents.length && pkg.completeness === "SOURCE_PACKAGE_VERIFIED") {
   throw new Error("OECE_ARKI_SOURCE_PACKAGE_OVERCLAIM");
+}
+const verifiedTechnicalDocuments = pkg.documents.filter(document =>
+  document.acquisitionStatus === "VERIFIED"
+  && ["EXPEDIENTE_TECNICO", "BUDGET", "SPECIFICATION"].includes(document.kind)
+).length;
+if (verifiedTechnicalDocuments === 0 && pkg.technicalDossierClaim !== "NOT_DEMONSTRATED") {
+  throw new Error("OECE_ARKI_TECHNICAL_DOSSIER_NONTECHNICAL_OVERCLAIM");
 }
 
 console.log(JSON.stringify({
@@ -74,6 +91,8 @@ console.log(JSON.stringify({
   documents: pkg.documents.length,
   documentStatusCounts,
   verifiedDocuments,
+  verifiedTechnicalDocuments,
+  duplicateDocumentContent,
   canonicalMutation: pkg.canonicalMutation,
   baselineId: baseline.baselineId,
   baselineFingerprint: baseline.fingerprint,
