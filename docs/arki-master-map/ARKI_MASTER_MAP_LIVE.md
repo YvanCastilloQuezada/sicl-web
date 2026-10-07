@@ -339,3 +339,33 @@ The active branch contains:
 Run the F7/F8 branch gate on the exact remote HEAD. If any compile/test/build failure appears, correct it before adding further capability. When green, integrate existing jurisdiction, coordination, BIM/IFC and S10/project-cost adapters into the same professional-state spine rather than creating parallel subsystems.
 
 **Continuity rule:** continue from this checkpoint and `ARKI_MASTER_MAP_STATE.json`; do not restart the global audit.
+
+
+## 15. S10 + OECE/ACS readiness checkpoint — 2026-10-07
+
+### 15.1 S10
+
+Bounded implementation now covers:
+
+`external S10 evidence → runtime validation → normalization → budget hierarchy/APU/resources → declared-total reconciliation → immutable PROJECT_COST_BASELINE → F7 Economic Twin`
+
+Hard limits remain explicit: no native S10 WRITE, no round-trip claim, no native project/database parser claim until a legitimate specimen is characterized and executed.
+
+### 15.2 OECE / ACS
+
+A cross-language evidence contract now covers:
+
+`OECE/ACS → runtime-validated immutable evidence package → checksummed records/documents → missing-surface report → BASELINE_0 → D-2/AGK/F7`
+
+OECE/ACS remains upstream evidence only. It cannot mutate Core, D-2 or AGK and cannot publish directly to F8.
+
+A document is `VERIFIED` only with checksum + local evidence reference. A procedure/metadata record does not imply a complete dossier. The implementation deliberately uses `TECHNICAL_CORE_SET_VERIFIED` rather than claiming a complete technical dossier.
+
+### 15.3 External verification gates
+
+The next evidence campaign requires:
+1. one legitimate real S10 project/export and reconciliation against S10-produced totals/reports;
+2. one real ACS/OECE procedure resolving records + documents, downloading/checksumming available files and producing the ARKI evidence package;
+3. local TypeScript/focused/regression/build gate on the exact integration HEAD.
+
+Until those executions occur: `IMPLEMENTED != VERIFIED`.
