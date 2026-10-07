@@ -55,6 +55,7 @@ describe("OECE/ACS evidence boundary", () => {
     const baseline = oecePackageToBaseline0(pkg);
     expect(baseline.immutable).toBe(true);
     expect(baseline.claims.find(c => c.claimId.includes("PROC-3"))?.evidenceState).toBe("PARTIAL");
+    expect(baseline.claims.find(c => c.claimId.includes("DOCUMENT:D3"))?.evidenceState).toBe("VERIFIED");
     expect(baseline.claims.find(c => c.claimId.includes("DOCUMENT:D3"))?.provenance).toContain("sha256:d3");
   });
 
