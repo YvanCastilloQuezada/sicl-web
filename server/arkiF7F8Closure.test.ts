@@ -31,6 +31,24 @@ describe("F7 professional state and F8 dossier closure spine", () => {
     })).toThrow("CANONICAL_REF_PROJECT_MISMATCH:CORE");
   });
 
+  it("rejects forged reconciliation scope and projection claims outside BASELINE_0", () => {
+    expect(() => createBaseline0({
+      baselineId: "B0", projectId: "P1",
+      sourceArtifacts: [{ sourceId: "A", checksum: "x", format: "RVT", receivedAt: "2026-10-07" }],
+      claims: [
+        { claimId: "C1", sourceId: "A", subjectId: "S1", field: "height", value: 3, evidenceState: "VERIFIED", provenance: ["A:1"] },
+        { claimId: "C2", sourceId: "A", subjectId: "S2", field: "width", value: 4, evidenceState: "VERIFIED", provenance: ["A:2"] },
+      ],
+      contradictions: [{ contradictionId: "X", subjectId: "S1", field: "height", claimIds: ["C1", "C2"], status: "UNRESOLVED" }],
+    })).toThrow("CONTRADICTION_SCOPE_MISMATCH:X");
+
+    const b = baseline();
+    expect(() => buildCoordinatedProfessionalState({
+      projectId: "P1", stateId: "F7-X", canonicalRefs, baseline: b,
+      projections: [{ ...projections[0], sourceClaimIds: ["FORGED"] }], issues: [],
+    })).toThrow("F7_PROJECTION_CLAIM_NOT_IN_BASELINE:ARCH-1");
+  });
+
   it("keeps unresolved source contradictions visible and blocks F8 acceptance", () => {
     const b = createBaseline0({
       baselineId: "B0", projectId: "P1",
