@@ -295,3 +295,47 @@ If any of those cannot be answered, the Live Map is incomplete.
 ## Handoff rule
 
 **Future assistant/session:** read this file first, then inspect the linked current evidence before changing state. Do not restart a global audit from zero. Update this file as part of material work so the next session inherits the exact project position.
+
+
+## 14. Reconciliation checkpoint — 2026-10-07
+
+**Scope:** deep cross-repository reconciliation of `sicl-web` and `sicl-core`, followed by bounded F7/F8 assembly on `feat/f7-f8-integral-closure`.
+
+### 14.1 Repository authority law
+
+The following boundary is now the working integration law and MUST be preserved by F7/F8:
+
+- **sicl-core / CORE:** canonical Project State, evidence/provenance and governed state authority.
+- **D-2:** architectural semantic authority.
+- **AGK:** sole Operational Geometry Authority.
+- **sicl-web professional models:** analysis/projection/coordination surfaces that reference canonical authorities; they are not a second canonical Project State.
+- **F8 dossier:** derived publication/delivery projection of an accepted F7 state; export is not truth.
+- **ACS:** technology/source acquisition, experimentation and reproducible evidence; not architectural or geometry authority.
+
+### 14.2 Implemented F7/F8 integration spine
+
+The active branch contains:
+
+- `shared/arkiCanonicalRefs.ts` — typed Core/D-2/AGK references and authority validation.
+- `server/arkiProfessionalState.ts` — immutable BASELINE_0 source evidence, contradictions, professional projections/issues and coordinated F7 state.
+- `server/arkiProjectEconomicTwin.ts` — project-local cost baseline and provenance-preserving quantity/cost deltas.
+- `server/arkiTechnicalDossier.ts` — F8 dossier generated only from `ACCEPTED_FOR_F8` F7 state.
+- `server/arkiF7F8Closure.test.ts` — adversarial tests for contradiction visibility, economic mapping/provenance and F7→F8 lineage.
+
+**Epistemic state:** IMPLEMENTED / EXECUTION_VERIFICATION_PENDING. No green/freeze is authorized until the branch is executed through TypeScript, focused tests, regression and production build.
+
+### 14.3 Reconciled findings
+
+1. F6 remains **FROZEN / GO_BOUNDED_DEMONSTRATED_BOUNDARY**. Do not reopen without counterevidence or a versioned requirement.
+2. F7 is no longer only contract formation; an executable integration spine exists, but is not yet VERIFIED.
+3. F8 has an implemented derived-dossier contract; it is not yet VERIFIED and is not frozen.
+4. Existing web BIM/cost/lifecycle structures must be classified as projections/adapters where they overlap Core concepts.
+5. F5 selected-candidate → persistent Core semantic identity remains a missing integration capability, not a reason to invent a second truth.
+6. RVT remains HOST_REQUIRED; no native proprietary RVT parsing claim is authorized.
+7. ACS/OECE → complete technical dossier → ARKI BASELINE_0 remains an E2E target, not a demonstrated claim.
+
+### 14.4 Next exact action
+
+Run the F7/F8 branch gate on the exact remote HEAD. If any compile/test/build failure appears, correct it before adding further capability. When green, integrate existing jurisdiction, coordination, BIM/IFC and S10/project-cost adapters into the same professional-state spine rather than creating parallel subsystems.
+
+**Continuity rule:** continue from this checkpoint and `ARKI_MASTER_MAP_STATE.json`; do not restart the global audit.
