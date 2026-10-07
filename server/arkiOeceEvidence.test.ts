@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { createOeceEvidencePackage, OECE_ARKI_BOUNDARY, oecePackageToBaseline0 } from "./arkiOeceEvidence";
+import { createOeceEvidencePackage, ingestOeceEvidenceEnvelope, OECE_ARKI_BOUNDARY, oecePackageToBaseline0 } from "./arkiOeceEvidence";
 
 describe("OECE/ACS evidence boundary", () => {
+  it("fails closed on malformed or extra-field ACS runtime envelopes", () => {
+    expect(() => ingestOeceEvidenceEnvelope({ packageId: "P", projectId: "P1", procedureId: "X", records: [], documents: [], missingSurfaces: [], injectedCanonicalTruth: true })).toThrow("OECE_ENVELOPE_INVALID");
+    expect(() => ingestOeceEvidenceEnvelope({ packageId: "P", projectId: "P1", records: [], documents: [], missingSurfaces: [] })).toThrow("OECE_ENVELOPE_INVALID");
+  });
+
   it("packages procurement records as immutable upstream evidence, never canonical ARKI truth", () => {
     const pkg = createOeceEvidencePackage({
       packageId: "OECE-P1", projectId: "P1", ocid: "OCID-1",
