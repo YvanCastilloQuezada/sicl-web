@@ -106,6 +106,24 @@ export function createBaseline0(input: Omit<Baseline0, "schema" | "immutable" | 
   return { ...payload, fingerprint: hash(payload) };
 }
 
+/**
+ * A verified source PDF does not turn OCR-derived, incomplete technical content
+ * into an accepted professional technical dossier. This gate is scoped to the
+ * known OECE derived-fragment claim, not to unrelated procurement metadata.
+ */
+export function assessF7SourceReadiness(baseline: Baseline0): {
+  status: "EVIDENCE_ONLY_BLOCKED" | "NO_EMBEDDED_FRAGMENT_BLOCKER";
+  blockers: string[];
+} {
+  const blockers = baseline.claims
+    .filter(claim => claim.field === "oece.derived.embedded_technical_fragment")
+    .map(claim => `OECE_EMBEDDED_TECHNICAL_FRAGMENT_REQUIRES_VERIFIED_CORE:${claim.claimId}`);
+  return {
+    status: blockers.length ? "EVIDENCE_ONLY_BLOCKED" : "NO_EMBEDDED_FRAGMENT_BLOCKER",
+    blockers,
+  };
+}
+
 export function buildCoordinatedProfessionalState(input: {
   projectId: string;
   stateId: string;
@@ -130,7 +148,13 @@ export function buildCoordinatedProfessionalState(input: {
   }
   const unresolvedContradictions = input.baseline.contradictions.filter(c => c.status === "UNRESOLVED");
   const projectionUnknowns = input.projections.flatMap(p => p.unknowns.map(u => `${p.projectionId}:${u}`));
-  const unknowns = [...(input.unknowns ?? []), ...projectionUnknowns, ...unresolvedContradictions.map(c => `UNRESOLVED_SOURCE_CONTRADICTION:${c.contradictionId}`)];
+  const sourceReadiness = assessF7SourceReadiness(input.baseline);
+  const unknowns = [
+    ...(input.unknowns ?? []),
+    ...projectionUnknowns,
+    ...unresolvedContradictions.map(c => `UNRESOLVED_SOURCE_CONTRADICTION:${c.contradictionId}`),
+    ...sourceReadiness.blockers,
+  ];
   const openIssues = input.issues.filter(i => i.status === "OPEN");
   const incompleteEvidence = input.projections.some(p => p.evidenceState !== "VERIFIED");
   const pendingSpecialistReview = input.projections.some(p => p.specialistReviewRequired);
