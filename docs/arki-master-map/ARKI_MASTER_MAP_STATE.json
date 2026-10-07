@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE embedded technical fragment boundaries demonstrated E3: page 12 §3.4 TERMINOS DE REFERENCIA through page 14 immediately before §7 FORMA DE PAGO.",
-    "next_exact_action": "Pull ACS 3fa4e4a..., execute only OeceEmbeddedTechnicalFragmentTests to persist/hash the governed fragment artifact; then bridge that evidence object into ARKI as upstream evidence without canonical mutation.",
+    "last_completed": "ACS technical fragment 1/1 PASS E3, 1694-byte artifact with verified SHA; ACS worktree clean. ARKI fragment handoff implemented and awaits TS/test/E2E execution.",
+    "next_exact_action": "Run pnpm check, targeted arkiOeceEmbeddedTechnicalFragment.test.ts, and pnpm e2e:oece:fragment with pinned ACS verified package, fragment, OCR JSON. No OCR rerun.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1371,14 +1371,32 @@
       "bases_technical_fragment_contract": {
         "schema": "ACS-OECE-EMBEDDED-TECHNICAL-FRAGMENT-1.0",
         "acs_head": "3fa4e4a799606e3595a29688223b0f50c1672ef8",
+        "status": "PASS_E3_ARTIFACT_PERSISTED",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "ocr_evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "artifact_bytes": 1694,
+        "artifact_sha256": "a94782d56effddd21d242a5c154f691e8ec49a5447ef51c0cbff56874f1ffec3",
+        "fingerprint": "104de3221ddff3927d732de648288b196ce62537688690687726326ee3344b26",
+        "start": "12:3.4 TERMINOS DE REFERENCIA",
+        "end": "14:IMMEDIATELY_BEFORE_7_FORMA_DE_PAGO",
+        "whole_document_promotion": false,
+        "technical_core_set_verified": false,
+        "canonical_mutation": false
+      },
+      "arki_derived_fragment_handoff": {
         "status": "IMPLEMENTED_AWAITING_E3_EXECUTION",
+        "web_head": "b19372f1df9a90b48c9a5c7fa12b71fa2b9bf310",
+        "contract": "server/arkiOeceEmbeddedTechnicalFragment.ts",
+        "tests": "server/arkiOeceEmbeddedTechnicalFragment.test.ts",
+        "e2e": "pnpm e2e:oece:fragment",
         "invariants": [
-          "WholeDocumentPromotion=false",
-          "TechnicalCoreSetVerified=false",
-          "CanonicalMutation=false",
-          "Source and OCR evidence SHA-256 required",
-          "Referenced-but-not-possessed artifacts separated from demonstrated content",
-          "Exact OCR table quantities/prices/totals remain unverified"
+          "strict schema",
+          "C# fingerprint recomputation",
+          "three physical artifact hashes",
+          "source document exact SHA/verified identity",
+          "PARTIAL claim",
+          "no canonical mutation",
+          "technical dossier NOT_DEMONSTRATED"
         ]
       }
     }
