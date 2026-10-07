@@ -50,6 +50,28 @@ describe("ARKI F5 epistemic separation", () => {
     }
   });
 });
+describe("ARKI F5 Requirement-Constraint semantic boundary", () => {
+  it("does not silently treat a Requirement as a Constraint through the funnel", () => {
+    const candidates = createDemoCandidates("P-EPI-REQ-CONSTRAINT");
+    const requirement = candidates[0].epistemic.requirements[0];
+
+    expect(requirement).toBeDefined();
+    expect(candidates[0].epistemic.constraints).not.toContain(requirement);
+
+    const state = createDesignFunnel({
+      projectId: "P-EPI-REQ-CONSTRAINT",
+      candidates,
+    });
+
+    const preserved = state.candidates.find(
+      (candidate) => candidate.id === candidates[0].id
+    );
+
+    expect(preserved).toBeDefined();
+    expect(preserved!.epistemic.requirements).toContain(requirement);
+    expect(preserved!.epistemic.constraints).not.toContain(requirement);
+  });
+});
 describe("ARKI F5 epistemic runtime boundary", () => {
   it("rejects a candidate with the epistemic model removed at runtime", () => {
     const candidates = createDemoCandidates("P-EPI-RUNTIME");
