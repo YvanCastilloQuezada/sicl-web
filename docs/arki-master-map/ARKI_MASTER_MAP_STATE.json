@@ -67,13 +67,13 @@
   "current_focus": {
     "title": "F7→F8 — Professional state integration and dossier handoff",
     "active": [
-      "Cross-repo canonical authority references: Core / D-2 / AGK",
-      "BASELINE_0 source claims and contradiction reconciliation",
-      "Coordinated Professional State",
-      "Project Economic Twin / quantity-to-cost provenance",
-      "F8 Technical Dossier derived-only handoff",
-      "F7/F8 local execution gate",
-      "repository-wide projection-vs-canonical authority reconciliation"
+      "Core/D-2/AGK authority reference enforcement",
+      "BASELINE_0 reconciliation and provenance",
+      "MEP/cost/normative professional projections",
+      "Delta 6.2 proposal-only promotion boundary",
+      "S10 normalize/reconcile project economics",
+      "F8 derived dossier lineage",
+      "local execution verification gate"
     ],
     "last_completed": "Cross-repo authority contract + F7/F8 professional spine + MEP/cost projection adapters + explicit Core→D-2→AGK→F7→F8 lineage are implemented on the draft integration branch; execution verification remains pending.",
     "next_exact_action": "Execute branch gate at current HEAD; if green, reconcile jurisdiction/professional review into F7 and then perform real Huaura/S10/OECE specimen campaigns as external-host evidence becomes available.",
@@ -288,7 +288,7 @@
       "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
       "baselines": {
         "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
-        "sicl_web_f7_f8_branch": "987a6f180d78eed8d0a48c68b55c059366c47f81",
+        "sicl_web_f7_f8_branch": "80a4cb7515091bda54a2342f975c55b5c8d83b6c",
         "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
       },
       "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
@@ -310,7 +310,10 @@
         "server/arkiProfessionalAdapters.test.ts",
         "shared/delta62Knowledge.ts promotion boundary",
         "server/arkiS10Interop.ts",
-        "server/arkiS10Interop.test.ts"
+        "server/arkiS10Interop.test.ts",
+        "server/arkiF7NormativeProjection.ts",
+        "server/arkiF7NormativeProjection.test.ts",
+        "specialist-review hard acceptance gate"
       ],
       "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
       "known_reconciliation_items": [
