@@ -129,8 +129,10 @@ export function createOeceEvidencePackage(input: Omit<OeceEvidencePackage, "sche
   if (missingMismatch) throw new Error("OECE_MISSING_SURFACES_UNDERREPORTED");
   const hasProcedure = input.records.some(r => r.dataset === "PROCEDURE");
   const hasStructuredProcurement = input.records.some(r => ["PROCEDURE", "AWARD", "CONTRACT"].includes(r.dataset));
+  const allDocumentsVerified = input.documents.length > 0
+    && verifiedDocs.length === input.documents.length;
   const completeness: OeceEvidencePackage["completeness"] =
-    verifiedDocs.length && hasProcedure && Boolean(input.expectedSurfaces?.length) && derivedMissing.length === 0 && input.missingSurfaces.length === 0 ? "SOURCE_PACKAGE_VERIFIED"
+    allDocumentsVerified && hasProcedure && Boolean(input.expectedSurfaces?.length) && derivedMissing.length === 0 && input.missingSurfaces.length === 0 ? "SOURCE_PACKAGE_VERIFIED"
       : verifiedDocs.length || hasStructuredProcurement ? "PARTIAL_EVIDENCE"
       : "METADATA_ONLY";
 
@@ -138,8 +140,13 @@ export function createOeceEvidencePackage(input: Omit<OeceEvidencePackage, "sche
   const hasTechnicalCore = technicalKinds.has("EXPEDIENTE_TECNICO")
     && technicalKinds.has("BUDGET")
     && technicalKinds.has("SPECIFICATION");
+  const hasPartialTechnicalCore = technicalKinds.has("EXPEDIENTE_TECNICO")
+    || technicalKinds.has("BUDGET")
+    || technicalKinds.has("SPECIFICATION");
   const technicalDossierClaim: OeceEvidencePackage["technicalDossierClaim"] =
-    hasTechnicalCore ? "TECHNICAL_CORE_SET_VERIFIED" : verifiedDocs.length ? "PARTIAL" : "NOT_DEMONSTRATED";
+    hasTechnicalCore ? "TECHNICAL_CORE_SET_VERIFIED"
+      : hasPartialTechnicalCore ? "PARTIAL"
+      : "NOT_DEMONSTRATED";
 
   const payload = {
     ...input,
