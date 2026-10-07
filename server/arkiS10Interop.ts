@@ -215,13 +215,52 @@ export function verifyS10Totals(project: S10NormalizedProject, tolerance = 0.01)
     unknowns: ["S10_DECLARED_TOTALS_NOT_AVAILABLE"],
   };
   const delta = calculatedDirectCost - project.declaredTotals.directCost;
+  const calculatedDeclaredFootTotal =
+    project.declaredTotals.directCost
+    + (project.declaredTotals.generalExpenses ?? 0)
+    + (project.declaredTotals.utility ?? 0)
+    + (project.declaredTotals.tax ?? 0);
+  const footDelta = calculatedDeclaredFootTotal - project.declaredTotals.total;
+  const reconciled = Math.abs(delta) <= tolerance && Math.abs(footDelta) <= tolerance;
   return {
-    status: Math.abs(delta) <= tolerance ? "RECONCILED" as const : "MISMATCH" as const,
+    status: reconciled ? "RECONCILED" as const : "MISMATCH" as const,
     calculatedDirectCost,
     declaredDirectCost: project.declaredTotals.directCost,
     delta,
+    calculatedDeclaredFootTotal,
+    declaredTotal: project.declaredTotals.total,
+    footDelta,
     tolerance,
     unknowns: [] as string[],
+  };
+}
+
+export function verifyS10Apus(project: S10NormalizedProject, tolerance = 0.01) {
+  if (!Number.isFinite(tolerance) || tolerance < 0) throw new Error("S10_INVALID_TOLERANCE");
+  const resources = new Map((project.resources ?? []).map(r => [r.resourceId, r]));
+  const items = new Map(project.items.map(i => [i.code, i]));
+  const results = (project.apus ?? []).map(apu => {
+    const item = items.get(apu.itemCode)!;
+    const calculatedUnitPrice = apu.components.reduce((sum, component) => {
+      const resource = resources.get(component.resourceId)!;
+      return sum + component.quantity * (1 + (component.wasteFactor ?? 0)) * resource.unitPrice;
+    }, 0);
+    const delta = calculatedUnitPrice - item.unitPrice;
+    return {
+      apuId: apu.apuId,
+      itemCode: apu.itemCode,
+      calculatedUnitPrice,
+      declaredUnitPrice: item.unitPrice,
+      delta,
+      status: Math.abs(delta) <= tolerance ? "RECONCILED" as const : "MISMATCH" as const,
+      provenance: [apu.sourceRef, item.sourceRef, ...apu.components.map(x => x.sourceRef)],
+    };
+  });
+  return {
+    status: results.some(r => r.status === "MISMATCH") ? "MISMATCH" as const : results.length ? "RECONCILED" as const : "UNKNOWN" as const,
+    tolerance,
+    results,
+    unknowns: results.length ? [] : ["S10_APU_NOT_AVAILABLE"],
   };
 }
 
