@@ -65,20 +65,19 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — OECE page-level semantic evidence",
+    "title": "F7/F8 — OECE derived evidence integrated; S10 real input remains external",
     "active": [
-      "Persist and inspect OCR evidence page-by-page for technical terms in context",
-      "Distinguish referenced technical documents from technical content actually present",
-      "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
-      "S10 real specimen resume-on-input"
+      "OECE ACS→ARKI physical fragment handoff PASS/E3 (bounded specimen; no new OCR)",
+      "Preserve PARTIAL source claim, NOT_DEMONSTRATED technical dossier, D-2/AGK authority boundaries",
+      "S10 real specimen resume only when input becomes available"
     ],
-    "last_completed": "ACS technical fragment 1/1 PASS E3, 1694-byte artifact with verified SHA; ACS worktree clean. ARKI fragment handoff implemented and awaits TS/test/E2E execution.",
-    "next_exact_action": "Run pnpm check, targeted arkiOeceEmbeddedTechnicalFragment.test.ts, and pnpm e2e:oece:fragment with pinned ACS verified package, fragment, OCR JSON. No OCR rerun.",
+    "last_completed": "At sicl-web HEAD c98b87e: pnpm check PASS; fragment adversarial tests 2/2 PASS; physical OECE→ARKI derived-fragment E2E PASS, 22 source artifacts/148 claims; baseline fingerprint 1bd8407a...; p9.obj untouched.",
+    "next_exact_action": "No further OECE specimen page mining or rerun required. Continue higher-priority ARKI integration from Master Map, or resume S10 only on new legitimate specimen. Do not promote the embedded fragment to a verified technical dossier.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
-      "OECE_TECHNICAL_CORE_CONTENT_NOT_YET_CONTEXTUALLY_DEMONSTRATED"
+      "OECE_COMPLETE_TECHNICAL_DOSSIER_NOT_DEMONSTRATED_FOR_THIS_SPECIMEN"
     ]
   },
   "status_vocabulary": [
@@ -1384,7 +1383,7 @@
         "canonical_mutation": false
       },
       "arki_derived_fragment_handoff": {
-        "status": "IMPLEMENTED_AWAITING_E3_EXECUTION",
+        "status": "PASS_E3_PHYSICAL_HANDOFF",
         "web_head": "b19372f1df9a90b48c9a5c7fa12b71fa2b9bf310",
         "contract": "server/arkiOeceEmbeddedTechnicalFragment.ts",
         "tests": "server/arkiOeceEmbeddedTechnicalFragment.test.ts",
@@ -1397,7 +1396,25 @@
           "PARTIAL claim",
           "no canonical mutation",
           "technical dossier NOT_DEMONSTRATED"
-        ]
+        ],
+        "verified_web_head": "c98b87e172c37975969c4382d705bd50aef1ca83",
+        "typescript_check": "PASS",
+        "focused_tests": "2_OF_2_PASS",
+        "physical_e2e": "PASS",
+        "package_sha256": "a71d0417685bfd7311d4d860438b75c7c4ada4c66eceece626f7d4139d4f7d18",
+        "fragment_artifact_sha256": "a94782d56effddd21d242a5c154f691e8ec49a5447ef51c0cbff56874f1ffec3",
+        "ocr_evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "fragment_fingerprint": "104de3221ddff3927d732de648288b196ce62537688690687726326ee3344b26",
+        "derived_baseline_fingerprint": "1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e",
+        "baseline_source_artifacts": 22,
+        "baseline_claims": 148,
+        "derived_claims": 1,
+        "derived_claim_evidence_state": "PARTIAL",
+        "technical_dossier_claim": "NOT_DEMONSTRATED",
+        "whole_document_promotion": false,
+        "canonical_mutation": false,
+        "original_baseline_unchanged": true,
+        "local_untracked_file": "p9.obj (untouched)"
       }
     }
   }
