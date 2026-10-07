@@ -75,7 +75,7 @@
       "F7/F8 local execution gate",
       "repository-wide projection-vs-canonical authority reconciliation"
     ],
-    "last_completed": "Deep repository audit reconciled sicl-web and sicl-core authority boundaries; F6 remains frozen; F7/F8 implementation spine committed on feat/f7-f8-integral-closure.",
+    "last_completed": "Cross-repo authority contract + F7/F8 professional spine + MEP/cost projection adapters + explicit Core→D-2→AGK→F7→F8 lineage are implemented on the draft integration branch; execution verification remains pending.",
     "next_exact_action": "Execute TypeScript + focused F7/F8 tests + regression + production build on the branch HEAD; correct any failure before promoting implementation state. Then integrate existing coordination/jurisdiction/S10 adapters into the professional-state spine.",
     "blockers": [
       "EXECUTION_EVIDENCE_PENDING_FOR_F7_F8_BRANCH"
@@ -288,7 +288,7 @@
       "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
       "baselines": {
         "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
-        "sicl_web_f7_f8_branch": "deb4746a32748fed9e1822b12037de7355cdf041",
+        "sicl_web_f7_f8_branch": "cc748f481a3b1be113bd3fc0a72b04b8e6b42d7d",
         "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
       },
       "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
