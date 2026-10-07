@@ -1,15 +1,15 @@
 {
   "schema": "ARKI-MASTER-MAP-STATE-0.1",
-  "updated_at": "2026-10-05",
+  "updated_at": "2026-10-07",
   "product": "ARKI / ARQUI Superarchitect",
   "authority_note": "Status is evidence-bounded. No evidence = no green.",
   "roadmap": {
     "total_phases": 10,
     "current_zone": {
       "phase": 7,
-      "approximate_subphase": "F7.0",
+      "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
-      "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
+      "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
     },
     "phases": [
       {
@@ -34,8 +34,8 @@
       },
       {
         "id": "F5",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "RECONCILED_WITH_POST_AUDIT_CORRECTIONS",
+        "evidence_status": "SEMANTIC_CATEGORY_HARDENING_IMPLEMENTED_LOCAL_EVIDENCE_RECORDED"
       },
       {
         "id": "F6",
@@ -45,12 +45,12 @@
       {
         "id": "F7",
         "status": "IN_PROGRESS",
-        "evidence_status": "CONTRACT_FORMATION_AND_REPOSITORY_RECONCILIATION"
+        "evidence_status": "IMPLEMENTATION_PRESENT_EXECUTION_VERIFICATION_PENDING"
       },
       {
         "id": "F8",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "IN_PROGRESS",
+        "evidence_status": "DERIVED_DOSSIER_CONTRACT_IMPLEMENTED_EXECUTION_VERIFICATION_PENDING"
       },
       {
         "id": "F9",
@@ -65,20 +65,21 @@
     ]
   },
   "current_focus": {
-    "title": "F7 — Professional Technical Development",
+    "title": "F7→F8 — Professional state integration and dossier handoff",
     "active": [
-      "F7.0 Professional Model Contract",
-      "F7 repository capability reconciliation",
-      "jurisdiction/applicability",
-      "architectural technical development",
-      "structure/MEP coordination",
-      "accessibility/life safety",
-      "quantities/cost",
-      "BIM/IFC/CAD interoperability"
+      "Cross-repo canonical authority references: Core / D-2 / AGK",
+      "BASELINE_0 source claims and contradiction reconciliation",
+      "Coordinated Professional State",
+      "Project Economic Twin / quantity-to-cost provenance",
+      "F8 Technical Dossier derived-only handoff",
+      "F7/F8 local execution gate",
+      "repository-wide projection-vs-canonical authority reconciliation"
     ],
-    "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
-    "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",
-    "blockers": []
+    "last_completed": "Deep repository audit reconciled sicl-web and sicl-core authority boundaries; F6 remains frozen; F7/F8 implementation spine committed on feat/f7-f8-integral-closure.",
+    "next_exact_action": "Execute TypeScript + focused F7/F8 tests + regression + production build on the branch HEAD; correct any failure before promoting implementation state. Then integrate existing coordination/jurisdiction/S10 adapters into the professional-state spine.",
+    "blockers": [
+      "EXECUTION_EVIDENCE_PENDING_FOR_F7_F8_BRANCH"
+    ]
   },
   "status_vocabulary": [
     "CLAIM",
@@ -282,6 +283,38 @@
           "libslvs_role": "ORACLE_ONLY"
         }
       }
+    },
+    "cross_repo_reconciliation_2026_10_07": {
+      "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
+      "baselines": {
+        "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
+        "sicl_web_f7_f8_branch": "46b6ba983228ba393f120f9623de1fd5751f8e19",
+        "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
+      },
+      "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
+      "authority_law": {
+        "CORE": "canonical project state / evidence / provenance",
+        "D2": "architectural semantic authority",
+        "AGK": "operational geometry authority",
+        "WEB_PROFESSIONAL_STATE": "projection referencing canonical authorities; not canonical project truth",
+        "F8_DOSSIER": "derived projection only",
+        "ACS": "technology/source acquisition and evidence; not architectural or geometry authority"
+      },
+      "implemented_on_branch": [
+        "shared/arkiCanonicalRefs.ts",
+        "server/arkiProfessionalState.ts",
+        "server/arkiProjectEconomicTwin.ts",
+        "server/arkiTechnicalDossier.ts",
+        "server/arkiF7F8Closure.test.ts"
+      ],
+      "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
+      "known_reconciliation_items": [
+        "sicl-web lifecycle/BIM/cost structures must remain projections/adapters rather than parallel canonical state",
+        "F5 selected-candidate to persistent Core semantic identity remains an integration capability gap",
+        "Delta 6.2 promotion enforcement requires hardening/reconciliation",
+        "RVT remains HOST_REQUIRED; no proprietary browser parser claim",
+        "OECE/ACS document acquisition to ARKI BASELINE_0 remains not yet demonstrated E2E"
+      ]
     }
   },
   "architectural_decisions": {
