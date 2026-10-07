@@ -45,7 +45,8 @@ export function attachOeceEmbeddedTechnicalFragment(input: {
   ocrArtifactSha256: string;
   ocrEvidencePath: string;
 }): Baseline0 {
-  const { pkg, baseline, fragment } = input;
+  const { pkg, baseline } = input;
+  const fragment = ingestOeceEmbeddedTechnicalFragment(input.fragment);
   if (baseline.projectId !== pkg.projectId || baseline.baselineId !== `OECE:${pkg.packageId}`) {
     throw new Error("OECE_FRAGMENT_BASELINE_IDENTITY_MISMATCH");
   }
