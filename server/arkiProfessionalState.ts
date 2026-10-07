@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { validateF7CanonicalRefs, type F7CanonicalRefs } from "../shared/arkiCanonicalRefs";
 
 export type EvidenceState = "VERIFIED" | "PARTIAL" | "UNKNOWN";
 export type ProfessionalDiscipline = "ARCHITECTURE" | "STRUCTURE" | "MEP" | "LIFE_SAFETY" | "ACCESSIBILITY" | "COST";
@@ -52,6 +53,7 @@ export type CoordinatedProfessionalState = {
   schema: "ARKI-F7-COORDINATED-STATE-1.0";
   projectId: string;
   stateId: string;
+  canonicalRefs: F7CanonicalRefs;
   d2StateRef: string;
   agkStateRef: string;
   baseline0Fingerprint: string;
@@ -97,16 +99,14 @@ export function createBaseline0(input: Omit<Baseline0, "schema" | "immutable" | 
 export function buildCoordinatedProfessionalState(input: {
   projectId: string;
   stateId: string;
-  d2StateRef: string;
-  agkStateRef: string;
+  canonicalRefs: F7CanonicalRefs;
   baseline: Baseline0;
   projections: ProfessionalProjection[];
   issues: ProfessionalIssue[];
   unknowns?: string[];
   humanAcceptance?: { acceptedBy: string; evidence: string };
 }): CoordinatedProfessionalState {
-  nonEmpty(input.d2StateRef, "D2_STATE_REF_REQUIRED");
-  nonEmpty(input.agkStateRef, "AGK_STATE_REF_REQUIRED");
+  const canonicalRefs = validateF7CanonicalRefs(input.canonicalRefs, input.projectId);
   if (input.baseline.projectId !== input.projectId) throw new Error("BASELINE_PROJECT_MISMATCH");
   const unresolvedContradictions = input.baseline.contradictions.filter(c => c.status === "UNRESOLVED");
   const projectionUnknowns = input.projections.flatMap(p => p.unknowns.map(u => `${p.projectionId}:${u}`));
@@ -122,8 +122,9 @@ export function buildCoordinatedProfessionalState(input: {
     schema: "ARKI-F7-COORDINATED-STATE-1.0" as const,
     projectId: input.projectId,
     stateId: input.stateId,
-    d2StateRef: input.d2StateRef,
-    agkStateRef: input.agkStateRef,
+    canonicalRefs,
+    d2StateRef: canonicalRefs.d2State.stateId,
+    agkStateRef: canonicalRefs.agkState.stateId,
     baseline0Fingerprint: input.baseline.fingerprint,
     projections: input.projections,
     issues: input.issues,
