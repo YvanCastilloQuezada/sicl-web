@@ -73,10 +73,10 @@
       "MEP/cost/normative professional projections",
       "real S10 + Huaura specimen campaigns"
     ],
-    "last_completed": "OECE official monthly CSV ZIP → ACS parser → physical ARKI evidence handoff → strict sicl-web ingestion → immutable BASELINE_0 executed E3; targeted F7/F8/S10/OECE regression 20/20 and TypeScript gate PASS at 9597eb3e975628ab09a19aa7cda6b2262a8aec80.",
-    "next_exact_action": "Run one legitimate local S10 specimen through READ/NORMALIZE/RECONCILE with provenance, APU/resources/hierarchy/totals where available; do not claim native S10 WRITE or ROUND-TRIP without generated-file reopen evidence.",
+    "last_completed": "OECE official monthly CSV ZIP → ACS → physical evidence handoff → immutable ARKI BASELINE_0 is E3 verified. S10 real-specimen discovery searched registered install surfaces, user Desktop/Documents/Downloads, ProgramData, Program Files, and available filesystem drives; no S10 specimen was found.",
+    "next_exact_action": "Treat S10 real execution as INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES without weakening its implemented READ/NORMALIZE/RECONCILE contract. Continue OECE real-source hardening toward multi-surface procurement evidence; resume S10 immediately when a legitimate specimen/export becomes available.",
     "blockers": [
-      "REAL_S10_SPECIMEN_NOT_YET_EXECUTED",
+      "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED"
     ]
@@ -1063,7 +1063,7 @@
       "F7.8 Professional Coordination Gate",
       "F7.9 F8 Handoff"
     ],
-    "next": "REAL_S10_SPECIMEN_EXECUTION",
+    "next": "OECE_MULTI_SURFACE_REAL_EVIDENCE_HARDENING_WHILE_S10_INPUT_UNAVAILABLE",
     "verification_head": "9597eb3e975628ab09a19aa7cda6b2262a8aec80",
     "targeted_gate": {
       "typescript": "PASS_EXIT_0",
@@ -1083,6 +1083,25 @@
       "source_artifacts": 1,
       "claims": 21,
       "baseline_immutable": true
+    },
+    "s10_real_specimen": {
+      "status": "INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
+      "observed_date": "2026-10-07",
+      "searched_surfaces": [
+        "Windows uninstall registry HKLM/HKCU",
+        "user Desktop/Documents/Downloads",
+        "ProgramData",
+        "Program Files",
+        "Program Files (x86)",
+        "available filesystem drives D:/E:",
+        "bounded temp surface"
+      ],
+      "registry_matches": 0,
+      "directory_matches": 0,
+      "file_candidates_examined": 22,
+      "legitimate_s10_specimens_found": 0,
+      "classification": "EXTERNAL_INPUT_UNAVAILABLE_NOT_PRODUCT_FAILURE",
+      "resume_condition": "LEGITIMATE_S10_PROJECT_EXPORT_BACKUP_OR_DATABASE_AVAILABLE"
     }
   }
 }
