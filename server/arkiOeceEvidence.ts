@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { z } from "zod";
 import { createBaseline0, type Baseline0, type SourceClaim } from "./arkiProfessionalState";
 
 export type OeceDatasetKind =
@@ -47,6 +48,44 @@ export type OeceEvidencePackage = {
   immutable: true;
   fingerprint: string;
 };
+
+const OeceRecordInputSchema = z.object({
+  recordId: z.string().min(1),
+  dataset: z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"]),
+  sourceRef: z.string().min(1),
+  sourceChecksum: z.string().min(1),
+  observedAt: z.string().min(1),
+  fields: z.record(z.string(), z.unknown()),
+}).strict();
+
+const OeceDocumentInputSchema = z.object({
+  documentId: z.string().min(1),
+  title: z.string(),
+  kind: z.enum(["BASES", "TDR", "EXPEDIENTE_TECNICO", "CONTRACT", "DRAWING", "BUDGET", "SPECIFICATION", "OTHER"]),
+  sourceRef: z.string().min(1),
+  acquisitionStatus: z.enum(["DISCOVERED", "DOWNLOADED", "VERIFIED", "FAILED", "UNAVAILABLE"]),
+  checksum: z.string().optional(),
+  mediaType: z.string().optional(),
+  localEvidenceRef: z.string().optional(),
+}).strict();
+
+const OecePackageInputSchema = z.object({
+  schema: z.literal("ARKI-OECE-EVIDENCE-PACKAGE-1.0").optional(),
+  packageId: z.string().min(1),
+  projectId: z.string().min(1),
+  ocid: z.string().min(1).optional(),
+  procedureId: z.string().min(1).optional(),
+  records: z.array(OeceRecordInputSchema),
+  documents: z.array(OeceDocumentInputSchema),
+  missingSurfaces: z.array(z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"])),
+}).strict().refine(value => Boolean(value.ocid || value.procedureId), { message: "OECE_PROCEDURE_IDENTITY_REQUIRED" });
+
+export function ingestOeceEvidenceEnvelope(value: unknown): OeceEvidencePackage {
+  const parsed = OecePackageInputSchema.safeParse(value);
+  if (!parsed.success) throw new Error(`OECE_ENVELOPE_INVALID:${parsed.error.issues.map(i => i.message).join("|")}`);
+  const { schema: _schema, ...input } = parsed.data;
+  return createOeceEvidencePackage(input);
+}
 
 const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const required = (value: string, code: string) => { if (!value.trim()) throw new Error(code); };
