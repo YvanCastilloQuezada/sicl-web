@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE OCR page evidence persisted and hash-verified: 223,856 bytes, SHA-256 a7033042..., 47 pages; OCR rerun no longer required.",
-    "next_exact_action": "Run ACS persisted-evidence context probe at b06b7d4... (no OCR) and classify exact page contexts for EXPEDIENTE_TECNICO, MEMORIA_DESCRIPTIVA, PLANOS, PRESUPUESTO_TERM.",
+    "last_completed": "OECE persisted OCR context probe PASS/E3: administrative false positives separated from an actual embedded technical-content fragment on Bases page 13.",
+    "next_exact_action": "Characterize the full persisted OCR text of Bases page 13 without rerunning OCR: inventory technical sections/fields and determine bounded embedded fragment scope. Do not promote the whole Bases document to EXPEDIENTE_TECNICO.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1310,6 +1310,23 @@
         "sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
         "model_sha256": "6f2e04d02774a18f01bed44b1111f2cd7f3ba7ac9dc4373cd3f898a40ea6b464",
         "pages": 47,
+        "semantic_promotion": false
+      },
+      "context_probe": {
+        "status": "PASS_E3",
+        "execution_head": "b06b7d4b31734d86e0a1345bc93840c43996d7b4",
+        "evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "hits": 8,
+        "findings": {
+          "budget_page_9": "ADMINISTRATIVE_LEGAL_REFERENCE_ONLY: Ley de Presupuesto / equilibrio financiero; not project budget evidence",
+          "memoria_page_11": "ADMINISTRATIVE_REQUIREMENT_ONLY: plan de trabajo con memoria descriptiva; not technical dossier memory evidence",
+          "expediente_award_act": "PROCUREMENT_OBJECT_REFERENCE_ONLY: describes contracting object; attachment not demonstrated",
+          "bases_page_13": "EMBEDDED_TECHNICAL_CONTENT_DEMONSTRATED: approved technical sheet referenced with plans/specifications and visible description/unit/metrado/price-style table fragment"
+        },
+        "technical_document_attached": "NOT_DEMONSTRATED",
+        "technical_content_fragment": "DEMONSTRATED_E3",
+        "technical_core_set_verified": false,
+        "technical_dossier": "NOT_DEMONSTRATED",
         "semantic_promotion": false
       }
     }
