@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline, verifyS10Totals } from "./arkiS10Interop";
+import { ingestS10NormalizedEnvelope, normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline, verifyS10Totals } from "./arkiS10Interop";
 
 function s10(items: Array<{ itemId: string; code: string; description: string; unit: string; quantity: number; unitPrice: number; sourceRef: string; apuRef?: string }>) {
   return normalizeS10Project({
@@ -9,6 +9,13 @@ function s10(items: Array<{ itemId: string; code: string; description: string; u
 }
 
 describe("S10 project-local interoperability", () => {
+  it("fails closed on malformed runtime S10 envelopes", () => {
+    expect(() => ingestS10NormalizedEnvelope({
+      projectId: "P1", sourceId: "X", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "x", effectiveDate: "2026-10-07",
+      currency: "PEN", items: [], evidenceState: "VERIFIED_STRUCTURE", unknowns: [], canonicalGeometry: true,
+    })).toThrow("S10_ENVELOPE_INVALID");
+  });
+
   it("normalizes S10 evidence into an immutable project cost baseline without claiming global truth", () => {
     const source = s10([{ itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:01.01" }]);
     const baseline = toProjectCostBaseline(source);
