@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline } from "./arkiS10Interop";
+import { normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline, verifyS10Totals } from "./arkiS10Interop";
 
 function s10(items: Array<{ itemId: string; code: string; description: string; unit: string; quantity: number; unitPrice: number; sourceRef: string; apuRef?: string }>) {
   return normalizeS10Project({
@@ -39,6 +39,31 @@ describe("S10 project-local interoperability", () => {
     expect(result.directCostDelta).toBe(300);
     expect(result.writeBackClaim).toBe(false);
     expect(S10_INTEROP_BOUNDARY.notClaimed).toContain("S10_ROUND_TRIP");
+  });
+
+  it("preserves budget hierarchy, APU resources and reconciles declared direct cost", () => {
+    const project = normalizeS10Project({
+      projectId: "P1", sourceId: "NATIVE-1", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:s10",
+      effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "VERIFIED_STRUCTURE", unknowns: [],
+      resources: [{ resourceId: "R1", code: "MAT-1", description: "Brick", unit: "u", unitPrice: 2, resourceType: "MATERIAL", sourceRef: "S10:R1" }],
+      apus: [{ apuId: "APU-1", itemCode: "01.01", sourceRef: "S10:APU-1", components: [{ resourceId: "R1", quantity: 5, sourceRef: "S10:APU-1:R1" }] }],
+      items: [{ itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:I1", apuRef: "APU-1" }],
+      budgetNodes: [{ nodeId: "N1", code: "01", description: "Architecture", itemCodes: ["01.01"], sourceRef: "S10:N1" }],
+      declaredTotals: { directCost: 1000, total: 1180, tax: 180, sourceRef: "S10:TOTALS" },
+    });
+    expect(project.apus?.[0].components[0].resourceId).toBe("R1");
+    expect(project.budgetNodes?.[0].itemCodes).toEqual(["01.01"]);
+    expect(verifyS10Totals(project)).toMatchObject({ status: "RECONCILED", delta: 0 });
+  });
+
+  it("does not hide a direct-cost mismatch behind declared S10 totals", () => {
+    const project = normalizeS10Project({
+      projectId: "P1", sourceId: "REPORT-1", sourceFormat: "REPORT_EXTRACTION", sourceChecksum: "sha256:r",
+      effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "PARTIAL", unknowns: ["REPORT_EXTRACTION"],
+      items: [{ itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "REPORT:P1" }],
+      declaredTotals: { directCost: 999, total: 999, sourceRef: "REPORT:TOTAL" },
+    });
+    expect(verifyS10Totals(project)).toMatchObject({ status: "MISMATCH", calculatedDirectCost: 1000, declaredDirectCost: 999, delta: 1 });
   });
 
   it("fails closed across project or currency boundaries", () => {
