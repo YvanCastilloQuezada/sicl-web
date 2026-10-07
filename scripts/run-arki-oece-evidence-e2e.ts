@@ -32,8 +32,21 @@ if (baseline.projectId !== pkg.projectId) {
 if (baseline.claims.length === 0 || baseline.sourceArtifacts.length === 0) {
   throw new Error("OECE_ARKI_BASELINE_EMPTY");
 }
-if (baseline.claims.some(claim => claim.evidenceState !== "PARTIAL")) {
+const verifiedDocuments = pkg.documents.filter(document => document.acquisitionStatus === "VERIFIED").length;
+const procurementClaims = baseline.claims.filter(claim =>
+  claim.sourceId.startsWith("OECE-RECORD:")
+);
+const documentClaims = baseline.claims.filter(claim =>
+  claim.sourceId.startsWith("OECE-DOCUMENT:")
+);
+if (procurementClaims.some(claim => claim.evidenceState !== "PARTIAL")) {
   throw new Error("OECE_ARKI_PROCUREMENT_OVERCLAIM");
+}
+if (documentClaims.some(claim => claim.evidenceState !== "VERIFIED")) {
+  throw new Error("OECE_ARKI_DOCUMENT_EVIDENCE_UNDERRATED");
+}
+if (documentClaims.length !== verifiedDocuments) {
+  throw new Error("OECE_ARKI_VERIFIED_DOCUMENT_CLAIM_COUNT_MISMATCH");
 }
 
 const datasetCounts = Object.fromEntries(
@@ -46,7 +59,6 @@ const documentStatusCounts = Object.fromEntries(
     .sort()
     .map(status => [status, pkg.documents.filter(document => document.acquisitionStatus === status).length]),
 );
-const verifiedDocuments = pkg.documents.filter(document => document.acquisitionStatus === "VERIFIED").length;
 const duplicateDocumentContent = Object.entries(
   pkg.documents
     .filter(document => document.checksum)
@@ -98,5 +110,7 @@ console.log(JSON.stringify({
   baselineFingerprint: baseline.fingerprint,
   sourceArtifacts: baseline.sourceArtifacts.length,
   claims: baseline.claims.length,
+  procurementClaims: procurementClaims.length,
+  verifiedDocumentClaims: documentClaims.length,
   immutable: baseline.immutable,
 }, null, 2));
