@@ -65,21 +65,20 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — OECE image-only verified documents require bounded OCR",
+    "title": "F7→F8 — OECE page-level semantic evidence",
     "active": [
-      "Select available local OCR capability for three proven image-only PDFs",
-      "Keep OCR output observational until evidence-backed semantic classification",
-      "OECE/ACS evidence → BASELINE_0",
+      "Persist and inspect OCR evidence page-by-page for technical terms in context",
+      "Distinguish referenced technical documents from technical content actually present",
+      "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE PDF structural inspection passed E3 at ACS 8c76492eb646dd7ee7f5a257b8af066db4178fc4. Contract: 6/6 pages image-only; Administrative Bases: 38/38 image-only; Award Act: 3/3 image-only. All have zero PDF letters and one image per page. OCR is justified only for these three PDFs. The two machine-text reports remain directly extractable; award report lexical signals are BUENA_PRO and VALOR_REFERENCIAL, not budget.",
-    "next_exact_action": "Pull ACS fb1e096..., run only the bounded OCR integration test with existing verified model/documents, and classify the next actual execution result. Do not repeat dependency discovery.",
+    "last_completed": "Bounded OCR passed E3: 47/47 proven image-only pages, 187,608 characters, three documents, no semantic promotion.",
+    "next_exact_action": "Execute page-level OCR evidence persistence at ACS ad013ca..., then inspect exact pages/contexts for EXPEDIENTE_TECNICO, MEMORIA_DESCRIPTIVA, PLANOS and PRESUPUESTO_TERM before any document-kind promotion.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
-      "OECE_IMAGE_ONLY_PDFS_REQUIRE_OCR_FOR_CONTENT",
-      "OECE_TECHNICAL_CORE_CONTENT_NOT_DEMONSTRATED"
+      "OECE_TECHNICAL_CORE_CONTENT_NOT_YET_CONTEXTUALLY_DEMONSTRATED"
     ]
   },
   "status_vocabulary": [
@@ -1242,7 +1241,7 @@
         "classification": "KNOWN_FIXABLE_INTEGRATION_DEFECT"
       },
       "package_reason": "Aligns with .NET 8 / Microsoft.Extensions.Logging.Abstractions >=8.0.2; explicit integration-test reference materializes OCR runtime in test host.",
-      "status": "FIX_APPLIED_AWAITING_E3_RERUN",
+      "status": "PASS_E3_47_OF_47",
       "runtime_host_fix": {
         "status": "VERIFIED_E3",
         "evidence": [
@@ -1252,12 +1251,56 @@
           "x64/x86 tesseract54.dll and leptonica-1.85.0.dll materialized"
         ]
       },
-      "current_defect": {
-        "status": "FIX_APPLIED_AWAITING_E3_RERUN",
-        "defect": "OCR engine received tessdata parent instead of actual tessdata directory",
-        "observed_wrong_lookup": "C:\\acs-v1\\test-artifacts\\ocr\\spa.traineddata",
-        "actual_model": "C:\\acs-v1\\test-artifacts\\ocr\\tessdata\\spa.traineddata",
-        "fix_head": "fb1e096551e8bd7d778775c8c304d67cdf9efa7f"
+      "current_defect": null,
+      "verification_head": "fb1e096551e8bd7d778775c8c304d67cdf9efa7f",
+      "execution": {
+        "pages_expected": 47,
+        "pages_processed": 47,
+        "total_characters": 187608,
+        "documents": [
+          {
+            "identity": "contract",
+            "pages": 6,
+            "characters": 18030,
+            "mean_confidence": 0.9233,
+            "signals": [
+              "BASES_ADMINISTRATIVAS",
+              "BUENA_PRO",
+              "CONTRATO",
+              "GARANTIA",
+              "PROPUESTA"
+            ]
+          },
+          {
+            "identity": "administrative_bases",
+            "pages": 38,
+            "characters": 161070,
+            "mean_confidence": 0.9079,
+            "signals": [
+              "BASES_ADMINISTRATIVAS",
+              "BUENA_PRO",
+              "CONTRATO",
+              "EXPEDIENTE_TECNICO",
+              "GARANTIA",
+              "MEMORIA_DESCRIPTIVA",
+              "PLANOS",
+              "PRESUPUESTO_TERM",
+              "PROPUESTA"
+            ]
+          },
+          {
+            "identity": "award_act",
+            "pages": 3,
+            "characters": 8508,
+            "mean_confidence": 0.9267,
+            "signals": [
+              "BUENA_PRO",
+              "EXPEDIENTE_TECNICO",
+              "PROPUESTA"
+            ]
+          }
+        ],
+        "semantic_promotion": "NOT_PERFORMED"
       }
     }
   }
