@@ -3,7 +3,16 @@ export type FunnelStage = "GENERATED" | "SCREENED" | "SURVIVOR" | "DESIGN_EXPLOR
 export type HumanWaitState = "NONE" | "AWAITING_16_TO_4_SELECTION" | "AWAITING_4_TO_1_SELECTION";
 export type CandidateStatus = "ELIGIBLE" | "UNKNOWN" | "FAILED";
 export type ComparisonMode = "PREVIEW" | "PLAN" | "3D" | "ELEVATION" | "SECTION" | "PROGRAM" | "CIRCULATION" | "ENERGY" | "DAYLIGHT" | "STRUCTURE" | "COST" | "TECHNICAL";
-export type CandidateEpistemicItem = {
+export type CandidateEpistemicKind =
+  | "FACT"
+  | "ASSUMPTION"
+  | "PREFERENCE"
+  | "REQUIREMENT"
+  | "OBJECTIVE"
+  | "CONSTRAINT";
+
+export type CandidateEpistemicItem<K extends CandidateEpistemicKind = CandidateEpistemicKind> = {
+  kind: K;
   id: string;
   statement: string;
   evidenceRefs: string[];
@@ -11,12 +20,12 @@ export type CandidateEpistemicItem = {
 };
 
 export type CandidateEpistemicModel = {
-  facts: CandidateEpistemicItem[];
-  assumptions: CandidateEpistemicItem[];
-  preferences: CandidateEpistemicItem[];
-  requirements: CandidateEpistemicItem[];
-  objectives: CandidateEpistemicItem[];
-  constraints: CandidateEpistemicItem[];
+  facts: CandidateEpistemicItem<"FACT">[];
+  assumptions: CandidateEpistemicItem<"ASSUMPTION">[];
+  preferences: CandidateEpistemicItem<"PREFERENCE">[];
+  requirements: CandidateEpistemicItem<"REQUIREMENT">[];
+  objectives: CandidateEpistemicItem<"OBJECTIVE">[];
+  constraints: CandidateEpistemicItem<"CONSTRAINT">[];
 };
 
 export type DesignCandidate = {
@@ -35,14 +44,17 @@ export type DesignCandidate = {
   failureReasons: string[];
   provenance: string[];
 };
-const EPISTEMIC_KEYS = [
-  "facts",
-  "assumptions",
-  "preferences",
-  "requirements",
-  "objectives",
-  "constraints",
-] as const satisfies readonly (keyof CandidateEpistemicModel)[];
+const EPISTEMIC_CATEGORIES = [
+  ["facts", "FACT"],
+  ["assumptions", "ASSUMPTION"],
+  ["preferences", "PREFERENCE"],
+  ["requirements", "REQUIREMENT"],
+  ["objectives", "OBJECTIVE"],
+  ["constraints", "CONSTRAINT"],
+] as const satisfies readonly [
+  keyof CandidateEpistemicModel,
+  CandidateEpistemicKind,
+][];
 
 function validateCandidateEpistemicModel(candidate: DesignCandidate): void {
   const epistemic = (candidate as unknown as Record<string, unknown>).epistemic;
@@ -53,7 +65,7 @@ function validateCandidateEpistemicModel(candidate: DesignCandidate): void {
 
   const model = epistemic as Record<string, unknown>;
 
-  for (const key of EPISTEMIC_KEYS) {
+  for (const [key, expectedKind] of EPISTEMIC_CATEGORIES) {
     const collection = model[key];
 
     if (!Array.isArray(collection)) {
@@ -66,6 +78,12 @@ function validateCandidateEpistemicModel(candidate: DesignCandidate): void {
       }
 
       const item = rawItem as Record<string, unknown>;
+
+      if (item.kind !== expectedKind) {
+        throw new Error(
+          `INVALID_CANDIDATE_EPISTEMIC_KIND:${key}:${expectedKind}:${String(item.kind)}`
+        );
+      }
 
       if (
         typeof item.id !== "string" ||
@@ -139,11 +157,11 @@ export function setComparisonMode(state: DesignFunnelState, mode: ComparisonMode
 export function requestNewGeneration(state: DesignFunnelState, reason: string, timestamp = now()): DesignFunnelState { if (!reason.trim()) throw new Error("GENERATION_REASON_REQUIRED"); return { ...state, events: [...state.events, { eventId: id("GEN"), type: "NEW_GENERATION_REQUESTED", projectId: state.projectId, candidateIds: state.candidates.map((candidate) => candidate.id), timestamp, reason, evidenceRefs: ["DESIGN_HISTORY"] }] }; }
 export function createDemoCandidates(projectId = "DEMO-PROJECT"): DesignCandidate[] { return Array.from({ length: 16 }, (_, index) => ({ id: `A${String(index + 1).padStart(2, "0")}`, projectId, generationId: "GEN-007", stage: "SURVIVOR" as const, status: "ELIGIBLE" as const, title: `Alternativa ${String(index + 1).padStart(2, "0")}`, strategy: ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático"][index % 4], preview: "PREVIEW_LOCAL_CONCEPTUAL", metrics: { area: 12000 + index * 175, efficiency: `${78 + (index % 7) * 2}%`, cost: 100 + index * 3 },
   epistemic: {
-    facts: [{ id: `FACT-${index + 1}-01`, statement: "Candidate belongs to the current generated design set.", evidenceRefs: ["ELIGIBILITY_SCREENING"], provenance: ["GEN-007"] }],
-    assumptions: [{ id: `ASSUMPTION-${index + 1}-01`, statement: "Conceptual strategy remains subject to deeper technical verification.", evidenceRefs: [], provenance: ["GEN-007"] }],
-    preferences: [{ id: `PREFERENCE-${index + 1}-01`, statement: "Preserve the declared architectural strategy during comparison.", evidenceRefs: ["FUNCTIONAL_FIT"], provenance: ["GEN-007"] }],
-    requirements: [{ id: `REQUIREMENT-${index + 1}-01`, statement: "Human review is required before development selection.", evidenceRefs: ["HUMAN_SELECTION_EVIDENCE"], provenance: ["ARKI-F5"] }],
-    objectives: [{ id: `OBJECTIVE-${index + 1}-01`, statement: "Support explicit comparison without manufacturing an automatic winner.", evidenceRefs: ["FUNCTIONAL_FIT"], provenance: ["ARKI-F5"] }],
-    constraints: [{ id: `CONSTRAINT-${index + 1}-01`, statement: "Candidate remains conceptual until deeper technical evaluation.", evidenceRefs: [], provenance: ["GEN-007"] }],
+    facts: [{ kind: "FACT", id: `FACT-${index + 1}-01`, statement: "Candidate belongs to the current generated design set.", evidenceRefs: ["ELIGIBILITY_SCREENING"], provenance: ["GEN-007"] }],
+    assumptions: [{ kind: "ASSUMPTION", id: `ASSUMPTION-${index + 1}-01`, statement: "Conceptual strategy remains subject to deeper technical verification.", evidenceRefs: [], provenance: ["GEN-007"] }],
+    preferences: [{ kind: "PREFERENCE", id: `PREFERENCE-${index + 1}-01`, statement: "Preserve the declared architectural strategy during comparison.", evidenceRefs: ["FUNCTIONAL_FIT"], provenance: ["GEN-007"] }],
+    requirements: [{ kind: "REQUIREMENT", id: `REQUIREMENT-${index + 1}-01`, statement: "Human review is required before development selection.", evidenceRefs: ["HUMAN_SELECTION_EVIDENCE"], provenance: ["ARKI-F5"] }],
+    objectives: [{ kind: "OBJECTIVE", id: `OBJECTIVE-${index + 1}-01`, statement: "Support explicit comparison without manufacturing an automatic winner.", evidenceRefs: ["FUNCTIONAL_FIT"], provenance: ["ARKI-F5"] }],
+    constraints: [{ kind: "CONSTRAINT", id: `CONSTRAINT-${index + 1}-01`, statement: "Candidate remains conceptual until deeper technical evaluation.", evidenceRefs: [], provenance: ["GEN-007"] }],
   },
   evidence: ["ELIGIBILITY_SCREENING", "FUNCTIONAL_FIT"], unknowns: index % 5 === 0 ? ["Estructura aún no evaluada"] : [], failureReasons: [], provenance: ["GEN-007", `CANDIDATE-${index + 1}`] })); }

@@ -72,6 +72,27 @@ describe("ARKI F5 Requirement-Constraint semantic boundary", () => {
     expect(preserved!.epistemic.constraints).not.toContain(requirement);
   });
 });
+describe("ARKI F5 C2 cross-category rejection", () => {
+  it("rejects a Preference injected into Objectives", () => {
+    const candidates = createDemoCandidates("P-EPI-C2");
+
+    const preference =
+      candidates[0].epistemic.preferences[0];
+
+    (candidates[0].epistemic.objectives as unknown as Array<typeof preference>).push(
+      preference
+    );
+
+    expect(() =>
+      createDesignFunnel({
+        projectId: "P-EPI-C2",
+        candidates,
+      })
+    ).toThrow(
+      "INVALID_CANDIDATE_EPISTEMIC_KIND:objectives:OBJECTIVE:PREFERENCE"
+    );
+  });
+});
 describe("ARKI F5 epistemic runtime boundary", () => {
   it("rejects a candidate with the epistemic model removed at runtime", () => {
     const candidates = createDemoCandidates("P-EPI-RUNTIME");
