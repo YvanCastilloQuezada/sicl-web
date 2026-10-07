@@ -81,12 +81,22 @@ export function createBaseline0(input: Omit<Baseline0, "schema" | "immutable" | 
     if (sourceIds.has(source.sourceId)) throw new Error("DUPLICATE_SOURCE_ID");
     sourceIds.add(source.sourceId);
   }
+  const claimIds = new Set<string>();
   for (const claim of input.claims) {
+    nonEmpty(claim.claimId, "CLAIM_ID_REQUIRED");
+    nonEmpty(claim.subjectId, `CLAIM_SUBJECT_REQUIRED:${claim.claimId}`);
+    nonEmpty(claim.field, `CLAIM_FIELD_REQUIRED:${claim.claimId}`);
+    if (claimIds.has(claim.claimId)) throw new Error(`DUPLICATE_CLAIM_ID:${claim.claimId}`);
+    claimIds.add(claim.claimId);
     if (!sourceIds.has(claim.sourceId)) throw new Error(`CLAIM_SOURCE_NOT_IN_BASELINE:${claim.claimId}`);
     if (!claim.provenance.length) throw new Error(`CLAIM_PROVENANCE_REQUIRED:${claim.claimId}`);
   }
   for (const contradiction of input.contradictions) {
+    nonEmpty(contradiction.contradictionId, "CONTRADICTION_ID_REQUIRED");
     if (contradiction.claimIds.length < 2) throw new Error(`CONTRADICTION_REQUIRES_MULTIPLE_CLAIMS:${contradiction.contradictionId}`);
+    const contradictoryClaims = contradiction.claimIds.map(id => input.claims.find(claim => claim.claimId === id));
+    if (contradictoryClaims.some(claim => !claim)) throw new Error(`CONTRADICTION_CLAIM_NOT_FOUND:${contradiction.contradictionId}`);
+    if (contradictoryClaims.some(claim => claim!.subjectId !== contradiction.subjectId || claim!.field !== contradiction.field)) throw new Error(`CONTRADICTION_SCOPE_MISMATCH:${contradiction.contradictionId}`);
     if (contradiction.status === "RESOLVED") {
       if (!contradiction.acceptedClaimId || !contradiction.claimIds.includes(contradiction.acceptedClaimId)) throw new Error(`INVALID_ACCEPTED_CLAIM:${contradiction.contradictionId}`);
       if (!contradiction.decisionEvidence?.length) throw new Error(`RECONCILIATION_EVIDENCE_REQUIRED:${contradiction.contradictionId}`);
@@ -108,6 +118,16 @@ export function buildCoordinatedProfessionalState(input: {
 }): CoordinatedProfessionalState {
   const canonicalRefs = validateF7CanonicalRefs(input.canonicalRefs, input.projectId);
   if (input.baseline.projectId !== input.projectId) throw new Error("BASELINE_PROJECT_MISMATCH");
+  nonEmpty(input.stateId, "F7_STATE_ID_REQUIRED");
+  const baselineClaimIds = new Set(input.baseline.claims.map(c => c.claimId));
+  for (const projection of input.projections) {
+    nonEmpty(projection.projectionId, "F7_PROJECTION_ID_REQUIRED");
+    if (projection.sourceClaimIds.some(id => !baselineClaimIds.has(id))) throw new Error(`F7_PROJECTION_CLAIM_NOT_IN_BASELINE:${projection.projectionId}`);
+  }
+  if (input.humanAcceptance) {
+    nonEmpty(input.humanAcceptance.acceptedBy, "F7_ACCEPTED_BY_REQUIRED");
+    nonEmpty(input.humanAcceptance.evidence, "F7_ACCEPTANCE_EVIDENCE_REQUIRED");
+  }
   const unresolvedContradictions = input.baseline.contradictions.filter(c => c.status === "UNRESOLVED");
   const projectionUnknowns = input.projections.flatMap(p => p.unknowns.map(u => `${p.projectionId}:${u}`));
   const unknowns = [...(input.unknowns ?? []), ...projectionUnknowns, ...unresolvedContradictions.map(c => `UNRESOLVED_SOURCE_CONTRADICTION:${c.contradictionId}`)];
