@@ -34,6 +34,7 @@ export function generateTechnicalDossier(input: {
     projectId: input.state.projectId,
     sourceF7StateId: input.state.stateId,
     sourceF7Fingerprint: input.state.fingerprint,
+    coreProjectRef: input.state.canonicalRefs.coreProject.stateId,
     d2StateRef: input.state.d2StateRef,
     agkStateRef: input.state.agkStateRef,
     artifacts,
@@ -47,6 +48,7 @@ export function generateTechnicalDossier(input: {
 export function verifyDossierLineage(dossier: ReturnType<typeof generateTechnicalDossier>, state: CoordinatedProfessionalState) {
   const failures: string[] = [];
   if (dossier.sourceF7Fingerprint !== state.fingerprint) failures.push("F7_FINGERPRINT_MISMATCH");
+  if (dossier.coreProjectRef !== state.canonicalRefs.coreProject.stateId) failures.push("CORE_REF_MISMATCH");
   if (dossier.d2StateRef !== state.d2StateRef) failures.push("D2_REF_MISMATCH");
   if (dossier.agkStateRef !== state.agkStateRef) failures.push("AGK_REF_MISMATCH");
   for (const artifact of dossier.artifacts) if (artifact.sourceStateFingerprint !== state.fingerprint) failures.push(`ARTIFACT_STATE_MISMATCH:${artifact.artifactId}`);
