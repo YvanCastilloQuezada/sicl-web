@@ -278,17 +278,17 @@ export function reconcileS10Projects(before: S10NormalizedProject, after: S10Nor
   const beforeByCode = new Map(before.items.map(i => [i.code, i]));
   const afterByCode = new Map(after.items.map(i => [i.code, i]));
   const changes: S10ReconciliationChange[] = [];
-  for (const [code, oldItem] of beforeByCode) {
+  for (const [code, oldItem] of Array.from(beforeByCode.entries())) {
     const next = afterByCode.get(code);
     if (!next) { changes.push({ itemId: oldItem.itemId, code, kind: "REMOVED" }); continue; }
     if (oldItem.quantity !== next.quantity) changes.push({ itemId: next.itemId, code, kind: "QUANTITY_CHANGED", before: oldItem.quantity, after: next.quantity });
     if (oldItem.unitPrice !== next.unitPrice) changes.push({ itemId: next.itemId, code, kind: "PRICE_CHANGED", before: oldItem.unitPrice, after: next.unitPrice });
     if ((oldItem.apuRef ?? "") !== (next.apuRef ?? "")) changes.push({ itemId: next.itemId, code, kind: "APU_CHANGED", before: oldItem.apuRef ?? "", after: next.apuRef ?? "" });
   }
-  for (const [code, item] of afterByCode) if (!beforeByCode.has(code)) changes.push({ itemId: item.itemId, code, kind: "ADDED" });
+  for (const [code, item] of Array.from(afterByCode.entries())) if (!beforeByCode.has(code)) changes.push({ itemId: item.itemId, code, kind: "ADDED" });
   const beforeResources = new Map((before.resources ?? []).map(r => [r.code, r]));
   const afterResources = new Map((after.resources ?? []).map(r => [r.code, r]));
-  for (const [code, oldResource] of beforeResources) {
+  for (const [code, oldResource] of Array.from(beforeResources.entries())) {
     const next = afterResources.get(code);
     if (next && oldResource.unitPrice !== next.unitPrice) changes.push({ itemId: next.resourceId, code, kind: "RESOURCE_PRICE_CHANGED", before: oldResource.unitPrice, after: next.unitPrice });
   }
