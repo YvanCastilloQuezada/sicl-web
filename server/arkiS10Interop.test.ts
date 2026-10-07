@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ingestS10NormalizedEnvelope, normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline, verifyS10Totals } from "./arkiS10Interop";
+import { ingestS10NormalizedEnvelope, normalizeS10Project, reconcileS10Projects, S10_INTEROP_BOUNDARY, toProjectCostBaseline, verifyS10Apus, verifyS10Totals } from "./arkiS10Interop";
 
 function s10(items: Array<{ itemId: string; code: string; description: string; unit: string; quantity: number; unitPrice: number; sourceRef: string; apuRef?: string }>) {
   return normalizeS10Project({
@@ -52,7 +52,7 @@ describe("S10 project-local interoperability", () => {
     const project = normalizeS10Project({
       projectId: "P1", sourceId: "NATIVE-1", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:s10",
       effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "VERIFIED_STRUCTURE", unknowns: [],
-      resources: [{ resourceId: "R1", code: "MAT-1", description: "Brick", unit: "u", unitPrice: 2, resourceType: "MATERIAL", sourceRef: "S10:R1" }],
+      resources: [{ resourceId: "R1", code: "MAT-1", description: "Brick", unit: "u", unitPrice: 20, resourceType: "MATERIAL", sourceRef: "S10:R1" }],
       apus: [{ apuId: "APU-1", itemCode: "01.01", sourceRef: "S10:APU-1", components: [{ resourceId: "R1", quantity: 5, sourceRef: "S10:APU-1:R1" }] }],
       items: [{ itemId: "I1", code: "01.01", description: "Wall", unit: "m2", quantity: 10, unitPrice: 100, sourceRef: "S10:I1", apuRef: "APU-1" }],
       budgetNodes: [{ nodeId: "N1", code: "01", description: "Architecture", itemCodes: ["01.01"], sourceRef: "S10:N1" }],
@@ -60,7 +60,20 @@ describe("S10 project-local interoperability", () => {
     });
     expect(project.apus?.[0].components[0].resourceId).toBe("R1");
     expect(project.budgetNodes?.[0].itemCodes).toEqual(["01.01"]);
-    expect(verifyS10Totals(project)).toMatchObject({ status: "RECONCILED", delta: 0 });
+    expect(verifyS10Totals(project)).toMatchObject({ status: "RECONCILED", delta: 0, footDelta: 0 });
+    expect(verifyS10Apus(project)).toMatchObject({ status: "RECONCILED" });
+  });
+
+  it("detects APU composition mismatch independently from item totals", () => {
+    const project = normalizeS10Project({
+      projectId: "P1", sourceId: "APU-MISMATCH", sourceFormat: "STRUCTURED_EXPORT", sourceChecksum: "sha256:a",
+      effectiveDate: "2026-10-07", currency: "PEN", evidenceState: "VERIFIED_STRUCTURE", unknowns: [],
+      resources: [{ resourceId: "R1", code: "MAT", description: "Material", unit: "u", unitPrice: 10, resourceType: "MATERIAL", sourceRef: "S10:R" }],
+      apus: [{ apuId: "A1", itemCode: "01", sourceRef: "S10:A", components: [{ resourceId: "R1", quantity: 5, sourceRef: "S10:AC" }] }],
+      items: [{ itemId: "I1", code: "01", description: "Item", unit: "u", quantity: 1, unitPrice: 100, sourceRef: "S10:I", apuRef: "A1" }],
+    });
+    expect(verifyS10Apus(project)).toMatchObject({ status: "MISMATCH" });
+    expect(verifyS10Apus(project).results[0]).toMatchObject({ calculatedUnitPrice: 50, declaredUnitPrice: 100, delta: -50 });
   });
 
   it("does not hide a direct-cost mismatch behind declared S10 totals", () => {
