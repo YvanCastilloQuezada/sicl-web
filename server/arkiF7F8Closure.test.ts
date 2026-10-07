@@ -59,10 +59,11 @@ describe("F7 professional state and F8 dossier closure spine", () => {
       ],
       contradictions: [{ contradictionId: "X1", subjectId: "S1", field: "height", claimIds: ["CA", "CB"], status: "UNRESOLVED" }],
     });
-    const state = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [] });
+    const contradictionProjections = [{ ...projections[0], sourceClaimIds: ["CA", "CB"] }];
+    const state = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections: contradictionProjections, issues: [] });
     expect(state.status).toBe("BLOCKED");
     expect(state.unknowns).toContain("UNRESOLVED_SOURCE_CONTRADICTION:X1");
-    expect(() => buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-1" } })).toThrow("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
+    expect(() => buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections: contradictionProjections, issues: [], humanAcceptance: { acceptedBy: "PO", evidence: "DEC-1" } })).toThrow("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
   });
 
   it("requires accepted mappings and preserves designed-to-cost provenance", () => {
