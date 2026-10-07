@@ -117,3 +117,10 @@ Once the evidence path is verified, ARKI may compare official evidence against i
 - GO/NO-GO support.
 
 The decision layer remains downstream of evidence acquisition and does not alter source evidence.
+
+
+## 10. Completeness anti-overclaim rule
+
+A producer may declare the source surfaces expected for a specimen/campaign. ARKI independently derives which expected surfaces are absent from the received records/documents. If the producer omits a derived missing surface from `missingSurfaces`, ingestion fails closed with `OECE_MISSING_SURFACES_UNDERREPORTED`.
+
+`SOURCE_PACKAGE_VERIFIED` additionally requires a PROCEDURE record, at least one verified document, an explicit non-empty expected-surface set, and zero derived/declared missing surfaces. This is source-package completeness only; it is not equivalent to architectural correctness or a complete technical dossier.
