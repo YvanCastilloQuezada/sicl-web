@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE Bases technical fragment end boundary demonstrated E3: continues from page 13 into the opening of page 14 and ends before section 7 FORMA DE PAGO; page 15 is outside the fragment.",
-    "next_exact_action": "Inspect persisted OCR page 12 only to establish the start boundary of the embedded technical fragment; no OCR rerun.",
+    "last_completed": "OECE embedded technical fragment boundaries demonstrated E3: page 12 §3.4 TERMINOS DE REFERENCIA through page 14 immediately before §7 FORMA DE PAGO.",
+    "next_exact_action": "Pull ACS 3fa4e4a..., execute only OeceEmbeddedTechnicalFragmentTests to persist/hash the governed fragment artifact; then bridge that evidence object into ARKI as upstream evidence without canonical mutation.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1356,16 +1356,30 @@
         "technical_dossier": "NOT_DEMONSTRATED"
       },
       "bases_technical_fragment_boundary": {
-        "status": "END_BOUNDARY_DEMONSTRATED_E3_START_PENDING",
+        "status": "START_AND_END_BOUNDARIES_DEMONSTRATED_E3",
         "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
         "page_13": "Technical execution/activities/deliverables; embedded fragment demonstrated.",
         "page_14": "Continuation of deliverable annex requirements at page start, then section 7 FORMA DE PAGO and sections 8-16 contractual/administrative. Technical fragment ends on page 14 before section 7.",
         "page_15": "Contract dispute/resolution/risk/sanctions and qualification requirements; outside embedded technical fragment.",
         "end_boundary": "PAGE_14_BEFORE_SECTION_7",
-        "start_boundary": "PENDING_PAGE_12_INSPECTION",
+        "start_boundary": "PAGE_12_SECTION_3_4_TERMINOS_DE_REFERENCIA",
         "exact_table_values": "NOT_VERIFIED_FROM_OCR",
         "technical_document_attached": "NOT_DEMONSTRATED",
-        "whole_document_promotion": "FORBIDDEN"
+        "whole_document_promotion": "FORBIDDEN",
+        "context_before_start": "PAGE_12_CHAPTER_III_REQUIREMENT_SECTIONS_3_1_TO_3_3_RETAINED_AS_SOURCE_CONTEXT_NOT_STRICT_TECHNICAL_FRAGMENT"
+      },
+      "bases_technical_fragment_contract": {
+        "schema": "ACS-OECE-EMBEDDED-TECHNICAL-FRAGMENT-1.0",
+        "acs_head": "3fa4e4a799606e3595a29688223b0f50c1672ef8",
+        "status": "IMPLEMENTED_AWAITING_E3_EXECUTION",
+        "invariants": [
+          "WholeDocumentPromotion=false",
+          "TechnicalCoreSetVerified=false",
+          "CanonicalMutation=false",
+          "Source and OCR evidence SHA-256 required",
+          "Referenced-but-not-possessed artifacts separated from demonstrated content",
+          "Exact OCR table quantities/prices/totals remain unverified"
+        ]
       }
     }
   }
