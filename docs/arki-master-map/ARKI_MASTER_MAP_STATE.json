@@ -76,7 +76,7 @@
       "repository-wide projection-vs-canonical authority reconciliation"
     ],
     "last_completed": "Cross-repo authority contract + F7/F8 professional spine + MEP/cost projection adapters + explicit Core→D-2→AGK→F7→F8 lineage are implemented on the draft integration branch; execution verification remains pending.",
-    "next_exact_action": "Execute TypeScript + focused F7/F8 tests + regression + production build on the branch HEAD; correct any failure before promoting implementation state. Then integrate existing coordination/jurisdiction/S10 adapters into the professional-state spine.",
+    "next_exact_action": "Execute branch gate at current HEAD; if green, reconcile jurisdiction/professional review into F7 and then perform real Huaura/S10/OECE specimen campaigns as external-host evidence becomes available.",
     "blockers": [
       "EXECUTION_EVIDENCE_PENDING_FOR_F7_F8_BRANCH"
     ]
@@ -288,7 +288,7 @@
       "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
       "baselines": {
         "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
-        "sicl_web_f7_f8_branch": "cc748f481a3b1be113bd3fc0a72b04b8e6b42d7d",
+        "sicl_web_f7_f8_branch": "987a6f180d78eed8d0a48c68b55c059366c47f81",
         "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
       },
       "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
@@ -307,15 +307,21 @@
         "server/arkiTechnicalDossier.ts",
         "server/arkiF7F8Closure.test.ts",
         "server/arkiProfessionalAdapters.ts",
-        "server/arkiProfessionalAdapters.test.ts"
+        "server/arkiProfessionalAdapters.test.ts",
+        "shared/delta62Knowledge.ts promotion boundary",
+        "server/arkiS10Interop.ts",
+        "server/arkiS10Interop.test.ts"
       ],
       "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
       "known_reconciliation_items": [
         "sicl-web lifecycle/BIM/cost structures must remain projections/adapters rather than parallel canonical state",
         "F5 selected-candidate to persistent Core semantic identity remains an integration capability gap",
-        "Delta 6.2 promotion enforcement requires hardening/reconciliation",
         "RVT remains HOST_REQUIRED; no proprietary browser parser claim",
-        "OECE/ACS document acquisition to ARKI BASELINE_0 remains not yet demonstrated E2E"
+        "OECE/ACS document acquisition to ARKI BASELINE_0 remains not yet demonstrated E2E",
+        "Delta 6.2 direct canonical mutation path is now contractually blocked in code; execution verification pending.",
+        "S10 READ/NORMALIZE/RECONCILE internal boundary is implemented; native WRITE/round-trip remains explicitly NOT_CLAIMED.",
+        "RVT remains HOST_REQUIRED; real Huaura host execution remains external evidence pending.",
+        "OECE/ACS document acquisition to ARKI BASELINE_0 remains not yet demonstrated E2E."
       ],
       "core_reconciliation_branch": "reconcile/arki-live-map-2026-10-07",
       "core_reconciliation_head": "bad480272140109e9529c3e269d525515624fc0c",
