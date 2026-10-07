@@ -72,8 +72,8 @@
       "Keep OECE/ACS evidence upstream of BASELINE_0 canonicalization",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "Bases page 13 reviewed in full: embedded technical scope/activities/deliverables demonstrated E3; source technical dossier/plans/specifications remain not demonstrated as attached; exact table values remain unverified.",
-    "next_exact_action": "Inspect the contiguous Bases technical section after page 13 (pages 14-15 first) from the already persisted OCR evidence, without rerunning OCR, to establish the bounded end of the embedded technical fragment.",
+    "last_completed": "OECE Bases technical fragment end boundary demonstrated E3: continues from page 13 into the opening of page 14 and ends before section 7 FORMA DE PAGO; page 15 is outside the fragment.",
+    "next_exact_action": "Inspect persisted OCR page 12 only to establish the start boundary of the embedded technical fragment; no OCR rerun.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1354,6 +1354,18 @@
         "whole_document_promotion": "FORBIDDEN",
         "technical_core_set_verified": false,
         "technical_dossier": "NOT_DEMONSTRATED"
+      },
+      "bases_technical_fragment_boundary": {
+        "status": "END_BOUNDARY_DEMONSTRATED_E3_START_PENDING",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "page_13": "Technical execution/activities/deliverables; embedded fragment demonstrated.",
+        "page_14": "Continuation of deliverable annex requirements at page start, then section 7 FORMA DE PAGO and sections 8-16 contractual/administrative. Technical fragment ends on page 14 before section 7.",
+        "page_15": "Contract dispute/resolution/risk/sanctions and qualification requirements; outside embedded technical fragment.",
+        "end_boundary": "PAGE_14_BEFORE_SECTION_7",
+        "start_boundary": "PENDING_PAGE_12_INSPECTION",
+        "exact_table_values": "NOT_VERIFIED_FROM_OCR",
+        "technical_document_attached": "NOT_DEMONSTRATED",
+        "whole_document_promotion": "FORBIDDEN"
       }
     }
   }
