@@ -369,3 +369,24 @@ The next evidence campaign requires:
 3. local TypeScript/focused/regression/build gate on the exact integration HEAD.
 
 Until those executions occur: `IMPLEMENTED != VERIFIED`.
+
+
+## 15. F7/F8 targeted execution checkpoint — 2026-10-07
+
+**Verification head:** `9597eb3e975628ab09a19aa7cda6b2262a8aec80`
+
+Executed evidence:
+- TypeScript `tsc --noEmit`: PASS / exit 0.
+- Focused F7/F8 + S10 + OECE regression: PASS, 3 files / 20 tests.
+- Production build on the immediately preceding implementation head: PASS; subsequent changes through the verification head were test-fixture corrections only.
+- OECE official monthly CSV ZIP -> ACS parser -> physical `ARKI-OECE-EVIDENCE-PACKAGE-1.0` -> strict sicl-web ingestion -> immutable `BASELINE_0`: PASS / E3.
+- Physical OECE handoff SHA-256: `290d13584f44c180763e889f44ee0093850de9be903decdb46ffcdba64141655`.
+- Result remains epistemically bounded: `PARTIAL_EVIDENCE`, `technicalDossierClaim=NOT_DEMONSTRATED`, `canonicalMutation=false`, one source artifact, 21 procurement claims.
+
+Two regression failures observed during hardening were stale fixtures, not reasons to weaken runtime invariants:
+- F7 projection fixture referenced a claim outside its BASELINE_0; fixture corrected to reference the actual contradictory claims.
+- S10 reconciliation fixture referenced undeclared APUs; fixture corrected to declare both APUs and an explicit adversarial test now locks rejection of dangling APU references.
+
+**Current boundary:** OECE evidence-to-BASELINE_0 is demonstrated for the bounded real specimen. This does not demonstrate a complete OECE technical dossier.
+
+**Next exact action:** execute a legitimate local S10 specimen through READ/NORMALIZE/RECONCILE. Native S10 WRITE and ROUND-TRIP remain NOT_CLAIMED until an ARKI-generated S10 artifact can be reopened and reconciled.
