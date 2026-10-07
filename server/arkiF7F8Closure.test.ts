@@ -77,6 +77,17 @@ describe("F7 professional state and F8 dossier closure spine", () => {
     expect(evaluated.deltas[0].provenance).toEqual(expect.arrayContaining(["AGK:MEASURE:1", "AGK:MEASURE:2", "MAP-DECISION-1", "S10:ITEM:1"]));
   });
 
+  it("blocks F7 acceptance while any specialist review remains outstanding", () => {
+    const b = baseline();
+    const specialistPending = [{ ...projections[0], specialistReviewRequired: true }];
+    const state = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-S", canonicalRefs, baseline: b, projections: specialistPending, issues: [] });
+    expect(state.status).toBe("BLOCKED");
+    expect(() => buildCoordinatedProfessionalState({
+      projectId: "P1", stateId: "F7-S", canonicalRefs, baseline: b, projections: specialistPending, issues: [],
+      humanAcceptance: { acceptedBy: "PO", evidence: "DEC" },
+    })).toThrow("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
+  });
+
   it("allows F8 only from accepted F7 and verifies dossier lineage", () => {
     const b = baseline();
     const ready = buildCoordinatedProfessionalState({ projectId: "P1", stateId: "F7-1", canonicalRefs, baseline: b, projections, issues: [] });
