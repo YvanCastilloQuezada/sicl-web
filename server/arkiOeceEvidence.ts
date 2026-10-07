@@ -30,6 +30,7 @@ export type OeceDocumentEvidence = {
   acquisitionStatus: "DISCOVERED" | "DOWNLOADED" | "VERIFIED" | "FAILED" | "UNAVAILABLE";
   checksum?: string;
   mediaType?: string;
+  observedMediaType?: string;
   localEvidenceRef?: string;
 };
 
@@ -67,6 +68,7 @@ const OeceDocumentInputSchema = z.object({
   acquisitionStatus: z.enum(["DISCOVERED", "DOWNLOADED", "VERIFIED", "FAILED", "UNAVAILABLE"]),
   checksum: z.string().optional(),
   mediaType: z.string().optional(),
+  observedMediaType: z.string().optional(),
   localEvidenceRef: z.string().optional(),
 }).strict();
 
