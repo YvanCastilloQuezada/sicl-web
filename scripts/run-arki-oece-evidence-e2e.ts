@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { ingestOeceEvidenceEnvelope, oecePackageToBaseline0 } from "../server/arkiOeceEvidence";
 
@@ -7,6 +8,11 @@ if (!inputPath?.trim()) {
 }
 
 const raw = await readFile(inputPath, "utf8");
+const inputSha256 = createHash("sha256").update(raw).digest("hex");
+const expectedInputSha256 = process.env.ARKI_OECE_EVIDENCE_SHA256?.trim().toLowerCase();
+if (expectedInputSha256 && inputSha256 !== expectedInputSha256) {
+  throw new Error(`OECE_ARKI_HANDOFF_SHA256_MISMATCH:expected=${expectedInputSha256}:actual=${inputSha256}`);
+}
 const envelope = JSON.parse(raw) as unknown;
 const pkg = ingestOeceEvidenceEnvelope(envelope);
 const baseline = oecePackageToBaseline0(pkg);
@@ -34,6 +40,8 @@ console.log(JSON.stringify({
   gate: "OECE_ACS_TO_ARKI_BASELINE0",
   status: "PASS",
   inputPath,
+  inputSha256,
+  physicalHandoffVerified: Boolean(expectedInputSha256),
   packageId: pkg.packageId,
   packageFingerprint: pkg.fingerprint,
   packageCompleteness: pkg.completeness,
