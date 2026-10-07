@@ -1,7 +1,7 @@
 # ARKI — F7 S10 Project Cost Baseline Contract V1
 
 **Date:** 2026-10-06
-**State:** CONTRACT CANDIDATE / IMPLEMENTATION NOT YET CLAIMED
+**State:** CONTRACT + BOUNDED IMPLEMENTATION / EXECUTION VERIFICATION PENDING
 **Owner decision:** S10 project economics are project-local evidence, never global ARKI cost truth.
 
 ## 1. Purpose
@@ -135,3 +135,23 @@ Obtain one legitimate S10 project export/backup plus, if possible, its Excel/rep
 10. deterministic reconciliation against an S10-generated report.
 
 Acceptance requires totals and structure to reconcile within explicit rounding/tolerance rules. No evidence = no green.
+
+
+## 11. Implementation checkpoint — 2026-10-07
+
+Implemented on `feat/f7-f8-integral-closure` in `server/arkiS10Interop.ts`:
+
+- source identity/checksum/effective date/currency/location;
+- item/partida normalization;
+- budget hierarchy nodes;
+- APU and APU components;
+- resources and resource prices;
+- declared direct/general-expense/utility/tax/total structure;
+- deterministic project-to-project reconciliation;
+- direct-cost reconstruction versus S10-declared direct cost with explicit tolerance;
+- immutable projection into `ProjectCostBaseline`;
+- explicit `writeBackClaim:false`.
+
+Fail-closed validation covers duplicate identities, missing provenance, invalid quantities/prices, orphan APU resources, orphan item/APU references, invalid budget parents/items and invalid totals.
+
+**Not claimed:** native S10 database/backup parsing, native S10 WRITE, S10 round-trip, or successful execution against a real S10 specimen. Those remain external verification gates.
