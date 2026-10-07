@@ -74,7 +74,7 @@
       "local execution verification gate",
       "real S10 + OECE + Huaura specimen campaigns"
     ],
-    "last_completed": "S10 normalized model now covers budget hierarchy/APU/resources/declared-total reconciliation; OECE/ACS has a cross-language immutable evidence package contract and guarded BASELINE_0 translation.",
+    "last_completed": "S10 and OECE/ACS boundaries are now cross-language and runtime guarded: malformed/extra-field external envelopes fail closed before entering ARKI.",
     "next_exact_action": "Execute current branch gate. Then run one legitimate S10 specimen through normalization/totals reconciliation and one ACS/OECE procedure through record+document acquisition/checksum/package→BASELINE_0; correct all observed mismatches before claiming E2E.",
     "blockers": [
       "EXECUTION_EVIDENCE_PENDING_FOR_F7_F8_BRANCH"
@@ -287,7 +287,7 @@
       "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
       "baselines": {
         "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
-        "sicl_web_f7_f8_branch": "260086394ca168ae613eec8ce283ca17393ab792",
+        "sicl_web_f7_f8_branch": "9a49e66e67fa600d0138128c9abd833fd7ffc2f6",
         "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
       },
       "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
@@ -318,7 +318,9 @@
         "server/arkiOeceEvidence.test.ts",
         "ARKI_F7_OECE_ACS_EVIDENCE_CONTRACT_V1.md",
         "OECE_ARKI_EVIDENCE_PACKAGE_V1.schema.json",
-        "S10_NORMALIZED_PROJECT_V1.schema.json"
+        "S10_NORMALIZED_PROJECT_V1.schema.json",
+        "runtime fail-closed ingestion for S10 normalized envelopes",
+        "runtime fail-closed ingestion for ACS/OECE evidence envelopes"
       ],
       "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
       "known_reconciliation_items": [
