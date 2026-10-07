@@ -58,6 +58,34 @@ describe("OECE/ACS evidence boundary", () => {
     expect(baseline.claims.find(c => c.claimId.includes("DOCUMENT:D3"))?.provenance).toContain("sha256:d3");
   });
 
+  it("does not call nontechnical verified documents partial technical-dossier evidence", () => {
+    const pkg = createOeceEvidencePackage({
+      packageId: "OECE-NONTECH", projectId: "P1", ocid: "OCID-NONTECH",
+      records: [{ recordId: "P", dataset: "PROCEDURE", sourceRef: "S:P", sourceChecksum: "p", observedAt: "2026-10-07", fields: {} }],
+      documents: [
+        { documentId: "C", title: "Signed contract", kind: "CONTRACT", sourceRef: "S:C", acquisitionStatus: "VERIFIED", checksum: "c", localEvidenceRef: "L:C" },
+        { documentId: "O", title: "Administrative bases", kind: "OTHER", sourceRef: "S:O", acquisitionStatus: "VERIFIED", checksum: "o", localEvidenceRef: "L:O" },
+      ],
+      expectedSurfaces: ["PROCEDURE", "DOCUMENT"], missingSurfaces: [],
+    });
+    expect(pkg.completeness).toBe("SOURCE_PACKAGE_VERIFIED");
+    expect(pkg.technicalDossierClaim).toBe("NOT_DEMONSTRATED");
+  });
+
+  it("does not call a package verified while any discovered document remains unverified", () => {
+    const pkg = createOeceEvidencePackage({
+      packageId: "OECE-MIXED", projectId: "P1", ocid: "OCID-MIXED",
+      records: [{ recordId: "P", dataset: "PROCEDURE", sourceRef: "S:P", sourceChecksum: "p", observedAt: "2026-10-07", fields: {} }],
+      documents: [
+        { documentId: "V", title: "Verified", kind: "CONTRACT", sourceRef: "S:V", acquisitionStatus: "VERIFIED", checksum: "v", localEvidenceRef: "L:V" },
+        { documentId: "D", title: "Discovered", kind: "OTHER", sourceRef: "S:D", acquisitionStatus: "DISCOVERED" },
+      ],
+      expectedSurfaces: ["PROCEDURE", "DOCUMENT"], missingSurfaces: [],
+    });
+    expect(pkg.completeness).toBe("PARTIAL_EVIDENCE");
+    expect(pkg.technicalDossierClaim).toBe("NOT_DEMONSTRATED");
+  });
+
   it("does not call a partial document download a complete technical dossier", () => {
     const pkg = createOeceEvidencePackage({
       packageId: "OECE-P4", projectId: "P1", procedureId: "PROC-4", records: [],
