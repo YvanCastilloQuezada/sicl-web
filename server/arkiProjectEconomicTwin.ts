@@ -41,10 +41,10 @@ export function evaluateEconomicMutation(input: {
   const after = new Map(input.quantitiesAfter.map(q => [q.semanticId, q]));
   const items = new Map(input.baseline.items.map(i => [i.itemId, i]));
   const mappingBySemantic = new Map(input.mappings.map(m => [m.semanticId, m]));
-  const semanticIds = new Set([...before.keys(), ...after.keys()]);
+  const semanticIds = new Set([...Array.from(before.keys()), ...Array.from(after.keys())]);
   const deltas: Array<{ semanticId: string; itemId: string; quantityDelta: number; costDelta: number; currency: string; provenance: string[] }> = [];
   const unknowns: string[] = [];
-  for (const semanticId of semanticIds) {
+  for (const semanticId of Array.from(semanticIds)) {
     const b = before.get(semanticId); const a = after.get(semanticId);
     const mapping = mappingBySemantic.get(semanticId);
     if (!mapping || mapping.confidence < 1 || !mapping.acceptedBy || !mapping.evidence.length) { unknowns.push(`UNACCEPTED_COST_MAPPING:${semanticId}`); continue; }
