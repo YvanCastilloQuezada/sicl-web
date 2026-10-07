@@ -121,7 +121,14 @@ export function normalizeS10Project(input: Omit<S10NormalizedProject, "schema" |
     }
     apuIds.add(apu.apuId);
   }
-  const nodeIds = new Set((input.budgetNodes ?? []).map(n => n.nodeId));
+  for (const item of input.items) {
+    if (item.apuRef && !apuIds.has(item.apuRef)) throw new Error(`S10_ITEM_APU_NOT_FOUND:${item.itemId}:${item.apuRef}`);
+  }
+  const nodeIds = new Set<string>();
+  for (const node of input.budgetNodes ?? []) {
+    if (nodeIds.has(node.nodeId)) throw new Error(`S10_DUPLICATE_BUDGET_NODE_ID:${node.nodeId}`);
+    nodeIds.add(node.nodeId);
+  }
   for (const node of input.budgetNodes ?? []) {
     required(node.nodeId, "S10_BUDGET_NODE_ID_REQUIRED");
     required(node.sourceRef, `S10_BUDGET_NODE_PROVENANCE_REQUIRED:${node.nodeId}`);
@@ -131,7 +138,7 @@ export function normalizeS10Project(input: Omit<S10NormalizedProject, "schema" |
   if (input.declaredTotals) {
     required(input.declaredTotals.sourceRef, "S10_TOTALS_PROVENANCE_REQUIRED");
     for (const [key, value] of Object.entries(input.declaredTotals)) {
-      if (key !== "sourceRef" && value !== undefined && (!Number.isFinite(value) || (value as number) < 0)) throw new Error(`S10_INVALID_TOTAL:${key}`);
+      if (key !== "sourceRef" && value !== undefined && (typeof value !== "number" || !Number.isFinite(value) || value < 0)) throw new Error(`S10_INVALID_TOTAL:${key}`);
     }
   }
   const payload = { ...input, schema: "ARKI-S10-NORMALIZED-1.0" as const };
