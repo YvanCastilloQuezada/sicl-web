@@ -65,20 +65,20 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — OECE real document acquisition + S10 external-input hold",
+    "title": "F7→F8 — OECE verified documents → observed content classification",
     "active": [
-      "OECE real document acquisition/checksum/classification",
-      "OECE/ACS immutable procurement evidence → BASELINE_0",
+      "OECE verified document content inventory/classification",
+      "OECE/ACS immutable evidence → BASELINE_0",
       "Core/D-2/AGK/F7/F8 authority lineage",
       "S10 real specimen resume-on-input"
     ],
-    "last_completed": "Real OECE multi-surface physical handoff passed E3 at sicl-web c358d505dc731013e857a052e39663fa9f5bf969: PROCEDURE 6, AWARD 1, CONTRACT 1, ENTITY 2, SUPPLIER 1, DOCUMENT 5; all expected surfaces present; 5/5 documents DISCOVERED and 0 VERIFIED; package remained PARTIAL_EVIDENCE / NOT_DEMONSTRATED / canonicalMutation=false; immutable BASELINE_0 produced 16 source artifacts and 142 PARTIAL claims.",
-    "next_exact_action": "Acquire the five discovered real OECE documents under governed URL/content rules, hash each downloaded artifact, preserve local evidence identity, classify only from observed metadata/content, then re-ingest. Do not elevate technical-dossier status without verified EXPEDIENTE_TECNICO + BUDGET + SPECIFICATION evidence.",
+    "last_completed": "OECE verified-document physical handoff passed E3 at sicl-web ca3ce90e6e7a25ba308c8b99c0bd025b156484f1: 5/5 documents VERIFIED; SOURCE_PACKAGE_VERIFIED; 142 procurement claims remain PARTIAL; 5 document claims VERIFIED; technicalDossierClaim remains NOT_DEMONSTRATED; canonicalMutation=false; immutable BASELINE_0 has 21 source artifacts and 147 claims. Duplicate binary content observed for contract:153191064 and contract:153191464 with SHA-256 d8a8c52466f4ca08ae9a9958911309b18ca307b0110fb6a5ebabb55cc15a89c3.",
+    "next_exact_action": "Inspect verified document bytes safely: inventory ZIP members without extraction, determine existing PDF parsing capability, then classify content only from observed bytes/text. Preserve duplicate-content observation and do not infer technical dossier status from filenames.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
-      "OECE_DOCUMENT_BYTES_NOT_YET_VERIFIED"
+      "OECE_TECHNICAL_CORE_CONTENT_NOT_YET_DEMONSTRATED"
     ]
   },
   "status_vocabulary": [
@@ -1063,7 +1063,7 @@
       "F7.8 Professional Coordination Gate",
       "F7.9 F8 Handoff"
     ],
-    "next": "OECE_REAL_DOCUMENT_ACQUISITION_AND_VERIFICATION",
+    "next": "OECE_VERIFIED_DOCUMENT_CONTENT_INSPECTION",
     "verification_head": "9597eb3e975628ab09a19aa7cda6b2262a8aec80",
     "targeted_gate": {
       "typescript": "PASS_EXIT_0",
@@ -1138,6 +1138,39 @@
         "fingerprint": "eee73cd7579ccfb5340b8dc5e7c0b5822aee7184352f661beac526a98e7e1230",
         "source_artifacts": 16,
         "claims": 142,
+        "immutable": true
+      }
+    },
+    "oece_verified_document_handoff": {
+      "status": "PASS_E3_VERIFIED_DOCUMENTS_TO_BASELINE_0",
+      "verification_head": "ca3ce90e6e7a25ba308c8b99c0bd025b156484f1",
+      "input_sha256": "a71d0417685bfd7311d4d860438b75c7c4ada4c66eceece626f7d4139d4f7d18",
+      "package_fingerprint": "eba3f712de8e1f88f65f7ed31411217fd03b74e40ce4e1d82f736465257712d6",
+      "package_completeness": "SOURCE_PACKAGE_VERIFIED",
+      "documents": {
+        "total": 5,
+        "VERIFIED": 5,
+        "verifiedTechnicalDocuments": 0
+      },
+      "technical_dossier_claim": "NOT_DEMONSTRATED",
+      "canonical_mutation": false,
+      "claims": {
+        "procurementPartial": 142,
+        "documentVerified": 5,
+        "total": 147
+      },
+      "duplicate_content": [
+        {
+          "checksum": "d8a8c52466f4ca08ae9a9958911309b18ca307b0110fb6a5ebabb55cc15a89c3",
+          "documentIds": [
+            "contract:153191064",
+            "contract:153191464"
+          ]
+        }
+      ],
+      "baseline": {
+        "fingerprint": "6b3d4e2f205bd8bc7451998955a0355f19b179d5ceaf3e3fde03aa762afbfe0c",
+        "source_artifacts": 21,
         "immutable": true
       }
     }
