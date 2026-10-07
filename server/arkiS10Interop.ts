@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { z } from "zod";
 import { createProjectCostBaseline, type ProjectCostBaseline } from "./arkiProjectEconomicTwin";
 
 export type S10Resource = {
@@ -78,6 +79,43 @@ function hash(value: unknown) {
 }
 function required(value: string, code: string) {
   if (!value.trim()) throw new Error(code);
+}
+
+const S10ItemInputSchema = z.object({
+  itemId: z.string().min(1), code: z.string().min(1), description: z.string(), unit: z.string(),
+  quantity: z.number().nonnegative(), unitPrice: z.number().nonnegative(), sourceRef: z.string().min(1), apuRef: z.string().optional(),
+}).strict();
+const S10ResourceInputSchema = z.object({
+  resourceId: z.string().min(1), code: z.string().min(1), description: z.string(), unit: z.string(),
+  unitPrice: z.number().nonnegative(), resourceType: z.enum(["LABOR", "MATERIAL", "EQUIPMENT", "SUBCONTRACT", "OTHER"]), sourceRef: z.string().min(1),
+}).strict();
+const S10ApuInputSchema = z.object({
+  apuId: z.string().min(1), itemCode: z.string().min(1), sourceRef: z.string().min(1),
+  components: z.array(z.object({ resourceId: z.string().min(1), quantity: z.number().nonnegative(), wasteFactor: z.number().nonnegative().optional(), sourceRef: z.string().min(1) }).strict()),
+}).strict();
+const S10BudgetNodeInputSchema = z.object({
+  nodeId: z.string().min(1), code: z.string().min(1), description: z.string(), parentNodeId: z.string().optional(),
+  itemCodes: z.array(z.string()), sourceRef: z.string().min(1),
+}).strict();
+const S10TotalsInputSchema = z.object({
+  directCost: z.number().nonnegative(), generalExpenses: z.number().nonnegative().optional(), utility: z.number().nonnegative().optional(),
+  tax: z.number().nonnegative().optional(), total: z.number().nonnegative(), sourceRef: z.string().min(1),
+}).strict();
+const S10EnvelopeSchema = z.object({
+  schema: z.literal("ARKI-S10-NORMALIZED-1.0").optional(),
+  projectId: z.string().min(1), sourceId: z.string().min(1),
+  sourceFormat: z.enum(["STRUCTURED_EXPORT", "EXCEL_EXPORT", "REPORT_EXTRACTION"]),
+  sourceChecksum: z.string().min(1), effectiveDate: z.string().min(1), currency: z.string().min(1), location: z.string().optional(),
+  items: z.array(S10ItemInputSchema), resources: z.array(S10ResourceInputSchema).optional(), apus: z.array(S10ApuInputSchema).optional(),
+  budgetNodes: z.array(S10BudgetNodeInputSchema).optional(), declaredTotals: S10TotalsInputSchema.optional(),
+  evidenceState: z.enum(["VERIFIED_STRUCTURE", "PARTIAL", "UNKNOWN"]), unknowns: z.array(z.string()),
+}).strict();
+
+export function ingestS10NormalizedEnvelope(value: unknown): S10NormalizedProject {
+  const parsed = S10EnvelopeSchema.safeParse(value);
+  if (!parsed.success) throw new Error(`S10_ENVELOPE_INVALID:${parsed.error.issues.map(i => i.message).join("|")}`);
+  const { schema: _schema, ...input } = parsed.data;
+  return normalizeS10Project(input);
 }
 
 export function normalizeS10Project(input: Omit<S10NormalizedProject, "schema" | "fingerprint">): S10NormalizedProject {
