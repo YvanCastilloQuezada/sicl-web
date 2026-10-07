@@ -68,6 +68,8 @@ describe("F7 professional state and F8 dossier closure spine", () => {
     const kinds = ["DRAWING", "SPECIFICATION", "QUANTITY_SCHEDULE", "BUDGET", "COORDINATION_REPORT", "EVIDENCE_REGISTER"] as const;
     const dossier = generateTechnicalDossier({ state: accepted, dossierId: "D1", artifacts: kinds.map((kind, i) => ({ artifactId: `A${i}`, kind, semanticIds: ["S1"], provenance: [`GEN:${kind}`], contentFingerprint: `sha256:${i}` })) });
     expect(dossier.exportIsCanonicalTruth).toBe(false);
+    expect(dossier.coreProjectRef).toBe("CORE-P1-R1");
     expect(verifyDossierLineage(dossier, accepted).status).toBe("PASS");
+    expect(verifyDossierLineage({ ...dossier, coreProjectRef: "OTHER" }, accepted).failures).toContain("CORE_REF_MISMATCH");
   });
 });
