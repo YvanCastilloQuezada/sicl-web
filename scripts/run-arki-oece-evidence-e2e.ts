@@ -36,6 +36,27 @@ if (baseline.claims.some(claim => claim.evidenceState !== "PARTIAL")) {
   throw new Error("OECE_ARKI_PROCUREMENT_OVERCLAIM");
 }
 
+const datasetCounts = Object.fromEntries(
+  [...new Set(pkg.records.map(record => record.dataset))]
+    .sort()
+    .map(dataset => [dataset, pkg.records.filter(record => record.dataset === dataset).length]),
+);
+const documentStatusCounts = Object.fromEntries(
+  [...new Set(pkg.documents.map(document => document.acquisitionStatus))]
+    .sort()
+    .map(status => [status, pkg.documents.filter(document => document.acquisitionStatus === status).length]),
+);
+const verifiedDocuments = pkg.documents.filter(document => document.acquisitionStatus === "VERIFIED").length;
+const allExpectedSurfacesPresent = Boolean(pkg.expectedSurfaces?.length)
+  && pkg.expectedSurfaces.every(surface => !pkg.missingSurfaces.includes(surface));
+
+if (verifiedDocuments === 0 && pkg.technicalDossierClaim !== "NOT_DEMONSTRATED") {
+  throw new Error("OECE_ARKI_TECHNICAL_DOSSIER_OVERCLAIM");
+}
+if (allExpectedSurfacesPresent && verifiedDocuments === 0 && pkg.completeness === "SOURCE_PACKAGE_VERIFIED") {
+  throw new Error("OECE_ARKI_SOURCE_PACKAGE_OVERCLAIM");
+}
+
 console.log(JSON.stringify({
   gate: "OECE_ACS_TO_ARKI_BASELINE0",
   status: "PASS",
@@ -46,6 +67,13 @@ console.log(JSON.stringify({
   packageFingerprint: pkg.fingerprint,
   packageCompleteness: pkg.completeness,
   technicalDossierClaim: pkg.technicalDossierClaim,
+  expectedSurfaces: pkg.expectedSurfaces ?? [],
+  missingSurfaces: pkg.missingSurfaces,
+  allExpectedSurfacesPresent,
+  datasetCounts,
+  documents: pkg.documents.length,
+  documentStatusCounts,
+  verifiedDocuments,
   canonicalMutation: pkg.canonicalMutation,
   baselineId: baseline.baselineId,
   baselineFingerprint: baseline.fingerprint,
