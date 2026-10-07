@@ -65,20 +65,20 @@
     ]
   },
   "current_focus": {
-    "title": "F7→F8 — Real specimen integration",
+    "title": "F7→F8 — OECE real document acquisition + S10 external-input hold",
     "active": [
-      "S10 project-local real specimen normalization/reconciliation",
+      "OECE real document acquisition/checksum/classification",
       "OECE/ACS immutable procurement evidence → BASELINE_0",
       "Core/D-2/AGK/F7/F8 authority lineage",
-      "MEP/cost/normative professional projections",
-      "real S10 + Huaura specimen campaigns"
+      "S10 real specimen resume-on-input"
     ],
-    "last_completed": "OECE official monthly CSV ZIP → ACS → physical evidence handoff → immutable ARKI BASELINE_0 is E3 verified. S10 real-specimen discovery searched registered install surfaces, user Desktop/Documents/Downloads, ProgramData, Program Files, and available filesystem drives; no S10 specimen was found.",
-    "next_exact_action": "Treat S10 real execution as INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES without weakening its implemented READ/NORMALIZE/RECONCILE contract. Continue OECE real-source hardening toward multi-surface procurement evidence; resume S10 immediately when a legitimate specimen/export becomes available.",
+    "last_completed": "Real OECE multi-surface physical handoff passed E3 at sicl-web c358d505dc731013e857a052e39663fa9f5bf969: PROCEDURE 6, AWARD 1, CONTRACT 1, ENTITY 2, SUPPLIER 1, DOCUMENT 5; all expected surfaces present; 5/5 documents DISCOVERED and 0 VERIFIED; package remained PARTIAL_EVIDENCE / NOT_DEMONSTRATED / canonicalMutation=false; immutable BASELINE_0 produced 16 source artifacts and 142 PARTIAL claims.",
+    "next_exact_action": "Acquire the five discovered real OECE documents under governed URL/content rules, hash each downloaded artifact, preserve local evidence identity, classify only from observed metadata/content, then re-ingest. Do not elevate technical-dossier status without verified EXPEDIENTE_TECNICO + BUDGET + SPECIFICATION evidence.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
-      "S10_ROUND_TRIP_NOT_CLAIMED"
+      "S10_ROUND_TRIP_NOT_CLAIMED",
+      "OECE_DOCUMENT_BYTES_NOT_YET_VERIFIED"
     ]
   },
   "status_vocabulary": [
@@ -1063,7 +1063,7 @@
       "F7.8 Professional Coordination Gate",
       "F7.9 F8 Handoff"
     ],
-    "next": "OECE_MULTI_SURFACE_REAL_EVIDENCE_HARDENING_WHILE_S10_INPUT_UNAVAILABLE",
+    "next": "OECE_REAL_DOCUMENT_ACQUISITION_AND_VERIFICATION",
     "verification_head": "9597eb3e975628ab09a19aa7cda6b2262a8aec80",
     "targeted_gate": {
       "typescript": "PASS_EXIT_0",
@@ -1102,6 +1102,44 @@
       "legitimate_s10_specimens_found": 0,
       "classification": "EXTERNAL_INPUT_UNAVAILABLE_NOT_PRODUCT_FAILURE",
       "resume_condition": "LEGITIMATE_S10_PROJECT_EXPORT_BACKUP_OR_DATABASE_AVAILABLE"
+    },
+    "oece_real_multisurface_e2e": {
+      "status": "PASS_E3_PHYSICAL_HANDOFF_TO_BASELINE_0",
+      "verification_head": "c358d505dc731013e857a052e39663fa9f5bf969",
+      "ocid": "ocds-dgv273-seacev3-1237735",
+      "input_sha256": "c927e04a250c8fa873ae629c982738fae513c3546392cdde72972e4868284d1d",
+      "package_fingerprint": "4c6d483758b5ebe07fbe6c3beb80ff36a7f3353f50bb4930685321a83620b026",
+      "expected_surfaces": [
+        "PROCEDURE",
+        "AWARD",
+        "CONTRACT",
+        "ENTITY",
+        "SUPPLIER",
+        "DOCUMENT"
+      ],
+      "missing_surfaces": [],
+      "dataset_counts": {
+        "AWARD": 1,
+        "CONTRACT": 1,
+        "DOCUMENT": 5,
+        "ENTITY": 2,
+        "PROCEDURE": 6,
+        "SUPPLIER": 1
+      },
+      "documents": {
+        "total": 5,
+        "DISCOVERED": 5,
+        "VERIFIED": 0
+      },
+      "package_completeness": "PARTIAL_EVIDENCE",
+      "technical_dossier_claim": "NOT_DEMONSTRATED",
+      "canonical_mutation": false,
+      "baseline": {
+        "fingerprint": "eee73cd7579ccfb5340b8dc5e7c0b5822aee7184352f661beac526a98e7e1230",
+        "source_artifacts": 16,
+        "claims": 142,
+        "immutable": true
+      }
     }
   }
 }
