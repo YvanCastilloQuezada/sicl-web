@@ -73,7 +73,7 @@
       "S10 real specimen resume-on-input"
     ],
     "last_completed": "OECE PDF structural inspection passed E3 at ACS 8c76492eb646dd7ee7f5a257b8af066db4178fc4. Contract: 6/6 pages image-only; Administrative Bases: 38/38 image-only; Award Act: 3/3 image-only. All have zero PDF letters and one image per page. OCR is justified only for these three PDFs. The two machine-text reports remain directly extractable; award report lexical signals are BUENA_PRO and VALOR_REFERENCIAL, not budget.",
-    "next_exact_action": "Pull ACS OCR fix, restore/build integration project, require zero MSB3277 logging-version warnings, then execute the bounded 47-page OCR gate.",
+    "next_exact_action": "Pull ACS fb1e096..., run only the bounded OCR integration test with existing verified model/documents, and classify the next actual execution result. Do not repeat dependency discovery.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
@@ -1242,7 +1242,23 @@
         "classification": "KNOWN_FIXABLE_INTEGRATION_DEFECT"
       },
       "package_reason": "Aligns with .NET 8 / Microsoft.Extensions.Logging.Abstractions >=8.0.2; explicit integration-test reference materializes OCR runtime in test host.",
-      "status": "FIX_APPLIED_AWAITING_E3_RERUN"
+      "status": "FIX_APPLIED_AWAITING_E3_RERUN",
+      "runtime_host_fix": {
+        "status": "VERIFIED_E3",
+        "evidence": [
+          "Integration host build: 0 warnings, 0 errors",
+          "No MSB3277 dependency conflict",
+          "TesseractOCR.dll materialized",
+          "x64/x86 tesseract54.dll and leptonica-1.85.0.dll materialized"
+        ]
+      },
+      "current_defect": {
+        "status": "FIX_APPLIED_AWAITING_E3_RERUN",
+        "defect": "OCR engine received tessdata parent instead of actual tessdata directory",
+        "observed_wrong_lookup": "C:\\acs-v1\\test-artifacts\\ocr\\spa.traineddata",
+        "actual_model": "C:\\acs-v1\\test-artifacts\\ocr\\tessdata\\spa.traineddata",
+        "fix_head": "fb1e096551e8bd7d778775c8c304d67cdf9efa7f"
+      }
     }
   }
 }
