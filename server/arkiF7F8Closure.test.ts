@@ -21,6 +21,16 @@ function baseline() {
 const projections: ProfessionalProjection[] = [{ projectionId: "ARCH-1", discipline: "ARCHITECTURE", semanticIds: ["S1"], agkObjectIds: ["AGK-1"], sourceClaimIds: ["C1"], evidenceState: "VERIFIED", unknowns: [], specialistReviewRequired: false }];
 
 describe("F7 professional state and F8 dossier closure spine", () => {
+  it("fails closed when Core/D2/AGK authority references do not belong to the same project", () => {
+    const invalidRefs: F7CanonicalRefs = {
+      ...canonicalRefs,
+      coreProject: { ...canonicalRefs.coreProject, projectId: "OTHER" },
+    };
+    expect(() => buildCoordinatedProfessionalState({
+      projectId: "P1", stateId: "F7-X", canonicalRefs: invalidRefs, baseline: baseline(), projections, issues: [],
+    })).toThrow("CANONICAL_REF_PROJECT_MISMATCH:CORE");
+  });
+
   it("keeps unresolved source contradictions visible and blocks F8 acceptance", () => {
     const b = createBaseline0({
       baselineId: "B0", projectId: "P1",
