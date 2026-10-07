@@ -133,7 +133,8 @@ export function buildCoordinatedProfessionalState(input: {
   const unknowns = [...(input.unknowns ?? []), ...projectionUnknowns, ...unresolvedContradictions.map(c => `UNRESOLVED_SOURCE_CONTRADICTION:${c.contradictionId}`)];
   const openIssues = input.issues.filter(i => i.status === "OPEN");
   const incompleteEvidence = input.projections.some(p => p.evidenceState !== "VERIFIED");
-  let status: CoordinatedProfessionalState["status"] = unknowns.length || openIssues.length || incompleteEvidence ? "BLOCKED" : "READY_FOR_HUMAN_ACCEPTANCE";
+  const pendingSpecialistReview = input.projections.some(p => p.specialistReviewRequired);
+  let status: CoordinatedProfessionalState["status"] = unknowns.length || openIssues.length || incompleteEvidence || pendingSpecialistReview ? "BLOCKED" : "READY_FOR_HUMAN_ACCEPTANCE";
   if (input.humanAcceptance) {
     if (status === "BLOCKED") throw new Error("F7_ACCEPTANCE_BLOCKED_BY_EVIDENCE");
     status = "ACCEPTED_FOR_F8";
