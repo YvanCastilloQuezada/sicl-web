@@ -390,3 +390,20 @@ Two regression failures observed during hardening were stale fixtures, not reaso
 **Current boundary:** OECE evidence-to-BASELINE_0 is demonstrated for the bounded real specimen. This does not demonstrate a complete OECE technical dossier.
 
 **Next exact action:** execute a legitimate local S10 specimen through READ/NORMALIZE/RECONCILE. Native S10 WRITE and ROUND-TRIP remain NOT_CLAIMED until an ARKI-generated S10 artifact can be reopened and reconciled.
+
+
+## 16. OECE/ACS embedded technical fragment — verified E3 — 2026-10-07
+
+**ACS exact HEAD:** `3fa4e4a799606e3595a29688223b0f50c1672ef8` — focused integration test 1/1 PASS; generated `oece-embedded-technical-fragment.json` (1,694 bytes), SHA-256 `a94782d56effddd21d242a5c154f691e8ec49a5447ef51c0cbff56874f1ffec3`. The ACS working tree was clean.
+
+**Source:** OECE Yanahuara administrative bases, SHA-256 `b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc`; persisted OCR evidence SHA-256 `a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87`. The strict embedded technical fragment begins on page 12 at §3.4 TÉRMINOS DE REFERENCIA and ends on page 14 immediately before §7 FORMA DE PAGO. Sections 3.1–3.3 are source context, not the strict fragment. Fragment fingerprint: `104de3221ddff3927d732de648288b196ce62537688690687726326ee3344b26`.
+
+**ARKI exact verification HEAD:** `c98b87e172c37975969c4382d705bd50aef1ca83`. Windows PowerShell transcript confirmed:
+- `pnpm.cmd check` PASS.
+- `pnpm.cmd exec vitest run server/arkiOeceEmbeddedTechnicalFragment.test.ts` 2/2 PASS, including adversarial fingerprint/authority checks.
+- `pnpm.cmd e2e:oece:fragment` PASS with three physically verified artifact hashes (package `a71d0417685bfd7311d4d860438b75c7c4ada4c66eceece626f7d4139d4f7d18`, fragment and OCR).
+- Derived immutable `BASELINE_0`: **22 source artifacts, 148 claims, exactly one derived `PARTIAL` claim**; fingerprint `1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e`.
+- `WholeDocumentPromotion=false`, `TechnicalCoreSetVerified=false`, `CanonicalMutation=false`, `technicalDossierClaim=NOT_DEMONSTRATED`. No AGK/D-2 canonical mutation; original baseline is not modified.
+- Existing untracked `p9.obj` observed in sicl-web and deliberately left untouched.
+
+**Decision:** OECE embedded-fragment autopsy and physical ACS→ARKI derived-evidence handoff **CLOSED / PASS E3 (bounded specimen)**. This does not establish a complete technical dossier, native S10 WRITE/roundtrip, or downstream D-2/F7 acceptance. Do not repeat OCR, document mining, or these exact tests without new evidence or code changes. S10 remains resume-on-legitimate-input.
