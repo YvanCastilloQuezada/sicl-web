@@ -453,3 +453,11 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - Center display modes: 5x2 default, 3x3+1, pyramid 1–2–3–4. These are visualization choices, never evidence or architectural hierarchy.
 - Implementation: `tools/maqueta-viva/maqueta-viva.template.html` on `feat/f7-f8-integral-closure`; JS static syntax PASS. Actual Windows/browser UI retest still pending after launcher fix `febd223c33aaf49a7a2aa4c4a91850c81432abec`.
 - No server, network or canonical mutation. Do not claim visual verification until local E3 confirms.
+
+### Maqueta Viva — Puzzle assembly registry (2026-10-07)
+
+- Source registry: `tools/maqueta-viva/assembly-registry.json`, with 24 historical ideas (`ARKI_IDEA_AND_DECISION_INVENTORY.md`) and 27 historical capabilities (`ARKI_CAPABILITY_MATURITY_MATRIX.md`), each mapped to a *proposed* phase; one unrelated research idea remains `UNASSIGNED` rather than forced into ARKI.
+- Center: click any F1–F10 block to see its interior: historical capabilities needing current-HEAD reconciliation, historical ideas, and frozen constituents. Right tray: Pendientes / Ideas / Dispersas / FROZEN.
+- FROZEN: 7 AGK-DELTA constituent records plus F6 frozen-phase record explicitly in current structured state (8 displayed unique records). This is NOT yet an exhaustive scan of all branches/repos; unindexed frozen decisions remain `UNKNOWN`, not implicitly absent.
+- Rules: proposed phase != incorporated; historical DEMONSTRATED != current VERIFIED; frozen != fully integrated; no disappearance from tray until evidence-backed incorporation recorded.
+- Code written; static JS syntax PASS; Windows/browser E3 pending.
