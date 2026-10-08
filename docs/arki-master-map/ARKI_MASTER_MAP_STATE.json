@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "No canonical status changes, no automatic promotion of hypotheses, no mutation of roadmap milestones",
+      "integration_boundary": "No roadmap phase or frozen contract modified by evolution menu or offline autocorrective cases",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1707,13 +1707,7 @@
         "unmatched_suggestions": "When no unambiguous textual suggestions, UI explains that this is not an incompatibility; manual mapping remains available",
         "source_refresh": "Retain existing launcher regeneration from local canonical state and inventory and local source change banner; no remote real-time claims"
       },
-      "validation": {
-        "static_js_syntax": "PASS",
-        "mock_dom_navigation": "PASS: F1-F10 and scenarios tab, ten-phase table, contextual help and focus listeners",
-        "scenario_fixture": "PASS: reverse-order dependency detected in base but not alternative, unresolved and cross-phase dependency surfaced, no optimality claim",
-        "contextual_help_fixture": "PASS: phase, scenario, frozen, unstage, milestone and default messages",
-        "windows_browser_e3": "PENDING"
-      },
+      "validation": "JS syntax PASS; mock DOM smoke test 5 evolution buttons, 10 phase buttons, autocorrective proposal -> impact -> explicit authorization, blocked acceptance, digital and predictive views PASS",
       "vertebral_secondary_dependencies": {
         "interaction": "Two-click dependency creation directly on linked or unlinked secondary activity cards in vertebral view; no forced Mesa libre switch",
         "visualization": "Each attached activity shows declared dependencies and incoming references; phase ledger supports explicit removal",
@@ -1985,7 +1979,42 @@
       "technical_mode": "Explicit Abrir mesa técnica retains original spine/branches, local dependencies, radar, audit trace, inventory and import/export; can return to executive cockpit",
       "source_panel": "Collapsed in executive mode, fully available in technical mode",
       "right_tray": "Hidden in executive mode; shown in technical mode; category tabs and frozen entry navigate into technical mode",
-      "official_roadmap": "F1-F10 statuses and milestones unchanged; goal 03/04/05 shown as target vision, not evidenced capabilities"
+      "official_roadmap": "F1-F10 statuses and milestones unchanged; goal 03/04/05 shown as target vision, not evidenced capabilities",
+      "evolution_navigation": {
+        "placement": "Five-level menu below ARKI title and above canonical F1-F10",
+        "levels": [
+          "01 Plano ARKI",
+          "02 Maqueta Viva",
+          "03 Gemelo Digital",
+          "04 Gemelo Predictivo",
+          "05 ARKI Autocorrectivo"
+        ],
+        "phase_authority": "F1-F10 roadmap statuses unchanged; evolution levels are navigation capabilities",
+        "modes": {
+          "plano": "existing registered architecture diagram",
+          "maqueta": "spine and pieces assembly",
+          "digital": "local read-only evidence and source change dashboard, no live synchronization",
+          "predictivo": "existing reference vs alternative scenario analysis",
+          "autocorrectivo": "new offline decision console"
+        }
+      },
+      "autocorrective_v1": {
+        "steps": [
+          "local proposal",
+          "local heuristic impact snapshot",
+          "explicit typed authorization",
+          "export controlled external execution request",
+          "record unverified external receipt",
+          "export reversal request or block acceptance"
+        ],
+        "new_ideas": "Generated local suggestions recalculated from latest local source and draft; user must choose to create a case",
+        "frozen": "Authorization and execution request blocked for FROZEN phase; source-status mismatch blocks execution",
+        "persistence": "Separate localStorage key arki-autocorrective-cases-v1; export backup JSON",
+        "execution": "NOT_IMPLEMENTED_EXTERNAL_EXECUTOR_REQUIRED",
+        "test_verification": "NOT_IMPLEMENTED_EXTERNAL_SHA_CI_RED_TEAM_REQUIRED",
+        "canonical_acceptance": "BLOCKED_UNTIL_EXTERNAL_VERIFICATION",
+        "reversal": "REQUEST_EXPORT_ONLY_NOT_EXECUTED"
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
