@@ -2143,5 +2143,34 @@
       "NO_CANONICAL_MUTATION"
     ],
     "roadmap_status_mutation": false
+  },
+  "digital_twin_evidence_gates_2026_10_08": {
+    "status": "GDT01_GIT_REPLAY_VERIFIED_GDT02_PHYSICAL_INPUT_PENDING",
+    "canonical_roadmap_mutation": false,
+    "gdt01": {
+      "script": "tools/maqueta-viva/Verify-ARKI-TwinTimeline.mjs",
+      "execution": "WINDOWS_POWERSHELL_7_6_6_USER_EVIDENCE",
+      "self_test": "PASS_SYNTHETIC_ADVERSARIAL",
+      "git_replay": "PASS_REAL_GIT_SNAPSHOTS",
+      "snapshots": 35,
+      "initialObservations": 10,
+      "observedChanges": 0,
+      "replayCheckpoints": 35,
+      "physicalObservations": 0,
+      "verdict": "NOT_READY_FOR_OPERATIONAL_DIGITAL_TWIN",
+      "report": "%LOCALAPPDATA%/ARKI/MaquetaViva/twin-temporal-gate.json"
+    },
+    "gdt02": {
+      "script": "tools/maqueta-viva/Verify-ARKI-PhysicalEvidence.mjs",
+      "implementation": "CODE_COMMITTED_STATIC_SYNTAX_PASS",
+      "self_test": "PENDING_WINDOWS_EXECUTION",
+      "real_asset_register": "NOT_PROVIDED",
+      "real_observations": "NOT_PROVIDED",
+      "requires": "one real physical asset and two distinct timestamped source-verified observations",
+      "verdict": "NOT_TESTED_WITH_REAL_DATA",
+      "output": "%LOCALAPPDATA%/ARKI/MaquetaViva/physical-evidence-gate.json"
+    },
+    "next_gate": "Run GDT-02 synthetic self-test on Windows, then obtain genuine asset register and timestamped observations with byte-verified sources; independently validate asset mapping and provenance before any operational twin claim",
+    "authority": "NO EVIDENCIA = NO VERDE; F1-F10, FROZEN, D-2, AGK, and roadmap unchanged"
   }
 }
