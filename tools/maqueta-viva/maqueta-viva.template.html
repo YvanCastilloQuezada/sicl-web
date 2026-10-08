@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARKI · Maqueta Viva</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#121e31;--panel2:#18283f;--line:#2a3b52;--txt:#eaf0f8;--muted:#9caec4;--accent:#6cc7e8;--green:#4dc99b;--amber:#f2ba69;--blue:#7daaff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 "Segoe UI",system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+header{padding:24px 28px 18px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,#162940,#0b1220)}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}h1{margin:0;font-size:27px;letter-spacing:.3px}h2{margin:0 0 14px;font-size:18px}h3{font-size:15px;margin:0 0 8px}.sub{color:var(--muted);font-size:13px;margin-top:5px}.stamp{font-size:12px;border:1px solid var(--line);padding:8px 12px;border-radius:10px;color:var(--muted)}
+main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}.metric{border:1px solid var(--line);background:var(--panel);padding:13px 16px;border-radius:12px}.metric b{display:block;font-size:24px}.metric small{color:var(--muted)}.toolbar{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:15px}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{background:transparent;color:var(--muted);border:1px solid var(--line);padding:9px 14px;border-radius:9px}.tab.active{background:var(--panel2);color:var(--txt);border-color:var(--accent)}input{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--txt);min-width:240px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 335px;gap:16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;min-height:330px}.caption{font-size:12px;color:var(--muted);margin:10px 0}.authority{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.authority .unit{border:1px solid #3d6880;background:#152c40;border-radius:10px;padding:12px;text-align:center}.authority strong{display:block}.authority small{color:var(--muted)}.down{text-align:center;color:var(--muted);padding:12px}.phase-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.phase{background:var(--panel2);border:1px solid var(--line);border-left:4px solid #708298;border-radius:10px;padding:13px 11px;text-align:left;color:var(--txt);min-height:110px}.phase strong{display:block;font-size:20px}.phase span{display:block;font-size:12px;color:var(--muted);margin-top:6px}.phase.selected{outline:2px solid var(--accent)}.phase.frozen{border-left-color:var(--green)}.phase.progress{border-left-color:var(--amber)}.phase.reconciled{border-left-color:var(--blue)}.phase.unknown{border-left-color:#708298}
+.detail{position:sticky;top:14px;align-self:start}.detail .kicker{color:var(--accent);font-size:12px;letter-spacing:1px;font-weight:700}.detail p{margin:8px 0 14px}.field{border-top:1px solid var(--line);padding:10px 0;overflow-wrap:anywhere}.field label{display:block;color:var(--muted);font-size:12px}.field strong{font-size:13px;font-weight:600}.status{display:inline-block;border:1px solid var(--line);padding:3px 8px;border-radius:7px;font-size:12px;color:var(--muted)}.status.frozen{border-color:#3e9075;color:#8fe2c1}.status.progress{border-color:#956c34;color:#f2cb93}.status.reconciled{border-color:#4a70a6;color:#b4d0ff}.stack{display:grid;gap:10px}.item{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px;text-align:left;color:var(--txt)}.item:hover,.phase:hover{border-color:var(--accent)}.item strong{display:block}.item small{color:var(--muted)}.diagram{width:100%;height:auto;max-height:510px;background:#0d1929;border-radius:12px;border:1px solid var(--line)}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:12px}.key{display:inline-block;width:23px;height:3px;vertical-align:middle;margin-right:6px}.empty{color:var(--muted);padding:25px;text-align:center}.foot{margin:22px 0 0;color:var(--muted);font-size:12px}.error{padding:25px;background:#38222b;color:#ffd0d6;border:1px solid #9b5060;border-radius:12px}.diagram text{font-family:"Segoe UI",sans-serif;fill:#eaf0f8}.diagram .node{cursor:pointer}.diagram .node:focus{outline:none}.diagram .node:focus rect{stroke:#fff;stroke-width:3}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.detail{position:static}.phase-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:650px){main{padding:14px}.metrics{grid-template-columns:repeat(2,1fr)}.phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.authority{grid-template-columns:1fr}h1{font-size:22px}input{width:100%}}
+</style>
+</head>
+<body>
+<header><div class="top"><div><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><div class="sub">La estructura, sus conexiones y las piezas que faltan · lectura local sin modificar ARKI</div></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
+<main id="app"><div class="panel">Cargando maqueta…</div></main>
+<script type="application/json" id="arki-state">__ARKI_STATE_JSON__</script>
+<script>
+"use strict";
+(function(){
+const app=document.getElementById("app");
+let state;
+try{state=JSON.parse(document.getElementById("arki-state").textContent);if(!state||!Array.isArray(state.roadmap?.phases))throw Error("El Estado Estructurado no contiene roadmap.phases");}
+catch(e){app.innerHTML='<div class="error">No se pudo cargar el Estado Estructurado. '+escapeHtml(String(e.message))+'</div>';document.getElementById("stamp").textContent="ERROR DE LECTURA";return;}
+const labels={F1:"Identidad / Project State",F2:"Conocimiento y normas",F3:"Inteligencia arquitectónica",F4:"Partido y topología",F5:"Evaluación / 16→4→1",F6:"AGK / geometría 3D",F7:"Desarrollo técnico",F8:"Expediente técnico",F9:"Construcción y obra",F10:"Operación y aprendizaje"};
+const descriptions={F1:"Identidad, confianza, estado y trazabilidad del proyecto.",F2:"Biblioteca de conocimiento, normativa y procedencia.",F3:"Razonamiento arquitectónico y decisiones D-2.",F4:"Programa, relaciones espaciales, partido y topología.",F5:"Evaluación, selección y endurecimiento semántico.",F6:"Geometría operacional gobernada por AGK; alcance congelado y acotado.",F7:"Desarrollo profesional, evidencia de origen y gemelo económico.",F8:"Documentación técnica derivada de desarrollo aceptado.",F9:"Ejecución, control de cambios, campo y gemelo digital.",F10:"Operación, mantenimiento, aprendizaje y realimentación."};
+const phases=state.roadmap.phases.map(p=>({...p,name:labels[p.id]||p.id,description:descriptions[p.id]||""}));
+const focus=state.current_focus||{},blockers=Array.isArray(focus.blockers)?focus.blockers:[];
+const extras=[
+{id:"CORE",name:"ARKI Core",status:"AUTORIDAD",description:"Estado canónico y procedencia; las conexiones concretas requieren evidencia."},
+{id:"D2",name:"D-2",status:"AUTORIDAD",description:"Autoridad semántica arquitectónica."},
+{id:"AGK",name:"AGK",status:"AUTORIDAD",description:"Autoridad única de geometría operacional."},
+{id:"ACS",name:"ACS / OECE",status:"EVIDENCIA_ACOTADA",description:"Adquisición y caracterización de evidencia externa; transferencia OECE acotada registrada PASS/E3."},
+{id:"BASELINE",name:"BASELINE_0",status:"CONTRATO_DE_EVIDENCIA",description:"Línea base inmutable derivada de evidencia fuente, sin promoción canónica automática."},
+{id:"S10",name:"S10",status:"PENDIENTE",description:"Respaldo SQL Server real identificado. Inventario de presupuestos y escritura nativa no demostrados."},
+{id:"RVT",name:"Revit / RVT",status:"PENDIENTE",description:"Modelo real disponible; extracción semántica nativa no demostrada."}
+];
+const all=[...phases,...extras];
+let selected="F6",tab="structure",search="";
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_PROGRESS")return"progress";if(String(p.status).includes("RECONCILED"))return"reconciled";return"unknown";}
+function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es"));}
+function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
+function detail(){
+const p=node(selected),isPhase=selected.startsWith("F")&&/^F\d+$/.test(selected);
+const evidence=isPhase?p.evidence_status:"";
+return '<div class="kicker">PIEZA SELECCIONADA · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span><p>'+escapeHtml(p.description)+'</p>'+
+'<div class="field"><label>Estado registrado</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
+(evidence?'<div class="field"><label>Evidencia / límite</label><strong>'+escapeHtml(evidence)+'</strong></div>':"")+
+'<div class="field"><label>Autoridad</label><strong>'+escapeHtml(({CORE:"Core / Project State",D2:"D-2 arquitectónica",AGK:"AGK geométrica",ACS:"ACS evidencia"}[p.id]||"Según contratos de la fase"))+'</strong></div>'+
+'<div class="field"><label>Próxima acción global registrada</label><strong>'+escapeHtml(focus.next_exact_action||"No definida")+'</strong></div>'+
+'<div class="caption">Esta ficha describe el estado registrado; no equivale a una auditoría nueva del código.</div>';
+}
+function structure(){
+const shown=phases.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.evidence_status));
+return '<h2>Cimientos y estructura funcional</h2><div class="authority">'+
+['CORE','D2','AGK'].map(id=>'<button class="unit" data-select="'+id+'"><strong>'+escapeHtml(node(id).name)+'</strong><small>'+escapeHtml(node(id).description)+'</small></button>').join("")+
+'</div><div class="down">↓ &nbsp; Autoridades del sistema (no indica integración ejecutada) &nbsp; ↓</div>'+
+'<div class="phase-grid">'+shown.map(p=>'<button class="phase '+statusClass(p)+(selected===p.id?" selected":"")+'" data-select="'+p.id+'"><strong>'+p.id+'</strong>'+escapeHtml(p.name)+'<span>'+escapeHtml(p.status)+'</span></button>').join("")+'</div>'+
+(!shown.length?'<div class="empty">No hay fases que coincidan con la búsqueda.</div>':"")+
+'<div class="caption">F6 congelada en alcance acotado; F5 con correcciones registradas; F7/F8 en desarrollo. Reconciliación pendiente ≠ componente inexistente.</div>';
+}
+function parts(){
+const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
+return '<h2>Inventario de piezas</h2><div class="stack">'+parts.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.status)+' — '+escapeHtml(p.description)+'</small></button>').join("")+'</div>'+(!parts.length?'<div class="empty">Sin coincidencias.</div>':"");
+}
+function floating(){
+const items=[...blockers.map(b=>({id:b,name:b,kind:"BLOQUEO REGISTRADO"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,kind:"RECONCILIACIÓN PENDIENTE"}))].filter(p=>matches(p.name+" "+p.kind));
+return '<h2>Piezas flotantes / pendientes</h2><p class="caption">Aquí aparecen bloqueos y fases por reconciliar. No se clasifican automáticamente como fallos.</p><div class="stack">'+items.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.kind)+'</small></button>').join("")+'</div>'+(!items.length?'<div class="empty">Sin coincidencias.</div>':"");
+}
+const graphNodes=[
+{id:"ACS",x:24,y:30,w:155,h:58},{id:"BASELINE",x:236,y:30,w:155,h:58},{id:"F7",x:475,y:30,w:150,h:58},{id:"F8",x:765,y:30,w:150,h:58},
+{id:"CORE",x:24,y:180,w:155,h:58},{id:"D2",x:236,y:180,w:155,h:58},{id:"AGK",x:475,y:180,w:150,h:58},
+{id:"S10",x:236,y:330,w:155,h:58},{id:"RVT",x:475,y:330,w:150,h:58}];
+const edges=[
+{from:"ACS",to:"BASELINE",kind:"verified",label:"evidencia E3"},
+{from:"BASELINE",to:"F7",kind:"verified",label:"derivación acotada"},
+{from:"F7",to:"F8",kind:"contract",label:"contrato derivado"},
+{from:"CORE",to:"F7",kind:"authority",label:"referencia"},
+{from:"D2",to:"F7",kind:"authority",label:"semántica"},
+{from:"AGK",to:"F7",kind:"authority",label:"geometría"},
+{from:"S10",to:"F7",kind:"blocked",label:"por demostrar"},
+{from:"RVT",to:"F7",kind:"blocked",label:"por demostrar"}
+];
+function connections(){
+const lookup=Object.fromEntries(graphNodes.map(n=>[n.id,n]));
+const line=edges.map(e=>{const a=lookup[e.from],b=lookup[e.to],dx=(b.x+b.w/2)-(a.x+a.w/2),dy=(b.y+b.h/2)-(a.y+a.h/2);let x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2;if(Math.abs(dx)>Math.abs(dy)){x1=a.x+(dx>0?a.w:0);x2=b.x+(dx>0?0:b.w);}else{y1=a.y+(dy>0?a.h:0);y2=b.y+(dy>0?0:b.h);}const col={verified:"#4dc99b",contract:"#7daaff",authority:"#8fa5bf",blocked:"#f2ba69"}[e.kind];return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="'+(e.kind==="verified"?"0":e.kind==="blocked"?"4 8":"9 6")+'" marker-end="url(#arrow)"><title>'+escapeHtml(e.label)+'</title></line>';}).join("");
+const blocks=graphNodes.map(n=>{const p=node(n.id),kind=statusClass(p);const col={frozen:"#4dc99b",progress:"#f2ba69",reconciled:"#7daaff",unknown:"#71849b"}[kind];return '<g class="node" tabindex="0" role="button" aria-label="'+escapeHtml(p.name)+'" data-select="'+n.id+'"><rect x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="10" fill="#1a2c43" stroke="'+(selected===n.id?"#6cc7e8":col)+'" stroke-width="'+(selected===n.id?3:1.5)+'"/><text x="'+(n.x+n.w/2)+'" y="'+(n.y+24)+'" font-size="15" font-weight="700" text-anchor="middle">'+escapeHtml(p.name)+'</text><text x="'+(n.x+n.w/2)+'" y="'+(n.y+44)+'" font-size="10" text-anchor="middle" fill="#9caec4">'+escapeHtml(n.id)+'</text></g>';}).join("");
+return '<h2>Conexiones y dependencias</h2><svg class="diagram" viewBox="0 0 950 420" role="img" aria-label="Grafo de evidencia, autoridades y conexiones pendientes"><defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#9caec4" stroke-width="1.2"/></marker></defs>'+line+blocks+'</svg><div class="legend"><span><i class="key" style="background:#4dc99b"></i>Transferencia acotada E3</span><span><i class="key" style="background:#7daaff"></i>Contrato implementado</span><span><i class="key" style="background:#8fa5bf"></i>Relación de autoridad</span><span><i class="key" style="background:#f2ba69"></i>Pendiente</span></div><p class="caption">Las flechas de autoridad representan responsabilidades de diseño, no pruebas de conectividad ejecutada. El grafo es deliberadamente acotado.</p>';
+}
+function render(){
+const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
+document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
+app.innerHTML='<div class="metrics"><div class="metric"><b>'+phases.length+'</b><small>Fases registradas</small></div><div class="metric"><b>'+frozen+'</b><small>Congeladas en alcance registrado</small></div><div class="metric"><b>'+progress+'</b><small>En construcción</small></div><div class="metric"><b>'+reconcile+'</b><small>Por reconciliar</small></div></div>'+
+'<div class="toolbar"><div class="tabs">'+[['structure','Estructura'],['connections','Conexiones'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><input id="search" type="search" placeholder="Buscar pieza o estado…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
+'<div class="layout"><section class="panel">'+({structure:structure,connections:connections,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel detail" id="detail">'+detail()+'</aside></div>'+
+'<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;render();}));
+app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+app.querySelector("#search").addEventListener("input",e=>{const pos=e.target.selectionStart;search=e.target.value;render();const inp=app.querySelector("#search");inp.focus();inp.setSelectionRange(pos,pos);});
+}
+render();
+})();
+</script>
+</body>
+</html>
