@@ -1551,7 +1551,7 @@
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
       "integration_boundary": "Canonical roadmap phases, frozen records, and verification status remain unchanged",
       "static_js_syntax": "PASS",
-      "windows_browser_gate": "NOT_EXECUTED",
+      "windows_browser_gate": "USER_SCREENSHOTS_OBSERVED_FOR_VERTEBRAL_AND_ALTERNATIVE_BUT_NOT_E3_FULL_SUITE",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
       "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
       "top_menu": "Below phase menu: counters at left; orange Estructura, Conexiones, Inventario, Flotantes; yellow Pendientes, Ideas, Dispersas, FROZEN control right tray; search at right.",
@@ -1798,7 +1798,8 @@
         "problem": "No-op Apply feedback was only in a distant notice, appearing broken when scrolled",
         "fix": "Row-local aria-live result plus explicit applied/no-change messages, row highlight, and persistent all-items review after phase move",
         "safety": "No-op does not write; real change uses remember/saveDraft and remains undoable"
-      }
+      },
+      "offline_smoke_gate": "CI previously failed on stale test assertions (right-only tray vs swapped sidebars); assertions updated, awaiting exact-head rerun"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
@@ -1915,5 +1916,37 @@
         }
       }
     }
+  },
+  "f7_f8_f9_lineage_checkpoint_2026_10_08": {
+    "status": "CODE_COMMITTED_EXECUTION_VERIFICATION_PENDING",
+    "branch": "feat/f7-f8-integral-closure",
+    "contract": "docs/arki-master-map/ARKI_F7_F8_F9_EXECUTION_HANDOFF_2026-10-08.md",
+    "f7": {
+      "file": "server/arkiProfessionalState.ts",
+      "change": "BASELINE_0 fingerprint integrity and unique projection/issue IDs",
+      "state": "IMPLEMENTED_NOT_YET_EXECUTED_ON_EXACT_HEAD"
+    },
+    "f8": {
+      "file": "server/arkiTechnicalDossier.ts",
+      "change": "F7 state fingerprint, unique dossier artifact IDs, dossier self-integrity and project lineage",
+      "state": "IMPLEMENTED_NOT_YET_EXECUTED_ON_EXACT_HEAD"
+    },
+    "f9": {
+      "file": "server/arkiF9ConstructionLineage.ts",
+      "change": "Field baseline candidate derived from accepted F7 and intact F8; observation evidence batches, fail-closed provenance and review gate",
+      "state": "BOUNDED_CONTRACT_IMPLEMENTED_NOT_F9_PHASE_COMPLETE"
+    },
+    "tests": {
+      "file": "server/arkiF7F8Closure.test.ts",
+      "new_cases": 4,
+      "execution": "PENDING_CI_EXACT_SHA"
+    },
+    "limitations": [
+      "NO_REAL_PROFESSIONAL_SPECIMEN_VALIDATED",
+      "NO_F9_FIELD_E2E_EXECUTED",
+      "NO_PROFESSIONAL_SIGNATURE_AUTHENTICITY_VERIFIED",
+      "NO_CANONICAL_MUTATION"
+    ],
+    "roadmap_status_mutation": false
   }
 }
