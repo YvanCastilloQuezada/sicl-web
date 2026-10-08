@@ -418,3 +418,12 @@ The prior physical ACS→ARKI handoff is PASS/E3. A separate F7 admission gap wa
 Correction in `server/arkiProfessionalState.ts`: `assessF7SourceReadiness(baseline)` detects the exact `oece.derived.embedded_technical_fragment` claim in the source baseline and adds a non-waivable `OECE_EMBEDDED_TECHNICAL_FRAGMENT_REQUIRES_VERIFIED_CORE:<claimId>` blocker to F7 unknowns. This is scoped to the derived technical fragment, **not all procurement metadata**. A forged `VERIFIED` claim status does not bypass it. This prevents F7 acceptance and downstream F8 generation for this incomplete specimen; no D-2/AGK authority is fabricated or mutated.
 
 Added adversarial tests `server/arkiF7OeceSourceGate.test.ts` (omission, forged VERIFIED, unrelated ready baseline) and strengthened `pnpm e2e:oece:fragment` to assert `EVIDENCE_ONLY_BLOCKED` on the physically verified specimen. **Do not mark PASS until the exact updated branch executes locally.** Future resolution requires real verified technical-core evidence and separately governed review/reconciliation; this gate does not claim to implement that future clearance.
+
+
+### 16.2 F7 source-readiness gate — PASS/E3 verified — 2026-10-07
+
+**Exact local verification HEAD:** `083ecdbcf2ea67076e5baaa0f37ace55f9451232`. User-supplied raw PowerShell execution: `pnpm.cmd check` PASS; 3 focused Vitest files / **11 of 11 tests PASS**; `pnpm.cmd e2e:oece:fragment` **PASS** using the physically pinned ACS package, OCR and fragment artifacts. F7 returned `EVIDENCE_ONLY_BLOCKED` and one explicit `OECE_EMBEDDED_TECHNICAL_FRAGMENT_REQUIRES_VERIFIED_CORE` blocker for the known fragment. `derivedClaimEvidenceState=PARTIAL`, `technicalDossierClaim=NOT_DEMONSTRATED`, `canonicalMutation=false`.
+
+The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e` with 22 source artifacts and 148 claims. `p9.obj` is still untracked and untouched.
+
+**Decision:** F7 OECE fragment no-silent-promotion gate **CLOSED / PASS E3 (bounded)**. Do not mistake a correct F7 `BLOCKED` status for a failing test; the external technical-core evidence is genuinely incomplete. No claim of full product F7/F8 freeze, actual D-2/AGK acceptance, or full dossier verification. No need to rerun this exact gate absent new evidence/code changes.
