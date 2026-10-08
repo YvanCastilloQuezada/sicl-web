@@ -21,14 +21,14 @@ const api=new Function("document","localStorage","FileReader",testSource)(docume
 let count=0;
 function check(label,condition){assert(condition,label);count++;process.stdout.write("PASS "+label+"\n");}
 check("default F1 workspace",app.innerHTML.includes("MESA DE ENSAMBLAJE · F1"));
-check("swapped sidebars",app.innerHTML.indexOf("Bandeja de piezas")<app.innerHTML.indexOf('id="arki-workspace"')&&app.innerHTML.indexOf('id="arki-workspace"')<app.innerHTML.indexOf("Diez fases de ARKI"));
-check("four orange and four yellow tabs",(app.innerHTML.match(/data-tab="/g)||[]).length===4&&(app.innerHTML.match(/data-tray="/g)||[]).length===4);
+check("wide center and right-only tray",app.innerHTML.indexOf('id="arki-workspace"')<app.innerHTML.indexOf("Bandeja de piezas")&&!app.innerHTML.includes('id="left"'));
+check("five orange and four yellow tabs",(app.innerHTML.match(/data-tab="/g)||[]).length===5&&(app.innerHTML.match(/data-tray="/g)||[]).length===4);
 check("empty initial draft",Object.keys(api.getPlacements()).length===0);
 api.stagePiece("I-01","F5");
 check("stage known idea",api.getPlacements()["I-01"]==="F5");
 check("local persistence",JSON.parse(storage.get("arki-maqueta-assembly-draft-v1")).placements["I-01"]==="F5");
 api.setPhase("F5");
-check("draft visible in selected phase",app.innerHTML.includes("Piezas ubicadas en esta fase (BORRADOR) · 1"));
+check("draft visible in selected phase",app.innerHTML.includes("MESA DE ENSAMBLAJE · F5")&&app.innerHTML.includes("I-01")&&app.innerHTML.includes("Espinas sin vincular"));
 api.stagePiece("I-01","F99");
 check("invalid phase rejected",api.getPlacements()["I-01"]==="F5");
 api.stagePiece("F6-FREEZE","F1");
@@ -40,7 +40,7 @@ check("placement removable",Object.keys(api.getPlacements()).length===0);
 check("drag handlers installed",typeof listeners.drop==="function"&&typeof listeners.dragover==="function");
 listeners.drop({preventDefault(){},dataTransfer:{getData(){return "I-01";}}});
 check("drag stages in selected phase",api.getPlacements()["I-01"]==="F5");
-check("no canonical mutation",script.includes("LOCAL_VISUAL_DRAFT_ONLY")&&script.includes("NO INTEGRADA")&&!script.includes("canonicalMutation:true"));
+check("no canonical mutation",script.includes("NO INTEGRADA")&&script.includes("El roadmap canónico sigue protegido")&&!script.includes("canonicalMutation:true"));
 const sha="a".repeat(40);
 check("backward compatible review schema",Object.keys(api.validateReviews(undefined)).length===0);
 check("initial review gate blocked",!api.reviewGate("I-01").complete);
