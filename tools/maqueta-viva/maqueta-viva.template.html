@@ -102,7 +102,7 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
-let placements={},reviews={},draftNotice="",storageAvailable=true;
+let placements={},reviews={},observations={},draftNotice="",storageAvailable=true;
 function validateDraft(raw){
 if(!raw||raw.schema!==DRAFT_SCHEMA||!raw.placements||typeof raw.placements!=="object"||Array.isArray(raw.placements))throw Error("Formato de borrador inválido");
 const cleaned={};
@@ -155,7 +155,7 @@ function importDraft(file){
 if(!file)return;
 if(file.size>200000){draftNotice="Archivo demasiado grande.";render();return;}
 const reader=new FileReader();
-reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextReviews=validateReviews(raw.reviews);placements=next;reviews=nextReviews;saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
+reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextReviews=validateReviews(raw.reviews);placements=next;reviews=nextReviews;observations={};saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
 reader.onerror=()=>{draftNotice="No se pudo leer el archivo.";render();};
 reader.readAsText(file,"UTF-8");
 }
@@ -169,7 +169,7 @@ return {placed,unresolved,complete,hasEvidence:Boolean(r.repo&&r.file&&r.sha&&r.
 function recordReview(id,form){
 if(!movable.has(id)){draftNotice="La pieza no admite revisión local.";return;}
 const proposed={repo:String(form.repo||"").trim(),file:String(form.file||"").trim(),sha:String(form.sha||"").trim(),test:String(form.test||"").trim(),dependencies:String(form.dependencies||"").split(",").map(x=>x.trim()).filter(Boolean)};
-try{const next=validateReviews({...reviews,[id]:proposed});reviews=next;saveDraft();draftNotice="Ficha de "+id+" registrada como DECLARACIÓN LOCAL; ninguna prueba fue ejecutada ni verificada.";}
+try{const next=validateReviews({...reviews,[id]:proposed});reviews=next;delete observations[id];saveDraft();draftNotice="Ficha de "+id+" registrada como DECLARACIÓN LOCAL; ninguna prueba fue ejecutada ni verificada.";}
 catch(e){draftNotice="Ficha rechazada: "+String(e.message);}
 }
 function reviewInspector(id){
@@ -186,10 +186,33 @@ return '<div class="assembly-section review-box"><h3>Preparación de integració
 '<div class="review-gates"><span class="'+(gate.placed?"gate-ready":"gate-pending")+'">Ubicación: '+(gate.placed?"BORRADOR":"FALTA")+'</span>'+
 '<span class="'+(gate.hasEvidence?"gate-ready":"gate-pending")+'">Referencias: '+(gate.hasEvidence?"DECLARADAS":"INCOMPLETAS")+'</span>'+
 '<span class="'+(gate.unresolved.length?"gate-pending":"gate-ready")+'">Dependencias sin ubicar: '+gate.unresolved.length+'</span></div>'+
-'<p class="hint"><strong>'+(gate.complete?"LISTA PARA SOLICITAR AUDITORÍA":"PREPARACIÓN INCOMPLETA")+'</strong> · Ningún estado de implementación cambia. Solo una auditoría externa con ejecución y evidencia puede autorizar integración.</p></div>';
+'<p class="hint"><strong>'+(gate.complete?"LISTA PARA SOLICITAR AUDITORÍA":"PREPARACIÓN INCOMPLETA")+'</strong> · Ningún estado de implementación cambia. Solo una auditoría externa con ejecución y evidencia puede autorizar integración.</p>'+observationInspector(id)+'</div>';
+}
+function validateObservations(report){
+if(!report||report.schema!=="ARKI-MAQUETA-GITHUB-OBSERVATION-1"||!Array.isArray(report.observations)||report.observations.length>100)throw Error("Reporte de observación no reconocido");
+const result={};
+for(const x of report.observations){
+if(!x||!movable.has(x.id)||result[x.id]||!reviews[x.id]||x.repo!==reviews[x.id].repo||x.file!==reviews[x.id].file||String(x.sha||"").toLowerCase()!==reviews[x.id].sha.toLowerCase())throw Error("Reporte no coincide con la ficha local: "+(x&&x.id));
+if(!["OBSERVED_SOURCE_AT_SHA","UNKNOWN"].includes(x.source?.status)||!["CI_RUN_SUCCESS_AT_SHA","CI_PENDING","CI_NO_SUCCESS_OBSERVED","NO_RUN_OBSERVED","UNKNOWN"].includes(x.ci?.status))throw Error("Estado de observación no permitido");
+result[x.id]={source:x.source.status,ci:x.ci.status,observed_at:String(report.observed_at||"").slice(0,32)};
+}
+return result;
+}
+function importObservation(file){
+if(!file)return;
+if(file.size>500000){draftNotice="Reporte de observación demasiado grande.";render();return;}
+const reader=new FileReader();
+reader.onload=()=>{try{const next=validateObservations(JSON.parse(String(reader.result)));observations=next;draftNotice="Reporte externo cargado ("+Object.keys(next).length+" fichas). NO ATESTADO por el navegador; NO implica integración.";}catch(e){draftNotice="Reporte rechazado: "+String(e.message);}render();};
+reader.onerror=()=>{draftNotice="No se pudo leer el reporte.";render();};
+reader.readAsText(file,"UTF-8");
+}
+function observationInspector(id){
+const o=observations[id];if(!o)return '<p class="hint">Sin observación GitHub importada. Exporta el borrador, ejecuta el verificador de solo lectura y carga el reporte aquí.</p>';
+return '<div class="field"><label>Observación externa importada (NO ATESTADA)</label><strong>Fuente: '+escapeHtml(o.source)+' · CI: '+escapeHtml(o.ci)+'</strong></div>'+
+'<p class="hint">El navegador no certifica la autenticidad del archivo importado. CI exitoso en el SHA no demuestra ejecución de la prueba declarada. No modifica el estado canónico.</p>';
 }
 function draftControls(){
-return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label></div>'+
+return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
 (draftNotice?'<p class="hint" role="status">'+escapeHtml(draftNotice)+'</p>':"")+
 (!storageAvailable?'<p class="hint">La persistencia automática no está garantizada en este navegador; usa Exportar JSON.</p>':"");
 }
@@ -340,6 +363,7 @@ recordReview(el.dataset.review,{repo:get("#review-repo"),file:get("#review-file"
 }));
 app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()=>{draftFile();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
+const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
 app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
 app.querySelector("#search").addEventListener("input",e=>{const pos=e.target.selectionStart;search=e.target.value;render();const inp=app.querySelector("#search");inp.focus();inp.setSelectionRange(pos,pos);});
 }
