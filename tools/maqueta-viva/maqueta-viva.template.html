@@ -500,6 +500,16 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .spine-gate-status.gate-alert{color:#ffb6aa}
 .spine-gate small{font-size:10px;color:#c8e1ef;line-height:1.4}
 .spine-gate .spine-gate-disclaimer{font-size:9px;color:#9fb9cb}
+
+/* Dependency map shows declared edges, never inferred links. */
+.spine-dependency-map{border:1px solid #5b88a4;border-radius:10px;background:#102f48;padding:12px;margin:12px 0}
+.spine-dependency-map>summary{font-size:12px;font-weight:750;color:#e4f5ff;cursor:pointer}
+.spine-map-scroll{overflow-x:auto;margin:9px 0;border:1px solid #477795;border-radius:8px;background:#0e293f}
+.spine-dependency-svg{display:block;width:100%;min-width:900px;height:auto}
+.spine-map-piece{cursor:pointer}.spine-map-piece:hover rect,.spine-map-piece:focus-visible rect{stroke:#ffec9e;stroke-width:3px}
+.spine-map-external{display:flex;flex-direction:column;gap:7px;margin:10px 0;padding:9px;border:1px solid #527e9b;border-radius:7px;font-size:11px;color:#d9edfa}
+.spine-map-external strong{color:#c8edff}.spine-map-external button{border:1px solid #648fae;background:#19425f;border-radius:5px;color:#e7f7ff;padding:3px 7px}
+.spine-map-alert{border-color:#b9825c;color:#ffdbbb}
 </style>
 </head>
 <body>
@@ -1387,6 +1397,36 @@ function spineGateCard(phase,index,staged){
 const g=spineGate(phase,index,staged);
 return '<div class="spine-gate" aria-label="Control de borrador del hito '+(index+1)+'"><strong>PUERTA DE CONTROL · BORRADOR</strong><span class="spine-gate-status '+(g.missingTargets.length?"gate-alert":"")+'">'+escapeHtml(g.label)+'</span><small>'+g.items.length+' actividades · '+g.withDeclaredReview.length+' fichas completas declaradas</small><small>'+g.missingEvidence.length+' sin evidencia declarada · '+g.missingTargets.length+' dependencias sin destino</small>'+(g.crossPhase.length?'<small>'+g.crossPhase.length+' conexiones transversales a revisar</small>':"")+'<small class="spine-gate-disclaimer">NO es aprobación del hito ni progreso oficial.</small></div>';
 }
+
+/* Visual dependencies are read only from user-declared reviews. Stage order never invents edges. */
+function spineDependencyMap(phase,staged){
+const map=currentSpine(),buckets=[0,1,2,3].map(i=>staged.filter(x=>map[x.id]===String(i)).slice(0,5));
+const visible=buckets.flat(),lookup={},columnX=[16,266,516,766],nodeWidth=218,nodeHeight=44,rowHeight=59;
+const height=Math.max(142,83+Math.max(...buckets.map(b=>b.length))*rowHeight);
+for(let i=0;i<4;i++)buckets[i].forEach((p,j)=>lookup[p.id]={x:columnX[i],y:59+j*rowHeight,p});
+const edges=staged.flatMap(p=>(reviews[p.id]?.dependencies||[]).map(to=>({from:p.id,to,toPhase:placements[to]||""})));
+const internal=edges.filter(e=>lookup[e.from]&&lookup[e.to]&&e.toPhase===phase);
+const cross=edges.filter(e=>e.toPhase&&e.toPhase!==phase);
+const unresolved=edges.filter(e=>!e.toPhase);
+const hidden=staged.length-visible.length;
+const paths=internal.map(e=>{
+const a=lookup[e.from],b=lookup[e.to],x1=a.x+nodeWidth/2,y1=a.y+nodeHeight/2,x2=b.x+nodeWidth/2,y2=b.y+nodeHeight/2;
+return '<path d="M '+x1+' '+y1+' Q '+((x1+x2)/2)+' '+(Math.min(y1,y2)-17)+' '+x2+' '+y2+'" fill="none" stroke="#ffd47c" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#spine-arrow)"><title>'+escapeHtml(e.from+" necesita "+e.to+" · hipótesis local")+'</title></path>';
+}).join("");
+const cards=visible.map(p=>{
+const n=lookup[p.id],r=reviewGate(p.id);
+return '<g class="spine-map-piece" data-route-piece="'+escapeHtml(p.id)+'" tabindex="0" role="button" aria-label="Abrir '+escapeHtml(p.id)+' en su fase"><rect x="'+n.x+'" y="'+n.y+'" width="'+nodeWidth+'" height="'+nodeHeight+'" rx="7" fill="#174865" stroke="'+(r.hasEvidence?"#93c4e3":"#e5b66d")+'" stroke-width="1.5"/><text x="'+(n.x+9)+'" y="'+(n.y+18)+'" font-size="12" fill="#fff" font-weight="700">'+escapeHtml(p.id)+'</text><text x="'+(n.x+9)+'" y="'+(n.y+34)+'" font-size="10" fill="#d3e7f4">'+escapeHtml(p.name.length>32?p.name.slice(0,31)+"…":p.name)+'</text></g>';
+}).join("");
+return '<details class="spine-dependency-map" '+(internal.length?"open":"")+'><summary>Mapa visual de dependencias · '+internal.length+' líneas visibles · '+cross.length+' entre fases · '+unresolved.length+' sin destino</summary>'+
+'<p class="hint">Las flechas ámbar punteadas significan «necesita» y proceden exclusivamente de conexiones declaradas. El orden de hitos no crea automáticamente dependencias. Pulsa una tarjeta para abrir su ficha.</p>'+
+(visible.length?'<div class="spine-map-scroll"><svg viewBox="0 0 1000 '+height+'" role="group" aria-label="Dependencias locales entre espinas de '+escapeHtml(phase)+'" class="spine-dependency-svg"><defs><marker id="spine-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="#ffd47c" stroke-width="1.5"/></marker></defs>'+
+[0,1,2,3].map(i=>'<text x="'+(columnX[i]+8)+'" y="30" font-size="14" font-weight="700" fill="#a9dbf5">HITO '+(i+1)+'</text>').join("")+
+paths+cards+'</svg></div>':'<p class="hint">No hay espinas vinculadas a hitos para dibujar. Vincula actividades primero.</p>')+
+(hidden?'<p class="caption">'+hidden+' actividades no dibujadas (máximo cinco por hito). Las dependencias siguen disponibles en el listado inferior.</p>':"")+
+(cross.length?'<div class="spine-map-external"><strong>Conexiones transversales declaradas</strong>'+cross.map(e=>'<div><button type="button" data-route-piece="'+escapeHtml(e.from)+'">'+escapeHtml(e.from)+'</button> necesita <button type="button" data-route-piece="'+escapeHtml(e.to)+'">'+escapeHtml(e.to+" · "+e.toPhase)+'</button></div>').join("")+'</div>':"")+
+(unresolved.length?'<div class="spine-map-external spine-map-alert"><strong>Dependencias sin pieza ubicada</strong>'+unresolved.map(e=>'<div>'+escapeHtml(e.from+" necesita "+e.to)+" · DESTINO NO UBICADO</div>").join("")+'</div>':"")+
+'<p class="caption">Visualización de hipótesis locales, no relaciones técnicas verificadas ni ruta crítica calculada. Referencia y Alternativa comparten dependencias declaradas; difieren en asignaciones de hitos.</p></details>';
+}
 function spineWorkspace(p,staged){
 const milestones=SPINE_STAGES[p.id]||[];
 const assignedMap=currentSpine();
@@ -1408,7 +1448,7 @@ spineRouteComparison(p,staged)+traceabilityPanel(p.id)+routeRadar(p.id)+reviewQu
 (locationReviewOpen?locationReviewPanel():"")+
 '<div class="spine-connection-help" role="status"><div><strong>'+(linkMode?"MODO CONECTAR ESPINAS · ACTIVO":"CONECTAR ACTIVIDADES SECUNDARIAS")+'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la actividad necesaria.":"Pulsa «Conectar» primero en la actividad dependiente y después en la necesaria."):"Activa «🔗 Conectar piezas» y usa los botones «🔗 Conectar» dentro de las espinas. Cada relación es una hipótesis local.")+'</span></div><span class="spine-link-count">'+phaseLinks.length+' dependencias · '+phaseUnlinked+' espinas sin hito</span></div>'+
 '<div class="spine-notice"><strong>VISTA VERTEBRAL · '+escapeHtml(p.id)+'</strong><span>Ruta estructural PROPUESTA, no ruta crítica calculada. Cada hito muestra sus vecinos estructurales propuestos. Las espinas muestran hitos vecinos y candidatos de actividad derivados automáticamente; solo «Vincular» declara una dependencia local. No se alteran estados ni contratos oficiales.</span></div>'+
-spinePlacementAudit(p.id,staged)+spineCandidateSummary(suggestions,unassigned)+
+spinePlacementAudit(p.id,staged)+spineCandidateSummary(suggestions,unassigned)+spineDependencyMap(p.id,staged)+
 '<div class="spine-scroll"><div class="spine-grid">'+milestones.map((name,i)=>{
 const assigned=attached.filter(x=>assignedMap[x.id]===String(i));
 return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><div class="spine-stage-sequence"><span><b>← Predecesor:</b> '+(i===0?"Inicio de ruta propuesta":"Hito "+i+" · "+escapeHtml(milestones[i-1]))+'</span><span><b>Sucesor →:</b> '+(i===milestones.length-1?"Fin de ruta propuesta":"Hito "+(i+2)+" · "+escapeHtml(milestones[i+1]))+'</span></div><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button>'+spineGateCard(p.id,i,staged)+'<div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas todavía</p>')+
@@ -1908,12 +1948,12 @@ app.querySelectorAll("[data-spine-connect]").forEach(el=>el.addEventListener("cl
 app.querySelectorAll("[data-link-add]").forEach(el=>el.addEventListener("click",()=>{addConnection(app.querySelector("#connection-from")?.value||"",app.querySelector("#connection-to")?.value||"");render();}));
 app.querySelectorAll("[data-link-remove]").forEach(el=>el.addEventListener("click",()=>{removeConnection(el.dataset.linkRemove,el.dataset.linkTarget);render();}));
 app.querySelectorAll("[data-graph-piece]").forEach(el=>{const fn=()=>{const id=el.dataset.graphPiece;activePhase=placements[id];selected=id;tab="structure";render();};el.addEventListener("click",fn);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
-app.querySelectorAll("[data-route-piece]").forEach(el=>el.addEventListener("click",()=>{
+app.querySelectorAll("[data-route-piece]").forEach(el=>{const activate=()=>{
 const id=el.dataset.routePiece;if(!movable.has(id))return;
 if(placements[id]&&validPhases.has(placements[id])){activePhase=placements[id];tab="structure";spineView=true;selected=id;locationReviewOpen=false;draftNotice="Inspecciona "+id+" en "+activePhase+". La relación y la ubicación son locales, no verificadas.";}
 else{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=activePhase;draftNotice="La pieza "+id+" no está ubicada. Abre «Revisar ubicaciones sugeridas» para asignarla manualmente.";}
 render();
-}));
+};el.addEventListener("click",activate);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});});
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
