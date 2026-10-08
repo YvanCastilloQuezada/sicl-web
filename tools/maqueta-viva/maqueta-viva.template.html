@@ -502,7 +502,7 @@ function appendTrace(id,action,before,after,scenario,override){
 const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
 const meta=override||traceNotes[traceKey(id,scenario)]||{};
 const automatic=autoPlacementNotes[id];
-if(traceEvents.length>=TRACE_LIMIT){storageAvailable=false;draftNotice="Historial completo: exporta JSON y conserva una copia antes de continuar; no se descartaron eventos.";return false;}
+if(traceEvents.length>=TRACE_LIMIT)throw Error("Historial completo: exporta JSON antes de nuevas decisiones; no se descartaron eventos.");
 traceEvents.push({at:new Date().toISOString(),id,action,before:String(before??"").slice(0,160),after:String(after??"").slice(0,160),scenario,
 reason:String(meta.reason||automatic?.reason||"Decisión local pendiente de justificar").slice(0,TRACE_NOTE_LIMIT),
 source:String(meta.source||piece?.origin||"BORRADOR_LOCAL").slice(0,TRACE_NOTE_LIMIT),
@@ -846,19 +846,19 @@ auditStateChanges(lastTraceState,after);
 localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents}));
 lastTraceState=after;storageAvailable=true;
 }
-catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo.";}
+catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo. No se confirmó la persistencia.";}
 }
 function stagePiece(id,phase,position){
 if(!movable.has(id)||!validPhases.has(phase)){draftNotice="Pieza o fase no válida. No se realizó ningún cambio.";return;}
 if(Object.prototype.hasOwnProperty.call(placements,id)){
 if(placements[id]===phase){draftNotice="La pieza "+id+" ya está ubicada en "+phase+".";return;}
-remember();const from=placements[id];placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];draftNotice="Pieza "+id+" movida de "+from+" a "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();return;
+remember();const from=placements[id];placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];delete traceNotes[traceKey(id,"base")];delete traceNotes[traceKey(id,"alternative")];draftNotice="Pieza "+id+" movida de "+from+" a "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();return;
 }
 remember();placements[id]=phase;if(position)positions[id]={x:Math.max(0,Math.min(1,position.x)),y:Math.max(0,Math.min(1,position.y))};draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
 }
 function unstagePiece(id){
 if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return;
-remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
+remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];delete traceNotes[traceKey(id,"base")];delete traceNotes[traceKey(id,"alternative")];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
 }
 function exportUnreconciledBackup(){
 if(!unreconciledDraftBackup)return;
@@ -872,7 +872,7 @@ draftNotice="Borrador preparado para exportación.";
 }
 function importDraft(file){
 if(!file)return;
-if(file.size>200000){draftNotice="Archivo demasiado grande.";render();return;}
+if(file.size>5000000){draftNotice="Archivo demasiado grande (máximo 5 MB).";render();return;}
 const reader=new FileReader();
 reader.onload=()=>{
 const previousLocal=JSON.parse(JSON.stringify(localIdeas));
@@ -884,8 +884,10 @@ const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next
 replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
 placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;traceNotes=nextTraceNotes;
 const existingSignatures=new Set(traceEvents.map(e=>JSON.stringify(e)));
-for(const event of nextTraceEvents){const signature=JSON.stringify(event);if(!existingSignatures.has(signature)){traceEvents.push(event);existingSignatures.add(signature);}}
-if(traceEvents.length>TRACE_LIMIT)throw Error("Historial acumulado supera límite; conserva ambos JSON antes de fusionar");
+const mergedEvents=traceEvents.slice();
+for(const event of nextTraceEvents){const signature=JSON.stringify(event);if(!existingSignatures.has(signature)){mergedEvents.push(event);existingSignatures.add(signature);}}
+if(mergedEvents.length>TRACE_LIMIT)throw Error("Historial acumulado supera límite; conserva ambos JSON antes de fusionar");
+traceEvents=mergedEvents;
 observations={};
 localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));saveDraft();
 draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
@@ -1108,7 +1110,7 @@ locationFeedback={id,changed:false,message:id+" ya está en "+phase+(nodeId===""
 draftNotice=locationFeedback.message;locationReviewOpen=true;render();return;
 }
 remember();
-if(previous!==phase){placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];}
+if(previous!==phase){placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];delete traceNotes[traceKey(id,"base")];delete traceNotes[traceKey(id,"alternative")];}
 const target=currentSpine();
 if(nodeId==="")delete target[id];else target[id]=nodeId;
 saveDraft();
@@ -1153,6 +1155,16 @@ out.push("","## Dependencias declaradas (hipótesis locales)");
 const deps=localPhaseLinks(phase.id);
 if(!deps.length)out.push("- Ninguna declarada");
 else deps.forEach(e=>out.push("- "+clean(e.from)+" necesita "+clean(e.to)+" · NO VERIFICADA"));
+out.push("","## Trazabilidad declarada por pieza");
+for(const p of staged){
+const meta=traceNotes[traceKey(p.id,spineScenario)]||{},auto=autoPlacementNotes[p.id]||{};
+out.push("- "+clean(p.id)+" · fase "+clean(phase.id)+" · "+(map[p.id]===undefined?"SIN HITO":"HITO "+(Number(map[p.id])+1))+" · confianza "+clean(meta.confidence||auto.confidence||"DESCONOCIDA"));
+out.push("  - Motivo: "+clean(meta.reason||auto.reason||"PENDIENTE"));
+out.push("  - Fuente: "+clean(meta.source||p.origin||"SIN FUENTE"));
+out.push("  - Evidencia declarada: "+clean(meta.evidence||"SIN EVIDENCIA VERIFICADA"));
+}
+out.push("","## Historial local de decisiones de esta fase");
+for(const e of traceEvents.filter(e=>staged.some(p=>p.id===e.id)).slice(-200))out.push("- "+clean(e.at)+" · "+clean(e.id)+" · "+clean(e.action)+" · "+clean(e.before)+" → "+clean(e.after)+" · "+clean(e.scenario));
 out.push("","## Límites de autoridad",
 "- Los cuatro hitos son una estructura de visualización propuesta, no una ruta crítica calculada.",
 "- Las vinculaciones y dependencias se guardan en el navegador, no actualizan el roadmap canónico.",
