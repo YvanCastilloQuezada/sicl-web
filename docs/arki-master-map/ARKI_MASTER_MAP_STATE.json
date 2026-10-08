@@ -1749,7 +1749,14 @@
         "frozen": "FROZEN source records read from canonical state and refresh independently; cannot be user-promoted by workflow",
         "persistence": "workflowStages and autoPlacementNotes included in local draft, import/export, undo/redo"
       },
-      "verification": "JS syntax PASS; mock runtime PASS for local idea auto placement, undo/redo, 51-piece batch placement with 51 milestone links and review notes; out-of-scope source I-24 remains unassigned"
+      "verification": "Static JS syntax PASS; isolated F2 I-11 hito3 scenario finds I-10 in hito2 and I-12 in hito4, renders structural predecessor/successor and two candidate confirmation controls; Windows E3 NOT EXECUTED",
+      "activity_sequence_auto": {
+        "rule": "On each render, derive previous and next milestone for a staged spine from its current scenario (base or alternative); locate up to 3 candidate activities in nearest populated earlier and later milestones within the same phase",
+        "semantics": "Auto-derived candidates are visible immediately but never persisted as verified dependencies; explicit Vincular creates a reversible local review dependency after cycle validation",
+        "scope": "F1-F10 and all 4 proposed milestones per phase; unassigned pieces have no inferred activity neighbors",
+        "alternatives": "Derived candidates follow selected reference/alternative spine map; confirmed local dependencies remain shared between scenarios",
+        "canonical": "No roadmap status, freeze or official milestone modified"
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
