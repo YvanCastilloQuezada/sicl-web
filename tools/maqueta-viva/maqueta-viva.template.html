@@ -104,6 +104,18 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .workbench-remove{position:absolute;top:6px;right:6px;width:29px;height:29px;border:1px solid #ffb5b5;border-radius:7px;background:#9c2939;color:#fff;font-size:23px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center}
 .workbench-remove:hover{background:#c43d4e;border-color:#fff}
 .workbench-remove:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* Live draft occupancy is a badge, never a progress percentage or verified integration. */
+.phase-menu-button{position:relative}
+.phase-draft-count{position:absolute;top:3px;right:5px;display:flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 3px;border-radius:9px;background:rgba(0,0,0,.64);color:#fff;border:1px solid rgba(255,255,255,.65);font-size:10px;font-style:normal;font-weight:750}
+.layout>.center{position:relative}
+.workbench-inspector{position:absolute;z-index:5;top:148px;right:26px;width:min(370px,calc(100% - 40px));max-height:min(75vh,720px);overflow:auto;background:#102a40;border:1px solid #7cbadf;border-radius:11px;padding:12px;box-shadow:0 12px 32px rgba(0,0,0,.55)}
+.inspector-head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #4a7b9c;padding:0 0 8px;color:#e6f5ff;font-size:12px}
+.inspector-close{display:flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;border:1px solid #97bcd4;border-radius:7px;background:#254861;color:#fff;font-size:21px}
+.inspector-close:hover{background:#386e8d}
+.workbench-inspector .piece-inspector{margin:8px 0 0;padding:8px;border:none;background:transparent}
+.workbench-inspector .piece-inspector h2{font-size:16px}.workbench-inspector .piece-inspector p{font-size:12px}
+@media(max-width:850px){.workbench-inspector{top:148px;right:18px;max-height:65vh}}
 </style>
 </head>
 <body>
@@ -291,13 +303,14 @@ function structure(){
 const p=phases.find(x=>x.id===activePhase)||phases[0];
 const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
+const inspectOpen=selected!==activePhase&&selected;
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
 '<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
 (staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<div class="workbench-piece-card"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
 '</div>'+
-(selected!==activePhase&&selected?placementInspector():"")+
+(inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza" title="Cerrar inspector">×</button></div>'+placementInspector()+'</aside>':"")+
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
 }
 function rightPanel(){
@@ -366,7 +379,7 @@ function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
 const shortNames={F1:"Identidad",F2:"Normas",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status)+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span></button>').join("")+'</nav>'+
+app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status+" · "+Object.values(placements).filter(v=>v===p.id).length+" piezas en borrador")+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span>'+(Object.values(placements).some(v=>v===p.id)?'<em class="phase-draft-count" aria-label="'+Object.values(placements).filter(v=>v===p.id).length+' piezas en borrador">'+Object.values(placements).filter(v=>v===p.id).length+'</em>':"")+'</button>').join("")+'</nav>'+
 '<div class="commandbar" role="toolbar" aria-label="Estado y navegación de ARKI"><div class="command-stats">'+
 '<div class="command-stat" title="Fases registradas"><b>'+phases.length+'</b><span>Fases registradas</span></div>'+
 '<div class="command-stat" title="Congeladas en alcance registrado"><b>'+frozen+'</b><span>Congeladas</span></div>'+
@@ -380,6 +393,7 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
+app.querySelectorAll("[data-close-inspector]").forEach(el=>el.addEventListener("click",()=>{selected=activePhase;render();}));
 app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
 app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)||Object.prototype.hasOwnProperty.call(placements,id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
