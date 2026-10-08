@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "Canonical roadmap phases, frozen records, and verification status remain unchanged",
+      "integration_boundary": "No canonical status changes, no automatic promotion of hypotheses, no mutation of roadmap milestones",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1741,7 +1741,13 @@
         "sources": "New ideas/frozen/phase status continue to refresh only from local launcher-generated snapshot; proposals recomputed from embedded current inventory at each render; never auto-promoted",
         "authority": "No canonical roadmap or FROZEN mutation"
       },
-      "tests": "PASS static JS syntax, live mocked registry/state rendering, review panel, per-piece F1->F2 hito edit, undo/redo, semantic proposals I-01 F1, I-06 F3, I-13 F2, I-14 F7",
+      "tests": {
+        "static_js_syntax": "PASS",
+        "simulated_phase_navigation": "PASS F1..F10, 4 gates each",
+        "simulated_map": "PASS internal declared arrows and cross-phase link",
+        "simulated_roadmap": "PASS 10 phase cards, 40 milestone cells, jump to F6 Hito 3",
+        "browser_windows_e3": "NOT_EXECUTED"
+      },
       "automatic_classification": {
         "new_local_ideas": "New local ideas auto placed in draft with phase classification and spine hito; confidence and reason retained, editable; no canonical promotion",
         "new_source_items": "On later launcher source refreshes, newly detected registry ideas/components auto placed if a valid phase exists; first-ever inventory not mass moved; out-of-scope UNASSIGNED not forced",
@@ -1872,6 +1878,19 @@
         "external_live_execution": "NOT_EXECUTED",
         "unit_tests": "WRITTEN_NOT_EXECUTED",
         "browser_e3": "NOT_EXECUTED"
+      },
+      "vertebral_evidence_gates": {
+        "scope": "Four computed draft diagnostic gates for each of ten phases; counts activity placements, locally declared complete reviews, missing evidence, unresolved dependency destinations and cross-phase declarations",
+        "authority": "Never a canonical milestone verdict, PASS, CI result, or critical path"
+      },
+      "vertebral_dependency_map": {
+        "scope": "Optional SVG map of up to five placed activities per stage, with dashed declared dependency arrows, cross-phase list and missing target warnings",
+        "edge_source": "Only reviews[].dependencies explicitly declared by user; stage order never generates verified edges",
+        "accessibility": "SVG piece nodes keyboard focusable; Enter/Space opens phase inspector"
+      },
+      "roadmap_milestone_matrix": {
+        "scope": "10x4 navigable matrix from proposed SPINE_STAGES, counts draft activities and local review declarations, with direct phase/stage drill-down",
+        "authority": "Official statuses read only from roadmap.phases; frozen contracts not modified"
       }
     },
     "assembly": {
