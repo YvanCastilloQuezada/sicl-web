@@ -116,6 +116,15 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .workbench-inspector .piece-inspector{margin:8px 0 0;padding:8px;border:none;background:transparent}
 .workbench-inspector .piece-inspector h2{font-size:16px}.workbench-inspector .piece-inspector p{font-size:12px}
 @media(max-width:850px){.workbench-inspector{top:148px;right:18px;max-height:65vh}}
+
+/* Free layout: the whole workbench stays the drop target; only the grip moves a card. */
+.workbench-pieces{position:relative;display:block;width:100%;min-height:430px}
+.workbench-piece-card{position:absolute;width:190px;min-height:130px;touch-action:auto}
+.workbench-piece-card .workbench-piece{min-height:130px;padding-bottom:34px}
+.piece-drag-handle{position:absolute;bottom:7px;right:7px;width:29px;height:26px;display:flex;align-items:center;justify-content:center;border:1px solid #95c8e3;border-radius:6px;background:#20415d;color:#f0faff;font-size:21px;cursor:grab;touch-action:none;user-select:none}
+.piece-drag-handle:hover{background:#386d8d}.piece-moving{z-index:10;filter:drop-shadow(0 7px 10px rgba(0,0,0,.55))}
+.piece-moving .piece-drag-handle{cursor:grabbing}
+.draft-controls button:disabled{opacity:.35;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -157,7 +166,22 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
-let placements={},reviews={},observations={},draftNotice="",storageAvailable=true;
+let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true;
+const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
+function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions))};}
+function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
+function restore(snapshotValue){placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));saveDraft();}
+function travelHistory(direction){const from=direction==="undo"?undoStack:redoStack,to=direction==="undo"?redoStack:undoStack;if(!from.length)return;to.push(snapshot());restore(from.pop());selected=activePhase;draftNotice=direction==="undo"?"Último cambio de la maqueta deshecho.":"Cambio de la maqueta rehecho.";render();}
+function validatePositions(raw,validPlacements){
+if(raw===undefined)return {};
+if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Posiciones inválidas");
+const clean={};
+for(const [id,p] of Object.entries(raw)){
+if(!Object.prototype.hasOwnProperty.call(validPlacements,id)||!p||typeof p!=="object"||Array.isArray(p)||!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.x<0||p.x>1||p.y<0||p.y>1)throw Error("Posición de pieza inválida: "+id);
+clean[id]={x:p.x,y:p.y};
+}
+return clean;
+}
 function validateDraft(raw){
 if(!raw||raw.schema!==DRAFT_SCHEMA||!raw.placements||typeof raw.placements!=="object"||Array.isArray(raw.placements))throw Error("Formato de borrador inválido");
 const cleaned={};
@@ -187,23 +211,23 @@ stack.add(id);for(const dep of clean[id]?.dependencies||[])visit(dep,stack,done)
 const done=new Set();for(const id of Object.keys(clean))visit(id,new Set(),done);
 return clean;
 }
-try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);reviews=validateReviews(data.reviews);}}
+try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);}}
 catch(e){storageAvailable=false;draftNotice="Almacenamiento local no disponible o borrador inválido. Exporta tu trabajo para conservarlo.";}
 function saveDraft(){
-try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,reviews}));storageAvailable=true;}
+try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews}));storageAvailable=true;}
 catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo.";}
 }
-function stagePiece(id,phase){
+function stagePiece(id,phase,position){
 if(!movable.has(id)||!validPhases.has(phase)){draftNotice="Pieza o fase no válida. No se realizó ningún cambio.";return;}
 if(Object.prototype.hasOwnProperty.call(placements,id)){draftNotice="La pieza "+id+" ya está en la mesa "+placements[id]+". Retírala con X antes de volver a colocarla.";return;}
-placements[id]=phase;draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
+remember();placements[id]=phase;if(position)positions[id]={x:Math.max(0,Math.min(1,position.x)),y:Math.max(0,Math.min(1,position.y))};draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
 }
 function unstagePiece(id){
 if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return;
-delete placements[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
+remember();delete placements[id];delete positions[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,reviews,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -211,7 +235,7 @@ function importDraft(file){
 if(!file)return;
 if(file.size>200000){draftNotice="Archivo demasiado grande.";render();return;}
 const reader=new FileReader();
-reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextReviews=validateReviews(raw.reviews);placements=next;reviews=nextReviews;observations={};saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
+reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews);remember();placements=next;positions=nextPositions;reviews=nextReviews;observations={};saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
 reader.onerror=()=>{draftNotice="No se pudo leer el archivo.";render();};
 reader.readAsText(file,"UTF-8");
 }
@@ -268,7 +292,7 @@ return '<div class="field"><label>Observación externa importada (NO ATESTADA)</
 '<p class="hint">El navegador no certifica la autenticidad del archivo importado. CI exitoso en el SHA no demuestra ejecución de la prueba declarada. No modifica el estado canónico.</p>';
 }
 function draftControls(){
-return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
+return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-undo '+(undoStack.length?"":"disabled")+' title="Deshacer último movimiento o colocación">↶ Deshacer</button><button class="tab" data-redo '+(redoStack.length?"":"disabled")+' title="Rehacer cambio deshecho">↷ Rehacer</button><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
 (draftNotice?'<p class="hint" role="status">'+escapeHtml(draftNotice)+'</p>':"")+
 (!storageAvailable?'<p class="hint">La persistencia automática no está garantizada en este navegador; usa Exportar JSON.</p>':"");
 }
@@ -308,7 +332,7 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
 '<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
-(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<div class="workbench-piece-card"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
+(staged.length?'<div class="workbench-pieces" id="piece-canvas">'+staged.map(x=>'<div class="workbench-piece-card" data-position-piece="'+escapeHtml(x.id)+'"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="piece-drag-handle" data-move-piece="'+escapeHtml(x.id)+'" aria-label="Mover '+escapeHtml(x.id)+' dentro de la mesa" title="Arrastrar para mover la pieza">⠿</button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
 '</div>'+
 (inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza" title="Cerrar inspector">×</button></div>'+placementInspector()+'</aside>':"")+
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
@@ -375,6 +399,25 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE TRABAJO ·
 '<div class="assembly-section"><h3>Piezas disponibles · '+visible.length+'</h3><div class="stack">'+visible.map(p=>'<button class="item" '+(movable.has(p.id)?'draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" ':'')+'data-inspect="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.status||"UNKNOWN")+(p.targetPhase?" · destino propuesto "+escapeHtml(p.targetPhase):"")+'</small></button>').join("")+(visible.length?"":'<div class="empty">No hay coincidencias para esta búsqueda.</div>')+'</div></div>'+
 '<div class="caption">Seleccionar una pieza permite inspeccionarla. No ejecuta incorporación ni altera evidencia.</div>';
 }
+
+function layoutCanvas(){
+const canvas=app.querySelector("#piece-canvas");
+if(!canvas||typeof canvas.querySelectorAll!=="function")return;
+const cards=Array.from(canvas.querySelectorAll("[data-position-piece]"));
+const cardWidth=190,cardHeight=142,gap=13;
+const cols=Math.max(1,Math.floor(Math.max(1,canvas.clientWidth-20)/(cardWidth+gap)));
+const rows=Math.ceil(cards.length/cols);
+canvas.style.minHeight=Math.max(430,rows*(cardHeight+gap)+24)+"px";
+cards.forEach((card,i)=>{
+const id=card.dataset.positionPiece;
+const defaultX=(i%cols)*(cardWidth+gap);
+const defaultY=Math.floor(i/cols)*(cardHeight+gap);
+const maxX=Math.max(0,canvas.clientWidth-cardWidth),maxY=Math.max(0,canvas.clientHeight-cardHeight);
+const p=positions[id];
+card.style.left=Math.round(p?p.x*maxX:Math.min(defaultX,maxX))+"px";
+card.style.top=Math.round(p?p.y*maxY:Math.min(defaultY,maxY))+"px";
+});
+}
 function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
@@ -393,6 +436,8 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
+app.querySelectorAll("[data-undo]").forEach(el=>el.addEventListener("click",()=>travelHistory("undo")));
+app.querySelectorAll("[data-redo]").forEach(el=>el.addEventListener("click",()=>travelHistory("redo")));
 app.querySelectorAll("[data-close-inspector]").forEach(el=>el.addEventListener("click",()=>{selected=activePhase;render();}));
 app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
@@ -414,6 +459,37 @@ app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
 app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+layoutCanvas();
+app.querySelectorAll("[data-move-piece]").forEach(el=>{
+let origin=null,card=null,canvas=null;
+el.addEventListener("pointerdown",e=>{
+if(e.button!==0)return;
+canvas=app.querySelector("#piece-canvas");card=el.closest(".workbench-piece-card");
+if(!canvas||!card)return;
+e.preventDefault();origin={x:e.clientX,y:e.clientY,left:card.offsetLeft,top:card.offsetTop,moved:false};
+el.setPointerCapture(e.pointerId);card.classList.add("piece-moving");
+});
+el.addEventListener("pointermove",e=>{
+if(!origin||!card||!canvas)return;
+const dx=e.clientX-origin.x,dy=e.clientY-origin.y;
+if(Math.abs(dx)+Math.abs(dy)>3)origin.moved=true;
+if(!origin.moved)return;
+const maxX=Math.max(0,canvas.clientWidth-card.offsetWidth),maxY=Math.max(0,canvas.clientHeight-card.offsetHeight);
+card.style.left=Math.max(0,Math.min(maxX,origin.left+dx))+"px";
+card.style.top=Math.max(0,Math.min(maxY,origin.top+dy))+"px";
+});
+const finish=e=>{
+if(!origin||!card||!canvas)return;
+card.classList.remove("piece-moving");
+if(origin.moved){
+const maxX=Math.max(1,canvas.clientWidth-card.offsetWidth),maxY=Math.max(1,canvas.clientHeight-card.offsetHeight);
+const p={x:Math.max(0,Math.min(1,card.offsetLeft/maxX)),y:Math.max(0,Math.min(1,card.offsetTop/maxY))};
+const id=el.dataset.movePiece;remember();positions[id]=p;saveDraft();draftNotice="Posición de "+id+" guardada en la mesa de "+activePhase+" (borrador).";
+}
+origin=null;
+};
+el.addEventListener("pointerup",finish);el.addEventListener("pointercancel",finish);
+});
 app.querySelector("#search").addEventListener("input",e=>{const pos=e.target.selectionStart;search=e.target.value;render();const inp=app.querySelector("#search");inp.focus();inp.setSelectionRange(pos,pos);});
 }
 render();
