@@ -219,7 +219,10 @@ catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador.
 }
 function stagePiece(id,phase,position){
 if(!movable.has(id)||!validPhases.has(phase)){draftNotice="Pieza o fase no válida. No se realizó ningún cambio.";return;}
-if(Object.prototype.hasOwnProperty.call(placements,id)){draftNotice="La pieza "+id+" ya está en la mesa "+placements[id]+". Retírala con X antes de volver a colocarla.";return;}
+if(Object.prototype.hasOwnProperty.call(placements,id)){
+if(placements[id]===phase){draftNotice="La pieza "+id+" ya está ubicada en "+phase+".";return;}
+remember();const from=placements[id];placements[id]=phase;delete positions[id];draftNotice="Pieza "+id+" movida de "+from+" a "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();return;
+}
 remember();placements[id]=phase;if(position)positions[id]={x:Math.max(0,Math.min(1,position.x)),y:Math.max(0,Math.min(1,position.y))};draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
 }
 function unstagePiece(id){
@@ -302,7 +305,7 @@ if(!canPlace)return '<div class="piece-inspector"><h3>Ficha de pieza</h3>'+detai
 return '<div class="piece-inspector"><h3>Pieza para ensamblar</h3>'+detail()+
 '<div class="field"><label>Fase propuesta en inventario histórico</label><strong>'+escapeHtml(p.targetPhase||"SIN ASIGNAR")+'</strong></div>'+
 '<div class="field"><label>Ubicación en tu mesa (no integrada)</label><strong>'+escapeHtml(current||"SIN UBICAR")+'</strong></div>'+
-'<div class="placement-action"><label for="placement-phase">Colocar provisionalmente en</label><select id="placement-phase" aria-label="Fase de destino">'+phases.map(x=>'<option value="'+escapeHtml(x.id)+'" '+((current||activePhase)===x.id?"selected":"")+'>'+escapeHtml(x.id+" · "+x.name)+'</option>').join("")+'</select><button class="action-primary" data-stage="'+escapeHtml(selected)+'">Ubicar pieza</button>'+
+'<div class="placement-action"><label for="placement-phase">Colocar provisionalmente en</label><select id="placement-phase" aria-label="Fase de destino">'+phases.map(x=>'<option value="'+escapeHtml(x.id)+'" '+((current||activePhase)===x.id?"selected":"")+'>'+escapeHtml(x.id+" · "+x.name)+'</option>').join("")+'</select><button class="action-primary" data-stage="'+escapeHtml(selected)+'">'+(current?"Mover de fase":"Ubicar pieza")+'</button>'+
 (current?'<button class="tab" data-unstage="'+escapeHtml(selected)+'">Quitar ubicación</button>':"")+'</div>'+
 '<p class="hint">Ubicar una pieza solo organiza un BORRADOR visual. No cambia su estado de implementación, no crea integración y no elimina deudas.</p>'+reviewInspector(selected)+'</div>';
 }
@@ -449,7 +452,7 @@ dropZone.addEventListener("dragover",e=>{if(e.dataTransfer&&Array.from(e.dataTra
 dropZone.addEventListener("dragleave",e=>{if(!dropZone.contains(e.relatedTarget))dropZone.classList.remove("drag-over");});
 dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");const id=e.dataTransfer.getData("text/plain");if(movable.has(id)&&!Object.prototype.hasOwnProperty.call(placements,id)){stagePiece(id,activePhase);selected=id;render();}});
 }
-app.querySelectorAll("[data-stage]").forEach(el=>el.addEventListener("click",()=>{const picker=app.querySelector("#placement-phase");stagePiece(el.dataset.stage,picker?picker.value:activePhase);render();}));
+app.querySelectorAll("[data-stage]").forEach(el=>el.addEventListener("click",()=>{const picker=app.querySelector("#placement-phase");const target=picker?picker.value:activePhase;stagePiece(el.dataset.stage,target);activePhase=target;render();}));
 app.querySelectorAll("[data-unstage]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.unstage;unstagePiece(id);selected=activePhase;if(ideas.some(x=>x.id===id))tray="ideas";else if(components.some(x=>x.id===id))tray="components";tab="structure";render();}));
 app.querySelectorAll("[data-review]").forEach(el=>el.addEventListener("click",()=>{
 const get=id=>app.querySelector(id)?.value||"";
