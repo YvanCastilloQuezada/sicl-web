@@ -69,9 +69,10 @@
     "active": [
       "OECE ACS→ARKI physical fragment handoff PASS/E3 (bounded specimen; no new OCR)",
       "Preserve PARTIAL source claim, NOT_DEMONSTRATED technical dossier, D-2/AGK authority boundaries",
-      "S10 real specimen resume only when input becomes available"
+      "S10 real specimen resume only when input becomes available",
+      "Real Revit 2026 RVT specimen characterized at file/container metadata level; BIM semantic extraction pending"
     ],
-    "last_completed": "F7 OECE source readiness guard PASS/E3 on exact HEAD 083ecdb: TS PASS, 11/11 tests PASS, physical E2E PASS; EVIDENCE_ONLY_BLOCKED correctly enforced, baseline 22 sources/148 claims, no canonical mutation.",
+    "last_completed": "F7 OECE source readiness gate PASS/E3; new real RVT specimen received and bounded metadata/hash inspection performed; no BIM semantic extraction claimed.",
     "next_exact_action": "Close the bounded F7 OECE admission correction. Resume broader ARKI F7/F8 integration using existing Master Map, prioritizing a new executable boundary only when it has a concrete gap; S10 real specimen remains resume-on-input. No repeat of the verified OECE tests.",
     "blockers": [
       "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
@@ -1445,6 +1446,31 @@
         "worktree_exception": "untracked p9.obj (untouched)",
         "verification_note": "Observed on local PowerShell at exact HEAD; no general F7/F8 full product freeze claimed."
       }
+    },
+    "revit_real_specimen": {
+      "status": "PHYSICAL_FILE_PRESENT_CONTAINER_METADATA_OBSERVED",
+      "filename": "AGROPECUARIO MODELO WIP 05.rvt",
+      "bytes": 246304768,
+      "sha256": "933c71e0424d3f5dd68d74709591613c7fd9e61eaec98d4a95f36051ebb6f81e",
+      "file_container": "OLE_COMPOUND_FILE_V4",
+      "metadata_version_observed": "2026",
+      "metadata_build_observed": "20250519_1515(x64)",
+      "ole_streams_observed": [
+        "BasicFileInfo",
+        "ProjectInformation",
+        "Partitions",
+        "ElemTable",
+        "ContentDocuments",
+        "RevitPreview4.0"
+      ],
+      "epistemic_boundary": [
+        "Revit version string observed in container metadata; Revit application compatibility not yet executed",
+        "Native BIM semantic element extraction NOT_DEMONSTRATED",
+        "Native geometry extraction NOT_DEMONSTRATED",
+        "No project data or user file uploaded to GitHub",
+        "Do not conflate RVT BIM specimen with S10 .S2K budget database specimen"
+      ],
+      "next_gate": "Bounded non-mutating characterization of RVT metadata and possible Revit-hosted export/adapter path; no proprietary native parser claim."
     }
   }
 }
