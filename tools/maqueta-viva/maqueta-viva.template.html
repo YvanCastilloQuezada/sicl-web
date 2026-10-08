@@ -533,6 +533,27 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .spine-drag-grip{border:1px solid #92c9e4;border-radius:6px;padding:5px 8px;background:#194f70;color:#ecfaff;font-size:11px;cursor:grab;white-space:nowrap;user-select:none}
 .spine-drag-grip:hover,.spine-drag-grip:focus-visible{background:#286f92;border-color:#ffdb80}
 .spine-drag-grip:active{cursor:grabbing}
+
+/* Advisory-only review: warnings are draft diagnostics, never CI verdicts. */
+.spine-advisor,.twin-readiness{margin:14px 0;border:1px solid #6c9bb8;border-radius:10px;padding:14px;background:#133651}
+.spine-advisor-head{display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.spine-advisor h3,.twin-readiness h3{margin:0 0 6px;color:#f2f9ff}
+.spine-advisor-head>span{border:1px solid #dbb75d;color:#ffe3a0;padding:6px 9px;border-radius:7px;font-size:11px}
+.spine-advisor-metrics{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.spine-advisor-metrics span{border:1px solid #537d9b;background:#0e2d48;border-radius:6px;padding:6px 9px;font-size:11px}
+.spine-advisor-metrics b{font-size:15px;margin-right:3px}
+.spine-advisor-details summary,.twin-readiness summary{cursor:pointer;color:#f0faff;font-weight:700;padding:9px 0}
+.spine-advisor-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-top:1px solid #52738b}
+.spine-advisor-row>div{min-width:0}.spine-advisor-row strong{font-size:12px;color:#f2f8ff}
+.spine-advisor-row p{font-size:11px;line-height:1.6;color:#d3e5f3;margin:4px 0}
+.spine-advisor-row button{flex:0 0 auto;font-size:11px}
+.spine-advisor h4{margin:12px 0 7px}
+.twin-readiness-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin:12px 0 18px}
+.twin-readiness-step{display:flex;flex-direction:column;gap:8px;padding:11px;background:#10314b;border:1px solid #567e99;border-radius:8px}
+.twin-readiness-step strong{font-size:12px;color:#f5fbff}.twin-readiness-step span{font-size:11px;color:#cde3f2;line-height:1.5}
+.twin-readiness-step small{font-size:10px;color:#ffd18b;margin-top:auto}
+.twin-blocker{padding:7px 9px;border-bottom:1px solid #496e89;font-size:11px;overflow-wrap:anywhere}
+@media(max-width:650px){.spine-advisor-row{align-items:start;flex-direction:column}.spine-advisor-row button{width:100%}}
 </style>
 </head>
 <body>
@@ -1478,6 +1499,77 @@ paths+cards+'</svg></div>':'<p class="hint">No hay espinas vinculadas a hitos pa
 (unresolved.length?'<div class="spine-map-external spine-map-alert"><strong>Dependencias sin pieza ubicada</strong>'+unresolved.map(e=>'<div>'+escapeHtml(e.from+" necesita "+e.to)+" · DESTINO NO UBICADO</div>").join("")+'</div>':"")+
 '<p class="caption">Visualización de hipótesis locales, no relaciones técnicas verificadas ni ruta crítica calculada. Referencia y Alternativa comparten dependencias declaradas; difieren en asignaciones de hitos.</p></details>';
 }
+
+/* Advisory-only analysis. A textual similarity is NOT a dependency, and stage order
+   is not a calculated critical path. No mutations occur during diagnostics. */
+function normalizedTerms(value){
+const stop=new Set(["para","como","sobre","entre","desde","hasta","esta","este","estas","estos","arki","fase","hito","sistema","sistemas","modelo","modelos","capacidad","capacidades","proyecto","proyectos","local","digital","con","del","las","los","una","uno","por","que","sin","sus","and","the"]);
+return new Set(String(value||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"").match(/[a-z0-9]{4,}/g)?.filter(w=>!stop.has(w))||[]);
+}
+function advisoryCandidates(phase){
+const staged=[...ideas,...components].filter(x=>placements[x.id]===phase);
+const map=currentSpine(),all=[...ideas,...components],suggestions=[],missing=[];
+for(const p of staged){
+const current=map[p.id],guess=suggestStage(p,phase),deps=reviews[p.id]?.dependencies||[];
+if(current===undefined){
+missing.push({kind:"SIN_HITO",piece:p,reason:guess?"El título coincide con "+(SPINE_STAGES[phase]?.[Number(guess.index)]||"hito")+" ("+guess.reason+").":"No hay vocabulario suficiente para inferir un hito. Se requiere clasificación humana.",stage:guess?.index??""});
+}else if(guess&&current!==guess.index){
+suggestions.push({kind:"CAMBIO_DE_HITO",piece:p,stage:guess.index,reason:"Actualmente Hito "+(Number(current)+1)+", candidato Hito "+(Number(guess.index)+1)+". Coincidencia textual: "+guess.reason+". No implica error del hito actual.",score:3});
+}
+for(const d of deps){
+if(!placements[d])missing.push({kind:"DEPENDENCIA_NO_UBICADA",piece:p,reason:p.id+" necesita "+d+"; la pieza requerida no está ubicada.",target:d});
+else if(placements[d]===phase&&map[p.id]!==undefined&&map[d]!==undefined&&Number(map[p.id])<Number(map[d]))
+missing.push({kind:"SECUENCIA_INVERTIDA",piece:p,reason:p.id+" necesita "+d+" del Hito "+(Number(map[d])+1)+", posterior a su Hito "+(Number(map[p.id])+1)+". Revisar la secuencia propuesta.",target:d});
+}
+if(!reviewGate(p.id).hasEvidence)missing.push({kind:"EVIDENCIA_NO_DECLARADA",piece:p,reason:"No hay ficha completa de repositorio, archivo, SHA y prueba. No equivale a fallo de ejecución."});
+}
+const existing=new Set(staged.flatMap(x=>(reviews[x.id]?.dependencies||[]).map(d=>x.id+"|"+d)));
+const pairCandidates=[];
+for(let i=0;i<staged.length;i++)for(let j=i+1;j<staged.length;j++){
+const a=staged[i],b=staged[j],aStage=map[a.id],bStage=map[b.id];
+if(aStage===undefined||bStage===undefined)continue;
+const at=normalizedTerms(a.name),bt=normalizedTerms(b.name);
+const overlap=[...at].filter(t=>bt.has(t));
+if(overlap.length<2)continue;
+const ordered=Number(aStage)>=Number(bStage)?{from:a,to:b}:{from:b,to:a};
+if(aStage===bStage)continue;
+if(existing.has(ordered.from.id+"|"+ordered.to.id)||existing.has(ordered.to.id+"|"+ordered.from.id))continue;
+pairCandidates.push({kind:"DEPENDENCIA_CANDIDATA",from:ordered.from,to:ordered.to,reason:"Coinciden los términos «"+overlap.slice(0,3).join(", ")+"» y los hitos son distintos. Se propone REVISAR si existe dependencia; la similitud NO la demuestra.",score:overlap.length});
+}
+pairCandidates.sort((a,b)=>b.score-a.score||a.from.id.localeCompare(b.from.id));
+return {staged,missing,suggestions,pairCandidates:pairCandidates.slice(0,8),map};
+}
+function advisorySpinePanel(phase){
+const r=advisoryCandidates(phase),unlinked=r.missing.filter(x=>x.kind==="SIN_HITO"),unresolved=r.missing.filter(x=>x.kind==="DEPENDENCIA_NO_UBICADA"),inverse=r.missing.filter(x=>x.kind==="SECUENCIA_INVERTIDA");
+return '<section class="spine-advisor" aria-label="Evaluador de espinas y relaciones propuestas">'+
+'<div class="spine-advisor-head"><div><h3>ARKI · Evaluador de espinas</h3><p class="hint">Diagnóstico recalculado al abrir la fase. No crea conexiones ni cambia ubicaciones automáticamente.</p></div><span>HIPÓTESIS · '+escapeHtml(spineScenario==="base"?"Referencia":"Alternativa A")+'</span></div>'+
+'<div class="spine-advisor-metrics"><span><b>'+r.staged.length+'</b> actividades</span><span><b>'+unlinked.length+'</b> sin hito</span><span><b>'+unresolved.length+'</b> dependencias no ubicadas</span><span><b>'+inverse.length+'</b> secuencias a revisar</span><span><b>'+r.pairCandidates.length+'</b> relaciones candidatas</span></div>'+
+'<details class="spine-advisor-details" '+(r.staged.length?"":"open")+'><summary>Revisar diagnóstico y mejoras propuestas · '+(r.missing.length+r.suggestions.length+r.pairCandidates.length)+' observaciones</summary>'+
+'<p class="hint">Los avisos distinguen hechos del BORRADOR (piezas sin hito, relaciones declaradas sin destino) de INFERENCIAS (hitos o conexiones candidatas). Ninguna sugerencia es evidencia de integración.</p>'+
+r.missing.slice(0,14).map(x=>'<div class="spine-advisor-row"><div><strong>'+escapeHtml(x.kind.replace(/_/g," "))+' · '+escapeHtml(x.piece.id)+'</strong><p>'+escapeHtml(x.reason)+'</p></div>'+(x.kind==="SIN_HITO"&&x.stage!==""?'<button class="tab" type="button" data-advisor-stage="'+escapeHtml(x.piece.id)+'" data-advisor-target="'+escapeHtml(x.stage)+'">Vincular Hito '+(Number(x.stage)+1)+'</button>':'<button class="tab" type="button" data-advisor-review="'+escapeHtml(x.piece.id)+'">Inspeccionar</button>')+'</div>').join("")+
+r.suggestions.slice(0,10).map(x=>'<div class="spine-advisor-row"><div><strong>CAMBIO DE HITO · '+escapeHtml(x.piece.id)+'</strong><p>'+escapeHtml(x.reason)+'</p></div><button class="tab" type="button" data-advisor-stage="'+escapeHtml(x.piece.id)+'" data-advisor-target="'+escapeHtml(x.stage)+'">Mover al Hito '+(Number(x.stage)+1)+'</button></div>').join("")+
+(r.pairCandidates.length?'<h4>Posibles relaciones faltantes (NO declaradas)</h4>'+r.pairCandidates.map(x=>'<div class="spine-advisor-row"><div><strong>'+escapeHtml(x.from.id)+' podría necesitar '+escapeHtml(x.to.id)+'</strong><p>'+escapeHtml(x.reason)+'</p></div><button class="tab" type="button" data-advisor-connect="'+escapeHtml(x.from.id)+'" data-advisor-dependency="'+escapeHtml(x.to.id)+'">Declarar conexión</button></div>').join(""):'<p class="hint">No se detectaron pares con similitud textual suficiente. Eso NO demuestra que no existan relaciones faltantes.</p>')+
+'</details><p class="caption">Una relación sugerida solo pasa a ser una declaración local al pulsar «Declarar conexión»; el validador rechaza ciclos y duplicados. Nunca se convierte automáticamente en hecho verificado.</p></section>';
+}
+function twinReadinessPanel(){
+const steps=[
+["DATOS Y PROCEDENCIA","Fuentes identificadas, identidad de activos, versiones, tiempo y trazabilidad verificable"],
+["ESTADO OBSERVABLE","Modelo de estado con eventos reales, sincronización y conciliación contra fuente"],
+["SIMULACIÓN Y REPLAY","Reproducción histórica, escenarios contrastables, calibración y errores medidos"],
+["DECISIÓN Y OPERACIÓN","Recomendaciones auditables, aprobación humana, monitoreo y retorno de resultados"]
+];
+const stages=[["KNOW","Inventario, hashes, dependencias y procedencia"],["RUN","Pruebas aisladas y evidencia de ejecución"],["UNDERSTAND","Caracterización semántica de capacidades"],["EVOLVE","Comparación, regresiones y propuestas gobernadas"]];
+const blockers=Array.isArray(focus.blockers)?focus.blockers:[];
+return '<section class="twin-readiness" aria-label="Preparación del gemelo digital y cuatro etapas ACS">'+
+'<h3>Viabilidad del gemelo digital · puertas de evidencia</h3><p class="hint">Cuatro puertas de ingeniería PROPUESTAS para el gemelo, distintas de las diez fases oficiales. No se asignan porcentajes ni PASS sin pruebas específicas.</p>'+
+'<div class="twin-readiness-grid">'+steps.map(([name,criterion],i)=>'<div class="twin-readiness-step"><strong>'+(i+1)+'. '+escapeHtml(name)+'</strong><span>'+escapeHtml(criterion)+'</span><small>NO VERIFICADO EN ESTA MAQUETA</small></div>').join("")+'</div>'+
+'<p class="hint">F9 (obra) y F10 (operación) conservan sus estados oficiales. Para un gemelo viable faltan evidencias de adquisición temporal, estado observable, reproducción histórica y decisiones cerradas por autoridad; un diagrama conectado no sustituye esas pruebas.</p>'+
+'<h3>ACS · cuatro etapas del laboratorio</h3><p class="hint">KNOW → RUN → UNDERSTAND → EVOLVE es el ciclo de evaluación tecnológica ACS, no el progreso F1–F10. El estado canónico actual no proporciona un veredicto completo por cada etapa.</p>'+
+'<div class="twin-readiness-grid">'+stages.map(([name,criterion],i)=>'<div class="twin-readiness-step"><strong>'+(i+1)+'. '+name+'</strong><span>'+escapeHtml(criterion)+'</span><small>ESTADO POR ETAPA: NO DETERMINADO</small></div>').join("")+'</div>'+
+'<details><summary>Bloqueos técnicos registrados · '+blockers.length+'</summary>'+(blockers.length?blockers.map(b=>'<p class="twin-blocker">'+escapeHtml(b)+'</p>').join(""):'<p class="hint">No hay bloqueos enumerados en current_focus; esto no acredita preparación del gemelo.</p>')+'</details>'+
+'<p class="caption">El avance debe medirse mediante pruebas en SHA exacto, eventos reales, fuentes y evidencia reproducible. Esta vista no modifica la fuente canónica.</p></section>';
+}
+
 function spineWorkspace(p,staged){
 const milestones=SPINE_STAGES[p.id]||[];
 const assignedMap=currentSpine();
@@ -1493,7 +1585,7 @@ const previewByStage=Object.fromEntries(milestones.map((_,i)=>[String(i),suggest
 const visibleUnassigned=showAllUnassigned?unassigned:unassigned.slice(0,5);
 return '<div class="spine-scenario"><div><strong>Hoja de ruta de ensamblaje</strong><small>La ruta oficial es el roadmap canónico, no estas vinculaciones visuales.</small></div><button type="button" class="tab '+(spineScenario==="base"?"active":"")+'" data-spine-scenario="base" aria-pressed="'+(spineScenario==="base")+'">Referencia propuesta</button><button type="button" class="tab '+(spineScenario==="alternative"?"active":"")+'" data-spine-scenario="alternative" aria-pressed="'+(spineScenario==="alternative")+'">Alternativa A</button><button type="button" class="tab" data-spine-suggest '+(suggestions.length?"":"disabled")+' title="Vincular únicamente coincidencias textuales inequívocas como hipótesis">Aplicar '+suggestions.length+' sugerencias textuales</button></div>'+
 (spineScenario==="alternative"&&altCount===0&&baseCount>0?'<div class="spine-copy-help"><span>La alternativa está vacía. Puedes partir de la referencia y modificar sus espinas sin afectar la original.</span><button type="button" class="tab" data-spine-copy>Copiar referencia a Alternativa A</button></div>':"")+
-spineRouteComparison(p,staged)+traceabilityPanel(p.id)+routeRadar(p.id)+reviewQueuePanel(p.id)+
+spineRouteComparison(p,staged)+traceabilityPanel(p.id)+routeRadar(p.id)+advisorySpinePanel(p.id)+reviewQueuePanel(p.id)+
 '<div class="spine-progress-panel"><div class="spine-progress-main"><strong>'+attached.length+' de '+staged.length+' espinas vinculadas</strong><span>'+unassigned.length+' por ubicar · '+phaseLinks.length+' dependencias declaradas · '+(spineScenario==="base"?"Referencia propuesta":"Alternativa A")+'</span></div><div class="spine-progress-track" role="progressbar" aria-label="Cobertura de vinculación visual, no avance oficial" aria-valuemin="0" aria-valuemax="'+Math.max(1,staged.length)+'" aria-valuenow="'+attached.length+'"><span style="width:'+(staged.length?Math.round(attached.length/staged.length*100):0)+'%"></span></div><button type="button" class="tab" data-route-export>Exportar hoja .md</button></div>'+
 '<div class="location-review-toggle"><span>ARKI puede proponer fase e hito para cada pieza, con justificación y edición manual.</span><button type="button" class="tab" data-location-toggle aria-expanded="'+locationReviewOpen+'">'+(locationReviewOpen?"Ocultar propuestas":"Revisar ubicaciones sugeridas")+'</button></div>'+
 (locationReviewOpen?locationReviewPanel():"")+
@@ -1828,7 +1920,7 @@ return '<div class="roadmap-head"><div><div class="kicker">FUENTE CANÓNICA · L
 const count=counts[p.id]||0;
 return '<button type="button" class="roadmap-phase" data-roadmap-phase="'+escapeHtml(p.id)+'" title="Abrir mesa de '+escapeHtml(p.id)+'"><span class="roadmap-phase-top"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(p.name)+'</span></span><span class="roadmap-status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span><small>Estado de evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADO")+'</small><span class="roadmap-draft">'+count+' piezas ubicadas en borrador</span><span class="roadmap-open">Abrir fase →</span></button>';
 }).join("")+'</div>'+
-roadmapMilestoneMatrix()+roadmapRouteAudit()+
+roadmapMilestoneMatrix()+roadmapRouteAudit()+twinReadinessPanel()+
 '<div class="roadmap-foot"><h3>Pendientes registrados</h3><p class="hint">Fases por reconciliar: '+escapeHtml(phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>p.id).join(", ")||"Ninguna")+'.</p>'+
 '<p class="hint">Próxima acción registrada: '+escapeHtml(focus.next_exact_action||"No registrada")+'</p>'+
 '<p class="caption">No se calculan porcentajes de avance a partir de tarjetas. Los hitos se modifican únicamente mediante la fuente canónica y evidencia verificable.</p></div>';
@@ -1949,6 +2041,9 @@ app.querySelectorAll("[data-arki-reject]").forEach(el=>el.addEventListener("clic
 app.querySelectorAll("[data-arki-reset]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReset,"reset")));
 app.querySelectorAll("[data-optimize-review]").forEach(el=>el.addEventListener("click",()=>{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=el.dataset.optimizeReview;render();}));
 
+app.querySelectorAll("[data-advisor-stage]").forEach(el=>el.addEventListener("click",()=>assignSpine(el.dataset.advisorStage,el.dataset.advisorTarget)));
+app.querySelectorAll("[data-advisor-connect]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.advisorConnect,el.dataset.advisorDependency);render();}));
+app.querySelectorAll("[data-advisor-review]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.advisorReview;locationReviewOpen=true;render();}));
 app.querySelectorAll("[data-auto-link-from]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.autoLinkFrom,el.dataset.autoLinkTo);render();}));
 app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
 app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.placeSuggest,p=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);if(!p)return;activePhase=optimizedCandidates(p).best.phase;tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=id;draftNotice="ARKI propone ubicación para "+id+"; revísala y pulsa Aplicar si estás conforme.";render();}));
