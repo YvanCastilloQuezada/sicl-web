@@ -232,6 +232,7 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .local-idea-form label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:#cce4f5}
 .local-idea-form input,.local-idea-form select{min-width:0;width:100%;background:#0d243b;color:#fff;border:1px solid #6996b6;border-radius:6px;padding:7px}
 .local-idea-form button{align-self:flex-start}
+.backup-warning{padding:9px;margin:8px 0;background:#493518;border:1px solid #e0b66a;border-radius:7px;color:#fff0cf;font-size:12px}.backup-warning button{margin-left:7px}
 </style>
 </head>
 <body>
@@ -300,7 +301,7 @@ const next=[...localIdeas,{id:"LOCAL-"+nextId,title:name,targetPhase:phase}];
 try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));draftNotice="Idea LOCAL-"+nextId+" añadida a la bandeja como propuesta; no cambia el inventario canónico.";tray="ideas";render();}
 catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
 }
-let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base";
+let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base";
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
 function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
@@ -393,7 +394,25 @@ const done=new Set();for(const id of Object.keys(clean))visit(id,new Set(),done)
 return clean;
 }
 try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);spineAssignments=validateSpineAssignments(data.spineAssignments,placements);alternativeSpineAssignments=validateSpineAssignments(data.alternativeSpineAssignments,placements);}}
-catch(e){storageAvailable=false;draftNotice="Almacenamiento local no disponible o borrador inválido. Exporta tu trabajo para conservarlo.";}
+catch(e){
+try{
+const raw=localStorage.getItem(DRAFT_KEY);
+if(!raw)throw Error("Sin borrador recuperable");
+unreconciledDraftBackup=raw;
+localStorage.setItem(DRAFT_KEY+"-unreconciled-backup",raw);
+const old=JSON.parse(raw);
+if(old.schema!==DRAFT_SCHEMA||!old.placements||typeof old.placements!=="object")throw Error("Esquema incompatible");
+const valid={};for(const [id,phase] of Object.entries(old.placements))if(movable.has(id)&&validPhases.has(phase))valid[id]=phase;
+placements=valid;
+const pos=Object.fromEntries(Object.entries(old.positions||{}).filter(([id])=>Object.prototype.hasOwnProperty.call(valid,id)));
+try{positions=validatePositions(pos,valid);}catch(_){positions={};}
+const rev=Object.fromEntries(Object.entries(old.reviews||{}).filter(([id])=>movable.has(id)).map(([id,v])=>[id,{...v,dependencies:(Array.isArray(v.dependencies)?v.dependencies:[]).filter(d=>movable.has(d))}]));
+try{reviews=validateReviews(rev);}catch(_){reviews={};}
+try{spineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(old.spineAssignments||{}).filter(([id])=>valid[id])),valid);}catch(_){spineAssignments={};}
+try{alternativeSpineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(old.alternativeSpineAssignments||{}).filter(([id])=>valid[id])),valid);}catch(_){alternativeSpineAssignments={};}
+draftNotice="ATENCIÓN: el inventario cambió o el borrador contiene datos inválidos. Se conserva un respaldo íntegro para exportar; solo las piezas reconocidas se muestran provisionalmente. Revisa antes de continuar.";
+}catch(recoveryError){storageAvailable=false;draftNotice="No se pudo cargar el borrador. No se ha modificado el estado canónico: "+String(recoveryError.message);}
+}
 
 /* Offline source reconciliation. Sources are embedded anew by the PowerShell launcher.
    No network polling, no canonical mutation, and no automatic promotion. */
@@ -453,6 +472,11 @@ remember();placements[id]=phase;if(position)positions[id]={x:Math.max(0,Math.min
 function unstagePiece(id){
 if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return;
 remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
+}
+function exportUnreconciledBackup(){
+if(!unreconciledDraftBackup)return;
+const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(unreconciledDraftBackup);link.download="arki-maqueta-respaldo-sin-reconciliar.json";document.body.appendChild(link);link.click();link.remove();
+draftNotice="Respaldo original preparado para exportación; no se ha reconciliado automáticamente.";
 }
 function draftFile(){
 const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
@@ -543,6 +567,7 @@ const from=linkSource;linkSource="";addConnection(from,id);
 }
 function draftControls(){
 return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab link-mode-button '+(linkMode?"link-mode-active":"")+'" data-link-mode aria-pressed="'+linkMode+'">'+(linkMode?"Terminar conexiones":"🔗 Conectar piezas")+'</button><button class="tab" data-focus-mode aria-pressed="'+focusMode+'">'+(focusMode?"Mostrar bandeja":"Ampliar mesa")+'</button><button class="tab" data-reset-layout '+(Object.keys(positions).length?"":"disabled")+' title="Reorganizar automáticamente las piezas de esta fase">Ordenar piezas</button><button class="tab" data-undo '+(undoStack.length?"":"disabled")+' title="Deshacer último movimiento o colocación">↶ Deshacer</button><button class="tab" data-redo '+(redoStack.length?"":"disabled")+' title="Rehacer cambio deshecho">↷ Rehacer</button><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
+(unreconciledDraftBackup?'<div class="backup-warning"><strong>Respaldo anterior disponible.</strong> El inventario actual no reconoce todos los registros del borrador. <button type="button" class="tab" data-export-backup>Exportar respaldo original</button></div>':"")+
 (draftNotice?'<p class="hint" role="status">'+escapeHtml(draftNotice)+'</p>':"")+
 (!storageAvailable?'<p class="hint">La persistencia automática no está garantizada en este navegador; usa Exportar JSON.</p>':"");
 }
@@ -827,6 +852,7 @@ const get=id=>app.querySelector(id)?.value||"";
 recordReview(el.dataset.review,{repo:get("#review-repo"),file:get("#review-file"),sha:get("#review-sha"),test:get("#review-test"),dependencies:get("#review-deps")});render();
 }));
 app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()=>{draftFile();render();}));
+app.querySelectorAll("[data-export-backup]").forEach(el=>el.addEventListener("click",()=>{exportUnreconciledBackup();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
 app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
