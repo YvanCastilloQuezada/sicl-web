@@ -591,6 +591,9 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .executive-advanced summary{cursor:pointer}
 .executive-advanced p{font-size:12px}
 @media(max-width:760px){.executive-goals{grid-template-columns:1fr}.executive-head h2{font-size:20px}.executive-proposals{grid-template-columns:1fr}}
+.executive-source{margin:7px 0 12px;border:1px solid #426b86;border-radius:8px;background:#112d43;padding:5px 12px;color:#c8ddeb;font-size:11px}
+.executive-source>summary{cursor:pointer;padding:5px 0}
+.executive-source .source-sync{margin:8px 0}
 </style>
 </head>
 <body>
@@ -2104,8 +2107,8 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'">'+
 '<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button><button class="tab '+(tab==="research"?"active":"")+'" data-tab="research" aria-pressed="'+(tab==="research")+'">Research & Trends</button></nav>'+
 '</div>'+
-'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>'+
-sourceUpdateBanner()+
+(tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
+(tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
 '<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-technical-mode]").forEach(el=>el.addEventListener("click",()=>{technicalMode=el.dataset.technicalMode==="on";decisionShowAll=false;selected=activePhase;render();}));
@@ -2117,21 +2120,21 @@ const researchInput=app.querySelector("#research-import-file");if(researchInput)
 app.querySelectorAll("[data-arki-approve]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiApprove,"approve")));
 app.querySelectorAll("[data-arki-reject]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReject,"reject")));
 app.querySelectorAll("[data-arki-reset]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReset,"reset")));
-app.querySelectorAll("[data-optimize-review]").forEach(el=>el.addEventListener("click",()=>{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=el.dataset.optimizeReview;render();}));
+app.querySelectorAll("[data-optimize-review]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=el.dataset.optimizeReview;render();}));
 
 app.querySelectorAll("[data-advisor-stage]").forEach(el=>el.addEventListener("click",()=>assignSpine(el.dataset.advisorStage,el.dataset.advisorTarget)));
 app.querySelectorAll("[data-advisor-connect]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.advisorConnect,el.dataset.advisorDependency);render();}));
 app.querySelectorAll("[data-advisor-review]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.advisorReview;locationReviewOpen=true;render();}));
 app.querySelectorAll("[data-auto-link-from]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.autoLinkFrom,el.dataset.autoLinkTo);render();}));
 app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
-app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.placeSuggest,p=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);if(!p)return;activePhase=optimizedCandidates(p).best.phase;tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=id;draftNotice="ARKI propone ubicación para "+id+"; revísala y pulsa Aplicar si estás conforme.";render();}));
+app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const id=el.dataset.placeSuggest,p=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);if(!p)return;activePhase=optimizedCandidates(p).best.phase;tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=id;draftNotice="ARKI propone ubicación para "+id+"; revísala y pulsa Aplicar si estás conforme.";render();}));
 app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
 app.querySelectorAll("[data-source-history]").forEach(el=>el.addEventListener("click",()=>{sourceHistoryOpen=!sourceHistoryOpen;render();}));
 app.querySelectorAll("[data-e3-toggle]").forEach(el=>el.addEventListener("click",()=>{e3Open=!e3Open;render();}));
 app.querySelectorAll("[data-e3-run]").forEach(el=>el.addEventListener("click",()=>{e3Results=runE3Checks();render();}));
 app.querySelectorAll("[data-e3-manual]").forEach(el=>el.addEventListener("change",()=>{e3Manual[el.dataset.e3Manual]=el.checked;render();}));
 app.querySelectorAll("[data-e3-export]").forEach(el=>el.addEventListener("click",exportE3Report));
-app.querySelectorAll("[data-source-open]").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.sourceOpen==="roadmap"){tab="roadmap";}else{tray="frozen";tab="structure";}selected=activePhase;render();}));
+app.querySelectorAll("[data-source-open]").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.sourceOpen==="roadmap"){tab="roadmap";}else{tray="frozen";technicalMode=true;tab="structure";}selected=activePhase;render();}));
 app.querySelectorAll("[data-location-toggle]").forEach(el=>el.addEventListener("click",()=>{locationReviewOpen=!locationReviewOpen;render();}));
 app.querySelectorAll("[data-review-queue-expand]").forEach(el=>el.addEventListener("click",()=>{reviewQueueExpanded=!reviewQueueExpanded;render();}));
 app.querySelectorAll("[data-review-queue]").forEach(el=>el.addEventListener("click",()=>{
@@ -2203,7 +2206,7 @@ render();
 }));
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-scenario-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.scenarioPhase;selected=activePhase;tab="structure";spineView=true;render();}));
-app.querySelectorAll("[data-scenario-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scenarioJump;if(!placements[id])return;spineScenario=el.dataset.scenarioKind;activePhase=placements[id];selected=id;tab="structure";spineView=true;render();}));
+app.querySelectorAll("[data-scenario-jump]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const id=el.dataset.scenarioJump;if(!placements[id])return;spineScenario=el.dataset.scenarioKind;activePhase=placements[id];selected=id;tab="structure";spineView=true;render();}));
 app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
 app.querySelectorAll("[data-link-mode]").forEach(el=>el.addEventListener("click",()=>{linkMode=!linkMode;linkSource="";selected=activePhase;render();}));
 app.querySelectorAll("[data-connect-piece]").forEach(el=>el.addEventListener("click",()=>{if(!linkMode){linkMode=true;linkSource="";}chooseLinkPiece(el.dataset.connectPiece);selected=activePhase;render();}));
@@ -2220,14 +2223,14 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{technicalMode=false;decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
-app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
+app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-focus-mode]").forEach(el=>el.addEventListener("click",()=>{focusMode=!focusMode;selected=activePhase;render();}));
 app.querySelectorAll("[data-reset-layout]").forEach(el=>el.addEventListener("click",()=>{const ids=Object.keys(positions).filter(id=>placements[id]===activePhase);if(!ids.length)return;remember();ids.forEach(id=>delete positions[id]);saveDraft();draftNotice="Piezas de "+activePhase+" reorganizadas automáticamente en la mesa.";render();}));
 app.querySelectorAll("[data-undo]").forEach(el=>el.addEventListener("click",()=>travelHistory("undo")));
 app.querySelectorAll("[data-redo]").forEach(el=>el.addEventListener("click",()=>travelHistory("redo")));
 app.querySelectorAll("[data-close-inspector]").forEach(el=>el.addEventListener("click",()=>{selected=activePhase;render();}));
-app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
+app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
 app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)||Object.prototype.hasOwnProperty.call(placements,id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
 const dropZone=app.querySelector("#arki-workspace");
@@ -2247,7 +2250,7 @@ app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()
 app.querySelectorAll("[data-export-backup]").forEach(el=>el.addEventListener("click",()=>{exportUnreconciledBackup();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
-app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{technicalMode=true;selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
 layoutCanvas();
 app.querySelectorAll("[data-move-piece]").forEach(el=>{
 let origin=null,card=null,canvas=null;
