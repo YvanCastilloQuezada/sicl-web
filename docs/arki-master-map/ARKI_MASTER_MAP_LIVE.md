@@ -468,3 +468,12 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - CENTER shows only the selected phase's assembly package: historical scattered components, assigned ideas, frozen constituent records, current registered status, and click-to-inspect detail. Defaults to F1; right tray stays Pendientes / Ideas / Dispersas / FROZEN.
 - Clicking a mapped piece from the right tray opens its proposed target phase and detail in the center. No drag-and-drop, persisted assignment mutation, canonical incorporation or evidence promotion is claimed yet.
 - JS static syntax checked PASS; Windows/browser E3 still pending. Old 5x2/3x3/pyramid layouts are superseded by the phase rail, not the current central presentation.
+
+### Maqueta Viva — Local puzzle assembly V0.3 (2026-10-08)
+
+- Implemented local-only `BORRADOR` placement for the 24 historical ideas and 27 scattered historical capabilities. A user can select any F1–F10 phase, inspect a piece, choose its target phase, and click `Ubicar pieza`; desktop drag-and-drop from the left tray to the central blue workspace is also supported.
+- A staged piece appears in the selected phase's `Piezas ubicadas (BORRADOR)` section. It remains visible in the historical source tray and retains its original source status. No source is modified and no integration, freeze, or debt closure is asserted.
+- `Quitar ubicación` reverses a local proposal. Browser `localStorage` persists the draft when allowed; `Exportar JSON` and `Importar JSON` provide a portable backup with strict known-piece and known-phase validation. On some file:// browsers persistence is not guaranteed; export is advised.
+- FROZEN records remain read-only. Pending blockers remain visible; they are not automatically cleared by placement.
+- Validation: inline JavaScript syntax PASS; 14/14 isolated offline simulation checks PASS (initial UI, swapped rails, eight menus, valid/invalid stage, persistence, visibility, frozen protection, invalid import, removal, drag/drop and canonical non-promotion). Repeatable Node smoke suite committed at `tools/maqueta-viva/test-maqueta-viva.cjs` but not yet run in Node or on Windows. Browser E3 NOT EXECUTED.
+- This is **visual assembly planning**, not code integration or an authoritative change to ARKI Core.
