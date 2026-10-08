@@ -510,6 +510,19 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .spine-map-external{display:flex;flex-direction:column;gap:7px;margin:10px 0;padding:9px;border:1px solid #527e9b;border-radius:7px;font-size:11px;color:#d9edfa}
 .spine-map-external strong{color:#c8edff}.spine-map-external button{border:1px solid #648fae;background:#19425f;border-radius:5px;color:#e7f7ff;padding:3px 7px}
 .spine-map-alert{border-color:#b9825c;color:#ffdbbb}
+
+/* A source-protected 10x4 navigation matrix, never a completion heatmap. */
+.roadmap-milestones{border:1px solid #5e87a1;border-radius:10px;padding:12px;margin:17px 0;background:#12334c}
+.roadmap-milestones-head h3{margin:2px 0 6px;font-size:16px}
+.roadmap-milestone-table{overflow-x:auto}
+.roadmap-milestone-header,.roadmap-milestone-row{display:grid;grid-template-columns:135px repeat(4,minmax(170px,1fr));min-width:815px;gap:5px;margin-bottom:6px}
+.roadmap-milestone-header span{font-size:10px;font-weight:750;color:#add5ec;padding:4px 8px}
+.roadmap-milestone-label{display:flex;flex-direction:column;gap:4px;padding:10px 8px;border-left:4px solid #81c3e7;background:#1b425e;border-radius:6px}
+.roadmap-milestone-label strong{font-size:13px}.roadmap-milestone-label small{font-size:10px;color:#c3ddea;overflow-wrap:anywhere}
+.roadmap-milestone-cell{display:flex;flex-direction:column;gap:5px;text-align:left;padding:9px;background:#1c4865;color:#eaf7ff;border:1px solid #648ba6;border-radius:6px;min-height:82px}
+.roadmap-milestone-cell:hover,.roadmap-milestone-cell:focus-visible{outline:2px solid #b3e4ff;background:#255e7e}
+.roadmap-milestone-cell strong{font-size:11px;line-height:1.4}.roadmap-milestone-cell span,.roadmap-milestone-cell small{font-size:10px;color:#c5e0f0}
+.roadmap-milestone-cell .roadmap-milestone-alert{color:#ffbe9f}
 </style>
 </head>
 <body>
@@ -1748,6 +1761,25 @@ return '<tr><td><strong>'+escapeHtml(p.id)+'</strong><small>'+escapeHtml(p.name)
 issueRows(base,"Conflictos · Referencia")+issueRows(alt,"Conflictos · Alternativa A")+
 '<div class="scenario-criteria"><h3>Qué falta para afirmar una solución óptima</h3><p>Definir objetivos medibles (tiempo, coste, calidad y riesgo), restricciones normativas y técnicas, precedencias completas, duraciones, recursos, fuentes de evidencia y pruebas reproducibles. Hasta entonces, cualquier preferencia entre escenarios es provisional y revisable.</p><p class="caption">Se recalcula al cambiar el borrador local. No modifica el roadmap, no ejecuta optimización matemática ni certifica integraciones.</p></div></div>';
 }
+
+function roadmapMilestoneMatrix(){
+const phasesData=phases.map(p=>{
+const cards=[...ideas,...components].filter(x=>placements[x.id]===p.id);
+const stages=SPINE_STAGES[p.id]||[];
+const nodes=stages.map((name,i)=>{
+const assigned=cards.filter(x=>spineAssignments[x.id]===String(i));
+const declared=assigned.filter(x=>reviewGate(x.id).complete).length;
+const missing=assigned.flatMap(x=>(reviews[x.id]?.dependencies||[]).filter(id=>!placements[id]));
+return {name,i,count:assigned.length,declared,missing:missing.length};
+});
+return {p,nodes,unassigned:cards.filter(x=>spineAssignments[x.id]===undefined).length};
+});
+return '<section class="roadmap-milestones"><div class="roadmap-milestones-head"><h3>Matriz vertebral de las diez fases</h3><p class="hint">Pulsa cualquier hito para abrir sus espinas. Los números son actividades del BORRADOR de referencia; no son porcentajes, hitos oficiales ni pruebas aprobadas.</p></div>'+
+'<div class="roadmap-milestone-table"><div class="roadmap-milestone-header"><span>FASE</span><span>HITO 1</span><span>HITO 2</span><span>HITO 3</span><span>HITO 4</span></div>'+
+phasesData.map(({p,nodes,unassigned})=>'<div class="roadmap-milestone-row"><div class="roadmap-milestone-label"><strong>'+escapeHtml(p.id)+'</strong><small>'+escapeHtml(p.name)+'</small><small>'+unassigned+' espinas sin hito</small></div>'+
+nodes.map(n=>'<button type="button" class="roadmap-milestone-cell" data-roadmap-stage="'+escapeHtml(p.id)+':'+n.i+'" title="Abrir '+escapeHtml(p.id+' · Hito '+(n.i+1)+' · '+n.name)+'"><strong>'+escapeHtml(n.name)+'</strong><span>'+n.count+' actividades · '+n.declared+' fichas declaradas</span><small class="'+(n.missing?"roadmap-milestone-alert":"")+'">'+(n.missing?n.missing+' dependencias sin ubicar':n.count?'Pendiente de verificación':'Sin actividades')+'</small></button>').join("")+'</div>').join("")+'</div>'+
+'<p class="caption">El estado FROZEN o IN_PROGRESS proviene de la fuente canónica, nunca de esta matriz. Una ficha completa sigue siendo una declaración local no verificada.</p></section>';
+}
 function roadmap(){
 const counts=Object.fromEntries(phases.map(p=>[p.id,Object.values(placements).filter(id=>id===p.id).length]));
 const registered=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,needs=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
@@ -1757,7 +1789,7 @@ return '<div class="roadmap-head"><div><div class="kicker">FUENTE CANÓNICA · L
 const count=counts[p.id]||0;
 return '<button type="button" class="roadmap-phase" data-roadmap-phase="'+escapeHtml(p.id)+'" title="Abrir mesa de '+escapeHtml(p.id)+'"><span class="roadmap-phase-top"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(p.name)+'</span></span><span class="roadmap-status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span><small>Estado de evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADO")+'</small><span class="roadmap-draft">'+count+' piezas ubicadas en borrador</span><span class="roadmap-open">Abrir fase →</span></button>';
 }).join("")+'</div>'+
-roadmapRouteAudit()+
+roadmapMilestoneMatrix()+roadmapRouteAudit()+
 '<div class="roadmap-foot"><h3>Pendientes registrados</h3><p class="hint">Fases por reconciliar: '+escapeHtml(phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>p.id).join(", ")||"Ninguna")+'.</p>'+
 '<p class="hint">Próxima acción registrada: '+escapeHtml(focus.next_exact_action||"No registrada")+'</p>'+
 '<p class="caption">No se calculan porcentajes de avance a partir de tarjetas. Los hitos se modifican únicamente mediante la fuente canónica y evidencia verificable.</p></div>';
@@ -1957,6 +1989,7 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
+app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-focus-mode]").forEach(el=>el.addEventListener("click",()=>{focusMode=!focusMode;selected=activePhase;render();}));
 app.querySelectorAll("[data-reset-layout]").forEach(el=>el.addEventListener("click",()=>{const ids=Object.keys(positions).filter(id=>placements[id]===activePhase);if(!ids.length)return;remember();ids.forEach(id=>delete positions[id]);saveDraft();draftNotice="Piezas de "+activePhase+" reorganizadas automáticamente en la mesa.";render();}));
