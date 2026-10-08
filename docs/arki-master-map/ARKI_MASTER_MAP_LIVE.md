@@ -461,3 +461,10 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - FROZEN: 7 AGK-DELTA constituent records plus F6 frozen-phase record explicitly in current structured state (8 displayed unique records). This is NOT yet an exhaustive scan of all branches/repos; unindexed frozen decisions remain `UNKNOWN`, not implicitly absent.
 - Rules: proposed phase != incorporated; historical DEMONSTRATED != current VERIFIED; frozen != fully integrated; no disappearance from tray until evidence-backed incorporation recorded.
 - Code written; static JS syntax PASS; Windows/browser E3 pending.
+
+### Maqueta Viva — Compact phase rail and center assembly (2026-10-07)
+
+- User direction supersedes the earlier center ten-block layout: all ten phases F1–F10 now live as thin, compact buttons in the LEFT navigation rail.
+- CENTER shows only the selected phase's assembly package: historical scattered components, assigned ideas, frozen constituent records, current registered status, and click-to-inspect detail. Defaults to F1; right tray stays Pendientes / Ideas / Dispersas / FROZEN.
+- Clicking a mapped piece from the right tray opens its proposed target phase and detail in the center. No drag-and-drop, persisted assignment mutation, canonical incorporation or evidence promotion is claimed yet.
+- JS static syntax checked PASS; Windows/browser E3 still pending. Old 5x2/3x3/pyramid layouts are superseded by the phase rail, not the current central presentation.
