@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows: git pull, open ARKI-MAQUETA-VIVA.cmd or shortcut, verify counters and four navigation buttons share one slim horizontal bar above three columns; verify tab clicks, search and small-screen scroll.",
+    "next_gate": "Windows pull and relaunch; verify 4 counters stay at left, four orange/black menu buttons are horizontally centered, search right, tab switching updates blue workspace; inspect responsive widths. No browser E3 yet.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_VISUAL_E3",
       "left": "Compact vertical navigation F1–F10, 152px nominal width, selected phase",
@@ -1554,8 +1554,13 @@
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
       "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
-      "top_menu": "Compact single horizontal bar: 4 live phase counters, followed by Estructura / Conexiones / Inventario / Flotantes, then search. Horizontal scroll on narrower displays.",
-      "top_menu_status": "IMPLEMENTED_STATIC_SYNTAX_PASS_WINDOWS_E3_PENDING"
+      "top_menu": "Four counters remain on left; Estructura, Conexiones, Inventario and Flotantes are centered orange buttons with black text; search on right. Blue center workspace and sidebars unchanged.",
+      "top_menu_status": "IMPLEMENTED_STATIC_SYNTAX_PASS_WINDOWS_E3_PENDING",
+      "menu_palette": {
+        "normal": "#f28c28",
+        "active": "#ffb24f",
+        "text": "#111820"
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
