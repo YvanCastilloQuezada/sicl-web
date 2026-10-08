@@ -455,7 +455,7 @@ header .stamp{flex:0 0 auto}
 </style>
 </head>
 <body>
-<header><div class="top"><div class="brand-line"><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><span class="brand-separator" aria-hidden="true">—</span><span class="brand-description">La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI</span></div></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
+<header><div class="top"><div class="brand-line"><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><span class="brand-separator" aria-hidden="true">-</span><span class="brand-description">La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI</span></div></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
 <main id="app"><div class="panel">Cargando maqueta…</div></main>
 <script type="application/json" id="arki-state">__ARKI_STATE_JSON__</script>
 <script type="application/json" id="arki-assembly">__ARKI_ASSEMBLY_JSON__</script>
@@ -1535,6 +1535,7 @@ const a=assignments[piece.id],b=assignments[to];
 if(a!==undefined&&b!==undefined&&Number(a)<Number(b))issues.push({kind:"HITO_INVERTIDO",severity:"BLOQUEO_POTENCIAL",phase:p.id,id:piece.id,description:piece.id+" (hito "+(Number(a)+1)+") necesita "+to+" (hito "+(Number(b)+1)+"), posterior en la ruta propuesta"});
 }
 }
+if(p.status==="FROZEN"&&pieces.length)issues.push({kind:"ALCANCE_FROZEN",severity:"REVISAR",phase:p.id,id:pieces[0].id,description:p.id+" tiene "+pieces.length+" piezas provisionales: comprobar si son compatibles con el alcance congelado; no se modifica FROZEN"});
 const noEvidence=pieces.filter(x=>!reviewGate(x.id).hasEvidence);
 const mismatch=pieces.filter(x=>x.targetPhase&&validPhases.has(x.targetPhase)&&x.targetPhase!==p.id);
 return {phase:p.id,pieces:pieces.length,linked:pieces.length-unlinked.length,unlinked:unlinked.length,noEvidence:noEvidence.length,mismatch:mismatch.length,issues};
