@@ -425,6 +425,33 @@ header .stamp{flex:0 0 auto}
 .context-help{display:flex;align-items:center;gap:10px;min-height:37px;padding:7px 12px;margin:-3px 0 11px;border:1px solid #568bad;background:#12354f;border-radius:8px;color:#e3f4ff;font-size:12px;line-height:1.4}
 .context-help strong{flex:0 0 auto;color:#ffdf86;letter-spacing:.4px;font-size:11px}
 .context-help span{min-width:0;overflow-wrap:anywhere}
+
+/* Ten-phase comparative diagnostics: counts are local warnings, never completion metrics. */
+.scenario-dashboard{display:flex;flex-direction:column;gap:13px}
+.scenario-disclaimer{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid #d3a853;background:#463718;border-radius:9px;color:#fff1cb}
+.scenario-disclaimer strong{font-size:12px}.scenario-disclaimer span{font-size:12px;line-height:1.6}
+.scenario-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.scenario-metric{border:1px solid #638cab;background:#15354f;border-radius:10px;padding:12px}
+.scenario-metric h3{margin:0 0 9px;color:#e6f7ff}
+.scenario-metric-row{display:flex;align-items:baseline;gap:9px;padding:4px 0;border-top:1px solid #345b76}
+.scenario-metric-row b{min-width:23px;font-size:18px}.scenario-metric-row span{font-size:12px;color:#c8e2f4}
+.scenario-alert b{color:#ffd284}
+.scenario-interpretation{display:flex;flex-direction:column;gap:7px;border:1px solid #6992ac;border-radius:9px;padding:12px;background:#10334e}
+.scenario-interpretation strong{font-size:14px}.scenario-interpretation span{font-size:12px}.scenario-interpretation small{color:#b8d9e9;line-height:1.5}
+.scenario-table-wrap{overflow-x:auto}
+.scenario-table{border-collapse:collapse;width:100%;font-size:12px}
+.scenario-table th,.scenario-table td{padding:10px 8px;border-bottom:1px solid #50748e;text-align:left}
+.scenario-table th{background:#12334d;color:#d7eeff;white-space:nowrap}
+.scenario-table td small{display:block;color:#aac7dc;font-size:10px}
+.scenario-table .tab{padding:6px 9px;font-size:11px}
+.scenario-issue-details{border:1px solid #587d98;border-radius:8px;padding:10px;background:#12344f}
+.scenario-issue-details summary{cursor:pointer;font-weight:700}
+.scenario-issue{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #466e88;padding:9px 3px;font-size:12px}
+.scenario-issue-alert{border-left:3px solid #f3b758;padding-left:9px}
+.scenario-issue button{flex:0 0 auto;font-size:11px;padding:6px 8px}
+.scenario-criteria{padding:12px;border:1px solid #4d7d9b;border-radius:9px;background:#102c45}
+.scenario-criteria p{font-size:12px;line-height:1.6}
+@media(max-width:700px){.scenario-metrics{grid-template-columns:minmax(0,1fr)}.scenario-issue{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -1489,6 +1516,57 @@ else arkiIdeaDecisions[id]=action==="approve"?"APPROVED":"REJECTED";
 try{localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));draftNotice="Decisión sobre "+id+" guardada localmente. Sin implementación automática.";}catch(e){draftNotice="No se pudo guardar la decisión; exporta el JSON.";storageAvailable=false;}
 render();
 }
+
+/* All ten phases are compared against the same local placements and declared
+   dependencies. Only spine milestones vary between reference and alternative.
+   This is deterministic diagnostics, NOT a globally optimal schedule. */
+function analyzeWholeScenario(scenario){
+const assignments=scenario==="alternative"?alternativeSpineAssignments:spineAssignments;
+const byPhase=phases.map(p=>{
+const pieces=[...ideas,...components].filter(x=>placements[x.id]===p.id);
+const issues=[],unlinked=pieces.filter(x=>assignments[x.id]===undefined);
+for(const piece of unlinked)issues.push({kind:"SIN_HITO",severity:"REVISAR",phase:p.id,id:piece.id,description:piece.id+" aún no está vinculada a un hito en este escenario"});
+for(const piece of pieces){
+for(const to of reviews[piece.id]?.dependencies||[]){
+const target=placements[to];
+if(!target){issues.push({kind:"DEPENDENCIA_SIN_UBICAR",severity:"BLOQUEO_POTENCIAL",phase:p.id,id:piece.id,description:piece.id+" necesita "+to+" y la pieza requerida no está ubicada"});continue;}
+if(target!==p.id){issues.push({kind:"ENTRE_FASES",severity:"REVISAR",phase:p.id,id:piece.id,description:piece.id+" ("+p.id+") necesita "+to+" ("+target+"); revisar secuencia transversal"});continue;}
+const a=assignments[piece.id],b=assignments[to];
+if(a!==undefined&&b!==undefined&&Number(a)<Number(b))issues.push({kind:"HITO_INVERTIDO",severity:"BLOQUEO_POTENCIAL",phase:p.id,id:piece.id,description:piece.id+" (hito "+(Number(a)+1)+") necesita "+to+" (hito "+(Number(b)+1)+"), posterior en la ruta propuesta"});
+}
+}
+const noEvidence=pieces.filter(x=>!reviewGate(x.id).hasEvidence);
+const mismatch=pieces.filter(x=>x.targetPhase&&validPhases.has(x.targetPhase)&&x.targetPhase!==p.id);
+return {phase:p.id,pieces:pieces.length,linked:pieces.length-unlinked.length,unlinked:unlinked.length,noEvidence:noEvidence.length,mismatch:mismatch.length,issues};
+});
+const issues=byPhase.flatMap(p=>p.issues);
+return {scenario,byPhase,issues,placed:byPhase.reduce((n,p)=>n+p.pieces,0),linked:byPhase.reduce((n,p)=>n+p.linked,0),potential:issues.filter(x=>x.severity==="BLOQUEO_POTENCIAL").length,review:issues.filter(x=>x.severity==="REVISAR").length,missingEvidence:byPhase.reduce((n,p)=>n+p.noEvidence,0),mismatch:byPhase.reduce((n,p)=>n+p.mismatch,0)};
+}
+function scenarioComparison(){
+const base=analyzeWholeScenario("base"),alt=analyzeWholeScenario("alternative");
+const difference=[...ideas,...components].filter(x=>placements[x.id]&&spineAssignments[x.id]!==alternativeSpineAssignments[x.id]);
+const key=r=>r.potential+"|"+r.review;
+const candidate=base.potential<alt.potential?"Referencia propuesta":alt.potential<base.potential?"Alternativa A":base.review<alt.review?"Referencia propuesta":alt.review<base.review?"Alternativa A":"Sin diferencia por alertas";
+const winner=base.placed===0?"Sin piezas ubicadas":candidate;
+const metric=(r,label)=>'<section class="scenario-metric"><h3>'+label+'</h3><div class="scenario-metric-row"><b>'+r.placed+'</b><span>piezas ubicadas</span></div><div class="scenario-metric-row"><b>'+r.linked+'</b><span>espinas vinculadas</span></div><div class="scenario-metric-row '+(r.potential?"scenario-alert":"")+'"><b>'+r.potential+'</b><span>posibles bloqueos</span></div><div class="scenario-metric-row"><b>'+r.review+'</b><span>observaciones por revisar</span></div><div class="scenario-metric-row"><b>'+r.missingEvidence+'</b><span>sin ficha de evidencia declarada</span></div></section>';
+const issueRows=(r,label)=>{
+const actionable=r.issues.filter(x=>x.severity==="BLOQUEO_POTENCIAL");
+return '<details class="scenario-issue-details"><summary>'+label+' · '+actionable.length+' posibles bloqueos, '+r.review+' revisiones</summary>'+
+(r.issues.length?r.issues.slice(0,45).map(e=>'<div class="scenario-issue '+(e.severity==="BLOQUEO_POTENCIAL"?"scenario-issue-alert":"")+'"><span><strong>'+escapeHtml(e.kind.replace(/_/g," "))+' · '+escapeHtml(e.phase)+'</strong> · '+escapeHtml(e.description)+'</span><button type="button" class="tab" data-scenario-jump="'+escapeHtml(e.id)+'" data-scenario-kind="'+r.scenario+'">Revisar pieza</button></div>').join(""):'<p class="hint">Sin alertas de ubicación o dependencia según las declaraciones disponibles; esto no certifica el diseño.</p>')+
+(r.issues.length>45?'<p class="hint">Mostrando las primeras 45 alertas. Revisa los detalles por fase en la tabla.</p>':"")+'</details>';
+};
+return '<div class="scenario-dashboard"><div class="assembly-header"><div><div class="kicker">ANÁLISIS COMPARATIVO LOCAL · F1–F10</div><h2>Escenarios, conflictos y dependencias</h2><p class="hint">Compara los diez tramos de la columna vertebral, sus espinas y las dependencias declaradas. Referencia y Alternativa A comparten actualmente la ubicación de piezas y las conexiones; difieren en sus hitos vinculados.</p></div></div>'+
+'<div class="scenario-disclaimer"><strong>NO ES UN MOTOR DE OPTIMIZACIÓN GLOBAL</strong><span>Diagnóstico heurístico explicable. No existe una función objetivo validada, duraciones, recursos ni restricciones completas para afirmar optimalidad o calcular una ruta crítica. Las alertas son hipótesis para revisión, no resultados de CI.</span></div>'+
+'<div class="scenario-metrics">'+metric(base,"Referencia propuesta")+metric(alt,"Alternativa A")+'</div>'+
+'<div class="scenario-interpretation"><strong>Lectura comparativa: '+escapeHtml(winner)+'</strong><span>'+(base.placed===0?"Primero ubica piezas en las fases.":candidate==="Sin diferencia por alertas"?"Las alertas tienen el mismo recuento en ambos escenarios. Revisa la distribución de hitos y la evidencia.":"Tiene menos alertas prioritarias bajo el criterio provisional: primero posibles bloqueos, después observaciones. No demuestra que sea la mejor solución.")+'</span><small>'+difference.length+' piezas con distinto hito entre escenarios · '+base.mismatch+' piezas en fase diferente de su propuesta histórica · '+base.missingEvidence+' fichas sin evidencia declarada. Los estados oficiales y FROZEN permanecen intactos.</small></div>'+
+'<h3>Comparación por fase</h3><div class="scenario-table-wrap"><table class="scenario-table"><thead><tr><th>Fase</th><th>Referencia · espinas</th><th>Alternativa · espinas</th><th>Posibles bloqueos R/A</th><th>Observaciones R/A</th><th>Acción</th></tr></thead><tbody>'+
+phases.map((p,i)=>{
+const a=base.byPhase[i],b=alt.byPhase[i];
+return '<tr><td><strong>'+escapeHtml(p.id)+'</strong><small>'+escapeHtml(p.name)+'</small></td><td>'+a.linked+' / '+a.pieces+'</td><td>'+b.linked+' / '+b.pieces+'</td><td>'+a.issues.filter(x=>x.severity==="BLOQUEO_POTENCIAL").length+' / '+b.issues.filter(x=>x.severity==="BLOQUEO_POTENCIAL").length+'</td><td>'+a.issues.filter(x=>x.severity==="REVISAR").length+' / '+b.issues.filter(x=>x.severity==="REVISAR").length+'</td><td><button type="button" class="tab" data-scenario-phase="'+escapeHtml(p.id)+'">Abrir fase</button></td></tr>';
+}).join("")+'</tbody></table></div>'+
+issueRows(base,"Conflictos · Referencia")+issueRows(alt,"Conflictos · Alternativa A")+
+'<div class="scenario-criteria"><h3>Qué falta para afirmar una solución óptima</h3><p>Definir objetivos medibles (tiempo, coste, calidad y riesgo), restricciones normativas y técnicas, precedencias completas, duraciones, recursos, fuentes de evidencia y pruebas reproducibles. Hasta entonces, cualquier preferencia entre escenarios es provisional y revisable.</p><p class="caption">Se recalcula al cambiar el borrador local. No modifica el roadmap, no ejecuta optimización matemática ni certifica integraciones.</p></div></div>';
+}
 function roadmap(){
 const counts=Object.fromEntries(phases.map(p=>[p.id,Object.values(placements).filter(id=>id===p.id).length]));
 const registered=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,needs=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
@@ -1682,6 +1760,8 @@ draftNotice="Pieza "+id+" trasladada explícitamente a "+destination+" según su
 render();
 }));
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
+app.querySelectorAll("[data-scenario-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.scenarioPhase;selected=activePhase;tab="structure";spineView=true;render();}));
+app.querySelectorAll("[data-scenario-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scenarioJump;if(!placements[id])return;spineScenario=el.dataset.scenarioKind;activePhase=placements[id];selected=id;tab="structure";spineView=true;render();}));
 app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
 app.querySelectorAll("[data-link-mode]").forEach(el=>el.addEventListener("click",()=>{linkMode=!linkMode;linkSource="";selected=activePhase;render();}));
 app.querySelectorAll("[data-connect-piece]").forEach(el=>el.addEventListener("click",()=>{if(!linkMode){linkMode=true;linkSource="";}chooseLinkPiece(el.dataset.connectPiece);selected=activePhase;render();}));
