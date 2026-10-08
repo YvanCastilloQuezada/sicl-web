@@ -2162,6 +2162,42 @@
       "test_evidence": "PASS: 14 stable catalog entries, 23 generated candidates on 10-phase mock baseline, CI decisions validated, frozen draft triggers FREEZE-F6 and QUALITY-F6; static JS syntax PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "integration_boundary": "IDEA != KNOWLEDGE != IMPLEMENTED; Delta 6.2 and human approval govern promotion"
+    },
+    "controlled_github_executor_v0": {
+      "status": "GATE_CODE_COMMITTED_AWAITING_REAL_PR_CI_EVIDENCE",
+      "mode": "READ_ONLY_PR_VERIFICATION",
+      "target_branch": "feat/f7-f8-integral-closure",
+      "never_target_main": true,
+      "files": [
+        "tools/maqueta-viva/arki-executor-gate.mjs",
+        ".github/workflows/arki-controlled-executor.yml",
+        "docs/arki-master-map/ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md"
+      ],
+      "offline_console": "Evolución 05 exports executor-scope.json only after local authorization and exact base SHA/allowlist validation; no direct GitHub calls",
+      "authorization": "Owner PR comment exact final SHA, independent GitHub reviewer on exact SHA, no owner-as-red-team",
+      "checks": [
+        "BASE_AND_HEAD_EXACT_SHA",
+        "DIFF_SCOPE_ALLOWLIST",
+        "FROZEN_PHASE_DENY",
+        "PROTECTED_PATH_DENY",
+        "PNPM_FROZEN_INSTALL",
+        "TSC_CHECK",
+        "VITEST_RUN",
+        "PRODUCTION_BUILD",
+        "OWNER_AUTHORIZATION",
+        "INDEPENDENT_RED_TEAM_REVIEW"
+      ],
+      "evidence": "Unit simulations for scope gates and UI export PASS; live GitHub Actions run NOT_EXECUTED; external Qwen audit NOT_EXECUTED",
+      "acceptance": "BLOCKED_PENDING_REAL_PR_CI_RED_TEAM_AND_MANUAL_DECISION",
+      "rollback": "NOT_EXECUTED; manual externally authorized procedure required",
+      "canonical_promotion": false,
+      "limitations": [
+        "No autonomous code changes or GitHub writes",
+        "No real PR run yet",
+        "GitHub branch protections not verified",
+        "Qwen audit cannot be inferred from GitHub reviewer identity alone",
+        "Exact SHA and review must be repeated after every commit"
+      ]
     }
   },
   "f7_f8_f9_lineage_checkpoint_2026_10_08": {
