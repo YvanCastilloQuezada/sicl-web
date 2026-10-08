@@ -1901,7 +1901,7 @@
       },
       "spine_advisor": {
         "behavior": "Deterministic read-only diagnostics of staged spines: unassigned hito, missing declared dependency target, inverted declared dependency vs proposed milestone order, missing declared evidence, text-based candidate hito changes and lexical pair relationship suggestions",
-        "candidate_dependency": "Requires at least two distinctive shared title tokens, both pieces staged in same phase with distinct milestones; never auto-created; explicit user action uses existing cycle-safe validateReviews",
+        "candidate_dependency": "Candidate review requires distinct assigned milestones and either >=2 shared distinctive terms or adjacent proposed milestones; never auto-created, does not prove a dependency, explicit user action validated against cycles",
         "actions": "Explicit bind/move milestone via assignSpine; explicit declare dependency via addConnection; inspect for evidence; undo/redo remains available",
         "limits": "Textual co-occurrence is not evidence of causal dependency; advisory suggestions are never verified facts or critical-path claims"
       },
@@ -1921,7 +1921,8 @@
           "EVOLVE"
         ],
         "acs_stage_status": "NOT_DETERMINED_FROM_CANONICAL_STATE",
-        "source": "current_focus.blockers and roadmap statuses, read-only"
+        "source": "current_focus.blockers and roadmap statuses, read-only",
+        "acs_evidence": "Display bounded ACS→ARKI handoff from current_focus.active if present, without claiming completion of KNOW/RUN/UNDERSTAND/EVOLVE"
       },
       "test_evidence": {
         "js_syntax": "PASS",
@@ -1930,7 +1931,8 @@
           "ADVISOR_READONLY_AND_TEN_PHASES",
           "TWIN_ACS_SEPARATE_GATES"
         ],
-        "windows_browser": "NOT_EXECUTED"
+        "windows_browser": "NOT_EXECUTED",
+        "simulated_e3": "13/13 local E3 checks PASS in simulated DOM (not Windows visual evidence), including advisory read-only and twin/ACS separation"
       },
       "authority_boundary": "No canonical phase or FROZEN mutation; no automatic promotions, integrations, or verified progress claims"
     },
