@@ -26,3 +26,5 @@ jobs:
           node-version: '22'
       - name: Validate offline puzzle and integration dossier
         run: node tools/maqueta-viva/test-maqueta-viva.cjs
+      - name: Validate read-only GitHub observer with mocked API
+        run: node tools/maqueta-viva/test-github-evidence.cjs
