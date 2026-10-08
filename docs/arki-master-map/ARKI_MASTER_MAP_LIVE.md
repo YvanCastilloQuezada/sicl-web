@@ -477,3 +477,11 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - FROZEN records remain read-only. Pending blockers remain visible; they are not automatically cleared by placement.
 - Validation: inline JavaScript syntax PASS; 14/14 isolated offline simulation checks PASS (initial UI, swapped rails, eight menus, valid/invalid stage, persistence, visibility, frozen protection, invalid import, removal, drag/drop and canonical non-promotion). Repeatable Node smoke suite committed at `tools/maqueta-viva/test-maqueta-viva.cjs` but not yet run in Node or on Windows. Browser E3 NOT EXECUTED.
 - This is **visual assembly planning**, not code integration or an authoritative change to ARKI Core.
+
+### Maqueta Viva — V0.4, expediente local de preparación de integración (2026-10-08)
+
+- Cada idea o componente histórico móvil tiene ficha de preparación: repositorio, ruta de módulo, SHA de 40 caracteres, comando de prueba y dependencias de piezas conocidas. Son referencias **declaradas por el usuario**, no verificadas.
+- Validación local: formato de repositorio y SHA, IDs de dependencia conocidos, no duplicados ni dependencias circulares. El rótulo `LISTA PARA SOLICITAR AUDITORÍA` requiere ubicación en borrador, cuatro campos de referencia completos y dependencias ubicadas; **no** indica que pruebas se ejecutaron ni que integración exista.
+- Revisión y dependencias se guardan como campo opcional `reviews` en el mismo borrador `ARKI-MAQUETA-DRAFT-1`, compatible con archivos previos. Exportar/Importar JSON preserva fichas.
+- Se añadió `tools/maqueta-viva/test-maqueta-viva.cjs` con 25 comprobaciones de simulación, más workflow `.github/workflows/maqueta-viva-smoke.yml`. Comprobaciones aisladas ejecutadas: 14/14 + 11/11 PASS. Ejecución del archivo de suite en Node: **PENDING**. GitHub CI: **NOT OBSERVED**. Navegador Windows E3: **NOT EXECUTED**.
+- Ninguna ficha muta Core, D-2, AGK ni estados canónicos. No elimina deudas. La integración verificable real sigue requiriendo auditoría de código y evidencia E3 externa.
