@@ -411,7 +411,10 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .arki-ideas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:18px 0}
 .arki-idea{display:flex;flex-direction:column;gap:10px;padding:14px;background:#14354f;border:1px solid #5686a5;border-radius:11px}
 .arki-idea>div:first-child{display:flex;flex-direction:column;gap:6px}.arki-idea strong{font-size:15px;color:#f3faff}.arki-idea small{font-size:11px;color:#9ecae8}
-.arki-idea-status{font-size:10px;font-weight:700;color:#fbe18e}.arki-idea p{font-size:12px;line-height:1.6;margin:0;color:#dcebf6}
+.arki-idea-status{display:inline-flex;align-self:flex-start;max-width:100%;padding:6px 9px;border-radius:7px;font-size:11px;font-weight:800;line-height:1.3;letter-spacing:.15px;color:#2e2400;background:#f3d84f;border:1px solid #d8b825}
+.arki-idea-status.approved{background:#2e9c5d;border-color:#7bebb0;color:#fff}
+.arki-idea-status.pending{background:#f3d84f;border-color:#d8b825;color:#282000}
+.arki-idea-status.rejected{background:#475b6c;border-color:#8399a9;color:#eef4f8}.arki-idea p{font-size:12px;line-height:1.6;margin:0;color:#dcebf6}
 .arki-idea-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto}.arki-idea-actions button{font-size:11px;padding:6px}
 
 /* One-line identity. Preserve the full text; overflow horizontally only on narrow viewports. */
@@ -1535,7 +1538,7 @@ return '<div class="assembly-header"><div><div class="kicker">MEJORA CONTINUA ·
 '<div class="arki-ideas-summary"><span><b>'+entries.filter(x=>x.category==="Diagnóstico"||x.source==="REGLA LOCAL").length+'</b> diagnósticos locales</span><span><b>'+ARKI_CONTINUOUS_IMPROVEMENTS.length+'</b> mejoras candidatas</span><span><b>'+pending+'</b> pendientes de decisión</span></div>'+
 '<div class="arki-ideas-grid">'+entries.map(x=>{
 const status=arkiIdeaDecisions[x.id]||"PENDING";
-return '<article class="arki-idea"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.phase)+' · '+escapeHtml(x.category)+'</small><strong>'+escapeHtml(x.title)+'</strong><span class="arki-idea-source">'+escapeHtml(x.priority)+' · '+escapeHtml(x.source)+'</span><span class="arki-idea-status">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>'+escapeHtml(x.why)+'</p><p><b>Acción propuesta:</b> '+escapeHtml(x.action)+'</p><div class="arki-idea-actions"><button type="button" class="tab" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button><button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button></div></article>';
+return '<article class="arki-idea"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.phase)+' · '+escapeHtml(x.category)+'</small><strong>'+escapeHtml(x.title)+'</strong><span class="arki-idea-source">'+escapeHtml(x.priority)+' · '+escapeHtml(x.source)+'</span><span class="arki-idea-status '+(status==="APPROVED"?"approved":status==="REJECTED"?"rejected":"pending")+'">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>'+escapeHtml(x.why)+'</p><p><b>Acción propuesta:</b> '+escapeHtml(x.action)+'</p><div class="arki-idea-actions"><button type="button" class="tab" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button><button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button></div></article>';
 }).join("")+(entries.length?"":'<div class="empty">No se detectaron propuestas nuevas bajo las reglas actuales. No significa que ARKI esté completo.</div>')+'</div>'+
 '<p class="caption">Aprobar una idea autoriza su evaluación posterior, no la ejecución de código, el cambio de contratos, el merge ni la promoción canónica. Las decisiones se conservan en este navegador y en el JSON exportado.</p>';
 }
