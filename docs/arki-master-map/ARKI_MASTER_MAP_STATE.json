@@ -65,19 +65,21 @@
     ]
   },
   "current_focus": {
-    "title": "F7/F8 — OECE derived evidence integrated; S10 real input remains external",
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
     "active": [
-      "OECE ACS→ARKI physical fragment handoff PASS/E3 (bounded specimen; no new OCR)",
-      "Preserve PARTIAL source claim, NOT_DEMONSTRATED technical dossier, D-2/AGK authority boundaries",
-      "S10 real specimen resume only when input becomes available",
-      "Real Revit 2026 RVT specimen characterized at file/container metadata level; BIM semantic extraction pending"
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health"
     ],
-    "last_completed": "F7 OECE source readiness gate PASS/E3; new real RVT specimen received and bounded metadata/hash inspection performed; no BIM semantic extraction claimed.",
-    "next_exact_action": "Close the bounded F7 OECE admission correction. Resume broader ARKI F7/F8 integration using existing Master Map, prioritizing a new executable boundary only when it has a concrete gap; S10 real specimen remains resume-on-input. No repeat of the verified OECE tests.",
+    "last_completed": "Physical S10 specimen located and non-mutating binary identification completed: Microsoft SQL Server backup (TAPE header), S102000 Data paths and budget-related schema identifiers; database restore and budget inventory NOT_EXECUTED. F7 OECE gate PASS/E3.",
+    "next_exact_action": "S10: inspect backup metadata (SQL Server version, logical files) using a compatible SQL Server RESTORE HEADERONLY/FILELISTONLY, then isolate and inventory budgets read-only. Never alter source or claim budget counts until database read.",
     "blockers": [
-      "S10_REAL_SPECIMEN_INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
+      "S10_BACKUP_ENGINE_VERSION_UNKNOWN",
+      "S10_RESTORE_AND_BUDGET_INVENTORY_NOT_EXECUTED",
       "S10_NATIVE_WRITE_NOT_CLAIMED",
       "S10_ROUND_TRIP_NOT_CLAIMED",
+      "RVT_NATIVE_SEMANTIC_EXTRACTION_NOT_DEMONSTRATED",
       "OECE_COMPLETE_TECHNICAL_DOSSIER_NOT_DEMONSTRATED_FOR_THIS_SPECIMEN"
     ]
   },
@@ -1085,7 +1087,7 @@
       "baseline_immutable": true
     },
     "s10_real_specimen": {
-      "status": "INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES",
+      "status": "REAL_SQL_SERVER_BACKUP_RECEIVED_FORMAT_IDENTIFIED_RESTORE_PENDING",
       "observed_date": "2026-10-07",
       "searched_surfaces": [
         "Windows uninstall registry HKLM/HKCU",
@@ -1100,8 +1102,37 @@
       "directory_matches": 0,
       "file_candidates_examined": 22,
       "legitimate_s10_specimens_found": 0,
-      "classification": "EXTERNAL_INPUT_UNAVAILABLE_NOT_PRODUCT_FAILURE",
-      "resume_condition": "LEGITIMATE_S10_PROJECT_EXPORT_BACKUP_OR_DATABASE_AVAILABLE"
+      "classification": "REAL_INPUT_AVAILABLE_BINARY_FORMAT_IDENTIFIED_EVIDENCE_LEVEL_E1",
+      "resume_condition": "RESTORE_HEADERONLY_AND_FILELISTONLY_ON_COMPATIBLE_SQL_SERVER_THEN_READ_ONLY_RESTORE_OR_SUPPORTED_EXPORT",
+      "prior_search_status": "INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES (superseded by uploaded specimen)",
+      "filename": "BASE DE DATOS JUAN VELASCO.S2K",
+      "bytes": 115026432,
+      "sha256": "e60fe3f427c32c36ee8e842def8f765ab4d6805e0816b03d73d50ef79c5d8648",
+      "identified_format": "Windows NTbackup archive; Microsoft SQL Server backup",
+      "observed_header_signature": "TAPE",
+      "observed_internal_paths": [
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_1.mdf",
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_2.ndf",
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_3.ldf"
+      ],
+      "observed_logical_files": [
+        "S10_Data",
+        "S10_Datos",
+        "S10_Log"
+      ],
+      "observed_schema_identifiers": [
+        "vUPKCL_PresupuestoSubpartidaDetalle",
+        "vDF_PresupuestoSubpartida_TieneNota",
+        "lUPKCL_PrecioParticularPartida"
+      ],
+      "evidence_boundary": [
+        "The S102000 path supports S10 2000 association but does not verify exact SQL Server engine version",
+        "A SQL Server backup format is not a direct S10 project export or native .S2K reader",
+        "Number, names, totals and contents of budgets NOT_EXTRACTED",
+        "No SQL Server restore performed; no integrity CHECKDB or RESTORE VERIFYONLY claimed",
+        "Do not infer actual physical budget data from visible catalog strings"
+      ],
+      "next_gate": "Determine SQL Server backup version and database logical layout without mutating source; choose safe compatible restore path; enumerate budgets and reconcile S10 report totals."
     },
     "oece_real_multisurface_e2e": {
       "status": "PASS_E3_PHYSICAL_HANDOFF_TO_BASELINE_0",
