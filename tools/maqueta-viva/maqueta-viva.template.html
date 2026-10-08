@@ -626,7 +626,7 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .corrective-gate{display:flex;flex-direction:column;gap:7px;padding:12px;margin-top:15px;background:#3c2930;border:1px solid #d78b7e;border-radius:8px}
 .corrective-gate strong{color:#ffe4c4}.corrective-gate span{font-size:12px;line-height:1.5;color:#f2d9d7}
 @media(max-width:1000px){.corrective-columns{grid-template-columns:minmax(0,1fr)}.corrective-steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
-</style>
+.corrective-scope{margin:12px 0;padding:12px;border:1px solid #638ba5;border-radius:8px;background:#153850}.corrective-scope label{display:block;margin:9px 0}.corrective-scope input,.corrective-scope textarea{display:block;width:100%;margin-top:5px;padding:8px;background:#0c243b;color:#fff;border:1px solid #668aa5;border-radius:6px}.corrective-scope button{margin:4px 7px 4px 0}</style>
 </head>
 <body>
 <header><div class="top"><div class="brand-line"><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><span class="brand-separator" aria-hidden="true">-</span><span class="brand-description">La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI</span></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
@@ -2206,6 +2206,22 @@ function correctivePacket(c,type){
 const packet={schema:"ARKI-AUTOCORRECTIVE-REQUEST-1",requestType:type,caseId:c.id,phase:c.phase,proposal:c.title,rationale:c.rationale,impact:c.impact,source:c.source,sourceStateDate:state.updated_at||"UNKNOWN",requestedAt:new Date().toISOString(),authority:"USER_AUTHORIZED_LOCAL_REQUEST_NOT_EXECUTION",execution:"EXTERNAL_EXECUTOR_REQUIRED",gates:["EXACT_SHA_BASELINE","SCOPE_DIFF_REVIEW","RED_TEAM","CI_EXACT_SHA","ROLLBACK_PLAN","ACCEPTANCE_EVIDENCE"],noCanonicalPromotion:true};
 const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(packet,null,2));a.download="ARKI-"+c.id+"-"+type+".json";document.body.appendChild(a);a.click();a.remove();
 }
+
+function exportControlledScope(c,baseSha,pathsText){
+if(!c||c.status!=="AUTHORIZED"){correctiveNotice="Primero autoriza la preparación de un caso válido.";render();return;}
+const p=phases.find(x=>x.id===c.phase);
+if(!p||p.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase FROZEN o fuente distinta a la evaluación autorizada.";render();return;}
+const sha=String(baseSha||"").trim().toLowerCase();
+const paths=String(pathsText||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+const protectedPath=x=>x.startsWith(".github/")||x.startsWith("docs/arki-master-map/")||x==="tools/maqueta-viva/arki-executor-gate.mjs"||x==="ARKI-MAQUETA-VIVA.cmd"||/(^|\/)(AGENTS\.md|[^/]+\.lock)$/i.test(x);
+const safePath=x=>x.length<=260&&!x.startsWith("/")&&!x.includes("\\")&&!x.split("/").some(t=>!t||t==="."||t==="..")&&!/[\r\n\0*?\[\]]/.test(x);
+if(!/^[a-f0-9]{40}$/.test(sha)||!paths.length||paths.length>12||new Set(paths).size!==paths.length||paths.some(x=>!safePath(x)||protectedPath(x)||x==="tools/maqueta-viva/executor-scope.json")){
+correctiveNotice="Manifest BLOQUEADO: SHA base exacto de 40 caracteres y 1–12 rutas seguras, distintas y exactas (sin comodines). No se permite modificar autoridades, workflows ni el ejecutor.";render();return;
+}
+const manifest={schema:"ARKI-EXECUTOR-SCOPE-1",caseId:c.id,phase:c.phase,repository:"YvanCastilloQuezada/sicl-web",baseBranch:"feat/f7-f8-integral-closure",baseSha:sha,allowedPaths:paths,noCanonicalPromotion:true,requiresRedTeam:true,requiresOwnerAuthorization:true,testCommands:["pnpm check","pnpm test -- --run","pnpm build"]};
+const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(manifest,null,2));a.download="executor-scope.json";document.body.appendChild(a);a.click();a.remove();
+correctiveNotice="Manifest exportado. Debe incorporarse en una rama de corrección y pasar el control del SHA del PR, la autorización del propietario y el Equipo Rojo. GitHub NO ha ejecutado ninguna corrección.";render();
+}
 function requestCorrectiveExecution(c){
 if(!c||c.status!=="AUTHORIZED")return;
 const current=phases.find(p=>p.id===c.phase);
@@ -2233,8 +2249,8 @@ const c=correctiveCase();
 const phasesOptions=phases.map(p=>'<option value="'+escapeHtml(p.id)+'" '+(p.id===activePhase?"selected":"")+'>'+escapeHtml(p.id+" · "+p.name+(p.status==="FROZEN"?" · FROZEN":""))+'</option>').join("");
 const suggestedOptions=suggestions.map(x=>'<option value="'+escapeHtml(x.id)+'">'+escapeHtml(x.id+" · "+x.title)+'</option>').join("");
 const stageIndex=c?CORRECTIVE_STEPS.findIndex(x=>x[0]===c.status):-1;
-return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 05 · ARKI AUTOCORRECTIVO</div><h2>Circuito de corrección controlada</h2></div><span class="status">EJECUTOR EXTERNO NO CONECTADO</span></div>'+
-'<p class="hint">Esta consola registra propuestas, evalúa alertas locales, prepara autorizaciones y genera órdenes auditables. NO modifica GitHub, no ejecuta código, no verifica CI y no acepta automáticamente resultados.</p>'+
+return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 05 · ARKI AUTOCORRECTIVO</div><h2>Circuito de corrección controlada</h2></div><span class="status">GITHUB PR GATE · NO EJECUCIÓN DIRECTA</span></div>'+
+'<p class="hint">Esta consola funciona sin red y no ejecuta código. El repositorio dispone de un gate GitHub Actions para PR de corrección: verifica SHA exacto, alcance permitido, pruebas, autorización del propietario y revisión independiente. La aceptación o reversión sigue siendo externa.</p><p class="hint"><a href="https://github.com/YvanCastilloQuezada/sicl-web/blob/feat/f7-f8-integral-closure/docs/arki-master-map/ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md" target="_blank" rel="noopener noreferrer">Instrucciones del ejecutor controlado en GitHub ↗</a></p>'+
 '<div class="corrective-steps">'+["Propuesta","Impacto","Autorización","Ejecución","Pruebas","Aceptar / revertir"].map((x,i)=>'<span class="'+(stageIndex>=i?"reached":"")+'">'+(i+1)+'. '+x+'</span>').join("")+'</div>'+
 '<div class="corrective-columns"><section class="corrective-panel"><h3>Nueva propuesta fundamentada</h3><label>Título<input id="corrective-title" maxlength="180" placeholder="Qué debe corregir ARKI"></label><label>Fase de alcance<select id="corrective-phase">'+phasesOptions+'</select></label><label>Fundamento<textarea id="corrective-rationale" rows="4" maxlength="1500" placeholder="Problema, evidencia, comportamiento esperado y límites"></textarea></label><button type="button" class="tab" data-corrective-create>Registrar propuesta</button>'+
 '<h3>Ideas y diagnósticos recalculados</h3><p class="hint">Los candidatos se actualizan con el estado local, las ideas y los FROZEN registrados; ninguno se ejecuta automáticamente.</p>'+
@@ -2245,7 +2261,7 @@ return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 05 · A
 (c.impact?'<div class="corrective-impact"><h4>Impacto preliminar · NO VERIFICADO</h4><p>Fase: '+escapeHtml(c.impact.phaseStatus)+' · '+c.impact.phasePieces+' piezas locales</p><p>Alertas potenciales (referencia / alternativa): '+c.impact.basePotential+' / '+c.impact.alternativePotential+'</p><p>Revisiones (referencia / alternativa): '+c.impact.baseReview+' / '+c.impact.alternativeReview+'</p><small>Sin análisis de diff real, pruebas, licencias ni efectos de ejecución.</small></div>':"")+
 (c.status==="PROPOSED"?'<button type="button" class="tab" data-corrective-impact>Evaluar impacto local</button>':"")+
 (c.status==="IMPACT_REVIEWED"?'<div class="corrective-authorization"><label>Autorización explícita: escribe AUTORIZO<input id="corrective-authorization" autocomplete="off" placeholder="AUTORIZO"></label><button type="button" class="tab" data-corrective-authorize>Autorizar preparación de orden</button></div>':"")+
-(c.status==="AUTHORIZED"?'<button type="button" class="tab" data-corrective-execute>Exportar orden para ejecutor</button>':"")+
+(c.status==="AUTHORIZED"?'<div class="corrective-scope"><h4>Preparar manifest de alcance para GitHub</h4><p class="hint">Obtén el SHA exacto de la rama destino y escribe una ruta autorizada por línea. No se permiten comodines, archivos canónicos ni cambios FROZEN.</p><label>SHA exacto de base (40 caracteres)<input id="corrective-base-sha" maxlength="40" spellcheck="false" autocomplete="off" placeholder="SHA de feat/f7-f8-integral-closure"></label><label>Archivos permitidos (una ruta exacta por línea)<textarea id="corrective-paths" rows="4" placeholder="shared/archivo-aprobado.ts"></textarea></label><button type="button" class="tab" data-corrective-manifest>Exportar manifest GitHub</button><button type="button" class="tab" data-corrective-execute>Exportar orden para ejecutor</button></div>':"")+
 (c.status==="EXTERNAL_EXECUTION_PENDING"?'<div><p class="hint">Esperando ejecución externa. Puedes registrar una referencia documental, que permanecerá NO VERIFICADA.</p><label>Referencia externa<input id="corrective-receipt" maxlength="500" placeholder="PR, commit SHA, CI y enlace de evidencia"></label><button type="button" class="tab" data-corrective-receipt>Registrar referencia no verificada</button></div>':"")+
 (c.receipt?'<p class="hint">Referencia declarada (NO VERIFICADA): '+escapeHtml(c.receipt)+'</p>':"")+
 (["EXTERNAL_EXECUTION_PENDING","EVIDENCE_UNVERIFIED"].includes(c.status)?'<button type="button" class="tab" data-corrective-reversal>Exportar solicitud de reversión</button>':"")+
@@ -2274,6 +2290,7 @@ app.querySelectorAll("[data-corrective-select]").forEach(el=>el.addEventListener
 app.querySelectorAll("[data-corrective-impact]").forEach(el=>el.addEventListener("click",()=>correctiveImpact(correctiveCase())));
 app.querySelectorAll("[data-corrective-authorize]").forEach(el=>el.addEventListener("click",()=>authorizeCorrective(correctiveCase(),app.querySelector("#corrective-authorization")?.value)));
 app.querySelectorAll("[data-corrective-execute]").forEach(el=>el.addEventListener("click",()=>requestCorrectiveExecution(correctiveCase())));
+app.querySelectorAll("[data-corrective-manifest]").forEach(el=>el.addEventListener("click",()=>exportControlledScope(correctiveCase(),app.querySelector("#corrective-base-sha")?.value,app.querySelector("#corrective-paths")?.value)));
 app.querySelectorAll("[data-corrective-receipt]").forEach(el=>el.addEventListener("click",()=>recordCorrectiveReceipt(correctiveCase(),app.querySelector("#corrective-receipt")?.value)));
 app.querySelectorAll("[data-corrective-reversal]").forEach(el=>el.addEventListener("click",()=>requestCorrectiveReversal(correctiveCase())));
 app.querySelectorAll("[data-technical-mode]").forEach(el=>el.addEventListener("click",()=>{technicalMode=el.dataset.technicalMode==="on";decisionShowAll=false;selected=activePhase;render();}));
