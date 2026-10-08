@@ -607,6 +607,25 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .evolution-section{margin:16px 0;padding:14px;border:1px solid #4c7896;border-radius:9px}
 .evolution-actions{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:950px){.evolution-bar{grid-template-columns:repeat(5,minmax(160px,1fr));overflow-x:auto}.evolution-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.corrective-steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:15px 0}
+.corrective-steps span{font-size:11px;text-align:center;padding:9px 4px;background:#183048;border:1px solid #4c6984;border-radius:7px;color:#b9d0e3}
+.corrective-steps span.reached{background:#194f69;border-color:#82c9ee;color:#fff}
+.corrective-columns{display:grid;grid-template-columns:minmax(270px,.85fr) minmax(320px,1.15fr);gap:12px}
+.corrective-panel{padding:14px;background:#102d45;border:1px solid #4f7896;border-radius:10px;min-width:0}
+.corrective-panel h3{margin:4px 0 12px}.corrective-panel h4{margin:8px 0}
+.corrective-panel label{display:flex;flex-direction:column;gap:5px;margin:9px 0;font-size:12px;color:#d5e7f6}
+.corrective-panel input,.corrective-panel select,.corrective-panel textarea{width:100%;box-sizing:border-box;background:#0b2237;color:#f4f9ff;border:1px solid #648ca8;border-radius:6px;padding:9px;min-width:0}
+.corrective-panel button.tab{margin:7px 0;padding:8px 11px}
+.corrective-case-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto}
+.corrective-case{display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px;background:#183c59;border:1px solid #527a97;border-radius:7px;color:#fff}
+.corrective-case.selected{border-color:#ffda7b;outline:1px solid #ffda7b}
+.corrective-case small,.corrective-case-detail small{display:block;color:#b8d8ed;font-size:10px}
+.corrective-case-detail,.corrective-impact{padding:12px;margin:10px 0;background:#183a55;border:1px solid #507d9a;border-radius:8px}
+.corrective-case-detail strong{display:block;font-size:15px;margin-bottom:8px}
+.corrective-gate{display:flex;flex-direction:column;gap:7px;padding:12px;margin-top:15px;background:#3c2930;border:1px solid #d78b7e;border-radius:8px}
+.corrective-gate strong{color:#ffe4c4}.corrective-gate span{font-size:12px;line-height:1.5;color:#f2d9d7}
+@media(max-width:1000px){.corrective-columns{grid-template-columns:minmax(0,1fr)}.corrective-steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -2134,6 +2153,101 @@ return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 03 · G
 '<section class="evolution-section"><h3>Procedencia y límites</h3>'+sourceUpdateBanner()+'<p>Fecha del estado fuente: <strong>'+escapeHtml(state.updated_at||"NO REGISTRADA")+'</strong></p><p class="hint">Actualiza el repositorio y abre el lanzador para regenerar la lectura local. Los cambios FROZEN requieren reconciliación explícita.</p></section>'+
 '<div class="evolution-actions"><button type="button" class="tab" data-evolution="maqueta">Abrir Maqueta Viva</button><button type="button" class="tab" data-tab="roadmap">Consultar roadmap oficial</button></div>';
 }
+
+/* Offline autocorrective control plane. Never execute code, merge, modify GitHub
+   or assert verified CI from untrusted browser input. External executor required. */
+const CORRECTIVE_KEY="arki-autocorrective-cases-v1";
+const CORRECTIVE_STEPS=[
+["PROPOSED","Propuesta fundamentada"],
+["IMPACT_REVIEWED","Evaluación de impacto"],
+["AUTHORIZED","Tu autorización"],
+["EXTERNAL_EXECUTION_PENDING","Ejecución controlada"],
+["EVIDENCE_UNVERIFIED","Pruebas y verificación"],
+["REVERSAL_REQUESTED","Aceptación o reversión"]
+];
+let correctiveCases=[],correctiveSelected="",correctiveNotice="";
+function validateCorrectiveCases(raw){
+if(!Array.isArray(raw)||raw.length>30)throw Error("Registro autocorrectivo inválido");
+const allowed=new Set(["PROPOSED","IMPACT_REVIEWED","AUTHORIZED","EXTERNAL_EXECUTION_PENDING","EVIDENCE_UNVERIFIED","REVERSAL_REQUESTED"]);
+const seen=new Set();
+return raw.map(c=>{
+if(!c||typeof c!=="object"||!/^AC-[0-9]{1,5}$/.test(c.id)||seen.has(c.id)||!validPhases.has(c.phase)||typeof c.title!=="string"||c.title.length<5||c.title.length>180||typeof c.rationale!=="string"||c.rationale.length<10||c.rationale.length>1500||!allowed.has(c.status))throw Error("Caso autocorrectivo inválido");
+seen.add(c.id);
+const impact=c.impact&&typeof c.impact==="object"?c.impact:null;
+const receipt=typeof c.receipt==="string"?c.receipt.slice(0,500):"";
+return {id:c.id,phase:c.phase,title:c.title,rationale:c.rationale,status:c.status,impact,receipt,created:typeof c.created==="string"?c.created.slice(0,40):"",source:typeof c.source==="string"?c.source.slice(0,100):"MANUAL"};
+});
+}
+try{const raw=localStorage.getItem(CORRECTIVE_KEY);if(raw)correctiveCases=validateCorrectiveCases(JSON.parse(raw));}catch(e){correctiveCases=[];correctiveNotice="No se pudo recuperar el registro autocorrectivo local. Exporta tus respaldos antes de modificarlo.";}
+function persistCorrective(){try{localStorage.setItem(CORRECTIVE_KEY,JSON.stringify(correctiveCases));return true;}catch(e){correctiveNotice="No se guardó el caso en el navegador. La persistencia NO está confirmada.";return false;}}
+function correctiveCase(){return correctiveCases.find(x=>x.id===correctiveSelected)||correctiveCases[0]||null;}
+function createCorrective(title,phase,rationale,source){
+title=String(title||"").trim();rationale=String(rationale||"").trim();
+if(title.length<5||title.length>180||rationale.length<10||rationale.length>1500||!validPhases.has(phase)||correctiveCases.length>=30){correctiveNotice="Completa título (5–180), fundamento (10–1500) y fase válida; máximo 30 casos.";render();return;}
+const id="AC-"+(1+Math.max(0,...correctiveCases.map(x=>Number(x.id.slice(3))||0)));
+correctiveCases.push({id,phase,title,rationale,status:"PROPOSED",impact:null,receipt:"",created:new Date().toISOString(),source:source||"MANUAL"});
+correctiveSelected=id;correctiveNotice="Propuesta "+id+" registrada como borrador. Sin autorización ni ejecución.";persistCorrective();render();
+}
+function correctiveImpact(c){
+if(!c||c.status!=="PROPOSED")return;
+const baseline=analyzeWholeScenario("base"),alternative=analyzeWholeScenario("alternative");
+const p=phases.find(x=>x.id===c.phase);
+c.impact={sourceDate:state.updated_at||"UNKNOWN",phaseStatus:p.status,phaseEvidence:p.evidence_status||"UNKNOWN",phasePieces:Object.values(placements).filter(x=>x===c.phase).length,basePotential:baseline.potential,alternativePotential:alternative.potential,baseReview:baseline.review,alternativeReview:alternative.review,sourceChanges:sourceChanges.changedPhases.length+sourceChanges.changedFrozen.length,kind:"HEURISTIC_LOCAL_NOT_CODE_IMPACT",requiresExternalVerification:true};
+c.status="IMPACT_REVIEWED";correctiveNotice="Impacto heurístico calculado. Requiere análisis técnico de código, dependencias, pruebas y reversión antes de ejecutar.";persistCorrective();render();
+}
+function authorizeCorrective(c,phrase){
+if(!c||c.status!=="IMPACT_REVIEWED")return;
+if(String(phrase||"").trim()!=="AUTORIZO"){correctiveNotice="Escribe AUTORIZO exactamente para autorizar la preparación de la orden.";render();return;}
+if(phases.find(p=>p.id===c.phase)?.status==="FROZEN"){correctiveNotice="BLOQUEADO: "+c.phase+" está FROZEN. Se requiere procedimiento de cambio de alcance y autorización independiente.";render();return;}
+if(c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==phases.find(p=>p.id===c.phase)?.status){correctiveNotice="Impacto desactualizado respecto del estado local: crea nueva evaluación antes de autorizar.";render();return;}
+c.status="AUTHORIZED";correctiveNotice="Autorización local registrada para PREPARAR ORDEN. No autoriza merge, ejecución ni promoción canónica.";persistCorrective();render();
+}
+function correctivePacket(c,type){
+const packet={schema:"ARKI-AUTOCORRECTIVE-REQUEST-1",requestType:type,caseId:c.id,phase:c.phase,proposal:c.title,rationale:c.rationale,impact:c.impact,source:c.source,sourceStateDate:state.updated_at||"UNKNOWN",requestedAt:new Date().toISOString(),authority:"USER_AUTHORIZED_LOCAL_REQUEST_NOT_EXECUTION",execution:"EXTERNAL_EXECUTOR_REQUIRED",gates:["EXACT_SHA_BASELINE","SCOPE_DIFF_REVIEW","RED_TEAM","CI_EXACT_SHA","ROLLBACK_PLAN","ACCEPTANCE_EVIDENCE"],noCanonicalPromotion:true};
+const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(packet,null,2));a.download="ARKI-"+c.id+"-"+type+".json";document.body.appendChild(a);a.click();a.remove();
+}
+function requestCorrectiveExecution(c){
+if(!c||c.status!=="AUTHORIZED")return;
+correctivePacket(c,"EXECUTION_REQUEST");
+c.status="EXTERNAL_EXECUTION_PENDING";correctiveNotice="Orden exportada para ejecutor externo. EJECUCIÓN NO CONFIRMADA; no hay conexión remota desde esta maqueta.";persistCorrective();render();
+}
+function recordCorrectiveReceipt(c,receipt){
+if(!c||c.status!=="EXTERNAL_EXECUTION_PENDING")return;
+const r=String(receipt||"").trim();
+if(r.length<12||r.length>500){correctiveNotice="Indica referencia externa de al menos 12 caracteres (máximo 500). No se certifica desde este formulario.";render();return;}
+c.receipt=r;c.status="EVIDENCE_UNVERIFIED";correctiveNotice="Referencia externa anotada, NO VERIFICADA. La aceptación sigue bloqueada hasta pruebas CI exact SHA y auditoría externa.";persistCorrective();render();
+}
+function requestCorrectiveReversal(c){
+if(!c||!["EXTERNAL_EXECUTION_PENDING","EVIDENCE_UNVERIFIED"].includes(c.status))return;
+correctivePacket(c,"REVERSAL_REQUEST");c.status="REVERSAL_REQUESTED";correctiveNotice="Solicitud de reversión exportada. REVERSIÓN NO EJECUTADA ni confirmada.";persistCorrective();render();
+}
+function autocorrectiveWorkspace(){
+const suggestions=generatedArkiIdeas();
+const c=correctiveCase();
+const phasesOptions=phases.map(p=>'<option value="'+escapeHtml(p.id)+'" '+(p.id===activePhase?"selected":"")+'>'+escapeHtml(p.id+" · "+p.name+(p.status==="FROZEN"?" · FROZEN":""))+'</option>').join("");
+const suggestedOptions=suggestions.map(x=>'<option value="'+escapeHtml(x.id)+'">'+escapeHtml(x.id+" · "+x.title)+'</option>').join("");
+const stageIndex=c?CORRECTIVE_STEPS.findIndex(x=>x[0]===c.status):-1;
+return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 05 · ARKI AUTOCORRECTIVO</div><h2>Circuito de corrección controlada</h2></div><span class="status">EJECUTOR EXTERNO NO CONECTADO</span></div>'+
+'<p class="hint">Esta consola registra propuestas, evalúa alertas locales, prepara autorizaciones y genera órdenes auditables. NO modifica GitHub, no ejecuta código, no verifica CI y no acepta automáticamente resultados.</p>'+
+'<div class="corrective-steps">'+["Propuesta","Impacto","Autorización","Ejecución","Pruebas","Aceptar / revertir"].map((x,i)=>'<span class="'+(stageIndex>=i?"reached":"")+'">'+(i+1)+'. '+x+'</span>').join("")+'</div>'+
+'<div class="corrective-columns"><section class="corrective-panel"><h3>Nueva propuesta fundamentada</h3><label>Título<input id="corrective-title" maxlength="180" placeholder="Qué debe corregir ARKI"></label><label>Fase de alcance<select id="corrective-phase">'+phasesOptions+'</select></label><label>Fundamento<textarea id="corrective-rationale" rows="4" maxlength="1500" placeholder="Problema, evidencia, comportamiento esperado y límites"></textarea></label><button type="button" class="tab" data-corrective-create>Registrar propuesta</button>'+
+'<h3>Ideas y diagnósticos recalculados</h3><p class="hint">Los candidatos se actualizan con el estado local, las ideas y los FROZEN registrados; ninguno se ejecuta automáticamente.</p>'+
+'<select id="corrective-suggestion" aria-label="Diagnóstico candidato">'+suggestedOptions+'</select><button type="button" class="tab" data-corrective-seed '+(suggestions.length?"":"disabled")+'>Crear caso desde diagnóstico</button>'+
+'<h3>Casos locales · '+correctiveCases.length+'</h3><div class="corrective-case-list">'+correctiveCases.map(x=>'<button type="button" class="corrective-case '+(c?.id===x.id?"selected":"")+'" data-corrective-select="'+escapeHtml(x.id)+'">'+escapeHtml(x.id+" · "+x.phase+" · "+x.title)+'<small>'+escapeHtml(x.status)+'</small></button>').join("")+'</div></section>'+
+'<section class="corrective-panel"><h3>Expediente de control</h3>'+
+(c?'<div class="corrective-case-detail"><strong>'+escapeHtml(c.id+" · "+c.title)+'</strong><small>'+escapeHtml(c.phase+" · "+c.status+" · Fuente "+c.source)+'</small><p>'+escapeHtml(c.rationale)+'</p></div>'+
+(c.impact?'<div class="corrective-impact"><h4>Impacto preliminar · NO VERIFICADO</h4><p>Fase: '+escapeHtml(c.impact.phaseStatus)+' · '+c.impact.phasePieces+' piezas locales</p><p>Alertas potenciales (referencia / alternativa): '+c.impact.basePotential+' / '+c.impact.alternativePotential+'</p><p>Revisiones (referencia / alternativa): '+c.impact.baseReview+' / '+c.impact.alternativeReview+'</p><small>Sin análisis de diff real, pruebas, licencias ni efectos de ejecución.</small></div>':"")+
+(c.status==="PROPOSED"?'<button type="button" class="tab" data-corrective-impact>Evaluar impacto local</button>':"")+
+(c.status==="IMPACT_REVIEWED"?'<div class="corrective-authorization"><label>Autorización explícita: escribe AUTORIZO<input id="corrective-authorization" autocomplete="off" placeholder="AUTORIZO"></label><button type="button" class="tab" data-corrective-authorize>Autorizar preparación de orden</button></div>':"")+
+(c.status==="AUTHORIZED"?'<button type="button" class="tab" data-corrective-execute>Exportar orden para ejecutor</button>':"")+
+(c.status==="EXTERNAL_EXECUTION_PENDING"?'<div><p class="hint">Esperando ejecución externa. Puedes registrar una referencia documental, que permanecerá NO VERIFICADA.</p><label>Referencia externa<input id="corrective-receipt" maxlength="500" placeholder="PR, commit SHA, CI y enlace de evidencia"></label><button type="button" class="tab" data-corrective-receipt>Registrar referencia no verificada</button></div>':"")+
+(c.receipt?'<p class="hint">Referencia declarada (NO VERIFICADA): '+escapeHtml(c.receipt)+'</p>':"")+
+(["EXTERNAL_EXECUTION_PENDING","EVIDENCE_UNVERIFIED"].includes(c.status)?'<button type="button" class="tab" data-corrective-reversal>Exportar solicitud de reversión</button>':"")+
+'<div class="corrective-gate"><strong>Aceptación oficial: BLOQUEADA</strong><span>Falta verificación externa de ejecución, pruebas en SHA exacto, auditoría, aceptación y reversión comprobada. Una referencia escrita por el usuario no sustituye evidencia.</span></div>':
+'<div class="empty">Selecciona un caso o registra una propuesta. Las fases F1–F10 y los FROZEN siguen siendo autoridades de solo lectura.</div>')+
+(correctiveNotice?'<p class="hint" role="status">'+escapeHtml(correctiveNotice)+'</p>':"")+'</section></div>'+
+'<p class="caption">Ciclo diseñado: propuesta → impacto → autorización → solicitud al ejecutor → verificación externa → aceptación o reversión. Esta versión implementa la preparación y los bloqueos, no la ejecución remota ni la aceptación canónica.</p>';
+}
 function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
@@ -2147,6 +2261,14 @@ app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Diez fases de 
 (tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
 '<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-corrective-create]").forEach(el=>el.addEventListener("click",()=>createCorrective(app.querySelector("#corrective-title")?.value,app.querySelector("#corrective-phase")?.value,app.querySelector("#corrective-rationale")?.value,"MANUAL")));
+app.querySelectorAll("[data-corrective-seed]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===app.querySelector("#corrective-suggestion")?.value);if(x)createCorrective(x.title,x.phase,x.why+" Acción propuesta: "+x.action,x.id);}));
+app.querySelectorAll("[data-corrective-select]").forEach(el=>el.addEventListener("click",()=>{correctiveSelected=el.dataset.correctiveSelect;correctiveNotice="";render();}));
+app.querySelectorAll("[data-corrective-impact]").forEach(el=>el.addEventListener("click",()=>correctiveImpact(correctiveCase())));
+app.querySelectorAll("[data-corrective-authorize]").forEach(el=>el.addEventListener("click",()=>authorizeCorrective(correctiveCase(),app.querySelector("#corrective-authorization")?.value)));
+app.querySelectorAll("[data-corrective-execute]").forEach(el=>el.addEventListener("click",()=>requestCorrectiveExecution(correctiveCase())));
+app.querySelectorAll("[data-corrective-receipt]").forEach(el=>el.addEventListener("click",()=>recordCorrectiveReceipt(correctiveCase(),app.querySelector("#corrective-receipt")?.value)));
+app.querySelectorAll("[data-corrective-reversal]").forEach(el=>el.addEventListener("click",()=>requestCorrectiveReversal(correctiveCase())));
 app.querySelectorAll("[data-technical-mode]").forEach(el=>el.addEventListener("click",()=>{technicalMode=el.dataset.technicalMode==="on";decisionShowAll=false;selected=activePhase;render();}));
 app.querySelectorAll("[data-decision-show-all]").forEach(el=>el.addEventListener("click",()=>{decisionShowAll=!decisionShowAll;render();}));
 app.querySelectorAll("[data-exec-jump]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.execJump;render();}));
