@@ -456,7 +456,7 @@ if(!validPhases.has(phase))return false;
 const suggested=suggestStage(piece,phase),index=suggested?.index??"0";
 placements[id]=phase;spineAssignments[id]=index;
 autoPlacementNotes[id]={confidence:suggested?advice.confidence:"BAJA",stage:index,reason:(suggested?suggested.reason:"Sin coincidencia: Hito 1 provisional; revisar manualmente").slice(0,260)};
-if(!workflowStages[id])workflowStages[id]=source==="local"?"IDEA":"EVALUACION";
+if(!workflowStages[id])workflowStages[id]=source==="local"?"IDEA":components.some(x=>x.id===id)?"VERIFICACION_PENDIENTE":"EVALUACION";
 return true;
 }
 function autoOrganizeAvailable(){
@@ -597,13 +597,26 @@ sourceChanges.retired=Object.keys(before).filter(id=>!Object.prototype.hasOwnPro
 }
 localStorage.setItem(SOURCE_SNAPSHOT_KEY,JSON.stringify(sourceManifest));
 }catch(e){sourceChanges.initial=true;}
+/* Only truly new source entries are auto-staged on later launcher refreshes.
+   First visit never mass-migrates historic inventory; user X removals stay removed. */
+let sourceAutoPlaced=0;
+if(!sourceChanges.initial){
+const newlyDetected=[...sourceChanges.newIdeas,...sourceChanges.newComponents];
+if(newlyDetected.length){
+remember();
+for(const id of newlyDetected)if(autoPlace(id,"source"))sourceAutoPlaced++;
+if(sourceAutoPlaced)saveDraft();
+else undoStack.pop();
+if(sourceAutoPlaced)draftNotice=sourceAutoPlaced+" piezas NUEVAS de las fuentes locales se ubicaron provisionalmente. Revisa sus fases/hitos y evidencia. Ninguna fue integrada.";
+}
+}
 function sourceUpdateBanner(){
 const changes=sourceChanges;
 const n=changes.newIdeas.length+changes.newComponents.length+changes.newFrozen.length+changes.changedFrozen.length+changes.changedPhases.length+changes.otherChanges.length+changes.retired.length;
 const detail=changes.initial?"Primera lectura local. Se cargarán las novedades presentes en la próxima generación de la maqueta.":n?[
 changes.newIdeas.length+" ideas nuevas",changes.newComponents.length+" componentes nuevos",changes.newFrozen.length+" FROZEN nuevos",
 changes.changedFrozen.length+" FROZEN modificados",changes.changedPhases.length+" fases actualizadas",
-changes.otherChanges.length+" registros modificados",changes.retired.length+" registros ausentes en fuente actual"
+changes.otherChanges.length+" registros modificados",changes.retired.length+" registros ausentes en fuente actual",sourceAutoPlaced+" piezas nuevas auto-ubicadas (borrador)"
 ].filter(x=>!x.startsWith("0 ")).join(" · "):"Sin cambios detectados respecto de la última lectura local.";
 return '<div class="source-sync" role="status"><div><strong>FUENTES LOCALES · '+escapeHtml(sourceManifest.stateDate)+' / inventario '+escapeHtml(sourceManifest.registryDate)+'</strong><span>'+escapeHtml(detail)+'</span><small>La actualización es automática al abrir desde ARKI-MAQUETA-VIVA.cmd después de actualizar los archivos locales. Sin consulta remota y sin promoción de evidencias.</small></div><button type="button" class="tab" data-source-open="roadmap">Ver roadmap</button><button type="button" class="tab" data-source-open="frozen">Ver FROZEN</button></div>';
 }
