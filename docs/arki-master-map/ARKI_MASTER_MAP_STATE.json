@@ -1898,7 +1898,41 @@
         "feedback": "Milestone highlights as drop target, persistent local draft notice and counts, reversible via undo",
         "accessibility": "Existing milestone selection plus Hito selector and Vincular buttons retained as keyboard/mouse alternatives",
         "boundary": "No mutation of roadmap, frozen authority, canonical integration or verified dependency"
-      }
+      },
+      "spine_advisor": {
+        "behavior": "Deterministic read-only diagnostics of staged spines: unassigned hito, missing declared dependency target, inverted declared dependency vs proposed milestone order, missing declared evidence, text-based candidate hito changes and lexical pair relationship suggestions",
+        "candidate_dependency": "Requires at least two distinctive shared title tokens, both pieces staged in same phase with distinct milestones; never auto-created; explicit user action uses existing cycle-safe validateReviews",
+        "actions": "Explicit bind/move milestone via assignSpine; explicit declare dependency via addConnection; inspect for evidence; undo/redo remains available",
+        "limits": "Textual co-occurrence is not evidence of causal dependency; advisory suggestions are never verified facts or critical-path claims"
+      },
+      "digital_twin_gates": {
+        "purpose": "Proposed four evidence gates for future digital twin; distinct from official F1-F10",
+        "stages": [
+          "DATOS_Y_PROCEDENCIA",
+          "ESTADO_OBSERVABLE",
+          "SIMULACION_Y_REPLAY",
+          "DECISION_Y_OPERACION"
+        ],
+        "evidence_status": "NOT_VERIFIED_IN_MAQUETA",
+        "acs_stages": [
+          "KNOW",
+          "RUN",
+          "UNDERSTAND",
+          "EVOLVE"
+        ],
+        "acs_stage_status": "NOT_DETERMINED_FROM_CANONICAL_STATE",
+        "source": "current_focus.blockers and roadmap statuses, read-only"
+      },
+      "test_evidence": {
+        "js_syntax": "PASS",
+        "simulated_dom": "PASS: 10 phase buttons, advisory rendered on structure, twin and four ACS stages visible on Roadmap, placed piece diagnosed for missing evidence",
+        "e3_checks_added": [
+          "ADVISOR_READONLY_AND_TEN_PHASES",
+          "TWIN_ACS_SEPARATE_GATES"
+        ],
+        "windows_browser": "NOT_EXECUTED"
+      },
+      "authority_boundary": "No canonical phase or FROZEN mutation; no automatic promotions, integrations, or verified progress claims"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
