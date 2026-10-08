@@ -317,6 +317,26 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .relation-piece.proposed{border-style:dashed;border-color:#e8bd65;color:#ffe4a4;background:#594b2b}
 .relation-confirm{border:1px solid #ebca6c;border-radius:5px;background:#f4db5b;color:#192a36;font-size:10px;font-weight:750;padding:4px 6px;cursor:pointer}
 .relation-confirm:hover{background:#fff19a}
+
+/* The route radar is an advisory, collapsible audit: no synthetic progress. */
+.route-radar{margin:11px 0 14px;padding:11px 13px;background:#0e304b;border:1px solid #4e91b8;border-radius:10px}
+.route-radar-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.route-radar-head strong{color:#e4f7ff;font-size:12px;letter-spacing:.035em}
+.route-radar-head small{font-size:10px;color:#aacde2}
+.route-radar-metrics,.roadmap-route-metrics{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.route-radar-metrics span,.roadmap-route-metrics span{border:1px solid #4b7593;border-radius:7px;padding:7px 9px;background:#173f5c;font-size:11px;color:#d7e9f7}
+.route-radar-metrics b,.roadmap-route-metrics b{font-size:15px;color:#f2faff;margin-right:3px}
+.route-radar-metrics .route-attention{border-color:#c8a448;color:#ffe7a7}
+.route-radar-details{font-size:12px;border-top:1px solid #436f8b;padding-top:8px}
+.route-radar-details summary,.roadmap-route-audit summary{cursor:pointer;color:#c7eaff;font-weight:700}
+.route-radar-details p{line-height:1.5;margin:8px 0}
+.route-id{background:#1b5475;border:1px solid #74b5d8;border-radius:5px;padding:3px 6px;margin:2px;color:#e8f8ff;font-size:11px}
+.route-id:hover{background:#286b90}
+.roadmap-route-audit{border:1px solid #648eab;border-radius:10px;background:#10324c;padding:13px;margin:17px 0}
+.roadmap-route-audit strong{font-size:14px}
+.route-cross-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 0;border-bottom:1px solid #385d77}
+.route-cross-row button{border:1px solid #6a9db9;border-radius:5px;background:#1c5071;color:#eaf7ff;padding:5px 8px;font-size:11px}
+.route-cross-row span{font-size:11px;color:#f5d18d}
 </style>
 </head>
 <body>
@@ -901,7 +921,7 @@ const phaseLinks=localPhaseLinks(p.id);
 const phaseUnlinked=unassigned.length;
 return '<div class="spine-scenario"><div><strong>Hoja de ruta de ensamblaje</strong><small>La ruta oficial es el roadmap canónico, no estas vinculaciones visuales.</small></div><button type="button" class="tab '+(spineScenario==="base"?"active":"")+'" data-spine-scenario="base" aria-pressed="'+(spineScenario==="base")+'">Referencia propuesta</button><button type="button" class="tab '+(spineScenario==="alternative"?"active":"")+'" data-spine-scenario="alternative" aria-pressed="'+(spineScenario==="alternative")+'">Alternativa A</button><button type="button" class="tab" data-spine-suggest '+(suggestions.length?"":"disabled")+' title="Vincular únicamente coincidencias textuales inequívocas como hipótesis">Aplicar '+suggestions.length+' sugerencias textuales</button></div>'+
 (spineScenario==="alternative"&&altCount===0&&baseCount>0?'<div class="spine-copy-help"><span>La alternativa está vacía. Puedes partir de la referencia y modificar sus espinas sin afectar la original.</span><button type="button" class="tab" data-spine-copy>Copiar referencia a Alternativa A</button></div>':"")+
-spineRouteComparison(p,staged)+
+spineRouteComparison(p,staged)+routeRadar(p.id)+
 '<div class="location-review-toggle"><span>ARKI puede proponer fase e hito para cada pieza, con justificación y edición manual.</span><button type="button" class="tab" data-location-toggle aria-expanded="'+locationReviewOpen+'">'+(locationReviewOpen?"Ocultar propuestas":"Revisar ubicaciones sugeridas")+'</button></div>'+
 (locationReviewOpen?locationReviewPanel():"")+
 '<div class="spine-connection-help" role="status"><div><strong>'+(linkMode?"MODO CONECTAR ESPINAS · ACTIVO":"CONECTAR ACTIVIDADES SECUNDARIAS")+'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la actividad necesaria.":"Pulsa «Conectar» primero en la actividad dependiente y después en la necesaria."):"Activa «🔗 Conectar piezas» y usa los botones «🔗 Conectar» dentro de las espinas. Cada relación es una hipótesis local.")+'</span></div><span class="spine-link-count">'+phaseLinks.length+' dependencias · '+phaseUnlinked+' espinas sin hito</span></div>'+
@@ -984,6 +1004,52 @@ const blocks=graphNodes.map(n=>{const p=node(n.id),kind=statusClass(p);const col
 return '<h2>Conexiones y dependencias</h2><svg class="diagram" viewBox="0 0 950 420" role="img" aria-label="Grafo de evidencia, autoridades y conexiones pendientes"><defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#9caec4" stroke-width="1.2"/></marker></defs>'+line+blocks+'</svg><div class="legend"><span><i class="key" style="background:#4dc99b"></i>Transferencia acotada E3</span><span><i class="key" style="background:#7daaff"></i>Contrato implementado</span><span><i class="key" style="background:#8fa5bf"></i>Relación de autoridad</span><span><i class="key" style="background:#f2ba69"></i>Pendiente</span></div><p class="caption">Las flechas de autoridad representan responsabilidades de diseño, no pruebas de conectividad ejecutada. El grafo es deliberadamente acotado.</p>';
 }
 
+
+/* Route diagnostics are recalculated from the current local draft and the read-only
+   source snapshot. They do not compute project completion or validate evidence. */
+function routeDiagnostics(phase,scenario){
+const staged=[...ideas,...components].filter(x=>placements[x.id]===phase);
+const map=scenario==="alternative"?alternativeSpineAssignments:spineAssignments;
+const assigned=staged.filter(x=>Object.prototype.hasOwnProperty.call(map,x.id));
+const withoutHito=staged.filter(x=>!Object.prototype.hasOwnProperty.call(map,x.id));
+const noDeclaredEvidence=staged.filter(x=>!reviewGate(x.id).hasEvidence);
+const lowConfidence=staged.filter(x=>autoPlacementNotes[x.id]?.confidence==="BAJA");
+const unresolved=[],crossPhase=[],within=[];
+for(const piece of staged){
+for(const to of reviews[piece.id]?.dependencies||[]){
+const edge={from:piece.id,to,fromPhase:phase,toPhase:placements[to]||""};
+if(!placements[to])unresolved.push(edge);
+else if(placements[to]!==phase)crossPhase.push(edge);
+else within.push(edge);
+}}
+const available=[...ideas,...components].filter(x=>!placements[x.id]&&proposedLocation(x).phase===phase);
+return {phase,staged,assigned,withoutHito,noDeclaredEvidence,lowConfidence,unresolved,crossPhase,within,available};
+}
+function routeRadar(phase){
+const d=routeDiagnostics(phase,spineScenario);
+const flagged=d.withoutHito.length+d.unresolved.length+d.lowConfidence.length;
+return '<div class="route-radar" aria-label="Diagnóstico local de la fase '+escapeHtml(phase)+'">'+
+'<div class="route-radar-head"><strong>RADAR DE ENSAMBLAJE · '+escapeHtml(phase)+'</strong><small>Recalculado desde el borrador y la fuente local · No es avance oficial</small></div>'+
+'<div class="route-radar-metrics"><span><b>'+d.staged.length+'</b> piezas ubicadas</span><span><b>'+d.assigned.length+'</b> espinas con hito</span><span class="'+(d.withoutHito.length?"route-attention":"")+'"><b>'+d.withoutHito.length+'</b> sin hito</span><span><b>'+d.within.length+'</b> dependencias internas</span><span><b>'+d.crossPhase.length+'</b> entre fases</span><span class="'+(d.unresolved.length?"route-attention":"")+'"><b>'+d.unresolved.length+'</b> a piezas no ubicadas</span></div>'+
+'<details class="route-radar-details"><summary>Revisar '+flagged+' alertas de organización y '+d.noDeclaredEvidence.length+' fichas sin evidencia declarada</summary>'+
+'<p class="hint">Una alerta de organización NO es un fallo de CI. Una ficha declarada NO equivale a prueba ejecutada. La clasificación de fase/hito es provisional.</p>'+
+(d.withoutHito.length?'<p><strong>Sin hito:</strong> '+d.withoutHito.map(x=>'<button class="route-id" data-route-piece="'+escapeHtml(x.id)+'">'+escapeHtml(x.id)+'</button>').join(" ")+'</p>':'<p>Las piezas ubicadas tienen hito en este escenario.</p>')+
+(d.lowConfidence.length?'<p><strong>Ubicación automática de confianza baja:</strong> '+d.lowConfidence.map(x=>escapeHtml(x.id)).join(", ")+'</p>':"")+
+(d.unresolved.length?'<p><strong>Dependencias con destino no ubicado:</strong> '+d.unresolved.map(e=>escapeHtml(e.from+" → "+e.to)).join(" · ")+'</p>':"")+
+(d.crossPhase.length?'<p><strong>Dependencias transversales declaradas:</strong> '+d.crossPhase.map(e=>'<button class="route-id" data-route-piece="'+escapeHtml(e.to)+'">'+escapeHtml(e.from+" → "+e.to+" ("+e.toPhase+")")+'</button>').join(" ")+'</p>':"")+
+'<p><strong>Piezas disponibles propuestas para esta fase:</strong> '+d.available.length+' · <strong>Sin evidencia declarada:</strong> '+d.noDeclaredEvidence.length+'</p>'+
+'<p class="caption">Fuente: inventario y estado local; relaciones de reviews son declaraciones de usuario. Las novedades FROZEN se leen del estado canónico al regenerar con el lanzador.</p></details></div>';
+}
+function roadmapRouteAudit(){
+const diagnostics=phases.map(p=>routeDiagnostics(p.id,"base"));
+const cross=diagnostics.flatMap(d=>d.crossPhase),unresolved=diagnostics.flatMap(d=>d.unresolved);
+const totalUnlinked=diagnostics.reduce((n,d)=>n+d.withoutHito.length,0);
+const newSource=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length;
+return '<section class="roadmap-route-audit"><div><strong>Radar transversal de las 10 fases</strong><p class="hint">Diagnóstico de la referencia propuesta, no del roadmap oficial. Se actualiza al cambiar piezas, espinas o conexiones.</p></div>'+
+'<div class="roadmap-route-metrics"><span><b>'+totalUnlinked+'</b> espinas sin hito</span><span><b>'+cross.length+'</b> dependencias entre fases</span><span><b>'+unresolved.length+'</b> dependencias sin destino ubicado</span><span><b>'+newSource+'</b> novedades de fuente detectadas</span></div>'+
+(cross.length?'<details><summary>Ver conexiones transversales declaradas · '+cross.length+'</summary>'+cross.map(e=>'<div class="route-cross-row"><button type="button" data-route-piece="'+escapeHtml(e.from)+'">'+escapeHtml(e.from+" · "+e.fromPhase)+'</button><span>necesita →</span><button type="button" data-route-piece="'+escapeHtml(e.to)+'">'+escapeHtml(e.to+" · "+e.toPhase)+'</button></div>').join("")+'</details>':'<p class="caption">Todavía no hay conexiones entre fases declaradas en el borrador. Esto no prueba ausencia de dependencias reales.</p>')+
+'</section>';
+}
 function roadmap(){
 const counts=Object.fromEntries(phases.map(p=>[p.id,Object.values(placements).filter(id=>id===p.id).length]));
 const registered=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,needs=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
@@ -993,6 +1059,7 @@ return '<div class="roadmap-head"><div><div class="kicker">FUENTE CANÓNICA · L
 const count=counts[p.id]||0;
 return '<button type="button" class="roadmap-phase" data-roadmap-phase="'+escapeHtml(p.id)+'" title="Abrir mesa de '+escapeHtml(p.id)+'"><span class="roadmap-phase-top"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(p.name)+'</span></span><span class="roadmap-status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span><small>Estado de evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADO")+'</small><span class="roadmap-draft">'+count+' piezas ubicadas en borrador</span><span class="roadmap-open">Abrir fase →</span></button>';
 }).join("")+'</div>'+
+roadmapRouteAudit()+
 '<div class="roadmap-foot"><h3>Pendientes registrados</h3><p class="hint">Fases por reconciliar: '+escapeHtml(phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>p.id).join(", ")||"Ninguna")+'.</p>'+
 '<p class="hint">Próxima acción registrada: '+escapeHtml(focus.next_exact_action||"No registrada")+'</p>'+
 '<p class="caption">No se calculan porcentajes de avance a partir de tarjetas. Los hitos se modifican únicamente mediante la fuente canónica y evidencia verificable.</p></div>';
@@ -1148,6 +1215,12 @@ app.querySelectorAll("[data-spine-connect]").forEach(el=>el.addEventListener("cl
 app.querySelectorAll("[data-link-add]").forEach(el=>el.addEventListener("click",()=>{addConnection(app.querySelector("#connection-from")?.value||"",app.querySelector("#connection-to")?.value||"");render();}));
 app.querySelectorAll("[data-link-remove]").forEach(el=>el.addEventListener("click",()=>{removeConnection(el.dataset.linkRemove,el.dataset.linkTarget);render();}));
 app.querySelectorAll("[data-graph-piece]").forEach(el=>{const fn=()=>{const id=el.dataset.graphPiece;activePhase=placements[id];selected=id;tab="structure";render();};el.addEventListener("click",fn);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+app.querySelectorAll("[data-route-piece]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.routePiece;if(!movable.has(id))return;
+if(placements[id]&&validPhases.has(placements[id])){activePhase=placements[id];tab="structure";spineView=true;selected=id;locationReviewOpen=false;draftNotice="Inspecciona "+id+" en "+activePhase+". La relación y la ubicación son locales, no verificadas.";}
+else{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=activePhase;draftNotice="La pieza "+id+" no está ubicada. Abre «Revisar ubicaciones sugeridas» para asignarla manualmente.";}
+render();
+}));
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
