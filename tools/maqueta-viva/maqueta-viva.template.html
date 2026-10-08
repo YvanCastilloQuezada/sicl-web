@@ -30,6 +30,7 @@ const descriptions={F1:"Identidad, confianza, estado y trazabilidad del proyecto
 const phases=state.roadmap.phases.map(p=>({...p,name:labels[p.id]||p.id,description:descriptions[p.id]||""}));
 let registry;try{registry=JSON.parse(document.getElementById("arki-assembly").textContent);if(registry.schema!=="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"||!Array.isArray(registry.ideas))throw Error("schema");}catch(e){app.innerHTML='<div class="error">No se pudo cargar el registro de piezas: '+String(e.message)+'</div>';return;}
 const ideas=registry.ideas.map(x=>({...x,name:x.title,status:x.sourceStatus,description:"Inventario histórico: "+x.origin+". Destino propuesto: "+x.targetPhase+". NO INTEGRADO por asignación."}));
+const components=(registry.components||[]).map(x=>({...x,name:x.title,status:x.sourceStatus,description:"Componente de auditoría histórica. "+x.sourceGap+". Ubicación propuesta: "+x.targetPhase+". Requiere contraste con HEAD actual."}));
 const dispositions=state.f6_agk_integral_closure?.constituent_disposition||{};
 const frozenPieces=[...Object.entries(dispositions).filter(([id,v])=>String(v).startsWith("FREEZE_")).map(([id,v])=>({id,name:id,status:v,description:"Componente F6 congelado en el alcance acotado registrado; no prueba integración industrial completa.",targetPhase:"F6",origin:"f6_agk_integral_closure.constituent_disposition"}))];
 if(state.agk_delta_005?.status&&String(state.agk_delta_005.status).startsWith("FROZEN_")&&!frozenPieces.some(p=>p.id==="AGK-DELTA-005"))frozenPieces.push({id:"AGK-DELTA-005",name:"AGK-DELTA-005",status:state.agk_delta_005.status,targetPhase:"F6",description:"Contrato acotado congelado.",origin:"agk_delta_005.status"});
@@ -46,7 +47,7 @@ const extras=[
 {id:"RVT",name:"Revit / RVT",status:"PENDIENTE",description:"Modelo real disponible; extracción semántica nativa no demostrada."}
 ];
 const blockerParts=blockers.map(b=>({id:b,name:b,status:"BLOCKED",description:"Bloqueo explícito del Estado Estructurado. No implica que las demás piezas estén ausentes."}));
-const all=[...phases,...extras,...blockerParts,...ideas,...allFrozen];
+const all=[...phases,...extras,...blockerParts,...ideas,...components,...allFrozen];
 let selected="F6",tab="structure",search="",assembly="5x2",tray="pending";
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_PROGRESS")return"progress";if(String(p.status).includes("RECONCILED"))return"reconciled";return"unknown";}
@@ -85,11 +86,11 @@ return '<h2>Cuerpo de ARKI · 10 fases</h2><div class="layout-switch" aria-label
 function phaseContents(){
 const phase=/^F\d+$/.test(selected)?selected:(node(selected).targetPhase||"");
 if(!/^F\d+$/.test(phase))return '<div class="piece-zone"><p class="hint">Selecciona una fase F1–F10 para ver las piezas que le hemos asignado provisionalmente.</p></div>';
-const inside=ideas.filter(p=>p.targetPhase===phase),fr=allFrozen.filter(p=>p.targetPhase===phase);
+const inside=ideas.filter(p=>p.targetPhase===phase),historic=components.filter(p=>p.targetPhase===phase),fr=allFrozen.filter(p=>p.targetPhase===phase);
 return '<div class="piece-zone"><h3>Interior de '+escapeHtml(phase)+' · piezas por ensamblar</h3><p class="hint">Estas asignaciones son propuestas. Una pieza no pasa a INTEGRADA sin pruebas de conexión y aceptación.</p>'+
-'<div class="stack">'+inside.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.sourceStatus)+' · HISTÓRICO / NO INTEGRADO</small></button>').join("")+
+'<div class="stack">'+historic.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>COMPONENTE HISTÓRICO · '+escapeHtml(p.sourceStatus)+' · RECONCILIAR</small></button>').join("")+inside.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.sourceStatus)+' · HISTÓRICO / NO INTEGRADO</small></button>').join("")+
 fr.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>FROZEN · '+escapeHtml(p.status)+'</small></button>').join("")+
-(!inside.length&&!fr.length?'<div class="empty">Sin piezas catalogadas todavía. No significa que la fase esté vacía en el código.</div>':"")+'</div></div>';
+(!inside.length&&!fr.length&&!historic.length?'<div class="empty">Sin piezas catalogadas todavía. No significa que la fase esté vacía en el código.</div>':"")+'</div></div>';
 }
 function leftPanel(){
 return '<h2>Información</h2><div class="caption">Autoridades fundamentales</div>'+
@@ -97,11 +98,14 @@ return '<h2>Información</h2><div class="caption">Autoridades fundamentales</div
 '<div style="margin-top:18px">'+detail()+'</div>';
 }
 function rightPanel(){
-const tabs='<div class="tray-switch">'+[['pending','Pendientes'],['ideas','Ideas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab '+(tray===k?"active":"")+'" data-tray="'+k+'">'+l+'</button>').join("")+'</div>';
+const tabs='<div class="tray-switch">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab '+(tray===k?"active":"")+'" data-tray="'+k+'">'+l+'</button>').join("")+'</div>';
 let content="";
 if(tray==="frozen"){
 const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
 content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
+}else if(tray==="components"){
+const entries=components.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
+content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else if(tray==="ideas"){
 const entries=ideas.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
 content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
