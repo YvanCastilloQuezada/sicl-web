@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "Official phase statuses, FROZEN and roadmap remain unchanged; all spine mapping is local reversible draft",
+      "integration_boundary": "Visual local drafts and inventory-phase suggestions are non-authoritative; source snapshots update when local files are regenerated",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: 10 phases; local idea capture -> tray -> F6 placement -> keyword milestone proposal -> alternative assignment -> undo; source initial/no-change/new-idea/F1-status delta; portable local idea import/undo; orphan draft backup; one-click proposed placement/undo; static JS syntax PASS",
+      "interaction_simulation": "PASS: real registry I-01/I-02 staged in vertebral view, create/review/remove secondary dependency, retain vertebral view; real registry I-01 placed in F6 -> audit -> explicit move to F1 -> undo restores F6; ten phases preserved",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1711,6 +1711,18 @@
         "static_js_syntax": "PASS",
         "interaction_simulation": "PASS: F1–F10 render, select F6 hito 3, place F1-suggested piece in F6 with warning, assign to hito 3, switch to empty alternative, copy reference, unlink only alternative, base remains",
         "windows_browser_e3": "PENDING"
+      },
+      "vertebral_secondary_dependencies": {
+        "interaction": "Two-click dependency creation directly on linked or unlinked secondary activity cards in vertebral view; no forced Mesa libre switch",
+        "visualization": "Each attached activity shows declared dependencies and incoming references; phase ledger supports explicit removal",
+        "storage": "Existing local reviews.dependencies, same data shown in Mesa libre and Conexiones, shared by reference and alternative scenarios",
+        "validation": "validateReviews rejects self-links, duplicate links, cycles and unknown IDs",
+        "semantics": "Hypothesis only, no automatic certification or critical path calculation"
+      },
+      "phase_placement_audit": {
+        "scope": "Checks current draft placement against source-proposed phase, flags missing textual stage suggestions",
+        "action": "Explicit per-piece move to proposed phase with undo/redo; never auto-moves",
+        "guard": "Does not alter canonical phase status, frozen contracts, inventory or roadmap"
       }
     },
     "assembly": {
