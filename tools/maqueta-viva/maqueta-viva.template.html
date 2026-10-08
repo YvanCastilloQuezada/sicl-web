@@ -1420,6 +1420,52 @@ return '<section class="roadmap-route-audit"><div><strong>Radar transversal de l
 (cross.length?'<details><summary>Ver conexiones transversales declaradas · '+cross.length+'</summary>'+cross.map(e=>'<div class="route-cross-row"><button type="button" data-route-piece="'+escapeHtml(e.from)+'">'+escapeHtml(e.from+" · "+e.fromPhase)+'</button><span>necesita →</span><button type="button" data-route-piece="'+escapeHtml(e.to)+'">'+escapeHtml(e.to+" · "+e.toPhase)+'</button></div>').join("")+'</details>':'<p class="caption">Todavía no hay conexiones entre fases declaradas en el borrador. Esto no prueba ausencia de dependencias reales.</p>')+
 '</section>';
 }
+
+/* ARKI improvement ideas are deterministic diagnostics, not autonomous code changes.
+   User decisions are local and never mutate canonical sources. */
+const ARKI_IDEAS_KEY="arki-maqueta-arki-idea-decisions-v1";
+function validateArkiIdeaDecisions(raw){
+if(!raw||typeof raw!=="object"||Array.isArray(raw)||Object.keys(raw).length>100)return {};
+const out={};
+for(const [id,status] of Object.entries(raw))if(/^(RECONCILE|SPINE|DEPS|LOW|SOURCE)-F?(?:[1-9]|10|ALL)$/.test(id)&&["APPROVED","REJECTED"].includes(status))out[id]=status;
+return out;
+}
+let arkiIdeaDecisions={};
+try{arkiIdeaDecisions=validateArkiIdeaDecisions(JSON.parse(localStorage.getItem(ARKI_IDEAS_KEY)||"{}"));}catch(e){arkiIdeaDecisions={};}
+function generatedArkiIdeas(){
+const results=[];
+const add=(id,phase,title,why,action)=>results.push({id,phase,title,why,action});
+for(const p of phases){
+const id=p.id,placed=[...ideas,...components].filter(x=>placements[x.id]===id);
+if(p.status==="RECONCILIATION_REQUIRED")add("RECONCILE-"+id,id,"Reconciliar "+id+" con evidencia","El estado oficial sigue en RECONCILIATION_REQUIRED.","Revisar contratos, pruebas y procedencia; no promover por apariencia.");
+const unassigned=placed.filter(x=>spineAssignments[x.id]===undefined);
+if(unassigned.length)add("SPINE-"+id,id,"Clasificar "+unassigned.length+" espinas sin hito","Hay actividades ubicadas sin vinculación vertebral en "+id+".","Comparar hitos candidatos, justificar y aprobar ubicación.");
+const missing=placed.filter(x=>(reviews[x.id]?.dependencies||[]).some(d=>!placements[d]));
+if(missing.length)add("DEPS-"+id,id,"Resolver dependencias sin ubicar","Hay "+missing.length+" piezas que declaran al menos una dependencia ausente de la mesa.","Verificar dependencias antes de ejecutar o promover.");
+const weak=placed.filter(x=>autoPlacementNotes[x.id]?.confidence==="BAJA");
+if(weak.length)add("LOW-"+id,id,"Revisar "+weak.length+" clasificaciones de baja confianza","La ubicación fue sugerida por heurística o antecedente insuficiente.","Reevaluar las diez fases y documentar la elección.");
+}
+const changed=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length;
+if(changed)add("SOURCE-ALL","F1–F10","Revisar "+changed+" novedades de fuente","La fuente local cambió respecto de la lectura anterior, incluidas ideas, fases o FROZEN.","Contrastar novedades antes de modificar el roadmap o las decisiones.");
+return results;
+}
+function arkiIdeasWorkspace(){
+const entries=generatedArkiIdeas(),pending=entries.filter(x=>!arkiIdeaDecisions[x.id]).length;
+return '<div class="assembly-header"><div><div class="kicker">MEJORA CONTINUA · PROPUESTAS EXPLICABLES</div><h2>Ideas propias de ARKI · Revisión humana</h2></div><span class="status">'+pending+' pendientes de decisión</span></div>'+
+'<p class="hint">ARKI detecta oportunidades mediante reglas locales y el estado visible de la maqueta. Las propuestas se regeneran cuando cambian las piezas, dependencias o fuentes. No son razonamiento autónomo del Core ni implementaciones.</p>'+
+'<div class="arki-ideas-grid">'+entries.map(x=>{
+const status=arkiIdeaDecisions[x.id]||"PENDING";
+return '<article class="arki-idea"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.phase)+'</small><strong>'+escapeHtml(x.title)+'</strong><span class="arki-idea-status">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>'+escapeHtml(x.why)+'</p><p><b>Acción propuesta:</b> '+escapeHtml(x.action)+'</p><div class="arki-idea-actions"><button type="button" class="tab" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button><button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button></div></article>';
+}).join("")+(entries.length?"":'<div class="empty">No se detectaron propuestas nuevas bajo las reglas actuales. No significa que ARKI esté completo.</div>')+'</div>'+
+'<p class="caption">Aprobar una idea autoriza su evaluación posterior, no la ejecución de código, el cambio de contratos, el merge ni la promoción canónica. Las decisiones se conservan en este navegador y en el JSON exportado.</p>';
+}
+function decideArkiIdea(id,action){
+if(!generatedArkiIdeas().some(x=>x.id===id))return;
+if(action==="reset")delete arkiIdeaDecisions[id];
+else arkiIdeaDecisions[id]=action==="approve"?"APPROVED":"REJECTED";
+try{localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));draftNotice="Decisión sobre "+id+" guardada localmente. Sin implementación automática.";}catch(e){draftNotice="No se pudo guardar la decisión; exporta el JSON.";storageAvailable=false;}
+render();
+}
 function roadmap(){
 const counts=Object.fromEntries(phases.map(p=>[p.id,Object.values(placements).filter(id=>id===p.id).length]));
 const registered=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,needs=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
@@ -1540,12 +1586,17 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="command-stat" title="En construcción"><b>'+progress+'</b><span>En construcción</span></div>'+
 '<div class="command-stat" title="Por reconciliar"><b>'+reconcile+'</b><span>Por reconciliar</span></div>'+
 '</div>'+
-'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div></nav>'+
+'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button></nav>'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
 sourceUpdateBanner()+
-'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
+app.querySelectorAll("[data-arki-approve]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiApprove,"approve")));
+app.querySelectorAll("[data-arki-reject]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReject,"reject")));
+app.querySelectorAll("[data-arki-reset]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReset,"reset")));
+app.querySelectorAll("[data-optimize-review]").forEach(el=>el.addEventListener("click",()=>{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=el.dataset.optimizeReview;render();}));
+
 app.querySelectorAll("[data-auto-link-from]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.autoLinkFrom,el.dataset.autoLinkTo);render();}));
 app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
 app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>placeSuggestedPiece(el.dataset.placeSuggest)));
