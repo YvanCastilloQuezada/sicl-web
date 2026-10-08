@@ -554,6 +554,43 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .twin-readiness-step small{font-size:10px;color:#ffd18b;margin-top:auto}
 .twin-blocker{padding:7px 9px;border-bottom:1px solid #496e89;font-size:11px;overflow-wrap:anywhere}
 @media(max-width:650px){.spine-advisor-row{align-items:start;flex-direction:column}.spine-advisor-row button{width:100%}}
+
+/* Human decision cockpit. Technical controls are retained behind an explicit switch. */
+.layout.executive-layout{grid-template-columns:minmax(0,1fr)}
+.layout.executive-layout>.right{display:none}
+.executive-cockpit{max-width:1150px;margin:0 auto;padding:6px 2px 18px}
+.executive-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.executive-head h2{font-size:23px;line-height:1.25;margin:5px 0}
+.executive-head p{font-size:13px;color:#c8e0f0;margin:5px 0}
+.executive-technical{flex:0 0 auto}
+.executive-goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 7px}
+.executive-goals>div{display:flex;flex-direction:column;gap:8px;min-height:96px;padding:15px;border:1px solid #6285a1;border-top:4px solid #5daee6;border-radius:10px;background:#123653}
+.executive-goals>div:nth-child(2){border-top-color:#b2a1f0}.executive-goals>div:nth-child(3){border-top-color:#79cba5}
+.executive-goals b{font-size:15px;color:#f3faff}.executive-goals span{font-size:12px;color:#c7dfef;line-height:1.5}
+.executive-goal-note{font-size:11px;color:#afc9da;margin:4px 0 24px}
+.executive-queue-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:13px}
+.executive-queue-head h3{margin:0 0 3px;font-size:18px}.executive-queue-head p{margin:0;color:#c4daec;font-size:12px}
+.executive-proposals{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:13px}
+.executive-proposal{background:#102d46;border:1px solid #587f9d;border-radius:11px;padding:17px;display:flex;flex-direction:column;gap:10px;min-height:240px}
+.executive-proposal-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.executive-proposal-title small{font-size:10px;color:#a9cce4}
+.executive-proposal h4{margin:5px 0 0;font-size:16px;line-height:1.4;color:#fff}
+.executive-proposal-status{font-size:10px;color:#ffe3a5;border:1px solid #a68d58;border-radius:5px;padding:3px 6px;white-space:normal}
+.executive-proposal p{font-size:12px;line-height:1.65;color:#d0e2ef;margin:0}
+.executive-proposal details{border-top:1px solid #476c86;padding-top:8px}
+.executive-proposal summary{cursor:pointer;font-size:12px;color:#9fdaff;font-weight:650}
+.executive-proposal details p{margin:8px 0}
+.executive-proposal-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:8px}
+.executive-approve{background:#f2d94e;color:#17202a;border:1px solid #fff09e;border-radius:7px;padding:8px 12px;font-size:12px;font-weight:750}
+.executive-approve:hover{background:#ffec87}
+.executive-proposal-actions .tab{font-size:12px}
+.executive-empty{padding:24px;border:1px dashed #789bb5;border-radius:10px;font-size:13px;color:#cfe2f2}
+.executive-next{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:24px 0 14px;padding:13px;border:1px solid #537c9a;border-radius:9px}
+.executive-next strong{font-size:12px;margin-right:auto}
+.executive-advanced{font-size:12px;color:#bad5e7;border-top:1px solid #527793;padding-top:12px;margin-bottom:18px}
+.executive-advanced summary{cursor:pointer}
+.executive-advanced p{font-size:12px}
+@media(max-width:760px){.executive-goals{grid-template-columns:1fr}.executive-head h2{font-size:20px}.executive-proposals{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -623,7 +660,7 @@ try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON
 catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
 }
 let sourceHistoryOpen=false,e3Open=false,e3Results=null,e3Manual={reload:false,alternative:false,refresh:false};
-let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},traceNotes={},traceEvents=[],draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,workflowStages={},autoPlacementNotes={},trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false,showAllUnassigned=false,locationFeedback=null,reviewQueueExpanded=false;
+let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},traceNotes={},traceEvents=[],draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,workflowStages={},autoPlacementNotes={},trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false,showAllUnassigned=false,locationFeedback=null,reviewQueueExpanded=false,technicalMode=false,decisionShowAll=false;
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
 function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},workflowStages:{...workflowStages},autoPlacementNotes:JSON.parse(JSON.stringify(autoPlacementNotes)),traceNotes:JSON.parse(JSON.stringify(traceNotes)),localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
@@ -1611,14 +1648,47 @@ return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-activ
 (inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza">×</button></div>'+placementInspector()+'</aside>':"")+
 '<p class="caption">Actividad → hito: asociación exclusiva de cada escenario. Actividad → actividad: dependencia local compartida por ambos escenarios y visible también en Mesa libre / Conexiones. No se calculan plazos ni se certifica ninguna relación.</p>';
 }
+
+/* Executive decision cockpit is a presentation layer over the existing, local,
+   deterministic ARKI diagnostics. No evidence promotion, code execution or
+   roadmap mutation is possible from this surface. */
+function decisionCockpit(){
+const phase=phases.find(x=>x.id===activePhase)||phases[0];
+const allProposals=generatedArkiIdeas();
+const relevant=allProposals.filter(x=>x.phase===activePhase||x.phase==="F1–F10");
+const priority=x=>x.priority==="ALTA"?0:x.category==="Diagnóstico"?1:2;
+const sorted=relevant.slice().sort((a,b)=>Number(Boolean(arkiIdeaDecisions[a.id]))-Number(Boolean(arkiIdeaDecisions[b.id]))||priority(a)-priority(b)||a.id.localeCompare(b.id));
+const pending=sorted.filter(x=>!arkiIdeaDecisions[x.id]),decided=sorted.length-pending.length;
+const visible=decisionShowAll?sorted:pending.slice(0,3);
+const globalPending=allProposals.filter(x=>!arkiIdeaDecisions[x.id]).length;
+return '<div class="executive-cockpit" aria-label="Centro de decisiones de ARKI">'+
+'<div class="executive-head"><div><div class="kicker">ARKI · SUPERVISIÓN HUMANA</div><h2>Decisiones y propuestas · '+escapeHtml(activePhase)+'</h2><p>'+escapeHtml(phase.name)+' · ARKI presenta candidatos; tú decides cuáles merecen evaluación y validación.</p></div><button type="button" class="tab executive-technical" data-technical-mode="on">Abrir mesa técnica →</button></div>'+
+'<div class="executive-goals" aria-label="Objetivos del producto, no estados verificados">'+
+'<div><b>03 · Gemelo Digital</b><span>Estado real, evidencia y sincronización</span></div>'+
+'<div><b>04 · Gemelo Predictivo</b><span>Simulaciones, impactos y escenarios</span></div>'+
+'<div><b>05 · ARKI Autocorrectivo</b><span>Diagnóstico, propuestas y corrección controlada</span></div></div>'+
+'<p class="executive-goal-note">Estos son objetivos de evolución del producto, no capacidades acreditadas por esta maqueta.</p>'+
+'<div class="executive-queue-head"><div><h3>Tu bandeja de decisiones</h3><p>Propuestas de '+escapeHtml(activePhase)+' · '+pending.length+' por decidir · '+decided+' con decisión local · '+globalPending+' pendientes en F1–F10</p></div><button type="button" class="tab" data-decision-show-all aria-expanded="'+decisionShowAll+'">'+(decisionShowAll?"Solo pendientes principales":"Ver todas ("+sorted.length+")")+'</button></div>'+
+(visible.length?'<div class="executive-proposals">'+visible.map(x=>{
+const status=arkiIdeaDecisions[x.id]||"PENDING";
+return '<article class="executive-proposal"><div class="executive-proposal-title"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.category)+' · '+escapeHtml(x.source)+'</small><h4>'+escapeHtml(x.title)+'</h4></div><span class="executive-proposal-status">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"REQUIERE DECISIÓN")+'</span></div>'+
+'<p>'+escapeHtml(x.why)+'</p>'+
+'<details><summary>Ver propuesta y acción recomendada</summary><p><b>Acción:</b> '+escapeHtml(x.action)+'</p><p class="hint">Origen: '+escapeHtml(x.source)+' · Prioridad: '+escapeHtml(x.priority)+'. Diagnóstico local o catálogo editorial; no equivale a una ejecución de agentes ni a evidencia de producción.</p></details>'+
+'<div class="executive-proposal-actions"><button type="button" class="executive-approve" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button>'+(status!=="PENDING"?'<button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button>':"")+'</div></article>';
+}).join("")+'</div>':'<div class="executive-empty">No hay decisiones pendientes visibles en esta fase. Usa «Ver todas» para consultar las ya resueltas, o selecciona otra fase. Esto no significa que la fase esté terminada.</div>')+
+'<div class="executive-next"><strong>¿Necesitas comprobar algo antes de decidir?</strong><button type="button" class="tab" data-exec-jump="roadmap">Roadmap oficial</button><button type="button" class="tab" data-exec-jump="scenarios">Comparar escenarios</button><button type="button" class="tab" data-exec-jump="arkiideas">Todas las propuestas</button><button type="button" class="tab" data-technical-mode="on">Ver vertebral y espinas</button></div>'+
+'<details class="executive-advanced"><summary>Información técnica y controles de ensamblaje (ocultos por defecto)</summary><p>La mesa anterior, las conexiones, las fichas, las auditorías y los diagnósticos continúan disponibles. No se han borrado datos.</p><button type="button" class="tab" data-technical-mode="on">Entrar en mesa técnica</button></details>'+
+'<p class="caption">Aprobar evaluación solo registra una decisión local. La implementación, las pruebas, la aceptación y la promoción canónica requieren un flujo posterior con evidencia y autorización.</p></div>';
+}
 function structure(){
+if(!technicalMode)return decisionCockpit();
 const p=phases.find(x=>x.id===activePhase)||phases[0];
 const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
 const inspectOpen=!linkMode&&selected!==activePhase&&selected;
 const links=localPhaseLinks(p.id);
 if(spineView)return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
-'<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+draftControls()+viewControls()+workflowBoard()+spineWorkspace(p,staged);
+'<div class="workbench-summary"><button type="button" class="tab" data-technical-mode="off">← Volver a decisiones</button><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+draftControls()+viewControls()+workflowBoard()+spineWorkspace(p,staged);
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+viewControls()+
@@ -2036,8 +2106,11 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '</div>'+
 '<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>'+
 sourceUpdateBanner()+
-'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-technical-mode]").forEach(el=>el.addEventListener("click",()=>{technicalMode=el.dataset.technicalMode==="on";decisionShowAll=false;selected=activePhase;render();}));
+app.querySelectorAll("[data-decision-show-all]").forEach(el=>el.addEventListener("click",()=>{decisionShowAll=!decisionShowAll;render();}));
+app.querySelectorAll("[data-exec-jump]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.execJump;render();}));
 app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
 app.querySelectorAll("[data-research-decision]").forEach(el=>el.addEventListener("click",()=>decideResearch(el.dataset.researchDecision,el.dataset.researchAction)));
 const researchInput=app.querySelector("#research-import-file");if(researchInput)researchInput.addEventListener("change",e=>importResearchFile(e.target.files?.[0]));
@@ -2145,8 +2218,8 @@ else{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=tr
 render();
 };el.addEventListener("click",activate);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});});
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
-app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
-app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
+app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
+app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{technicalMode=false;decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-focus-mode]").forEach(el=>el.addEventListener("click",()=>{focusMode=!focusMode;selected=activePhase;render();}));
