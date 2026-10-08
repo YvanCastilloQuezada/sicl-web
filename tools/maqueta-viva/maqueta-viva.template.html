@@ -310,6 +310,13 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .workflow-picker{display:flex;flex-direction:column;gap:3px;margin:6px 0;color:#d9f0ff;font-size:10px}.workflow-picker select{width:100%;min-width:0;max-width:240px;padding:5px;background:#0b283d;border:1px solid #7aafc9;color:#fff;border-radius:5px;font-size:11px}
 .workflow-stage-line{font-size:10px;color:#f4d18a;margin-top:5px}
 .tray-place-suggest:disabled{opacity:.45;cursor:not-allowed;border-style:dashed}
+
+/* Automatically derived milestone neighbors vs explicitly declared draft dependencies. */
+.activity-sequence-note{display:block;color:#bcd8ea;font-size:10px;line-height:1.5;border-top:1px dashed #426b86;padding-top:5px}
+.proposed-relation{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap}
+.relation-piece.proposed{border-style:dashed;border-color:#e8bd65;color:#ffe4a4;background:#594b2b}
+.relation-confirm{border:1px solid #ebca6c;border-radius:5px;background:#f4db5b;color:#192a36;font-size:10px;font-weight:750;padding:4px 6px;cursor:pointer}
+.relation-confirm:hover{background:#fff19a}
 </style>
 </head>
 <body>
@@ -777,11 +784,45 @@ return {predecessors,successors};
 function relationList(ids,empty){
 return ids.length?ids.map(id=>'<button type="button" class="relation-piece" data-relation-jump="'+escapeHtml(id)+'" title="Ver '+escapeHtml(id)+' en su fase" aria-label="Abrir '+escapeHtml(id)+'">'+escapeHtml(id)+(placements[id]?" · "+escapeHtml(placements[id]):" · SIN UBICAR")+'</button>').join(""):'<span class="relation-none">'+escapeHtml(empty)+'</span>';
 }
+/* Stage-order suggestions are derived visual hypotheses, not proven dependencies.
+   The nearest populated earlier/later milestone is a candidate, not a mandatory link.
+   A confirmed dependency is kept in reviews and never overwritten by the derivation. */
+function proposedActivityNeighbors(id){
+const phase=placements[id],index=currentSpine()[id];
+if(!validPhases.has(phase)||index===undefined)return {predecessors:[],successors:[],stage:null};
+const n=Number(index),map=currentSpine();
+if(!Number.isInteger(n)||n<0||n>3)return {predecessors:[],successors:[],stage:null};
+const staged=Object.keys(placements).filter(other=>other!==id&&placements[other]===phase&&map[other]!==undefined);
+const closest=(direction)=>{
+for(let k=n+direction;k>=0&&k<4;k+=direction){
+const matches=staged.filter(other=>Number(map[other])===k).sort();
+if(matches.length)return matches.slice(0,3);
+}
+return [];
+};
+return {predecessors:closest(-1),successors:closest(1),stage:n};
+}
+function proposedRelationButtons(id,ids,direction,declared){
+const fresh=ids.filter(other=>!declared.includes(other));
+return fresh.length?fresh.map(other=>{
+const from=direction==="predecessor"?id:other,to=direction==="predecessor"?other:id;
+return '<span class="proposed-relation"><button type="button" class="relation-piece proposed" data-relation-jump="'+escapeHtml(other)+'" title="Candidato por orden de hitos; no es una dependencia verificada">'+escapeHtml(other)+' · '+escapeHtml(placements[other])+'</button><button type="button" class="relation-confirm" data-auto-link-from="'+escapeHtml(from)+'" data-auto-link-to="'+escapeHtml(to)+'" title="Registrar dependencia como hipótesis local, sujeto a validación de ciclos">Vincular ↗</button></span>';
+}).join(""):"";
+}
 function activitySequence(id){
-const r=activityNeighbors(id);
-return '<div class="activity-sequence" aria-label="Predecesores y sucesores de '+escapeHtml(id)+'">'+
-'<div><strong>← Predecesor</strong><span class="relation-items">'+relationList(r.predecessors,"No declarado")+'</span></div>'+
-'<div><strong>Sucesor →</strong><span class="relation-items">'+relationList(r.successors,"No declarado")+'</span></div></div>';
+const declared=activityNeighbors(id),proposed=proposedActivityNeighbors(id);
+const phase=placements[id],stages=SPINE_STAGES[phase]||[];
+const current=proposed.stage;
+const previousHito=current===null?"Hito sin asignar":current===0?"Inicio de ruta propuesta":"Hito "+current+" · "+stages[current-1];
+const nextHito=current===null?"Hito sin asignar":current===3?"Fin de ruta propuesta":"Hito "+(current+2)+" · "+stages[current+1];
+const predecessorProposals=proposedRelationButtons(id,proposed.predecessors,"predecessor",declared.predecessors);
+const successorProposals=proposedRelationButtons(id,proposed.successors,"successor",declared.successors);
+return '<div class="activity-sequence" aria-label="Secuencia estructural y dependencias de '+escapeHtml(id)+'">'+
+'<div><strong>← Hito anterior (estructura)</strong><span class="relation-none">'+escapeHtml(previousHito)+'</span></div>'+
+'<div><strong>← Actividades predecesoras</strong><span class="relation-items">'+relationList(declared.predecessors,"Ninguna confirmada en borrador")+(predecessorProposals||"")+'</span></div>'+
+'<div><strong>Actividades sucesoras →</strong><span class="relation-items">'+relationList(declared.successors,"Ninguna confirmada en borrador")+(successorProposals||"")+'</span></div>'+
+'<div><strong>Hito siguiente (estructura) →</strong><span class="relation-none">'+escapeHtml(nextHito)+'</span></div>'+
+'<small class="activity-sequence-note">Candidatos automáticos por posición en hitos · Vincular registra hipótesis local, NO dependencia técnica verificada.</small></div>';
 }
 function spineCard(x){
 return '<div class="spine-activity '+(linkSource===x.id?"spine-link-source":"")+'"><div class="spine-activity-title"><button type="button" class="spine-activity-inspect" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span></button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a la bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div>'+
@@ -864,7 +905,7 @@ spineRouteComparison(p,staged)+
 '<div class="location-review-toggle"><span>ARKI puede proponer fase e hito para cada pieza, con justificación y edición manual.</span><button type="button" class="tab" data-location-toggle aria-expanded="'+locationReviewOpen+'">'+(locationReviewOpen?"Ocultar propuestas":"Revisar ubicaciones sugeridas")+'</button></div>'+
 (locationReviewOpen?locationReviewPanel():"")+
 '<div class="spine-connection-help" role="status"><div><strong>'+(linkMode?"MODO CONECTAR ESPINAS · ACTIVO":"CONECTAR ACTIVIDADES SECUNDARIAS")+'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la actividad necesaria.":"Pulsa «Conectar» primero en la actividad dependiente y después en la necesaria."):"Activa «🔗 Conectar piezas» y usa los botones «🔗 Conectar» dentro de las espinas. Cada relación es una hipótesis local.")+'</span></div><span class="spine-link-count">'+phaseLinks.length+' dependencias · '+phaseUnlinked+' espinas sin hito</span></div>'+
-'<div class="spine-notice"><strong>VISTA VERTEBRAL · '+escapeHtml(p.id)+'</strong><span>Ruta estructural PROPUESTA, no ruta crítica calculada. Cada hito muestra sus vecinos estructurales propuestos. Las espinas muestran predecesores y sucesores solo cuando se declararon dependencias. No se alteran estados ni contratos oficiales.</span></div>'+
+'<div class="spine-notice"><strong>VISTA VERTEBRAL · '+escapeHtml(p.id)+'</strong><span>Ruta estructural PROPUESTA, no ruta crítica calculada. Cada hito muestra sus vecinos estructurales propuestos. Las espinas muestran hitos vecinos y candidatos de actividad derivados automáticamente; solo «Vincular» declara una dependencia local. No se alteran estados ni contratos oficiales.</span></div>'+
 spinePlacementAudit(p.id,staged)+
 '<div class="spine-scroll"><div class="spine-grid">'+milestones.map((name,i)=>{
 const assigned=attached.filter(x=>assignedMap[x.id]===String(i));
@@ -873,7 +914,7 @@ return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-activ
 '<div class="spine-unassigned"><div class="spine-unassigned-head"><strong>Espinas sin vincular · '+unassigned.length+'</strong><span>Hito seleccionado: '+(selectedSpineStage+1)+' · '+escapeHtml(milestones[selectedSpineStage])+'. Pulsa «Vincular» en una actividad; puedes cambiar el hito en su selector.</span></div>'+
 (!suggestions.length&&unassigned.length?'<p class="spine-no-suggestions">No hay coincidencias textuales inequívocas para estas piezas. La ausencia de sugerencias NO significa que sean incompatibles: elige un hito manualmente.</p>':"")+
 (unassigned.length?unassigned.map(x=>'<div class="spine-unassigned-row"><div class="spine-unassigned-identity"><button type="button" class="spine-unassigned-title" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong> '+escapeHtml(x.name)+'</button>'+activitySequence(x.id)+workflowPicker(x.id)+'</div>'+(x.targetPhase!==p.id?'<small class="spine-phase-mismatch">Fase sugerida en inventario: '+escapeHtml(x.targetPhase)+' · actualmente ubicada en '+escapeHtml(p.id)+'. Verifica la asignación.</small>':"")+(suggestStage(x,p.id)?'<small class="spine-suggestion">Sugerido: Hito '+(Number(suggestStage(x,p.id).index)+1)+' · '+escapeHtml(suggestStage(x,p.id).reason)+' · '+suggestStage(x,p.id).confidence+'</small>':"")+'<label class="spine-assign-label">Hito<select data-spine-target="'+escapeHtml(x.id)+'" aria-label="Hito para '+escapeHtml(x.id)+'">'+milestones.map((m,i)=>'<option value="'+i+'" '+(i===Number(suggestStage(x,p.id)?.index??selectedSpineStage)?"selected":"")+'>'+(i+1)+' · '+escapeHtml(m)+'</option>').join("")+'</select></label><button type="button" class="action-primary" data-spine-assign="'+escapeHtml(x.id)+'">Vincular</button><button type="button" class="spine-activity-connect '+(linkSource===x.id?"active":"")+'" data-spine-connect="'+escapeHtml(x.id)+'" title="Crear dependencia entre actividades sin necesidad de asignar hito">🔗 Conectar</button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div>').join(""):'<p class="hint">No hay actividades sin vincular. Arrastra una pieza desde la bandeja derecha para agregarla a esta fase.</p>')+'</div>'+
-'<div class="spine-connection-list"><div class="spine-connection-list-head"><strong>Dependencias entre actividades · '+phaseLinks.length+'</strong><span>Hipótesis local · la flecha significa «necesita» · compartida por Referencia y Alternativa</span></div>'+(phaseLinks.length?phaseLinks.map(e=>'<div class="spine-connection-row"><span><b>'+escapeHtml(e.from)+'</b> necesita <b>'+escapeHtml(e.to)+'</b> <small>NO VERIFICADA</small></span><button type="button" class="tab" data-link-remove="'+escapeHtml(e.from)+'" data-link-target="'+escapeHtml(e.to)+'">Quitar ×</button></div>').join(""):'<p class="hint">No hay dependencias declaradas entre actividades. Vincular una espina a un hito no crea automáticamente una dependencia entre piezas.</p>')+'</div>'+
+'<div class="spine-connection-list"><div class="spine-connection-list-head"><strong>Dependencias entre actividades · '+phaseLinks.length+'</strong><span>Hipótesis local · la flecha significa «necesita» · compartida por Referencia y Alternativa</span></div>'+(phaseLinks.length?phaseLinks.map(e=>'<div class="spine-connection-row"><span><b>'+escapeHtml(e.from)+'</b> necesita <b>'+escapeHtml(e.to)+'</b> <small>NO VERIFICADA</small></span><button type="button" class="tab" data-link-remove="'+escapeHtml(e.from)+'" data-link-target="'+escapeHtml(e.to)+'">Quitar ×</button></div>').join(""):'<p class="hint">No hay dependencias declaradas entre actividades. Las dependencias candidatas se muestran automáticamente dentro de cada espina según el orden de hitos. Confirma «Vincular» si corresponde; no se crean dependencias técnicas sin revisión.</p>')+'</div>'+
 '<div class="spine-legend"><span>● Columna: hitos propuestos</span><span>│ Espinas: actividades vinculadas en borrador</span><span>← Predecesor: pieza necesaria · Sucesor →: pieza que depende de ella</span><span>Sin declarar ≠ relación inexistente</span></div>'+
 (inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza">×</button></div>'+placementInspector()+'</aside>':"")+
 '<p class="caption">Actividad → hito: asociación exclusiva de cada escenario. Actividad → actividad: dependencia local compartida por ambos escenarios y visible también en Mesa libre / Conexiones. No se calculan plazos ni se certifica ninguna relación.</p>';
@@ -1068,6 +1109,7 @@ sourceUpdateBanner()+
 '<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
+app.querySelectorAll("[data-auto-link-from]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.autoLinkFrom,el.dataset.autoLinkTo);render();}));
 app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
 app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>placeSuggestedPiece(el.dataset.placeSuggest)));
 app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
