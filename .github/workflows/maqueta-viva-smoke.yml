@@ -1,0 +1,28 @@
+name: ARKI Maqueta Viva smoke
+on:
+  push:
+    branches:
+      - feat/f7-f8-integral-closure
+    paths:
+      - 'tools/maqueta-viva/**'
+      - 'docs/arki-master-map/ARKI_MASTER_MAP_STATE.json'
+      - '.github/workflows/maqueta-viva-smoke.yml'
+  pull_request:
+    paths:
+      - 'tools/maqueta-viva/**'
+      - 'docs/arki-master-map/ARKI_MASTER_MAP_STATE.json'
+      - '.github/workflows/maqueta-viva-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate offline puzzle and integration dossier
+        run: node tools/maqueta-viva/test-maqueta-viva.cjs
