@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "No modification of phase statuses, canonical roadmap, frozen contracts or verification evidence",
+      "integration_boundary": "No mutation of canonical phase states, official roadmap, FROZEN contracts or verified evidence",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: F1 sample I-03 depends on I-06, 4 stage predecessor/successor panels, both activity panels, I-06 predecessor link and I-03 successor link, undeclared relations display No declarado, no runtime error in simulated DOM",
+      "interaction_simulation": "PASS with current source data: I-08 in F2 without assignment -> amber preview appears and draft unchanged -> accept Hito 1 -> local assignment persisted and preview removed -> undo -> assignment cleared and preview restored",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1770,7 +1770,13 @@
         "markdown_sheet": "Export active phase and Reference/Alternative A to standalone .md with four proposed milestones, linked/unlinked activities, declared dependencies, canonical status/evidence as read-only context, and explicit nonofficial limitations",
         "authority": "All ten phase statuses and frozen contracts remain untouched; no inferred technical dependencies promoted"
       },
-      "checks": "PASS: JS syntax; simulated local app render with 10 phases; phase F6 navigation; Markdown export button triggers and contains BORRADOR VISUAL LOCAL plus proposed vertebral milestones"
+      "checks": "PASS: JS syntax; simulated local app render with 10 phases; phase F6 navigation; Markdown export button triggers and contains BORRADOR VISUAL LOCAL plus proposed vertebral milestones",
+      "spine_preview": {
+        "display": "Unassigned pieces with unique textual milestone matches appear as amber preview cards beneath corresponding F1–F10 milestone; max 4 per milestone",
+        "accept": "Explicit per-card action links the piece to its suggested milestone in active base or alternative local scenario; undo restores previous state",
+        "guard": "Recomputes suggestion and checks unassigned before accepting; ties and unmatched items remain in manual review list",
+        "evidence": "Never represents a verified dependency, completed milestone or official critical path"
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
