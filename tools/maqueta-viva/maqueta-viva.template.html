@@ -928,6 +928,10 @@ function runE3Checks(){
 const checks=[];
 const test=(id,fn)=>{try{const ok=Boolean(fn());checks.push({id,status:ok?"PASS":"FAIL"});}catch(e){checks.push({id,status:"FAIL",detail:String(e.message)});}};
 test("TEN_PHASES",()=>phases.length===10&&phases.every((p,i)=>p.id==="F"+(i+1)));
+test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id)).items.length>=0)));
+test("ROADMAP_MATRIX_NAVIGATION",()=>((roadmapMilestoneMatrix().match(/data-roadmap-stage="/g)||[]).length===40));
+test("SPINE_DECLARED_DEPENDENCIES_ONLY",()=>phases.every(p=>{const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id);const output=spineDependencyMap(p.id,staged);const declared=staged.flatMap(x=>reviews[x.id]?.dependencies||[]).length;return output.includes("Mapa visual de dependencias")&&(declared>0||!output.includes('class="spine-map-external"'));}));
+
 test("FROZEN_CANONICAL_READONLY",()=>phases.every(p=>p.status===state.roadmap.phases.find(x=>x.id===p.id)?.status));
 test("DRAFT_SCHEMA",()=>Object.keys(validateDraft({schema:DRAFT_SCHEMA,placements})).length===Object.keys(placements).length);
 test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&Object.keys(validateSpineAssignments(spineAssignments,placements)).length>=0&&Object.keys(validateSpineAssignments(alternativeSpineAssignments,placements)).length>=0);
