@@ -1543,24 +1543,25 @@
     "next_gate": "Open ARKI-MAQUETA-VIVA.cmd on Windows; visually inspect eight tabs and swapped rails; stage a piece, fill review, export/import, optionally run GitHub observer with real credentials and read-only permissions; provide browser screenshot and/or console output. Node smoke 29/29 and mocked GitHub observer 14/14 already PASS.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
-      "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
-      "center": "Blue ARKI workspace: orange tabs show structure/connections/inventory/floating; yellow tabs show corresponding tray collections and selectable piece detail",
-      "right": "Compact F1–F10 phase navigation (formerly left)",
-      "interaction": "Clicking left phase opens phase package in center; selecting a tray piece opens its target phase and detail when mapped",
+      "left": "REMOVED: no left sidebar; central assembly workspace expands",
+      "center": "Wide blue, mostly empty draft assembly canvas with phase context, provisional placed pieces and drop target; historic inventories no longer fill structure canvas",
+      "right": "Only sidebar: piece tray, selected by yellow Pendientes/Ideas/Dispersas/FROZEN buttons; ideas selected by default for draggable pieces",
+      "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
-      "responsive": "Desktop three columns; stacked below 850px",
+      "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
       "integration_boundary": "Visual planning only, not an actual integration engine or canonical mutation",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
       "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
-      "top_menu": "Left unchanged: four phase counters. Center: orange Estructura, Conexiones, Inventario, Flotantes followed immediately by yellow Pendientes, Ideas, Dispersas, FROZEN. Right: search.",
+      "top_menu": "Below phase menu: counters at left; orange Estructura, Conexiones, Inventario, Flotantes; yellow Pendientes, Ideas, Dispersas, FROZEN control right tray; search at right.",
       "top_menu_status": "IMPLEMENTED_STATIC_SYNTAX_PASS_WINDOWS_E3_PENDING",
       "menu_palette": {
         "orange": "#f28c28",
         "yellow": "#f2d94e",
         "text": "#111820"
-      }
+      },
+      "phase_navigation": "F1–F10 horizontal phase menu directly below ARKI MAQUETA VIVA header, phase names compact with status accent and active phase highlight"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
