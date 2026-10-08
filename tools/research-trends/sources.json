@@ -1,0 +1,52 @@
+{
+  "schema": "ARKI-RESEARCH-SOURCES-1",
+  "policy": {
+    "scope": "Public GitHub release metadata only; no regulatory validity or technical compatibility claims",
+    "max_sources": 12,
+    "manual_review_required": true
+  },
+  "sources": [
+    {
+      "id": "occt",
+      "repository": "Open-Cascade-SAS/OCCT",
+      "phase": "F6",
+      "capability": "geometry_kernel",
+      "official": "https://github.com/Open-Cascade-SAS/OCCT/releases"
+    },
+    {
+      "id": "cgal",
+      "repository": "CGAL/cgal",
+      "phase": "F6",
+      "capability": "exact_geometry",
+      "official": "https://github.com/CGAL/cgal/releases"
+    },
+    {
+      "id": "manifold",
+      "repository": "elalish/manifold",
+      "phase": "F6",
+      "capability": "robust_mesh_boolean",
+      "official": "https://github.com/elalish/manifold/releases"
+    },
+    {
+      "id": "openvdb",
+      "repository": "AcademySoftwareFoundation/openvdb",
+      "phase": "F6",
+      "capability": "volumetric_geometry",
+      "official": "https://github.com/AcademySoftwareFoundation/openvdb/releases"
+    },
+    {
+      "id": "freecad",
+      "repository": "FreeCAD/FreeCAD",
+      "phase": "F7",
+      "capability": "parametric_cad",
+      "official": "https://github.com/FreeCAD/FreeCAD/releases"
+    },
+    {
+      "id": "ifcopenshell",
+      "repository": "IfcOpenShell/IfcOpenShell",
+      "phase": "F8",
+      "capability": "ifc_interoperability",
+      "official": "https://github.com/IfcOpenShell/IfcOpenShell/releases"
+    }
+  ]
+}
