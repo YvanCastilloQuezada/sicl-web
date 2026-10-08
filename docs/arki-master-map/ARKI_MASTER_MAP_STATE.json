@@ -70,7 +70,8 @@
       "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
       "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
       "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
-      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health"
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
     ],
     "last_completed": "Physical S10 specimen located and non-mutating binary identification completed: Microsoft SQL Server backup (TAPE header), S102000 Data paths and budget-related schema identifiers; database restore and budget inventory NOT_EXECUTED. F7 OECE gate PASS/E3.",
     "next_exact_action": "S10: inspect backup metadata (SQL Server version, logical files) using a compatible SQL Server RESTORE HEADERONLY/FILELISTONLY, then isolate and inventory budgets read-only. Never alter source or claim budget counts until database read.",
@@ -1503,5 +1504,40 @@
       ],
       "next_gate": "Bounded non-mutating characterization of RVT metadata and possible Revit-hosted export/adapter path; no proprietary native parser claim."
     }
+  },
+  "maqueta_viva": {
+    "name": "ARKI MAQUETA VIVA",
+    "version": "0.1-local",
+    "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+    "purpose": "Offline, read-only, navigable visualization of the existing ARKI master structured state, opened with a Windows desktop shortcut",
+    "files": [
+      "ARKI-MAQUETA-VIVA.cmd",
+      "tools/maqueta-viva/Start-ARKI-MaquetaViva.ps1",
+      "tools/maqueta-viva/maqueta-viva.template.html"
+    ],
+    "source": "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json",
+    "output": "%LOCALAPPDATA%\\ARKI\\MaquetaViva\\index.html",
+    "views": [
+      "structure",
+      "connections",
+      "parts",
+      "floating"
+    ],
+    "invariants": [
+      "NO_EVIDENCE_NO_GREEN",
+      "NO_CANONICAL_MUTATION",
+      "NO_NETWORK_REQUIRED",
+      "NO_EXTRA_RUNTIME_OR_SERVER",
+      "LOCAL_SNAPSHOT_ON_EACH_LAUNCH",
+      "SHORTCUT_CREATED_ON_FIRST_LAUNCH"
+    ],
+    "evidence": {
+      "github_code": "PRESENT",
+      "javascript_syntax": "PASS_STATIC",
+      "windows_shortcut": "NOT_EXECUTED",
+      "browser_render": "NOT_EXECUTED",
+      "source_consistency": "GENERATED_FROM_LOCAL_JSON_AT_LAUNCH"
+    },
+    "next_gate": "User pulls feat/f7-f8-integral-closure, double-clicks ARKI-MAQUETA-VIVA.cmd, confirms shortcut and 10-phase UI. Capture raw output/errors."
   }
 }
