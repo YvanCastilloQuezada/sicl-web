@@ -1,0 +1,255 @@
+{
+  "schema": "ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1",
+  "purpose": "Historical inventory and bounded assembly placement, not implementation certification",
+  "updated_at": "2026-10-07",
+  "phase_assignment_policy": "PROPOSED means target location only; never promotes an idea, code, or historical claim to incorporated status",
+  "source_inventory": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+  "source_roadmap": "docs/arki-master-map/ARKI_TEN_PHASE_PRODUCT_INTEGRATION_ROADMAP_V1.md",
+  "ideas": [
+    {
+      "id": "I-01",
+      "title": "Registro canónico de ideas y backlog",
+      "targetPhase": "F1",
+      "sourceStatus": "NOT_FOUND_DISTRIBUTED_ARCHIVE",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-02",
+      "title": "Bitácora cronológica y hoja de ruta",
+      "targetPhase": "F1",
+      "sourceStatus": "PRESENT_PARTIALLY_ACTIVE",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-03",
+      "title": "RFC y gobernanza de propuestas",
+      "targetPhase": "F1",
+      "sourceStatus": "PRESENT_DOCUMENTARY",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-04",
+      "title": "M0-K: procedencia y promoción humana",
+      "targetPhase": "F2",
+      "sourceStatus": "DEMONSTRATED_LOCAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-05",
+      "title": "D6.1: recuperación de conocimiento",
+      "targetPhase": "F2",
+      "sourceStatus": "PARTIAL_HISTORICAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-06",
+      "title": "D6.2: razonamiento y estrategias",
+      "targetPhase": "F3",
+      "sourceStatus": "DEMONSTRATED_LOCAL_BOUNDED",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-07",
+      "title": "D6.3: candidatos de topología y geometría",
+      "targetPhase": "F4",
+      "sourceStatus": "DEMONSTRATED_LOCAL_PARTIAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-08",
+      "title": "Ingestión multimodal y OCR",
+      "targetPhase": "F1",
+      "sourceStatus": "PARTIAL_LOCAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-09",
+      "title": "Transferencia de conocimiento L1→L2",
+      "targetPhase": "F2",
+      "sourceStatus": "DEMONSTRATED_LOCAL_NO_REMOTE",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-10",
+      "title": "Semántica SPACE/ROOM vs BOUNDARY/WALL",
+      "targetPhase": "F3",
+      "sourceStatus": "HYPOTHESIS_HUMAN_REVIEW",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-11",
+      "title": "ARKI Book: tutor adaptativo y evaluación",
+      "targetPhase": "F2",
+      "sourceStatus": "LATENT_COMPOSITE",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-12",
+      "title": "Conexión canónica remota Core E2E",
+      "targetPhase": "F1",
+      "sourceStatus": "HISTORICAL_BLOCKED_REVERIFY",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-13",
+      "title": "Normativa por jurisdicción y evidencia",
+      "targetPhase": "F7",
+      "sourceStatus": "HISTORICAL_NOT_VERIFIED",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-14",
+      "title": "BIM/CAD/MEP/estructura constructivos",
+      "targetPhase": "F7",
+      "sourceStatus": "HISTORICAL_DOCUMENTED_ONLY",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-15",
+      "title": "PARTI: tres realizaciones y retroceso",
+      "targetPhase": "F4",
+      "sourceStatus": "HISTORICAL_PARTIAL_PRECURSOR",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-16",
+      "title": "Continuidad sitio, obra y operación",
+      "targetPhase": "F9",
+      "sourceStatus": "RESEARCHED_NOT_CONNECTED",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-17",
+      "title": "Modelo territorial/GIS multiescala",
+      "targetPhase": "F3",
+      "sourceStatus": "HISTORICAL_PARTIAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-18",
+      "title": "Terreno DTM/DSM y clima/CFD",
+      "targetPhase": "F3",
+      "sourceStatus": "HISTORICAL_UNKNOWN",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-19",
+      "title": "AR/cámara/GPS/WebXR de campo",
+      "targetPhase": "F9",
+      "sourceStatus": "HISTORICAL_EXPERIMENTAL",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-20",
+      "title": "Intercambio de activos GLB/glTF",
+      "targetPhase": "F6",
+      "sourceStatus": "HISTORICAL_UNKNOWN",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-21",
+      "title": "Familias comerciales y profesionales ARKI",
+      "targetPhase": "F10",
+      "sourceStatus": "RESEARCHED_NOT_CONNECTED",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-22",
+      "title": "R-PARTI I0–I11 integración y replay",
+      "targetPhase": "F4",
+      "sourceStatus": "HISTORICAL_UNKNOWN",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-23",
+      "title": "Delta como runtime unificado",
+      "targetPhase": "F2",
+      "sourceStatus": "HISTORICAL_UNRESOLVED",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    },
+    {
+      "id": "I-24",
+      "title": "Investigación de longevidad biológica",
+      "targetPhase": "UNASSIGNED",
+      "sourceStatus": "RESEARCH_ONLY_OUT_OF_SCOPE",
+      "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "sourceCut": "2026-09-20",
+      "placement": "PROPOSED_NOT_INTEGRATED",
+      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
+    }
+  ],
+  "notes": [
+    "Historical source is a 2026-09-20 snapshot, not proof of present capability",
+    "UNASSIGNED is used when forcing an idea into ARKI would be inappropriate",
+    "FROZEN records are separately generated from structured current state; never infer integration from freeze"
+  ]
+}
