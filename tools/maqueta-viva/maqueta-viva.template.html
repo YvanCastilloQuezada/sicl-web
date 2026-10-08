@@ -154,6 +154,21 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .roadmap-phase[data-roadmap-phase="F8"]{--phase-color:#6849a3}
 .roadmap-phase[data-roadmap-phase="F9"]{--phase-color:#9a3889}
 .roadmap-phase[data-roadmap-phase="F10"]{--phase-color:#ad416c}
+
+/* Local dependency editor: dashed edges are always unverified declarations. */
+.connection-modes{display:flex;gap:7px;margin:10px 0 14px;flex-wrap:wrap}
+.connections-guide{display:flex;flex-direction:column;gap:7px;padding:12px 14px;border:1px solid #6d9bb8;border-radius:9px;background:#143955;margin-bottom:12px}
+.connections-guide strong{font-size:14px;color:#f0faff}.connections-guide span{font-size:12px;color:#d3e8f5;line-height:1.6}
+.connection-builder{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin:12px 0}
+.connection-builder label{display:flex;flex:1 1 225px;flex-direction:column;gap:6px;font-size:12px;color:#e3f2ff}
+.connection-builder select{width:100%;min-width:0;background:#0c253e;color:#f4faff;border:1px solid #6696b7;border-radius:7px;padding:9px}
+.connection-direction{padding:8px;color:#ffdc8c;font-size:12px;font-weight:700}
+.connection-builder button{padding:9px 13px;min-height:35px}.connection-builder button:disabled{opacity:.4;cursor:not-allowed}
+.draft-connection-graph{display:block;width:100%;height:auto;background:#102f48;border:1px solid #4b7998;border-radius:10px;margin:12px 0}
+.draft-graph-node{cursor:pointer}.draft-graph-node:hover rect,.draft-graph-node:focus-visible rect{stroke:#ffde87;stroke-width:3px}
+.connection-list{margin:16px 0}.connection-entry{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid #4d7895;padding:9px 4px}
+.connection-entry span{font-size:12px}.connection-entry small{display:block;font-size:10px;color:#ffdb8c;margin-top:4px}
+.connection-entry button{font-size:11px}
 </style>
 </head>
 <body>
@@ -195,7 +210,7 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
-let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false;
+let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft";
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
 function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions))};}
 function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
@@ -408,7 +423,7 @@ const edges=[
 {from:"S10",to:"F7",kind:"blocked",label:"por demostrar"},
 {from:"RVT",to:"F7",kind:"blocked",label:"por demostrar"}
 ];
-function connections(){
+function systemConnections(){
 const lookup=Object.fromEntries(graphNodes.map(n=>[n.id,n]));
 const line=edges.map(e=>{const a=lookup[e.from],b=lookup[e.to],dx=(b.x+b.w/2)-(a.x+a.w/2),dy=(b.y+b.h/2)-(a.y+a.h/2);let x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2;if(Math.abs(dx)>Math.abs(dy)){x1=a.x+(dx>0?a.w:0);x2=b.x+(dx>0?0:b.w);}else{y1=a.y+(dy>0?a.h:0);y2=b.y+(dy>0?0:b.h);}const col={verified:"#4dc99b",contract:"#7daaff",authority:"#8fa5bf",blocked:"#f2ba69"}[e.kind];return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="'+(e.kind==="verified"?"0":e.kind==="blocked"?"4 8":"9 6")+'" marker-end="url(#arrow)"><title>'+escapeHtml(e.label)+'</title></line>';}).join("");
 const blocks=graphNodes.map(n=>{const p=node(n.id),kind=statusClass(p);const col={frozen:"#4dc99b",progress:"#f2ba69",reconciled:"#7daaff",unknown:"#71849b"}[kind];return '<g class="node" tabindex="0" role="button" aria-label="'+escapeHtml(p.name)+'" data-select="'+n.id+'"><rect x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="10" fill="#1a2c43" stroke="'+(selected===n.id?"#6cc7e8":col)+'" stroke-width="'+(selected===n.id?3:1.5)+'"/><text x="'+(n.x+n.w/2)+'" y="'+(n.y+24)+'" font-size="15" font-weight="700" text-anchor="middle">'+escapeHtml(p.name)+'</text><text x="'+(n.x+n.w/2)+'" y="'+(n.y+44)+'" font-size="10" text-anchor="middle" fill="#9caec4">'+escapeHtml(n.id)+'</text></g>';}).join("");
@@ -427,6 +442,48 @@ return '<button type="button" class="roadmap-phase" data-roadmap-phase="'+escape
 '<div class="roadmap-foot"><h3>Pendientes registrados</h3><p class="hint">Fases por reconciliar: '+escapeHtml(phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>p.id).join(", ")||"Ninguna")+'.</p>'+
 '<p class="hint">Próxima acción registrada: '+escapeHtml(focus.next_exact_action||"No registrada")+'</p>'+
 '<p class="caption">No se calculan porcentajes de avance a partir de tarjetas. Los hitos se modifican únicamente mediante la fuente canónica y evidencia verificable.</p></div>';
+}
+
+function connectionDraft(){
+const staged=[...ideas,...components].filter(x=>Object.prototype.hasOwnProperty.call(placements,x.id)).sort((a,b)=>placements[a.id].localeCompare(placements[b.id])||a.id.localeCompare(b.id));
+const idSet=new Set(staged.map(x=>x.id));
+const allLinks=staged.flatMap(p=>(reviews[p.id]?.dependencies||[]).map(d=>({from:p.id,to:d,visible:idSet.has(d)})));
+const lookup=Object.fromEntries(staged.map((p,i)=>[p.id,{x:20+(i%3)*326,y:22+Math.floor(i/3)*113,w:300,h:85,p}]));
+const height=Math.max(240,Math.ceil(staged.length/3)*113+36);
+const options=staged.map(p=>'<option value="'+escapeHtml(p.id)+'">'+escapeHtml(p.id+" · "+p.name+" ("+placements[p.id]+")")+'</option>').join("");
+const graphLines=allLinks.filter(x=>x.visible).map(e=>{
+const a=lookup[e.from],b=lookup[e.to];
+return '<line x1="'+(a.x+a.w/2)+'" y1="'+(a.y+a.h/2)+'" x2="'+(b.x+b.w/2)+'" y2="'+(b.y+b.h/2)+'" stroke="#ffce71" stroke-width="2.8" stroke-dasharray="7 5" marker-end="url(#draft-arrow)"><title>'+escapeHtml(e.from+" necesita "+e.to+" · DECLARACIÓN LOCAL")+'</title></line>';
+}).join("");
+const graphCards=staged.map(x=>{
+const a=lookup[x.id],deps=reviews[x.id]?.dependencies||[];
+return '<g class="draft-graph-node" tabindex="0" role="button" data-graph-piece="'+escapeHtml(x.id)+'" aria-label="Inspeccionar '+escapeHtml(x.id)+' en '+escapeHtml(placements[x.id])+'"><rect x="'+a.x+'" y="'+a.y+'" width="'+a.w+'" height="'+a.h+'" rx="10" fill="#153e5c" stroke="#91c8e5" stroke-width="1.5"/><text x="'+(a.x+12)+'" y="'+(a.y+22)+'" font-size="14" font-weight="700" fill="#fff">'+escapeHtml(x.id+" · "+placements[x.id])+'</text><text x="'+(a.x+12)+'" y="'+(a.y+43)+'" font-size="12" fill="#e6f4ff">'+escapeHtml(x.name.length>38?x.name.slice(0,37)+"…":x.name)+'</text><text x="'+(a.x+12)+'" y="'+(a.y+65)+'" font-size="10" fill="#ffce71">'+deps.length+' dependencias declaradas · abrir en mesa ↗</text></g>';
+}).join("");
+return '<div class="connections-guide"><strong>Cómo conectar piezas</strong><span>1. Coloca al menos dos piezas en la mesa. 2. Aquí selecciona la pieza que depende y la pieza necesaria. 3. Pulsa «Crear conexión». La línea punteada representa una HIPÓTESIS LOCAL, nunca una integración verificada.</span></div>'+
+'<div class="connection-builder"><label>Pieza que depende<select id="connection-from" aria-label="Pieza que depende">'+options+'</select></label><span class="connection-direction">necesita →</span><label>Pieza necesaria<select id="connection-to" aria-label="Pieza necesaria">'+options+'</select></label><button type="button" class="action-primary" data-link-add '+(staged.length<2?"disabled":"")+'>Crear conexión</button></div>'+
+(draftNotice?'<p class="hint" role="status">'+escapeHtml(draftNotice)+'</p>':"")+
+(staged.length?'<svg class="draft-connection-graph" viewBox="0 0 1000 '+height+'" role="group" aria-label="Grafo de dependencias declaradas entre piezas colocadas"><defs><marker id="draft-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="#ffce71" stroke-width="1.5"/></marker></defs>'+graphLines+graphCards+'</svg>':'<div class="empty">Todavía no hay piezas colocadas. Abre Estructura, selecciona una fase y arrastra piezas desde la bandeja derecha.</div>')+
+'<div class="connection-list"><h3>Dependencias declaradas · '+allLinks.length+'</h3>'+
+(allLinks.length?allLinks.map(e=>'<div class="connection-entry"><span><strong>'+escapeHtml(e.from)+'</strong> necesita <strong>'+escapeHtml(e.to)+'</strong> <small>'+(e.visible?"PROPUESTA LOCAL":"PIEZA NECESARIA NO UBICADA")+'</small></span><button type="button" class="tab" data-link-remove="'+escapeHtml(e.from)+'" data-link-target="'+escapeHtml(e.to)+'" aria-label="Quitar dependencia de '+escapeHtml(e.from)+' con '+escapeHtml(e.to)+'">Quitar conexión</button></div>').join(""):'<p class="hint">Aún no se han declarado conexiones. Las tarjetas sin flechas no están necesariamente aisladas: simplemente no tienen dependencias documentadas aquí.</p>')+'</div>'+
+'<p class="caption">Las conexiones son datos del borrador local guardados con la ficha de cada pieza. No se infieren del código ni se consideran verificadas. No alteran los estados F1–F10.</p>';
+}
+function connections(){
+return '<div class="assembly-header"><div><div class="kicker">MAPA DE CONEXIONES · SIN PROMOCIÓN CANÓNICA</div><h2>Conexiones y dependencias</h2></div></div>'+
+'<div class="connection-modes"><button type="button" class="tab '+(connectionMode==="draft"?"active":"")+'" data-connection-mode="draft" aria-pressed="'+(connectionMode==="draft")+'">Mis piezas conectadas</button><button type="button" class="tab '+(connectionMode==="system"?"active":"")+'" data-connection-mode="system" aria-pressed="'+(connectionMode==="system")+'">Arquitectura registrada</button></div>'+
+(connectionMode==="draft"?connectionDraft():'<p class="hint">Este es el diagrama técnico acotado que ya existía (ACS, Core, AGK, F7/F8). No representa las piezas que colocas ni certifica relaciones nuevas.</p>'+systemConnections());
+}
+function addConnection(from,to){
+if(!Object.prototype.hasOwnProperty.call(placements,from)||!Object.prototype.hasOwnProperty.call(placements,to)){draftNotice="Ambas piezas deben estar colocadas en la maqueta.";return;}
+if(from===to){draftNotice="Una pieza no puede depender de sí misma.";return;}
+const existing=reviews[from]||{},deps=existing.dependencies||[];
+if(deps.includes(to)){draftNotice="La conexión "+from+" → "+to+" ya está declarada.";return;}
+try{const next=validateReviews({...reviews,[from]:{...existing,dependencies:[...deps,to]}});reviews=next;saveDraft();draftNotice="Conexión "+from+" necesita "+to+" guardada como HIPÓTESIS LOCAL, NO VERIFICADA.";}
+catch(e){draftNotice="Conexión rechazada: "+String(e.message);}
+}
+function removeConnection(from,to){
+const r=reviews[from];if(!r||!Array.isArray(r.dependencies)||!r.dependencies.includes(to))return;
+try{reviews=validateReviews({...reviews,[from]:{...r,dependencies:r.dependencies.filter(d=>d!==to)}});saveDraft();draftNotice="Conexión local "+from+" → "+to+" retirada.";}
+catch(e){draftNotice="No se pudo retirar la conexión: "+String(e.message);}
 }
 function trayWorkspace(){
 const mode=tab;
@@ -480,6 +537,10 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
+app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
+app.querySelectorAll("[data-link-add]").forEach(el=>el.addEventListener("click",()=>{addConnection(app.querySelector("#connection-from")?.value||"",app.querySelector("#connection-to")?.value||"");render();}));
+app.querySelectorAll("[data-link-remove]").forEach(el=>el.addEventListener("click",()=>{removeConnection(el.dataset.linkRemove,el.dataset.linkTarget);render();}));
+app.querySelectorAll("[data-graph-piece]").forEach(el=>{const fn=()=>{const id=el.dataset.graphPiece;activePhase=placements[id];selected=id;tab="structure";render();};el.addEventListener("click",fn);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
