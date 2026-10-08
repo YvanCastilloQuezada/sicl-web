@@ -17,13 +17,17 @@ try {
   & $python.Source $script --sources $sources --canonical $canonical --previous $prior --out-dir $output
   $code = $LASTEXITCODE
   $report = Join-Path $output "report.json"
-  if ($code -eq 0) {
+  $snapshot = Join-Path $output "snapshot.json"
+  if (Test-Path -LiteralPath $snapshot -PathType Leaf) {
     $priorDir = Split-Path $prior
     [IO.Directory]::CreateDirectory($priorDir) | Out-Null
-    Copy-Item -LiteralPath (Join-Path $output "snapshot.json") -Destination $prior -Force
+    Copy-Item -LiteralPath $snapshot -Destination $prior -Force
+    Write-Host "OBSERVATION_SNAPSHOT=UPDATED (fuentes fallidas conservan última versión conocida)"
+  }
+  if ($code -eq 0) {
     Write-Host "RESEARCH_WATCH=COMPLETE"
   } else {
-    Write-Warning "RESEARCH_WATCH=INCOMPLETE (exit $code); snapshot anterior conservado."
+    Write-Warning "RESEARCH_WATCH=INCOMPLETE (exit $code); revisar SOURCE_ERROR en report.json."
   }
   Write-Host "REPORT=$report"
   Write-Host "IMPORT_IN_MAQUETA=Research & Trends > Importar informe > report.json"
