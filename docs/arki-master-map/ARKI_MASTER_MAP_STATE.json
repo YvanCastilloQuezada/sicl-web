@@ -1540,6 +1540,24 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Pull updated branch, run ARKI-MAQUETA-VIVA.cmd again, report ARKI_MAQUETA_VIVA=READY, shortcut created and page rendered"
+    "next_gate": "On Windows, git pull then double-click ARKI-MAQUETA-VIVA.cmd. Verify 3 panels, 3 layout buttons, right-hand pending blocks and desktop shortcut. Record raw output and screenshot if needed.",
+    "layout": {
+      "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+      "source": "tools/maqueta-viva/maqueta-viva.template.html",
+      "three_panels": {
+        "left": "Authorities, selected component information and epistemic state",
+        "center": "Ten phase blocks, switchable layouts, connections and inventory",
+        "right": "Registered blockers and phases requiring reconciliation"
+      },
+      "center_layouts": [
+        "5x2_DEFAULT",
+        "3x3_PLUS_1",
+        "PYRAMID_1_2_3_4"
+      ],
+      "responsive": "Three columns desktop, stacked on narrower screens",
+      "semantics": "Layout does not imply authority hierarchy, completion or integration verification",
+      "static_js_syntax": "PASS",
+      "windows_browser_gate": "NOT_EXECUTED"
+    }
   }
 }
