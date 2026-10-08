@@ -136,11 +136,22 @@ export function buildCoordinatedProfessionalState(input: {
 }): CoordinatedProfessionalState {
   const canonicalRefs = validateF7CanonicalRefs(input.canonicalRefs, input.projectId);
   if (input.baseline.projectId !== input.projectId) throw new Error("BASELINE_PROJECT_MISMATCH");
+  const { fingerprint: baselineFingerprint, ...baselinePayload } = input.baseline;
+  if (hash(baselinePayload) !== baselineFingerprint) throw new Error("F7_BASELINE_FINGERPRINT_MISMATCH");
   nonEmpty(input.stateId, "F7_STATE_ID_REQUIRED");
+  const projectionIds = new Set<string>();
+  const issueIds = new Set<string>();
   const baselineClaimIds = new Set(input.baseline.claims.map(c => c.claimId));
   for (const projection of input.projections) {
     nonEmpty(projection.projectionId, "F7_PROJECTION_ID_REQUIRED");
+    if (projectionIds.has(projection.projectionId)) throw new Error(`F7_DUPLICATE_PROJECTION_ID:${projection.projectionId}`);
+    projectionIds.add(projection.projectionId);
     if (projection.sourceClaimIds.some(id => !baselineClaimIds.has(id))) throw new Error(`F7_PROJECTION_CLAIM_NOT_IN_BASELINE:${projection.projectionId}`);
+  }
+  for (const issue of input.issues) {
+    nonEmpty(issue.issueId, "F7_ISSUE_ID_REQUIRED");
+    if (issueIds.has(issue.issueId)) throw new Error(`F7_DUPLICATE_ISSUE_ID:${issue.issueId}`);
+    issueIds.add(issue.issueId);
   }
   if (input.humanAcceptance) {
     nonEmpty(input.humanAcceptance.acceptedBy, "F7_ACCEPTED_BY_REQUIRED");
