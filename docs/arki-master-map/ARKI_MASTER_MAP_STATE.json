@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "Visual local drafts and inventory-phase suggestions are non-authoritative; source snapshots update when local files are regenerated",
+      "integration_boundary": "Placement advice is advisory only and cannot claim verified integration",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1729,7 +1729,17 @@
         "activities": "Each staged spine activity, linked or unlinked, shows predecessors (declared dependencies required by it) and successors (activities that depend on it); no undeclared relationships invented",
         "cross_phase": "Declared relations show destination phase when placed, or SIN UBICAR, and clicking a placed ID navigates to its phase",
         "epistemic_boundary": "Predecessor/successor relations for activities are unverified local declarations; proposed milestone ordering is not calculated critical path; canonical roadmap remains untouched"
-      }
+      },
+      "advisory_placement_v1": {
+        "entry": "F1-F10 -> Columna vertebral y espinas -> Revisar ubicaciones sugeridas",
+        "scope": "Review placed and unplaced phase-relevant pieces; Ver todas las piezas expands to inventory",
+        "recommendation": "Deterministic Spanish title-keyword heuristics plus historical inventory fallback; no repository evidence audit, confidence MEDIA/HISTÓRICA/SIN BASE, explanation shown per piece",
+        "edit": "Explicit phase and hito dropdown per piece; applying moves/places draft piece, updates current scenario milestone, clears stale phase-specific assignments, preserves other pieces and undo/redo",
+        "scenario": "Reference and Alternative A milestone assignments remain independent; cross-phase move clears stale assignments for that moved piece only",
+        "sources": "New ideas/frozen/phase status continue to refresh only from local launcher-generated snapshot; proposals recomputed from embedded current inventory at each render; never auto-promoted",
+        "authority": "No canonical roadmap or FROZEN mutation"
+      },
+      "tests": "PASS static JS syntax, live mocked registry/state rendering, review panel, per-piece F1->F2 hito edit, undo/redo, semantic proposals I-01 F1, I-06 F3, I-13 F2, I-14 F7"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
