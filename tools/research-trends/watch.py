@@ -113,6 +113,8 @@ def fetch_release(source, token=None):
         if len(content) > MAX_BYTES:
             raise ValueError("GitHub response too large")
     raw = json.loads(content)
+    if not isinstance(raw, dict):
+        raise ValueError("Unexpected release response shape")
     release_id, tag, link = raw.get("id"), raw.get("tag_name"), raw.get("html_url")
     if not isinstance(release_id, int) or not isinstance(tag, str) or not tag:
         raise ValueError("Missing verifiable release id/tag")
