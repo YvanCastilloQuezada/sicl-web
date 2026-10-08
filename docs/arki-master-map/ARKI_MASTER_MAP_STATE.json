@@ -1551,7 +1551,7 @@
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
       "integration_boundary": "Canonical roadmap phases, frozen records, and verification status remain unchanged",
       "static_js_syntax": "PASS",
-      "windows_browser_gate": "USER_SCREENSHOTS_OBSERVED_FOR_VERTEBRAL_AND_ALTERNATIVE_BUT_NOT_E3_FULL_SUITE",
+      "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
       "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
       "top_menu": "Below phase menu: counters at left; orange Estructura, Conexiones, Inventario, Flotantes; yellow Pendientes, Ideas, Dispersas, FROZEN control right tray; search at right.",
@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: source diff before/after, trace metadata save, scenario isolation, draft persistence, eight local diagnostic checks.",
+      "interaction_simulation": "PASS: ten phases; proposal opens review without staging; Ideas ARKI cards; approve/reject/reset persist; roadmap canonical statuses unchanged; static JavaScript syntax PASS",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1802,7 +1802,22 @@
       "offline_smoke_gate": "CI previously failed on stale test assertions (right-only tray vs swapped sidebars); assertions updated, awaiting exact-head rerun",
       "traceability": "Per-piece local source, reason, evidence declaration and confidence, with append-only traceEvents across placement, hito assignment and dependencies; export/import JSON and Markdown.",
       "source_reconciliation": "Offline source diff ledger stores previous and new values for ideas, components, phases and FROZEN; local drafts remain separate.",
-      "e3_windows_gate": "PENDING: real Windows browser run of Pruebas E3 Windows, manual persistence/alternative/source refresh checks and exported E3 JSON evidence."
+      "e3_windows_gate": "PENDING: real Windows browser run of Pruebas E3 Windows, manual persistence/alternative/source refresh checks and exported E3 JSON evidence.",
+      "navigation": "Counters occupy reserved flex width; orange/yellow menu is horizontally scrollable rather than overlapping at constrained widths",
+      "placement_recommendations": {
+        "method": "Deterministic, explainable scoring of ten phases using milestone lexical matches, inventory historical phase, declared dependencies and downstream dependents",
+        "scope": "Heuristic comparison, not mathematical global optimum or autonomous AI inference",
+        "default": "Do not assign Hito 1 when no unambiguous milestone match exists; piece remains SIN HITO",
+        "manual_control": "Evaluar ubicación opens editable phase/milestone review without changing placement; Aplicar commits local draft",
+        "source_auto": "Automatically place newly discovered source pieces only when scoring returns MEDIA; low confidence remains in tray",
+        "bulk": "User can explicitly request bulk organization as local draft"
+      },
+      "arki_improvement_ideas": {
+        "surface": "Yellow Ideas ARKI navigation; local diagnostic proposals derived on render from phase reconciliation, unassigned spines, unresolved dependencies, low-confidence placements and source changes",
+        "decision": "User can APPROVE FOR EVALUATION, REJECT or REOPEN; no implementation or canonical promotion",
+        "storage": "Local browser storage with JSON export/import of decisions",
+        "limits": "Rules-based diagnostics; no background autonomous code modification or live remote synchronization"
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
