@@ -1540,12 +1540,12 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows pull and relaunch; verify 4 counters stay at left, four orange/black menu buttons are horizontally centered, search right, tab switching updates blue workspace; inspect responsive widths. No browser E3 yet.",
+    "next_gate": "Windows pull and launch. Verify 8 top menu buttons (4 orange + 4 yellow), counters remain left, tray sidebar now left, phase rail right, clicking yellow buttons shows collection in blue center and updates left tray. No E3 yet.",
     "layout": {
-      "status": "CODE_UPDATED_AWAITING_WINDOWS_VISUAL_E3",
-      "left": "Compact vertical navigation F1–F10, 152px nominal width, selected phase",
-      "center": "Persistent blue workspace for selected phase assembly; preserves tabs, left F1-F10 rail, right piece tray",
-      "right": "Pending / Ideas / Scattered / FROZEN tray",
+      "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
+      "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
+      "center": "Blue ARKI workspace: orange tabs show structure/connections/inventory/floating; yellow tabs show corresponding tray collections and selectable piece detail",
+      "right": "Compact F1–F10 phase navigation (formerly left)",
       "interaction": "Clicking left phase opens phase package in center; selecting a tray piece opens its target phase and detail when mapped",
       "default_phase": "F1",
       "responsive": "Desktop three columns; stacked below 850px",
@@ -1554,11 +1554,11 @@
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
       "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
-      "top_menu": "Four counters remain on left; Estructura, Conexiones, Inventario and Flotantes are centered orange buttons with black text; search on right. Blue center workspace and sidebars unchanged.",
+      "top_menu": "Left unchanged: four phase counters. Center: orange Estructura, Conexiones, Inventario, Flotantes followed immediately by yellow Pendientes, Ideas, Dispersas, FROZEN. Right: search.",
       "top_menu_status": "IMPLEMENTED_STATIC_SYNTAX_PASS_WINDOWS_E3_PENDING",
       "menu_palette": {
-        "normal": "#f28c28",
-        "active": "#ffb24f",
+        "orange": "#f28c28",
+        "yellow": "#f2d94e",
         "text": "#111820"
       }
     },
