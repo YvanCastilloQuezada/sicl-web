@@ -485,3 +485,10 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - Revisión y dependencias se guardan como campo opcional `reviews` en el mismo borrador `ARKI-MAQUETA-DRAFT-1`, compatible con archivos previos. Exportar/Importar JSON preserva fichas.
 - Se añadió `tools/maqueta-viva/test-maqueta-viva.cjs` con 25 comprobaciones de simulación, más workflow `.github/workflows/maqueta-viva-smoke.yml`. Comprobaciones aisladas ejecutadas: 14/14 + 11/11 PASS. Ejecución del archivo de suite en Node: **PENDING**. GitHub CI: **NOT OBSERVED**. Navegador Windows E3: **NOT EXECUTED**.
 - Ninguna ficha muta Core, D-2, AGK ni estados canónicos. No elimina deudas. La integración verificable real sigue requiriendo auditoría de código y evidencia E3 externa.
+
+### Maqueta Viva — V0.5, observación externa GitHub de solo lectura (2026-10-08)
+
+- Se añadió `tools/maqueta-viva/verify-github-evidence.cjs` para consultar GitHub API sobre repositorio/archivo/commit SHA exactos de fichas exportadas. Observa si existe un run Actions exitoso para ese SHA; **no acredita** que el comando de prueba declarado se ejecutó.
+- La interfaz permite `Cargar observación GitHub` y compara ID, repo, archivo y SHA con la ficha local. Muestra `OBSERVED_SOURCE_AT_SHA` y `CI_RUN_SUCCESS_AT_SHA` como **observación importada no atestada**, sin promocionar IMPLEMENTED, VERIFIED, FROZEN ni eliminar deudas. Al editar la ficha se descarta la observación; al importar otro borrador se descartan todas.
+- Tests: 8/8 comprobaciones aisladas del observador simulado PASS; validación aislada de importación y rechazo de SHA diferente PASS. Suite persistida `test-maqueta-viva.cjs`: 29 checks, **Node not yet executed**. Suite persistida `test-github-evidence.cjs`: 14 checks, **Node not yet executed**. CI GitHub: **NOT OBSERVED**. Browser Windows E3: **NOT EXECUTED**.
+- Guía local: `tools/maqueta-viva/README.md`. Inicio cotidiano sigue siendo `ARKI-MAQUETA-VIVA.cmd`; la observación de evidencia es un paso avanzado opcional que requiere Internet.
