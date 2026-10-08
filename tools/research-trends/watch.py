@@ -21,6 +21,46 @@ ALLOWED = {"geometry_kernel", "exact_geometry", "robust_mesh_boolean",
            "volumetric_geometry", "parametric_cad", "ifc_interoperability"}
 MAX_BYTES = 1_000_000
 
+# These are explicit existing-scope signals, not proof of functional equivalence.
+CANONICAL_SIGNALS = {
+    "geometry_kernel": [
+        ("f6_agk_integral_closure.authority.canonical_brep", "VERIFIED_BOUNDED_AUTHORITY"),
+        ("agk_delta_005.authority.brep_representation", "VERIFIED_BOUNDED_AUTHORITY")],
+    "exact_geometry": [
+        ("agk_delta_005.phase1.boolean_exact", "TESTED_SCOPE_NOT_GENERAL_EQUIVALENCE")],
+    "robust_mesh_boolean": [
+        ("agk_delta_005.phase1.boolean_local_move", "TESTED_SCOPE_NOT_GENERAL_EQUIVALENCE")],
+    "volumetric_geometry": [
+        ("f6_agk_integral_closure.authority.canonical_brep", "EXISTING_GEOMETRY_AUTHORITY_NOT_VOLUMETRIC_PROOF")],
+    "parametric_cad": [
+        ("f7_professional_technical_development.work_packages", "REGISTERED_SCOPE_ONLY")],
+    "ifc_interoperability": [
+        ("f7_professional_technical_development.work_packages", "REGISTERED_SCOPE_ONLY")],
+}
+
+
+def canonical_signals(canonical, capability):
+    results = []
+    for path, meaning in CANONICAL_SIGNALS.get(capability, []):
+        value = canonical
+        for part in path.split("."):
+            if not isinstance(value, dict) or part not in value:
+                value = None
+                break
+            value = value[part]
+        if value is None:
+            continue
+        if isinstance(value, list):
+            value = [v for v in value if isinstance(v, str) and
+                     (("IFC" in v.upper() or "CAD" in v.upper()) if
+                      capability in {"parametric_cad", "ifc_interoperability"} else True)]
+        if not value:
+            continue
+        results.append({"canonical_path": path, "recorded_value": value,
+                        "meaning": meaning})
+    return results
+
+
 
 def read_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
@@ -140,6 +180,7 @@ def run(sources, canonical, previous, fetcher=fetch_release):
         candidate_id = "RT-" + hashlib.sha256(stable_key.encode()).hexdigest()[:14].upper()
         phase_context = [{"phase": p, "canonical_status": phases[p].get("status", "UNKNOWN")}
                          for p in phase_ids]
+        existing = canonical_signals(canonical, capability)
         candidates.append({
             "id": candidate_id, "type": "UPDATE_CANDIDATE",
             "capability_key": capability, "proposed_phases": phase_ids,
@@ -151,7 +192,9 @@ def run(sources, canonical, previous, fetcher=fetch_release):
                          for r in releases],
             "deduplication": {"grouped_by_capability": True,
                               "existing_capability_equivalence": "NOT_VERIFIED",
-                              "action": "COMPARE_AGAINST_CANONICAL_CAPABILITIES_AND_CONTRACTS"},
+                              "possible_existing_scope": bool(existing),
+                              "canonical_signals": existing,
+                              "action": "REUSE_OR_EXTEND_EXISTING_CAPABILITY_BEFORE_NEW_FUNCTION"},
             "integration": "NOT_REQUESTED",
             "note": "A new release is not proof of a missing ARKI capability or an upgrade requirement."
         })
