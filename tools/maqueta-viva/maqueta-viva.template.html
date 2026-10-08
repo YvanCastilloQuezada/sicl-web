@@ -403,6 +403,16 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .commandbar input{flex:0 0 165px;width:165px;max-width:165px;justify-self:auto}
 @media(max-width:1220px){.commandbar{display:flex;flex-wrap:wrap;gap:7px}.command-stats{order:1;max-width:calc(100% - 185px)}.commandbar input{order:2;margin-left:auto;flex-basis:165px}.command-tabs{order:3;flex:0 0 100%;width:100%;max-width:100%;padding:4px 0 2px;border-left:0;justify-content:flex-start}}
 @media(max-width:580px){.command-stats{max-width:100%;overflow-x:auto}.commandbar input{margin-left:0;max-width:100%;flex:1 1 100%}}
+
+.arki-optimizer{margin:12px 0;padding:13px;border:1px solid #73a7c5;border-radius:9px;background:#112f48}
+.arki-optimizer h3{margin:0 0 6px}.arki-optimizer-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #47758f}
+.arki-optimizer-row>div{display:flex;flex-direction:column;gap:5px;min-width:0}.arki-optimizer-row strong{font-size:12px}.arki-optimizer-row small{font-size:11px;color:#d0e5f4;overflow-wrap:anywhere}
+.arki-optimizer-row button{flex:0 0 auto}
+.arki-ideas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:18px 0}
+.arki-idea{display:flex;flex-direction:column;gap:10px;padding:14px;background:#14354f;border:1px solid #5686a5;border-radius:11px}
+.arki-idea>div:first-child{display:flex;flex-direction:column;gap:6px}.arki-idea strong{font-size:15px;color:#f3faff}.arki-idea small{font-size:11px;color:#9ecae8}
+.arki-idea-status{font-size:10px;font-weight:700;color:#fbe18e}.arki-idea p{font-size:12px;line-height:1.6;margin:0;color:#dcebf6}
+.arki-idea-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto}.arki-idea-actions button{font-size:11px;padding:6px}
 </style>
 </head>
 <body>
@@ -875,7 +885,7 @@ const link=document.createElement("a");link.href="data:application/json;charset=
 draftNotice="Respaldo original preparado para exportación; no se ha reconciliado automáticamente.";
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents,sourceHistory,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents,sourceHistory,localIdeas,arkiIdeaDecisions,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -888,6 +898,7 @@ const previousLocal=JSON.parse(JSON.stringify(localIdeas));
 try{
 const raw=JSON.parse(String(reader.result));
 const incomingLocal=raw.localIdeas===undefined?previousLocal:validateLocalIdeas(raw.localIdeas);
+const incomingDecisions=raw.arkiIdeaDecisions===undefined?arkiIdeaDecisions:validateArkiIdeaDecisions(raw.arkiIdeaDecisions);
 replaceLocalIdeas(incomingLocal);
 const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next),nextWorkflow=validateWorkflowStages(raw.workflowStages),nextAutoNotes=validateAutoPlacementNotes(raw.autoPlacementNotes,next),nextTraceNotes=validateTraceNotes(raw.traceNotes),nextTraceEvents=validateTraceEvents(raw.traceEvents);
 replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
@@ -898,7 +909,7 @@ for(const event of nextTraceEvents){const signature=JSON.stringify(event);if(!ex
 if(mergedEvents.length>TRACE_LIMIT)throw Error("Historial acumulado supera límite; conserva ambos JSON antes de fusionar");
 traceEvents=mergedEvents;
 observations={};
-localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));saveDraft();
+localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));arkiIdeaDecisions=incomingDecisions;localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));saveDraft();
 draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
 }catch(e){replaceLocalIdeas(previousLocal);draftNotice="Importación rechazada: "+String(e.message);}
 render();
