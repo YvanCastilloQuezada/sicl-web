@@ -36,13 +36,15 @@ function evidenceFile(root, ref, expectedHash) {
 function validate(assetsDoc,eventsDoc,assetsDir,eventsDir) {
   if (!object(assetsDoc) || assetsDoc.schema!=="ARKI-PHYSICAL-ASSETS-1.0" || !nonempty(assetsDoc.projectId) || !Array.isArray(assetsDoc.assets) || !assetsDoc.assets.length) fail("ASSET_REGISTER_INVALID");
   if (!object(eventsDoc) || eventsDoc.schema!=="ARKI-PHYSICAL-OBSERVATIONS-1.0" || eventsDoc.projectId!==assetsDoc.projectId || !Array.isArray(eventsDoc.events) || eventsDoc.events.length<2) fail("OBSERVATION_REGISTER_INVALID");
-  const assetMap=new Map(),sourceFingerprints=new Map();
+  const assetMap=new Map(),semanticIds=new Set();
   for(const a of assetsDoc.assets){
     if(!object(a)||!nonempty(a.assetId)||!nonempty(a.semanticId)||!nonempty(a.sourceRef)||!fingerprint(a.sourceSha256)) fail("ASSET_IDENTITY_INVALID");
     if(assetMap.has(a.assetId)) fail("ASSET_ID_DUPLICATE",a.assetId);
+    if(semanticIds.has(a.semanticId)) fail("SEMANTIC_ID_DUPLICATE",a.semanticId);
+    semanticIds.add(a.semanticId);
     const source=evidenceFile(assetsDir,a.sourceRef,a.sourceSha256);
     assetMap.set(a.assetId,{assetId:a.assetId,semanticId:a.semanticId,source});
-    sourceFingerprints.set("asset:"+a.assetId,source.sha256);
+    
   }
   const ids=new Set(),seenOccurrence=new Set(),events=[],observers=new Set(),sources=new Set();
   for(const e of eventsDoc.events){
@@ -61,8 +63,8 @@ function validate(assetsDoc,eventsDoc,assetsDir,eventsDir) {
   }
   const counts=new Map();
   for(const e of events)counts.set(e.assetId,(counts.get(e.assetId)||0)+1);
-  const eligible=[...counts].filter(([,n])=>n>=2).map(([id])=>id);
-  if(!eligible.length) fail("TWO_OBSERVATIONS_OF_ONE_ASSET_REQUIRED");
+  const eligible=[...counts].filter(([id,n])=>n>=2 && new Set(events.filter(e=>e.assetId===id).map(e=>e.source.ref+"|"+e.source.sha256)).size>=2).map(([id])=>id);
+  if(!eligible.length) fail("TWO_INDEPENDENT_OBSERVATIONS_OF_ONE_ASSET_REQUIRED");
   if(sources.size<2) fail("INDEPENDENT_SOURCE_FILES_REQUIRED");
   events.sort((a,b)=>a.occurred-b.occurred||a.recorded-b.recorded||a.eventId.localeCompare(b.eventId));
   let tail="GENESIS",current={},checkpoints=[];
@@ -115,7 +117,8 @@ function selfTest(){
     reject("SOURCE_FINGERPRINT_MISMATCH",x=>x.events[1].sourceSha256="0".repeat(64));
     reject("EVENT_TIME_IN_FUTURE_RELATIVE_TO_RECORD",x=>x.events[1].recordedAt="2026-09-01T10:00:00-05:00");
     reject("EVENT_OCCURRENCE_COLLISION",x=>x.events[1].occurredAt=x.events[0].occurredAt);
-    console.log("SELF_TEST=PASS; SYNTHETIC_ONLY=YES; REPLAY=PASS; DUPLICATE=REJECTED; UNKNOWN_ASSET=REJECTED; TAMPER=REJECTED; TIME=REJECTED; COLLISION=REJECTED");
+    reject("TWO_INDEPENDENT_OBSERVATIONS_OF_ONE_ASSET_REQUIRED",x=>{x.events[1].sourceRef=x.events[0].sourceRef;x.events[1].sourceSha256=x.events[0].sourceSha256;});
+    console.log("SELF_TEST=PASS; SYNTHETIC_ONLY=YES; REPLAY=PASS; DUPLICATE=REJECTED; UNKNOWN_ASSET=REJECTED; TAMPER=REJECTED; TIME=REJECTED; COLLISION=REJECTED; SAME_SOURCE=REJECTED");
   } finally {rmSync(dir,{recursive:true,force:true});}
 }
 try{
