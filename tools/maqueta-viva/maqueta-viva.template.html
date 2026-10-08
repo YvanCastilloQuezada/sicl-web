@@ -396,6 +396,13 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .e3-manual label{display:flex;align-items:start;gap:8px;font-size:12px}
 .e3-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:5px;margin-top:10px}
 .e3-results span{border:1px solid #527e9b;border-radius:5px;padding:6px;font-size:11px}
+
+.commandbar{display:flex;flex-wrap:nowrap;align-items:center;gap:13px;min-width:0}
+.command-stats{flex:0 0 auto;justify-self:auto;max-width:none}
+.command-tabs{flex:1 1 auto;justify-content:flex-start;justify-self:auto;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;padding-left:13px;border-left:1px solid #526a83}
+.commandbar input{flex:0 0 165px;width:165px;max-width:165px;justify-self:auto}
+@media(max-width:1220px){.commandbar{display:flex;flex-wrap:wrap;gap:7px}.command-stats{order:1;max-width:calc(100% - 185px)}.commandbar input{order:2;margin-left:auto;flex-basis:165px}.command-tabs{order:3;flex:0 0 100%;width:100%;max-width:100%;padding:4px 0 2px;border-left:0;justify-content:flex-start}}
+@media(max-width:580px){.command-stats{max-width:100%;overflow-x:auto}.commandbar input{margin-left:0;max-width:100%;flex:1 1 100%}}
 </style>
 </head>
 <body>
