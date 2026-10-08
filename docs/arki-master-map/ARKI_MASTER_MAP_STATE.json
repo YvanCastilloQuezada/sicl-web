@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "All mappings and new local ideas are reversible drafts; frozen records and official roadmap read-only",
+      "integration_boundary": "Official phase statuses, FROZEN and roadmap remain unchanged; all spine mapping is local reversible draft",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1697,6 +1697,20 @@
         "portable": "Draft JSON export/import carries localIdeas and separate scenario assignments",
         "source_updates": "On launcher rebuild compare prior embedded source inventory and canonical status snapshots; report new ideas/components/FROZEN and changed phase/frozen records; no remote polling",
         "limit": "Git pull or local file updates + reopen launcher required to incorporate new upstream ideas; no autonomous remote discovery"
+      },
+      "spine_next_level": {
+        "milestone_selection": "All F1–F10 proposed spine stages can be clicked to select the target for manual unassigned activity linking; default hito is selected; no official roadmap mutation",
+        "scenario_comparison": "Expandable reference versus alternative comparison of per-piece hito associations, counts and differences; no canonical promotion",
+        "safe_scenario_copy": "Copy current phase's reference associations into an empty alternative only, preserving base and refusing overwrite",
+        "phase_mismatch": "Explicit warning when piece is placed in a phase different from its registry's proposed target; human review required",
+        "tray_priority": "Ideas and dispersed components for active phase sorted first; all other phases remain accessible, not hidden",
+        "unmatched_suggestions": "When no unambiguous textual suggestions, UI explains that this is not an incompatibility; manual mapping remains available",
+        "source_refresh": "Retain existing launcher regeneration from local canonical state and inventory and local source change banner; no remote real-time claims"
+      },
+      "validation": {
+        "static_js_syntax": "PASS",
+        "interaction_simulation": "PASS: F1–F10 render, select F6 hito 3, place F1-suggested piece in F6 with warning, assign to hito 3, switch to empty alternative, copy reference, unlink only alternative, base remains",
+        "windows_browser_e3": "PENDING"
       }
     },
     "assembly": {
