@@ -1096,13 +1096,38 @@ const phase=strong?best.phase:historic;
 const stage=phase?suggestStage(piece,phase):null;
 return {phase,stage:stage?.index??"",confidence:strong?"MEDIA":historic?"HISTÓRICA":"SIN BASE",reason:strong?"Coincidencia textual: "+best.terms.join(", "):historic?"Clasificación del inventario; sin evidencia nueva que justifique moverla.":"Sin fase sustentada; requiere clasificación manual."};
 }
+
+/* Deterministic proposals recomputed from current inventory and local graph.
+   Not trained AI, not a proof of globally optimal architecture. */
+function optimizedCandidates(piece){
+const base=proposedLocation(piece),deps=reviews[piece.id]?.dependencies||[];
+const ranked=phases.map(p=>{
+const stage=suggestStage(piece,p.id);let score=0;const signals=[];
+if(stage){score+=5;signals.push("actividad temática");}
+if(piece.targetPhase===p.id){score+=2;signals.push("inventario histórico");}
+if(base.phase===p.id&&base.confidence==="MEDIA"){score+=6;signals.push("tema distintivo");}
+const upstream=deps.filter(id=>placements[id]===p.id).length;
+if(upstream){score+=Math.min(8,upstream*4);signals.push(upstream+" dependencias en la fase");}
+const downstream=Object.entries(reviews).filter(([id,r])=>placements[id]===p.id&&(r.dependencies||[]).includes(piece.id)).length;
+if(downstream){score+=Math.min(6,downstream*3);signals.push(downstream+" dependientes en la fase");}
+return {phase:p.id,stage:stage?.index??"",score,signals};
+}).sort((a,b)=>b.score-a.score||a.phase.localeCompare(b.phase,undefined,{numeric:true}));
+const best=ranked[0],runner=ranked[1];
+return {best,ranked:ranked.slice(0,3),confidence:best.score>=9&&best.score-runner.score>=4&&best.stage!==""?"MEDIA":"BAJA"};
+}
+function optimizerPanel(){
+const candidates=[...ideas,...components].filter(p=>!placements[p.id]).map(p=>({p,r:optimizedCandidates(p)})).sort((a,b)=>b.r.best.score-a.r.best.score||a.p.id.localeCompare(b.p.id));
+return '<section class="arki-optimizer"><h3>ARKI · Análisis integral de ubicación</h3><p class="hint">Comparación automática de F1–F10, hitos, inventario y dependencias declaradas. Las propuestas cambian cuando cambia el borrador; requieren tu decisión para aplicarse.</p><p class="hint">'+candidates.length+' piezas disponibles · '+candidates.filter(x=>x.r.confidence==="MEDIA").length+' con confianza MEDIA (heurística, no verificación).</p>'+
+candidates.slice(0,12).map(({p,r})=>'<div class="arki-optimizer-row"><div><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Propuesta: '+escapeHtml(r.best.phase)+(r.best.stage===""?" · SIN HITO":" · Hito "+(Number(r.best.stage)+1))+' · '+r.confidence+' · puntuación '+r.best.score+'</small><small>Razones: '+escapeHtml(r.best.signals.join(", ")||"sin señales suficientes")+' · alternativas: '+escapeHtml(r.ranked.slice(1).map(x=>x.phase+" ("+x.score+")").join(", "))+'</small></div><button type="button" class="tab" data-optimize-review="'+escapeHtml(p.id)+'">Revisar</button></div>').join("")+
+'<p class="caption">No hay colocación ni promoción automática por mostrar esta evaluación. Las fases FROZEN y el roadmap siguen protegidos.</p></section>';
+}
 function locationReviewPanel(){
 const items=[...ideas,...components].filter(x=>locationReviewAll||placements[x.id]===activePhase||(!placements[x.id]&&proposedLocation(x).phase===activePhase));
 return '<div class="location-review"><div class="location-review-head"><div><strong>Revisión de ubicaciones · '+escapeHtml(activePhase)+'</strong><p class="hint">Sugerencias de organización, NO ubicaciones verificadas. Selecciona fase e hito y pulsa «Aplicar». La referencia y la alternativa conservan asignaciones separadas.</p></div><button type="button" class="tab" data-location-all aria-pressed="'+locationReviewAll+'">'+(locationReviewAll?"Ver fase actual":"Ver todas las piezas")+'</button></div>'+
 (locationFeedback?'<div class="location-feedback '+(locationFeedback.changed?"location-feedback-changed":"")+'" role="status" aria-live="polite"><strong>'+(locationFeedback.changed?"Aplicado al borrador":"Sin cambios")+'</strong> · '+escapeHtml(locationFeedback.message)+'</div>':"")+
-'<div class="location-review-list">'+items.map(piece=>{
-const advice=proposedLocation(piece),placed=placements[piece.id],phase=advice.phase||placed||activePhase,stage=placed===phase?(currentSpine()[piece.id]??advice.stage):(phase===advice.phase?advice.stage:"");
-return '<div class="location-review-row '+(locationFeedback?.id===piece.id?"location-feedback-row":"")+'" data-location-row="'+escapeHtml(piece.id)+'"><div class="location-review-piece"><strong>'+escapeHtml(piece.id)+' · '+escapeHtml(piece.name)+'</strong><small>Inventario: '+escapeHtml(piece.targetPhase||"SIN ASIGNAR")+' · Actual: '+escapeHtml(placed||"EN BANDEJA")+'</small><small>Propuesta: '+escapeHtml(advice.phase||"REVISIÓN MANUAL")+' · '+escapeHtml(advice.confidence)+' · '+escapeHtml(advice.reason)+'</small></div>'+
+optimizerPanel()+'<div class="location-review-list">'+items.map(piece=>{
+const advice=proposedLocation(piece),optimized=optimizedCandidates(piece),placed=placements[piece.id],phase=placed||optimized.best.phase||activePhase,stage=placed===phase?(currentSpine()[piece.id]??optimized.best.stage):optimized.best.stage;
+return '<div class="location-review-row '+(locationFeedback?.id===piece.id?"location-feedback-row":"")+'" data-location-row="'+escapeHtml(piece.id)+'"><div class="location-review-piece"><strong>'+escapeHtml(piece.id)+' · '+escapeHtml(piece.name)+'</strong><small>Inventario: '+escapeHtml(piece.targetPhase||"SIN ASIGNAR")+' · Actual: '+escapeHtml(placed||"EN BANDEJA")+'</small><small>Propuesta integral: '+escapeHtml(optimized.best.phase)+(optimized.best.stage===""?" · SIN HITO":" · Hito "+(Number(optimized.best.stage)+1))+' · '+escapeHtml(optimized.confidence)+' · '+escapeHtml(optimized.best.signals.join(", ")||"Sin señales suficientes")+'</small></div>'+
 '<label>Fase<select data-location-phase="'+escapeHtml(piece.id)+'" aria-label="Fase editable para '+escapeHtml(piece.id)+'">'+phases.map(p=>'<option value="'+escapeHtml(p.id)+'" '+(phase===p.id?"selected":"")+'>'+escapeHtml(p.id)+" · "+escapeHtml(p.name)+'</option>').join("")+'</select></label>'+
 '<label>Hito<select data-location-stage="'+escapeHtml(piece.id)+'" aria-label="Hito editable para '+escapeHtml(piece.id)+'"><option value="">Sin hito</option>'+SPINE_STAGES[phase].map((n,i)=>'<option value="'+i+'" '+(stage===String(i)?"selected":"")+'>'+(i+1)+' · '+escapeHtml(n)+'</option>').join("")+'</select></label>'+
 '<button type="button" class="action-primary" data-location-apply="'+escapeHtml(piece.id)+'">Aplicar</button>'+(locationFeedback?.id===piece.id?'<small class="location-row-result">'+escapeHtml(locationFeedback.message)+'</small>':"")+'</div>';
