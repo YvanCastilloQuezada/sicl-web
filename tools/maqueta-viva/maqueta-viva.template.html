@@ -1837,7 +1837,88 @@ origin=null;
 el.addEventListener("pointerup",finish);el.addEventListener("pointercancel",finish);
 });
 app.querySelector("#search").addEventListener("input",e=>{const pos=e.target.selectionStart;search=e.target.value;render();const inp=app.querySelector("#search");inp.focus();inp.setSelectionRange(pos,pos);});
+
 }
+/* Delegated contextual guide: survives render() replacements and works with
+   mouse, pen, keyboard focus and dynamically created local ideas. */
+const HELP_DEFAULT="Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.";
+const HELP_TABS={
+structure:"Estructura: abre la fase seleccionada. Vista Vertebral por defecto y Mesa Libre como alternativa; ninguna modifica el roadmap oficial.",
+connections:"Conexiones: declara o inspecciona dependencias entre piezas. Las flechas son hipótesis locales, no integraciones verificadas.",
+roadmap:"Roadmap: consulta F1–F10, estados oficiales y evidencia del Estado Estructurado. Las cantidades de piezas son solo borradores.",
+scenarios:"Escenarios: compara las diez fases entre Referencia y Alternativa A; identifica posibles bloqueos, diferencias y alertas sin declarar una solución óptima.",
+parts:"Inventario: explora las piezas registradas y sus datos de procedencia; presencia en inventario no implica integración.",
+floating:"Flotantes: consulta elementos pendientes de ubicación o relación; su clasificación requiere revisión.",
+arkiideas:"Ideas ARKI: muestra propuestas heurísticas recalculadas con el borrador; aprobar evaluación no implementa código."
+};
+const HELP_TRAYS={
+pending:"Pendientes: muestra bloqueos y reconciliaciones explícitos de las fuentes locales; no significa que todo esté sin implementar.",
+ideas:"Ideas: abre la bandeja de ideas históricas y propuestas locales. Arrastra una a la mesa para ubicarla provisionalmente.",
+components:"Dispersas: piezas detectadas en inventarios históricos; requieren verificación de implementación e integración.",
+frozen:"FROZEN: consulta registros congelados de la fuente canónica; una pieza visual no modifica ni descongela un contrato."
+};
+function contextualDescription(el){
+if(!el)return HELP_DEFAULT;
+const d=el.dataset||{};
+if(d.help)return d.help;
+if(d.phase){const p=phases.find(x=>x.id===d.phase);return p?d.phase+" · "+p.name+": "+p.description+" Estado oficial: "+p.status+". Pulsa para abrir su columna vertebral.":HELP_DEFAULT;}
+if(d.tab)return HELP_TABS[d.tab]||"Abrir sección "+d.tab+".";
+if(d.tray)return HELP_TRAYS[d.tray]||"Cambiar categoría de la bandeja.";
+if(d.roadmapPhase)return "Abrir "+d.roadmapPhase+" desde el roadmap oficial en modo de ensamblaje local.";
+if(d.scenarioPhase)return "Abrir "+d.scenarioPhase+" y revisar sus espinas y dependencias declaradas.";
+if(d.scenarioJump)return "Revisar "+d.scenarioJump+" en "+(d.scenarioKind==="alternative"?"Alternativa A":"Referencia propuesta")+". La alerta no es un fallo verificado.";
+if(d.spinePick!==undefined)return "Seleccionar hito "+(Number(d.spinePick)+1)+" de la columna vertebral propuesta. No cambia el roadmap canónico.";
+if(d.spineAssign)return "Vincular "+d.spineAssign+" al hito elegido como hipótesis local; no certifica integración.";
+if(d.spineUnlink)return "Desvincular "+d.spineUnlink+" de su hito en el escenario actual sin retirar la pieza de la fase.";
+if(d.spineScenario)return d.spineScenario==="base"?"Referencia propuesta: vinculaciones de espinas del escenario de referencia.":"Alternativa A: modifica hitos de espinas independientemente de la referencia.";
+if(d.spineConnect||d.connectPiece)return "Conectar esta actividad con otra: primero elige la que depende, luego la pieza necesaria. Relación no verificada.";
+if(d.linkMode!==undefined)return "Activar o finalizar el modo de conexión entre actividades. Las flechas quedan en el borrador local.";
+if(d.unstage)return "Retirar "+d.unstage+" de la mesa y devolverla a su bandeja. No borra el inventario canónico.";
+if(d.movePiece)return "Arrastrar "+d.movePiece+" por la mesa libre. La posición se conserva localmente.";
+if(d.dragPiece)return "Pieza "+d.dragPiece+": arrastra a la fase o utiliza el botón de ubicación. No se integra por colocarla.";
+if(d.stage)return "Ubicar "+d.stage+" en la fase elegida como borrador reversible.";
+if(d.sourceOpen)return d.sourceOpen==="roadmap"?"Ver cambios en el roadmap canónico local.":"Ver novedades FROZEN de las fuentes locales.";
+if(d.sourceHistory!==undefined)return "Historial de cambios detectados entre lecturas locales; no consulta GitHub automáticamente.";
+if(d.export!==undefined)return "Exportar el borrador JSON para respaldo o traslado. No publica ni modifica ARKI.";
+if(d.undo!==undefined)return "Deshacer el último cambio reversible del borrador durante esta sesión.";
+if(d.redo!==undefined)return "Rehacer el último cambio deshecho durante esta sesión.";
+if(d.focusMode!==undefined)return "Ampliar o restaurar la mesa ocultando temporalmente la bandeja, sin perder piezas.";
+if(d.resetLayout!==undefined)return "Ordenar posiciones libres de la fase; la operación puede deshacerse.";
+if(d.arkiApprove)return "Autorizar la evaluación de la idea "+d.arkiApprove+"; no ejecutar ni integrar automáticamente.";
+if(d.arkiReject)return "Descartar provisionalmente la idea "+d.arkiReject+" en este navegador.";
+if(d.addLocalIdea!==undefined)return "Añadir una nueva idea local a la bandeja; requiere exportar JSON para compartirla.";
+if(d.e3Run!==undefined)return "Ejecutar comprobaciones locales del navegador; no sustituyen la verificación visual E3.";
+if(d.linkAdd!==undefined)return "Crear una dependencia declarada entre dos piezas ubicadas, sujeta a validación.";
+if(d.linkRemove)return "Quitar la dependencia local de "+d.linkRemove+" con "+(d.linkTarget||"otra pieza")+".";
+if(el.matches?.(".spine-stage"))return "Hito de la columna vertebral propuesta: reúne espinas vinculadas y candidatos. La secuencia no es una ruta crítica calculada.";
+if(el.matches?.(".workbench-piece-card"))return "Pieza colocada como borrador: puedes inspeccionarla, moverla, conectarla o devolverla con X.";
+if(el.matches?.(".scenario-metric"))return "Indicador calculado del borrador de escenario; no mide el avance oficial ni demuestra optimalidad.";
+if(el.matches?.(".scenario-issue"))return "Posible conflicto o revisión deducida de las declaraciones actuales. Abre la pieza para comprobar su causa.";
+if(el.matches?.(".roadmap-phase"))return "Tarjeta de fase: estado oficial del Estado Estructurado y recuento separado de piezas provisionales.";
+if(el.matches?.(".arki-idea"))return "Idea heurística para evaluación humana; su aprobación no produce implementación automática.";
+if(el.matches?.(".source-sync"))return "Fuentes locales: novedades detectadas al regenerar la maqueta. Sin sincronización remota automática.";
+if(el.matches?.(".command-stat"))return (el.getAttribute("title")||"Contador de fases")+". Proviene del estado oficial, no de piezas colocadas.";
+if(el.matches?.("select"))return (el.getAttribute("aria-label")||"Selector")+" · elige una opción y confirma con el botón correspondiente.";
+if(el.matches?.("input, textarea"))return (el.getAttribute("aria-label")||el.getAttribute("placeholder")||"Campo de entrada")+" · modifica solo datos de esta sesión o del borrador.";
+const explicit=el.getAttribute?.("title")||el.getAttribute?.("aria-label");
+if(explicit)return explicit;
+const label=(el.innerText||el.textContent||"").trim().replace(/\s+/g," ").slice(0,100);
+if(el.matches?.("button, summary, [role='button']"))return "Acción «"+(label||"Abrir")+"»: consulta o modifica la vista o el borrador local. Verifica el resultado antes de asumir cambios oficiales.";
+if(el.matches?.(".panel"))return "Panel de ARKI Maqueta Viva: lectura y ensamblaje local, sin modificación del roadmap oficial.";
+return HELP_DEFAULT;
+}
+function helpTarget(target){
+if(!target||typeof target.closest!=="function")return null;
+return target.closest("button, a, summary, select, input, textarea, [role='button'], [data-help], .spine-stage, .spine-unassigned-row, .workbench-piece-card, .roadmap-phase, .arki-idea, .source-sync, .scenario-metric, .scenario-issue, .command-stat, .panel");
+}
+function updateContextHelp(target){
+const output=app.querySelector("#arki-context-text");
+if(output)output.textContent=contextualDescription(helpTarget(target));
+}
+app.addEventListener("mouseover",e=>updateContextHelp(e.target));
+app.addEventListener("focusin",e=>updateContextHelp(e.target));
+app.addEventListener("mouseout",e=>{if(!app.contains(e.relatedTarget))updateContextHelp(null);else updateContextHelp(e.relatedTarget);});
+app.addEventListener("focusout",e=>{if(!app.contains(e.relatedTarget))updateContextHelp(null);});
 render();
 })();
 </script>
