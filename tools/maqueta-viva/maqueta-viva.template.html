@@ -594,6 +594,19 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .executive-source{margin:7px 0 12px;border:1px solid #426b86;border-radius:8px;background:#112d43;padding:5px 12px;color:#c8ddeb;font-size:11px}
 .executive-source>summary{cursor:pointer;padding:5px 0}
 .executive-source .source-sync{margin:8px 0}
+
+/* Five levels of evolution: separate from ten canonical roadmap phases. */
+.evolution-bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:0 0 9px;padding:7px;border-radius:10px;background:#0e1d2e;border:1px solid #3c5a74}
+.evolution-button{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;min-height:58px;padding:9px 5px;border:2px solid transparent;border-radius:8px;background:var(--evolution-color);color:#fff;line-height:1.25;min-width:0;text-align:center}
+.evolution-button strong{font-size:12px;font-weight:750}.evolution-button span{font-size:10px;opacity:.95}
+.evolution-button:hover{filter:brightness(1.18)}.evolution-button.selected{border-color:#fff;box-shadow:0 0 0 2px #6ebae9;filter:brightness(1.09)}
+.evolution-button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.evolution-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:15px 0}
+.evolution-metrics article{display:flex;flex-direction:column;gap:8px;padding:15px;background:#10334d;border:1px solid #507c98;border-radius:9px}
+.evolution-metrics strong{font-size:25px;color:#fff}.evolution-metrics span{font-size:11px;color:#cde4f3}
+.evolution-section{margin:16px 0;padding:14px;border:1px solid #4c7896;border-radius:9px}
+.evolution-actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:950px){.evolution-bar{grid-template-columns:repeat(5,minmax(160px,1fr));overflow-x:auto}.evolution-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -642,7 +655,7 @@ const extras=[
 ];
 const blockerParts=blockers.map(b=>({id:b,name:b,status:"BLOCKED",description:"Bloqueo explícito del Estado Estructurado. No implica que las demás piezas estén ausentes."}));
 const all=[...phases,...extras,...blockerParts,...ideas,...components,...allFrozen];
-let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="ideas";
+let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="ideas",evolutionMode="maqueta";
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
@@ -2098,18 +2111,41 @@ card.style.top=Math.round(p?p.y*maxY:Math.min(defaultY,maxY))+"px";
 });
 updateWorkbenchConnections();
 }
+
+/* Evolution levels are navigation capabilities, NOT a replacement for roadmap F1–F10. */
+const EVOLUTION_LEVELS=[
+{id:"plano",number:"01",name:"Plano ARKI",subtitle:"Estructura y relaciones",target:"connections",color:"#3c5b7c"},
+{id:"maqueta",number:"02",name:"Maqueta Viva",subtitle:"Piezas, fases, espinas y alternativas",target:"structure",color:"#296d9e"},
+{id:"digital",number:"03",name:"Gemelo Digital",subtitle:"Estado real, evidencia y sincronización",target:"digital",color:"#137e87"},
+{id:"predictivo",number:"04",name:"Gemelo Predictivo",subtitle:"Simulaciones, impactos y escenarios",target:"scenarios",color:"#6953a2"},
+{id:"autocorrectivo",number:"05",name:"ARKI Autocorrectivo",subtitle:"Diagnóstico, autorización y reversión",target:"autocorrective",color:"#996021"}
+];
+function evolutionBar(){
+return '<nav class="evolution-bar" aria-label="Cinco niveles de evolución ARKI">'+EVOLUTION_LEVELS.map(x=>
+'<button type="button" class="evolution-button '+(evolutionMode===x.id?"selected":"")+'" style="--evolution-color:'+x.color+'" data-evolution="'+x.id+'" aria-pressed="'+(evolutionMode===x.id)+'" title="'+escapeHtml(x.name+" · "+x.subtitle)+'"><strong>'+x.number+' · '+escapeHtml(x.name)+'</strong><span>'+escapeHtml(x.subtitle)+'</span></button>'
+).join("")+'</nav>';
+}
+function digitalTwinWorkspace(){
+const placed=Object.keys(placements).length,complete=Object.keys(placements).filter(id=>reviewGate(id).complete).length;
+const changed=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length+sourceChanges.otherChanges.length+sourceChanges.retired.length;
+return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 03 · GEMELO DIGITAL</div><h2>Estado, evidencia y sincronización</h2></div><span class="status">LECTURA LOCAL · NO SINCRONIZACIÓN EN VIVO</span></div>'+
+'<p class="hint">Panel de preparación del gemelo digital: refleja únicamente el estado local disponible. No existe todavía una sincronización bidireccional verificada con GitHub, CAD, BIM ni el ejecutor.</p>'+
+'<div class="evolution-metrics"><article><strong>'+phases.length+'</strong><span>fases del roadmap</span></article><article><strong>'+placed+'</strong><span>piezas en borrador</span></article><article><strong>'+complete+'</strong><span>fichas locales completas, sin certificación</span></article><article><strong>'+changed+'</strong><span>cambios detectados en fuentes locales</span></article></div>'+
+'<section class="evolution-section"><h3>Procedencia y límites</h3>'+sourceUpdateBanner()+'<p>Fecha del estado fuente: <strong>'+escapeHtml(state.updated_at||"NO REGISTRADA")+'</strong></p><p class="hint">Actualiza el repositorio y abre el lanzador para regenerar la lectura local. Los cambios FROZEN requieren reconciliación explícita.</p></section>'+
+'<div class="evolution-actions"><button type="button" class="tab" data-evolution="maqueta">Abrir Maqueta Viva</button><button type="button" class="tab" data-tab="roadmap">Consultar roadmap oficial</button></div>';
+}
 function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
 const shortNames={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status+" · "+Object.values(placements).filter(v=>v===p.id).length+" piezas en borrador")+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span>'+(Object.values(placements).some(v=>v===p.id)?'<em class="phase-draft-count" aria-label="'+Object.values(placements).filter(v=>v===p.id).length+' piezas en borrador">'+Object.values(placements).filter(v=>v===p.id).length+'</em>':"")+'</button>').join("")+'</nav>'+
+app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status+" · "+Object.values(placements).filter(v=>v===p.id).length+" piezas en borrador")+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span>'+(Object.values(placements).some(v=>v===p.id)?'<em class="phase-draft-count" aria-label="'+Object.values(placements).filter(v=>v===p.id).length+' piezas en borrador">'+Object.values(placements).filter(v=>v===p.id).length+'</em>':"")+'</button>').join("")+'</nav>'+
 '<div class="commandbar" role="toolbar" aria-label="Búsqueda y navegación de ARKI">'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'">'+
 '<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button><button class="tab '+(tab==="research"?"active":"")+'" data-tab="research" aria-pressed="'+(tab==="research")+'">Research & Trends</button></nav>'+
 '</div>'+
 (tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
 (tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
-'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-technical-mode]").forEach(el=>el.addEventListener("click",()=>{technicalMode=el.dataset.technicalMode==="on";decisionShowAll=false;selected=activePhase;render();}));
 app.querySelectorAll("[data-decision-show-all]").forEach(el=>el.addEventListener("click",()=>{decisionShowAll=!decisionShowAll;render();}));
@@ -2204,7 +2240,8 @@ const destination=piece.targetPhase;stagePiece(id,destination);activePhase=desti
 draftNotice="Pieza "+id+" trasladada explícitamente a "+destination+" según su fase sugerida en inventario. BORRADOR, NO INTEGRADA.";
 render();
 }));
-app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
+app.querySelectorAll("[data-evolution]").forEach(el=>el.addEventListener("click",()=>{const x=EVOLUTION_LEVELS.find(v=>v.id===el.dataset.evolution);if(!x)return;evolutionMode=x.id;tab=x.target;if(x.id==="plano")connectionMode="system";if(x.id==="maqueta"){technicalMode=true;spineView=true;}selected=activePhase;render();}));
+app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;evolutionMode=tab==="scenarios"?"predictivo":tab==="digital"?"digital":tab==="autocorrective"?"autocorrectivo":"maqueta";selected=activePhase;render();}));
 app.querySelectorAll("[data-scenario-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.scenarioPhase;selected=activePhase;tab="structure";spineView=true;render();}));
 app.querySelectorAll("[data-scenario-jump]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const id=el.dataset.scenarioJump;if(!placements[id])return;spineScenario=el.dataset.scenarioKind;activePhase=placements[id];selected=id;tab="structure";spineView=true;render();}));
 app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
