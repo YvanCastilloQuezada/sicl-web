@@ -1532,11 +1532,13 @@ const a=staged[i],b=staged[j],aStage=map[a.id],bStage=map[b.id];
 if(aStage===undefined||bStage===undefined)continue;
 const at=normalizedTerms(a.name),bt=normalizedTerms(b.name);
 const overlap=[...at].filter(t=>bt.has(t));
-if(overlap.length<2)continue;
-const ordered=Number(aStage)>=Number(bStage)?{from:a,to:b}:{from:b,to:a};
 if(aStage===bStage)continue;
+const distance=Math.abs(Number(aStage)-Number(bStage));
+if(overlap.length<2&&distance!==1)continue;
+const ordered=Number(aStage)>=Number(bStage)?{from:a,to:b}:{from:b,to:a};
 if(existing.has(ordered.from.id+"|"+ordered.to.id)||existing.has(ordered.to.id+"|"+ordered.from.id))continue;
-pairCandidates.push({kind:"DEPENDENCIA_CANDIDATA",from:ordered.from,to:ordered.to,reason:"Coinciden los términos «"+overlap.slice(0,3).join(", ")+"» y los hitos son distintos. Se propone REVISAR si existe dependencia; la similitud NO la demuestra.",score:overlap.length});
+const reason=overlap.length>=2?"Coinciden los términos «"+overlap.slice(0,3).join(", ")+"» en hitos diferentes.": "Los hitos "+(Number(aStage)+1)+" y "+(Number(bStage)+1)+" son consecutivos en la ruta PROPUESTA; no hay una relación declarada entre estas actividades.";
+pairCandidates.push({kind:"DEPENDENCIA_CANDIDATA",from:ordered.from,to:ordered.to,reason:reason+" Revisar si existe una dependencia real; ni la secuencia ni la similitud la demuestran.",score:overlap.length*4+(distance===1?1:0)});
 }
 pairCandidates.sort((a,b)=>b.score-a.score||a.from.id.localeCompare(b.from.id));
 return {staged,missing,suggestions,pairCandidates:pairCandidates.slice(0,8),map};
@@ -1567,6 +1569,7 @@ return '<section class="twin-readiness" aria-label="Preparación del gemelo digi
 '<div class="twin-readiness-grid">'+steps.map(([name,criterion],i)=>'<div class="twin-readiness-step"><strong>'+(i+1)+'. '+escapeHtml(name)+'</strong><span>'+escapeHtml(criterion)+'</span><small>NO VERIFICADO EN ESTA MAQUETA</small></div>').join("")+'</div>'+
 '<p class="hint">F9 (obra) y F10 (operación) conservan sus estados oficiales. Para un gemelo viable faltan evidencias de adquisición temporal, estado observable, reproducción histórica y decisiones cerradas por autoridad; un diagrama conectado no sustituye esas pruebas.</p>'+
 '<h3>ACS · cuatro etapas del laboratorio</h3><p class="hint">KNOW → RUN → UNDERSTAND → EVOLVE es el ciclo de evaluación tecnológica ACS, no el progreso F1–F10. El estado canónico actual no proporciona un veredicto completo por cada etapa.</p>'+
+'<p class="hint">Evidencia acotada registrada: '+escapeHtml((Array.isArray(focus.active)?focus.active:[]).find(x=>/ACS.*ARKI/.test(x))||"Sin entrega ACS→ARKI detallada en current_focus")+'. Esta referencia NO certifica las cuatro etapas.</p>'+
 '<div class="twin-readiness-grid">'+stages.map(([name,criterion],i)=>'<div class="twin-readiness-step"><strong>'+(i+1)+'. '+name+'</strong><span>'+escapeHtml(criterion)+'</span><small>ESTADO POR ETAPA: NO DETERMINADO</small></div>').join("")+'</div>'+
 '<details><summary>Bloqueos técnicos registrados · '+blockers.length+'</summary>'+(blockers.length?blockers.map(b=>'<p class="twin-blocker">'+escapeHtml(b)+'</p>').join(""):'<p class="hint">No hay bloqueos enumerados en current_focus; esto no acredita preparación del gemelo.</p>')+'</details>'+
 '<p class="caption">El avance debe medirse mediante pruebas en SHA exacto, eventos reales, fuentes y evidencia reproducible. Esta vista no modifica la fuente canónica.</p></section>';
