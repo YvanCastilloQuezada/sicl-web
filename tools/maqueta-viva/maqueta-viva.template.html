@@ -23,6 +23,17 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .sidebar{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}.sidebar .item{width:100%}.sidebar .unit{display:block;width:100%;margin-bottom:7px}.sidebar h2{font-size:17px}.layout .panel{min-height:360px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;min-height:330px}.caption{font-size:12px;color:var(--muted);margin:10px 0}.authority{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.authority .unit{color:var(--txt);cursor:pointer;border:1px solid #3d6880;background:#152c40;border-radius:10px;padding:12px;text-align:center}.authority strong{display:block}.authority small{color:var(--muted)}.down{text-align:center;color:var(--muted);padding:12px}.phase-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.phase-rows{display:flex;flex-direction:column;gap:12px}.phase-row{display:flex;justify-content:center;gap:10px}.phase-row .phase{width:min(100%,165px);flex:1 1 0}.phase-row.single .phase{flex:0 1 175px}.layout-switch{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.phase.selected{background:#23425b}.piece-zone{border-top:1px solid var(--line);margin-top:20px;padding-top:15px}.piece-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}.piece-row button{flex:1}.piece-mark{display:inline-block;font-size:10px;border:1px solid #667f9b;border-radius:6px;padding:2px 5px;color:#bed0e4;white-space:nowrap}.piece-mark.frozen{border-color:#4dc99b;color:#8fe2c1}.tray-switch{display:flex;gap:5px;margin-bottom:13px;flex-wrap:wrap}.tray-switch .tab{padding:5px 8px;font-size:12px}.phase small{display:block;color:#8bd0e5;font-size:11px;margin-top:6px}.panel .hint{font-size:12px;color:var(--muted);line-height:1.45}.layout-switch .tab{padding:6px 10px;font-size:12px}.phase{background:var(--panel2);border:1px solid var(--line);border-left:4px solid #708298;border-radius:10px;padding:13px 11px;text-align:left;color:var(--txt);min-height:110px}.phase strong{display:block;font-size:20px}.phase span{display:block;font-size:12px;color:var(--muted);margin-top:6px}.phase.selected{outline:2px solid var(--accent)}.phase.frozen{border-left-color:var(--green)}.phase.progress{border-left-color:var(--amber)}.phase.reconciled{border-left-color:var(--blue)}.phase.unknown{border-left-color:#708298}
 .detail{position:sticky;top:14px;align-self:start}.detail .kicker{color:var(--accent);font-size:12px;letter-spacing:1px;font-weight:700}.detail p{margin:8px 0 14px}.field{border-top:1px solid var(--line);padding:10px 0;overflow-wrap:anywhere}.field label{display:block;color:var(--muted);font-size:12px}.field strong{font-size:13px;font-weight:600}.status{display:inline-block;border:1px solid var(--line);padding:3px 8px;border-radius:7px;font-size:12px;color:var(--muted)}.status.frozen{border-color:#3e9075;color:#8fe2c1}.status.progress{border-color:#956c34;color:#f2cb93}.status.reconciled{border-color:#4a70a6;color:#b4d0ff}.stack{display:grid;gap:10px}.item{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px;text-align:left;color:var(--txt)}.item:hover,.phase:hover{border-color:var(--accent)}.item strong{display:block}.item small{color:var(--muted)}.diagram{width:100%;height:auto;max-height:510px;background:#0d1929;border-radius:12px;border:1px solid var(--line)}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:12px}.key{display:inline-block;width:23px;height:3px;vertical-align:middle;margin-right:6px}.empty{color:var(--muted);padding:25px;text-align:center}.foot{margin:22px 0 0;color:var(--muted);font-size:12px}.error{padding:25px;background:#38222b;color:#ffd0d6;border:1px solid #9b5060;border-radius:12px}.diagram text{font-family:"Segoe UI",sans-serif;fill:#eaf0f8}.diagram .node{cursor:pointer}.diagram .node:focus{outline:none}.diagram .node:focus rect{stroke:#fff;stroke-width:3}
 @media(max-width:1200px){.layout{grid-template-columns:minmax(185px,235px) minmax(0,1fr) 122px;gap:9px}.layout .panel{padding:12px}.phase{padding:10px 7px;min-height:95px}.phase-grid{gap:7px}}@media(max-width:850px){.layout{grid-template-columns:minmax(0,1fr)}.sidebar{position:static;max-height:none}.layout .center{order:1}.layout .left{order:2}.layout .right{order:3}.phase-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}@media(max-width:650px){main{padding:14px}.metrics{grid-template-columns:repeat(2,1fr)}.phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.phase-row{flex-wrap:wrap}.phase-row .phase{flex:1 1 40%;max-width:220px}.authority{grid-template-columns:1fr}h1{font-size:22px}input{width:100%}}
+/* Local integration preparation is declarative only, never a verification mechanism. */
+.review-box{background:rgba(5,28,47,.35);border:1px solid #4f84a8;border-radius:10px;padding:12px;margin-top:14px}
+.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.review-grid label{font-size:12px;color:#d3e6f3;display:grid;gap:4px}
+.review-grid label.wide{grid-column:1/-1}
+.review-grid input{width:100%;min-width:0;padding:8px;background:#102c44;border:1px solid #6388a4;border-radius:6px;color:#fff;font-size:12px}
+.review-gates{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.review-gates span{border-radius:6px;padding:5px 8px;font-size:11px}
+.gate-ready{border:1px solid #7594a8;color:#c4e2f4;background:#25445c}
+.gate-pending{border:1px solid #9a7958;color:#f2d5b6;background:#45372e}
+@media(max-width:680px){.review-grid{grid-template-columns:1fr}}
 /* Local puzzle assembly: proposals only, never canonical integration */
 .draft-controls{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:12px 0;padding:9px;background:rgba(4,26,44,.32);border:1px solid #5683a3;border-radius:9px}
 .draft-controls .tab{padding:5px 9px;font-size:12px}
@@ -91,7 +102,7 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
-let placements={},draftNotice="",storageAvailable=true;
+let placements={},reviews={},draftNotice="",storageAvailable=true;
 function validateDraft(raw){
 if(!raw||raw.schema!==DRAFT_SCHEMA||!raw.placements||typeof raw.placements!=="object"||Array.isArray(raw.placements))throw Error("Formato de borrador inválido");
 const cleaned={};
@@ -101,10 +112,30 @@ cleaned[id]=phase;
 }
 return cleaned;
 }
-try{const raw=localStorage.getItem(DRAFT_KEY);if(raw)placements=validateDraft(JSON.parse(raw));}
+function validateReviews(raw){
+if(raw===undefined)return {};
+if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Revisiones inválidas");
+const clean={};
+for(const [id,value] of Object.entries(raw)){
+if(!movable.has(id)||!value||typeof value!=="object"||Array.isArray(value))throw Error("Revisión de pieza no reconocida: "+id);
+const repo=String(value.repo||""),file=String(value.file||""),sha=String(value.sha||""),test=String(value.test||"");
+const deps=value.dependencies===undefined?[]:value.dependencies;
+if(!Array.isArray(deps)||deps.length>30||deps.some(d=>typeof d!=="string"||!movable.has(d)||d===id)||new Set(deps).size!==deps.length)throw Error("Dependencias inválidas: "+id);
+if(repo.length>160||file.length>260||sha.length>40||test.length>300||!/^([a-zA-Z0-9_.-]+\/[a-zA-Z0-9_.-]+)?$/.test(repo)||!/^([a-fA-F0-9]{40})?$/.test(sha))throw Error("Referencia de evidencia inválida: "+id);
+clean[id]={repo,file,sha,test,dependencies:[...deps]};
+}
+const visit=(id,stack,done)=>{
+if(stack.has(id))throw Error("Dependencia circular detectada: "+id);
+if(done.has(id))return;
+stack.add(id);for(const dep of clean[id]?.dependencies||[])visit(dep,stack,done);stack.delete(id);done.add(id);
+};
+const done=new Set();for(const id of Object.keys(clean))visit(id,new Set(),done);
+return clean;
+}
+try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);reviews=validateReviews(data.reviews);}}
 catch(e){storageAvailable=false;draftNotice="Almacenamiento local no disponible o borrador inválido. Exporta tu trabajo para conservarlo.";}
 function saveDraft(){
-try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements}));storageAvailable=true;}
+try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,reviews}));storageAvailable=true;}
 catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo.";}
 }
 function stagePiece(id,phase){
@@ -116,7 +147,7 @@ if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return
 delete placements[id];draftNotice="Ubicación provisional de "+id+" retirada.";saveDraft();
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,reviews,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -124,9 +155,38 @@ function importDraft(file){
 if(!file)return;
 if(file.size>200000){draftNotice="Archivo demasiado grande.";render();return;}
 const reader=new FileReader();
-reader.onload=()=>{try{const next=validateDraft(JSON.parse(String(reader.result)));placements=next;saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones provisionales. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
+reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextReviews=validateReviews(raw.reviews);placements=next;reviews=nextReviews;saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
 reader.onerror=()=>{draftNotice="No se pudo leer el archivo.";render();};
 reader.readAsText(file,"UTF-8");
+}
+function reviewGate(id){
+const r=reviews[id]||{},placed=Boolean(placements[id]);
+const deps=r.dependencies||[];
+const unresolved=deps.filter(d=>!placements[d]);
+const complete=placed&&Boolean(r.repo&&r.file&&r.sha&&r.test)&&unresolved.length===0;
+return {placed,unresolved,complete,hasEvidence:Boolean(r.repo&&r.file&&r.sha&&r.test)};
+}
+function recordReview(id,form){
+if(!movable.has(id)){draftNotice="La pieza no admite revisión local.";return;}
+const proposed={repo:String(form.repo||"").trim(),file:String(form.file||"").trim(),sha:String(form.sha||"").trim(),test:String(form.test||"").trim(),dependencies:String(form.dependencies||"").split(",").map(x=>x.trim()).filter(Boolean)};
+try{const next=validateReviews({...reviews,[id]:proposed});reviews=next;saveDraft();draftNotice="Ficha de "+id+" registrada como DECLARACIÓN LOCAL; ninguna prueba fue ejecutada ni verificada.";}
+catch(e){draftNotice="Ficha rechazada: "+String(e.message);}
+}
+function reviewInspector(id){
+const r=reviews[id]||{},gate=reviewGate(id);
+const safe=v=>escapeHtml(v||"");
+return '<div class="assembly-section review-box"><h3>Preparación de integración · '+safe(id)+'</h3>'+
+'<p class="hint">Documenta qué código y pruebas deben auditarse. Estos datos son DECLARACIONES LOCALES, no evidencia ejecutada ni verificada.</p>'+
+'<div class="review-grid"><label>Repositorio (propietario/nombre)<input id="review-repo" maxlength="160" placeholder="YvanCastilloQuezada/sicl-web" value="'+safe(r.repo)+'"></label>'+
+'<label>Ruta de archivo o módulo<input id="review-file" maxlength="260" placeholder="shared/modulo.ts" value="'+safe(r.file)+'"></label>'+
+'<label>SHA exacto (40 hexadecimales)<input id="review-sha" maxlength="40" placeholder="Commit de origen" value="'+safe(r.sha)+'"></label>'+
+'<label>Prueba/comando por ejecutar<input id="review-test" maxlength="300" placeholder="pnpm.cmd exec vitest run ..." value="'+safe(r.test)+'"></label>'+
+'<label class="wide">Dependencias de piezas (IDs separados por comas)<input id="review-deps" placeholder="I-01, HC-03" value="'+safe((r.dependencies||[]).join(", "))+'"></label></div>'+
+'<div class="placement-action"><button class="action-primary" data-review="'+safe(id)+'">Guardar ficha declarada</button></div>'+
+'<div class="review-gates"><span class="'+(gate.placed?"gate-ready":"gate-pending")+'">Ubicación: '+(gate.placed?"BORRADOR":"FALTA")+'</span>'+
+'<span class="'+(gate.hasEvidence?"gate-ready":"gate-pending")+'">Referencias: '+(gate.hasEvidence?"DECLARADAS":"INCOMPLETAS")+'</span>'+
+'<span class="'+(gate.unresolved.length?"gate-pending":"gate-ready")+'">Dependencias sin ubicar: '+gate.unresolved.length+'</span></div>'+
+'<p class="hint"><strong>'+(gate.complete?"LISTA PARA SOLICITAR AUDITORÍA":"PREPARACIÓN INCOMPLETA")+'</strong> · Ningún estado de implementación cambia. Solo una auditoría externa con ejecución y evidencia puede autorizar integración.</p></div>';
 }
 function draftControls(){
 return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label></div>'+
@@ -141,7 +201,7 @@ return '<div class="piece-inspector"><h3>Pieza para ensamblar</h3>'+detail()+
 '<div class="field"><label>Ubicación en tu mesa (no integrada)</label><strong>'+escapeHtml(current||"SIN UBICAR")+'</strong></div>'+
 '<div class="placement-action"><label for="placement-phase">Colocar provisionalmente en</label><select id="placement-phase" aria-label="Fase de destino">'+phases.map(x=>'<option value="'+escapeHtml(x.id)+'" '+((current||activePhase)===x.id?"selected":"")+'>'+escapeHtml(x.id+" · "+x.name)+'</option>').join("")+'</select><button class="action-primary" data-stage="'+escapeHtml(selected)+'">Ubicar pieza</button>'+
 (current?'<button class="tab" data-unstage="'+escapeHtml(selected)+'">Quitar ubicación</button>':"")+'</div>'+
-'<p class="hint">Ubicar una pieza solo organiza un BORRADOR visual. No cambia su estado de implementación, no crea integración y no elimina deudas.</p></div>';
+'<p class="hint">Ubicar una pieza solo organiza un BORRADOR visual. No cambia su estado de implementación, no crea integración y no elimina deudas.</p>'+reviewInspector(selected)+'</div>';
 }
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_PROGRESS")return"progress";if(String(p.status).includes("RECONCILED"))return"reconciled";return"unknown";}
@@ -273,6 +333,10 @@ dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remov
 }
 app.querySelectorAll("[data-stage]").forEach(el=>el.addEventListener("click",()=>{const picker=app.querySelector("#placement-phase");stagePiece(el.dataset.stage,picker?picker.value:activePhase);render();}));
 app.querySelectorAll("[data-unstage]").forEach(el=>el.addEventListener("click",()=>{unstagePiece(el.dataset.unstage);render();}));
+app.querySelectorAll("[data-review]").forEach(el=>el.addEventListener("click",()=>{
+const get=id=>app.querySelector(id)?.value||"";
+recordReview(el.dataset.review,{repo:get("#review-repo"),file:get("#review-file"),sha:get("#review-sha"),test:get("#review-test"),dependencies:get("#review-deps")});render();
+}));
 app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()=>{draftFile();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F\d+$/.test(selected)){activePhase=selected;tab="structure";}else{tab="structure";}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
