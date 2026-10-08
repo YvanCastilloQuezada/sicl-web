@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Pull Windows branch; run node tools/maqueta-viva/test-maqueta-viva.cjs; open shortcut; select F5 and I-01, enter repo/file/SHA/test/dependencies, save, verify 'LISTA PARA SOLICITAR AUDITORÍA' only after required fields and placed dependencies; export/import and verify data persist. CI workflow result pending.",
+    "next_gate": "Windows pull; run node tools/maqueta-viva/test-maqueta-viva.cjs and node tools/maqueta-viva/test-github-evidence.cjs. Open shortcut; fill review, export JSON; optionally run verify-github-evidence.cjs with exported draft; import resulting observation; verify it is explicitly NON-ATTESTED and never marks piece integrated. Await exact CI and browser evidence.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
       "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
@@ -1643,6 +1643,33 @@
           "ci_workflow": ".github/workflows/maqueta-viva-smoke.yml",
           "ci_run": "NOT_OBSERVED",
           "windows_e3": "NOT_EXECUTED"
+        }
+      },
+      "github_observation": {
+        "status": "CODE_COMMITTED_OFFLINE_MOCK_SIMULATION_PASS_CI_AND_WINDOWS_PENDING",
+        "tool": "tools/maqueta-viva/verify-github-evidence.cjs",
+        "test": "tools/maqueta-viva/test-github-evidence.cjs",
+        "ui": "Cargar observación GitHub; report must match current local repo/path/sha",
+        "schema": "ARKI-MAQUETA-GITHUB-OBSERVATION-1",
+        "checks": [
+          "commit SHA exists on GitHub",
+          "source file exists at exact commit SHA",
+          "any successful GitHub Actions run at exact commit SHA"
+        ],
+        "scope": "READ_ONLY_GITHUB_OBSERVATION_NOT_INTEGRATION_VERIFICATION",
+        "critical_limits": [
+          "Successful Actions run does not prove user-declared test executed",
+          "Browser import is untrusted/unattested and is not stored persistently",
+          "Private repos require read-only token; errors remain UNKNOWN",
+          "No canonical status promotion or debt closure"
+        ],
+        "evidence": {
+          "isolated_mock_observer_checks": "8/8 PASS in JS harness",
+          "isolated_import_checks": "2/2 PASS",
+          "committed_offline_suite": "29 checks, not executed in Node",
+          "committed_observer_suite": "14 checks, not executed in Node",
+          "github_ci": "NOT_OBSERVED",
+          "windows_browser_e3": "NOT_EXECUTED"
         }
       }
     }
