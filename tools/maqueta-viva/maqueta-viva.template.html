@@ -1557,7 +1557,7 @@ if(!raw||typeof raw!=="object"||Array.isArray(raw)||raw.schema!=="ARKI-RESEARCH-
 if(!Array.isArray(raw.sources)||raw.sources.length>12||!Array.isArray(raw.candidates)||raw.candidates.length>30)throw Error("Número de fuentes/candidatos inválido.");
 if(typeof raw.generated_at!=="string"||raw.generated_at.length>70||typeof raw.baseline_only!=="boolean")throw Error("Metadatos de informe inválidos.");
 const validSource=new Set(["BASELINE","UNCHANGED","NEW_RELEASE","SOURCE_ERROR"]);
-for(const x of raw.sources){if(!x||typeof x.source_id!=="string"||x.source_id.length>50||!validSource.has(x.status))throw Error("Fuente inválida.");}
+for(const x of raw.sources){if(!x||typeof x.source_id!=="string"||x.source_id.length>50||!validSource.has(x.status))throw Error("Fuente inválida.");if(x.release&&(!x.release.url||typeof x.release.url!=="string"||!/^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/releases\/tag\/[^\s<>"\x27]+$/.test(x.release.url)||typeof x.release.tag!=="string"||x.release.tag.length>120))throw Error("URL de fuente inválida.");}
 const ids=new Set();
 for(const c of raw.candidates){
 if(!c||typeof c.id!=="string"||!/^RT-[A-F0-9]{14}$/.test(c.id)||ids.has(c.id)||c.type!=="UPDATE_CANDIDATE"||c.status!=="PENDING_HUMAN_VALIDATION")throw Error("Candidato inválido.");
