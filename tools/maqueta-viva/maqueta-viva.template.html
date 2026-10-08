@@ -2208,6 +2208,8 @@ const a=document.createElement("a");a.href="data:application/json;charset=utf-8,
 }
 function requestCorrectiveExecution(c){
 if(!c||c.status!=="AUTHORIZED")return;
+const current=phases.find(p=>p.id===c.phase);
+if(current?.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: la fase está FROZEN o cambió el estado fuente desde la evaluación. Se requiere nueva evaluación y autorización.";render();return;}
 correctivePacket(c,"EXECUTION_REQUEST");
 c.status="EXTERNAL_EXECUTION_PENDING";correctiveNotice="Orden exportada para ejecutor externo. EJECUCIÓN NO CONFIRMADA; no hay conexión remota desde esta maqueta.";persistCorrective();render();
 }
@@ -2221,6 +2223,10 @@ function requestCorrectiveReversal(c){
 if(!c||!["EXTERNAL_EXECUTION_PENDING","EVIDENCE_UNVERIFIED"].includes(c.status))return;
 correctivePacket(c,"REVERSAL_REQUEST");c.status="REVERSAL_REQUESTED";correctiveNotice="Solicitud de reversión exportada. REVERSIÓN NO EJECUTADA ni confirmada.";persistCorrective();render();
 }
+function exportCorrectiveCases(){
+const payload={schema:"ARKI-AUTOCORRECTIVE-LOCAL-CASES-1",exportedAt:new Date().toISOString(),sourceStateDate:state.updated_at||"UNKNOWN",cases:correctiveCases,notice:"LOCAL_UNVERIFIED_RECORDS_NO_CANONICAL_PROMOTION"};
+const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(payload,null,2));a.download="ARKI-AUTOCORRECTIVO-EXPEDIENTES-LOCALES.json";document.body.appendChild(a);a.click();a.remove();
+}
 function autocorrectiveWorkspace(){
 const suggestions=generatedArkiIdeas();
 const c=correctiveCase();
@@ -2233,7 +2239,7 @@ return '<div class="assembly-header"><div><div class="kicker">EVOLUCIÓN 05 · A
 '<div class="corrective-columns"><section class="corrective-panel"><h3>Nueva propuesta fundamentada</h3><label>Título<input id="corrective-title" maxlength="180" placeholder="Qué debe corregir ARKI"></label><label>Fase de alcance<select id="corrective-phase">'+phasesOptions+'</select></label><label>Fundamento<textarea id="corrective-rationale" rows="4" maxlength="1500" placeholder="Problema, evidencia, comportamiento esperado y límites"></textarea></label><button type="button" class="tab" data-corrective-create>Registrar propuesta</button>'+
 '<h3>Ideas y diagnósticos recalculados</h3><p class="hint">Los candidatos se actualizan con el estado local, las ideas y los FROZEN registrados; ninguno se ejecuta automáticamente.</p>'+
 '<select id="corrective-suggestion" aria-label="Diagnóstico candidato">'+suggestedOptions+'</select><button type="button" class="tab" data-corrective-seed '+(suggestions.length?"":"disabled")+'>Crear caso desde diagnóstico</button>'+
-'<h3>Casos locales · '+correctiveCases.length+'</h3><div class="corrective-case-list">'+correctiveCases.map(x=>'<button type="button" class="corrective-case '+(c?.id===x.id?"selected":"")+'" data-corrective-select="'+escapeHtml(x.id)+'">'+escapeHtml(x.id+" · "+x.phase+" · "+x.title)+'<small>'+escapeHtml(x.status)+'</small></button>').join("")+'</div></section>'+
+'<h3>Casos locales · '+correctiveCases.length+'</h3><button type="button" class="tab" data-corrective-export '+(correctiveCases.length?"":"disabled")+'>Exportar expedientes JSON</button><div class="corrective-case-list">'+correctiveCases.map(x=>'<button type="button" class="corrective-case '+(c?.id===x.id?"selected":"")+'" data-corrective-select="'+escapeHtml(x.id)+'">'+escapeHtml(x.id+" · "+x.phase+" · "+x.title)+'<small>'+escapeHtml(x.status)+'</small></button>').join("")+'</div></section>'+
 '<section class="corrective-panel"><h3>Expediente de control</h3>'+
 (c?'<div class="corrective-case-detail"><strong>'+escapeHtml(c.id+" · "+c.title)+'</strong><small>'+escapeHtml(c.phase+" · "+c.status+" · Fuente "+c.source)+'</small><p>'+escapeHtml(c.rationale)+'</p></div>'+
 (c.impact?'<div class="corrective-impact"><h4>Impacto preliminar · NO VERIFICADO</h4><p>Fase: '+escapeHtml(c.impact.phaseStatus)+' · '+c.impact.phasePieces+' piezas locales</p><p>Alertas potenciales (referencia / alternativa): '+c.impact.basePotential+' / '+c.impact.alternativePotential+'</p><p>Revisiones (referencia / alternativa): '+c.impact.baseReview+' / '+c.impact.alternativeReview+'</p><small>Sin análisis de diff real, pruebas, licencias ni efectos de ejecución.</small></div>':"")+
@@ -2261,6 +2267,7 @@ app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Diez fases de 
 (tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
 '<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-corrective-export]").forEach(el=>el.addEventListener("click",exportCorrectiveCases));
 app.querySelectorAll("[data-corrective-create]").forEach(el=>el.addEventListener("click",()=>createCorrective(app.querySelector("#corrective-title")?.value,app.querySelector("#corrective-phase")?.value,app.querySelector("#corrective-rationale")?.value,"MANUAL")));
 app.querySelectorAll("[data-corrective-seed]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===app.querySelector("#corrective-suggestion")?.value);if(x)createCorrective(x.title,x.phase,x.why+" Acción propuesta: "+x.action,x.id);}));
 app.querySelectorAll("[data-corrective-select]").forEach(el=>el.addEventListener("click",()=>{correctiveSelected=el.dataset.correctiveSelect;correctiveNotice="";render();}));
@@ -2454,7 +2461,9 @@ roadmap:"Roadmap: consulta F1–F10, estados oficiales y evidencia del Estado Es
 scenarios:"Escenarios: compara las diez fases entre Referencia y Alternativa A; identifica posibles bloqueos, diferencias y alertas sin declarar una solución óptima.",
 parts:"Inventario: explora las piezas registradas y sus datos de procedencia; presencia en inventario no implica integración.",
 floating:"Flotantes: consulta elementos pendientes de ubicación o relación; su clasificación requiere revisión.",
-arkiideas:"Ideas ARKI: muestra propuestas heurísticas recalculadas con el borrador; aprobar evaluación no implementa código."
+arkiideas:"Ideas ARKI: muestra propuestas heurísticas recalculadas con el borrador; aprobar evaluación no implementa código.",
+digital:"Gemelo Digital: lectura local del estado, procedencia y novedades; no hay sincronización remota verificada.",
+autocorrective:"ARKI Autocorrectivo: propuestas, evaluación heurística, autorización y órdenes exportables; sin ejecución remota ni aceptación automática."
 };
 const HELP_TRAYS={
 pending:"Pendientes: muestra bloqueos y reconciliaciones explícitos de las fuentes locales; no significa que todo esté sin implementar.",
