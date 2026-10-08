@@ -83,6 +83,27 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 #right .item.selected-piece strong,.layout>.center .workbench-piece.selected-piece strong,.layout>.center .workbench-piece.selected-piece span{color:#8ff4dd}
 #right .item.selected-piece:hover,.layout>.center .workbench-piece.selected-piece:hover{background:#40738a}
 #right .item:focus-visible,.layout>.center .workbench-piece:focus-visible{outline:2px solid #8ff4dd;outline-offset:2px}
+
+/* Distinct phase colors; hue identifies phase, bottom marker remains status metadata. */
+.phase-menu-button[data-phase="F1"]{--phase-color:#a73540}
+.phase-menu-button[data-phase="F2"]{--phase-color:#a65a20}
+.phase-menu-button[data-phase="F3"]{--phase-color:#8c710f}
+.phase-menu-button[data-phase="F4"]{--phase-color:#4f7927}
+.phase-menu-button[data-phase="F5"]{--phase-color:#16765b}
+.phase-menu-button[data-phase="F6"]{--phase-color:#13798b}
+.phase-menu-button[data-phase="F7"]{--phase-color:#315db4}
+.phase-menu-button[data-phase="F8"]{--phase-color:#6849a3}
+.phase-menu-button[data-phase="F9"]{--phase-color:#9a3889}
+.phase-menu-button[data-phase="F10"]{--phase-color:#ad416c}
+.phase-menu-button{background:var(--phase-color,#1b3049);color:#fff;border-color:rgba(255,255,255,.32);border-bottom-width:3px}
+.phase-menu-button.selected{background:var(--phase-color,#1b3049);border-color:#fff;outline:2px solid #fff;outline-offset:-3px;box-shadow:0 0 0 2px rgba(5,15,30,.65)}
+.phase-menu-button:hover{background:var(--phase-color,#1b3049);filter:brightness(1.2)}
+.phase-menu-button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.workbench-piece-card{position:relative;min-width:0;display:flex}
+.workbench-piece-card .workbench-piece{width:100%;padding-right:39px}
+.workbench-remove{position:absolute;top:6px;right:6px;width:29px;height:29px;border:1px solid #ffb5b5;border-radius:7px;background:#9c2939;color:#fff;font-size:23px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center}
+.workbench-remove:hover{background:#c43d4e;border-color:#fff}
+.workbench-remove:focus-visible{outline:2px solid #fff;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -162,11 +183,12 @@ catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador.
 }
 function stagePiece(id,phase){
 if(!movable.has(id)||!validPhases.has(phase)){draftNotice="Pieza o fase no válida. No se realizó ningún cambio.";return;}
-placements[id]=phase;draftNotice="Ubicación de "+id+" en "+phase+" guardada como BORRADOR, NO INTEGRADA.";saveDraft();
+if(Object.prototype.hasOwnProperty.call(placements,id)){draftNotice="La pieza "+id+" ya está en la mesa "+placements[id]+". Retírala con X antes de volver a colocarla.";return;}
+placements[id]=phase;draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
 }
 function unstagePiece(id){
 if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return;
-delete placements[id];draftNotice="Ubicación provisional de "+id+" retirada.";saveDraft();
+delete placements[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
 }
 function draftFile(){
 const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,reviews,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
@@ -273,7 +295,7 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
 '<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
-(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
+(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<div class="workbench-piece-card"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
 '</div>'+
 (selected!==activePhase&&selected?placementInspector():"")+
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
@@ -284,16 +306,16 @@ if(tray==="frozen"){
 const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
 content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }else if(tray==="components"){
-const entries=components.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+const entries=components.filter(p=>!Object.prototype.hasOwnProperty.call(placements,p.id)&&matches(p.id+" "+p.name+" "+p.targetPhase));
+content='<p class="hint">Capacidades dispersas históricas todavía disponibles para ubicar. Las que ya están en la mesa no aparecen aquí.</p><h3>'+entries.length+' disponibles de '+components.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else if(tray==="ideas"){
-const entries=ideas.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+const entries=ideas.filter(p=>!Object.prototype.hasOwnProperty.call(placements,p.id)&&matches(p.id+" "+p.name+" "+p.targetPhase));
+content='<p class="hint">Ideas históricas todavía disponibles. Al colocar una pieza desaparece de esta bandeja; con X regresa.</p><h3>'+entries.length+' disponibles de '+ideas.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else{
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
-return '<h2>Bandeja de piezas</h2>'+content+'<p class="caption">Una pieza sale de la bandeja solo tras incorporación verificada en el registro, no por seleccionarla.</p>';
+return '<h2>Bandeja de piezas</h2>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
 const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
@@ -351,7 +373,7 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="command-stat" title="En construcción"><b>'+progress+'</b><span>En construcción</span></div>'+
 '<div class="command-stat" title="Por reconciliar"><b>'+reconcile+'</b><span>Por reconciliar</span></div>'+
 '</div>'+
-'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div></nav>'+
+'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div></nav>'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
 '<div class="layout"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
@@ -360,16 +382,16 @@ app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
-app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
+app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)||Object.prototype.hasOwnProperty.call(placements,id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
 const dropZone=app.querySelector("#arki-workspace");
 if(dropZone&&tab==="structure"){
 dropZone.setAttribute("aria-label","Mesa de trabajo azul de ARKI: puedes soltar aquí una pieza de la bandeja derecha");
 dropZone.addEventListener("dragover",e=>{if(e.dataTransfer&&Array.from(e.dataTransfer.types||[]).includes("text/plain")){e.preventDefault();dropZone.classList.add("drag-over");e.dataTransfer.dropEffect="move";}});
 dropZone.addEventListener("dragleave",e=>{if(!dropZone.contains(e.relatedTarget))dropZone.classList.remove("drag-over");});
-dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");const id=e.dataTransfer.getData("text/plain");if(movable.has(id)){stagePiece(id,activePhase);selected=id;render();}});
+dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");const id=e.dataTransfer.getData("text/plain");if(movable.has(id)&&!Object.prototype.hasOwnProperty.call(placements,id)){stagePiece(id,activePhase);selected=id;render();}});
 }
 app.querySelectorAll("[data-stage]").forEach(el=>el.addEventListener("click",()=>{const picker=app.querySelector("#placement-phase");stagePiece(el.dataset.stage,picker?picker.value:activePhase);render();}));
-app.querySelectorAll("[data-unstage]").forEach(el=>el.addEventListener("click",()=>{unstagePiece(el.dataset.unstage);render();}));
+app.querySelectorAll("[data-unstage]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.unstage;unstagePiece(id);selected=activePhase;if(ideas.some(x=>x.id===id))tray="ideas";else if(components.some(x=>x.id===id))tray="components";tab="structure";render();}));
 app.querySelectorAll("[data-review]").forEach(el=>el.addEventListener("click",()=>{
 const get=id=>app.querySelector(id)?.value||"";
 recordReview(el.dataset.review,{repo:get("#review-repo"),file:get("#review-file"),sha:get("#review-sha"),test:get("#review-test"),dependencies:get("#review-deps")});render();
