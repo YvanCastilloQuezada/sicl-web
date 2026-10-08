@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS with current source data: I-08 in F2 without assignment -> amber preview appears and draft unchanged -> accept Hito 1 -> local assignment persisted and preview removed -> undo -> assignment cleared and preview restored",
+      "interaction_simulation": "PASS: source diff before/after, trace metadata save, scenario isolation, draft persistence, eight local diagnostic checks.",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1799,7 +1799,10 @@
         "fix": "Row-local aria-live result plus explicit applied/no-change messages, row highlight, and persistent all-items review after phase move",
         "safety": "No-op does not write; real change uses remember/saveDraft and remains undoable"
       },
-      "offline_smoke_gate": "CI previously failed on stale test assertions (right-only tray vs swapped sidebars); assertions updated, awaiting exact-head rerun"
+      "offline_smoke_gate": "CI previously failed on stale test assertions (right-only tray vs swapped sidebars); assertions updated, awaiting exact-head rerun",
+      "traceability": "Per-piece local source, reason, evidence declaration and confidence, with append-only traceEvents across placement, hito assignment and dependencies; export/import JSON and Markdown.",
+      "source_reconciliation": "Offline source diff ledger stores previous and new values for ideas, components, phases and FROZEN; local drafts remain separate.",
+      "e3_windows_gate": "PENDING: real Windows browser run of Pruebas E3 Windows, manual persistence/alternative/source refresh checks and exported E3 JSON evidence."
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
