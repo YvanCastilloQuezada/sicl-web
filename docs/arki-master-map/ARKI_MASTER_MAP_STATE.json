@@ -1709,8 +1709,9 @@
       },
       "validation": {
         "static_js_syntax": "PASS",
-        "interaction_simulation": "PASS: F1–F10 render, select F6 hito 3, place F1-suggested piece in F6 with warning, assign to hito 3, switch to empty alternative, copy reference, unlink only alternative, base remains",
-        "windows_browser_e3": "PENDING"
+        "smoke": "PASS: ten phase buttons; route radar F1/F6; ten roadmap cards; source-protected disclaimer",
+        "scenario": "PASS: F1 2 pieces, F2 1 piece, one internal and one cross-phase declared dependency, orphan spine count, evidence gaps, roadmap cross-phase jump F1→F2",
+        "windows_browser_gate": "NOT_EXECUTED"
       },
       "vertebral_secondary_dependencies": {
         "interaction": "Two-click dependency creation directly on linked or unlinked secondary activity cards in vertebral view; no forced Mesa libre switch",
@@ -1756,6 +1757,12 @@
         "scope": "F1-F10 and all 4 proposed milestones per phase; unassigned pieces have no inferred activity neighbors",
         "alternatives": "Derived candidates follow selected reference/alternative spine map; confirmed local dependencies remain shared between scenarios",
         "canonical": "No roadmap status, freeze or official milestone modified"
+      },
+      "route_integrity_radar": {
+        "phase_view": "Dynamic per-phase diagnostic counts of staged pieces, spine hito links, orphan spines, intra-phase/cross-phase declared dependencies, unresolved dependency targets, low-confidence auto placements, and declared-evidence gaps",
+        "roadmap_view": "10-phase reference route audit and cross-phase dependency jump links",
+        "source_refresh": "Derived on each local render; source inventory and FROZEN changes are read from regenerated local source snapshot when launcher is run, not live web polling",
+        "authority_boundary": "All diagnostic counts are draft metadata only; no completion percentages, route critical path claim, canonical status mutations, or test execution assertions"
       }
     },
     "assembly": {
