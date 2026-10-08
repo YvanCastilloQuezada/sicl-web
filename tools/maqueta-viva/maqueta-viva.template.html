@@ -227,11 +227,12 @@ const proposals=ideas.filter(x=>x.targetPhase===p.id&&matches(x.id+" "+x.name+" 
 const frozen=allFrozen.filter(x=>x.targetPhase===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const otherSelected=selected!==activePhase?placementInspector():"";
-const section=(title,arr,sub)=>'<div class="assembly-section"><h3>'+title+' · '+arr.length+'</h3><p class="hint">'+sub+'</p><div class="stack">'+arr.map(x=>'<button class="item '+(placements[x.id]===p.id?"placed-piece":"")+'" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id+" · "+x.name)+'</strong><small>'+escapeHtml(x.status)+(placements[x.id]===p.id?" · UBICADA EN BORRADOR":"")+'</small></button>').join("")+(arr.length?"":'<div class="empty">No hay registros de este tipo en el inventario cargado.</div>')+'</div></div>';
+const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
+const section=(title,arr,sub)=>'<div class="assembly-section"><h3>'+title+' · '+arr.length+'</h3><p class="hint">'+sub+'</p><div class="stack">'+arr.map(x=>'<button class="item '+(placements[x.id]===p.id?"placed-piece":"")+'" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id+" · "+x.name)+'</strong><small>'+escapeHtml(x.status)+(placements[x.id]===p.id?(reviewGate(x.id).complete?" · LISTA PARA SOLICITAR AUDITORÍA":" · UBICADA EN BORRADOR / FICHA PENDIENTE"):"")+'</small></button>').join("")+(arr.length?"":'<div class="empty">No hay registros de este tipo en el inventario cargado.</div>')+'</div></div>';
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
 '<p>'+escapeHtml(p.description)+'</p><div class="caption">Evidencia de la fase: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'</div>'+
 draftControls()+
-'<div class="assembly-counts"><span>'+staged.length+' ubicadas en borrador</span><span>'+historic.length+' componentes históricos sugeridos</span><span>'+proposals.length+' ideas sugeridas</span><span>'+frozen.length+' FROZEN</span></div>'+
+'<div class="assembly-counts"><span>'+staged.length+' ubicadas en borrador</span><span>'+auditReady+' listas para solicitar auditoría</span><span>'+historic.length+' componentes históricos sugeridos</span><span>'+proposals.length+' ideas sugeridas</span><span>'+frozen.length+' FROZEN</span></div>'+
 otherSelected+
 section("Piezas ubicadas en esta fase (BORRADOR)",staged,"Organización local, pendiente de verificación. Ninguna está certificada como integrada por esta acción.")+
 section("Componentes históricos sugeridos",historic,"Propuestas originales de ubicación; pueden cambiarse desde la ficha.")+
