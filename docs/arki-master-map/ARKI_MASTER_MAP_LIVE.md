@@ -438,3 +438,11 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 **Local infrastructure candidate:** HP MicroServer G7, 16 GB RAM, NVIDIA P620 4 GB, HDD 5 TB total (possible expansion to 8 TB), NVMe 240 GB. Proposed role: evidence storage, backups, lightweight OCR/indexing and bounded service hosting. OS, exact CPU, disk health and boot support UNKNOWN; do not treat as proven production infrastructure or a suitable modern SQL Server/Revit workstation without validation.
 
 **Epistemic rule:** source-file presence != database restored != budgets inventoried != totals reconciled != native S10 WRITE/roundtrip verified.
+
+## ARKI Maqueta Viva — local desktop viewer (2026-10-07)
+
+- Implementation: `ARKI-MAQUETA-VIVA.cmd`, `tools/maqueta-viva/Start-ARKI-MaquetaViva.ps1`, `tools/maqueta-viva/maqueta-viva.template.html`.
+- Double-click on Windows creates a desktop shortcut (if absent), embeds the local `ARKI_MASTER_MAP_STATE.json` into a self-contained HTML file in `%LOCALAPPDATA%\ARKI\MaquetaViva\index.html`, and opens it in the default browser. No server, dependencies, network or canonical mutation.
+- Interactive views: structure (10 phases and authorities), connections (bounded evidence vs contracts vs planned/blocked), inventory, floating/blocked pieces, searchable detail panel.
+- Status: `IMPLEMENTED_AWAITING_WINDOWS_E3`. JavaScript syntax was checked statically. Actual PowerShell launch, shortcut creation and browser display have NOT been executed or verified on the user's Windows PC. Git updates require local pull before the page can reflect them.
+- Gate: run launcher after `git pull --ff-only` and inspect browser and raw terminal output. No green without this gate.
