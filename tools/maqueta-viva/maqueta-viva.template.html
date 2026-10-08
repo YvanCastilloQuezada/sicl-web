@@ -417,7 +417,7 @@ F10:[["entrega","recepción"],["operación","uso"],["mantenimiento","activo"],["
 };
 const normalized=String(piece.name||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const groups=vocabulary[phase]||[];
-const scores=stages.map((name,i)=>{const words=(groups[i]||[]).filter(w=>normalized.includes(w.toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"")));return {index:String(i),words,score:words.length};});
+const scores=stages.map((name,i)=>{const words=(groups[i]||[]).filter(w=>normalized.includes(w.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"")));return {index:String(i),words,score:words.length};});
 scores.sort((a,b)=>b.score-a.score);
 const best=scores[0];if(!best||best.score===0||scores[1]?.score===best.score)return null;
 return {index:best.index,reason:"Coincidencia textual: "+best.words.join(", "),confidence:best.score>=2?"MEDIA":"BAJA"};
@@ -735,7 +735,7 @@ return '<details class="spine-placement-audit"><summary>Revisión de ubicación 
    Historical inventory remains the baseline; only strong, unique vocabulary matches
    can propose an alternate phase, and all proposals require an explicit user action. */
 function proposedLocation(piece){
-const title=String(piece.name||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+const title=String(piece.name||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const dictionaries={
 F1:["identidad","backlog","gobernanza","rfc","procedencia","promocion humana","bitacora","registro canonico"],
 F2:["ingestion","ocr","recuperacion de conocimiento","transferencia de conocimiento","tutor","universidad","formacion","normativa","jurisdiccion","regulacion","conformidad normativa"],
