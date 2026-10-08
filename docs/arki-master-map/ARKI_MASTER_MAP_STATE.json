@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: real registry I-01/I-02 staged in vertebral view, create/review/remove secondary dependency, retain vertebral view; real registry I-01 placed in F6 -> audit -> explicit move to F1 -> undo restores F6; ten phases preserved",
+      "interaction_simulation": "PASS: F1 sample I-03 depends on I-06, 4 stage predecessor/successor panels, both activity panels, I-06 predecessor link and I-03 successor link, undeclared relations display No declarado, no runtime error in simulated DOM",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1723,6 +1723,12 @@
         "scope": "Checks current draft placement against source-proposed phase, flags missing textual stage suggestions",
         "action": "Explicit per-piece move to proposed phase with undo/redo; never auto-moves",
         "guard": "Does not alter canonical phase status, frozen contracts, inventory or roadmap"
+      },
+      "predecessor_successor_view": {
+        "milestones": "Each of four proposed spine milestones in every F1-F10 phase displays previous and next proposed milestone; start and end explicitly labeled",
+        "activities": "Each staged spine activity, linked or unlinked, shows predecessors (declared dependencies required by it) and successors (activities that depend on it); no undeclared relationships invented",
+        "cross_phase": "Declared relations show destination phase when placed, or SIN UBICAR, and clicking a placed ID navigates to its phase",
+        "epistemic_boundary": "Predecessor/successor relations for activities are unverified local declarations; proposed milestone ordering is not calculated critical path; canonical roadmap remains untouched"
       }
     },
     "assembly": {
