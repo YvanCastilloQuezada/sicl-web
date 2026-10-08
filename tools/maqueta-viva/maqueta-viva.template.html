@@ -413,10 +413,22 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .arki-idea>div:first-child{display:flex;flex-direction:column;gap:6px}.arki-idea strong{font-size:15px;color:#f3faff}.arki-idea small{font-size:11px;color:#9ecae8}
 .arki-idea-status{font-size:10px;font-weight:700;color:#fbe18e}.arki-idea p{font-size:12px;line-height:1.6;margin:0;color:#dcebf6}
 .arki-idea-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto}.arki-idea-actions button{font-size:11px;padding:6px}
+
+/* One-line identity. Preserve the full text; overflow horizontally only on narrow viewports. */
+header .top{align-items:center;flex-wrap:nowrap;gap:14px}
+.brand-line{display:flex;align-items:baseline;gap:9px;white-space:nowrap;min-width:0}
+.brand-line h1{font-size:clamp(18px,1.8vw,26px);white-space:nowrap;flex:0 0 auto}
+.brand-separator{color:#80b7df;font-size:20px;font-weight:700}
+.brand-description{font-size:clamp(12px,1.15vw,17px);font-weight:550;color:#c8e7f8;white-space:nowrap}
+header .stamp{flex:0 0 auto}
+@media(max-width:1170px){header .top{overflow-x:auto}.brand-line{min-width:max-content}.brand-description{font-size:13px}header .stamp{font-size:10px;padding:5px}}
+.context-help{display:flex;align-items:center;gap:10px;min-height:37px;padding:7px 12px;margin:-3px 0 11px;border:1px solid #568bad;background:#12354f;border-radius:8px;color:#e3f4ff;font-size:12px;line-height:1.4}
+.context-help strong{flex:0 0 auto;color:#ffdf86;letter-spacing:.4px;font-size:11px}
+.context-help span{min-width:0;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
-<header><div class="top"><div><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><div class="sub">La estructura, sus conexiones y las piezas que faltan · lectura local sin modificar ARKI</div></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
+<header><div class="top"><div class="brand-line"><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><span class="brand-separator" aria-hidden="true">—</span><span class="brand-description">La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI</span></div></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
 <main id="app"><div class="panel">Cargando maqueta…</div></main>
 <script type="application/json" id="arki-state">__ARKI_STATE_JSON__</script>
 <script type="application/json" id="arki-assembly">__ARKI_ASSEMBLY_JSON__</script>
@@ -1597,10 +1609,11 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="command-stat" title="En construcción"><b>'+progress+'</b><span>En construcción</span></div>'+
 '<div class="command-stat" title="Por reconciliar"><b>'+reconcile+'</b><span>Por reconciliar</span></div>'+
 '</div>'+
-'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button></nav>'+
+'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button></nav>'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
+'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>'+
 sourceUpdateBanner()+
-'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
 app.querySelectorAll("[data-arki-approve]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiApprove,"approve")));
