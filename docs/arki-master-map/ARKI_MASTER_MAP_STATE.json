@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "All changes are local visual drafts; phase roadmap, canonical state, frozen contracts, and CI claims remain untouched",
+      "integration_boundary": "No canonical phase status, frozen contracts or roadmap mutated",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: initial F1–F10 -> place -> grip drag persists normalized coordinates -> undo clears moved coordinates -> toggle focus mode -> move F1 to F2 -> undo/redo restores phase placement",
+      "interaction_simulation": "PASS: ten phase roadmap cards, official F6 evidence visible, phase drill-down, two pieces staged, local dependency created and persisted, removed, legacy diagram toggled; JS static syntax PASS",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1587,6 +1587,21 @@
         "focus_mode": "Expand center by temporarily hiding right tray; toggle restores tray, no inventory mutation",
         "auto_arrange": "Reset free positions in active phase, undoable; preserves placement and reviews",
         "compatibility": "Old ARKI-MAQUETA-DRAFT-1 JSON without positions remains importable, new positions validated within 0..1"
+      },
+      "connections_ui": {
+        "default_view": "Mis piezas conectadas",
+        "requires": "At least two draft-placed pieces to create a dependency",
+        "workflow": "Open Conexiones -> choose dependent piece -> choose required piece -> Crear conexión -> dashed arrow appears; Quitar conexión reverses",
+        "representation": "Only declared local dependencies in reviews; edges never imply executed tests, verified integration, or canonical relationships",
+        "validation": "Existing validateReviews rejects unknown IDs, self-dependency, cycles, duplicate dependency declarations; stored in local JSON",
+        "legacy": "Arquitectura registrada toggles to previous ACS/BASELINE/Core/AGK/F7/F8 scoped diagram"
+      },
+      "roadmap_ui": {
+        "menu": "New orange Roadmap tab alongside Estructura and Conexiones",
+        "source": "State.roadmap.phases and current_zone; ten official statuses/evidence statuses unchanged",
+        "visual": "10 phase cards with distinct identity colors, current zone, canonical status/evidence, separate local draft piece counts",
+        "interaction": "Click phase card to open its assembly table",
+        "rule": "Never infer completion percentage or official milestone from locally placed pieces"
       }
     },
     "assembly": {
