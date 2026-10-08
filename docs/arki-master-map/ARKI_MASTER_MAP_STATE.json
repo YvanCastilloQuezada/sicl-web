@@ -1934,7 +1934,35 @@
         "windows_browser": "NOT_EXECUTED",
         "simulated_e3": "13/13 local E3 checks PASS in simulated DOM (not Windows visual evidence), including advisory read-only and twin/ACS separation"
       },
-      "authority_boundary": "No canonical phase or FROZEN mutation; no automatic promotions, integrations, or verified progress claims"
+      "authority_boundary": "No canonical phase or FROZEN mutation; no automatic promotions, integrations, or verified progress claims",
+      "digital_twin_real_data_gate": {
+        "id": "GDT-01",
+        "date": "2026-10-08",
+        "status": "IMPLEMENTED_AWAITING_LOCAL_EXECUTION",
+        "operational_twin_verdict": "NOT_READY",
+        "source_comparison": {
+          "firstCommit": "17c5bab905f9dd2c939fbc03a441e3a76533fa54",
+          "secondCommit": "bc10c8e22d703ddce8c3b3eaca51304bd093b688",
+          "phaseIds": "F1-F10",
+          "phaseStatusChangesObserved": 0,
+          "phaseEvidenceStatusChangesObserved": 0,
+          "sourceBlobsDiffer": true,
+          "temporalLimit": "GIT_COMMIT_TIME_NOT_DOMAIN_OCCURRED_AT"
+        },
+        "validator": "tools/maqueta-viva/Verify-ARKI-TwinTimeline.mjs",
+        "contract": "docs/arki-master-map/ARKI_DIGITAL_TWIN_REAL_DATA_GATE_2026-10-08.md",
+        "gates": {
+          "identity": "PARTIAL_PHASE_IDS_ONLY",
+          "events": "NO_REAL_DOMAIN_EVENTS",
+          "provenance": "GIT_REPOSITORY_EVIDENCE_PRESENT_PHYSICAL_CHAIN_UNKNOWN",
+          "historicalReplay": "CODE_READY_AWAITING_REAL_LOCAL_EXECUTION"
+        },
+        "physicalAssetMapping": "NOT_DEMONSTRATED",
+        "realSensorEvents": "NOT_DEMONSTRATED",
+        "simulationCalibration": "NOT_DEMONSTRATED",
+        "roadmapMutation": false,
+        "freezeMutation": false
+      }
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
