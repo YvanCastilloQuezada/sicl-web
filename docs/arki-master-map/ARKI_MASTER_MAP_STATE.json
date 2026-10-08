@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "Visual planning only, not an actual integration engine or canonical mutation",
+      "integration_boundary": "All moves are reversible local draft placements, never canonical integration or deletion",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1561,7 +1561,23 @@
         "yellow": "#f2d94e",
         "text": "#111820"
       },
-      "phase_navigation": "F1–F10 horizontal phase menu directly below ARKI MAQUETA VIVA header, phase names compact with status accent and active phase highlight"
+      "phase_navigation": "F1–F10 horizontal phase menu directly below ARKI MAQUETA VIVA header, phase names compact with status accent and active phase highlight",
+      "piece_transfer": "Movable idea/component placed in any F1-F10 draft is filtered from its original right tray across phases; one draft placement per piece globally",
+      "piece_return": "Each staged workbench card has an accessible X action; removing draft placement restores item to original Ideas or Dispersas tray and persists in localStorage",
+      "phase_colors": {
+        "F1": "#a73540",
+        "F2": "#a65a20",
+        "F3": "#8c710f",
+        "F4": "#4f7927",
+        "F5": "#16765b",
+        "F6": "#13798b",
+        "F7": "#315db4",
+        "F8": "#6849a3",
+        "F9": "#9a3889",
+        "F10": "#ad416c"
+      },
+      "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
+      "interaction_simulation": "PASS: initial tray -> drag/drop to F1 -> tray absent/card X present/local draft persisted -> X -> original tray restored/card absent/local draft persisted"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
