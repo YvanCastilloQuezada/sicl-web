@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "No mutation of canonical phase states, official roadmap, FROZEN contracts or verified evidence",
+      "integration_boundary": "Canonical roadmap phases, frozen records, and verification status remain unchanged",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1770,12 +1770,34 @@
         "markdown_sheet": "Export active phase and Reference/Alternative A to standalone .md with four proposed milestones, linked/unlinked activities, declared dependencies, canonical status/evidence as read-only context, and explicit nonofficial limitations",
         "authority": "All ten phase statuses and frozen contracts remain untouched; no inferred technical dependencies promoted"
       },
-      "checks": "PASS: JS syntax; simulated local app render with 10 phases; phase F6 navigation; Markdown export button triggers and contains BORRADOR VISUAL LOCAL plus proposed vertebral milestones",
+      "checks": {
+        "js_syntax": "PASS",
+        "simulated_runtime": "PASS: 10 phase buttons, cross-phase priority, reference/alternative difference, navigate to connections, open location review, apply F4→F6 and persist, inline feedback",
+        "windows_e3": "NOT_EXECUTED"
+      },
       "spine_preview": {
         "display": "Unassigned pieces with unique textual milestone matches appear as amber preview cards beneath corresponding F1–F10 milestone; max 4 per milestone",
         "accept": "Explicit per-card action links the piece to its suggested milestone in active base or alternative local scenario; undo restores previous state",
         "guard": "Recomputes suggestion and checks unassigned before accepting; ties and unmatched items remain in manual review list",
         "evidence": "Never represents a verified dependency, completed milestone or official critical path"
+      },
+      "review_queue": {
+        "scope": "F1–F10 local spine assembly",
+        "priorities": [
+          "P1 declared dependency on unplaced piece",
+          "P2 declared cross-phase dependency",
+          "P3 spine without milestone in current local scenario",
+          "P4 reference/alternative milestone discrepancy",
+          "P5 unplaced candidate for current phase"
+        ],
+        "action": "Revisar opens local connection view or location review; no automatic application",
+        "comparison": "Per-item non-mutating preview of milestone coverage in Reference and Alternative A; declared cross-phase relations shared by both scenarios",
+        "authority": "Advisory local draft only; no verified technical dependency or calculated critical path"
+      },
+      "apply_location_fix": {
+        "problem": "No-op Apply feedback was only in a distant notice, appearing broken when scrolled",
+        "fix": "Row-local aria-live result plus explicit applied/no-change messages, row highlight, and persistent all-items review after phase move",
+        "safety": "No-op does not write; real change uses remember/saveDraft and remains undoable"
       }
     },
     "assembly": {
