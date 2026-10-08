@@ -492,6 +492,14 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .context-help{justify-content:center;text-align:center}
 @media(max-width:1220px){.commandbar{display:flex;flex-wrap:nowrap;gap:7px}.commandbar #search{order:0;flex:0 0 150px;width:150px;max-width:150px;margin:0}.commandbar .command-tabs{order:1;flex:1 1 auto;width:auto;max-width:100%;padding:2px 0 4px 8px;border-left:1px solid #526a83}.commandbar .command-tabs .tab{padding:5px 7px;font-size:11px}.commandbar .command-tabs .tab.active,.commandbar .command-tabs .tray-menu.active{padding:4px 6px}}
 @media(max-width:580px){header .top{overflow-x:auto}header .brand-line{min-width:max-content}.commandbar{display:flex;flex-wrap:nowrap}.commandbar #search{flex:0 0 122px;width:122px;max-width:122px}.commandbar .command-tabs{flex:1 1 auto;min-width:0;width:auto;max-width:100%}}
+
+/* Milestone gates report local documentary readiness only; never a green official PASS. */
+.spine-gate{display:flex;flex-direction:column;gap:5px;margin:7px 8px 0;padding:9px;background:#102e46;border:1px solid #618aa4;border-radius:8px;min-height:106px}
+.spine-gate>strong{font-size:10px;color:#a7cfe8;letter-spacing:.02em}
+.spine-gate-status{font-size:10px;font-weight:750;color:#ffe09c;overflow-wrap:anywhere}
+.spine-gate-status.gate-alert{color:#ffb6aa}
+.spine-gate small{font-size:10px;color:#c8e1ef;line-height:1.4}
+.spine-gate .spine-gate-disclaimer{font-size:9px;color:#9fb9cb}
 </style>
 </head>
 <body>
@@ -1364,6 +1372,21 @@ return '<section class="review-priority-queue" aria-label="Cola de revisión pri
 (queue.length>8?'<button type="button" class="tab" data-review-queue-expand aria-expanded="'+reviewQueueExpanded+'">'+(reviewQueueExpanded?"Mostrar 8 primeras":"Ver todas las "+queue.length+" decisiones")+'</button>':"")+
 '<p class="caption">Las conexiones registradas son hipótesis del borrador. El algoritmo no inventa nuevas dependencias; solo prioriza las declaradas y señala las ausencias.</p></section>';
 }
+
+/* Gate diagnostics are computed from draft declarations; never an official milestone verdict. */
+function spineGate(phase,index,staged){
+const map=currentSpine(),items=staged.filter(x=>map[x.id]===String(index));
+const missingEvidence=items.filter(x=>!reviewGate(x.id).hasEvidence);
+const missingTargets=items.flatMap(x=>(reviews[x.id]?.dependencies||[]).filter(id=>!placements[id]).map(id=>({from:x.id,to:id})));
+const crossPhase=items.flatMap(x=>(reviews[x.id]?.dependencies||[]).filter(id=>placements[id]&&placements[id]!==phase).map(id=>({from:x.id,to:id,phase:placements[id]})));
+const withDeclaredReview=items.filter(x=>reviewGate(x.id).complete);
+return {items,missingEvidence,missingTargets,crossPhase,withDeclaredReview,
+label:items.length===0?"SIN ACTIVIDADES":missingTargets.length?"DEPENDENCIAS SIN UBICAR":missingEvidence.length?"EVIDENCIA NO DECLARADA":"FICHAS DECLARADAS · NO VERIFICADAS"};
+}
+function spineGateCard(phase,index,staged){
+const g=spineGate(phase,index,staged);
+return '<div class="spine-gate" aria-label="Control de borrador del hito '+(index+1)+'"><strong>PUERTA DE CONTROL · BORRADOR</strong><span class="spine-gate-status '+(g.missingTargets.length?"gate-alert":"")+'">'+escapeHtml(g.label)+'</span><small>'+g.items.length+' actividades · '+g.withDeclaredReview.length+' fichas completas declaradas</small><small>'+g.missingEvidence.length+' sin evidencia declarada · '+g.missingTargets.length+' dependencias sin destino</small>'+(g.crossPhase.length?'<small>'+g.crossPhase.length+' conexiones transversales a revisar</small>':"")+'<small class="spine-gate-disclaimer">NO es aprobación del hito ni progreso oficial.</small></div>';
+}
 function spineWorkspace(p,staged){
 const milestones=SPINE_STAGES[p.id]||[];
 const assignedMap=currentSpine();
@@ -1388,7 +1411,7 @@ spineRouteComparison(p,staged)+traceabilityPanel(p.id)+routeRadar(p.id)+reviewQu
 spinePlacementAudit(p.id,staged)+spineCandidateSummary(suggestions,unassigned)+
 '<div class="spine-scroll"><div class="spine-grid">'+milestones.map((name,i)=>{
 const assigned=attached.filter(x=>assignedMap[x.id]===String(i));
-return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><div class="spine-stage-sequence"><span><b>← Predecesor:</b> '+(i===0?"Inicio de ruta propuesta":"Hito "+i+" · "+escapeHtml(milestones[i-1]))+'</span><span><b>Sucesor →:</b> '+(i===milestones.length-1?"Fin de ruta propuesta":"Hito "+(i+2)+" · "+escapeHtml(milestones[i+1]))+'</span></div><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button><div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas todavía</p>')+
+return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><div class="spine-stage-sequence"><span><b>← Predecesor:</b> '+(i===0?"Inicio de ruta propuesta":"Hito "+i+" · "+escapeHtml(milestones[i-1]))+'</span><span><b>Sucesor →:</b> '+(i===milestones.length-1?"Fin de ruta propuesta":"Hito "+(i+2)+" · "+escapeHtml(milestones[i+1]))+'</span></div><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button>'+spineGateCard(p.id,i,staged)+'<div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas todavía</p>')+
 (previewByStage[String(i)].length?'<div class="spine-preview-group"><div class="spine-preview-heading">PROPUESTAS · '+previewByStage[String(i)].length+'</div>'+previewByStage[String(i)].map(item=>spinePreviewCard(item.x,item.s)).join("")+'</div>':"")+'</div></section>';
 }).join("")+'</div></div>'+
 '<div class="spine-unassigned"><div class="spine-unassigned-head"><strong>Espinas sin vincular · '+unassigned.length+'</strong><span>Hito seleccionado: '+(selectedSpineStage+1)+' · '+escapeHtml(milestones[selectedSpineStage])+'. Pulsa «Vincular» en una actividad; puedes cambiar el hito en su selector.</span></div>'+
