@@ -1757,7 +1757,7 @@
         "frozen": "FROZEN source records read from canonical state and refresh independently; cannot be user-promoted by workflow",
         "persistence": "workflowStages and autoPlacementNotes included in local draft, import/export, undo/redo"
       },
-      "verification": "Static JS syntax PASS; isolated F2 I-11 hito3 scenario finds I-10 in hito2 and I-12 in hito4, renders structural predecessor/successor and two candidate confirmation controls; Windows E3 NOT EXECUTED",
+      "verification": "PASS: JS syntax, runtime simulation with canonical JSON and assembly registry, 10 phases, 3 goals, proposal approval persisted, technical round-trip, frozen navigation, F6 navigation",
       "activity_sequence_auto": {
         "rule": "On each render, derive previous and next milestone for a staged spine from its current scenario (base or alternative); locate up to 3 candidate activities in nearest populated earlier and later milestones within the same phase",
         "semantics": "Auto-derived candidates are visible immediately but never persisted as verified dependencies; explicit Vincular creates a reversible local review dependency after cycle validation",
@@ -1962,7 +1962,30 @@
         "simulationCalibration": "NOT_DEMONSTRATED",
         "roadmapMutation": false,
         "freezeMutation": false
-      }
+      },
+      "default_workspace": "EXECUTIVE_DECISION_COCKPIT",
+      "goals_displayed": [
+        {
+          "id": "03",
+          "name": "Gemelo Digital",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        },
+        {
+          "id": "04",
+          "name": "Gemelo Predictivo",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        },
+        {
+          "id": "05",
+          "name": "ARKI Autocorrectivo",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        }
+      ],
+      "decision_flow": "Select F1-F10 -> read top 3 pending local diagnostic/editorial proposals -> inspect reason/action -> approve evaluation, discard, or reopen; all local decisions only",
+      "technical_mode": "Explicit Abrir mesa técnica retains original spine/branches, local dependencies, radar, audit trace, inventory and import/export; can return to executive cockpit",
+      "source_panel": "Collapsed in executive mode, fully available in technical mode",
+      "right_tray": "Hidden in executive mode; shown in technical mode; category tabs and frozen entry navigate into technical mode",
+      "official_roadmap": "F1-F10 statuses and milestones unchanged; goal 03/04/05 shown as target vision, not evidenced capabilities"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
