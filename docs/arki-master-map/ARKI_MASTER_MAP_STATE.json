@@ -1709,9 +1709,10 @@
       },
       "validation": {
         "static_js_syntax": "PASS",
-        "smoke": "PASS: ten phase buttons; route radar F1/F6; ten roadmap cards; source-protected disclaimer",
-        "scenario": "PASS: F1 2 pieces, F2 1 piece, one internal and one cross-phase declared dependency, orphan spine count, evidence gaps, roadmap cross-phase jump F1→F2",
-        "windows_browser_gate": "NOT_EXECUTED"
+        "mock_dom_navigation": "PASS: F1-F10 and scenarios tab, ten-phase table, contextual help and focus listeners",
+        "scenario_fixture": "PASS: reverse-order dependency detected in base but not alternative, unresolved and cross-phase dependency surfaced, no optimality claim",
+        "contextual_help_fixture": "PASS: phase, scenario, frozen, unstage, milestone and default messages",
+        "windows_browser_e3": "PENDING"
       },
       "vertebral_secondary_dependencies": {
         "interaction": "Two-click dependency creation directly on linked or unlinked secondary activity cards in vertebral view; no forced Mesa libre switch",
@@ -1817,6 +1818,28 @@
         "decision": "User can APPROVE FOR EVALUATION, REJECT or REOPEN; no implementation or canonical promotion",
         "storage": "Local browser storage with JSON export/import of decisions",
         "limits": "Rules-based diagnostics; no background autonomous code modification or live remote synchronization"
+      },
+      "header": "ARKI MAQUETA VIVA - La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI (single line; horizontal overflow on narrow viewport)",
+      "contextual_help": {
+        "position": "Immediately below the main navigation command bar",
+        "trigger": "Delegated mouseover and keyboard focusin for phase buttons, menus, milestone nodes, cards, form controls, scenario alerts and panels",
+        "content": "Action-specific explanatory text; preserves official-vs-draft boundary",
+        "accessibility": "aria-live polite status, keyboard focus supported, no external services"
+      },
+      "scenario_comparison": {
+        "scope": "Full ten-phase read-only comparison of local reference and alternative milestone assignments; phase placements and declared dependencies currently shared by both scenarios",
+        "detects": [
+          "UNASSIGNED_MILESTONE",
+          "UNPLACED_DEPENDENCY",
+          "REVERSED_SAME_PHASE_MILESTONE_DEPENDENCY",
+          "CROSS_PHASE_DEPENDENCY_REVIEW",
+          "FROZEN_SCOPE_REVIEW",
+          "MISSING_DECLARED_EVIDENCE_COUNT",
+          "HISTORICAL_PHASE_MISMATCH_COUNT"
+        ],
+        "recommendation": "Lexicographic heuristic: potential blockers first, review notices second; ties reported, no optimality claim",
+        "limitations": "No validated objective function, durations, resources, full constraints, executed tests or independent alternative placements/dependency sets; no global optimizer or critical path computation",
+        "safety": "No canonical roadmap or frozen contract mutations"
       }
     },
     "assembly": {
