@@ -267,6 +267,12 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .spine-connection-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;border-bottom:1px solid #365d77;padding:9px 0}
 .spine-connection-row>span{font-size:12px}.spine-connection-row small{font-size:10px;color:#ffe39c;margin-left:7px}
 .spine-connection-row button{font-size:11px}
+
+.spine-placement-audit{margin:13px 0;border:1px solid #d0a04f;background:#2c3b42;border-radius:9px;padding:10px 13px}
+.spine-placement-audit summary{cursor:pointer;font-size:12px;font-weight:700;color:#ffdd99;line-height:1.5}
+.spine-placement-audit>.hint{margin:9px 0}.spine-placement-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 0;border-top:1px solid #586c70}
+.spine-placement-row>span{font-size:12px;flex:1 1 250px}.spine-placement-row small{display:block;color:#c6dce7;margin-top:5px;font-size:10px}
+.spine-placement-row button{font-size:11px}
 </style>
 </head>
 <body>
@@ -669,6 +675,14 @@ const dependencies=(reviews[x.id]?.dependencies||[]).filter(id=>placements[id]==
 const requiredBy=localPhaseLinks(activePhase).filter(e=>e.to===x.id).map(e=>e.from);
 return '<div class="spine-activity '+(linkSource===x.id?"spine-link-source":"")+'"><div class="spine-activity-title"><button type="button" class="spine-activity-inspect" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span></button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a la bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div><div class="spine-activity-links">'+(dependencies.length?dependencies.map(id=>'<span class="spine-dependency">↘ necesita '+escapeHtml(id)+'</span>').join(""):'<small>Sin dependencias declaradas</small>')+(requiredBy.length?'<small>Requerida por '+escapeHtml(requiredBy.join(", "))+'</small>':"")+'</div><div class="spine-activity-bottom"><button type="button" class="spine-activity-connect '+(linkSource===x.id?"active":"")+'" data-spine-connect="'+escapeHtml(x.id)+'" aria-label="Conectar actividad '+escapeHtml(x.id)+'" title="Primero actividad dependiente, luego actividad necesaria">🔗 Conectar</button><button type="button" class="spine-activity-unlink" data-spine-unlink="'+escapeHtml(x.id)+'" title="Desvincular del hito, sin retirar de la fase">Desvincular</button></div></div>';
 }
+function spinePlacementAudit(phase,staged){
+const mismatched=staged.filter(x=>x.targetPhase&&x.targetPhase!==phase&&validPhases.has(x.targetPhase));
+const withoutSuggestion=staged.filter(x=>!suggestStage(x,phase));
+return '<details class="spine-placement-audit"><summary>Revisión de ubicación · '+mismatched.length+' piezas en fase distinta a su propuesta · '+withoutSuggestion.length+' sin hito textual claro</summary>'+
+'<p class="hint">La fase de origen es una clasificación histórica/propuesta, no una autoridad definitiva. Ninguna pieza se mueve automáticamente.</p>'+
+(mismatched.length?mismatched.map(x=>'<div class="spine-placement-row"><span><strong>'+escapeHtml(x.id)+'</strong> · '+escapeHtml(x.name)+'<small>Ubicada en '+escapeHtml(phase)+' · fase sugerida en inventario: '+escapeHtml(x.targetPhase)+'</small></span><button type="button" class="tab" data-move-to-proposed="'+escapeHtml(x.id)+'" title="Trasladar esta pieza a su fase sugerida, reversible con Deshacer">Mover a '+escapeHtml(x.targetPhase)+'</button></div>').join(""):'<p class="hint">Todas las piezas colocadas coinciden con su fase sugerida en el inventario.</p>')+
+'<p class="caption">Sin coincidencia textual ≠ sin función. Puedes vincular esas actividades manualmente a cualquier hito de la fase actual.</p></details>';
+}
 function spineWorkspace(p,staged){
 const milestones=SPINE_STAGES[p.id]||[];
 const assignedMap=currentSpine();
@@ -685,6 +699,7 @@ return '<div class="spine-scenario"><div><strong>Hoja de ruta de ensamblaje</str
 spineRouteComparison(p,staged)+
 '<div class="spine-connection-help" role="status"><div><strong>'+(linkMode?"MODO CONECTAR ESPINAS · ACTIVO":"CONECTAR ACTIVIDADES SECUNDARIAS")+'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la actividad necesaria.":"Pulsa «Conectar» primero en la actividad dependiente y después en la necesaria."):"Activa «🔗 Conectar piezas» y usa los botones «🔗 Conectar» dentro de las espinas. Cada relación es una hipótesis local.")+'</span></div><span class="spine-link-count">'+phaseLinks.length+' dependencias · '+phaseUnlinked+' espinas sin hito</span></div>'+
 '<div class="spine-notice"><strong>VISTA VERTEBRAL · '+escapeHtml(p.id)+'</strong><span>Ruta estructural PROPUESTA, no ruta crítica calculada. Las espinas son actividades secundarias vinculadas manualmente a hitos. No se alteran los estados ni contratos oficiales.</span></div>'+
+spinePlacementAudit(p.id,staged)+
 '<div class="spine-scroll"><div class="spine-grid">'+milestones.map((name,i)=>{
 const assigned=attached.filter(x=>assignedMap[x.id]===String(i));
 return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button><div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas</p>')+'</div></section>';
@@ -896,6 +911,13 @@ app.querySelectorAll("[data-spine-suggest]").forEach(el=>el.addEventListener("cl
 app.querySelectorAll("[data-spine-view]").forEach(el=>el.addEventListener("click",()=>{spineView=el.dataset.spineView==="spine";linkMode=false;linkSource="";selected=activePhase;render();}));
 app.querySelectorAll("[data-spine-assign]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.spineAssign,target=app.querySelectorAll("[data-spine-target]").find(x=>x.dataset.spineTarget===id);assignSpine(id,target?.value??"");}));
 app.querySelectorAll("[data-spine-unlink]").forEach(el=>el.addEventListener("click",()=>assignSpine(el.dataset.spineUnlink,"")));
+app.querySelectorAll("[data-move-to-proposed]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.moveToProposed,piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
+if(!piece||placements[id]!==activePhase||!validPhases.has(piece.targetPhase)||piece.targetPhase===activePhase)return;
+const destination=piece.targetPhase;stagePiece(id,destination);activePhase=destination;selected=activePhase;spineView=true;linkSource="";linkMode=false;
+draftNotice="Pieza "+id+" trasladada explícitamente a "+destination+" según su fase sugerida en inventario. BORRADOR, NO INTEGRADA.";
+render();
+}));
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
 app.querySelectorAll("[data-link-mode]").forEach(el=>el.addEventListener("click",()=>{linkMode=!linkMode;linkSource="";selected=activePhase;render();}));
