@@ -427,3 +427,14 @@ Added adversarial tests `server/arkiF7OeceSourceGate.test.ts` (omission, forged 
 The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e` with 22 source artifacts and 148 claims. `p9.obj` is still untracked and untouched.
 
 **Decision:** F7 OECE fragment no-silent-promotion gate **CLOSED / PASS E3 (bounded)**. Do not mistake a correct F7 `BLOCKED` status for a failing test; the external technical-core evidence is genuinely incomplete. No claim of full product F7/F8 freeze, actual D-2/AGK acceptance, or full dossier verification. No need to rerun this exact gate absent new evidence/code changes.
+
+
+## 17. New real input — S10 .S2K and Revit .RVT — 2026-10-07
+
+**S10:** `BASE DE DATOS JUAN VELASCO.S2K`, 115,026,432 bytes, SHA-256 `e60fe3f427c32c36ee8e842def8f765ab4d6805e0816b03d73d50ef79c5d8648`. The actual uploaded binary was examined without modification. `file` identifies a Windows NTbackup/Microsoft SQL Server backup; the first bytes are `TAPE`. UTF-16 catalog strings include `C:\S102000\Data\BASE DE DATOS JUAN VELASCO_1.mdf`, `..._2.ndf`, `..._3.ldf` and S10 budget-related schema identifiers. **The former S10 input-unavailable blocker is superseded.** The file's exact SQL Server engine version, budget count, budget totals, database integrity and compatibility are UNKNOWN. No restore or native S10 export has been executed. Next: safe `RESTORE HEADERONLY`/`FILELISTONLY` on a compatible engine, then a read-only restored budget inventory and reconciled totals. Do not upload the large user database to GitHub.
+
+**Revit:** `AGROPECUARIO MODELO WIP 05.rvt`, 246,304,768 bytes, SHA-256 `933c71e0424d3f5dd68d74709591613c7fd9e61eaec98d4a95f36051ebb6f81e`. Container metadata inspection indicates Revit 2026, build `20250519_1515(x64)`. Element-level BIM/geometry extraction NOT_DEMONSTRATED. Rest of the project technical dossier is awaited; do not assert S10 and RVT are the same project.
+
+**Local infrastructure candidate:** HP MicroServer G7, 16 GB RAM, NVIDIA P620 4 GB, HDD 5 TB total (possible expansion to 8 TB), NVMe 240 GB. Proposed role: evidence storage, backups, lightweight OCR/indexing and bounded service hosting. OS, exact CPU, disk health and boot support UNKNOWN; do not treat as proven production infrastructure or a suitable modern SQL Server/Revit workstation without validation.
+
+**Epistemic rule:** source-file presence != database restored != budgets inventoried != totals reconciled != native S10 WRITE/roundtrip verified.
