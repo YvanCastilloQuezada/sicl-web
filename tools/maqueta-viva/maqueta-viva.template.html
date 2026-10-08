@@ -461,6 +461,15 @@ header .stamp{flex:0 0 auto}
 .arki-ideas-summary span{padding:8px 11px;border:1px solid #5c8aaa;border-radius:8px;background:#173954;font-size:12px;color:#e1f1ff}
 .arki-ideas-summary b{color:#ffe18b;font-size:16px;margin-right:4px}
 .arki-idea-source{display:inline-flex;align-self:flex-start;border:1px solid #799ab0;border-radius:5px;padding:3px 6px;color:#bfe5ff;font-size:10px;font-weight:700}
+
+.research-import{display:flex;flex-direction:column;gap:9px;padding:14px;border:1px solid #6596b6;border-radius:9px;background:#153c57;margin:13px 0}
+.research-import label{font-weight:750}.research-import input{max-width:100%;font-size:12px}
+.research-overview{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0;padding:10px;background:#123a53;border:1px solid #5c8ca8;border-radius:9px;font-size:12px}
+.research-overview span{border:1px solid #537f9d;border-radius:6px;padding:5px 7px}
+.research-sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin:10px 0 20px}
+.research-source{display:flex;flex-direction:column;gap:6px;background:#17364e;border:1px solid #4f7b98;border-radius:8px;padding:10px;font-size:11px}
+.research-source small{color:#bcd8eb;overflow-wrap:anywhere}.research-source a,.arki-idea a{color:#99dfff}
+.research-baseline{padding:9px;border-radius:7px;background:#42391d;color:#ffe7a5;font-weight:700;font-size:12px}
 </style>
 </head>
 <body>
@@ -1531,6 +1540,59 @@ if(changed)add("SOURCE-ALL","F1–F10","Revisar "+changed+" novedades de fuente"
 for(const [id,phase,category,priority,title,why,action,source] of ARKI_CONTINUOUS_IMPROVEMENTS)add(id,phase,title,why,action,category,priority,source);
 return results;
 }
+
+/* External watch reports are manually imported as inert data; no fetch, execution or canonical promotion. */
+const RESEARCH_REPORT_KEY="arki-maqueta-research-report-v1";
+const RESEARCH_DECISIONS_KEY="arki-maqueta-research-decisions-v1";
+let researchReport=null,researchDecisions={},researchNotice="";
+function validateResearchReport(raw){
+if(!raw||typeof raw!=="object"||Array.isArray(raw)||raw.schema!=="ARKI-RESEARCH-WATCH-1")throw Error("Formato Research & Trends no reconocido.");
+if(!Array.isArray(raw.sources)||raw.sources.length>12||!Array.isArray(raw.candidates)||raw.candidates.length>30)throw Error("Número de fuentes/candidatos inválido.");
+if(typeof raw.generated_at!=="string"||raw.generated_at.length>70||typeof raw.baseline_only!=="boolean")throw Error("Metadatos de informe inválidos.");
+const validSource=new Set(["BASELINE","UNCHANGED","NEW_RELEASE","SOURCE_ERROR"]);
+for(const x of raw.sources){if(!x||typeof x.source_id!=="string"||x.source_id.length>50||!validSource.has(x.status))throw Error("Fuente inválida.");}
+const ids=new Set();
+for(const c of raw.candidates){
+if(!c||typeof c.id!=="string"||!/^RT-[A-F0-9]{14}$/.test(c.id)||ids.has(c.id)||c.type!=="UPDATE_CANDIDATE"||c.status!=="PENDING_HUMAN_VALIDATION")throw Error("Candidato inválido.");
+ids.add(c.id);
+if(typeof c.capability_key!=="string"||c.capability_key.length>80||!Array.isArray(c.proposed_phases)||c.proposed_phases.some(p=>!/^F(?:[1-9]|10)$/.test(p)))throw Error("Fases inválidas.");
+if(!Array.isArray(c.evidence)||c.evidence.length>12||c.evidence.some(e=>!e||typeof e.url!=="string"||!/^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/releases\/tag\/[^\s<>"']+$/.test(e.url)||typeof e.tag!=="string"||e.tag.length>120))throw Error("Evidencia inválida.");
+}
+return raw;
+}
+try{const saved=localStorage.getItem(RESEARCH_REPORT_KEY);if(saved&&saved.length<=150000)researchReport=validateResearchReport(JSON.parse(saved));}catch(e){researchReport=null;}
+try{const raw=JSON.parse(localStorage.getItem(RESEARCH_DECISIONS_KEY)||"{}");if(raw&&typeof raw==="object"&&!Array.isArray(raw))for(const [id,status] of Object.entries(raw).slice(0,50))if(/^RT-[A-F0-9]{14}$/.test(id)&&["APPROVED","REJECTED"].includes(status))researchDecisions[id]=status;}catch(e){}
+function researchWorkspace(){
+const r=researchReport,cs=r?.candidates||[];
+return '<div class="assembly-header"><div><div class="kicker">RESEARCH & TRENDS · VIGILANCIA EXTERNA CONTROLADA</div><h2>Observatorio de tecnologías</h2></div></div>'+
+'<p class="hint">La vigilancia se ejecuta fuera de la Maqueta Viva (GitHub Actions o Python local). Aquí solo se lee un informe JSON seleccionado por ti; no hay conexiones automáticas a internet ni modificación del roadmap.</p>'+
+'<div class="research-import"><label for="research-import-file">Importar informe de vigilancia (report.json)</label><input id="research-import-file" type="file" accept=".json,application/json"/><span class="caption">Descarga el artefacto «arki-research-report» de GitHub Actions y selecciona su report.json. Límite: 150 KB.</span></div>'+
+(researchNotice?'<p class="hint" role="status">'+escapeHtml(researchNotice)+'</p>':"")+
+(!r?'<div class="empty">Todavía no se ha importado un informe verificable. El catálogo editorial de Ideas ARKI es independiente de esta vigilancia.</div>':
+'<div class="research-overview"><strong>Observado: '+escapeHtml(r.generated_at)+'</strong><span>'+r.sources.length+' fuentes consultadas</span><span>'+r.sources.filter(x=>x.status==="NEW_RELEASE").length+' novedades</span><span>'+r.sources.filter(x=>x.status==="SOURCE_ERROR").length+' errores de fuente</span><span>'+cs.length+' candidatos</span></div>'+
+(r.baseline_only?'<p class="research-baseline">LÍNEA BASE: esta primera observación no constituye detección de novedades.</p>':"")+
+'<h3>Fuentes y trazabilidad</h3><div class="research-sources">'+r.sources.map(x=>'<div class="research-source"><strong>'+escapeHtml(x.source_id)+'</strong><span>'+escapeHtml(x.status)+'</span><small>'+escapeHtml(x.release?.tag||x.reason||"Sin evidencia")+'</small>'+(x.release?.url?'<a href="'+escapeHtml(x.release.url)+'" target="_blank" rel="noopener noreferrer">Fuente GitHub ↗</a>':"")+'</div>').join("")+'</div>'+
+'<h3>Candidatos para revisión · '+cs.length+'</h3>'+
+'<div class="arki-ideas-grid">'+cs.map(c=>{const d=researchDecisions[c.id]||"PENDING";return '<article class="arki-idea"><div><small>'+escapeHtml(c.id)+' · '+escapeHtml(c.proposed_phases.join(", "))+'</small><strong>'+escapeHtml(c.capability_key.replace(/_/g," "))+'</strong><span class="arki-idea-status '+(d==="APPROVED"?"approved":d==="REJECTED"?"rejected":"pending")+'">'+(d==="APPROVED"?"APROBADA PARA EVALUACIÓN":d==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>Nueva versión detectada. Equivalencia con capacidades existentes: NO VERIFICADA. Antes de proponer implementación, comparar contratos, licencias y funciones existentes.</p>'+
+c.evidence.map(e=>'<p><b>'+escapeHtml(e.repository||e.source_id||"Fuente")+' · '+escapeHtml(e.tag)+'</b> · <a href="'+escapeHtml(e.url)+'" target="_blank" rel="noopener noreferrer">Ver evidencia oficial ↗</a></p>').join("")+
+'<div class="arki-idea-actions"><button type="button" class="tab" data-research-decision="'+escapeHtml(c.id)+'" data-research-action="APPROVED">Aprobar evaluación</button><button type="button" class="tab" data-research-decision="'+escapeHtml(c.id)+'" data-research-action="REJECTED">Descartar</button><button type="button" class="tab" data-research-decision="'+escapeHtml(c.id)+'" data-research-action="RESET">Reabrir</button></div></article>';}).join("")+'</div>'+
+(!cs.length?'<p class="hint">No hay candidatos nuevos en este informe. Comprueba la cobertura y los errores de fuentes antes de interpretar el resultado.</p>':"")+
+'<p class="caption">Agrupación por capacidad = deduplicación preliminar. No demuestra ausencia de duplicados funcionales. Ninguna aprobación modifica código, fases, FROZEN o contratos.</p>');
+}
+function importResearchFile(file){
+if(!file||file.size>150000){researchNotice="Archivo demasiado grande o ausente (máximo 150 KB).";render();return;}
+const reader=new FileReader();
+reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const valid=validateResearchReport(raw);researchReport=valid;localStorage.setItem(RESEARCH_REPORT_KEY,JSON.stringify(valid));researchNotice="Informe importado localmente. Fuentes y candidatos listos para revisión; no se han integrado capacidades.";}catch(e){researchNotice="Informe rechazado: "+String(e.message).slice(0,160);}render();};
+reader.onerror=()=>{researchNotice="No se pudo leer el archivo.";render();};
+reader.readAsText(file,"UTF-8");
+}
+function decideResearch(id,action){
+if(!researchReport?.candidates.some(c=>c.id===id))return;
+if(action==="RESET")delete researchDecisions[id];else if(["APPROVED","REJECTED"].includes(action))researchDecisions[id]=action;else return;
+try{localStorage.setItem(RESEARCH_DECISIONS_KEY,JSON.stringify(researchDecisions));researchNotice="Decisión de evaluación guardada localmente; sin promoción canónica.";}catch(e){researchNotice="No se pudo guardar la decisión.";}
+render();
+}
+
 function arkiIdeasWorkspace(){
 const entries=generatedArkiIdeas(),pending=entries.filter(x=>!arkiIdeaDecisions[x.id]).length;
 return '<div class="assembly-header"><div><div class="kicker">MEJORA CONTINUA · PROPUESTAS EXPLICABLES</div><h2>Ideas propias de ARKI · Revisión humana</h2></div><span class="status">'+pending+' pendientes de decisión</span></div>'+
@@ -1721,13 +1783,15 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="command-stat" title="En construcción"><b>'+progress+'</b><span>En construcción</span></div>'+
 '<div class="command-stat" title="Por reconciliar"><b>'+reconcile+'</b><span>Por reconciliar</span></div>'+
 '</div>'+
-'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button></nav>'+
+'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button><button class="tab '+(tab==="research"?"active":"")+'" data-tab="research" aria-pressed="'+(tab==="research")+'">Research & Trends</button></nav>'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
 '<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>'+
 sourceUpdateBanner()+
-'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
+app.querySelectorAll("[data-research-decision]").forEach(el=>el.addEventListener("click",()=>decideResearch(el.dataset.researchDecision,el.dataset.researchAction)));
+const researchInput=app.querySelector("#research-import-file");if(researchInput)researchInput.addEventListener("change",e=>importResearchFile(e.target.files?.[0]));
 app.querySelectorAll("[data-arki-approve]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiApprove,"approve")));
 app.querySelectorAll("[data-arki-reject]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReject,"reject")));
 app.querySelectorAll("[data-arki-reset]").forEach(el=>el.addEventListener("click",()=>decideArkiIdea(el.dataset.arkiReset,"reset")));
