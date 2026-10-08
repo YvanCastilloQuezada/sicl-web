@@ -659,6 +659,7 @@ if(!canPlace)return '<div class="piece-inspector"><h3>Ficha de pieza</h3>'+detai
 return '<div class="piece-inspector"><h3>Pieza para ensamblar</h3>'+detail()+
 '<div class="field"><label>Fase propuesta en inventario histórico</label><strong>'+escapeHtml(p.targetPhase||"SIN ASIGNAR")+'</strong></div>'+
 '<div class="field"><label>Ubicación en tu mesa (no integrada)</label><strong>'+escapeHtml(current||"SIN UBICAR")+'</strong></div>'+
+'<div class="field"><label>Secuencia de dependencias declaradas · BORRADOR</label>'+activitySequence(selected)+'</div>'+
 '<div class="placement-action"><label for="placement-phase">Colocar provisionalmente en</label><select id="placement-phase" aria-label="Fase de destino">'+phases.map(x=>'<option value="'+escapeHtml(x.id)+'" '+((current||activePhase)===x.id?"selected":"")+'>'+escapeHtml(x.id+" · "+x.name)+'</option>').join("")+'</select><button class="action-primary" data-stage="'+escapeHtml(selected)+'">'+(current?"Mover de fase":"Ubicar pieza")+'</button>'+
 (current?'<button class="tab" data-unstage="'+escapeHtml(selected)+'">Quitar ubicación</button>':"")+'</div>'+
 '<p class="hint">Ubicar una pieza solo organiza un BORRADOR visual. No cambia su estado de implementación, no crea integración y no elimina deudas.</p>'+reviewInspector(selected)+'</div>';
