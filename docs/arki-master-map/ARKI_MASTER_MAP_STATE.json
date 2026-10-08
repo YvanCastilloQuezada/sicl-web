@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "No canonical phase status, frozen contracts or roadmap mutated",
+      "integration_boundary": "All mappings and new local ideas are reversible drafts; frozen records and official roadmap read-only",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: 10 phase buttons, four milestone nodes per phase, F6 labels, stage piece, link to milestone, undo, redo, unlink, free view, new phase resets to spine; JS syntax PASS",
+      "interaction_simulation": "PASS: ten phases; local idea creation and tray; stage F6; keyword suggestion; alternative scenario independent; undo; persistence across reload; official F6 status unchanged",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1683,6 +1683,17 @@
         "draft_persistence": "spineAssignments keyed by piece ID, value milestone index 0..3; old drafts import without this field",
         "reversibility": "Link/unlink, undo/redo, X returns piece to tray and deletes association, phase move clears stale association",
         "invariants": "Never infer verified execution, critical-path timing, completion, canonical promotion or phase status from visual links"
+      },
+      "spine_scenarios": {
+        "reference": "Proposed reference route, never official critical path",
+        "alternative": "Separate F1–F10 milestone assignments saved locally; shared piece inventory and placements; no canonical mutation",
+        "suggestions": "Deterministic accent-normalized text matching against per-phase milestone vocabulary; abstains on ambiguous or absent match; opt-in application with rationale and LOW/MEDIUM labels"
+      },
+      "dynamic_ideas": {
+        "local_capture": "New local ideas receive LOCAL-N IDs, user-selected proposed phase, persist in browser and appear in tray",
+        "portable": "Draft JSON export/import carries localIdeas and separate scenario assignments",
+        "source_updates": "On launcher rebuild compare prior embedded source inventory and canonical status snapshots; report new ideas/components/FROZEN and changed phase/frozen records; no remote polling",
+        "limit": "Git pull or local file updates + reopen launcher required to incorporate new upstream ideas; no autonomous remote discovery"
       }
     },
     "assembly": {
