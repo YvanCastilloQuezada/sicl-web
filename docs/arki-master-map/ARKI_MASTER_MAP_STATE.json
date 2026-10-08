@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "On Windows, git pull then double-click ARKI-MAQUETA-VIVA.cmd. Verify 3 panels, 3 layout buttons, right-hand pending blocks and desktop shortcut. Record raw output and screenshot if needed.",
+    "next_gate": "Windows: git pull and double-click launcher; verify phase F1 has 5 historical idea cards, F6 contains frozen AGK constituents, right tray shows 24 historical ideas and 8 explicit frozen entries, 3-column layout and no browser errors.",
     "layout": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
       "source": "tools/maqueta-viva/maqueta-viva.template.html",
@@ -1558,6 +1558,24 @@
       "semantics": "Layout does not imply authority hierarchy, completion or integration verification",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED"
+    },
+    "assembly": {
+      "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+      "registry": "tools/maqueta-viva/assembly-registry.json",
+      "historical_inventory": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "historical_idea_count": 24,
+      "phase_assigned_provisional": 23,
+      "unassigned_out_of_scope": 1,
+      "frozen_scope": "Explicit FROZEN/FREEZE constituent records in current Master State: 7 AGK deltas + F6 phase (8 unique display entries); not repo-wide exhaustive",
+      "three_trays": [
+        "pending",
+        "ideas",
+        "frozen"
+      ],
+      "phase_contents": "Selecting F1–F10 shows mapped historical ideas and frozen constituents",
+      "semantics": "PROPOSED_PHASE_ASSIGNMENT_NOT_INCORPORATED; FROZEN_NOT_EQUIVALENT_TO_INTEGRATED",
+      "static_js_syntax": "PASS",
+      "local_windows_e3": "NOT_EXECUTED"
     }
   }
 }
