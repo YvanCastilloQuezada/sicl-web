@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows pull; run node tools/maqueta-viva/test-maqueta-viva.cjs and node tools/maqueta-viva/test-github-evidence.cjs. Open shortcut; fill review, export JSON; optionally run verify-github-evidence.cjs with exported draft; import resulting observation; verify it is explicitly NON-ATTESTED and never marks piece integrated. Await exact CI and browser evidence.",
+    "next_gate": "User Windows retest: git pull --ff-only origin feat/f7-f8-integral-closure; node tools/maqueta-viva/test-maqueta-viva.cjs; expect 29/29 PASS; do not claim Windows E3 until user returns output.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
       "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
@@ -1669,7 +1669,11 @@
           "committed_offline_suite": "29 checks, not executed in Node",
           "committed_observer_suite": "14 checks, not executed in Node",
           "github_ci": "NOT_OBSERVED",
-          "windows_browser_e3": "NOT_EXECUTED"
+          "windows_browser_e3": "NOT_EXECUTED",
+          "user_windows_2026_10_08": "test-maqueta-viva.cjs FAILED pre-test script extraction (CRLF); test-github-evidence.cjs 14/14 PASS on Node v24.19.0",
+          "fix": "test-maqueta-viva.cjs now extracts inline script with CRLF/LF normalization",
+          "post_fix_simulated_execution": "29/29 PASS on LF and CRLF in isolated JS harness; not executed on user's Windows",
+          "windows_retest": "PENDING"
         }
       }
     }
