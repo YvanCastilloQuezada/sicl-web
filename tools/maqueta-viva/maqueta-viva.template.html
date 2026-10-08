@@ -344,6 +344,20 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .spine-progress-track{flex:1 1 160px;height:9px;background:#0a2235;border:1px solid #57819b;border-radius:9px;overflow:hidden}
 .spine-progress-track span{display:block;height:100%;background:#77c1eb;transition:width .2s}
 .spine-more{display:block;margin:10px auto 0;padding:9px 15px}
+
+/* The spine previews are suggestions, not placed activities or verified milestones. */
+.spine-candidate-summary{display:flex;flex-direction:column;gap:6px;background:#173d50;border:1px solid #bfa35e;border-radius:8px;padding:11px 13px;margin:12px 0;color:#f3f5e8}
+.spine-candidate-summary strong{font-size:12px;color:#ffe5a2}
+.spine-candidate-summary span{font-size:11px;line-height:1.5;color:#e3e8db}
+.spine-preview-group{border-top:1px dashed #c7a760;margin-top:12px;padding-top:10px}
+.spine-preview-heading{font-size:10px;letter-spacing:.03em;color:#ffdf9c;font-weight:750;margin-bottom:8px}
+.spine-preview-card{display:flex;flex-direction:column;gap:6px;border:1px dashed #d3b573;background:#3d3a2b;border-radius:8px;padding:9px;margin-bottom:9px}
+.spine-preview-label{font-size:9px;font-weight:800;color:#ffda82}
+.spine-preview-name{border:0;background:transparent;text-align:left;color:#fff5dc;line-height:1.4;font-size:11px;cursor:pointer;padding:0}
+.spine-preview-name strong{color:#ffdc83}.spine-preview-name:hover{text-decoration:underline}
+.spine-preview-card small{color:#e7d6ad;font-size:10px;line-height:1.45}
+.spine-preview-accept{align-self:flex-start;background:#f2d94e;color:#1e1a0c;border:1px solid #c7aa32;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:750;cursor:pointer}
+.spine-preview-accept:hover{background:#ffed79}
 </style>
 </head>
 <body>
@@ -968,6 +982,21 @@ a.download="ARKI-MAQUETA-"+activePhase+"-"+(spineScenario==="base"?"REFERENCIA":
 document.body.appendChild(a);a.click();a.remove();
 draftNotice="Hoja de ensamblaje de "+activePhase+" preparada como Markdown · BORRADOR, NO OFICIAL.";render();
 }
+
+/* Suggested spines are ephemeral previews only. They do not mutate either route,
+   and they never claim to be verified dependencies or official milestones. */
+function spinePreviewCard(x,suggestion){
+const stage=Number(suggestion.index);
+return '<div class="spine-preview-card"><div class="spine-preview-label">CANDIDATA · SIN VINCULAR</div>'+
+'<button type="button" class="spine-preview-name" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar actividad antes de vincular"><strong>'+escapeHtml(x.id)+'</strong> '+escapeHtml(x.name)+'</button>'+
+'<small>'+escapeHtml(suggestion.reason)+' · confianza '+escapeHtml(suggestion.confidence)+'</small>'+
+'<button type="button" class="spine-preview-accept" data-spine-preview-accept="'+escapeHtml(x.id)+'" data-spine-preview-stage="'+stage+'" title="Confirmar esta propuesta local de actividad a hito">Vincular a Hito '+(stage+1)+' →</button></div>';
+}
+function spineCandidateSummary(suggestions,unassigned){
+const uncertain=unassigned.length-suggestions.length;
+return '<div class="spine-candidate-summary"><strong>Asistente de espinas · '+suggestions.length+' propuestas visibles</strong>'+
+'<span>Las tarjetas ámbar debajo de cada hito son <b>candidatas</b>, no actividades vinculadas. Puedes aceptar una por una, usar «Aplicar sugerencias textuales» o elegir manualmente un hito. '+uncertain+' actividades no tienen coincidencia inequívoca.</span></div>';
+}
 function spineWorkspace(p,staged){
 const milestones=SPINE_STAGES[p.id]||[];
 const assignedMap=currentSpine();
@@ -979,6 +1008,7 @@ const baseCount=staged.filter(x=>Object.prototype.hasOwnProperty.call(spineAssig
 const altCount=staged.filter(x=>Object.prototype.hasOwnProperty.call(alternativeSpineAssignments,x.id)).length;
 const phaseLinks=localPhaseLinks(p.id);
 const phaseUnlinked=unassigned.length;
+const previewByStage=Object.fromEntries(milestones.map((_,i)=>[String(i),suggestions.filter(item=>item.s.index===String(i)).slice(0,4)]));
 const visibleUnassigned=showAllUnassigned?unassigned:unassigned.slice(0,5);
 return '<div class="spine-scenario"><div><strong>Hoja de ruta de ensamblaje</strong><small>La ruta oficial es el roadmap canónico, no estas vinculaciones visuales.</small></div><button type="button" class="tab '+(spineScenario==="base"?"active":"")+'" data-spine-scenario="base" aria-pressed="'+(spineScenario==="base")+'">Referencia propuesta</button><button type="button" class="tab '+(spineScenario==="alternative"?"active":"")+'" data-spine-scenario="alternative" aria-pressed="'+(spineScenario==="alternative")+'">Alternativa A</button><button type="button" class="tab" data-spine-suggest '+(suggestions.length?"":"disabled")+' title="Vincular únicamente coincidencias textuales inequívocas como hipótesis">Aplicar '+suggestions.length+' sugerencias textuales</button></div>'+
 (spineScenario==="alternative"&&altCount===0&&baseCount>0?'<div class="spine-copy-help"><span>La alternativa está vacía. Puedes partir de la referencia y modificar sus espinas sin afectar la original.</span><button type="button" class="tab" data-spine-copy>Copiar referencia a Alternativa A</button></div>':"")+
@@ -988,10 +1018,11 @@ spineRouteComparison(p,staged)+routeRadar(p.id)+
 (locationReviewOpen?locationReviewPanel():"")+
 '<div class="spine-connection-help" role="status"><div><strong>'+(linkMode?"MODO CONECTAR ESPINAS · ACTIVO":"CONECTAR ACTIVIDADES SECUNDARIAS")+'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la actividad necesaria.":"Pulsa «Conectar» primero en la actividad dependiente y después en la necesaria."):"Activa «🔗 Conectar piezas» y usa los botones «🔗 Conectar» dentro de las espinas. Cada relación es una hipótesis local.")+'</span></div><span class="spine-link-count">'+phaseLinks.length+' dependencias · '+phaseUnlinked+' espinas sin hito</span></div>'+
 '<div class="spine-notice"><strong>VISTA VERTEBRAL · '+escapeHtml(p.id)+'</strong><span>Ruta estructural PROPUESTA, no ruta crítica calculada. Cada hito muestra sus vecinos estructurales propuestos. Las espinas muestran hitos vecinos y candidatos de actividad derivados automáticamente; solo «Vincular» declara una dependencia local. No se alteran estados ni contratos oficiales.</span></div>'+
-spinePlacementAudit(p.id,staged)+
+spinePlacementAudit(p.id,staged)+spineCandidateSummary(suggestions,unassigned)+
 '<div class="spine-scroll"><div class="spine-grid">'+milestones.map((name,i)=>{
 const assigned=attached.filter(x=>assignedMap[x.id]===String(i));
-return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><div class="spine-stage-sequence"><span><b>← Predecesor:</b> '+(i===0?"Inicio de ruta propuesta":"Hito "+i+" · "+escapeHtml(milestones[i-1]))+'</span><span><b>Sucesor →:</b> '+(i===milestones.length-1?"Fin de ruta propuesta":"Hito "+(i+2)+" · "+escapeHtml(milestones[i+1]))+'</span></div><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button><div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas</p>')+'</div></section>';
+return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-active":"")+'"><div class="spine-stage-sequence"><span><b>← Predecesor:</b> '+(i===0?"Inicio de ruta propuesta":"Hito "+i+" · "+escapeHtml(milestones[i-1]))+'</span><span><b>Sucesor →:</b> '+(i===milestones.length-1?"Fin de ruta propuesta":"Hito "+(i+2)+" · "+escapeHtml(milestones[i+1]))+'</span></div><button type="button" class="spine-node" data-spine-pick="'+i+'" aria-pressed="'+(selectedSpineStage===i)+'" title="Seleccionar este hito como destino de actividades"><span class="spine-node-index">HITO '+(i+1)+(selectedSpineStage===i?" · SELECCIONADO":"")+'</span><strong>'+escapeHtml(name)+'</strong><small>ESTRUCTURA PROPUESTA · CLIC PARA VINCULAR</small></button><div class="spine-branch"><span class="spine-branch-count">'+assigned.length+' actividades vinculadas</span>'+assigned.map(spineCard).join("")+(assigned.length?"":'<p class="spine-empty">Sin actividades vinculadas todavía</p>')+
+(previewByStage[String(i)].length?'<div class="spine-preview-group"><div class="spine-preview-heading">PROPUESTAS · '+previewByStage[String(i)].length+'</div>'+previewByStage[String(i)].map(item=>spinePreviewCard(item.x,item.s)).join("")+'</div>':"")+'</div></section>';
 }).join("")+'</div></div>'+
 '<div class="spine-unassigned"><div class="spine-unassigned-head"><strong>Espinas sin vincular · '+unassigned.length+'</strong><span>Hito seleccionado: '+(selectedSpineStage+1)+' · '+escapeHtml(milestones[selectedSpineStage])+'. Pulsa «Vincular» en una actividad; puedes cambiar el hito en su selector.</span></div>'+
 (!suggestions.length&&unassigned.length?'<p class="spine-no-suggestions">No hay coincidencias textuales inequívocas para estas piezas. La ausencia de sugerencias NO significa que sean incompatibles: elige un hito manualmente.</p>':"")+
@@ -1263,6 +1294,13 @@ app.querySelectorAll("[data-spine-copy]").forEach(el=>el.addEventListener("click
 app.querySelectorAll("[data-spine-suggest]").forEach(el=>el.addEventListener("click",applySuggestedSpines));
 app.querySelectorAll("[data-spine-view]").forEach(el=>el.addEventListener("click",()=>{spineView=el.dataset.spineView==="spine";linkMode=false;linkSource="";selected=activePhase;render();}));
 app.querySelectorAll("[data-spine-assign]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.spineAssign,target=app.querySelectorAll("[data-spine-target]").find(x=>x.dataset.spineTarget===id);assignSpine(id,target?.value??"");}));
+app.querySelectorAll("[data-spine-preview-accept]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.spinePreviewAccept,index=el.dataset.spinePreviewStage;
+const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
+const candidate=piece&&placements[id]===activePhase?suggestStage(piece,activePhase):null;
+if(!candidate||candidate.index!==index||Object.prototype.hasOwnProperty.call(currentSpine(),id)){draftNotice="La sugerencia cambió o ya fue vinculada. Revisa la fase.";render();return;}
+assignSpine(id,index);
+}));
 app.querySelectorAll("[data-spine-unlink]").forEach(el=>el.addEventListener("click",()=>assignSpine(el.dataset.spineUnlink,"")));
 app.querySelectorAll("[data-move-to-proposed]").forEach(el=>el.addEventListener("click",()=>{
 const id=el.dataset.moveToProposed,piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
