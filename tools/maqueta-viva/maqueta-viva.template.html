@@ -227,6 +227,11 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .source-sync strong{font-size:11px;color:#d8efff}.source-sync span{font-size:11px;color:#e3f4ff}
 .source-sync small{font-size:10px;color:#b4cce0}
 .source-sync button{font-size:11px;padding:5px 8px}
+
+.local-idea-form{display:flex;flex-direction:column;gap:7px;margin:10px 0;padding:9px;border:1px solid #587c99;border-radius:8px}
+.local-idea-form label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:#cce4f5}
+.local-idea-form input,.local-idea-form select{min-width:0;width:100%;background:#0d243b;color:#fff;border:1px solid #6996b6;border-radius:6px;padding:7px}
+.local-idea-form button{align-self:flex-start}
 </style>
 </head>
 <body>
@@ -245,7 +250,18 @@ const labels={F1:"Identidad / Project State",F2:"Conocimiento y Universidad",F3:
 const descriptions={F1:"Identidad, confianza, estado y trazabilidad del proyecto.",F2:"Fuentes, curaduría, Delta 6.2, universidad, tutoría y evaluación del aprendizaje gobernado.",F3:"Razonamiento arquitectónico y decisiones D-2.",F4:"Programa, relaciones espaciales, partido y topología.",F5:"Evaluación, selección y endurecimiento semántico.",F6:"Geometría operacional gobernada por AGK; alcance congelado y acotado.",F7:"Desarrollo profesional, evidencia de origen y gemelo económico.",F8:"Documentación técnica derivada de desarrollo aceptado.",F9:"Ejecución, control de cambios, campo y gemelo digital.",F10:"Operación, mantenimiento, aprendizaje y realimentación."};
 const phases=state.roadmap.phases.map(p=>({...p,name:labels[p.id]||p.id,description:descriptions[p.id]||""}));
 let registry;try{registry=JSON.parse(document.getElementById("arki-assembly").textContent);if(registry.schema!=="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"||!Array.isArray(registry.ideas))throw Error("schema");}catch(e){app.innerHTML='<div class="error">No se pudo cargar el registro de piezas: '+String(e.message)+'</div>';return;}
-const ideas=registry.ideas.map(x=>({...x,name:x.title,status:x.sourceStatus,description:"Inventario histórico: "+x.origin+". Destino propuesto: "+x.targetPhase+". NO INTEGRADO por asignación."}));
+const LOCAL_IDEAS_KEY="arki-maqueta-local-ideas-v1";
+function validateLocalIdeas(raw){
+if(!Array.isArray(raw)||raw.length>100)throw Error("Ideas locales inválidas");
+const seen=new Set(),valid=new Set(state.roadmap.phases.map(x=>x.id));
+return raw.map(x=>{
+if(!x||typeof x!=="object"||!/^LOCAL-[1-9][0-9]{0,5}$/.test(x.id)||seen.has(x.id)||!valid.has(x.targetPhase)||typeof x.title!=="string"||x.title.trim().length<3||x.title.length>160)throw Error("Idea local inválida");
+seen.add(x.id);return {id:x.id,title:x.title.trim(),targetPhase:x.targetPhase,sourceStatus:"USER_PROPOSAL_LOCAL",origin:"LOCAL_BROWSER_DRAFT"};
+});
+}
+let localIdeas=[];try{const raw=localStorage.getItem(LOCAL_IDEAS_KEY);if(raw)localIdeas=validateLocalIdeas(JSON.parse(raw));}catch(e){localIdeas=[];}
+const ideaView=x=>({...x,name:x.title,status:x.sourceStatus,description:x.origin==="LOCAL_BROWSER_DRAFT"?"Idea nueva creada en este navegador. No está incorporada al inventario canónico. Fase sugerida: "+x.targetPhase+".":"Inventario histórico: "+x.origin+". Destino propuesto: "+x.targetPhase+". NO INTEGRADO por asignación."});
+const ideas=[...registry.ideas,...localIdeas].map(ideaView);
 const components=(registry.components||[]).map(x=>({...x,name:x.title,status:x.sourceStatus,description:"Componente de auditoría histórica. "+x.sourceGap+". Ubicación propuesta: "+x.targetPhase+". Requiere contraste con HEAD actual."}));
 const dispositions=state.f6_agk_integral_closure?.constituent_disposition||{};
 const frozenPieces=[...Object.entries(dispositions).filter(([id,v])=>String(v).startsWith("FREEZE_")).map(([id,v])=>({id,name:id,status:v,description:"Componente F6 congelado en el alcance acotado registrado; no prueba integración industrial completa.",targetPhase:"F6",origin:"f6_agk_integral_closure.constituent_disposition"}))];
@@ -268,6 +284,22 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
+function replaceLocalIdeas(next){
+const validated=validateLocalIdeas(next);
+for(let i=ideas.length-1;i>=0;i--)if(ideas[i].origin==="LOCAL_BROWSER_DRAFT")ideas.splice(i,1);
+for(let i=all.length-1;i>=0;i--)if(all[i].origin==="LOCAL_BROWSER_DRAFT")all.splice(i,1);
+for(const id of [...movable])if(id.startsWith("LOCAL-"))movable.delete(id);
+localIdeas=validated;
+for(const item of localIdeas){const v=ideaView(item);ideas.push(v);all.push(v);movable.add(item.id);}
+}
+function createLocalIdea(title,phase){
+const name=String(title||"").trim();
+if(name.length<3||name.length>160||!validPhases.has(phase)||localIdeas.length>=100){draftNotice="Escribe un nombre de 3 a 160 caracteres y selecciona una fase válida (máximo 100 ideas locales).";render();return;}
+const nextId=1+Math.max(0,...localIdeas.map(x=>Number(x.id.slice(6))||0));
+const next=[...localIdeas,{id:"LOCAL-"+nextId,title:name,targetPhase:phase}];
+try{replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));draftNotice="Idea LOCAL-"+nextId+" añadida a la bandeja como propuesta; no cambia el inventario canónico.";tray="ideas";render();}
+catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
+}
 let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base";
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
@@ -371,7 +403,7 @@ schema:"ARKI-MAQUETA-SOURCE-SNAPSHOT-1",
 stateDate:String(state.updated_at||""),
 registryDate:String(registry.updated_at||""),
 entries:Object.fromEntries([
-...ideas.map(x=>[x.id,{kind:"idea",title:x.name,status:x.status,phase:x.targetPhase}]),
+...ideas.filter(x=>x.origin!=="LOCAL_BROWSER_DRAFT").map(x=>[x.id,{kind:"idea",title:x.name,status:x.status,phase:x.targetPhase}]),
 ...components.map(x=>[x.id,{kind:"component",title:x.name,status:x.status,phase:x.targetPhase}]),
 ...allFrozen.map(x=>[x.id,{kind:"frozen",title:x.name,status:x.status,phase:x.targetPhase}]),
 ...phases.map(x=>[x.id,{kind:"phase",title:x.name,status:x.status,evidence:x.evidence_status}])
@@ -423,7 +455,7 @@ if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return
 remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -583,7 +615,7 @@ const entries=components.filter(p=>!Object.prototype.hasOwnProperty.call(placeme
 content='<p class="hint">Capacidades dispersas históricas todavía disponibles para ubicar. Las que ya están en la mesa no aparecen aquí.</p><h3>'+entries.length+' disponibles de '+components.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else if(tray==="ideas"){
 const entries=ideas.filter(p=>!Object.prototype.hasOwnProperty.call(placements,p.id)&&matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Ideas históricas todavía disponibles. Al colocar una pieza desaparece de esta bandeja; con X regresa.</p><h3>'+entries.length+' disponibles de '+ideas.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Ideas históricas y propuestas locales. Las ideas nuevas se guardan en este navegador; para compartirlas usa Exportar JSON. Ninguna se integra automáticamente.</p><div class="local-idea-form"><label>Nueva idea<input id="local-idea-title" maxlength="160" placeholder="Describe la idea…" aria-label="Nombre de nueva idea"></label><label>Fase propuesta<select id="local-idea-phase" aria-label="Fase propuesta para nueva idea">'+phases.map(p=>'<option value="'+p.id+'" '+(p.id===activePhase?"selected":"")+'>'+p.id+'</option>').join("")+'</select></label><button type="button" class="tab" data-add-local-idea>Añadir idea</button></div><h3>'+entries.length+' disponibles de '+ideas.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else{
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
@@ -743,6 +775,7 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 sourceUpdateBanner()+
 '<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
 app.querySelectorAll("[data-source-open]").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.sourceOpen==="roadmap"){tab="roadmap";}else{tray="frozen";tab="structure";}selected=activePhase;render();}));
 app.querySelectorAll("[data-spine-scenario]").forEach(el=>el.addEventListener("click",()=>chooseScenario(el.dataset.spineScenario)));
 app.querySelectorAll("[data-spine-suggest]").forEach(el=>el.addEventListener("click",applySuggestedSpines));
