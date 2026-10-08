@@ -14,11 +14,11 @@ Fuentes oficiales de **metadatos de versiones publicadas en GitHub** (no prueba 
 
 ## Ejecución separada en Windows
 
-Desde la raíz del repositorio, ejecutar **`ARKI-RESEARCH-WATCH.cmd`** con conexión a internet y Python 3.10+. Guarda el informe en **`%LOCALAPPDATA%\ARKI\ResearchTrends\latest\report.json`** y conserva la última línea base exitosa en `previous\snapshot.json`. No modifica la Maqueta Viva ni el repositorio. Luego abrir la Maqueta Viva sin conexión, seleccionar **Research & Trends → Importar informe** y elegir el JSON. Los candidatos se presentan en amarillo como pendientes; al aprobar evaluación pasan a verde, sin integración automática.
+Desde la raíz del repositorio, ejecutar **`ARKI-RESEARCH-WATCH.cmd`** con conexión a internet y Python 3.10+. Guarda el informe en **`%LOCALAPPDATA%\ARKI\ResearchTrends\latest\report.json`** y conserva el último snapshot observado (también parcial, con fallos señalados en el informe) en `previous\snapshot.json`. No modifica la Maqueta Viva ni el repositorio. Luego abrir la Maqueta Viva sin conexión, seleccionar **Research & Trends → Importar informe** y elegir el JSON. Los candidatos se presentan en amarillo como pendientes; al aprobar evaluación pasan a verde, sin integración automática.
 
 ## Ejecución programada
 
-`.github/workflows/arki-research-trends.yml` tiene disparador manual y cron semanal (lunes, 11:20 UTC), pruebas, restauración de snapshot y artefacto JSON. **GitHub Actions ejecuta cron únicamente cuando el workflow esté en la rama predeterminada**; en esta rama de desarrollo el cron aún no está activo. El workflow tiene permisos `contents: read`, no realiza commits ni actualiza la fuente canónica. La caché es una ayuda operativa y puede expirar; si se pierde, la siguiente ejecución será nueva línea base y no fingirá detectar novedades históricas.
+`.github/workflows/arki-research-trends.yml` tiene disparador manual y cron semanal (lunes, 11:20 UTC), pruebas, restauración de snapshot, persistencia de observaciones parciales y artefacto JSON. **GitHub Actions ejecuta cron únicamente cuando el workflow esté en la rama predeterminada**; en esta rama de desarrollo el cron aún no está activo. El workflow tiene permisos `contents: read`, no realiza commits ni actualiza la fuente canónica. La caché es una ayuda operativa y puede expirar; si se pierde, la siguiente ejecución será nueva línea base y no fingirá detectar novedades históricas.
 
 ## Comparación con capacidades existentes
 
