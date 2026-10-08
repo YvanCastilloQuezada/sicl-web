@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: ten phases; proposal opens review without staging; Ideas ARKI cards; approve/reject/reset persist; roadmap canonical statuses unchanged; static JavaScript syntax PASS",
+      "interaction_simulation": "PASS: real registry and canonical state mocked DOM, ten phase buttons, drop I-01 from tray onto F1 Hito1, local draft persisted, tray item removed, grip shown, drag to Hito3, undo restores Hito1",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1891,6 +1891,13 @@
       "roadmap_milestone_matrix": {
         "scope": "10x4 navigable matrix from proposed SPINE_STAGES, counts draft activities and local review declarations, with direct phase/stage drill-down",
         "authority": "Official statuses read only from roadmap.phases; frozen contracts not modified"
+      },
+      "spine_direct_drag": {
+        "behavior": "In Columna vertebral y espinas, drop available tray piece directly onto milestone 1-4 to stage and link in one undoable local transaction; drag attached or unassigned activity using dedicated grip to move between milestones",
+        "scope": "Active phase and selected reference/alternative scenario only; moving an already staged piece from another phase is refused until explicitly reassigned",
+        "feedback": "Milestone highlights as drop target, persistent local draft notice and counts, reversible via undo",
+        "accessibility": "Existing milestone selection plus Hito selector and Vincular buttons retained as keyboard/mouse alternatives",
+        "boundary": "No mutation of roadmap, frozen authority, canonical integration or verified dependency"
       }
     },
     "assembly": {
