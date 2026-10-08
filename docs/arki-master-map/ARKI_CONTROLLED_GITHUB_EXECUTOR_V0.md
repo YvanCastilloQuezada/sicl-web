@@ -10,6 +10,8 @@
 4. Con el SHA final del PR, el propietario del repositorio publica un comentario **exacto**: `ARKI-AUTHORIZE-SHA: <SHA_DE_40_CARACTERES>`. Cualquier commit nuevo invalida esa autorización.
 5. Configurar la variable GitHub `ARKI_RED_TEAM_GITHUB_LOGIN` con un revisor independiente autorizado para dar fe de la auditoría de **Qwen (Equipo Rojo)**. Debe existir un GitHub PR review `APPROVED` de esa identidad **en el SHA exacto**. El informe de Qwen debe adjuntarse y revisarse por separado: un GitHub APPROVED no demuestra por sí mismo que Qwen ejecutó una auditoría.
 6. GitHub Actions ejecuta, con permisos **solo lectura**, comprobación SHA y alcance, instalación congelada, `pnpm check`, `pnpm test -- --run`, `pnpm build`, y las verificaciones de autorización y revisor. El artefacto es un recibo de alcance, no un certificado de aceptación.
+**Re-ejecución:** si la autorización del propietario o la revisión independiente llegan después de que el workflow haya fallado, utilizar **Re-run failed jobs** en GitHub Actions sobre el mismo PR/SHA. No crear commits para forzar un reintento: cambiaría el SHA y exigiría nueva autorización y revisión.
+
 7. **Aceptación o reversión:** todavía es una operación externa y explícita. El workflow no hace merge, push, cambios en estados FROZEN ni rollback. Hacen falta comprobación de PR/CI, decisión independiente y evidencia de la reversión o aceptación. Las reglas de protección de ramas deben configurarse en GitHub Settings: el workflow por sí solo no impide merges manuales.
 
 ## Manifest de alcance
