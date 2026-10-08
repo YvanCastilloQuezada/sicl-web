@@ -169,6 +169,19 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .connection-list{margin:16px 0}.connection-entry{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid #4d7895;padding:9px 4px}
 .connection-entry span{font-size:12px}.connection-entry small{display:block;font-size:10px;color:#ffdb8c;margin-top:4px}
 .connection-entry button{font-size:11px}
+
+/* Visible connections directly on the free assembly workbench. */
+.workbench-link-guide{display:flex;flex-wrap:wrap;gap:7px 13px;align-items:center;background:#153d59;border:1px solid #76aac6;border-radius:9px;padding:10px 12px;margin:12px 0;font-size:12px;color:#e3f6ff}
+.workbench-link-guide strong{color:#ffe28d}.workbench-link-guide span{flex:1 1 400px;line-height:1.5}.workbench-link-guide small{color:#ffdf85}
+.link-mode-button{border-color:#ffdd75!important;color:#ffdd75!important;font-weight:700}
+.link-mode-active{background:#ffe08b!important;color:#14253b!important}
+.workbench-link-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.workbench-piece-card{z-index:1}
+.workbench-piece-card.link-source{outline:3px solid #ffdf7e;border-radius:10px;box-shadow:0 0 0 5px rgba(255,223,126,.2)}
+.piece-link-handle{position:absolute;bottom:7px;left:7px;width:32px;height:26px;border:1px solid #ffe092;border-radius:6px;background:#2c4a5f;color:#ffe18c;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+.piece-link-handle:hover,.piece-link-handle:focus-visible{background:#9b7330;color:#fff;outline:2px solid #ffe18c}
+.workbench-link-list{margin:12px 0;padding:12px;background:#10354e;border:1px solid #537c97;border-radius:9px;font-size:12px}
+.workbench-link-list strong{color:#ffdf83}
 </style>
 </head>
 <body>
@@ -210,11 +223,11 @@ let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
-let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft";
+let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="";
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
-function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions))};}
+function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews))};}
 function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
-function restore(snapshotValue){placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));saveDraft();}
+function restore(snapshotValue){placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));saveDraft();}
 function travelHistory(direction){const from=direction==="undo"?undoStack:redoStack,to=direction==="undo"?redoStack:undoStack;if(!from.length)return;to.push(snapshot());restore(from.pop());selected=activePhase;draftNotice=direction==="undo"?"Último cambio de la maqueta deshecho.":"Cambio de la maqueta rehecho.";render();}
 function validatePositions(raw,validPlacements){
 if(raw===undefined)return {};
@@ -338,8 +351,17 @@ const o=observations[id];if(!o)return '<p class="hint">Sin observación GitHub i
 return '<div class="field"><label>Observación externa importada (NO ATESTADA)</label><strong>Fuente: '+escapeHtml(o.source)+' · CI: '+escapeHtml(o.ci)+'</strong></div>'+
 '<p class="hint">El navegador no certifica la autenticidad del archivo importado. CI exitoso en el SHA no demuestra ejecución de la prueba declarada. No modifica el estado canónico.</p>';
 }
+function localPhaseLinks(phase){
+return Object.entries(reviews).flatMap(([from,r])=>(r.dependencies||[]).filter(to=>placements[from]===phase&&placements[to]===phase).map(to=>({from,to})));
+}
+function chooseLinkPiece(id){
+if(!linkMode||placements[id]!==activePhase)return;
+if(!linkSource){linkSource=id;draftNotice="Origen: "+id+". Ahora pulsa «Conectar» en la pieza que necesita para crear la flecha «"+id+" necesita …».";return;}
+if(linkSource===id){linkSource="";draftNotice="Selección de conexión cancelada.";return;}
+const from=linkSource;linkSource="";addConnection(from,id);
+}
 function draftControls(){
-return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab" data-focus-mode aria-pressed="'+focusMode+'">'+(focusMode?"Mostrar bandeja":"Ampliar mesa")+'</button><button class="tab" data-reset-layout '+(Object.keys(positions).length?"":"disabled")+' title="Reorganizar automáticamente las piezas de esta fase">Ordenar piezas</button><button class="tab" data-undo '+(undoStack.length?"":"disabled")+' title="Deshacer último movimiento o colocación">↶ Deshacer</button><button class="tab" data-redo '+(redoStack.length?"":"disabled")+' title="Rehacer cambio deshecho">↷ Rehacer</button><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
+return '<div class="draft-controls"><span class="piece-mark">'+Object.keys(placements).length+' piezas ubicadas (BORRADOR)</span><button class="tab link-mode-button '+(linkMode?"link-mode-active":"")+'" data-link-mode aria-pressed="'+linkMode+'">'+(linkMode?"Terminar conexiones":"🔗 Conectar piezas")+'</button><button class="tab" data-focus-mode aria-pressed="'+focusMode+'">'+(focusMode?"Mostrar bandeja":"Ampliar mesa")+'</button><button class="tab" data-reset-layout '+(Object.keys(positions).length?"":"disabled")+' title="Reorganizar automáticamente las piezas de esta fase">Ordenar piezas</button><button class="tab" data-undo '+(undoStack.length?"":"disabled")+' title="Deshacer último movimiento o colocación">↶ Deshacer</button><button class="tab" data-redo '+(redoStack.length?"":"disabled")+' title="Rehacer cambio deshecho">↷ Rehacer</button><button class="tab" data-export>Exportar JSON</button><label class="import-label">Importar JSON<input type="file" id="draft-import" accept=".json,application/json"></label><label class="import-label">Cargar observación GitHub<input type="file" id="observation-import" accept=".json,application/json"></label></div>'+
 (draftNotice?'<p class="hint" role="status">'+escapeHtml(draftNotice)+'</p>':"")+
 (!storageAvailable?'<p class="hint">La persistencia automática no está garantizada en este navegador; usa Exportar JSON.</p>':"");
 }
@@ -374,13 +396,16 @@ function structure(){
 const p=phases.find(x=>x.id===activePhase)||phases[0];
 const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
-const inspectOpen=selected!==activePhase&&selected;
+const inspectOpen=!linkMode&&selected!==activePhase&&selected;
+const links=localPhaseLinks(p.id);
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
+'<div class="workbench-link-guide" role="status"><strong>'+ (linkMode?"MODO CONECTAR ACTIVO":"CONEXIONES EN LA MESA") +'</strong><span>'+(linkMode?(linkSource?"Origen "+escapeHtml(linkSource)+" seleccionado. Pulsa «Conectar» en la pieza necesaria.":"Pulsa «Conectar» en la primera pieza (la que depende), luego en la segunda (la que necesita)."):"Pulsa «🔗 Conectar piezas» y después los botones «Conectar» de dos tarjetas. Las líneas amarillas punteadas son hipótesis locales.")+'</span><small>'+links.length+' conexiones visibles en '+escapeHtml(p.id)+' · No verificadas</small></div>'+
 '<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
-(staged.length?'<div class="workbench-pieces" id="piece-canvas">'+staged.map(x=>'<div class="workbench-piece-card" data-position-piece="'+escapeHtml(x.id)+'"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="piece-drag-handle" data-move-piece="'+escapeHtml(x.id)+'" aria-label="Mover '+escapeHtml(x.id)+' dentro de la mesa" title="Arrastrar para mover la pieza">⠿</button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
+(staged.length?'<div class="workbench-pieces" id="piece-canvas"><svg class="workbench-link-layer" id="workbench-links" aria-hidden="true"></svg>'+staged.map(x=>'<div class="workbench-piece-card '+(linkSource===x.id?"link-source":"")+'" data-position-piece="'+escapeHtml(x.id)+'"><button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button><button type="button" class="piece-link-handle" data-connect-piece="'+escapeHtml(x.id)+'" aria-label="Conectar '+escapeHtml(x.id)+' con otra pieza" title="Seleccionar para conectar">🔗</button><button type="button" class="piece-drag-handle" data-move-piece="'+escapeHtml(x.id)+'" aria-label="Mover '+escapeHtml(x.id)+' dentro de la mesa" title="Arrastrar para mover la pieza">⠿</button><button type="button" class="workbench-remove" data-unstage="'+escapeHtml(x.id)+'" aria-label="Quitar '+escapeHtml(x.id)+' de la mesa y devolver a la bandeja" title="Quitar pieza y devolver a la bandeja">×</button></div>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
 '</div>'+
+(links.length?'<div class="workbench-link-list"><strong>Relaciones en '+escapeHtml(p.id)+' (hipótesis locales)</strong>'+links.map(e=>'<div class="connection-entry"><span>'+escapeHtml(e.from)+' necesita '+escapeHtml(e.to)+'</span><button type="button" class="tab" data-link-remove="'+escapeHtml(e.from)+'" data-link-target="'+escapeHtml(e.to)+'">Quitar ×</button></div>').join("")+'</div>':"")+
 (inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza" title="Cerrar inspector">×</button></div>'+placementInspector()+'</aside>':"")+
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
 }
@@ -478,12 +503,12 @@ if(!Object.prototype.hasOwnProperty.call(placements,from)||!Object.prototype.has
 if(from===to){draftNotice="Una pieza no puede depender de sí misma.";return;}
 const existing=reviews[from]||{},deps=existing.dependencies||[];
 if(deps.includes(to)){draftNotice="La conexión "+from+" → "+to+" ya está declarada.";return;}
-try{const next=validateReviews({...reviews,[from]:{...existing,dependencies:[...deps,to]}});reviews=next;saveDraft();draftNotice="Conexión "+from+" necesita "+to+" guardada como HIPÓTESIS LOCAL, NO VERIFICADA.";}
+try{const next=validateReviews({...reviews,[from]:{...existing,dependencies:[...deps,to]}});remember();reviews=next;saveDraft();draftNotice="Conexión "+from+" necesita "+to+" guardada como HIPÓTESIS LOCAL, NO VERIFICADA.";}
 catch(e){draftNotice="Conexión rechazada: "+String(e.message);}
 }
 function removeConnection(from,to){
 const r=reviews[from];if(!r||!Array.isArray(r.dependencies)||!r.dependencies.includes(to))return;
-try{reviews=validateReviews({...reviews,[from]:{...r,dependencies:r.dependencies.filter(d=>d!==to)}});saveDraft();draftNotice="Conexión local "+from+" → "+to+" retirada.";}
+try{const next=validateReviews({...reviews,[from]:{...r,dependencies:r.dependencies.filter(d=>d!==to)}});remember();reviews=next;saveDraft();draftNotice="Conexión local "+from+" → "+to+" retirada.";}
 catch(e){draftNotice="No se pudo retirar la conexión: "+String(e.message);}
 }
 function trayWorkspace(){
@@ -504,6 +529,21 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE TRABAJO ·
 '<div class="caption">Seleccionar una pieza permite inspeccionarla. No ejecuta incorporación ni altera evidencia.</div>';
 }
 
+function updateWorkbenchConnections(){
+const canvas=app.querySelector("#piece-canvas"),svg=app.querySelector("#workbench-links");
+if(!canvas||!svg)return;
+const cards=Array.from(canvas.querySelectorAll("[data-position-piece]"));
+const lookup=Object.fromEntries(cards.map(card=>[card.dataset.positionPiece,card]));
+const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
+svg.setAttribute("viewBox","0 0 "+w+" "+h);
+const lines=localPhaseLinks(activePhase).filter(e=>lookup[e.from]&&lookup[e.to]).map(e=>{
+const a=lookup[e.from],b=lookup[e.to],ax=a.offsetLeft+a.offsetWidth/2,ay=a.offsetTop+a.offsetHeight/2,bx=b.offsetLeft+b.offsetWidth/2,by=b.offsetTop+b.offsetHeight/2;
+const dx=bx-ax,dy=by-ay,len=Math.max(1,Math.hypot(dx,dy)),padA=58,padB=62;
+const x1=ax+dx/len*padA,y1=ay+dy/len*padA,x2=bx-dx/len*padB,y2=by-dy/len*padB;
+return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#ffdd71" stroke-width="3.5" stroke-dasharray="8 6" marker-end="url(#workbench-arrow)"><title>'+escapeHtml(e.from+" necesita "+e.to+" · HIPÓTESIS LOCAL")+'</title></line>';
+}).join("");
+svg.innerHTML='<defs><marker id="workbench-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="#ffdd71" stroke-width="1.6"/></marker></defs>'+lines;
+}
 function layoutCanvas(){
 const canvas=app.querySelector("#piece-canvas");
 if(!canvas||typeof canvas.querySelectorAll!=="function")return;
@@ -521,6 +561,7 @@ const p=positions[id];
 card.style.left=Math.round(p?p.x*maxX:Math.min(defaultX,maxX))+"px";
 card.style.top=Math.round(p?p.y*maxY:Math.min(defaultY,maxY))+"px";
 });
+updateWorkbenchConnections();
 }
 function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
@@ -539,10 +580,12 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-connection-mode]").forEach(el=>el.addEventListener("click",()=>{connectionMode=el.dataset.connectionMode;render();}));
+app.querySelectorAll("[data-link-mode]").forEach(el=>el.addEventListener("click",()=>{linkMode=!linkMode;linkSource="";selected=activePhase;render();}));
+app.querySelectorAll("[data-connect-piece]").forEach(el=>el.addEventListener("click",()=>{if(!linkMode){linkMode=true;linkSource="";}chooseLinkPiece(el.dataset.connectPiece);selected=activePhase;render();}));
 app.querySelectorAll("[data-link-add]").forEach(el=>el.addEventListener("click",()=>{addConnection(app.querySelector("#connection-from")?.value||"",app.querySelector("#connection-to")?.value||"");render();}));
 app.querySelectorAll("[data-link-remove]").forEach(el=>el.addEventListener("click",()=>{removeConnection(el.dataset.linkRemove,el.dataset.linkTarget);render();}));
 app.querySelectorAll("[data-graph-piece]").forEach(el=>{const fn=()=>{const id=el.dataset.graphPiece;activePhase=placements[id];selected=id;tab="structure";render();};el.addEventListener("click",fn);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
-app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;tab="structure";render();}));
+app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-focus-mode]").forEach(el=>el.addEventListener("click",()=>{focusMode=!focusMode;selected=activePhase;render();}));
@@ -587,7 +630,7 @@ if(Math.abs(dx)+Math.abs(dy)>3)origin.moved=true;
 if(!origin.moved)return;
 const maxX=Math.max(0,canvas.clientWidth-card.offsetWidth),maxY=Math.max(0,canvas.clientHeight-card.offsetHeight);
 card.style.left=Math.max(0,Math.min(maxX,origin.left+dx))+"px";
-card.style.top=Math.max(0,Math.min(maxY,origin.top+dy))+"px";
+card.style.top=Math.max(0,Math.min(maxY,origin.top+dy))+"px";updateWorkbenchConnections();
 });
 const finish=e=>{
 if(!origin||!card||!canvas)return;
