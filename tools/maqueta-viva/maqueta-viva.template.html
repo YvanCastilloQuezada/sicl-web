@@ -61,6 +61,21 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 @media(max-width:1240px){.commandbar{grid-template-columns:auto minmax(0,1fr) auto;gap:7px}.command-stats{gap:0}.command-stat{padding:4px 5px}.command-stat span{font-size:10px}.command-tabs{gap:3px}.command-tabs .tab{padding:5px 7px;font-size:11px}.command-tabs .tab.active{padding:4px 6px}.command-tabs .tray-menu.active{padding:4px 6px}.commandbar input{width:135px}}
 @media(max-width:1050px){.commandbar{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}.command-stats{grid-column:1;grid-row:1;overflow-x:auto;max-width:100%}.command-tabs{grid-column:1;grid-row:2;justify-self:start}.commandbar input{grid-column:2;grid-row:1 / span 2}}
 @media(max-width:580px){.commandbar{grid-template-columns:minmax(0,1fr)}.command-stats{grid-column:1;grid-row:1}.command-tabs{grid-column:1;grid-row:2;max-width:100%;overflow-x:auto}.commandbar input{grid-column:1;grid-row:3;justify-self:stretch;width:100%}}
+
+.phase-menu{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;margin:0 0 9px;padding:7px;background:#132339;border:1px solid var(--line);border-radius:10px}
+.phase-menu-button{min-width:0;min-height:45px;padding:5px 3px;background:#1b3049;color:#e7f1fb;border:1px solid #455b74;border-bottom:3px solid #77869a;border-radius:7px;display:flex;flex-direction:column;justify-content:center;align-items:center;line-height:1.25}
+.phase-menu-button strong{font-size:13px}.phase-menu-button span{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.phase-menu-button.frozen{border-bottom-color:var(--green)}.phase-menu-button.progress{border-bottom-color:var(--amber)}.phase-menu-button.reconciled{border-bottom-color:var(--blue)}
+.phase-menu-button.selected{background:#285575;border-color:#94d5f7;outline:1px solid #94d5f7}.phase-menu-button:hover{background:#305575}
+.layout{grid-template-columns:minmax(0,1fr) minmax(235px,290px)}.layout .right{padding:14px 11px}.layout>.center{min-height:calc(100vh - 240px)}
+.workbench-summary{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}.workbench-summary span{font-size:11px;color:#d8eaf7;border:1px solid #527e9e;border-radius:6px;padding:3px 7px;background:rgba(7,30,49,.25)}
+.free-workbench{min-height:clamp(420px,62vh,850px);border:1px dashed rgba(175,224,255,.45);border-radius:12px;padding:18px;background-color:rgba(4,22,41,.13);background-image:linear-gradient(rgba(188,221,245,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(188,221,245,.045) 1px,transparent 1px);background-size:34px 34px;display:flex}
+.workbench-placeholder{margin:auto;max-width:420px;display:flex;flex-direction:column;gap:9px;align-items:center;text-align:center;color:#c5ddef}.workbench-placeholder strong{font-size:17px;color:#f1faff}.workbench-placeholder span{font-size:13px}.workbench-placeholder small{font-size:11px;color:#a8c6d9}
+.workbench-pieces{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));align-content:start;gap:12px;width:100%}
+.workbench-piece{min-height:105px;min-width:0;display:flex;flex-direction:column;gap:6px;text-align:left;background:#204f73;border:1px solid #84bad8;border-left:4px solid #f2d94e;border-radius:9px;padding:12px;color:#f2faff}
+.workbench-piece strong{font-size:12px}.workbench-piece span{font-size:13px;overflow-wrap:anywhere}.workbench-piece small{font-size:10px;color:#d4e9f4;margin-top:auto}.workbench-piece.selected{outline:2px solid #f2d94e}.workbench-piece:hover{background:#2d6489}
+@media(max-width:1200px){.layout{grid-template-columns:minmax(0,1fr) minmax(210px,250px)}}
+@media(max-width:850px){.layout{grid-template-columns:minmax(0,1fr)}.layout .center{order:1}.layout .right{order:2}.sidebar{position:static;max-height:none}.phase-menu{display:flex;overflow-x:auto}.phase-menu-button{flex:0 0 91px}}
 </style>
 </head>
 <body>
@@ -98,7 +113,7 @@ const extras=[
 ];
 const blockerParts=blockers.map(b=>({id:b,name:b,status:"BLOCKED",description:"Bloqueo explícito del Estado Estructurado. No implica que las demás piezas estén ausentes."}));
 const all=[...phases,...extras,...blockerParts,...ideas,...components,...allFrozen];
-let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="pending";
+let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="ideas";
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
@@ -245,29 +260,18 @@ return '<button class="phase '+statusClass(p)+(selected===p.id?" selected":"")+'
 }
 function structure(){
 const p=phases.find(x=>x.id===activePhase)||phases[0];
-const historic=components.filter(x=>x.targetPhase===p.id&&matches(x.id+" "+x.name+" "+x.status));
-const proposals=ideas.filter(x=>x.targetPhase===p.id&&matches(x.id+" "+x.name+" "+x.status));
-const frozen=allFrozen.filter(x=>x.targetPhase===p.id&&matches(x.id+" "+x.name+" "+x.status));
 const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id&&matches(x.id+" "+x.name+" "+x.status));
-const otherSelected=selected!==activePhase?placementInspector():"";
 const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
-const section=(title,arr,sub)=>'<div class="assembly-section"><h3>'+title+' · '+arr.length+'</h3><p class="hint">'+sub+'</p><div class="stack">'+arr.map(x=>'<button class="item '+(placements[x.id]===p.id?"placed-piece":"")+'" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id+" · "+x.name)+'</strong><small>'+escapeHtml(x.status)+(placements[x.id]===p.id?(reviewGate(x.id).complete?" · LISTA PARA SOLICITAR AUDITORÍA":" · UBICADA EN BORRADOR / FICHA PENDIENTE"):"")+'</small></button>').join("")+(arr.length?"":'<div class="empty">No hay registros de este tipo en el inventario cargado.</div>')+'</div></div>';
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
-'<p>'+escapeHtml(p.description)+'</p><div class="caption">Evidencia de la fase: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'</div>'+
+'<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
-'<div class="assembly-counts"><span>'+staged.length+' ubicadas en borrador</span><span>'+auditReady+' listas para solicitar auditoría</span><span>'+historic.length+' componentes históricos sugeridos</span><span>'+proposals.length+' ideas sugeridas</span><span>'+frozen.length+' FROZEN</span></div>'+
-otherSelected+
-section("Piezas ubicadas en esta fase (BORRADOR)",staged,"Organización local, pendiente de verificación. Ninguna está certificada como integrada por esta acción.")+
-section("Componentes históricos sugeridos",historic,"Propuestas originales de ubicación; pueden cambiarse desde la ficha.")+
-section("Ideas históricas sugeridas",proposals,"IDEA ≠ IMPLEMENTADO ≠ INTEGRADO. Su fase histórica puede diferir del borrador.")+
-section("FROZEN de la fase",frozen,"Congelado en alcance declarado; no equivale a integración completa.")+
-'<div class="caption">Mesa local de planificación. La integración real requiere evidencia, contratos y pruebas independientes.</div>';
-}
-function leftPanel(){
-return '<h2>Fases</h2><p class="hint">Selecciona una para abrir su paquete.</p><nav class="phase-rail" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="rail-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"true":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status)+'"><span class="rail-id">'+escapeHtml(p.id)+'</span><span class="rail-label">'+escapeHtml(p.name)+'</span></button>').join("")+'</nav><p class="caption">10 fases · navegación compacta</p>';
+'<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
+(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<button class="workbench-piece '+(selected===x.id?"selected":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
+'</div>'+
+(selected!==activePhase&&selected?placementInspector():"")+
+'<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
 }
 function rightPanel(){
-const tabs='';
 let content="";
 if(tray==="frozen"){
 const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
@@ -332,25 +336,27 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE TRABAJO ·
 function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
-app.innerHTML='<div class="commandbar" role="toolbar" aria-label="Estado y navegación de ARKI"><div class="command-stats">'+
+const shortNames={F1:"Identidad",F2:"Normas",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
+app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status)+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span></button>').join("")+'</nav>'+
+'<div class="commandbar" role="toolbar" aria-label="Estado y navegación de ARKI"><div class="command-stats">'+
 '<div class="command-stat" title="Fases registradas"><b>'+phases.length+'</b><span>Fases registradas</span></div>'+
 '<div class="command-stat" title="Congeladas en alcance registrado"><b>'+frozen+'</b><span>Congeladas</span></div>'+
 '<div class="command-stat" title="En construcción"><b>'+progress+'</b><span>En construcción</span></div>'+
 '<div class="command-stat" title="Por reconciliar"><b>'+reconcile+'</b><span>Por reconciliar</span></div>'+
 '</div>'+
-'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tab===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div></nav>'+
+'<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div></nav>'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'"></div>'+
-'<div class="layout"><aside class="panel sidebar left" id="left">'+rightPanel()+'</aside><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,parts:parts,floating:floating,pending:trayWorkspace,ideas:trayWorkspace,components:trayWorkspace,frozen:trayWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+leftPanel()+'</aside></div>'+
+'<div class="layout"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;selected=activePhase;render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{activePhase=el.dataset.phase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
-app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab=tray;selected="";render();}));
+app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab="structure";selected=activePhase;render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
 app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
 const dropZone=app.querySelector("#arki-workspace");
 if(dropZone&&tab==="structure"){
-dropZone.setAttribute("aria-label","Mesa de trabajo azul de ARKI: puedes soltar aquí una pieza de la bandeja izquierda");
+dropZone.setAttribute("aria-label","Mesa de trabajo azul de ARKI: puedes soltar aquí una pieza de la bandeja derecha");
 dropZone.addEventListener("dragover",e=>{if(e.dataTransfer&&Array.from(e.dataTransfer.types||[]).includes("text/plain")){e.preventDefault();dropZone.classList.add("drag-over");e.dataTransfer.dropEffect="move";}});
 dropZone.addEventListener("dragleave",e=>{if(!dropZone.contains(e.relatedTarget))dropZone.classList.remove("drag-over");});
 dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");const id=e.dataTransfer.getData("text/plain");if(movable.has(id)){stagePiece(id,activePhase);selected=id;render();}});
