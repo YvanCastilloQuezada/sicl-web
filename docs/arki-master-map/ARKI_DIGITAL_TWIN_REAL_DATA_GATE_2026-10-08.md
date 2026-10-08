@@ -72,3 +72,88 @@ Sin este espécimen, no aprobar sincronización con obra, simulación operativa 
 - **Promoción canónica:** `FORBIDDEN` sin autoridad y evidencia.
 
 **NO EVIDENCIA = NO VERDE.**
+
+
+## 6. Evidencia Windows recibida — GDT-01
+
+Ejecución aportada por el usuario en PowerShell 7.6.6, rama \`feat/f7-f8-integral-closure\`, HEAD local \`17f0357\`:
+
+- \`node tools/maqueta-viva/Verify-ARKI-TwinTimeline.mjs --self-test\`: \`SELF_TEST=PASS; SNAPSHOTS=2; EVENTS=11; TAMPER=REJECTED; INVALID_IDENTITY=REJECTED\`. Los datos de esta autoprueba son **sintéticos**.
+- Ejecución real del verificador con \`--out\`: \`snapshots=35\`, \`distinctPhaseAssets=10\`, \`initialObservations=10\`, \`observedChanges=0\`, \`replayedEvents=10\`, \`replayCheckpoints=35\`, \`temporalRegressionsInGitHistory=0\`.
+- \`historicalReplay=PASS\`; \`physicalObservations=0\`; \`liveSensorEvents=0\`; \`physicalAssetIdentity=NOT_DEMONSTRATED\`.
+- Resultado: \`NOT_READY_FOR_OPERATIONAL_DIGITAL_TWIN\`. El archivo JSON se escribió fuera del repositorio, en \`%LOCALAPPDATA%\ARKI\MaquetaViva\twin-temporal-gate.json\`.
+
+**Alcance del PASS:** reconstrucción verificable de snapshots del estado de fases a partir de Git, no prueba de un gemelo físico. El reporte solo considera 35 commits de primer padre que afectan el archivo canónico. No se infieren cambios de fase si no están presentes.
+
+## 7. GDT-02 — Puerta de admisión de evidencia física (implementada; pendiente de ejecutar)
+
+Se añade \`tools/maqueta-viva/Verify-ARKI-PhysicalEvidence.mjs\`. Es un verificador independiente, **no un generador de datos** y no altera el roadmap.
+
+### Contrato mínimo de entrada
+
+Archivo \`assets.json\`:
+
+\`\`\`json
+{
+  "schema": "ARKI-PHYSICAL-ASSETS-1.0",
+  "projectId": "ID-REAL-DEL-PROYECTO",
+  "assets": [
+    {
+      "assetId": "ID-REAL-PERSISTENTE",
+      "semanticId": "IDENTIDAD-SEMANTICA-DOCUMENTADA",
+      "sourceRef": "evidencia/registro-activo.pdf",
+      "sourceSha256": "SHA256_REAL_DE_LOS_BYTES_DEL_ARCHIVO"
+    }
+  ]
+}
+\`\`\`
+
+Archivo \`observations.json\` (mínimo dos observaciones **del mismo activo**, con archivos fuente diferentes):
+
+\`\`\`json
+{
+  "schema": "ARKI-PHYSICAL-OBSERVATIONS-1.0",
+  "projectId": "ID-REAL-DEL-PROYECTO",
+  "events": [
+    {
+      "eventId": "ID-OBSERVACION-1",
+      "assetId": "ID-REAL-PERSISTENTE",
+      "kind": "FIELD_OBSERVATION",
+      "observer": "IDENTIFICADOR-DEL-OBSERVADOR",
+      "occurredAt": "2026-10-01T09:00:00-05:00",
+      "recordedAt": "2026-10-01T10:00:00-05:00",
+      "observedState": { "condicion": "VALOR-REAL-DOCUMENTADO" },
+      "sourceRef": "evidencia/observacion-1.pdf",
+      "sourceSha256": "SHA256_REAL_DEL_PRIMER_ARCHIVO"
+    },
+    {
+      "eventId": "ID-OBSERVACION-2",
+      "assetId": "ID-REAL-PERSISTENTE",
+      "kind": "FIELD_OBSERVATION",
+      "observer": "IDENTIFICADOR-DEL-OBSERVADOR",
+      "occurredAt": "2026-10-02T09:00:00-05:00",
+      "recordedAt": "2026-10-02T10:00:00-05:00",
+      "observedState": { "condicion": "SEGUNDO-VALOR-REAL-DOCUMENTADO" },
+      "sourceRef": "evidencia/observacion-2.pdf",
+      "sourceSha256": "SHA256_REAL_DEL_SEGUNDO_ARCHIVO"
+    }
+  ]
+}
+\`\`\`
+
+Los ejemplos anteriores son **plantillas con marcadores, NO evidencia**. Sustituir todos los marcadores por información constatada. Los \`sourceRef\` son rutas relativas a la carpeta de cada JSON y deben apuntar a archivos existentes. No se aceptan hashes ficticios.
+
+### Uso
+
+\`\`\`powershell
+node .\tools\maqueta-viva\Verify-ARKI-PhysicalEvidence.mjs --self-test
+node .\tools\maqueta-viva\Verify-ARKI-PhysicalEvidence.mjs --assets "C:\EVIDENCIA\assets.json" --events "C:\EVIDENCIA\observations.json" --out "$env:LOCALAPPDATA\ARKI\MaquetaViva\physical-evidence-gate.json"
+\`\`\`
+
+La autoprueba usa archivos **sintéticos temporales** para ensayar rechazo de duplicados, activo desconocido, hash alterado, secuencia temporal inválida y colisión de observaciones. **No cuenta como prueba con datos físicos reales.** No se ha ejecutado todavía GDT-02 en Windows; el código pasó una comprobación estática de sintaxis.
+
+### Interpretación obligatoria
+
+Incluso si GDT-02 devuelve \`EVIDENCE_ADMISSIBLE_FOR_FURTHER_INDEPENDENT_REVIEW_NOT_OPERATIONAL_TWIN\`, significa únicamente que el paquete supera controles estructurales, de huella de archivos y replay. No verifica la autenticidad del observador, custodia de archivos, mapeo RVT/IFC/D-2/AGK ni verdad física independiente. Esas son puertas adicionales. **No autoriza promocionar FROZEN, declarar integraciones, tomar decisiones de obra ni declarar gemelo operativo.**
+
+**Estado actual GDT-02:** \`IMPLEMENTED_STATIC_SYNTAX_PASS\` / \`WINDOWS_SELF_TEST_PENDING\` / \`REAL_PHYSICAL_DATA_NOT_PROVIDED\`.
