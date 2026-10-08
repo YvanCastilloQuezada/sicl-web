@@ -1892,6 +1892,18 @@ if(d.e3Run!==undefined)return "Ejecutar comprobaciones locales del navegador; no
 if(d.linkAdd!==undefined)return "Crear una dependencia declarada entre dos piezas ubicadas, sujeta a validación.";
 if(d.linkRemove)return "Quitar la dependencia local de "+d.linkRemove+" con "+(d.linkTarget||"otra pieza")+".";
 if(el.matches?.(".spine-stage"))return "Hito de la columna vertebral propuesta: reúne espinas vinculadas y candidatos. La secuencia no es una ruta crítica calculada.";
+if(el.matches?.(".spine-branch"))return "Espinas del hito: actividades vinculadas a este nodo en el escenario local actual, no certificadas.";
+if(el.matches?.(".spine-unassigned-row, .spine-unassigned"))return "Espinas pendientes: elige un hito o acepta una sugerencia explícitamente; no se vinculan solas.";
+if(el.matches?.(".spine-preview-group, .spine-preview-card"))return "Candidatos de espina por coincidencia temática; revisa antes de aceptar. No son dependencias verificadas.";
+if(el.matches?.(".spine-scenario"))return "Escenarios: Referencia propuesta y Alternativa A guardan hitos distintos. El roadmap oficial no cambia.";
+if(el.matches?.(".spine-progress-panel"))return "Cobertura de vinculaciones del borrador visual, no porcentaje de avance oficial.";
+if(el.matches?.(".spine-notice"))return "Ruta estructural propuesta: no es ruta crítica calculada ni prueba de integración.";
+if(el.matches?.(".route-radar, .roadmap-route-audit"))return "Radar de dependencias, piezas sin hito y alertas entre fases; recalculado localmente, sin modificar el roadmap.";
+if(el.matches?.(".arki-optimizer-row"))return "Sugerencia heurística de fase e hito, basada en texto, inventario y dependencias. Requiere validación.";
+if(el.matches?.(".connection-entry"))return "Dependencia declarada en el borrador; comprueba dirección y evidencia antes de utilizarla.";
+if(el.matches?.(".tray-piece"))return "Pieza disponible en la bandeja: puedes ubicarla provisionalmente o inspeccionar su procedencia.";
+if(el.matches?.(".spine-placement-row"))return "La fase colocada difiere de la clasificación histórica. Revisar antes de trasladar.";
+
 if(el.matches?.(".workbench-piece-card"))return "Pieza colocada como borrador: puedes inspeccionarla, moverla, conectarla o devolverla con X.";
 if(el.matches?.(".scenario-metric"))return "Indicador calculado del borrador de escenario; no mide el avance oficial ni demuestra optimalidad.";
 if(el.matches?.(".scenario-issue"))return "Posible conflicto o revisión deducida de las declaraciones actuales. Abre la pieza para comprobar su causa.";
@@ -1910,7 +1922,7 @@ return HELP_DEFAULT;
 }
 function helpTarget(target){
 if(!target||typeof target.closest!=="function")return null;
-return target.closest("button, a, summary, select, input, textarea, [role='button'], [data-help], .spine-stage, .spine-unassigned-row, .workbench-piece-card, .roadmap-phase, .arki-idea, .source-sync, .scenario-metric, .scenario-issue, .command-stat, .panel");
+return target.closest("button, a, summary, select, input, textarea, [role='button'], [data-help], .spine-stage, .spine-unassigned-row, .workbench-piece-card, .roadmap-phase, .arki-idea, .source-sync, .scenario-metric, .scenario-issue, .command-stat, .spine-branch, .spine-unassigned-row, .spine-unassigned, .spine-preview-group, .spine-preview-card, .spine-scenario, .spine-progress-panel, .spine-notice, .route-radar, .roadmap-route-audit, .arki-optimizer-row, .connection-entry, .tray-piece, .spine-placement-row, .panel");
 }
 function updateContextHelp(target){
 const output=app.querySelector("#arki-context-text");
