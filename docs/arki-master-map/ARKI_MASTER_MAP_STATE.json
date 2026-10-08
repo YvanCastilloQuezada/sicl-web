@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows: git pull; run node tools/maqueta-viva/test-maqueta-viva.cjs if Node is installed; launch ARKI-MAQUETA-VIVA.cmd; select F5, drag or select I-01, place in F5, verify BORRADOR counter and persistence after reopening, export/import JSON, verify no canonical status change. Return screenshot/raw output.",
+    "next_gate": "Pull Windows branch; run node tools/maqueta-viva/test-maqueta-viva.cjs; open shortcut; select F5 and I-01, enter repo/file/SHA/test/dependencies, save, verify 'LISTA PARA SOLICITAR AUDITORÍA' only after required fields and placed dependencies; export/import and verify data persist. CI workflow result pending.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
       "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
@@ -1612,7 +1612,39 @@
         "No drag-and-drop on some touch devices; click/select alternative",
         "No canonical integration engine, repository mutation, or automatic debt clearance",
         "Historical inventories still require current-head reconciliation"
-      ]
+      ],
+      "integration_preparation": {
+        "status": "IMPLEMENTED_OFFLINE_SIMULATION_PASS_CI_PENDING_WINDOWS_E3_PENDING",
+        "scope": "Per-piece integration preparation dossier; evidence references and dependencies are user-declared, not executed or verified",
+        "fields": [
+          "repository owner/name",
+          "module path",
+          "40-hex commit SHA",
+          "test command",
+          "known piece dependencies"
+        ],
+        "gates": [
+          "piece must be provisionally placed",
+          "all four evidence reference fields must be declared",
+          "dependency IDs must be known, acyclic and placed"
+        ],
+        "ready_label": "LISTA PARA SOLICITAR AUDITORÍA",
+        "not_allowed": [
+          "automatically mark IMPLEMENTED/VERIFIED/FROZEN",
+          "clear debt",
+          "modify canonical ARKI state",
+          "execute user-entered test commands"
+        ],
+        "persistence": "Backward-compatible optional reviews in ARKI-MAQUETA-DRAFT-1 localStorage and JSON export/import",
+        "tests": {
+          "isolated_checks": "11/11 PASS for dossier validation, gating, cycles, persistence and non-promotion",
+          "previous_checks": "14/14 PASS",
+          "committed_suite": "25 checks, execution in Node PENDING",
+          "ci_workflow": ".github/workflows/maqueta-viva-smoke.yml",
+          "ci_run": "NOT_OBSERVED",
+          "windows_e3": "NOT_EXECUTED"
+        }
+      }
     }
   }
 }
