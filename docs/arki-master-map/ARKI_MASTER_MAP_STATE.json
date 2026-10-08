@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "Placement advice is advisory only and cannot claim verified integration",
+      "integration_boundary": "No modification of phase statuses, canonical roadmap, frozen contracts or verification evidence",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1739,7 +1739,17 @@
         "sources": "New ideas/frozen/phase status continue to refresh only from local launcher-generated snapshot; proposals recomputed from embedded current inventory at each render; never auto-promoted",
         "authority": "No canonical roadmap or FROZEN mutation"
       },
-      "tests": "PASS static JS syntax, live mocked registry/state rendering, review panel, per-piece F1->F2 hito edit, undo/redo, semantic proposals I-01 F1, I-06 F3, I-13 F2, I-14 F7"
+      "tests": "PASS static JS syntax, live mocked registry/state rendering, review panel, per-piece F1->F2 hito edit, undo/redo, semantic proposals I-01 F1, I-06 F3, I-13 F2, I-14 F7",
+      "automatic_classification": {
+        "new_local_ideas": "New local ideas auto placed in draft with phase classification and spine hito; confidence and reason retained, editable; no canonical promotion",
+        "new_source_items": "On later launcher source refreshes, newly detected registry ideas/components auto placed if a valid phase exists; first-ever inventory not mass moved; out-of-scope UNASSIGNED not forced",
+        "historic_batch": "Explicit Organizar piezas disponibles button classifies remaining historical pieces; leaves preexisting placements untouched; undo available",
+        "spine_fallback": "When no unambiguous milestone match, provisional Hito 1 with BAJA confidence and review notice; never claimed verified",
+        "workflow": "IDEA/EVALUACION/EN_DESARROLLO/IMPLEMENTACION_DECLARADA/VERIFICACION_PENDIENTE/PAUSADA/DESCARTADA, local editable metadata; implementation is declaration, never verified",
+        "frozen": "FROZEN source records read from canonical state and refresh independently; cannot be user-promoted by workflow",
+        "persistence": "workflowStages and autoPlacementNotes included in local draft, import/export, undo/redo"
+      },
+      "verification": "JS syntax PASS; mock runtime PASS for local idea auto placement, undo/redo, 51-piece batch placement with 51 milestone links and review notes; out-of-scope source I-24 remains unassigned"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
