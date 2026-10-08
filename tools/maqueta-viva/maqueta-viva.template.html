@@ -375,6 +375,7 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .location-feedback-row{outline:2px solid #f1c85c;outline-offset:-2px;background:#20425c}
 .location-row-result{grid-column:1/-1;color:#bdf4d2;font-size:11px}
 @media(max-width:640px){.review-queue-item{grid-template-columns:32px minmax(0,1fr)}.review-queue-item button{grid-column:2;justify-self:start}}
+.review-queue-impact{color:#e9d9aa!important;font-size:10px!important;border-left:2px solid #e5bb66;padding-left:7px;margin-top:7px!important}
 </style>
 </head>
 <body>
@@ -1047,11 +1048,22 @@ add(4,"CANDIDATA EN BANDEJA",p,"Fase "+phase+" sugerida; aún no se ha colocado.
 }
 return items.sort((a,b)=>a.priority-b.priority||a.piece.id.localeCompare(b.piece.id)||a.type.localeCompare(b.type));
 }
+function reviewQueueImpact(item,phase){
+const placed=Object.keys(placements).filter(id=>placements[id]===phase);
+const base=placed.filter(id=>spineAssignments[id]!==undefined).length,alt=placed.filter(id=>alternativeSpineAssignments[id]!==undefined).length;
+if(item.priority===0)return "Impacto: la dependencia "+item.related+" sigue sin ubicación; vincular un hito no resuelve ese bloqueo.";
+if(item.priority===1)return "Impacto transversal: "+phase+" depende de "+(placements[item.related]||"FASE DESCONOCIDA")+" a través de "+item.related+". Relación compartida por ambos escenarios; no se modifica automáticamente.";
+if(item.priority===2||item.priority===4){
+const inBase=spineAssignments[item.piece.id]!==undefined,inAlt=alternativeSpineAssignments[item.piece.id]!==undefined;
+return "Si se confirma un hito en "+(spineScenario==="base"?"Referencia":"Alternativa A")+": Referencia "+base+" → "+(base+(!inBase&&spineScenario==="base"?1:0))+"; Alternativa "+alt+" → "+(alt+(!inAlt&&spineScenario==="alternative"?1:0))+" espinas vinculadas. Simulación, sin aplicar.";
+}
+return "Consecuencia: rutas divergentes para "+item.piece.id+"; revisar hito en cada escenario antes de adoptar una referencia.";
+}
 function reviewQueuePanel(phase){
 const queue=prioritizedReviewQueue(phase),visible=reviewQueueExpanded?queue:queue.slice(0,8);
 const cross=queue.filter(x=>x.priority===1).length,missing=queue.filter(x=>x.priority===0).length;
 return '<section class="review-priority-queue" aria-label="Cola de revisión priorizada"><div class="review-queue-head"><div><h3>Cola de revisión · '+escapeHtml(phase)+'</h3><p class="hint">Orden sugerido: dependencias sin ubicar → transversales → espinas sin hito → diferencias entre rutas → candidatas en bandeja. Las prioridades NO son criticidad temporal calculada.</p></div><span>'+queue.length+' decisiones · '+missing+' sin ubicar · '+cross+' entre fases</span></div>'+
-(visible.length?'<div class="review-queue-list">'+visible.map((q,i)=>'<div class="review-queue-item"><span class="review-queue-priority">P'+(q.priority+1)+'</span><div><strong>'+escapeHtml(q.piece.id)+' · '+escapeHtml(q.piece.name)+'</strong><small>'+escapeHtml(q.type)+'</small><p>'+escapeHtml(q.reason)+'</p><small>Referencia: '+(q.base===undefined?"sin hito":"Hito "+(Number(q.base)+1))+' · Alternativa A: '+(q.alt===undefined?"sin hito":"Hito "+(Number(q.alt)+1))+'</small></div><button type="button" class="tab" data-review-queue="'+escapeHtml(q.piece.id)+'" data-review-kind="'+escapeHtml(q.action)+'" aria-label="Revisar '+escapeHtml(q.piece.id)+'">Revisar →</button></div>').join("")+'</div>':'<p class="hint">No hay elementos de revisión detectados por estas reglas locales para '+escapeHtml(phase)+'. Esto no certifica la fase.</p>')+
+(visible.length?'<div class="review-queue-list">'+visible.map((q,i)=>'<div class="review-queue-item"><span class="review-queue-priority">P'+(q.priority+1)+'</span><div><strong>'+escapeHtml(q.piece.id)+' · '+escapeHtml(q.piece.name)+'</strong><small>'+escapeHtml(q.type)+'</small><p>'+escapeHtml(q.reason)+'</p><small>Referencia: '+(q.base===undefined?"sin hito":"Hito "+(Number(q.base)+1))+' · Alternativa A: '+(q.alt===undefined?"sin hito":"Hito "+(Number(q.alt)+1))+'</small><p class="review-queue-impact">'+escapeHtml(reviewQueueImpact(q,phase))+'</p></div><button type="button" class="tab" data-review-queue="'+escapeHtml(q.piece.id)+'" data-review-kind="'+escapeHtml(q.action)+'" aria-label="Revisar '+escapeHtml(q.piece.id)+'">Revisar →</button></div>').join("")+'</div>':'<p class="hint">No hay elementos de revisión detectados por estas reglas locales para '+escapeHtml(phase)+'. Esto no certifica la fase.</p>')+
 (queue.length>8?'<button type="button" class="tab" data-review-queue-expand aria-expanded="'+reviewQueueExpanded+'">'+(reviewQueueExpanded?"Mostrar 8 primeras":"Ver todas las "+queue.length+" decisiones")+'</button>':"")+
 '<p class="caption">Las conexiones registradas son hipótesis del borrador. El algoritmo no inventa nuevas dependencias; solo prioriza las declaradas y señala las ausencias.</p></section>';
 }
