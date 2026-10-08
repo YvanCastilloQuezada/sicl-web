@@ -33,7 +33,7 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .placement-action select{background:#122d45;color:#fff;border:1px solid #85b3d1;border-radius:7px;padding:7px;max-width:100%}
 .action-primary{background:#f2d94e;color:#181812;border:1px solid #d6b83b;border-radius:7px;padding:7px 11px;font-weight:700;cursor:pointer}
 .action-primary:hover{background:#ffed79}
-.placed-piece{border-left:4px solid #f2d94e!important}
+.placed-piece{border-left:4px solid #f2d94e!important}.layout>.center.drag-over{outline:3px dashed #ffe379;outline-offset:-8px;background:linear-gradient(160deg,#265c7d,#1c4b6a,#1b4261)}.item[draggable="true"]{cursor:grab}.item[draggable="true"]:active{cursor:grabbing}
 /* Single compact command bar: fixed left statistics, independently centered orange menu, right search. */
 .commandbar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:5px 9px;margin-bottom:10px;background:#14243a;border:1px solid var(--line);border-radius:10px;min-height:43px}
 .command-stats{display:flex;align-items:center;justify-self:start;gap:2px;min-width:0;white-space:nowrap}
@@ -190,10 +190,10 @@ const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
 content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }else if(tray==="components"){
 const entries=components.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else if(tray==="ideas"){
 const entries=ideas.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else{
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
@@ -242,7 +242,7 @@ const visible=data.filter(p=>matches((p.id||"")+" "+(p.name||"")+" "+(p.status||
 return '<div class="assembly-header"><div><div class="kicker">MESA DE TRABAJO · BANDEJA</div><h2>'+labels[mode]+'</h2></div><span class="status">'+visible.length+' piezas</span></div>'+
 '<p>'+explanations[mode]+'</p>'+
 (selected&&data.some(p=>p.id===selected)?placementInspector():"")+draftControls()+
-'<div class="assembly-section"><h3>Piezas disponibles · '+visible.length+'</h3><div class="stack">'+visible.map(p=>'<button class="item" data-inspect="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.status||"UNKNOWN")+(p.targetPhase?" · destino propuesto "+escapeHtml(p.targetPhase):"")+'</small></button>').join("")+(visible.length?"":'<div class="empty">No hay coincidencias para esta búsqueda.</div>')+'</div></div>'+
+'<div class="assembly-section"><h3>Piezas disponibles · '+visible.length+'</h3><div class="stack">'+visible.map(p=>'<button class="item" '+(movable.has(p.id)?'draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" ':'')+'data-inspect="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(p.status||"UNKNOWN")+(p.targetPhase?" · destino propuesto "+escapeHtml(p.targetPhase):"")+'</small></button>').join("")+(visible.length?"":'<div class="empty">No hay coincidencias para esta búsqueda.</div>')+'</div></div>'+
 '<div class="caption">Seleccionar una pieza permite inspeccionarla. No ejecuta incorporación ni altera evidencia.</div>';
 }
 function render(){
@@ -263,6 +263,14 @@ app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-tray]").forEach(el=>el.addEventListener("click",()=>{tray=el.dataset.tray;tab=tray;selected="";render();}));
 app.querySelectorAll("[data-inspect]").forEach(el=>el.addEventListener("click",()=>{selected=el.dataset.inspect;render();}));
+app.querySelectorAll("[data-drag-piece]").forEach(el=>el.addEventListener("dragstart",e=>{const id=el.dataset.dragPiece;if(!movable.has(id)){e.preventDefault();return;}e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="move";}));
+const dropZone=app.querySelector("#arki-workspace");
+if(dropZone&&tab==="structure"){
+dropZone.setAttribute("aria-label","Mesa de trabajo azul de ARKI: puedes soltar aquí una pieza de la bandeja izquierda");
+dropZone.addEventListener("dragover",e=>{if(e.dataTransfer&&Array.from(e.dataTransfer.types||[]).includes("text/plain")){e.preventDefault();dropZone.classList.add("drag-over");e.dataTransfer.dropEffect="move";}});
+dropZone.addEventListener("dragleave",e=>{if(!dropZone.contains(e.relatedTarget))dropZone.classList.remove("drag-over");});
+dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");const id=e.dataTransfer.getData("text/plain");if(movable.has(id)){stagePiece(id,activePhase);selected=id;render();}});
+}
 app.querySelectorAll("[data-stage]").forEach(el=>el.addEventListener("click",()=>{const picker=app.querySelector("#placement-phase");stagePiece(el.dataset.stage,picker?picker.value:activePhase);render();}));
 app.querySelectorAll("[data-unstage]").forEach(el=>el.addEventListener("click",()=>{unstagePiece(el.dataset.unstage);render();}));
 app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()=>{draftFile();render();}));
