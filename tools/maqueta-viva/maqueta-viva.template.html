@@ -346,7 +346,7 @@ F10:[["entrega","recepción"],["operación","uso"],["mantenimiento","activo"],["
 };
 const normalized=String(piece.name||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const groups=vocabulary[phase]||[];
-const scores=stages.map((name,i)=>({index:String(i),words:(groups[i]||[]).filter(w=>normalized.includes(w)),score:(groups[i]||[]).filter(w=>normalized.includes(w)).length}));
+const scores=stages.map((name,i)=>{const words=(groups[i]||[]).filter(w=>normalized.includes(w.toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"")));return {index:String(i),words,score:words.length};});
 scores.sort((a,b)=>b.score-a.score);
 const best=scores[0];if(!best||best.score===0||scores[1]?.score===best.score)return null;
 return {index:best.index,reason:"Coincidencia textual: "+best.words.join(", "),confidence:best.score>=2?"MEDIA":"BAJA"};
