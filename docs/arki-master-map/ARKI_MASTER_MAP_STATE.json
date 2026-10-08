@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: ten phase roadmap cards, official F6 evidence visible, phase drill-down, two pieces staged, local dependency created and persisted, removed, legacy diagram toggled; JS static syntax PASS",
+      "interaction_simulation": "PASS: 10 phases, stage two cards, connect via card controls, declared link visible, local JSON persistence, undo/redo, remove, 10 roadmap cards",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1602,6 +1602,14 @@
         "visual": "10 phase cards with distinct identity colors, current zone, canonical status/evidence, separate local draft piece counts",
         "interaction": "Click phase card to open its assembly table",
         "rule": "Never infer completion percentage or official milestone from locally placed pieces"
+      },
+      "direct_workbench_connections": {
+        "status": "IMPLEMENTED_CODE_AWAITING_WINDOWS_E3",
+        "instructions": "Estructura -> 🔗 Conectar piezas -> 🔗 on dependent card -> 🔗 on required card",
+        "visible": "Yellow dashed directional SVG overlay on current phase free workbench, re-rendered on card movement",
+        "management": "Inline remove connection; undo/redo includes local reviews/dependencies; persists via local JSON",
+        "scope": "Only same-phase connections drawn on that phase workbench; cross-phase declared dependencies remain visible in Conexiones -> Mis piezas conectadas",
+        "boundary": "User-declared local dependency only, not executable, verified, or canonical; phase roadmap untouched"
       }
     },
     "assembly": {
