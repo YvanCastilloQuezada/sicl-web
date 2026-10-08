@@ -675,12 +675,13 @@ return '<details class="spine-route-comparison"><summary>Comparar referencia y a
 function applySuggestedSpines(){
 const current=currentSpine(),suggested=[...ideas,...components].filter(p=>placements[p.id]===activePhase&&!Object.prototype.hasOwnProperty.call(current,p.id)).map(p=>({p,s:suggestStage(p,activePhase)})).filter(x=>x.s);
 if(!suggested.length){draftNotice="No hay coincidencias suficientes para sugerir vínculos en "+activePhase+". Vincula manualmente las actividades restantes.";render();return;}
-remember();for(const x of suggested)current[x.p.id]=x.s.index;saveDraft();draftNotice=suggested.length+" vínculos sugeridos por coincidencia textual, registrados SOLO como hipótesis de "+(spineScenario==="base"?"referencia":"alternativa")+". Revisa cada uno.";render();
+remember();for(const x of suggested){current[x.p.id]=x.s.index;delete traceNotes[traceKey(x.p.id,spineScenario)];}saveDraft();draftNotice=suggested.length+" vínculos sugeridos por coincidencia textual, registrados SOLO como hipótesis de "+(spineScenario==="base"?"referencia":"alternativa")+". Revisa cada uno.";render();
 }
 function assignSpine(id,nodeId){
 if(placements[id]!==activePhase||!SPINE_STAGES[activePhase]||!(nodeId===""||/^[0-3]$/.test(nodeId)))return;
 const current=currentSpine();if((current[id]||"")===nodeId)return;
 remember();if(nodeId==="")delete current[id];else current[id]=nodeId;
+delete traceNotes[traceKey(id,spineScenario)];
 saveDraft();draftNotice=nodeId===""?"Actividad "+id+" desvinculada del hito; sigue ubicada en "+activePhase+".":"Actividad "+id+" vinculada al hito "+(Number(nodeId)+1)+" de "+activePhase+" como propuesta local.";
 render();
 }
