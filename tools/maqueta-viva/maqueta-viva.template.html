@@ -376,6 +376,18 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .location-row-result{grid-column:1/-1;color:#bdf4d2;font-size:11px}
 @media(max-width:640px){.review-queue-item{grid-template-columns:32px minmax(0,1fr)}.review-queue-item button{grid-column:2;justify-self:start}}
 .review-queue-impact{color:#e9d9aa!important;font-size:10px!important;border-left:2px solid #e5bb66;padding-left:7px;margin-top:7px!important}
+
+.traceability-panel{border:1px solid #6e9ab6;background:#102f49;border-radius:9px;padding:12px;margin:12px 0}
+.traceability-panel summary{cursor:pointer;font-weight:700;color:#d9f0ff}
+.trace-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px 0;border-bottom:1px solid #426982}
+.trace-row>strong,.trace-row>small{grid-column:1/-1}
+.trace-row>small{color:#b6d9eb}
+.trace-row label{font-size:11px;display:flex;flex-direction:column;gap:4px;color:#d6eaf5}
+.trace-row input,.trace-row select{min-width:0;width:100%;background:#0c253e;border:1px solid #648ba8;color:#f1faff;border-radius:6px;padding:8px}
+.trace-row button{justify-self:start}.trace-history{margin-top:10px}
+.trace-event{display:flex;flex-direction:column;gap:4px;padding:7px 0;border-bottom:1px solid #3f6680;font-size:11px}
+.trace-event small{color:#b5cde0;overflow-wrap:anywhere}
+@media(max-width:700px){.trace-row{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -444,13 +456,97 @@ const next=[...localIdeas,{id:"LOCAL-"+nextId,title:name,targetPhase:phase}];
 try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));autoPlace("LOCAL-"+nextId,"local");saveDraft();draftNotice="Idea LOCAL-"+nextId+" colocada automáticamente en "+(placements["LOCAL-"+nextId]||"BANDEJA")+" · Hito "+(Number(spineAssignments["LOCAL-"+nextId]||0)+1)+". PROPUESTA REVISABLE, NO INTEGRADA.";activePhase=placements["LOCAL-"+nextId]||phase;tab="structure";spineView=true;tray="ideas";render();}
 catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
 }
-let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,workflowStages={},autoPlacementNotes={},trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false,showAllUnassigned=false,locationFeedback=null,reviewQueueExpanded=false;
+let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},traceNotes={},traceEvents=[],draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,workflowStages={},autoPlacementNotes={},trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false,showAllUnassigned=false,locationFeedback=null,reviewQueueExpanded=false;
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
-function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},workflowStages:{...workflowStages},autoPlacementNotes:JSON.parse(JSON.stringify(autoPlacementNotes)),localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
+function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},workflowStages:{...workflowStages},autoPlacementNotes:JSON.parse(JSON.stringify(autoPlacementNotes)),traceNotes:JSON.parse(JSON.stringify(traceNotes)),localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
 function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
-function restore(snapshotValue){if(snapshotValue.localIdeas){replaceLocalIdeas(snapshotValue.localIdeas);try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));}catch(e){storageAvailable=false;}}placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};workflowStages={...(snapshotValue.workflowStages||{})};autoPlacementNotes=JSON.parse(JSON.stringify(snapshotValue.autoPlacementNotes||{}));saveDraft();}
+function restore(snapshotValue){if(snapshotValue.localIdeas){replaceLocalIdeas(snapshotValue.localIdeas);try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));}catch(e){storageAvailable=false;}}placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};workflowStages={...(snapshotValue.workflowStages||{})};autoPlacementNotes=JSON.parse(JSON.stringify(snapshotValue.autoPlacementNotes||{}));traceNotes=JSON.parse(JSON.stringify(snapshotValue.traceNotes||{}));saveDraft();}
 function travelHistory(direction){const from=direction==="undo"?undoStack:redoStack,to=direction==="undo"?redoStack:undoStack;if(!from.length)return;to.push(snapshot());restore(from.pop());selected=activePhase;draftNotice=direction==="undo"?"Último cambio de la maqueta deshecho.":"Cambio de la maqueta rehecho.";render();}
+
+/* Provenance is an append-only local audit log. It is not proof of implementation.
+   The log is deliberately not included in undo snapshots: reversals create new events. */
+const TRACE_LIMIT=5000,TRACE_NOTE_LIMIT=300;
+function traceKey(id,scenario){return id+"@"+(scenario||"base");}
+function validateTraceNotes(raw){
+if(raw===undefined)return {};
+if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Metadatos de trazabilidad inválidos");
+const out={};
+for(const [key,v] of Object.entries(raw)){
+const match=/^(.+)@(base|alternative)$/.exec(key);
+if(!match||!movable.has(match[1])||!v||typeof v!=="object"||Array.isArray(v)||!["BAJA","MEDIA","ALTA_DECLARADA","DESCONOCIDA"].includes(v.confidence))throw Error("Trazabilidad inválida: "+key);
+const note={};
+for(const field of ["reason","source","evidence"]){if(typeof v[field]!=="string"||v[field].length>TRACE_NOTE_LIMIT)throw Error("Campo de trazabilidad inválido: "+field);note[field]=v[field];}
+out[key]={...note,confidence:v.confidence};
+}
+return out;
+}
+function validateTraceEvents(raw){
+if(raw===undefined)return [];
+if(!Array.isArray(raw)||raw.length>TRACE_LIMIT)throw Error("Historial de decisiones inválido o excede límite; exporta antes de continuar");
+return raw.map((e,i)=>{
+if(!e||typeof e!=="object"||Array.isArray(e)||typeof e.action!=="string"||e.action.length>70||typeof e.at!=="string"||e.at.length>60||typeof e.id!=="string"||e.id.length>90||typeof e.before!=="string"||e.before.length>160||typeof e.after!=="string"||e.after.length>160||typeof e.scenario!=="string"||e.scenario.length>20||typeof e.reason!=="string"||e.reason.length>TRACE_NOTE_LIMIT||typeof e.source!=="string"||e.source.length>TRACE_NOTE_LIMIT||typeof e.evidence!=="string"||e.evidence.length>TRACE_NOTE_LIMIT||typeof e.confidence!=="string"||e.confidence.length>25)throw Error("Evento de trazabilidad inválido: "+i);
+return {action:e.action,at:e.at,id:e.id,before:e.before,after:e.after,scenario:e.scenario,reason:e.reason,source:e.source,evidence:e.evidence,confidence:e.confidence};
+});
+}
+function appendTrace(id,action,before,after,scenario,override){
+const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
+const meta=override||traceNotes[traceKey(id,scenario)]||{};
+const automatic=autoPlacementNotes[id];
+if(traceEvents.length>=TRACE_LIMIT){storageAvailable=false;draftNotice="Historial completo: exporta JSON y conserva una copia antes de continuar; no se descartaron eventos.";return false;}
+traceEvents.push({at:new Date().toISOString(),id,action,before:String(before??"").slice(0,160),after:String(after??"").slice(0,160),scenario,
+reason:String(meta.reason||automatic?.reason||"Decisión local pendiente de justificar").slice(0,TRACE_NOTE_LIMIT),
+source:String(meta.source||piece?.origin||"BORRADOR_LOCAL").slice(0,TRACE_NOTE_LIMIT),
+evidence:String(meta.evidence||"SIN_EVIDENCIA_VERIFICADA").slice(0,TRACE_NOTE_LIMIT),
+confidence:String(meta.confidence||automatic?.confidence||"DESCONOCIDA").slice(0,25)});
+return true;
+}
+function traceState(){
+return {placements:{...placements},spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},reviews:JSON.parse(JSON.stringify(reviews))};
+}
+let lastTraceState=null;
+function auditStateChanges(before,after){
+if(!before)return;
+const keys=new Set([...Object.keys(before.placements),...Object.keys(after.placements)]);
+for(const id of keys)if(before.placements[id]!==after.placements[id])appendTrace(id,"UBICACION",before.placements[id]||"BANDEJA",after.placements[id]||"BANDEJA","base");
+for(const [scenario,key] of [["base","spineAssignments"],["alternative","alternativeSpineAssignments"]]){
+const ids=new Set([...Object.keys(before[key]),...Object.keys(after[key])]);
+for(const id of ids)if(before[key][id]!==after[key][id])appendTrace(id,"VINCULACION_HITO",before[key][id]===undefined?"SIN_HITO":"HITO_"+(Number(before[key][id])+1),after[key][id]===undefined?"SIN_HITO":"HITO_"+(Number(after[key][id])+1),scenario);
+}
+const ids=new Set([...Object.keys(before.reviews),...Object.keys(after.reviews)]);
+for(const id of ids){
+const a=before.reviews[id]?.dependencies||[],b=after.reviews[id]?.dependencies||[];
+for(const target of b.filter(x=>!a.includes(x)))appendTrace(id,"DEPENDENCIA_CREADA","SIN_VINCULO",target,"base");
+for(const target of a.filter(x=>!b.includes(x)))appendTrace(id,"DEPENDENCIA_RETIRADA",target,"SIN_VINCULO","base");
+}
+}
+function saveTraceMetadata(id,reason,source,evidence,confidence){
+if(!movable.has(id)||!placements[id]){draftNotice="Primero coloca la pieza en una fase.";render();return;}
+const proposed={reason:String(reason||"").trim(),source:String(source||"").trim(),evidence:String(evidence||"").trim(),confidence:String(confidence||"DESCONOCIDA")};
+if(!proposed.reason||!proposed.source){draftNotice="Motivo y fuente son obligatorios. Usa «SIN FUENTE» si todavía no existe.";render();return;}
+if(["reason","source","evidence"].some(k=>proposed[k].length>TRACE_NOTE_LIMIT)){draftNotice="Máximo 300 caracteres por campo.";render();return;}
+const key=traceKey(id,spineScenario);
+try{const next=validateTraceNotes({...traceNotes,[key]:proposed});remember();const old=traceNotes[key];traceNotes=next;
+appendTrace(id,"JUSTIFICACION_ACTUALIZADA",old?JSON.stringify(old).slice(0,160):"SIN_JUSTIFICACION",placements[id]+" / "+(currentSpine()[id]===undefined?"SIN_HITO":"HITO_"+(Number(currentSpine()[id])+1)),spineScenario,proposed);
+saveDraft();draftNotice="Trazabilidad de "+id+" guardada como DECLARACIÓN LOCAL, no verificación.";render();}
+catch(e){draftNotice="Trazabilidad rechazada: "+String(e.message);render();}
+}
+function traceabilityPanel(phase){
+const staged=[...ideas,...components].filter(x=>placements[x.id]===phase);
+return '<details class="traceability-panel"><summary>Trazabilidad de vinculaciones · '+staged.length+' piezas · '+traceEvents.length+' eventos históricos</summary>'+
+'<p class="hint">Registra POR QUÉ cada pieza está en esta fase/hito. «Confianza» es una declaración, no una verificación. Los cambios previos permanecen en el historial local y en el JSON exportado.</p>'+
+staged.map(p=>{
+const note=traceNotes[traceKey(p.id,spineScenario)]||{},auto=autoPlacementNotes[p.id],hito=currentSpine()[p.id];
+return '<div class="trace-row" data-trace-row="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>'+escapeHtml(phase)+' · '+(hito===undefined?"SIN HITO":"HITO "+(Number(hito)+1))+' · '+(spineScenario==="base"?"Referencia":"Alternativa A")+'</small>'+
+'<label>Motivo de ubicación<input data-trace-reason maxlength="300" value="'+escapeHtml(note.reason||auto?.reason||"")+'" placeholder="Por qué pertenece aquí"></label>'+
+'<label>Fuente / documento<input data-trace-source maxlength="300" value="'+escapeHtml(note.source||p.origin||"")+'" placeholder="Inventario, contrato, archivo o SIN FUENTE"></label>'+
+'<label>Evidencia (declarada, no verificada)<input data-trace-evidence maxlength="300" value="'+escapeHtml(note.evidence||"")+'" placeholder="Ruta, SHA, prueba o SIN EVIDENCIA"></label>'+
+'<label>Confianza declarada<select data-trace-confidence>'+[["DESCONOCIDA","Desconocida"],["BAJA","Baja"],["MEDIA","Media"],["ALTA_DECLARADA","Alta (declarada)"]].map(([v,t])=>'<option value="'+v+'" '+((note.confidence||"DESCONOCIDA")===v?"selected":"")+'>'+t+'</option>').join("")+'</select></label>'+
+'<button type="button" class="tab" data-trace-save="'+escapeHtml(p.id)+'">Guardar justificación</button></div>';
+}).join("")+
+'<details class="trace-history"><summary>Historial acumulado · '+traceEvents.length+' eventos (últimos 30)</summary>'+
+traceEvents.slice(-30).reverse().map(e=>'<div class="trace-event"><strong>'+escapeHtml(e.id+" · "+e.action)+'</strong><span>'+escapeHtml(e.before+" → "+e.after+" · "+e.scenario)+'</span><small>'+escapeHtml(e.at+" · "+e.reason+" · "+e.source+" · "+e.confidence)+'</small></div>').join("")+'</details></details>';
+}
 function validatePositions(raw,validPlacements){
 if(raw===undefined)return {};
 if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Posiciones inválidas");
@@ -608,7 +704,7 @@ stack.add(id);for(const dep of clean[id]?.dependencies||[])visit(dep,stack,done)
 const done=new Set();for(const id of Object.keys(clean))visit(id,new Set(),done);
 return clean;
 }
-try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);spineAssignments=validateSpineAssignments(data.spineAssignments,placements);alternativeSpineAssignments=validateSpineAssignments(data.alternativeSpineAssignments,placements);workflowStages=validateWorkflowStages(data.workflowStages);autoPlacementNotes=validateAutoPlacementNotes(data.autoPlacementNotes,placements);}}
+try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);spineAssignments=validateSpineAssignments(data.spineAssignments,placements);alternativeSpineAssignments=validateSpineAssignments(data.alternativeSpineAssignments,placements);workflowStages=validateWorkflowStages(data.workflowStages);autoPlacementNotes=validateAutoPlacementNotes(data.autoPlacementNotes,placements);traceNotes=validateTraceNotes(data.traceNotes);traceEvents=validateTraceEvents(data.traceEvents);}}
 catch(e){
 try{
 const raw=localStorage.getItem(DRAFT_KEY);
@@ -627,10 +723,12 @@ try{spineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(
 try{alternativeSpineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(old.alternativeSpineAssignments||{}).filter(([id])=>valid[id])),valid);}catch(_){alternativeSpineAssignments={};}
 try{workflowStages=validateWorkflowStages(Object.fromEntries(Object.entries(old.workflowStages||{}).filter(([id])=>movable.has(id))));}catch(_){workflowStages={};}
 try{autoPlacementNotes=validateAutoPlacementNotes(Object.fromEntries(Object.entries(old.autoPlacementNotes||{}).filter(([id])=>valid[id])),valid);}catch(_){autoPlacementNotes={};}
+try{traceNotes=validateTraceNotes(old.traceNotes);traceEvents=validateTraceEvents(old.traceEvents);}catch(_){traceNotes={};traceEvents=[];}
 draftNotice="ATENCIÓN: el inventario cambió o el borrador contiene datos inválidos. Se conserva un respaldo íntegro para exportar; solo las piezas reconocidas se muestran provisionalmente. Revisa antes de continuar.";
 }catch(recoveryError){storageAvailable=false;draftNotice="No se pudo cargar el borrador. No se ha modificado el estado canónico: "+String(recoveryError.message);}
 }
 
+lastTraceState=traceState();
 /* Offline source reconciliation. Sources are embedded anew by the PowerShell launcher.
    No network polling, no canonical mutation, and no automatic promotion. */
 const SOURCE_SNAPSHOT_KEY="arki-maqueta-source-snapshot-v1";
@@ -688,7 +786,12 @@ changes.otherChanges.length+" registros modificados",changes.retired.length+" re
 return '<div class="source-sync" role="status"><div><strong>FUENTES LOCALES · '+escapeHtml(sourceManifest.stateDate)+' / inventario '+escapeHtml(sourceManifest.registryDate)+'</strong><span>'+escapeHtml(detail)+'</span><small>La actualización es automática al abrir desde ARKI-MAQUETA-VIVA.cmd después de actualizar los archivos locales. Sin consulta remota y sin promoción de evidencias.</small></div><button type="button" class="tab" data-source-open="roadmap">Ver roadmap</button><button type="button" class="tab" data-source-open="frozen">Ver FROZEN</button></div>';
 }
 function saveDraft(){
-try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes}));storageAvailable=true;}
+try{
+const beforeEvents=traceEvents.length,after=traceState();
+auditStateChanges(lastTraceState,after);
+localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents}));
+lastTraceState=after;storageAvailable=true;
+}
 catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo.";}
 }
 function stagePiece(id,phase,position){
@@ -709,7 +812,7 @@ const link=document.createElement("a");link.href="data:application/json;charset=
 draftNotice="Respaldo original preparado para exportación; no se ha reconciliado automáticamente.";
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents,sourceHistory,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -723,9 +826,13 @@ try{
 const raw=JSON.parse(String(reader.result));
 const incomingLocal=raw.localIdeas===undefined?previousLocal:validateLocalIdeas(raw.localIdeas);
 replaceLocalIdeas(incomingLocal);
-const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next),nextWorkflow=validateWorkflowStages(raw.workflowStages),nextAutoNotes=validateAutoPlacementNotes(raw.autoPlacementNotes,next);
+const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next),nextWorkflow=validateWorkflowStages(raw.workflowStages),nextAutoNotes=validateAutoPlacementNotes(raw.autoPlacementNotes,next),nextTraceNotes=validateTraceNotes(raw.traceNotes),nextTraceEvents=validateTraceEvents(raw.traceEvents);
 replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
-placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;observations={};
+placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;traceNotes=nextTraceNotes;
+const existingSignatures=new Set(traceEvents.map(e=>JSON.stringify(e)));
+for(const event of nextTraceEvents){const signature=JSON.stringify(event);if(!existingSignatures.has(signature)){traceEvents.push(event);existingSignatures.add(signature);}}
+if(traceEvents.length>TRACE_LIMIT)throw Error("Historial acumulado supera límite; conserva ambos JSON antes de fusionar");
+observations={};
 localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));saveDraft();
 draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
 }catch(e){replaceLocalIdeas(previousLocal);draftNotice="Importación rechazada: "+String(e.message);}
@@ -1082,7 +1189,7 @@ const previewByStage=Object.fromEntries(milestones.map((_,i)=>[String(i),suggest
 const visibleUnassigned=showAllUnassigned?unassigned:unassigned.slice(0,5);
 return '<div class="spine-scenario"><div><strong>Hoja de ruta de ensamblaje</strong><small>La ruta oficial es el roadmap canónico, no estas vinculaciones visuales.</small></div><button type="button" class="tab '+(spineScenario==="base"?"active":"")+'" data-spine-scenario="base" aria-pressed="'+(spineScenario==="base")+'">Referencia propuesta</button><button type="button" class="tab '+(spineScenario==="alternative"?"active":"")+'" data-spine-scenario="alternative" aria-pressed="'+(spineScenario==="alternative")+'">Alternativa A</button><button type="button" class="tab" data-spine-suggest '+(suggestions.length?"":"disabled")+' title="Vincular únicamente coincidencias textuales inequívocas como hipótesis">Aplicar '+suggestions.length+' sugerencias textuales</button></div>'+
 (spineScenario==="alternative"&&altCount===0&&baseCount>0?'<div class="spine-copy-help"><span>La alternativa está vacía. Puedes partir de la referencia y modificar sus espinas sin afectar la original.</span><button type="button" class="tab" data-spine-copy>Copiar referencia a Alternativa A</button></div>':"")+
-spineRouteComparison(p,staged)+routeRadar(p.id)+reviewQueuePanel(p.id)+
+spineRouteComparison(p,staged)+traceabilityPanel(p.id)+routeRadar(p.id)+reviewQueuePanel(p.id)+
 '<div class="spine-progress-panel"><div class="spine-progress-main"><strong>'+attached.length+' de '+staged.length+' espinas vinculadas</strong><span>'+unassigned.length+' por ubicar · '+phaseLinks.length+' dependencias declaradas · '+(spineScenario==="base"?"Referencia propuesta":"Alternativa A")+'</span></div><div class="spine-progress-track" role="progressbar" aria-label="Cobertura de vinculación visual, no avance oficial" aria-valuemin="0" aria-valuemax="'+Math.max(1,staged.length)+'" aria-valuenow="'+attached.length+'"><span style="width:'+(staged.length?Math.round(attached.length/staged.length*100):0)+'%"></span></div><button type="button" class="tab" data-route-export>Exportar hoja .md</button></div>'+
 '<div class="location-review-toggle"><span>ARKI puede proponer fase e hito para cada pieza, con justificación y edición manual.</span><button type="button" class="tab" data-location-toggle aria-expanded="'+locationReviewOpen+'">'+(locationReviewOpen?"Ocultar propuestas":"Revisar ubicaciones sugeridas")+'</button></div>'+
 (locationReviewOpen?locationReviewPanel():"")+
@@ -1365,6 +1472,11 @@ app.querySelectorAll("[data-location-apply]").forEach(el=>el.addEventListener("c
 const id=el.dataset.locationApply,row=el.closest("[data-location-row]")||app.querySelectorAll("[data-location-row]").find(x=>x.dataset.locationRow===id);
 if(!row){locationFeedback={id,changed:false,message:"No se encontró la fila. Reabre la revisión."};render();return;}
 applyLocationReview(id,row.querySelector("[data-location-phase]")?.value||"",row.querySelector("[data-location-stage]")?.value||"");
+}));
+app.querySelectorAll("[data-trace-save]").forEach(el=>el.addEventListener("click",()=>{
+const id=el.dataset.traceSave,row=el.closest("[data-trace-row]");
+if(!row)return;
+saveTraceMetadata(id,row.querySelector("[data-trace-reason]")?.value,row.querySelector("[data-trace-source]")?.value,row.querySelector("[data-trace-evidence]")?.value,row.querySelector("[data-trace-confidence]")?.value);
 }));
 app.querySelectorAll("[data-route-export]").forEach(el=>el.addEventListener("click",exportRouteMarkdown));
 app.querySelectorAll("[data-spine-more]").forEach(el=>el.addEventListener("click",()=>{showAllUnassigned=!showAllUnassigned;render();}));
