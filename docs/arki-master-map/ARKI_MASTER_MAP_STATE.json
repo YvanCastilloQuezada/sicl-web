@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows pull and launch. Verify 8 top menu buttons (4 orange + 4 yellow), counters remain left, tray sidebar now left, phase rail right, clicking yellow buttons shows collection in blue center and updates left tray. No E3 yet.",
+    "next_gate": "Windows: git pull; run node tools/maqueta-viva/test-maqueta-viva.cjs if Node is installed; launch ARKI-MAQUETA-VIVA.cmd; select F5, drag or select I-01, place in F5, verify BORRADOR counter and persistence after reopening, export/import JSON, verify no canonical status change. Return screenshot/raw output.",
     "layout": {
       "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
       "left": "Bandeja de piezas: selected pending / ideas / scattered / FROZEN collection (formerly right)",
@@ -1582,6 +1582,37 @@
       "local_windows_e3": "NOT_EXECUTED",
       "historical_scattered_components": 27,
       "historical_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"
+    },
+    "assembly_interactive": {
+      "status": "IMPLEMENTED_OFFLINE_SIMULATION_PASS_WINDOWS_E3_PENDING",
+      "scope": "Local-only visual puzzle assembly of 24 historical ideas and 27 historical capability records",
+      "interaction": [
+        "Select phase F1-F10 from right rail",
+        "Click idea or scattered component from left tray or yellow menu",
+        "Choose target phase and click Ubicar pieza",
+        "Desktop drag a movable piece from tray onto blue central workspace for active phase",
+        "Remove draft placement",
+        "Export JSON",
+        "Import validated JSON"
+      ],
+      "draft_schema": "ARKI-MAQUETA-DRAFT-1",
+      "storage": "Browser localStorage best-effort, export/import JSON as backup",
+      "source_of_truth": "ARKI_MASTER_MAP_STATE.json + historical assembly-registry.json remain read-only",
+      "evidence_boundary": "Visual placement is a local BORRADOR, never implementation, verification, freeze, or canonical integration",
+      "frozen_policy": "FROZEN source records are inspectable but cannot be staged by this workflow",
+      "validation": {
+        "js_syntax": "PASS",
+        "isolated_offline_checks": "14/14 PASS",
+        "committed_node_smoke_suite": "tools/maqueta-viva/test-maqueta-viva.cjs",
+        "node_suite_execution": "NOT_EXECUTED",
+        "windows_browser_e3": "NOT_EXECUTED"
+      },
+      "limitations": [
+        "Browser localStorage on file:// may be unavailable; manual JSON export/import recommended",
+        "No drag-and-drop on some touch devices; click/select alternative",
+        "No canonical integration engine, repository mutation, or automatic debt clearance",
+        "Historical inventories still require current-head reconciliation"
+      ]
     }
   }
 }
