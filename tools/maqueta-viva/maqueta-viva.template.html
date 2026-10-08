@@ -233,6 +233,10 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .local-idea-form input,.local-idea-form select{min-width:0;width:100%;background:#0d243b;color:#fff;border:1px solid #6996b6;border-radius:6px;padding:7px}
 .local-idea-form button{align-self:flex-start}
 .backup-warning{padding:9px;margin:8px 0;background:#493518;border:1px solid #e0b66a;border-radius:7px;color:#fff0cf;font-size:12px}.backup-warning button{margin-left:7px}
+
+.tray-piece-entry{display:flex;flex-direction:column;gap:3px;margin:0 0 7px}.tray-piece-entry .item{width:100%}
+.tray-place-suggest{align-self:flex-start;border:1px solid #679ab8;border-radius:5px;padding:5px 7px;background:#173b55;color:#cbeaff;font-size:10px;cursor:pointer}
+.tray-place-suggest:hover{background:#2a5c7a;color:white}
 </style>
 </head>
 <body>
@@ -351,6 +355,16 @@ const scores=stages.map((name,i)=>{const words=(groups[i]||[]).filter(w=>normali
 scores.sort((a,b)=>b.score-a.score);
 const best=scores[0];if(!best||best.score===0||scores[1]?.score===best.score)return null;
 return {index:best.index,reason:"Coincidencia textual: "+best.words.join(", "),confidence:best.score>=2?"MEDIA":"BAJA"};
+}
+function placeSuggestedPiece(id){
+const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
+if(!piece||!movable.has(id)||Object.prototype.hasOwnProperty.call(placements,id)||!validPhases.has(piece.targetPhase))return;
+const phase=piece.targetPhase,suggestion=suggestStage(piece,phase);
+remember();placements[id]=phase;
+if(suggestion)spineAssignments[id]=suggestion.index;
+saveDraft();activePhase=phase;tab="structure";spineView=true;spineScenario="base";selected=activePhase;
+draftNotice="Pieza "+id+" ubicada provisionalmente en "+phase+(suggestion?" · Hito "+(Number(suggestion.index)+1)+" sugerido por "+suggestion.reason:" · sin hito sugerido por falta de coincidencia")+". Revisión pendiente; NO INTEGRADA.";
+render();
 }
 function applySuggestedSpines(){
 const current=currentSpine(),suggested=[...ideas,...components].filter(p=>placements[p.id]===activePhase&&!Object.prototype.hasOwnProperty.call(current,p.id)).map(p=>({p,s:suggestStage(p,activePhase)})).filter(x=>x.s);
@@ -650,10 +664,10 @@ const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
 content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }else if(tray==="components"){
 const entries=components.filter(p=>!Object.prototype.hasOwnProperty.call(placements,p.id)&&matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Capacidades dispersas históricas todavía disponibles para ubicar. Las que ya están en la mesa no aparecen aquí.</p><h3>'+entries.length+' disponibles de '+components.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Capacidades dispersas históricas todavía disponibles para ubicar. Las que ya están en la mesa no aparecen aquí.</p><h3>'+entries.length+' disponibles de '+components.length+'</h3><div class="stack">'+entries.map(p=>'<div class="tray-piece-entry"><button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Fase propuesta: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button><button type="button" class="tray-place-suggest" data-place-suggest="'+escapeHtml(p.id)+'" title="Ubicar como hipótesis de ensamblaje, sin certificar integración">Ubicar en '+escapeHtml(p.targetPhase)+(suggestStage(p,p.targetPhase)?" · Hito "+(Number(suggestStage(p,p.targetPhase).index)+1):" · sin hito")+' →</button></div>').join("")+'</div>';
 }else if(tray==="ideas"){
 const entries=ideas.filter(p=>!Object.prototype.hasOwnProperty.call(placements,p.id)&&matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Ideas históricas y propuestas locales. Las ideas nuevas se guardan en este navegador; para compartirlas usa Exportar JSON. Ninguna se integra automáticamente.</p><div class="local-idea-form"><label>Nueva idea<input id="local-idea-title" maxlength="160" placeholder="Describe la idea…" aria-label="Nombre de nueva idea"></label><label>Fase propuesta<select id="local-idea-phase" aria-label="Fase propuesta para nueva idea">'+phases.map(p=>'<option value="'+p.id+'" '+(p.id===activePhase?"selected":"")+'>'+p.id+'</option>').join("")+'</select></label><button type="button" class="tab" data-add-local-idea>Añadir idea</button></div><h3>'+entries.length+' disponibles de '+ideas.length+'</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Ideas históricas y propuestas locales. Las ideas nuevas se guardan en este navegador; para compartirlas usa Exportar JSON. Ninguna se integra automáticamente.</p><div class="local-idea-form"><label>Nueva idea<input id="local-idea-title" maxlength="160" placeholder="Describe la idea…" aria-label="Nombre de nueva idea"></label><label>Fase propuesta<select id="local-idea-phase" aria-label="Fase propuesta para nueva idea">'+phases.map(p=>'<option value="'+p.id+'" '+(p.id===activePhase?"selected":"")+'>'+p.id+'</option>').join("")+'</select></label><button type="button" class="tab" data-add-local-idea>Añadir idea</button></div><h3>'+entries.length+' disponibles de '+ideas.length+'</h3><div class="stack">'+entries.map(p=>'<div class="tray-piece-entry"><button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Fase propuesta: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button><button type="button" class="tray-place-suggest" data-place-suggest="'+escapeHtml(p.id)+'" title="Ubicar como hipótesis de ensamblaje, sin certificar integración">Ubicar en '+escapeHtml(p.targetPhase)+(suggestStage(p,p.targetPhase)?" · Hito "+(Number(suggestStage(p,p.targetPhase).index)+1):" · sin hito")+' →</button></div>').join("")+'</div>';
 }else{
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
@@ -813,6 +827,7 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 sourceUpdateBanner()+
 '<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>placeSuggestedPiece(el.dataset.placeSuggest)));
 app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
 app.querySelectorAll("[data-source-open]").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.sourceOpen==="roadmap"){tab="roadmap";}else{tray="frozen";tab="structure";}selected=activePhase;render();}));
 app.querySelectorAll("[data-spine-scenario]").forEach(el=>el.addEventListener("click",()=>chooseScenario(el.dataset.spineScenario)));
