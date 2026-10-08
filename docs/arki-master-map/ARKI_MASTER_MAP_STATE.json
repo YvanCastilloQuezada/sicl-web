@@ -1540,7 +1540,7 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows: git pull and double-click launcher; verify phase F1 has 5 historical idea cards, F6 contains frozen AGK constituents, right tray shows 24 historical ideas and 8 explicit frozen entries, 3-column layout and no browser errors.",
+    "next_gate": "Windows: git pull, launch desktop shortcut or ARKI-MAQUETA-VIVA.cmd, inspect 3 panels; F1 interior shows 7 historical components + 5 ideas; right tray 24 ideas, 27 scattered components, 8 current-state frozen entries. Capture error/visual evidence; no E3 yet.",
     "layout": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
       "source": "tools/maqueta-viva/maqueta-viva.template.html",
@@ -1570,12 +1570,15 @@
       "three_trays": [
         "pending",
         "ideas",
+        "scattered_components",
         "frozen"
       ],
-      "phase_contents": "Selecting F1–F10 shows mapped historical ideas and frozen constituents",
+      "phase_contents": "Each phase shows historical capability cards, proposed idea cards and explicitly frozen constituent records; no card auto-promotes to integrated.",
       "semantics": "PROPOSED_PHASE_ASSIGNMENT_NOT_INCORPORATED; FROZEN_NOT_EQUIVALENT_TO_INTEGRATED",
       "static_js_syntax": "PASS",
-      "local_windows_e3": "NOT_EXECUTED"
+      "local_windows_e3": "NOT_EXECUTED",
+      "historical_scattered_components": 27,
+      "historical_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"
     }
   }
 }
