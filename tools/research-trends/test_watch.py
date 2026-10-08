@@ -48,6 +48,16 @@ class WatchTests(unittest.TestCase):
         self.assertFalse(r["report"]["governance"]["canonical_mutation"])
         self.assertEqual(CANONICAL["roadmap"]["phases"][5]["status"], "FROZEN")
 
+    def test_canonical_overlap_signal_is_not_functional_equivalence(self):
+        canonical = copy.deepcopy(CANONICAL)
+        canonical["f6_agk_integral_closure"] = {"authority": {"canonical_brep": "OCCT"}}
+        prev = watch.run(SOURCES, canonical, None, lambda _: release())["snapshot"]
+        result = watch.run(SOURCES, canonical, prev, lambda _: release(3))
+        dedup = result["report"]["candidates"][0]["deduplication"]
+        self.assertTrue(dedup["possible_existing_scope"])
+        self.assertEqual(dedup["existing_capability_equivalence"], "NOT_VERIFIED")
+        self.assertEqual(dedup["canonical_signals"][0]["recorded_value"], "OCCT")
+
     def test_bad_source_rejected(self):
         tampered = copy.deepcopy(SOURCES)
         tampered["sources"][0]["official"] = "https://evil.invalid/"
