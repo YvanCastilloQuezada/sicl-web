@@ -1,0 +1,19 @@
+{
+  "schema": "ARKI-EXECUTOR-SCOPE-1",
+  "caseId": "AC-1",
+  "phase": "F7",
+  "repository": "YvanCastilloQuezada/sicl-web",
+  "baseBranch": "feat/f7-f8-integral-closure",
+  "baseSha": "55d46730f30015c3408cc04bb618e6072be30fe6",
+  "allowedPaths": [
+    "tools/maqueta-viva/maqueta-viva.template.html"
+  ],
+  "noCanonicalPromotion": true,
+  "requiresRedTeam": true,
+  "requiresOwnerAuthorization": true,
+  "testCommands": [
+    "pnpm check",
+    "pnpm test -- --run",
+    "pnpm build"
+  ]
+}
