@@ -11,8 +11,9 @@ try {
   $statePath = Join-Path $RepoRoot "docs\arki-master-map\ARKI_MASTER_MAP_STATE.json"
   $templatePath = Join-Path $PSScriptRoot "maqueta-viva.template.html"
   $launcherPath = Join-Path $RepoRoot "ARKI-MAQUETA-VIVA.cmd"
+  $registryPath = Join-Path $PSScriptRoot "assembly-registry.json"
 
-  foreach ($path in @($statePath, $templatePath, $launcherPath)) {
+  foreach ($path in @($statePath, $templatePath, $launcherPath, $registryPath)) {
     if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
       throw "Falta archivo necesario: $path"
     }
@@ -29,7 +30,15 @@ try {
 
   # Embed JSON as inert text; never allow source text to close its script element.
   $safeJson = $json.Replace("&", "\u0026").Replace("<", "\u003c").Replace(">", "\u003e")
-  $page = $template.Replace($token, $safeJson)
+  $registryJson = [IO.File]::ReadAllText($registryPath, [Text.Encoding]::UTF8)
+  $registry = $registryJson | ConvertFrom-Json
+  if ($registry.schema -ne "ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1" -or @($registry.ideas).Count -eq 0) {
+    throw "Registro de piezas invalido."
+  }
+  $registryToken = "__ARKI_ASSEMBLY_JSON__"
+  if (-not $template.Contains($registryToken)) { throw "Plantilla sin marcador de piezas." }
+  $safeRegistry = $registryJson.Replace("&", "\u0026").Replace("<", "\u003c").Replace(">", "\u003e")
+  $page = $template.Replace($token, $safeJson).Replace($registryToken, $safeRegistry)
   $outputDir = Join-Path ([Environment]::GetFolderPath("LocalApplicationData")) "ARKI\MaquetaViva"
   [IO.Directory]::CreateDirectory($outputDir) | Out-Null
   $output = Join-Path $outputDir "index.html"
@@ -58,6 +67,7 @@ try {
   Write-Host "ARKI_MAQUETA_VIVA=READY"
   Write-Host "STATE_DATE=$($parsed.updated_at)"
   Write-Host "STATE_PHASES=$(@($parsed.roadmap.phases).Count)"
+  Write-Host "ASSEMBLY_IDEAS=$(@($registry.ideas).Count)"
   Write-Host "OUTPUT=$output"
   Start-Process -FilePath $output
 } catch {
