@@ -1956,6 +1956,38 @@
           "windows_retest": "PASS 29/29; previous CRLF script-extraction failure closed"
         }
       }
+    },
+    "ideas_continuous_improvement": {
+      "status": "LOCAL_UI_CANDIDATES_IMPLEMENTED_CANONICAL_PROMOTION_NOT_REQUESTED",
+      "catalog_count": 14,
+      "scope": [
+        "quality and independent evaluation",
+        "architectural design quality",
+        "geometry/topology robustness",
+        "BIM IFC/IDS interoperability",
+        "professional documentation",
+        "construction/operation feedback",
+        "Research & Trends",
+        "R&D Scout",
+        "Version Watcher",
+        "AI Laboratory",
+        "market opportunity hypotheses",
+        "IDE governance"
+      ],
+      "sources": "Curated research hypotheses and local draft diagnostic rules; NOT live web data, autonomous agent execution, or validated market demand",
+      "deterministic_triggers": [
+        "F1-F10 reconciliation",
+        "spines without milestone",
+        "unplaced dependencies",
+        "low-confidence classification",
+        "local review evidence incomplete",
+        "draft placements in FROZEN scope",
+        "source snapshot changes"
+      ],
+      "decisions": "APPROVED_FOR_EVALUATION / REJECTED / PENDING, local only; never automatic merge, implementation, freeze or canonical state change",
+      "test_evidence": "PASS: 14 stable catalog entries, 23 generated candidates on 10-phase mock baseline, CI decisions validated, frozen draft triggers FREEZE-F6 and QUALITY-F6; static JS syntax PASS",
+      "windows_browser_gate": "NOT_EXECUTED",
+      "integration_boundary": "IDEA != KNOWLEDGE != IMPLEMENTED; Delta 6.2 and human approval govern promotion"
     }
   },
   "f7_f8_f9_lineage_checkpoint_2026_10_08": {
