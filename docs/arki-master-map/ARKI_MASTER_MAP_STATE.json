@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: ten phases; local idea creation and tray; stage F6; keyword suggestion; alternative scenario independent; undo; persistence across reload; official F6 status unchanged",
+      "interaction_simulation": "PASS: 10 phases; local idea capture -> tray -> F6 placement -> keyword milestone proposal -> alternative assignment -> undo; source initial/no-change/new-idea/F1-status delta; portable local idea import/undo; orphan draft backup; one-click proposed placement/undo; static JS syntax PASS",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1586,7 +1586,10 @@
         "phase_reassignment": "Existing staged piece can be deliberately moved to a different phase via inspector; never duplicated; roadmap statuses unchanged",
         "focus_mode": "Expand center by temporarily hiding right tray; toggle restores tray, no inventory mutation",
         "auto_arrange": "Reset free positions in active phase, undoable; preserves placement and reviews",
-        "compatibility": "Old ARKI-MAQUETA-DRAFT-1 JSON without positions remains importable, new positions validated within 0..1"
+        "compatibility": "Old ARKI-MAQUETA-DRAFT-1 JSON without positions remains importable, new positions validated within 0..1",
+        "proposed_placement": "Each available historical/local idea and dispersed component has one-click proposed phase placement, optionally linking a unique text-matched milestone; all as local unverified draft",
+        "source_reconciliation": "On changed/missing registry IDs, original draft is preserved in a separate localStorage backup, known pieces displayed provisionally and original export offered; no silent discard",
+        "alternative_routes": "Reference and Alternative A have separate milestone associations, with shared phase placements; user can switch and undo"
       },
       "connections_ui": {
         "default_view": "Mis piezas conectadas",
