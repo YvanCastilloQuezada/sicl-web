@@ -1763,7 +1763,14 @@
         "roadmap_view": "10-phase reference route audit and cross-phase dependency jump links",
         "source_refresh": "Derived on each local render; source inventory and FROZEN changes are read from regenerated local source snapshot when launcher is run, not live web polling",
         "authority_boundary": "All diagnostic counts are draft metadata only; no completion percentages, route critical path claim, canonical status mutations, or test execution assertions"
-      }
+      },
+      "spine_improvements": {
+        "coverage": "Each phase/scenario shows linked vs staged counts and separately declared dependencies; progressbar explicitly measures local visual linking only, not official roadmap progress",
+        "unassigned": "First five unlinked activities visible by default; show all toggle available when >5; no pieces or links are deleted",
+        "markdown_sheet": "Export active phase and Reference/Alternative A to standalone .md with four proposed milestones, linked/unlinked activities, declared dependencies, canonical status/evidence as read-only context, and explicit nonofficial limitations",
+        "authority": "All ten phase statuses and frozen contracts remain untouched; no inferred technical dependencies promoted"
+      },
+      "checks": "PASS: JS syntax; simulated local app render with 10 phases; phase F6 navigation; Markdown export button triggers and contains BORRADOR VISUAL LOCAL plus proposed vertebral milestones"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
