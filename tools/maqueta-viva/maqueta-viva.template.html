@@ -452,6 +452,12 @@ header .stamp{flex:0 0 auto}
 .scenario-criteria{padding:12px;border:1px solid #4d7d9b;border-radius:9px;background:#102c45}
 .scenario-criteria p{font-size:12px;line-height:1.6}
 @media(max-width:700px){.scenario-metrics{grid-template-columns:minmax(0,1fr)}.scenario-issue{flex-wrap:wrap}}
+
+/* Improvement candidates are visibly separate from live diagnostics and never imply implementation. */
+.arki-ideas-summary{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.arki-ideas-summary span{padding:8px 11px;border:1px solid #5c8aaa;border-radius:8px;background:#173954;font-size:12px;color:#e1f1ff}
+.arki-ideas-summary b{color:#ffe18b;font-size:16px;margin-right:4px}
+.arki-idea-source{display:inline-flex;align-self:flex-start;border:1px solid #799ab0;border-radius:5px;padding:3px 6px;color:#bfe5ff;font-size:10px;font-weight:700}
 </style>
 </head>
 <body>
@@ -1477,14 +1483,33 @@ const ARKI_IDEAS_KEY="arki-maqueta-arki-idea-decisions-v1";
 function validateArkiIdeaDecisions(raw){
 if(!raw||typeof raw!=="object"||Array.isArray(raw)||Object.keys(raw).length>100)return {};
 const out={};
-for(const [id,status] of Object.entries(raw))if(/^(RECONCILE|SPINE|DEPS|LOW|SOURCE)-F?(?:[1-9]|10|ALL)$/.test(id)&&["APPROVED","REJECTED"].includes(status))out[id]=status;
+for(const [id,status] of Object.entries(raw))if((/^(RECONCILE|SPINE|DEPS|LOW|SOURCE|QUALITY|FREEZE)-F?(?:[1-9]|10|ALL)$/.test(id)||/^CI-(?:0[1-9]|1[0-4])$/.test(id))&&["APPROVED","REJECTED"].includes(status))out[id]=status;
 return out;
 }
 let arkiIdeaDecisions={};
 try{arkiIdeaDecisions=validateArkiIdeaDecisions(JSON.parse(localStorage.getItem(ARKI_IDEAS_KEY)||"{}"));}catch(e){arkiIdeaDecisions={};}
+
+/* Curated research/quality candidates, NOT live market observations or autonomous agents.
+   IDs are stable so local approve/reject decisions survive regeneration. */
+const ARKI_CONTINUOUS_IMPROVEMENTS=[
+["CI-01","F1","Calidad","ALTA","Contrato de calidad de extremo a extremo","ARKI requiere comprobar trazabilidad desde el encargo hasta operación, no solo aprobar componentes aislados.","Definir criterios de aceptación y casos de prueba multiescala con evidencias reproducibles.","GOBIERNO / PROPUESTA"],
+["CI-02","F2","Calidad","ALTA","Vigilancia normativa por jurisdicción y vigencia","Una norma no debe aplicarse automáticamente fuera de su jurisdicción, edición, fecha o escala.","Versionar reglas con fuente, fecha de vigencia, ámbito, excepciones y alerta de actualización.","GOBIERNO / PROPUESTA"],
+["CI-03","F3","Inteligencia","ALTA","Evaluador independiente de razonamiento arquitectónico","Un superarquitecto debe reconocer incertidumbre, conflictos y límites de sus propias propuestas.","Crear pruebas adversariales con Examiner separado del generador, trazas y abstención ante falta de evidencia.","AIL / PROPUESTA"],
+["CI-04","F4","Arquitectura","ALTA","Calidad del partido y relaciones espaciales","El valor arquitectónico exige comprobar función, relaciones, experiencia, clima y belleza, no solo acomodar recintos.","Evaluar alternativas de partido con restricciones, relaciones y criterios explícitos de diseño.","DISEÑO / PROPUESTA"],
+["CI-05","F5","Calidad","ALTA","Benchmark de alternativas y regresión de calidad","La mejora continua necesita comparar resultados contra casos base y detectar degradaciones.","Construir batería de proyectos de referencia, indicadores verificables y pruebas de regresión.","EVALUACIÓN / PROPUESTA"],
+["CI-06","F6","Geometría","ALTA","Robustez geométrica y preservación topológica","Las operaciones 3D deben conservar identidad, validez, trazabilidad y fallar de forma segura.","Ensayar booleanas, deformaciones, tolerancias, casos degenerados y round-trip con evidencias.","AGK / PROPUESTA"],
+["CI-07","F7","Interoperabilidad","ALTA","Verificación abierta IFC + IDS","El intercambio BIM debe poder verificarse con requisitos legibles por máquina y herramientas independientes.","Probar exportación/importación IFC, requisitos IDS y discrepancias entre validadores.","ESTÁNDARES / PROPUESTA"],
+["CI-08","F8","Documentación","ALTA","Expediente autoconsistente y auditable","Los planos, cantidades, especificaciones y memorias no deben contradecirse.","Definir trazabilidad bidireccional entre modelo, vistas, cómputos, documentos y cambios.","EXPEDIENTE / PROPUESTA"],
+["CI-09","F9","Ciclo de vida","MEDIA","Radar de constructibilidad y cambios en obra","Las decisiones de obra generan impactos de costo, plazo, seguridad y documentación.","Simular propagación de cambios, registrar incertidumbre y escalar decisiones profesionales.","OBRA / PROPUESTA"],
+["CI-10","F10","Ciclo de vida","MEDIA","Aprendizaje de operación y desempeño real","ARKI debe contrastar el desempeño previsto con lo observado sin reescribir la verdad histórica.","Incorporar retroalimentación posocupación con procedencia, consentimiento y validación.","OPERACIÓN / PROPUESTA"],
+["CI-11","F3","Investigación","ALTA","Research & Trends + R&D Scout + Version Watcher","Las tecnologías, normas y expectativas del mercado evolucionan; detectar una novedad no significa que ARKI deba adoptarla.","Crear vigilancia versionada de fuentes, cambios, competidores y estándares; emitir RESEARCH_CANDIDATE o UPDATE_CANDIDATE para revisión.","MERCADO / PROPUESTA"],
+["CI-12","F3","Inteligencia","ALTA","AI Laboratory: experimentación comparativa gobernada","Una nueva IA debe demostrar utilidad, costo, límites, seguridad y reproducibilidad antes de incorporarse.","Comparar candidatos en corpus controlado con pruebas ciegas, costo, latencia, tasa de fallos y decisión humana.","AIL / PROPUESTA"],
+["CI-13","F1","Calidad","ALTA","Motor de mejora continua con cierre de aprendizaje","Una idea aprobada para evaluar no equivale a capacidad implementada ni validada.","Vincular IDEA → INVESTIGACIÓN → PRUEBA → DECISIÓN → IMPLEMENTACIÓN → VERIFICACIÓN → FROZEN sin promoción silenciosa.","IDE / PROPUESTA"],
+["CI-14","F5","Mercado","MEDIA","Observatorio de valor profesional y necesidades de usuarios","La competitividad depende de resolver problemas reales, medibles y verificables de arquitectos y propietarios.","Evaluar problemas de usuarios, interoperabilidad, tiempo de producción, costo y valor; priorizar hipótesis con pruebas.","MERCADO / PROPUESTA"]
+];
 function generatedArkiIdeas(){
 const results=[];
-const add=(id,phase,title,why,action)=>results.push({id,phase,title,why,action});
+const add=(id,phase,title,why,action,category="Diagnóstico",priority="SEGÚN EVIDENCIA",source="REGLA LOCAL")=>results.push({id,phase,title,why,action,category,priority,source});
 for(const p of phases){
 const id=p.id,placed=[...ideas,...components].filter(x=>placements[x.id]===id);
 if(p.status==="RECONCILIATION_REQUIRED")add("RECONCILE-"+id,id,"Reconciliar "+id+" con evidencia","El estado oficial sigue en RECONCILIATION_REQUIRED.","Revisar contratos, pruebas y procedencia; no promover por apariencia.");
@@ -1492,20 +1517,25 @@ const unassigned=placed.filter(x=>spineAssignments[x.id]===undefined);
 if(unassigned.length)add("SPINE-"+id,id,"Clasificar "+unassigned.length+" espinas sin hito","Hay actividades ubicadas sin vinculación vertebral en "+id+".","Comparar hitos candidatos, justificar y aprobar ubicación.");
 const missing=placed.filter(x=>(reviews[x.id]?.dependencies||[]).some(d=>!placements[d]));
 if(missing.length)add("DEPS-"+id,id,"Resolver dependencias sin ubicar","Hay "+missing.length+" piezas que declaran al menos una dependencia ausente de la mesa.","Verificar dependencias antes de ejecutar o promover.");
+const unverified=placed.filter(x=>!reviewGate(x.id).complete);
+if(unverified.length)add("QUALITY-"+id,id,"Revisar evidencia de "+unverified.length+" piezas","Las fichas locales de revisión no cumplen todas las condiciones declaradas.","Revisar evidencia, límites, dependencias y criterio de aceptación; no declarar integración.","Calidad","ALTA");
+if(p.status==="FROZEN"&&placed.length)add("FREEZE-"+id,id,"Verificar impacto sobre alcance FROZEN","La fase congelada tiene "+placed.length+" piezas colocadas provisionalmente.","Confirmar que los cambios son solo borradores o abrir un proceso explícito de cambio de alcance.","Calidad","ALTA");
 const weak=placed.filter(x=>autoPlacementNotes[x.id]?.confidence==="BAJA");
 if(weak.length)add("LOW-"+id,id,"Revisar "+weak.length+" clasificaciones de baja confianza","La ubicación fue sugerida por heurística o antecedente insuficiente.","Reevaluar las diez fases y documentar la elección.");
 }
 const changed=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length;
 if(changed)add("SOURCE-ALL","F1–F10","Revisar "+changed+" novedades de fuente","La fuente local cambió respecto de la lectura anterior, incluidas ideas, fases o FROZEN.","Contrastar novedades antes de modificar el roadmap o las decisiones.");
+for(const [id,phase,category,priority,title,why,action,source] of ARKI_CONTINUOUS_IMPROVEMENTS)add(id,phase,title,why,action,category,priority,source);
 return results;
 }
 function arkiIdeasWorkspace(){
 const entries=generatedArkiIdeas(),pending=entries.filter(x=>!arkiIdeaDecisions[x.id]).length;
 return '<div class="assembly-header"><div><div class="kicker">MEJORA CONTINUA · PROPUESTAS EXPLICABLES</div><h2>Ideas propias de ARKI · Revisión humana</h2></div><span class="status">'+pending+' pendientes de decisión</span></div>'+
-'<p class="hint">ARKI detecta oportunidades mediante reglas locales y el estado visible de la maqueta. Las propuestas se regeneran cuando cambian las piezas, dependencias o fuentes. No son razonamiento autónomo del Core ni implementaciones.</p>'+
+'<p class="hint">Dos fuentes separadas: diagnósticos calculados desde el borrador y un catálogo de investigación/ calidad propuesto. Los diagnósticos se recalculan al cambiar piezas, dependencias o fuentes; el catálogo es una lista editorial, NO un análisis del mercado en vivo. AIL, Research & Trends y Version Watcher son responsabilidades arquitectónicas registradas, no agentes autónomos verificados aquí.</p>'+
+'<div class="arki-ideas-summary"><span><b>'+entries.filter(x=>x.category==="Diagnóstico"||x.source==="REGLA LOCAL").length+'</b> diagnósticos locales</span><span><b>'+ARKI_CONTINUOUS_IMPROVEMENTS.length+'</b> mejoras candidatas</span><span><b>'+pending+'</b> pendientes de decisión</span></div>'+
 '<div class="arki-ideas-grid">'+entries.map(x=>{
 const status=arkiIdeaDecisions[x.id]||"PENDING";
-return '<article class="arki-idea"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.phase)+'</small><strong>'+escapeHtml(x.title)+'</strong><span class="arki-idea-status">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>'+escapeHtml(x.why)+'</p><p><b>Acción propuesta:</b> '+escapeHtml(x.action)+'</p><div class="arki-idea-actions"><button type="button" class="tab" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button><button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button></div></article>';
+return '<article class="arki-idea"><div><small>'+escapeHtml(x.id)+' · '+escapeHtml(x.phase)+' · '+escapeHtml(x.category)+'</small><strong>'+escapeHtml(x.title)+'</strong><span class="arki-idea-source">'+escapeHtml(x.priority)+' · '+escapeHtml(x.source)+'</span><span class="arki-idea-status">'+(status==="APPROVED"?"APROBADA PARA EVALUACIÓN":status==="REJECTED"?"DESCARTADA":"PENDIENTE DE TU VALIDACIÓN")+'</span></div><p>'+escapeHtml(x.why)+'</p><p><b>Acción propuesta:</b> '+escapeHtml(x.action)+'</p><div class="arki-idea-actions"><button type="button" class="tab" data-arki-approve="'+escapeHtml(x.id)+'">Aprobar evaluación</button><button type="button" class="tab" data-arki-reject="'+escapeHtml(x.id)+'">Descartar</button><button type="button" class="tab" data-arki-reset="'+escapeHtml(x.id)+'">Reabrir</button></div></article>';
 }).join("")+(entries.length?"":'<div class="empty">No se detectaron propuestas nuevas bajo las reglas actuales. No significa que ARKI esté completo.</div>')+'</div>'+
 '<p class="caption">Aprobar una idea autoriza su evaluación posterior, no la ejecución de código, el cambio de contratos, el merge ni la promoción canónica. Las decisiones se conservan en este navegador y en el JSON exportado.</p>';
 }
