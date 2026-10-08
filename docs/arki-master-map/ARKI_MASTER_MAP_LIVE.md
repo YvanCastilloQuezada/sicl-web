@@ -446,3 +446,10 @@ The derived immutable `BASELINE_0` fingerprint remains `1bd8407a786202642431beab
 - Interactive views: structure (10 phases and authorities), connections (bounded evidence vs contracts vs planned/blocked), inventory, floating/blocked pieces, searchable detail panel.
 - Status: `IMPLEMENTED_AWAITING_WINDOWS_E3`. JavaScript syntax was checked statically. Actual PowerShell launch, shortcut creation and browser display have NOT been executed or verified on the user's Windows PC. Git updates require local pull before the page can reflect them.
 - Gate: run launcher after `git pull --ff-only` and inspect browser and raw terminal output. No green without this gate.
+
+### Maqueta Viva — Three-panel assembly workspace (2026-10-07)
+
+- Layout: left information/authorities/selected block; center ten-phase body; right registered blockers and reconciliation queue. Responsive stacking for smaller screens.
+- Center display modes: 5x2 default, 3x3+1, pyramid 1–2–3–4. These are visualization choices, never evidence or architectural hierarchy.
+- Implementation: `tools/maqueta-viva/maqueta-viva.template.html` on `feat/f7-f8-integral-closure`; JS static syntax PASS. Actual Windows/browser UI retest still pending after launcher fix `febd223c33aaf49a7a2aa4c4a91850c81432abec`.
+- No server, network or canonical mutation. Do not claim visual verification until local E3 confirms.
