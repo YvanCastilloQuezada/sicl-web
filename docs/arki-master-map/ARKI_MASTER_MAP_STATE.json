@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "All moves are reversible local draft placements, never canonical integration or deletion",
+      "integration_boundary": "No phase status or roadmap milestones modified by UI draft operations",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -1577,7 +1577,9 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: initial tray -> drag/drop to F1 -> tray absent/card X present/local draft persisted -> X -> original tray restored/card absent/local draft persisted"
+      "interaction_simulation": "PASS: initial ten phases/no occupancy -> drag IDEA-1 to F1 -> tray hides, F1 occupancy badge, inspector and X appear -> close inspector -> piece remains -> X restores tray and clears occupancy badge",
+      "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
+      "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
