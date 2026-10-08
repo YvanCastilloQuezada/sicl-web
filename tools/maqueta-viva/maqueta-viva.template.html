@@ -640,12 +640,12 @@ remember();workflowStages[id]=value;saveDraft();draftNotice="Etapa local de "+id
 function autoPlace(id,source){
 const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
 if(!piece||!movable.has(id)||placements[id])return false;
-const advice=proposedLocation(piece),phase=validPhases.has(advice.phase)?advice.phase:piece.targetPhase;
-if(!validPhases.has(phase))return false;
-const suggested=suggestStage(piece,phase);
+const recommendation=optimizedCandidates(piece),phase=recommendation.best.phase;
+if(!validPhases.has(phase)||recommendation.best.score===0)return false;
+if(source==="source"&&recommendation.confidence!=="MEDIA")return false;
 placements[id]=phase;
-if(suggested)spineAssignments[id]=suggested.index;else delete spineAssignments[id];
-autoPlacementNotes[id]={confidence:suggested?advice.confidence:"BAJA",stage:suggested?.index??"0",reason:(suggested?suggested.reason:"SIN HITO: no hay coincidencia suficiente, requiere revisión").slice(0,260)};
+if(recommendation.best.stage!=="")spineAssignments[id]=recommendation.best.stage;else delete spineAssignments[id];
+autoPlacementNotes[id]={confidence:recommendation.confidence,stage:recommendation.best.stage||"0",reason:("Evaluación de F1–F10: "+(recommendation.best.signals.join(", ")||"sin señales suficientes")+(recommendation.best.stage===""?"; SIN HITO":"")).slice(0,260)};
 if(!workflowStages[id])workflowStages[id]=source==="local"?"IDEA":components.some(x=>x.id===id)?"VERIFICACION_PENDIENTE":"EVALUACION";
 return true;
 }
@@ -1133,7 +1133,7 @@ candidates.slice(0,12).map(({p,r})=>'<div class="arki-optimizer-row"><div><stron
 '<p class="caption">No hay colocación ni promoción automática por mostrar esta evaluación. Las fases FROZEN y el roadmap siguen protegidos.</p></section>';
 }
 function locationReviewPanel(){
-const items=[...ideas,...components].filter(x=>locationReviewAll||placements[x.id]===activePhase||(!placements[x.id]&&proposedLocation(x).phase===activePhase));
+const items=[...ideas,...components].filter(x=>locationReviewAll||placements[x.id]===activePhase||(!placements[x.id]&&optimizedCandidates(x).best.phase===activePhase));
 return '<div class="location-review"><div class="location-review-head"><div><strong>Revisión de ubicaciones · '+escapeHtml(activePhase)+'</strong><p class="hint">Sugerencias de organización, NO ubicaciones verificadas. Selecciona fase e hito y pulsa «Aplicar». La referencia y la alternativa conservan asignaciones separadas.</p></div><button type="button" class="tab" data-location-all aria-pressed="'+locationReviewAll+'">'+(locationReviewAll?"Ver fase actual":"Ver todas las piezas")+'</button></div>'+
 (locationFeedback?'<div class="location-feedback '+(locationFeedback.changed?"location-feedback-changed":"")+'" role="status" aria-live="polite"><strong>'+(locationFeedback.changed?"Aplicado al borrador":"Sin cambios")+'</strong> · '+escapeHtml(locationFeedback.message)+'</div>':"")+
 optimizerPanel()+'<div class="location-review-list">'+items.map(piece=>{
@@ -1354,7 +1354,7 @@ content='<p class="hint">Ideas históricas y propuestas locales. Primero se mues
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
-return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Organizar piezas disponibles</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
+return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
 const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
@@ -1610,7 +1610,7 @@ app.querySelectorAll("[data-optimize-review]").forEach(el=>el.addEventListener("
 
 app.querySelectorAll("[data-auto-link-from]").forEach(el=>el.addEventListener("click",()=>{addConnection(el.dataset.autoLinkFrom,el.dataset.autoLinkTo);render();}));
 app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
-app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>placeSuggestedPiece(el.dataset.placeSuggest)));
+app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.placeSuggest,p=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);if(!p)return;activePhase=optimizedCandidates(p).best.phase;tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=true;selected=id;draftNotice="ARKI propone ubicación para "+id+"; revísala y pulsa Aplicar si estás conforme.";render();}));
 app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
 app.querySelectorAll("[data-source-history]").forEach(el=>el.addEventListener("click",()=>{sourceHistoryOpen=!sourceHistoryOpen;render();}));
 app.querySelectorAll("[data-e3-toggle]").forEach(el=>el.addEventListener("click",()=>{e3Open=!e3Open;render();}));
