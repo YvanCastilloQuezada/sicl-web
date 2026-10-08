@@ -76,6 +76,13 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .workbench-piece strong{font-size:12px}.workbench-piece span{font-size:13px;overflow-wrap:anywhere}.workbench-piece small{font-size:10px;color:#d4e9f4;margin-top:auto}.workbench-piece.selected{outline:2px solid #f2d94e}.workbench-piece:hover{background:#2d6489}
 @media(max-width:1200px){.layout{grid-template-columns:minmax(0,1fr) minmax(210px,250px)}}
 @media(max-width:850px){.layout{grid-template-columns:minmax(0,1fr)}.layout .center{order:1}.layout .right{order:2}.sidebar{position:static;max-height:none}.phase-menu{display:flex;overflow-x:auto}.phase-menu-button{flex:0 0 91px}}
+
+/* Piece selection is a visual state only, independent of canonical integration status. */
+#right .item strong,.workbench-piece strong,.workbench-piece span{color:#c8ff43}
+#right .item.selected-piece,.layout>.center .workbench-piece.selected-piece{background:#35647b;border-color:#9ce2d5;box-shadow:inset 0 0 0 1px rgba(169,244,229,.4)}
+#right .item.selected-piece strong,.layout>.center .workbench-piece.selected-piece strong,.layout>.center .workbench-piece.selected-piece span{color:#8ff4dd}
+#right .item.selected-piece:hover,.layout>.center .workbench-piece.selected-piece:hover{background:#40738a}
+#right .item:focus-visible,.layout>.center .workbench-piece:focus-visible{outline:2px solid #8ff4dd;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -266,7 +273,7 @@ return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+
 '<div class="free-workbench" aria-label="Superficie libre para ensamblar piezas de '+escapeHtml(p.id)+'">'+
-(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<button class="workbench-piece '+(selected===x.id?"selected":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
+(staged.length?'<div class="workbench-pieces">'+staged.map(x=>'<button class="workbench-piece '+(selected===x.id?"selected-piece":"")+'" data-select="'+escapeHtml(x.id)+'" title="Inspeccionar pieza ubicada provisionalmente"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span><small>'+escapeHtml(reviewGate(x.id).complete?"FICHA COMPLETA · SIN INTEGRACIÓN":"BORRADOR · SIN INTEGRACIÓN")+'</small></button>').join("")+'</div>':'<div class="workbench-placeholder"><strong>Mesa libre · '+escapeHtml(p.id)+'</strong><span>Selecciona o arrastra piezas desde la bandeja derecha para ubicarlas provisionalmente aquí.</span><small>Una ubicación en esta mesa NO constituye integración real.</small></div>')+
 '</div>'+
 (selected!==activePhase&&selected?placementInspector():"")+
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
@@ -275,16 +282,16 @@ function rightPanel(){
 let content="";
 if(tray==="frozen"){
 const entries=allFrozen.filter(p=>matches(p.id+" "+p.status+" "+p.name));
-content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Todos los registros FROZEN identificados explícitamente en el Estado Estructurado actual: fase y contratos AGK. No es una auditoría exhaustiva de todos los repositorios.</p><h3>'+allFrozen.length+' registros únicos</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }else if(tray==="components"){
 const entries=components.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Capacidades dispersas identificadas en una auditoría histórica. Su estado actual y su integración deben reconciliarse.</p><h3>'+components.length+' componentes históricos</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else if(tray==="ideas"){
 const entries=ideas.filter(p=>matches(p.id+" "+p.name+" "+p.targetPhase));
-content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Inventario histórico de 24 ideas. Destinos F1–F10 propuestos; sin promoción automática.</p><h3>'+ideas.length+' piezas recuperadas</h3><div class="stack">'+entries.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" draggable="true" data-drag-piece="'+escapeHtml(p.id)+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id+" · "+p.name)+'</strong><small>Destino: '+escapeHtml(p.targetPhase)+' · '+escapeHtml(p.sourceStatus)+'</small></button>').join("")+'</div>';
 }else{
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
-content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
+content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
 return '<h2>Bandeja de piezas</h2>'+content+'<p class="caption">Una pieza sale de la bandeja solo tras incorporación verificada en el registro, no por seleccionarla.</p>';
 }
