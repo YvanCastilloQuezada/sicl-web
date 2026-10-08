@@ -1577,7 +1577,7 @@
         "F10": "#ad416c"
       },
       "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
-      "interaction_simulation": "PASS: 10 phases, stage two cards, connect via card controls, declared link visible, local JSON persistence, undo/redo, remove, 10 roadmap cards",
+      "interaction_simulation": "PASS: 10 phase buttons, four milestone nodes per phase, F6 labels, stage piece, link to milestone, undo, redo, unlink, free view, new phase resets to spine; JS syntax PASS",
       "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
       "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
       "new_interactions": {
@@ -1610,6 +1610,79 @@
         "management": "Inline remove connection; undo/redo includes local reviews/dependencies; persists via local JSON",
         "scope": "Only same-phase connections drawn on that phase workbench; cross-phase declared dependencies remain visible in Conexiones -> Mis piezas conectadas",
         "boundary": "User-declared local dependency only, not executable, verified, or canonical; phase roadmap untouched"
+      },
+      "default_phase_view": "SPINE_VIEW",
+      "spine_proposal": {
+        "phase_coverage": "F1-F10",
+        "milestones": {
+          "F1": [
+            "Propósito y alcance",
+            "Identidad y requisitos",
+            "Estado y procedencia",
+            "Gobernanza y cierre"
+          ],
+          "F2": [
+            "Jurisdicción",
+            "Normas aplicables",
+            "Restricciones",
+            "Conformidad y evidencia"
+          ],
+          "F3": [
+            "Fuentes de conocimiento",
+            "Razonamiento",
+            "Agentes y capacidades",
+            "Decisiones y trazabilidad"
+          ],
+          "F4": [
+            "Programa arquitectónico",
+            "Relaciones espaciales",
+            "Alternativas de partido",
+            "Partido y validación"
+          ],
+          "F5": [
+            "Criterios de evaluación",
+            "Escenarios",
+            "Comparación y trade-offs",
+            "Decisión y evidencia"
+          ],
+          "F6": [
+            "Primitivas y representación",
+            "Topología e identidad",
+            "Operaciones geométricas",
+            "Validación y contratos"
+          ],
+          "F7": [
+            "Sistemas y componentes",
+            "Especialidades",
+            "Coordinación",
+            "Documentación técnica"
+          ],
+          "F8": [
+            "Documentos base",
+            "Consistencia de expediente",
+            "Revisión y conformidad",
+            "Expediente entregable"
+          ],
+          "F9": [
+            "Planificación de obra",
+            "Ejecución",
+            "Supervisión",
+            "Control y cierre"
+          ],
+          "F10": [
+            "Entrega y recepción",
+            "Operación",
+            "Mantenimiento",
+            "Retroalimentación"
+          ]
+        },
+        "classification": "ILLUSTRATIVE_STRUCTURAL_HYPOTHESIS_NOT_CRITICAL_PATH",
+        "secondary_activities": "Only placed historical idea/component pieces; unassigned until user explicitly links to milestone",
+        "visual_connections": "Each manually assigned secondary activity is shown under a milestone with a vertical branch and connector; not a validated code dependency",
+        "mode_switch": "Spine view default on phase navigation; Mesa libre preserves previous free placement, manual peer links, drag and visual position",
+        "draft_persistence": "spineAssignments keyed by piece ID, value milestone index 0..3; old drafts import without this field",
+        "reversibility": "Link/unlink, undo/redo, X returns piece to tray and deletes association, phase move clears stale association",
+        "invariants": "Never infer verified execution, critical-path timing, completion, canonical promotion or phase status from visual links"
       }
     },
     "assembly": {
