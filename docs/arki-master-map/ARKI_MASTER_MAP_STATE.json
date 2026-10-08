@@ -1540,18 +1540,20 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows git pull, launch ARKI-MAQUETA-VIVA.cmd, verify compact F1–F10 left rail, F1 selected initially, clicking F6 opens AGK frozen pieces in center, right trays remain, no JS errors; send output/screenshot.",
+    "next_gate": "Pull branch on Windows and relaunch shortcut; verify center always blue on Estructura/Conexiones/Inventario/Flotantes, sidebars unchanged, selecting F1/F6 opens package; screenshot as E3 evidence.",
     "layout": {
-      "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+      "status": "CODE_UPDATED_AWAITING_WINDOWS_VISUAL_E3",
       "left": "Compact vertical navigation F1–F10, 152px nominal width, selected phase",
-      "center": "Dedicated assembly workspace for active phase; historical components, proposed ideas, bounded FROZEN; clickable piece inspector",
+      "center": "Persistent blue workspace for selected phase assembly; preserves tabs, left F1-F10 rail, right piece tray",
       "right": "Pending / Ideas / Scattered / FROZEN tray",
       "interaction": "Clicking left phase opens phase package in center; selecting a tray piece opens its target phase and detail when mapped",
       "default_phase": "F1",
       "responsive": "Desktop three columns; stacked below 850px",
       "integration_boundary": "Visual planning only, not an actual integration engine or canonical mutation",
       "static_js_syntax": "PASS",
-      "windows_browser_gate": "NOT_EXECUTED"
+      "windows_browser_gate": "NOT_EXECUTED",
+      "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
+      "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)"
     },
     "assembly": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
