@@ -1508,7 +1508,7 @@
   "maqueta_viva": {
     "name": "ARKI MAQUETA VIVA",
     "version": "0.1-local",
-    "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+    "status": "FIRST_WINDOWS_LAUNCH_FAILED_FIX_APPLIED_AWAITING_RETEST",
     "purpose": "Offline, read-only, navigable visualization of the existing ARKI master structured state, opened with a Windows desktop shortcut",
     "files": [
       "ARKI-MAQUETA-VIVA.cmd",
@@ -1536,8 +1536,10 @@
       "javascript_syntax": "PASS_STATIC",
       "windows_shortcut": "NOT_EXECUTED",
       "browser_render": "NOT_EXECUTED",
-      "source_consistency": "GENERATED_FROM_LOCAL_JSON_AT_LAUNCH"
+      "source_consistency": "GENERATED_FROM_LOCAL_JSON_AT_LAUNCH",
+      "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
+      "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "User pulls feat/f7-f8-integral-closure, double-clicks ARKI-MAQUETA-VIVA.cmd, confirms shortcut and 10-phase UI. Capture raw output/errors."
+    "next_gate": "Pull updated branch, run ARKI-MAQUETA-VIVA.cmd again, report ARKI_MAQUETA_VIVA=READY, shortcut created and page rendered"
   }
 }
