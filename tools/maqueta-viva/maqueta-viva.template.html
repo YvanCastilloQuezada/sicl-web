@@ -297,15 +297,15 @@ const name=String(title||"").trim();
 if(name.length<3||name.length>160||!validPhases.has(phase)||localIdeas.length>=100){draftNotice="Escribe un nombre de 3 a 160 caracteres y selecciona una fase válida (máximo 100 ideas locales).";render();return;}
 const nextId=1+Math.max(0,...localIdeas.map(x=>Number(x.id.slice(6))||0));
 const next=[...localIdeas,{id:"LOCAL-"+nextId,title:name,targetPhase:phase}];
-try{replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));draftNotice="Idea LOCAL-"+nextId+" añadida a la bandeja como propuesta; no cambia el inventario canónico.";tray="ideas";render();}
+try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));draftNotice="Idea LOCAL-"+nextId+" añadida a la bandeja como propuesta; no cambia el inventario canónico.";tray="ideas";render();}
 catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
 }
 let placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base";
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
-function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments}};}
+function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
 function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
-function restore(snapshotValue){placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};saveDraft();}
+function restore(snapshotValue){if(snapshotValue.localIdeas){replaceLocalIdeas(snapshotValue.localIdeas);try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));}catch(e){storageAvailable=false;}}placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};saveDraft();}
 function travelHistory(direction){const from=direction==="undo"?undoStack:redoStack,to=direction==="undo"?redoStack:undoStack;if(!from.length)return;to.push(snapshot());restore(from.pop());selected=activePhase;draftNotice=direction==="undo"?"Último cambio de la maqueta deshecho.":"Cambio de la maqueta rehecho.";render();}
 function validatePositions(raw,validPlacements){
 if(raw===undefined)return {};
@@ -463,7 +463,20 @@ function importDraft(file){
 if(!file)return;
 if(file.size>200000){draftNotice="Archivo demasiado grande.";render();return;}
 const reader=new FileReader();
-reader.onload=()=>{try{const raw=JSON.parse(String(reader.result));const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next);remember();placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;observations={};saveDraft();draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones y "+Object.keys(nextReviews).length+" fichas declaradas. No modifica ARKI.";}catch(e){draftNotice="Importación rechazada: "+String(e.message);}render();};
+reader.onload=()=>{
+const previousLocal=JSON.parse(JSON.stringify(localIdeas));
+try{
+const raw=JSON.parse(String(reader.result));
+const incomingLocal=raw.localIdeas===undefined?previousLocal:validateLocalIdeas(raw.localIdeas);
+replaceLocalIdeas(incomingLocal);
+const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next);
+replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
+placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;observations={};
+localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));saveDraft();
+draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
+}catch(e){replaceLocalIdeas(previousLocal);draftNotice="Importación rechazada: "+String(e.message);}
+render();
+};
 reader.onerror=()=>{draftNotice="No se pudo leer el archivo.";render();};
 reader.readAsText(file,"UTF-8");
 }
