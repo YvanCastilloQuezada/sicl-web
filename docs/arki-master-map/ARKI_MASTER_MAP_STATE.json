@@ -1840,6 +1840,38 @@
         "recommendation": "Lexicographic heuristic: potential blockers first, review notices second; ties reported, no optimality claim",
         "limitations": "No validated objective function, durations, resources, full constraints, executed tests or independent alternative placements/dependency sets; no global optimizer or critical path computation",
         "safety": "No canonical roadmap or frozen contract mutations"
+      },
+      "idea_decision_colors": {
+        "APPROVED_FOR_EVALUATION": {
+          "background": "#2e9c5d",
+          "meaning": "Authorized to evaluate, not integrated or verified"
+        },
+        "PENDING_HUMAN_VALIDATION": {
+          "background": "#f3d84f",
+          "meaning": "Awaiting human decision"
+        },
+        "REJECTED": {
+          "background": "#475b6c",
+          "meaning": "Dismissed locally"
+        }
+      },
+      "research_trends": {
+        "scope": "Public GitHub releases metadata, six curated repositories and six capability families",
+        "external_process": [
+          "tools/research-trends/watch.py",
+          "tools/research-trends/sources.json",
+          "ARKI-RESEARCH-WATCH.cmd",
+          ".github/workflows/arki-research-trends.yml"
+        ],
+        "offline_import": "Maqueta Viva Research & Trends tab; user selects report.json, no network call",
+        "novelty": "First run baseline only; subsequent runs compare release_id against previous observations",
+        "dedup": "One candidate per capability key per observation; explicit canonical capability signals and human equivalence gate",
+        "candidate_status": "PENDING_HUMAN_VALIDATION; manual approval only permits evaluation",
+        "schedule_gate": "GitHub Actions cron only activates when workflow is present on default branch; feature branch does not auto-schedule",
+        "canonical_mutation": false,
+        "external_live_execution": "NOT_EXECUTED",
+        "unit_tests": "WRITTEN_NOT_EXECUTED",
+        "browser_e3": "NOT_EXECUTED"
       }
     },
     "assembly": {
