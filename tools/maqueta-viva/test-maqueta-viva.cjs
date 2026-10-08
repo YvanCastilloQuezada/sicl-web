@@ -13,7 +13,7 @@ const zone={setAttribute(){},addEventListener(type,fn){listeners[type]=fn;},clas
 const app={innerHTML:"",querySelectorAll(){return [];},querySelector(sel){return sel==="#arki-workspace"?zone:{addEventListener(){},focus(){},setSelectionRange(){}};}};
 const document={getElementById(id){return id==="app"?app:id==="stamp"?{textContent:""}:id==="arki-state"?{textContent:state}:id==="arki-assembly"?{textContent:registry}:null;},body:{appendChild(){}},createElement(){return {click(){},remove(){}};}};
 const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)};
-const exposed="\nrender();\nreturn {stagePiece,unstagePiece,validateDraft,validateReviews,recordReview,reviewGate,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),setPhase:id=>{activePhase=id;selected=id;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
+const exposed="\nrender();\nreturn {stagePiece,unstagePiece,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),setPhase:id=>{activePhase=id;selected=id;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
 const testSource=script.replace("(function(){","return (function(){").replace(/\nrender\(\);\n\}\)\(\);\s*$/,exposed);
 assert.notEqual(testSource,script,"Test harness must expose application functions");
 const api=new Function("document","localStorage","FileReader",testSource)(document,localStorage,class FileReader{});
@@ -59,4 +59,11 @@ check("cyclic dependencies rejected",!api.getReviews()["HC-03"]);
 api.recordReview("I-01",{repo:"",file:"",sha:"a",test:"",dependencies:""});
 check("partial SHA rejected",api.getReviews()["I-01"].sha===sha);
 check("review never verifies integration",script.includes("DECLARACIONES LOCALES")&&!script.includes("canonicalMutation:true"));
+const observation={schema:"ARKI-MAQUETA-GITHUB-OBSERVATION-1",observed_at:"2026-10-08T00:00:00Z",observations:[{id:"I-01",repo:"YvanCastilloQuezada/sicl-web",file:"shared/modulo.ts",sha,source:{status:"OBSERVED_SOURCE_AT_SHA"},ci:{status:"CI_RUN_SUCCESS_AT_SHA"}}]};
+check("matching observation accepted",Object.keys(api.validateObservations(observation)).length===1);
+let wrongSha=false;try{api.validateObservations({...observation,observations:[{...observation.observations[0],sha:"b".repeat(40)}]});}catch(e){wrongSha=true;}
+check("mismatched observation SHA rejected",wrongSha);
+let wrongState=false;try{api.validateObservations({...observation,observations:[{...observation.observations[0],source:{status:"VERIFIED"}}]});}catch(e){wrongState=true;}
+check("fabricated verified status rejected",wrongState);
+check("observation UI marked non-attested",script.includes("NO ATESTADA")&&script.includes("CI exitoso en el SHA no demuestra"));
 process.stdout.write("RESULT "+count+"/"+count+" PASS (offline simulation only)\n");
