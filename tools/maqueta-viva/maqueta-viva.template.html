@@ -303,6 +303,12 @@ main{max-width:1600px;margin:auto;padding:22px 24px}.metrics{display:grid;grid-t
 .location-review-row button{padding:8px 11px}
 @media(max-width:920px){.location-review-row{grid-template-columns:minmax(180px,1fr) minmax(130px,1fr)}.location-review-row button{justify-self:start}}
 @media(max-width:580px){.location-review-row{grid-template-columns:1fr}}
+
+.auto-organize-panel,.workflow-board{border:1px solid #6299b5;background:#16374e;padding:10px;border-radius:8px;margin-bottom:12px}
+.auto-organize-panel strong,.workflow-board summary{font-size:12px;color:#eaf7ff}.auto-organize-panel p{font-size:11px;line-height:1.5;color:#bddbe9}.auto-organize-panel button{white-space:normal;font-size:11px}
+.workflow-board summary{cursor:pointer;font-weight:700}.workflow-summary{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.workflow-summary span{padding:6px 8px;border:1px solid #5686a6;border-radius:7px;font-size:11px;background:#103049}
+.workflow-picker{display:flex;flex-direction:column;gap:3px;margin:6px 0;color:#d9f0ff;font-size:10px}.workflow-picker select{width:100%;min-width:0;max-width:240px;padding:5px;background:#0b283d;border:1px solid #7aafc9;color:#fff;border-radius:5px;font-size:11px}
+.workflow-stage-line{font-size:10px;color:#f4d18a;margin-top:5px}
 </style>
 </head>
 <body>
@@ -368,15 +374,15 @@ const name=String(title||"").trim();
 if(name.length<3||name.length>160||!validPhases.has(phase)||localIdeas.length>=100){draftNotice="Escribe un nombre de 3 a 160 caracteres y selecciona una fase válida (máximo 100 ideas locales).";render();return;}
 const nextId=1+Math.max(0,...localIdeas.map(x=>Number(x.id.slice(6))||0));
 const next=[...localIdeas,{id:"LOCAL-"+nextId,title:name,targetPhase:phase}];
-try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));draftNotice="Idea LOCAL-"+nextId+" añadida a la bandeja como propuesta; no cambia el inventario canónico.";tray="ideas";render();}
+try{remember();replaceLocalIdeas(next);localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));autoPlace("LOCAL-"+nextId,"local");saveDraft();draftNotice="Idea LOCAL-"+nextId+" colocada automáticamente en "+(placements["LOCAL-"+nextId]||"BANDEJA")+" · Hito "+(Number(spineAssignments["LOCAL-"+nextId]||0)+1)+". PROPUESTA REVISABLE, NO INTEGRADA.";activePhase=placements["LOCAL-"+nextId]||phase;tab="structure";spineView=true;tray="ideas";render();}
 catch(e){draftNotice="No se pudo guardar la idea local: "+String(e.message);render();}
 }
-let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false;
+let unreconciledDraftBackup="",placements={},positions={},reviews={},observations={},draftNotice="",storageAvailable=true,focusMode=false,connectionMode="draft",linkMode=false,linkSource="",spineView=true,spineAssignments={},alternativeSpineAssignments={},spineScenario="base",selectedSpineStage=0,workflowStages={},autoPlacementNotes={},trayCurrentPhaseOnly=true,locationReviewOpen=false,locationReviewAll=false;
 const SPINE_STAGES={"F1":["Propósito y alcance","Identidad y requisitos","Estado y procedencia","Gobernanza y cierre"],"F2":["Fuentes y procedencia","Curaduría y conocimiento","Universidad y tutoría","Evaluación y promoción gobernada"],"F3":["Fuentes de conocimiento","Razonamiento","Agentes y capacidades","Decisiones y trazabilidad"],"F4":["Programa arquitectónico","Relaciones espaciales","Alternativas de partido","Partido y validación"],"F5":["Criterios de evaluación","Escenarios","Comparación y trade-offs","Decisión y evidencia"],"F6":["Primitivas y representación","Topología e identidad","Operaciones geométricas","Validación y contratos"],"F7":["Sistemas y componentes","Especialidades","Coordinación","Documentación técnica"],"F8":["Documentos base","Consistencia de expediente","Revisión y conformidad","Expediente entregable"],"F9":["Planificación de obra","Ejecución","Supervisión","Control y cierre"],"F10":["Entrega y recepción","Operación","Mantenimiento","Retroalimentación"]};
 const undoStack=[],redoStack=[],HISTORY_LIMIT=50;
-function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
+function snapshot(){return {placements:{...placements},positions:JSON.parse(JSON.stringify(positions)),reviews:JSON.parse(JSON.stringify(reviews)),spineAssignments:{...spineAssignments},alternativeSpineAssignments:{...alternativeSpineAssignments},workflowStages:{...workflowStages},autoPlacementNotes:JSON.parse(JSON.stringify(autoPlacementNotes)),localIdeas:JSON.parse(JSON.stringify(localIdeas))};}
 function remember(){undoStack.push(snapshot());if(undoStack.length>HISTORY_LIMIT)undoStack.shift();redoStack.length=0;}
-function restore(snapshotValue){if(snapshotValue.localIdeas){replaceLocalIdeas(snapshotValue.localIdeas);try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));}catch(e){storageAvailable=false;}}placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};saveDraft();}
+function restore(snapshotValue){if(snapshotValue.localIdeas){replaceLocalIdeas(snapshotValue.localIdeas);try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));}catch(e){storageAvailable=false;}}placements={...snapshotValue.placements};positions=JSON.parse(JSON.stringify(snapshotValue.positions));if(snapshotValue.reviews)reviews=JSON.parse(JSON.stringify(snapshotValue.reviews));spineAssignments={...(snapshotValue.spineAssignments||{})};alternativeSpineAssignments={...(snapshotValue.alternativeSpineAssignments||{})};workflowStages={...(snapshotValue.workflowStages||{})};autoPlacementNotes=JSON.parse(JSON.stringify(snapshotValue.autoPlacementNotes||{}));saveDraft();}
 function travelHistory(direction){const from=direction==="undo"?undoStack:redoStack,to=direction==="undo"?redoStack:undoStack;if(!from.length)return;to.push(snapshot());restore(from.pop());selected=activePhase;draftNotice=direction==="undo"?"Último cambio de la maqueta deshecho.":"Cambio de la maqueta rehecho.";render();}
 function validatePositions(raw,validPlacements){
 if(raw===undefined)return {};
@@ -422,14 +428,58 @@ scores.sort((a,b)=>b.score-a.score);
 const best=scores[0];if(!best||best.score===0||scores[1]?.score===best.score)return null;
 return {index:best.index,reason:"Coincidencia textual: "+best.words.join(", "),confidence:best.score>=2?"MEDIA":"BAJA"};
 }
+
+const WORKFLOW_STAGES=[["IDEA","Idea"],["EVALUACION","En evaluación"],["EN_DESARROLLO","En desarrollo"],["IMPLEMENTACION_DECLARADA","Implementación declarada"],["VERIFICACION_PENDIENTE","Verificación pendiente"],["PAUSADA","Pausada"],["DESCARTADA","Descartada"]];
+const WORKFLOW_SET=new Set(WORKFLOW_STAGES.map(x=>x[0]));
+function validateWorkflowStages(raw){
+if(raw===undefined)return {};
+if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Etapas inválidas");
+const result={};for(const [id,status] of Object.entries(raw)){if(!movable.has(id)||!WORKFLOW_SET.has(status))throw Error("Etapa inválida: "+id);result[id]=status;}return result;
+}
+function validateAutoPlacementNotes(raw,validPlacements){
+if(raw===undefined)return {};
+if(!raw||typeof raw!=="object"||Array.isArray(raw))throw Error("Notas automáticas inválidas");
+const result={};for(const [id,n] of Object.entries(raw)){
+if(!validPlacements[id]||!n||typeof n!=="object"||!["MEDIA","HISTÓRICA","BAJA"].includes(n.confidence)||typeof n.reason!=="string"||n.reason.length>260||!["0","1","2","3"].includes(n.stage))throw Error("Nota automática inválida: "+id);
+result[id]={confidence:n.confidence,reason:n.reason,stage:n.stage};}return result;
+}
+function workflowLabel(id){return WORKFLOW_STAGES.find(x=>x[0]===(workflowStages[id]||"IDEA"))?.[1]||"Idea";}
+function setWorkflowStage(id,value){
+if(!movable.has(id)||!WORKFLOW_SET.has(value))return;
+remember();workflowStages[id]=value;saveDraft();draftNotice="Etapa local de "+id+": "+workflowLabel(id)+". No certifica implementación ni FROZEN.";render();
+}
+function autoPlace(id,source){
+const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
+if(!piece||!movable.has(id)||placements[id])return false;
+const advice=proposedLocation(piece),phase=validPhases.has(advice.phase)?advice.phase:piece.targetPhase;
+if(!validPhases.has(phase))return false;
+const suggested=suggestStage(piece,phase),index=suggested?.index??"0";
+placements[id]=phase;spineAssignments[id]=index;
+autoPlacementNotes[id]={confidence:suggested?advice.confidence:"BAJA",stage:index,reason:(suggested?suggested.reason:"Sin coincidencia: Hito 1 provisional; revisar manualmente").slice(0,260)};
+if(!workflowStages[id])workflowStages[id]=source==="local"?"IDEA":"EVALUACION";
+return true;
+}
+function autoOrganizeAvailable(){
+const available=[...ideas,...components].filter(x=>!placements[x.id]);
+if(!available.length){draftNotice="No hay piezas disponibles para organizar.";render();return;}
+remember();let count=0;for(const p of available)if(autoPlace(p.id,"inventory"))count++;
+saveDraft();draftNotice="ARKI organizó "+count+" piezas como BORRADOR. Revisa ubicaciones de confianza BAJA. Ninguna fue integrada ni verificada.";tab="structure";spineView=true;render();
+}
+function workflowPicker(id){
+return '<label class="workflow-picker">Etapa de trabajo<select data-workflow-stage="'+escapeHtml(id)+'" aria-label="Etapa de '+escapeHtml(id)+'">'+WORKFLOW_STAGES.map(([code,label])=>'<option value="'+code+'" '+((workflowStages[id]||"IDEA")===code?"selected":"")+'>'+escapeHtml(label)+'</option>').join("")+'</select></label>';
+}
+function workflowBoard(){
+const counts=Object.fromEntries(WORKFLOW_STAGES.map(([code])=>[code,0]));
+for(const p of [...ideas,...components])counts[workflowStages[p.id]||"IDEA"]++;
+const low=Object.entries(autoPlacementNotes).filter(([id,n])=>placements[id]&&n.confidence==="BAJA");
+return '<details class="workflow-board"><summary>Madurez de piezas · '+low.length+' asignaciones automáticas de confianza BAJA</summary><div class="workflow-summary">'+WORKFLOW_STAGES.map(([code,label])=>'<span><b>'+counts[code]+'</b> '+escapeHtml(label)+'</span>').join("")+'</div><p class="hint">Etapas de trabajo declaradas, no estados verificados. Los FROZEN siguen bajo autoridad canónica.</p><p class="hint">Para revisar la ubicación de las '+low.length+' piezas de confianza baja, abre «Revisar ubicaciones sugeridas» en la Vista Vertebral.</p></details>';
+}
 function placeSuggestedPiece(id){
 const piece=ideas.find(x=>x.id===id)||components.find(x=>x.id===id);
 if(!piece||!movable.has(id)||Object.prototype.hasOwnProperty.call(placements,id)||!validPhases.has(piece.targetPhase))return;
-const phase=piece.targetPhase,suggestion=suggestStage(piece,phase);
-remember();placements[id]=phase;
-if(suggestion)spineAssignments[id]=suggestion.index;
-saveDraft();activePhase=phase;tab="structure";spineView=true;spineScenario="base";selected=activePhase;
-draftNotice="Pieza "+id+" ubicada provisionalmente en "+phase+(suggestion?" · Hito "+(Number(suggestion.index)+1)+" sugerido por "+suggestion.reason:" · sin hito sugerido por falta de coincidencia")+". Revisión pendiente; NO INTEGRADA.";
+remember();if(!autoPlace(id,"inventory")){draftNotice="No se pudo clasificar "+id;render();return;}
+saveDraft();const phase=placements[id],suggestion=suggestStage(piece,phase);activePhase=phase;tab="structure";spineView=true;spineScenario="base";selected=activePhase;
+draftNotice="ARKI ubicó "+id+" en "+phase+" · Hito "+(Number(spineAssignments[id])+1)+(suggestion?" por "+suggestion.reason:" (confianza BAJA; revisar)")+". BORRADOR, NO INTEGRADA.";
 render();
 }
 function copyReferenceToAlternative(){
@@ -491,7 +541,7 @@ stack.add(id);for(const dep of clean[id]?.dependencies||[])visit(dep,stack,done)
 const done=new Set();for(const id of Object.keys(clean))visit(id,new Set(),done);
 return clean;
 }
-try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);spineAssignments=validateSpineAssignments(data.spineAssignments,placements);alternativeSpineAssignments=validateSpineAssignments(data.alternativeSpineAssignments,placements);}}
+try{const raw=localStorage.getItem(DRAFT_KEY);if(raw){const data=JSON.parse(raw);placements=validateDraft(data);positions=validatePositions(data.positions,placements);reviews=validateReviews(data.reviews);spineAssignments=validateSpineAssignments(data.spineAssignments,placements);alternativeSpineAssignments=validateSpineAssignments(data.alternativeSpineAssignments,placements);workflowStages=validateWorkflowStages(data.workflowStages);autoPlacementNotes=validateAutoPlacementNotes(data.autoPlacementNotes,placements);}}
 catch(e){
 try{
 const raw=localStorage.getItem(DRAFT_KEY);
@@ -508,6 +558,8 @@ const rev=Object.fromEntries(Object.entries(old.reviews||{}).filter(([id])=>mova
 try{reviews=validateReviews(rev);}catch(_){reviews={};}
 try{spineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(old.spineAssignments||{}).filter(([id])=>valid[id])),valid);}catch(_){spineAssignments={};}
 try{alternativeSpineAssignments=validateSpineAssignments(Object.fromEntries(Object.entries(old.alternativeSpineAssignments||{}).filter(([id])=>valid[id])),valid);}catch(_){alternativeSpineAssignments={};}
+try{workflowStages=validateWorkflowStages(Object.fromEntries(Object.entries(old.workflowStages||{}).filter(([id])=>movable.has(id))));}catch(_){workflowStages={};}
+try{autoPlacementNotes=validateAutoPlacementNotes(Object.fromEntries(Object.entries(old.autoPlacementNotes||{}).filter(([id])=>valid[id])),valid);}catch(_){autoPlacementNotes={};}
 draftNotice="ATENCIÓN: el inventario cambió o el borrador contiene datos inválidos. Se conserva un respaldo íntegro para exportar; solo las piezas reconocidas se muestran provisionalmente. Revisa antes de continuar.";
 }catch(recoveryError){storageAvailable=false;draftNotice="No se pudo cargar el borrador. No se ha modificado el estado canónico: "+String(recoveryError.message);}
 }
@@ -556,20 +608,20 @@ changes.otherChanges.length+" registros modificados",changes.retired.length+" re
 return '<div class="source-sync" role="status"><div><strong>FUENTES LOCALES · '+escapeHtml(sourceManifest.stateDate)+' / inventario '+escapeHtml(sourceManifest.registryDate)+'</strong><span>'+escapeHtml(detail)+'</span><small>La actualización es automática al abrir desde ARKI-MAQUETA-VIVA.cmd después de actualizar los archivos locales. Sin consulta remota y sin promoción de evidencias.</small></div><button type="button" class="tab" data-source-open="roadmap">Ver roadmap</button><button type="button" class="tab" data-source-open="frozen">Ver FROZEN</button></div>';
 }
 function saveDraft(){
-try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments}));storageAvailable=true;}
+try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes}));storageAvailable=true;}
 catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo.";}
 }
 function stagePiece(id,phase,position){
 if(!movable.has(id)||!validPhases.has(phase)){draftNotice="Pieza o fase no válida. No se realizó ningún cambio.";return;}
 if(Object.prototype.hasOwnProperty.call(placements,id)){
 if(placements[id]===phase){draftNotice="La pieza "+id+" ya está ubicada en "+phase+".";return;}
-remember();const from=placements[id];placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];draftNotice="Pieza "+id+" movida de "+from+" a "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();return;
+remember();const from=placements[id];placements[id]=phase;delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];draftNotice="Pieza "+id+" movida de "+from+" a "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();return;
 }
 remember();placements[id]=phase;if(position)positions[id]={x:Math.max(0,Math.min(1,position.x)),y:Math.max(0,Math.min(1,position.y))};draftNotice="Pieza "+id+" retirada de la bandeja y ubicada en "+phase+" como BORRADOR, NO INTEGRADA.";saveDraft();
 }
 function unstagePiece(id){
 if(!movable.has(id)||!Object.prototype.hasOwnProperty.call(placements,id))return;
-remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
+remember();delete placements[id];delete positions[id];delete spineAssignments[id];delete alternativeSpineAssignments[id];delete autoPlacementNotes[id];draftNotice="Pieza "+id+" retirada de la mesa y devuelta a su bandeja original.";saveDraft();
 }
 function exportUnreconciledBackup(){
 if(!unreconciledDraftBackup)return;
@@ -577,7 +629,7 @@ const link=document.createElement("a");link.href="data:application/json;charset=
 draftNotice="Respaldo original preparado para exportación; no se ha reconciliado automáticamente.";
 }
 function draftFile(){
-const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
+const payload=JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,localIdeas,authority:"LOCAL_VISUAL_DRAFT_ONLY",note:"Referencias y dependencias declaradas por el usuario, NO VERIFICADAS. No prueba integración ni modifica el Estado Estructurado."},null,2);
 const link=document.createElement("a");link.href="data:application/json;charset=utf-8,"+encodeURIComponent(payload);link.download="arki-maqueta-borrador.json";document.body.appendChild(link);link.click();link.remove();
 draftNotice="Borrador preparado para exportación.";
 }
@@ -591,9 +643,9 @@ try{
 const raw=JSON.parse(String(reader.result));
 const incomingLocal=raw.localIdeas===undefined?previousLocal:validateLocalIdeas(raw.localIdeas);
 replaceLocalIdeas(incomingLocal);
-const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next);
+const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next),nextWorkflow=validateWorkflowStages(raw.workflowStages),nextAutoNotes=validateAutoPlacementNotes(raw.autoPlacementNotes,next);
 replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
-placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;observations={};
+placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;observations={};
 localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));saveDraft();
 draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
 }catch(e){replaceLocalIdeas(previousLocal);draftNotice="Importación rechazada: "+String(e.message);}
@@ -719,6 +771,7 @@ return '<div class="activity-sequence" aria-label="Predecesores y sucesores de '
 }
 function spineCard(x){
 return '<div class="spine-activity '+(linkSource===x.id?"spine-link-source":"")+'"><div class="spine-activity-title"><button type="button" class="spine-activity-inspect" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.name)+'</span></button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a la bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div>'+
+'<div class="workflow-stage-line">'+escapeHtml(workflowLabel(x.id))+(autoPlacementNotes[x.id]?' · ARKI: '+escapeHtml(autoPlacementNotes[x.id].confidence):"")+'</div>'+workflowPicker(x.id)+
 activitySequence(x.id)+
 '<div class="spine-activity-bottom"><button type="button" class="spine-activity-connect '+(linkSource===x.id?"active":"")+'" data-spine-connect="'+escapeHtml(x.id)+'" aria-label="Conectar actividad '+escapeHtml(x.id)+'" title="Primero actividad dependiente, luego actividad necesaria">🔗 Conectar</button><button type="button" class="spine-activity-unlink" data-spine-unlink="'+escapeHtml(x.id)+'" title="Desvincular del hito, sin retirar de la fase">Desvincular</button></div></div>';
 }
@@ -805,7 +858,7 @@ return '<section class="spine-stage '+(selectedSpineStage===i?"spine-stage-activ
 }).join("")+'</div></div>'+
 '<div class="spine-unassigned"><div class="spine-unassigned-head"><strong>Espinas sin vincular · '+unassigned.length+'</strong><span>Hito seleccionado: '+(selectedSpineStage+1)+' · '+escapeHtml(milestones[selectedSpineStage])+'. Pulsa «Vincular» en una actividad; puedes cambiar el hito en su selector.</span></div>'+
 (!suggestions.length&&unassigned.length?'<p class="spine-no-suggestions">No hay coincidencias textuales inequívocas para estas piezas. La ausencia de sugerencias NO significa que sean incompatibles: elige un hito manualmente.</p>':"")+
-(unassigned.length?unassigned.map(x=>'<div class="spine-unassigned-row"><div class="spine-unassigned-identity"><button type="button" class="spine-unassigned-title" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong> '+escapeHtml(x.name)+'</button>'+activitySequence(x.id)+'</div>'+(x.targetPhase!==p.id?'<small class="spine-phase-mismatch">Fase sugerida en inventario: '+escapeHtml(x.targetPhase)+' · actualmente ubicada en '+escapeHtml(p.id)+'. Verifica la asignación.</small>':"")+(suggestStage(x,p.id)?'<small class="spine-suggestion">Sugerido: Hito '+(Number(suggestStage(x,p.id).index)+1)+' · '+escapeHtml(suggestStage(x,p.id).reason)+' · '+suggestStage(x,p.id).confidence+'</small>':"")+'<label class="spine-assign-label">Hito<select data-spine-target="'+escapeHtml(x.id)+'" aria-label="Hito para '+escapeHtml(x.id)+'">'+milestones.map((m,i)=>'<option value="'+i+'" '+(i===Number(suggestStage(x,p.id)?.index??selectedSpineStage)?"selected":"")+'>'+(i+1)+' · '+escapeHtml(m)+'</option>').join("")+'</select></label><button type="button" class="action-primary" data-spine-assign="'+escapeHtml(x.id)+'">Vincular</button><button type="button" class="spine-activity-connect '+(linkSource===x.id?"active":"")+'" data-spine-connect="'+escapeHtml(x.id)+'" title="Crear dependencia entre actividades sin necesidad de asignar hito">🔗 Conectar</button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div>').join(""):'<p class="hint">No hay actividades sin vincular. Arrastra una pieza desde la bandeja derecha para agregarla a esta fase.</p>')+'</div>'+
+(unassigned.length?unassigned.map(x=>'<div class="spine-unassigned-row"><div class="spine-unassigned-identity"><button type="button" class="spine-unassigned-title" data-select="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.id)+'</strong> '+escapeHtml(x.name)+'</button>'+activitySequence(x.id)+workflowPicker(x.id)+'</div>'+(x.targetPhase!==p.id?'<small class="spine-phase-mismatch">Fase sugerida en inventario: '+escapeHtml(x.targetPhase)+' · actualmente ubicada en '+escapeHtml(p.id)+'. Verifica la asignación.</small>':"")+(suggestStage(x,p.id)?'<small class="spine-suggestion">Sugerido: Hito '+(Number(suggestStage(x,p.id).index)+1)+' · '+escapeHtml(suggestStage(x,p.id).reason)+' · '+suggestStage(x,p.id).confidence+'</small>':"")+'<label class="spine-assign-label">Hito<select data-spine-target="'+escapeHtml(x.id)+'" aria-label="Hito para '+escapeHtml(x.id)+'">'+milestones.map((m,i)=>'<option value="'+i+'" '+(i===Number(suggestStage(x,p.id)?.index??selectedSpineStage)?"selected":"")+'>'+(i+1)+' · '+escapeHtml(m)+'</option>').join("")+'</select></label><button type="button" class="action-primary" data-spine-assign="'+escapeHtml(x.id)+'">Vincular</button><button type="button" class="spine-activity-connect '+(linkSource===x.id?"active":"")+'" data-spine-connect="'+escapeHtml(x.id)+'" title="Crear dependencia entre actividades sin necesidad de asignar hito">🔗 Conectar</button><button type="button" class="spine-activity-remove" data-unstage="'+escapeHtml(x.id)+'" title="Devolver a bandeja" aria-label="Devolver '+escapeHtml(x.id)+' a la bandeja">×</button></div>').join(""):'<p class="hint">No hay actividades sin vincular. Arrastra una pieza desde la bandeja derecha para agregarla a esta fase.</p>')+'</div>'+
 '<div class="spine-connection-list"><div class="spine-connection-list-head"><strong>Dependencias entre actividades · '+phaseLinks.length+'</strong><span>Hipótesis local · la flecha significa «necesita» · compartida por Referencia y Alternativa</span></div>'+(phaseLinks.length?phaseLinks.map(e=>'<div class="spine-connection-row"><span><b>'+escapeHtml(e.from)+'</b> necesita <b>'+escapeHtml(e.to)+'</b> <small>NO VERIFICADA</small></span><button type="button" class="tab" data-link-remove="'+escapeHtml(e.from)+'" data-link-target="'+escapeHtml(e.to)+'">Quitar ×</button></div>').join(""):'<p class="hint">No hay dependencias declaradas entre actividades. Vincular una espina a un hito no crea automáticamente una dependencia entre piezas.</p>')+'</div>'+
 '<div class="spine-legend"><span>● Columna: hitos propuestos</span><span>│ Espinas: actividades vinculadas en borrador</span><span>← Predecesor: pieza necesaria · Sucesor →: pieza que depende de ella</span><span>Sin declarar ≠ relación inexistente</span></div>'+
 (inspectOpen?'<aside class="workbench-inspector" aria-label="Inspector de pieza"><div class="inspector-head"><strong>INSPECTOR · '+escapeHtml(selected)+'</strong><button type="button" class="inspector-close" data-close-inspector aria-label="Cerrar inspector de pieza">×</button></div>'+placementInspector()+'</aside>':"")+
@@ -818,7 +871,7 @@ const auditReady=staged.filter(x=>reviewGate(x.id).complete).length;
 const inspectOpen=!linkMode&&selected!==activePhase&&selected;
 const links=localPhaseLinks(p.id);
 if(spineView)return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
-'<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+draftControls()+viewControls()+spineWorkspace(p,staged);
+'<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+draftControls()+viewControls()+workflowBoard()+spineWorkspace(p,staged);
 return '<div class="assembly-header"><div><div class="kicker">MESA DE ENSAMBLAJE · '+escapeHtml(p.id)+'</div><h2>'+escapeHtml(p.name)+'</h2></div><span class="status '+statusClass(p)+'">'+escapeHtml(p.status)+'</span></div>'+
 '<div class="workbench-summary"><span>'+staged.length+' piezas ubicadas en borrador</span><span>'+auditReady+' con ficha de revisión completa</span><span>Arrastra desde la bandeja derecha</span></div>'+
 draftControls()+viewControls()+
@@ -845,7 +898,7 @@ content='<p class="hint">Ideas históricas y propuestas locales. Primero se mues
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
-return '<h2>Bandeja de piezas</h2>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
+return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Organizar piezas disponibles</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
 const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
@@ -1000,6 +1053,8 @@ app.innerHTML='<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.
 sourceUpdateBanner()+
 '<div class="layout '+(focusMode?"focus-mode":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,parts:parts,floating:floating}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
+app.querySelectorAll("[data-auto-organize]").forEach(el=>el.addEventListener("click",autoOrganizeAvailable));
+app.querySelectorAll("[data-workflow-stage]").forEach(el=>el.addEventListener("change",()=>setWorkflowStage(el.dataset.workflowStage,el.value)));
 app.querySelectorAll("[data-place-suggest]").forEach(el=>el.addEventListener("click",()=>placeSuggestedPiece(el.dataset.placeSuggest)));
 app.querySelectorAll("[data-add-local-idea]").forEach(el=>el.addEventListener("click",()=>createLocalIdea(app.querySelector("#local-idea-title")?.value,app.querySelector("#local-idea-phase")?.value||activePhase)));
 app.querySelectorAll("[data-source-open]").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.sourceOpen==="roadmap"){tab="roadmap";}else{tray="frozen";tab="structure";}selected=activePhase;render();}));
