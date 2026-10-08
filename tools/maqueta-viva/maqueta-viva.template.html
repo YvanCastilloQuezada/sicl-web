@@ -470,6 +470,13 @@ header .stamp{flex:0 0 auto}
 .research-source{display:flex;flex-direction:column;gap:6px;background:#17364e;border:1px solid #4f7b98;border-radius:8px;padding:10px;font-size:11px}
 .research-source small{color:#bcd8eb;overflow-wrap:anywhere}.research-source a,.arki-idea a{color:#99dfff}
 .research-baseline{padding:9px;border-radius:7px;background:#42391d;color:#ffe7a5;font-weight:700;font-size:12px}
+
+/* Additional Research tab must never overlap counters or search. */
+.commandbar{grid-template-columns:auto minmax(0,1fr) minmax(125px,170px)}
+.command-tabs{justify-self:stretch;justify-content:flex-start;min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
+.command-tabs .command-group,.command-tabs>.tab{flex-shrink:0}
+@media(max-width:1050px){.commandbar{grid-template-columns:minmax(0,1fr) auto}.command-tabs{max-width:100%}}
+@media(max-width:580px){.commandbar{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
