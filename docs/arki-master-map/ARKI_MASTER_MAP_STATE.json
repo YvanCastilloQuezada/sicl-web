@@ -1540,22 +1540,16 @@
       "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
       "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
     },
-    "next_gate": "Windows: git pull, launch desktop shortcut or ARKI-MAQUETA-VIVA.cmd, inspect 3 panels; F1 interior shows 7 historical components + 5 ideas; right tray 24 ideas, 27 scattered components, 8 current-state frozen entries. Capture error/visual evidence; no E3 yet.",
+    "next_gate": "Windows git pull, launch ARKI-MAQUETA-VIVA.cmd, verify compact F1–F10 left rail, F1 selected initially, clicking F6 opens AGK frozen pieces in center, right trays remain, no JS errors; send output/screenshot.",
     "layout": {
       "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
-      "source": "tools/maqueta-viva/maqueta-viva.template.html",
-      "three_panels": {
-        "left": "Authorities, selected component information and epistemic state",
-        "center": "Ten phase blocks, switchable layouts, connections and inventory",
-        "right": "Registered blockers and phases requiring reconciliation"
-      },
-      "center_layouts": [
-        "5x2_DEFAULT",
-        "3x3_PLUS_1",
-        "PYRAMID_1_2_3_4"
-      ],
-      "responsive": "Three columns desktop, stacked on narrower screens",
-      "semantics": "Layout does not imply authority hierarchy, completion or integration verification",
+      "left": "Compact vertical navigation F1–F10, 152px nominal width, selected phase",
+      "center": "Dedicated assembly workspace for active phase; historical components, proposed ideas, bounded FROZEN; clickable piece inspector",
+      "right": "Pending / Ideas / Scattered / FROZEN tray",
+      "interaction": "Clicking left phase opens phase package in center; selecting a tray piece opens its target phase and detail when mapped",
+      "default_phase": "F1",
+      "responsive": "Desktop three columns; stacked below 850px",
+      "integration_boundary": "Visual planning only, not an actual integration engine or canonical mutation",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED"
     },
