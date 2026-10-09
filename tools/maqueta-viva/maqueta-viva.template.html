@@ -639,6 +639,25 @@ header .stamp{display:block;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .spine-analysis-drawer[open]>summary::before{content:"▾"}
 .spine-analysis-content{padding:12px;min-width:0}
 @media(max-width:720px){.spine-analysis-content{padding:8px}.spine-priority-note{align-items:flex-start;flex-direction:column}}
+
+/* Independent evolution x scope navigation, including global scope. */
+.phase-menu{grid-template-columns:repeat(11,minmax(0,1fr))}
+.phase-menu-button.phase-all{background:#24374e;border-color:#b9c7d8;color:#fff}
+.phase-menu-button.phase-all.selected{background:#e7f3ff;color:#12263c;border-color:#fff;outline:2px solid #fff;outline-offset:-3px}
+.scope-head{margin-bottom:17px}.scope-head .kicker{color:#a8dcfa;font-size:12px;font-weight:750;letter-spacing:.06em}.scope-head h2{margin:5px 0}
+.scope-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:11px;margin:16px 0}
+.scope-phase-card{display:flex;flex-direction:column;gap:7px;text-align:left;padding:15px;border:1px solid #5b8eae;border-left:4px solid var(--scope-color,#72b3d6);border-radius:10px;background:#183d5c;color:#e9f7ff;min-width:0}
+.scope-phase-card strong{font-size:13px}.scope-phase-card span{font-size:12px}.scope-phase-card small{font-size:11px;color:#c3d9e9;overflow-wrap:anywhere}
+button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
+.scope-plano-svg{width:100%;height:auto;max-height:330px;border:1px solid #6388a6;border-radius:12px;background:#102c46}
+.scope-plano-phase{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);gap:22px;align-items:center;margin:22px 0}
+.scope-plano-root{display:flex;flex-direction:column;gap:9px;text-align:center;background:#224e6f;border:2px solid #a3d9f7;border-radius:12px;padding:22px}
+.scope-plano-root strong{font-size:24px}.scope-plano-root span{font-size:12px}
+.scope-plano-pieces{border-left:2px dashed #9ac3dd;padding-left:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px;min-height:90px}
+.scope-plano-piece{background:#265e7e;border:1px solid #7fb7d5;border-radius:8px;padding:10px;text-align:left;color:#fff;display:flex;flex-direction:column;gap:5px;min-width:0}
+.scope-plano-piece span{font-size:11px;overflow-wrap:anywhere}
+.scope-relation-list{margin:18px 0;border-top:1px solid #557e9c;padding-top:12px}.scope-relation-list div{padding:6px;border-bottom:1px solid #385c79;font-size:12px}
+@media(max-width:850px){.phase-menu{display:flex;overflow-x:auto}.scope-plano-phase{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -687,7 +706,7 @@ const extras=[
 ];
 const blockerParts=blockers.map(b=>({id:b,name:b,status:"BLOCKED",description:"Bloqueo explícito del Estado Estructurado. No implica que las demás piezas estén ausentes."}));
 const all=[...phases,...extras,...blockerParts,...ideas,...components,...allFrozen];
-let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="ideas",evolutionMode="maqueta";
+let selected="F1",activePhase="F1",tab="structure",search="",assembly="5x2",tray="ideas",evolutionMode="maqueta",viewScope="ALL";
 const DRAFT_SCHEMA="ARKI-MAQUETA-DRAFT-1",DRAFT_KEY="arki-maqueta-assembly-draft-v1";
 const movable=new Set([...ideas,...components].map(x=>x.id));
 const validPhases=new Set(phases.map(x=>x.id));
@@ -2157,6 +2176,69 @@ return '<nav class="evolution-bar" aria-label="Cinco niveles de evolución ARKI"
 '<button type="button" class="evolution-button '+(evolutionMode===x.id?"selected":"")+'" style="--evolution-color:'+x.color+'" data-evolution="'+x.id+'" aria-pressed="'+(evolutionMode===x.id)+'" title="'+escapeHtml(x.name+" · "+x.subtitle)+'"><strong>'+x.number+' · '+escapeHtml(x.name)+'</strong><span>'+escapeHtml(x.subtitle)+'</span></button>'
 ).join("")+'</nav>';
 }
+
+/* Evolution is the vertical axis; ALL/F1–F10 is an independent horizontal scope.
+   All views use existing local evidence and declared draft links, never synthetic verification. */
+function evolutionWorkspace(){
+if(evolutionMode==="plano")return scopedPlano();
+if(evolutionMode==="maqueta")return viewScope==="ALL"?completeMaqueta():structure();
+if(evolutionMode==="digital")return scopedDigital();
+if(evolutionMode==="predictivo")return scopedPredictivo();
+if(evolutionMode==="autocorrectivo")return scopedAutocorrectivo();
+return structure();
+}
+function scopeHead(level,title,explanation){
+const phase=phases.find(p=>p.id===viewScope);
+return '<div class="scope-head"><div class="kicker">'+escapeHtml(level)+' · '+(phase?escapeHtml(phase.id):"F1–F10 · COMPLETO")+'</div><h2>'+escapeHtml(title)+(phase?" · "+escapeHtml(phase.id):" · Completo")+'</h2><p class="hint">'+escapeHtml(explanation)+'</p></div>';
+}
+function scopePieces(phase){
+return [...ideas,...components].filter(p=>placements[p.id]===phase);
+}
+function completeMaqueta(){
+return scopeHead("02 · MAQUETA VIVA","Mesa de ensamblaje","Vista general de las diez fases. Elige una tarjeta para trabajar sobre su mesa; las ubicaciones son borradores locales.")+
+'<div class="scope-grid">'+phases.map(p=>'<button type="button" class="scope-phase-card" data-phase="'+escapeHtml(p.id)+'" style="--scope-color:var(--phase-'+escapeHtml(p.id)+')"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+scopePieces(p.id).length+' piezas ubicadas en borrador</span><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>'+
+draftControls()+'<p class="caption">Las fases se muestran sin promover integraciones ni alterar la fuente canónica.</p>';
+}
+function scopedPlano(){
+const all=viewScope==="ALL";
+const scoped=all?phases:phases.filter(p=>p.id===viewScope);
+const placed=[...ideas,...components].filter(p=>placements[p.id]&&(all||placements[p.id]===viewScope));
+const linked=placed.flatMap(p=>(reviews[p.id]?.dependencies||[]).filter(id=>placements[id]&&(all||placements[id]===viewScope)).map(id=>({from:p.id,to:id})));
+const nodes=scoped.map((p,i)=>({id:p.id,name:p.name,x:40+(i%5)*190,y:35+Math.floor(i/5)*125}));
+const svg=all?'<svg class="scope-plano-svg" viewBox="0 0 990 310" role="img" aria-label="Plano global de diez fases de ARKI">'+
+nodes.slice(0,-1).map((n,i)=>{const m=nodes[i+1];return '<path d="M'+(n.x+75)+' '+(n.y+28)+' L'+(m.x+75)+' '+(m.y+28)+'" stroke="#9cb8ce" stroke-width="2" stroke-dasharray="5 5" fill="none"/>';}).join("")+
+nodes.map(n=>'<g><rect x="'+n.x+'" y="'+n.y+'" width="150" height="58" rx="9" fill="#244b69" stroke="#9fd5f5"/><text x="'+(n.x+75)+'" y="'+(n.y+23)+'" font-size="16" text-anchor="middle" fill="#fff">'+escapeHtml(n.id)+'</text><text x="'+(n.x+75)+'" y="'+(n.y+42)+'" font-size="11" text-anchor="middle" fill="#cce8f6">'+scopePieces(n.id).length+' piezas borrador</text></g>').join("")+'</svg>':"";
+return scopeHead("01 · PLANO ARKI","Estructura y relaciones",all?"Mapa general F1–F10: orden visual del roadmap, no prueba de dependencias técnicas.":"Plano de la fase seleccionada: piezas y dependencias declaradas; no representa geometría CAD ni relaciones verificadas.")+
+svg+
+(!all?'<div class="scope-plano-phase"><div class="scope-plano-root"><strong>'+escapeHtml(viewScope)+'</strong><span>'+escapeHtml(scoped[0]?.name||"Fase")+'</span></div><div class="scope-plano-pieces">'+placed.map(p=>'<button type="button" class="scope-plano-piece" data-scope-piece="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(p.name)+'</span></button>').join("")+(placed.length?"":'<p class="hint">Sin piezas ubicadas en esta fase. El plano se completará conforme se organicen los borradores.</p>')+'</div></div>':"")+
+'<div class="scope-relation-list"><h3>Relaciones declaradas · '+linked.length+'</h3>'+(linked.length?linked.map(e=>'<div>'+escapeHtml(e.from)+' → '+escapeHtml(e.to)+' <small>hipótesis local</small></div>').join(""):'<p class="hint">No hay relaciones entre piezas ubicadas en este alcance.</p>')+'</div>'+
+(all?'<div class="scope-grid">'+phases.map(p=>'<button type="button" class="scope-phase-card" data-phase="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><small>Abrir plano de fase →</small></button>').join("")+'</div>':"")+
+'<p class="caption">Fuente: roadmap y borrador local. Las líneas del mapa general indican secuencia de fases, no dependencia certificada.</p>';
+}
+function scopedDigital(){
+const ids=Object.keys(placements).filter(id=>viewScope==="ALL"||placements[id]===viewScope);
+const verified=ids.filter(id=>reviewGate(id).complete);
+const scoped= viewScope==="ALL"?phases:phases.filter(p=>p.id===viewScope);
+return scopeHead("03 · GEMELO DIGITAL","Estado y procedencia","Lectura local de preparación, sin sincronización en vivo ni modelo BIM operacional verificado.")+
+'<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>fases consultadas</span></article><article><strong>'+ids.length+'</strong><span>piezas en borrador</span></article><article><strong>'+verified.length+'</strong><span>fichas declaradas completas, sin certificación</span></article></div>'+
+'<div class="scope-grid">'+scoped.map(p=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+escapeHtml(p.status)+'</span><small>'+scopePieces(p.id).length+' piezas locales · '+escapeHtml(p.evidence_status||"EVIDENCIA NO REGISTRADA")+'</small></div>').join("")+'</div>'+
+'<p class="caption">Fecha de fuente: '+escapeHtml(state.updated_at||"NO REGISTRADA")+'. No se infieren telemetría, sincronización ni actualización del estado real.</p>';
+}
+function scopedPredictivo(){
+const base=analyzeWholeScenario("base"),alt=analyzeWholeScenario("alternative");
+const indices=viewScope==="ALL"?phases.map((_,i)=>i):phases.map((p,i)=>p.id===viewScope?i:-1).filter(i=>i>=0);
+const rows=indices.map(i=>({p:phases[i],a:base.byPhase[i],b:alt.byPhase[i]}));
+const countIssues=(r,sev)=>r.issues.filter(x=>x.severity===sev).length;
+return scopeHead("04 · GEMELO PREDICTIVO","Escenarios y alertas","Comparación heurística de referencia y alternativa local. No es predicción temporal, simulación calibrada ni optimización certificada.")+
+'<div class="scope-grid">'+rows.map(({p,a,b})=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+a.pieces+' piezas · '+a.linked+' con hito en referencia / '+b.linked+' en alternativa</span><small>Posibles bloqueos R/A: '+countIssues(a,"BLOQUEO_POTENCIAL")+' / '+countIssues(b,"BLOQUEO_POTENCIAL")+'</small><small>Observaciones R/A: '+countIssues(a,"REVISAR")+' / '+countIssues(b,"REVISAR")+'</small></div>').join("")+'</div>'+
+'<p class="caption">Las alertas proceden de las dependencias y ubicaciones declaradas. No representan un pronóstico de desempeño real.</p>';
+}
+function scopedAutocorrectivo(){
+const scoped=viewScope==="ALL"?correctiveCases:correctiveCases.filter(c=>c.phase===viewScope);
+return scopeHead("05 · ARKI AUTOCORRECTIVO","Casos de corrección","Casos locales del alcance seleccionado. No se ejecutan cambios desde el navegador.")+
+'<div class="scope-grid">'+(scoped.length?scoped.map(c=>'<div class="scope-phase-card"><strong>'+escapeHtml(c.id)+' · '+escapeHtml(c.phase)+'</strong><span>'+escapeHtml(c.title||"Caso")+'</span><small>'+escapeHtml(c.status)+'</small></div>').join(""):'<p class="hint">No hay casos de corrección registrados en este alcance.</p>')+'</div>'+
+'<p class="caption">Para proponer y gestionar un caso utiliza la consola de corrección controlada. Requiere autorización y evidencia externa.</p>';
+}
 function digitalTwinWorkspace(){
 const placed=Object.keys(placements).length,complete=Object.keys(placements).filter(id=>reviewGate(id).complete).length;
 const changed=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length+sourceChanges.otherChanges.length+sourceChanges.retired.length;
@@ -2287,14 +2369,14 @@ function render(){
 const frozen=phases.filter(p=>p.status==="FROZEN").length,progress=phases.filter(p=>p.status==="IN_PROGRESS").length,reconcile=phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").length;
 document.getElementById("stamp").textContent="Estado local: "+(state.updated_at||"fecha desconocida")+" · Sin conexión requerida";
 const shortNames={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Diez fases de ARKI">'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(activePhase===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(activePhase===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status+" · "+Object.values(placements).filter(v=>v===p.id).length+" piezas en borrador")+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span>'+(Object.values(placements).some(v=>v===p.id)?'<em class="phase-draft-count" aria-label="'+Object.values(placements).filter(v=>v===p.id).length+' piezas en borrador">'+Object.values(placements).filter(v=>v===p.id).length+'</em>':"")+'</button>').join("")+'</nav>'+
+app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Vista completa o diez fases de ARKI"><button type="button" class="phase-menu-button phase-all '+(viewScope==="ALL"?"selected":"")+'" data-phase-scope="ALL" aria-pressed="'+(viewScope==="ALL")+'" title="Vista completa F1–F10"><strong>TODO</strong><span>Completo</span></button>'+phases.map(p=>'<button class="phase-menu-button '+statusClass(p)+(viewScope===p.id?" selected":"")+'" data-phase="'+escapeHtml(p.id)+'" aria-current="'+(viewScope===p.id?"step":"false")+'" title="'+escapeHtml(p.id+" · "+p.name+" · "+p.status+" · "+Object.values(placements).filter(v=>v===p.id).length+" piezas en borrador")+'"><strong>'+escapeHtml(p.id)+'</strong><span>'+escapeHtml(shortNames[p.id]||p.name)+'</span>'+(Object.values(placements).some(v=>v===p.id)?'<em class="phase-draft-count" aria-label="'+Object.values(placements).filter(v=>v===p.id).length+' piezas en borrador">'+Object.values(placements).filter(v=>v===p.id).length+'</em>':"")+'</button>').join("")+'</nav>'+
 '<div class="commandbar" role="toolbar" aria-label="Búsqueda y navegación de ARKI">'+
 '<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'">'+
 '<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button><button class="tab '+(tab==="research"?"active":"")+'" data-tab="research" aria-pressed="'+(tab==="research")+'">Research & Trends</button></nav>'+
 '</div>'+
 (tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
 (tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
-'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)()+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+(tab===EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target?evolutionWorkspace():({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)())+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-corrective-export]").forEach(el=>el.addEventListener("click",exportCorrectiveCases));
 app.querySelectorAll("[data-corrective-create]").forEach(el=>el.addEventListener("click",()=>createCorrective(app.querySelector("#corrective-title")?.value,app.querySelector("#corrective-phase")?.value,app.querySelector("#corrective-rationale")?.value,"MANUAL")));
@@ -2417,7 +2499,8 @@ else{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=tr
 render();
 };el.addEventListener("click",activate);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});});
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
-app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.phase;selected=activePhase;linkSource="";tab="structure";render();}));
+app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;render();}));
+app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{viewScope=el.dataset.phase;activePhase=viewScope;selected=activePhase;linkSource="";if(evolutionMode==="maqueta"){technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;}tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
 app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
