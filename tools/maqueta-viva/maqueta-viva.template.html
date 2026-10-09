@@ -2604,9 +2604,18 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
-app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{viewScope=el.dataset.phase;activePhase=viewScope;selected=activePhase;linkSource="";if(evolutionMode==="maqueta"){technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;}tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
-app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;activePhase=el.dataset.roadmapPhase;selected=activePhase;tab="structure";render();}));
-app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{technicalMode=true;const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();}));
+app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
+const phase=el.dataset.phase;if(!validPhases.has(phase))return;
+viewScope=phase;activePhase=phase;selected=phase;linkMode=false;linkSource="";
+evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;tab="structure";
+render();
+}));
+app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{const phase=el.dataset.roadmapPhase;if(!validPhases.has(phase))return;evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;viewScope=phase;activePhase=phase;selected=activePhase;tab="structure";render();}));
+app.querySelectorAll("[data-roadmap-stage]").forEach(el=>el.addEventListener("click",()=>{
+const [phase,index]=el.dataset.roadmapStage.split(":");if(!validPhases.has(phase)||!/^[0-3]$/.test(index))return;
+evolutionMode="maqueta";technicalMode=true;viewScope=phase;activePhase=phase;selectedSpineStage=Number(index);spineScenario="base";spineView=true;selected=activePhase;tab="structure";
+draftNotice="Hito "+(selectedSpineStage+1)+" de "+phase+" abierto desde la matriz de referencia; ninguna autoridad canónica ha cambiado.";render();
+}));
 app.querySelectorAll("[data-assembly]").forEach(el=>el.addEventListener("click",()=>{assembly=el.dataset.assembly;render();}));
 app.querySelectorAll("[data-focus-mode]").forEach(el=>el.addEventListener("click",()=>{focusMode=!focusMode;selected=activePhase;render();}));
 app.querySelectorAll("[data-reset-layout]").forEach(el=>el.addEventListener("click",()=>{const ids=Object.keys(positions).filter(id=>placements[id]===activePhase);if(!ids.length)return;remember();ids.forEach(id=>delete positions[id]);saveDraft();draftNotice="Piezas de "+activePhase+" reorganizadas automáticamente en la mesa.";render();}));
