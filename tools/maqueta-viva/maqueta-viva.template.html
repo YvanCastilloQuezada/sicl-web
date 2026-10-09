@@ -1190,16 +1190,29 @@ const incomingLocal=raw.localIdeas===undefined?previousLocal:validateLocalIdeas(
 const incomingDecisions=raw.arkiIdeaDecisions===undefined?arkiIdeaDecisions:validateArkiIdeaDecisions(raw.arkiIdeaDecisions);
 replaceLocalIdeas(incomingLocal);
 const next=validateDraft(raw),nextPositions=validatePositions(raw.positions,next),nextReviews=validateReviews(raw.reviews),nextSpine=validateSpineAssignments(raw.spineAssignments,next),nextAlternative=validateSpineAssignments(raw.alternativeSpineAssignments,next),nextWorkflow=validateWorkflowStages(raw.workflowStages),nextAutoNotes=validateAutoPlacementNotes(raw.autoPlacementNotes,next),nextTraceNotes=validateTraceNotes(raw.traceNotes),nextTraceEvents=validateTraceEvents(raw.traceEvents);
-replaceLocalIdeas(previousLocal);remember();replaceLocalIdeas(incomingLocal);
-placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;traceNotes=nextTraceNotes;
+/* Validate and merge the entire import BEFORE touching the active draft. */
 const existingSignatures=new Set(traceEvents.map(e=>JSON.stringify(e)));
 const mergedEvents=traceEvents.slice();
 for(const event of nextTraceEvents){const signature=JSON.stringify(event);if(!existingSignatures.has(signature)){mergedEvents.push(event);existingSignatures.add(signature);}}
 if(mergedEvents.length>TRACE_LIMIT)throw Error("Historial acumulado supera límite; conserva ambos JSON antes de fusionar");
-traceEvents=mergedEvents;
-observations={};
-localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));arkiIdeaDecisions=incomingDecisions;localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));saveDraft();
+replaceLocalIdeas(previousLocal);
+const previousSnapshot=snapshot(),previousEvents=traceEvents.slice(),previousDecisions={...arkiIdeaDecisions};
+try{
+remember();replaceLocalIdeas(incomingLocal);
+placements=next;positions=nextPositions;reviews=nextReviews;spineAssignments=nextSpine;alternativeSpineAssignments=nextAlternative;workflowStages=nextWorkflow;autoPlacementNotes=nextAutoNotes;traceNotes=nextTraceNotes;traceEvents=mergedEvents;
+observations={};arkiIdeaDecisions=incomingDecisions;
+localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));
+localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));
+saveDraft();
+if(!storageAvailable)throw Error("No se pudo guardar el borrador importado; exporta tu respaldo y revisa los permisos del navegador");
 draftNotice="Borrador importado: "+Object.keys(next).length+" ubicaciones, "+localIdeas.length+" ideas locales y "+Object.keys(nextReviews).length+" fichas. No modifica ARKI.";
+}catch(e){
+replaceLocalIdeas(previousSnapshot.localIdeas||previousLocal);
+placements=previousSnapshot.placements;positions=previousSnapshot.positions;reviews=previousSnapshot.reviews;spineAssignments=previousSnapshot.spineAssignments;alternativeSpineAssignments=previousSnapshot.alternativeSpineAssignments;workflowStages=previousSnapshot.workflowStages;autoPlacementNotes=previousSnapshot.autoPlacementNotes;traceNotes=previousSnapshot.traceNotes;traceEvents=previousEvents;arkiIdeaDecisions=previousDecisions;
+if(undoStack.length)undoStack.pop();
+try{localStorage.setItem(LOCAL_IDEAS_KEY,JSON.stringify(localIdeas));localStorage.setItem(ARKI_IDEAS_KEY,JSON.stringify(arkiIdeaDecisions));saveDraft();}catch(_){}
+draftNotice="Importación rechazada sin sustituir el borrador anterior: "+String(e.message);
+}
 }catch(e){replaceLocalIdeas(previousLocal);draftNotice="Importación rechazada: "+String(e.message);}
 render();
 };
