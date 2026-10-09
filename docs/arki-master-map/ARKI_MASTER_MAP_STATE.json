@@ -2022,6 +2022,33 @@
         "secondary_panels": "Comparison, traceability, radar, evaluator, review queue, placement audit, candidate summary and dependency map moved below vertebral route inside Diagnóstico y evidencia; no logic removed",
         "visibility": "Secondary diagnostics collapsed by default and expanded when locationReviewOpen",
         "protection": "No official F1-F10 roadmap, FROZEN, evidence gate or integration claims mutated"
+      },
+      "navigation_matrix": {
+        "evolution_levels": [
+          "01 Plano ARKI",
+          "02 Maqueta Viva",
+          "03 Gemelo Digital",
+          "04 Gemelo Predictivo",
+          "05 ARKI Autocorrectivo"
+        ],
+        "scope": [
+          "ALL",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10"
+        ],
+        "invariant": "Changing phase scope must preserve evolution mode; changing evolution mode must preserve ALL/F1-F10 scope",
+        "default_scope": "ALL",
+        "views": "01 global roadmap map or phase-specific placed pieces and declared links; 02 global assembly summary or existing phase workbench; 03 local evidence snapshot global/phase; 04 local heuristic scenario alerts global/phase; 05 scoped local correction cases",
+        "boundary": "Digital/predictive are evidence-bounded local views, not live twin or calibrated forecast",
+        "validation": "PASS_STATIC_JS; PASS mocked DOM navigation: initial ALL, plano ALL, plano F1, plano F2, digital F2, predictivo F2, predictivo ALL, maqueta ALL; Windows browser E3 NOT_EXECUTED"
       }
     },
     "assembly": {
