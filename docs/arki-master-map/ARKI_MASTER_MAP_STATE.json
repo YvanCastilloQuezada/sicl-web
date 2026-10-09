@@ -1549,7 +1549,7 @@
       "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
       "default_phase": "F1",
       "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
-      "integration_boundary": "No roadmap phase or frozen contract modified by evolution menu or offline autocorrective cases",
+      "integration_boundary": "No code operation in the visual draft promotes integration or mutates canonical phase statuses; source refresh requires launcher regeneration from updated local files",
       "static_js_syntax": "PASS",
       "windows_browser_gate": "NOT_EXECUTED",
       "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
@@ -2049,6 +2049,15 @@
         "views": "01 global roadmap map or phase-specific placed pieces and declared links; 02 global assembly summary or existing phase workbench; 03 local evidence snapshot global/phase; 04 local heuristic scenario alerts global/phase; 05 scoped local correction cases",
         "boundary": "Digital/predictive are evidence-bounded local views, not live twin or calibrated forecast",
         "validation": "PASS_STATIC_JS; PASS mocked DOM navigation: initial ALL, plano ALL, plano F1, plano F2, digital F2, predictivo F2, predictivo ALL, maqueta ALL; Windows browser E3 NOT_EXECUTED"
+      },
+      "phase_navigation_gate": "Clicking F1–F10 always opens Maqueta Viva / technical vertebral view, four proposed milestones, from any evolution mode; roadmap phase/stage jumps likewise select Maqueta Viva and scoped phase",
+      "draft_import_gate": "Prevalidate entire imported JSON and merged trace-event bound before applying; on commit/storage error roll back local draft, phase/spine assignments, local ideas and decisions; never touch canonical roadmap",
+      "simulation_evidence_2026_10_08": {
+        "phase_navigation": "PASS: after switching to Gemelo Digital, each F1–F10 opens the vertebral route with exactly four draft milestone gate cards",
+        "built_in_e3": "13/13 automated local checks PASS in mocked browser execution (not Windows E3)",
+        "assembly": "PASS: stage two pieces into different milestones, copy reference to alternative, change alternative, undo, redo, return piece; reference unchanged",
+        "import": "PASS: reject invalid piece and preserve original JSON; accept valid draft; F6 canonical status remains FROZEN",
+        "js_syntax": "PASS"
       }
     },
     "assembly": {
