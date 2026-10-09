@@ -2233,6 +2233,43 @@
         "Qwen audit cannot be inferred from GitHub reviewer identity alone",
         "Exact SHA and review must be repeated after every commit"
       ]
+    },
+    "unified_trace_graph": {
+      "schema": "ARKI-UNIFIED-TRACE-GRAPH-1",
+      "status": "IMPLEMENTED_LOCAL_READ_ONLY_AWAITING_WINDOWS_E3",
+      "contract": "docs/arki-master-map/ARKI_UNIFIED_TRACE_GRAPH_V1.md",
+      "implementation": "tools/maqueta-viva/maqueta-viva.template.html",
+      "views": [
+        "plano",
+        "maqueta",
+        "digital",
+        "predictivo",
+        "autocorrectivo"
+      ],
+      "sources": [
+        "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json",
+        "tools/maqueta-viva/assembly-registry.json",
+        "localStorage:arki-maqueta-assembly-draft-v1",
+        "localStorage:arki-maqueta-local-ideas-v1",
+        "localStorage:arki-autocorrective-cases-v1"
+      ],
+      "projection": "In-memory, on demand; exportable JSON; no independent canonical storage",
+      "capabilities": {
+        "live_sync": false,
+        "real_twin": false,
+        "calibrated_prediction": false,
+        "autonomous_code_mutation": false,
+        "canonical_promotion": false
+      },
+      "tests": {
+        "static_js_syntax": "PASS",
+        "five_views_dom_simulation": "PASS",
+        "graph_invariants_dom_simulation": "PASS",
+        "windows_browser_e3": "NOT_EXECUTED",
+        "real_json_download": "NOT_EXECUTED"
+      },
+      "evidence_note": "Simulation: 10 PHASE, 40 PROPOSED_STAGE, 2 PLACED_IN, 1 REQUIRES, 1 base ASSIGNED_TO, 1 alternative ASSIGNED_TO, 1 CORRECTIVE_CASE, 8 FROZEN_RECORD; no duplicate node IDs, no unresolved edges, F6 unchanged FROZEN",
+      "next_gate": "Validate five panels and JSON export on Windows; do not claim operational digital twin or remote sync"
     }
   },
   "f7_f8_f9_lineage_checkpoint_2026_10_08": {
