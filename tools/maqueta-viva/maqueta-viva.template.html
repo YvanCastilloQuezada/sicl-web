@@ -658,6 +658,20 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .scope-plano-piece span{font-size:11px;overflow-wrap:anywhere}
 .scope-relation-list{margin:18px 0;border-top:1px solid #557e9c;padding-top:12px}.scope-relation-list div{padding:6px;border-bottom:1px solid #385c79;font-size:12px}
 @media(max-width:850px){.phase-menu{display:flex;overflow-x:auto}.scope-plano-phase{grid-template-columns:1fr}}
+
+/* Shared read-only trace projection shown across the five ARKI evolution views. */
+.unified-trace{margin:0 0 15px;border:1px solid #5e8ca9;border-radius:10px;background:#102d46}
+.unified-trace>summary{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;padding:11px 13px;cursor:pointer}
+.unified-trace>summary strong{font-size:12px;color:#c4e9ff}.unified-trace>summary span{font-size:11px;color:#d0e0ef}
+.unified-trace .trace-body{padding:2px 13px 13px;border-top:1px solid #3e6783}
+.trace-body p{font-size:12px;color:#d6e5ef}
+.trace-tags{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}.trace-tags span{padding:5px 8px;background:#183f5a;border:1px solid #5684a1;border-radius:6px;font-size:11px}
+.trace-actions{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.trace-actions label{display:flex;flex-direction:column;gap:5px;flex:1 1 200px;font-size:11px}
+.trace-actions select{background:#0b253c;color:#f2f8ff;border:1px solid #6595b4;border-radius:6px;padding:7px;min-width:0}
+.trace-actions button{padding:7px 10px}.trace-actions button:disabled{opacity:.4}
+.trace-selection{padding:10px;margin:10px 0;border:1px solid #6c9db9;border-radius:8px;background:#163b55}
+.trace-selection small{display:block;color:#c5deed;font-size:10px;margin:4px 0;overflow-wrap:anywhere}
+.trace-issue{padding:4px 7px;border-left:2px solid #f2c45e}
 </style>
 </head>
 <body>
@@ -2179,13 +2193,99 @@ return '<nav class="evolution-bar" aria-label="Cinco niveles de evolución ARKI"
 
 /* Evolution is the vertical axis; ALL/F1–F10 is an independent horizontal scope.
    All views use existing local evidence and declared draft links, never synthetic verification. */
+
+/* ARKI TRACE GRAPH V1 — one derived read-only projection for all five evolutions.
+   The projection never writes to canonical state, drafts, GitHub or external tools. */
+const TRACE_GRAPH_SCHEMA="ARKI-UNIFIED-TRACE-GRAPH-1";
+let traceFocusId="";
+function buildUnifiedTraceGraph(){
+const nodes=[],edges=[],issues=[],ids=new Set();
+const add=(id,kind,data,authority)=>{
+if(ids.has(id))throw Error("Identificador de grafo duplicado: "+id);
+ids.add(id);nodes.push({id,kind,authority,...data});
+};
+const edge=(from,to,kind,authority,scenario="base")=>{
+if(!ids.has(from)||!ids.has(to)){issues.push({code:"MISSING_ENDPOINT",from,to,kind});return;}
+edges.push({from,to,kind,authority,scenario});
+};
+for(const p of phases)add("phase:"+p.id,"PHASE",{phase:p.id,label:p.name,status:p.status,evidenceStatus:p.evidence_status||"UNKNOWN",source:"docs/arki-master-map/ARKI_MASTER_MAP_STATE.json"},"CANONICAL_SNAPSHOT");
+for(const p of phases)for(const [i,label] of (SPINE_STAGES[p.id]||[]).entries())add("stage:"+p.id+":"+i,"PROPOSED_STAGE",{phase:p.id,index:i,label,source:"LOCAL_PROPOSED_SPINE"},"PROPOSED_STRUCTURE");
+for(const p of [...ideas,...components]){
+const placed=placements[p.id]||null;
+const review=reviews[p.id]||null;
+add("piece:"+p.id,p.origin==="LOCAL_BROWSER_DRAFT"?"LOCAL_IDEA":ideas.some(x=>x.id===p.id)?"HISTORICAL_IDEA":"HISTORICAL_COMPONENT",{
+pieceId:p.id,label:p.name,phase:placed,proposedPhase:p.targetPhase||null,
+source:p.origin||"UNKNOWN",sourceStatus:p.status||"UNKNOWN",
+evidence:review?{repo:review.repo||"",file:review.file||"",sha:review.sha||"",test:review.test||"",declarationComplete:reviewGate(p.id).complete}:null,
+traceBase:traceNotes[traceKey(p.id,"base")]||null,traceAlternative:traceNotes[traceKey(p.id,"alternative")]||null,
+localPlacement:placed!==null
+},"LOCAL_DRAFT_OR_HISTORICAL_INVENTORY");
+}
+for(const frozen of allFrozen){
+const id="frozen:"+frozen.id;
+add(id,"FROZEN_RECORD",{label:frozen.name,phase:frozen.targetPhase||null,status:frozen.status,source:frozen.origin||"ARKI_MASTER_MAP_STATE"},"CANONICAL_SNAPSHOT_BOUNDED");
+}
+for(const c of correctiveCases)add("case:"+c.id,"CORRECTIVE_CASE",{label:c.title,phase:c.phase,status:c.status,source:c.source,receipt:c.receipt||"",created:c.created||""},"LOCAL_CONTROL_RECORD");
+for(const [i,event] of traceEvents.entries())add("decision:"+String(i+1).padStart(5,"0"),"LOCAL_DECISION",{label:event.action,pieceId:event.id,at:event.at,scenario:event.scenario,reason:event.reason,source:event.source,evidence:event.evidence,confidence:event.confidence,before:event.before,after:event.after},"LOCAL_DECLARATION");
+for(const p of [...ideas,...components]){
+const id="piece:"+p.id,phase=placements[p.id];
+if(phase)edge(id,"phase:"+phase,"PLACED_IN","LOCAL_DRAFT");
+for(const [scenario,map] of [["base",spineAssignments],["alternative",alternativeSpineAssignments]]){
+if(map[p.id]!==undefined&&phase)edge(id,"stage:"+phase+":"+Number(map[p.id]),"ASSIGNED_TO","LOCAL_DRAFT",scenario);
+}
+for(const dep of reviews[p.id]?.dependencies||[])edge(id,"piece:"+dep,"REQUIRES","LOCAL_DECLARATION");
+}
+for(const f of allFrozen)if(f.targetPhase)edge("frozen:"+f.id,"phase:"+f.targetPhase,"BOUNDED_FREEZE_SCOPE","CANONICAL_SNAPSHOT_BOUNDED");
+for(const c of correctiveCases)edge("case:"+c.id,"phase:"+c.phase,"CORRECTIVE_SCOPE","LOCAL_CONTROL_RECORD");
+for(const [i,event] of traceEvents.entries())if(ids.has("piece:"+event.id))edge("decision:"+String(i+1).padStart(5,"0"),"piece:"+event.id,"RECORDS_DECISION","LOCAL_DECLARATION",event.scenario);
+for(const p of [...ideas,...components]){
+if(placements[p.id]&&phases.find(x=>x.id===placements[p.id])?.status==="FROZEN")issues.push({code:"DRAFT_IN_FROZEN_PHASE",pieceId:p.id,phase:placements[p.id],severity:"REVIEW_NOT_CANONICAL_CHANGE"});
+for(const dep of reviews[p.id]?.dependencies||[])if(placements[p.id]&&!placements[dep])issues.push({code:"DECLARED_DEPENDENCY_NOT_PLACED",pieceId:p.id,dependency:dep,severity:"REVIEW"});
+}
+return {schema:TRACE_GRAPH_SCHEMA,generatedAt:new Date().toISOString(),
+provenance:{stateSchema:state.schema,stateDate:state.updated_at||"UNKNOWN",registrySchema:registry.schema,registryDate:registry.updated_at||"UNKNOWN",draftSchema:DRAFT_SCHEMA,correctiveSchema:"ARKI-AUTOCORRECTIVE-LOCAL-CASES-1"},
+authority:"READ_ONLY_DERIVED_LOCAL_PROJECTION",
+capabilities:{liveSync:false,realTwin:false,calibratedPrediction:false,autonomousCodeMutation:false,canonicalPromotion:false},
+nodes,edges,issues};
+}
+function traceGraphForScope(graph){
+if(viewScope==="ALL")return graph;
+const inScope=new Set(graph.nodes.filter(n=>n.phase===viewScope||n.kind==="PHASE"&&n.phase===viewScope).map(n=>n.id));
+const edges=graph.edges.filter(e=>inScope.has(e.from)||inScope.has(e.to));
+for(const e of edges){inScope.add(e.from);inScope.add(e.to);}
+return {...graph,nodes:graph.nodes.filter(n=>inScope.has(n.id)),edges,issues:graph.issues.filter(x=>x.phase===viewScope||x.pieceId&&graph.nodes.some(n=>n.pieceId===x.pieceId&&n.phase===viewScope))};
+}
+function unifiedTracePanel(graph){
+const g=traceGraphForScope(graph),n=kind=>g.nodes.filter(x=>x.kind===kind).length;
+const declarations=g.edges.filter(e=>e.kind==="REQUIRES").length;
+const options=g.nodes.filter(x=>x.kind==="HISTORICAL_IDEA"||x.kind==="HISTORICAL_COMPONENT"||x.kind==="LOCAL_IDEA");
+const selected=options.find(x=>x.pieceId===traceFocusId)||null;
+const incident=selected?g.edges.filter(e=>e.from===selected.id||e.to===selected.id):[];
+return '<details class="unified-trace" '+(traceFocusId?"open":"")+'><summary><strong>GRAFO TRAZABLE COMPARTIDO · '+escapeHtml(viewScope==="ALL"?"F1–F10":viewScope)+'</strong><span>'+n("PHASE")+' fases · '+options.length+' piezas · '+declarations+' dependencias declaradas · '+g.issues.length+' alertas</span></summary>'+
+'<div class="trace-body"><p>Una sola proyección de piezas, hitos, dependencias, evidencias declaradas, decisiones y casos. La misma información alimenta Plano, Maqueta, Gemelo Digital, Predictivo y Autocorrectivo. No hay sincronización ni ejecución automática.</p>'+
+'<div class="trace-tags"><span>'+g.nodes.length+' nodos</span><span>'+g.edges.length+' relaciones</span><span>'+n("LOCAL_DECISION")+' decisiones locales</span><span>'+n("CORRECTIVE_CASE")+' casos</span><span>'+n("FROZEN_RECORD")+' FROZEN acotados</span></div>'+
+'<div class="trace-actions"><label>Seguir pieza<select id="trace-piece"><option value="">Seleccionar pieza…</option>'+options.map(x=>'<option value="'+escapeHtml(x.pieceId)+'" '+(traceFocusId===x.pieceId?"selected":"")+'>'+escapeHtml(x.pieceId+" · "+x.label)+'</option>').join("")+'</select></label><button type="button" class="tab" data-trace-open '+(!selected?"disabled":"")+'>Abrir pieza en Maqueta</button><button type="button" class="tab" data-trace-export>Exportar grafo JSON</button></div>'+
+(selected?'<div class="trace-selection"><strong>'+escapeHtml(selected.pieceId+" · "+selected.label)+'</strong><p>Fase borrador: '+escapeHtml(selected.phase||"SIN UBICAR")+' · Procedencia: '+escapeHtml(selected.source)+' · Estado de inventario: '+escapeHtml(selected.sourceStatus)+'</p><p>Evidencia declarada: '+escapeHtml(selected.evidence?.declarationComplete?"FICHA LOCAL COMPLETA · NO VERIFICADA":"SIN FICHA LOCAL COMPLETA")+'</p><p>Relaciones trazadas: '+incident.length+'</p>'+incident.slice(0,20).map(e=>'<small>'+escapeHtml(e.kind+" · "+e.from+" → "+e.to+" · "+e.authority+(e.scenario==="alternative"?" · ALTERNATIVA":""))+'</small>').join("")+'</div>':"")+
+(g.issues.length?'<details><summary>'+g.issues.length+' alertas para revisión (no fallos confirmados)</summary>'+g.issues.slice(0,25).map(x=>'<p class="trace-issue">'+escapeHtml(x.code+" · "+(x.pieceId||x.from||"")+" "+(x.dependency||x.phase||""))+'</p>').join("")+'</details>':"")+
+'<p class="caption">Fuentes: estado canónico '+escapeHtml(graph.provenance.stateDate)+', registro '+escapeHtml(graph.provenance.registryDate)+' y borradores del navegador. Las vinculaciones son propuestas; ninguna etiqueta PASS se genera desde este grafo.</p></div></details>';
+}
+function exportUnifiedTrace(){
+const payload=buildUnifiedTraceGraph();
+const a=document.createElement("a");
+a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(payload,null,2));
+a.download="ARKI-GRAFO-TRAZABLE-LOCAL-"+String(state.updated_at||"SIN-FECHA")+".json";
+document.body.appendChild(a);a.click();a.remove();
+}
+
 function evolutionWorkspace(){
-if(evolutionMode==="plano")return scopedPlano();
-if(evolutionMode==="maqueta")return viewScope==="ALL"?completeMaqueta():structure();
-if(evolutionMode==="digital")return scopedDigital();
-if(evolutionMode==="predictivo")return scopedPredictivo();
-if(evolutionMode==="autocorrectivo")return scopedAutocorrectivo();
-return structure();
+const graph=buildUnifiedTraceGraph();
+const shared=unifiedTracePanel(graph);
+if(evolutionMode==="plano")return shared+scopedPlano();
+if(evolutionMode==="maqueta")return shared+(viewScope==="ALL"?completeMaqueta():structure());
+if(evolutionMode==="digital")return shared+scopedDigital();
+if(evolutionMode==="predictivo")return shared+scopedPredictivo();
+if(evolutionMode==="autocorrectivo")return shared+scopedAutocorrectivo();
+return shared+structure();
 }
 function scopeHead(level,title,explanation){
 const phase=phases.find(p=>p.id===viewScope);
@@ -2481,6 +2581,9 @@ const destination=piece.targetPhase;stagePiece(id,destination);activePhase=desti
 draftNotice="Pieza "+id+" trasladada explícitamente a "+destination+" según su fase sugerida en inventario. BORRADOR, NO INTEGRADA.";
 render();
 }));
+app.querySelectorAll("[data-trace-export]").forEach(el=>el.addEventListener("click",exportUnifiedTrace));
+app.querySelectorAll("[data-trace-open]").forEach(el=>el.addEventListener("click",()=>{if(!traceFocusId||!placements[traceFocusId])return;evolutionMode="maqueta";tab="structure";technicalMode=true;activePhase=placements[traceFocusId];viewScope=activePhase;selected=traceFocusId;spineView=true;render();}));
+app.querySelectorAll("#trace-piece").forEach(el=>el.addEventListener("change",()=>{traceFocusId=el.value;render();}));
 app.querySelectorAll("[data-evolution]").forEach(el=>el.addEventListener("click",()=>{const x=EVOLUTION_LEVELS.find(v=>v.id===el.dataset.evolution);if(!x)return;evolutionMode=x.id;tab=x.target;if(x.id==="plano")connectionMode="system";if(x.id==="maqueta"){technicalMode=true;spineView=true;}selected=activePhase;render();}));
 app.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>{tab=el.dataset.tab;evolutionMode=tab==="scenarios"?"predictivo":tab==="digital"?"digital":tab==="autocorrective"?"autocorrectivo":"maqueta";selected=activePhase;render();}));
 app.querySelectorAll("[data-scenario-phase]").forEach(el=>el.addEventListener("click",()=>{evolutionMode="maqueta";activePhase=el.dataset.scenarioPhase;selected=activePhase;tab="structure";spineView=true;render();}));
