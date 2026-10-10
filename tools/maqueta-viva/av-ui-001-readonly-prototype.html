@@ -481,7 +481,7 @@ function structuralHistorySummary(){
 function exportStructuralHistory(){
  return JSON.stringify({schema:"ARKI-AV-ALTERNATIVE-HISTORY-1",exportedAs:"PORTABLE_LOCAL_COPY",versions:structuralHistory,canonicalMutation:false},null,2);
 }
-function importStructuralHistory(json){
+function importStructuralHistory(json,validateOnly=false){
  let parsed;
  try{parsed=typeof json==="string"?JSON.parse(json):json}catch{return {status:"INVALID_JSON"}}
  if(!parsed||parsed.schema!=="ARKI-AV-ALTERNATIVE-HISTORY-1"||parsed.canonicalMutation!==false||!Array.isArray(parsed.versions)||parsed.versions.length>500)return {status:"INVALID_HISTORY"};
@@ -495,7 +495,7 @@ function importStructuralHistory(json){
   if(x.revisionLedger!==undefined&&validateE9Revisions(x.revisionLedger,x.decisionLedger||[],x.evidenceLedger||[],x.alternativeBranches||[]).status!=="VALID_REVISION_LEDGER")return {status:"INVALID_HISTORY"};
   ids.add(x.version);clean.push(JSON.parse(JSON.stringify(x)));
  }
- structuralHistory.splice(0,structuralHistory.length,...clean);
+ if(!validateOnly)structuralHistory.splice(0,structuralHistory.length,...clean);
  return {status:"IMPORTED_LOCAL_HISTORY",count:clean.length,canonicalMutation:false};
 }
 function compareStructuralVersions(left,right){
@@ -787,13 +787,13 @@ function addTwinPhase(id,name){
  return {status:"ADDED_TO_ALTERNATIVE_TWIN",phase,canonicalMutation:false};
 }
 function exportTwinPhases(){return JSON.stringify({schema:"ARKI-TREE-TWIN-PHASES-1",phases:twinPhaseSnapshot(),canonicalMutation:false},null,2)}
-function importTwinPhases(raw){
+function importTwinPhases(raw,validateOnly=false){
  let parsed;try{parsed=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!parsed||parsed.schema!=="ARKI-TREE-TWIN-PHASES-1"||parsed.canonicalMutation!==false||!Array.isArray(parsed.phases)||parsed.phases.length>100)return {status:"INVALID_PHASE_FILE"};
  const clean=[],ids=new Set();
  for(const p of parsed.phases){const v=evaluateAdditionalPhase(p?.id,p?.name);if(v.status!=="PHASE_PROPOSAL_ONLY"||ids.has(v.id)||p.status!=="PROPOSED_ONLY"||p.canonicalMutation!==false||p.evidence!=="UNKNOWN"||!Array.isArray(p.dependencies)||p.dependencies.length>30||p.dependencies.some(x=>typeof x!=="string"||!/^F[1-9][0-9]*$/.test(x)))return {status:"INVALID_PHASE_FILE"};ids.add(v.id);clean.push({id:v.id,name:v.name,status:"PROPOSED_ONLY",dependencies:[...p.dependencies],evidence:"UNKNOWN",canonicalMutation:false})}
  const check=phaseDependencyGraph(clean);if(check.status!=="VALID_PHASE_DAG")return {status:"INVALID_PHASE_GRAPH",reason:check.status,canonicalMutation:false};
- for(const p of twinPhases)delete labels[p.id];twinPhases.splice(0,twinPhases.length,...clean);for(const p of clean)labels[p.id]=p.name;
+ if(!validateOnly){for(const p of twinPhases)delete labels[p.id];twinPhases.splice(0,twinPhases.length,...clean);for(const p of clean)labels[p.id]=p.name;}
  return {status:"IMPORTED_ALTERNATIVE_PHASES",count:clean.length,canonicalMutation:false};
 }
 function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory()),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),decisionLedger:e7DecisionSnapshot(),revisionLedger:e9RevisionSnapshot()},null,2)}
@@ -804,15 +804,14 @@ function importTwinWorkspace(raw){
  if(validateE6Evidence(data.evidenceLedger||[],data.alternativeBranches||[]).status!=="VALID_EVIDENCE_LEDGER")return {status:"INVALID_WORKSPACE_EVIDENCE"};
  if(validateE7Decisions(data.decisionLedger||[],data.alternativeBranches||[],data.evidenceLedger||[]).status!=="VALID_DECISION_LEDGER")return {status:"INVALID_WORKSPACE_DECISIONS"};
  if(validateE9Revisions(data.revisionLedger||[],data.decisionLedger||[],data.evidenceLedger||[],data.alternativeBranches||[]).status!=="VALID_REVISION_LEDGER")return {status:"INVALID_WORKSPACE_REVISIONS"};
- // Validate both sections before changing any live state. Keep existing state if either fails.
- const savedPhases=exportTwinPhases(),savedHistory=exportStructuralHistory();
+ // Two-phase validation: no workspace state changes until every section has passed.
+ // This prevents transient mutations, rollback failures and partial restoration on rejected imports.
+ const phaseCheck=importTwinPhases(data.phases,true);
+ if(phaseCheck.status!=="IMPORTED_ALTERNATIVE_PHASES")return {status:"INVALID_WORKSPACE_PHASES"};
+ const historyCheck=importStructuralHistory(data.history,true);
+ if(historyCheck.status!=="IMPORTED_LOCAL_HISTORY")return {status:"INVALID_WORKSPACE_HISTORY"};
  const phaseResult=importTwinPhases(data.phases);
- if(phaseResult.status!=="IMPORTED_ALTERNATIVE_PHASES")return {status:"INVALID_WORKSPACE_PHASES"};
  const historyResult=importStructuralHistory(data.history);
- if(historyResult.status!=="IMPORTED_LOCAL_HISTORY"){
-  importTwinPhases(savedPhases);importStructuralHistory(savedHistory);
-  return {status:"INVALID_WORKSPACE_HISTORY"};
- }
  e5AlternativeBranches.splice(0,e5AlternativeBranches.length,...(data.alternativeBranches||[]).map(x=>({...x,sourceIds:[...x.sourceIds],requiredEvidence:[...x.requiredEvidence]})));
  e6EvidenceLedger.splice(0,e6EvidenceLedger.length,...(data.evidenceLedger||[]).map(x=>({...x})));
  e7DecisionLedger.splice(0,e7DecisionLedger.length,...(data.decisionLedger||[]).map(x=>({...x,sourceIds:[...x.sourceIds],affected:[...x.affected],affectedPhases:[...x.affectedPhases],evidenceIds:[...x.evidenceIds]})));
