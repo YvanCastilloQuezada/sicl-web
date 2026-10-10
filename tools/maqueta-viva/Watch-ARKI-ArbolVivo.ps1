@@ -29,12 +29,10 @@ while ($true) {
         & git switch --detach $experimentalSha
         if ($LASTEXITCODE -ne 0) { throw "No se pudo actualizar el checkout experimental" }
       }
-      {
-        & pwsh -NoProfile -File (Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")
+      & pwsh -NoProfile -File (Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")
         if ($LASTEXITCODE -ne 0) { throw "Instalación o pruebas fallaron; no se acredita sincronización" }
         $last = $fingerprint
         Write-Host "SYNC_OK experimental=$($experimentalSha.Substring(0,8)) state=$($stateSha.Substring(0,8))"
-      }
     } else { Write-Host "SIN_CAMBIOS $(Get-Date -Format s)" }
   } catch { Write-Warning "SYNC_FAILED: $_" }
   Start-Sleep -Seconds $IntervalSeconds
