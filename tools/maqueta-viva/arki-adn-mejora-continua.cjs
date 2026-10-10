@@ -36,7 +36,7 @@ function deficit(m){
 function candidate(m,ratio){
  const gap=m.direction==="MINIMIZE"?m.value-m.target:m.target-m.value;
  const proposed=m.direction==="MINIMIZE"?m.value-ratio*gap:m.value+ratio*gap;
- return {id:m.id+"-R"+Math.round(ratio*100),metricId:m.id,proposedValue:Number(proposed.toPrecision(12)),unit:m.unit,kind:"HYPOTHETICAL_TARGET_ONLY",execution:"NOT_EXECUTED",requiresAuthorization:true};
+ return {id:m.id+"-R"+Math.round(ratio*100),metricId:m.id,baselineValue:m.value,targetValue:m.target,direction:m.direction,proposedValue:Number(proposed.toPrecision(12)),unit:m.unit,kind:"HYPOTHETICAL_TARGET_ONLY",execution:"NOT_EXECUTED",requiresAuthorization:true};
 }
 function propose(input){
  const obs=normalize(input),deficits=obs.metrics.map(deficit).filter(Boolean);
@@ -58,6 +58,13 @@ function evaluate(proposal,receipt){
  assert(receipt.sourceCommit===proposal.sourceCommit,"SOURCE_COMMIT_MISMATCH");
  assert(receipt.regressionCount===0&&receipt.safetyGate==="PASS","REGRESSION_OR_SAFETY_GATE_FAILED");
  assert(Number.isFinite(receipt.before)&&Number.isFinite(receipt.after),"INVALID_RESULT");
+ const selected=proposal.proposals.find(c=>c.id===receipt.candidateId);
+ assert(receipt.before===selected.baselineValue,"RECEIPT_BASELINE_VALUE_MISMATCH");
+ if(receipt.outcome==="SUCCESS"){
+  const improved=selected.direction==="MINIMIZE"?receipt.after<receipt.before:receipt.after>receipt.before;
+  assert(improved,"NO_MEASURED_IMPROVEMENT");
+ }
+
  const result=receipt.outcome==="SUCCESS"?"EVIDENCE_SUBMITTED_REQUIRES_INDEPENDENT_REVIEW":"REJECTED";
  return {schema:"ARKI-ADN-LEARNING-1",candidateId:receipt.candidateId,baseline:receipt.before,observed:receipt.after,evidenceDigest:receipt.evidenceDigest,status:result,learningVerified:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
@@ -76,6 +83,7 @@ function iterate(input,limit=2){
 function nextObservation(previous,newInput){
  const obs=normalize(newInput);
  assert(previous&&previous.schema==="ARKI-ADN-ITERATION-1"&&previous.cycles.length>0,"INVALID_PREVIOUS_CYCLE");
+ assert(previous.cycles.length<MAX_CYCLES,"MAX_CYCLES_REACHED");
  assert(obs.observationId!==previous.cycles.at(-1).observationId,"DUPLICATE_OBSERVATION");
  assert(hash(obs)!==previous.cycles.at(-1).observationDigest,"NO_NEW_EVIDENCE");
  const result=propose(obs);
