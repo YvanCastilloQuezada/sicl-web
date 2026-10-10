@@ -2377,6 +2377,7 @@ a.download="ARKI-GRAFO-TRAZABLE-LOCAL-"+String(state.updated_at||"SIN-FECHA")+".
 document.body.appendChild(a);a.click();a.remove();
 }
 
+function evolutionWorkspaceActive(){return EVOLUTION_LEVELS.some(x=>x.id===evolutionMode&&x.target===tab);}
 function evolutionWorkspace(){
 const graph=buildUnifiedTraceGraph();
 const shared=unifiedTracePanel(graph);
@@ -2576,7 +2577,7 @@ app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Vista completa
 '</div>'+
 (tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
 sourceAuxPanel()+
-'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><aside class="panel information-rail" id="arki-information" aria-label="Información de la selección">'+informationRail()+'</aside><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+(tab===EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target?evolutionWorkspace():({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)())+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><aside class="panel information-rail" id="arki-information" aria-label="Información de la selección">'+informationRail()+'</aside><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+(evolutionWorkspaceActive()?evolutionWorkspace():({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)())+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-corrective-export]").forEach(el=>el.addEventListener("click",exportCorrectiveCases));
 app.querySelectorAll("[data-corrective-create]").forEach(el=>el.addEventListener("click",()=>createCorrective(app.querySelector("#corrective-title")?.value,app.querySelector("#corrective-phase")?.value,app.querySelector("#corrective-rationale")?.value,"MANUAL")));
@@ -2703,12 +2704,13 @@ else{tab="structure";spineView=true;locationReviewOpen=true;locationReviewAll=tr
 render();
 };el.addEventListener("click",activate);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});});
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
-app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;render();}));
+app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
 const phase=el.dataset.phase;if(!validPhases.has(phase))return;
 viewScope=phase;activePhase=phase;selected=phase;linkMode=false;linkSource="";
-evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;tab="structure";
+technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;
+tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";
 render();
 }));
 app.querySelectorAll("[data-roadmap-phase]").forEach(el=>el.addEventListener("click",()=>{const phase=el.dataset.roadmapPhase;if(!validPhases.has(phase))return;evolutionMode="maqueta";technicalMode=true;decisionShowAll=false;spineView=true;selectedSpineStage=0;viewScope=phase;activePhase=phase;selected=activePhase;tab="structure";render();}));
