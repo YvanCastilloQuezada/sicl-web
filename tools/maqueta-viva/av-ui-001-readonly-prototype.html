@@ -295,6 +295,7 @@ function importStructuralHistory(json){
  for(const x of parsed.versions){
   if(!x||typeof x.version!=="string"||!/^ALT-[0-9]{4,}$/.test(x.version)||ids.has(x.version)||typeof x.signature!=="string"||!Array.isArray(x.nodes)||!Array.isArray(x.changes)||!x.trigger||typeof x.trigger.kind!=="string"||typeof x.trigger.id!=="string"||!x.impact||!Array.isArray(x.impact.affected)||x.canonicalMutation!==false||x.evidence!=="DOCUMENTARY_ONLY")return {status:"INVALID_HISTORY"};
   if(x.nodes.some(n=>!n||typeof n.id!=="string"||!Array.isArray(n.dependencies)||!Array.isArray(n.secondaryPhases)||!Array.isArray(n.unknownDependencies)))return {status:"INVALID_HISTORY"};if(x.experimentalPhases!==undefined&&(!Array.isArray(x.experimentalPhases)||x.experimentalPhases.some(p=>evaluateAdditionalPhase(p?.id,p?.name).status!=="PHASE_PROPOSAL_ONLY"||p.canonicalMutation!==false)))return {status:"INVALID_HISTORY"};
+  if(x.alternativeBranches!==undefined&&validateE5Branches(x.alternativeBranches).status!=="VALID_BRANCHES")return {status:"INVALID_HISTORY"};
   ids.add(x.version);clean.push(JSON.parse(JSON.stringify(x)));
  }
  structuralHistory.splice(0,structuralHistory.length,...clean);
@@ -313,6 +314,9 @@ function compareStructuralVersions(left,right){
  const oldPhases=new Map((a.experimentalPhases||[]).map(p=>[p.id,p])),newPhases=new Map((b.experimentalPhases||[]).map(p=>[p.id,p]));
  for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else {if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name});if(JSON.stringify(old.dependencies)!==JSON.stringify(p.dependencies))changes.push({id,kind:"PHASE_DEPENDENCIES_CHANGED",before:old.dependencies,after:p.dependencies})}}
  for(const [id,p] of oldPhases)if(!newPhases.has(id))changes.push({id,kind:"PHASE_REMOVED",before:p.name});
+ const oldBranches=new Map((a.alternativeBranches||[]).map(x=>[x.id,x])),newBranches=new Map((b.alternativeBranches||[]).map(x=>[x.id,x]));
+ for(const id of newBranches.keys())if(!oldBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_ADDED"});
+ for(const id of oldBranches.keys())if(!newBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_REMOVED"});
  return {status:"COMPARISON_READY",left,right,changes,canonicalMutation:false};
 }
 function showAdaptive(){
