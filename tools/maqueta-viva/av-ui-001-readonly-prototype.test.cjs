@@ -196,4 +196,14 @@ assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='PH
 assert.equal(vm.runInContext("recommendPhaseStructure('Inteligencia y evaluación').evidence",sandbox),"LEXICAL_ONLY");
 assert.ok(vm.runInContext("recommendPhaseStructure('Inteligencia y evaluación').alternatives.some(x=>x.id==='F3')",sandbox),"Existing F3 must be considered before inventing F11");
 assert.equal(vm.runInContext("recommendPhaseStructure('Capacidad inédita sin referencia').recommendation",sandbox),"INSUFFICIENT_EVIDENCE_FOR_NEW_PHASE");
+const phaseVersion=vm.runInContext("structuralHistory.at(-1).version",sandbox);
+assert.equal(vm.runInContext("removeTwinPhase('F12').status",sandbox),"REMOVED_FROM_ALTERNATIVE_TWIN");
+const withoutF12=vm.runInContext("recordStructuralSnapshot({kind:'PLACEMENT',id:'F12'})",sandbox);
+assert.equal(withoutF12.status,"SNAPSHOT_RECORDED_IN_MEMORY");
+const phaseCompare=vm.runInContext("compareStructuralVersions("+JSON.stringify(phaseVersion)+","+JSON.stringify(withoutF12.version)+")",sandbox);
+assert.ok(phaseCompare.changes.some(x=>x.kind==="PHASE_REMOVED"&&x.id==="F12"),"Comparison must report removed experimental phase");
+assert.equal(vm.runInContext("restoreTwinPhaseVersion("+JSON.stringify(phaseVersion)+").status",sandbox),"RESTORED_TO_ALTERNATIVE_TWIN");
+assert.equal(vm.runInContext("twinPhaseSnapshot()[0].id",sandbox),"F12","Historical restore returns F12 to local twin");
+assert.equal(vm.runInContext("restoreTwinPhaseVersion('ALT-999999').status",sandbox),"VERSION_NOT_FOUND");
+assert.equal(typeof document.getElementById("history-restore-phases").listeners.click,"function");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
