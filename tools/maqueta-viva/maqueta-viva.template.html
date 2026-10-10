@@ -952,7 +952,10 @@ return '<details class="spine-route-comparison"><summary>Comparar referencia y a
 function applySuggestedSpines(){
 const current=currentSpine(),suggested=[...ideas,...components].filter(p=>placements[p.id]===activePhase&&!Object.prototype.hasOwnProperty.call(current,p.id)).map(p=>({p,s:suggestStage(p,activePhase)})).filter(x=>x.s);
 if(!suggested.length){draftNotice="No hay coincidencias suficientes para sugerir vínculos en "+activePhase+". Vincula manualmente las actividades restantes.";render();return;}
-remember();for(const x of suggested){current[x.p.id]=x.s.index;delete traceNotes[traceKey(x.p.id,spineScenario)];}saveDraft();draftNotice=suggested.length+" vínculos sugeridos por coincidencia textual, registrados SOLO como hipótesis de "+(spineScenario==="base"?"referencia":"alternativa")+". Revisa cada uno.";render();
+const preview=suggested.map(x=>x.p.id+" → Hito "+(Number(x.s.index)+1)+" ("+x.s.confidence+"; "+x.s.reason+")").join("\n");
+const approved=window.confirm("ARKI · REVISIÓN DE SUGERENCIAS\n\nEstas asociaciones son hipótesis basadas SOLO en el nombre, no dependencias verificadas.\nFase: "+activePhase+" · Escenario: "+(spineScenario==="base"?"Referencia":"Alternativa A")+"\n\n"+preview+"\n\nAceptar registra estas vinculaciones en el BORRADOR LOCAL; Cancelar no modifica nada.");
+if(!approved){draftNotice="Sugerencias revisadas sin cambios. Usa los controles de cada espina para vincular manualmente.";render();return;}
+remember();for(const x of suggested){current[x.p.id]=x.s.index;delete traceNotes[traceKey(x.p.id,spineScenario)];}saveDraft();draftNotice=suggested.length+" vínculos aceptados explícitamente, registrados SOLO como hipótesis de "+(spineScenario==="base"?"referencia":"alternativa")+". Revisa cada uno.";render();
 }
 /* Explicit drag-and-drop: one reversible draft transaction; never promotes canonical state. */
 function dropSpinePiece(id,stageIndex){
