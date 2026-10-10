@@ -8,7 +8,8 @@ $Ref = "refs/remotes/origin/$Branch"
 Set-Location $Repo
 $remote = (& git remote get-url origin).Trim()
 if ($LASTEXITCODE -ne 0 -or $remote -notmatch 'YvanCastilloQuezada/sicl-web') { throw "Incorrect Git remote: $remote" }
-$original = (& git branch --show-current).Trim()
+$original = (& git rev-parse HEAD | Select-Object -First 1).Trim()
+if ($LASTEXITCODE -ne 0 -or !$original) { throw "Cannot determine initial worktree HEAD" }
 & git fetch origin "refs/heads/${Branch}:${Ref}"
 if ($LASTEXITCODE -ne 0) { throw "Failed to fetch experimental branch" }
 $sha = (& git rev-parse $Ref).Trim()
@@ -67,7 +68,8 @@ $shortcut.TargetPath = $output
 $shortcut.WorkingDirectory = $Install
 $shortcut.Description = "ARKI Arbol Vivo experimental; read-only"
 $shortcut.Save()
-if ((& git branch --show-current).Trim() -ne $original) { throw "Local branch changed unexpectedly" }
+$finalHead = (& git rev-parse HEAD | Select-Object -First 1).Trim()
+if ($LASTEXITCODE -ne 0 -or $finalHead -ne $original) { throw "Worktree HEAD changed unexpectedly" }
 Write-Host "AV_UI_SHA=$sha"
 Write-Host "PHASES=$(@($s.roadmap.phases).Count)"
 Write-Host "LEAVES=$(@($g.ideas).Count)"
