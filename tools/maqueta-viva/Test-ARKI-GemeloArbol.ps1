@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5 HEADLESS / UI + DAG + STORAGE + CANDIDATES" {
+    Step "05 REAL BROWSER E3/E4/E5/E6 HEADLESS / UI + DAG + STORAGE + EVIDENCE" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -149,6 +149,18 @@ try {
    check(e5BranchSnapshot().some(x=>x.id===branchId),"E5 adopted branch not persisted");
    show();
    check(document.getElementById("tree").textContent.includes(branchId),"E5 adopted branch not rendered in tree");
+   check(document.getElementById("e6-record"),"E6 evidence record control missing");
+   document.getElementById("e6-branch").value=branchId;
+   document.getElementById("e6-reference").value="ARKI experimental review note 001";
+   document.getElementById("e6-observation").value="The documented dependency is not independently verified";
+   document.getElementById("e6-outcome").value="CONTRADICTS";
+   document.getElementById("e6-record").click();
+   check(e6EvidenceSnapshot().length===1,"E6 evidence observation not recorded");
+   check(e6BranchAssessment(branchId).decision==="REVIEW_CONTRADICTIONS","E6 contradiction not surfaced");
+   check(removeE5AlternativeBranch(branchId).status==="BRANCH_HAS_EVIDENCE","E6 evidence deletion guard");
+   const e6Portable=exportTwinWorkspace();
+   check(importTwinWorkspace(e6Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E6 evidence workspace roundtrip");
+   check(e6EvidenceSnapshot()[0].status==="UNVERIFIED","E6 evidence promoted unexpectedly");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
