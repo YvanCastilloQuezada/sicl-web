@@ -117,3 +117,39 @@ La línea temporal muestra la versión, el disparador registrado y el tipo de ca
 - Evaluador de alternativas con restricciones, objetivos multiobjetivo, trazabilidad y prueba de no-regresión.
 - Pruebas Edge reales, restauración en un segundo perfil, pruebas de rendimiento y revisión de seguridad.
 - Auditoría del Equipo Rojo y congelamiento explícito de contratos. Ninguna de estas puertas está declarada cerrada.
+
+## Suplemento de autenticación — firma criptográfica y procedencia
+
+Se implementó verificación local de **ECDSA P-256 / SHA-256** en el navegador, mediante `crypto.subtle.verify`. Se usan dos archivos separados:
+
+1. `ARKI-TWIN-PUBLIC-KEY-1` con `keyId` y clave pública JWK de verificación.
+2. `ARKI-TWIN-SIGNED-RECEIPTS-1` con `keyId`, `algorithm=ECDSA-P256-SHA256`, `payload` JSON textual exacto y `signature` base64url.
+
+La firma cubre exactamente los bytes UTF-8 de `payload`, no el JSON exterior. Se valida el esquema del payload antes de aceptarlo. El verificador rechaza claves no fijadas, claves diferentes, firmas incorrectas y recibos malformados. La clave pública se fija **solo durante la sesión actual** y no se guarda automáticamente.
+
+El navegador muestra el fingerprint SHA-256 de las coordenadas públicas P-256, útil para compararlo por un canal confiable. **Una firma válida con clave proporcionada por el propio archivo NO acredita identidad, procedencia de Core/AGK ni veracidad de la ejecución.** El estado sigue siendo `SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED`.
+
+Cuando una malla importada tiene el mismo commit que un recibo firmado de productor AGK, operación `mesh-export` y resultado `SUCCESS`, el inspector muestra *recibo firmado coincidente, clave NO AUTENTICADA*. Esto solo relaciona declaraciones; no verifica la malla geométricamente contra el motor.
+
+Las tres vistas resaltan fases documentales alcanzadas directamente o transitivamente por una dependencia declarada. Los colores distinguen selección, alcance directo y transitivo, pero **no** implican propagación ejecutada.
+
+### Prueba con Diego: generador de archivos sintéticos
+
+En el worktree experimental, ejecutar:
+
+```powershell
+node .\tools\maqueta-viva\Generate-ARKI-Twin-Signed-Fixture.cjs "$env:TEMP\ARKI-Twin-Signed-Demo"
+```
+
+El generador crea una clave pública y un sobre firmado **SINTÉTICOS**; la clave privada se descarta de memoria y nunca se exporta a disco. En ÁRBOL Gemelo Digital, importar primero la clave pública en **Clave pública confiable (JWK)** y luego el sobre en **Sobre firmado de recibos**. El resultado esperado es `SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED`. El ejemplo **no** demuestra ejecución del Core o del AGK.
+
+La prueba de aceptación debe comprobar también que un payload alterado se rechaza con `INVALID_SIGNATURE` y que el workspace no cambia. No se deben subir claves privadas ni secretos a GitHub.
+
+### Condiciones para cierre de observabilidad real
+
+- Registrar la identidad del productor, la clave pública y su fingerprint **por un canal autenticado independiente**, con política de rotación/revocación.
+- Vincular el recibo firmado a un SHA de código ejecutado, parámetros, artefactos y resultados reales, y verificar cada vínculo contra fuentes independientes.
+- Probar la interfaz en Edge con datos reales, los casos adversariales y restauración de backup en otro perfil.
+- Obtener revisión del Equipo Rojo y evidencia de CI/Windows en SHA exacto.
+
+**Estado:** IMPLEMENTED / NOT YET EXECUTED / NOT VERIFIED para esta suplementación.
