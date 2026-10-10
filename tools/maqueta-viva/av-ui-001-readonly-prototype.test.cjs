@@ -22,6 +22,7 @@ class Element {
     this.tagName = tag;
     this.children = [];
     this.dataset = {};
+    this.style = {};
     this.attributes = {};
     this.listeners = {};
     this.textContent = "";
@@ -77,4 +78,11 @@ assert.equal(vm.runInContext("selectedBranch", sandbox), "TEST-F10", "Branch sel
 assert.match(document.getElementById("memory").innerText, /TEST-F1/, "Left panel shows predecessor");
 assert.match(document.getElementById("tree").innerText, /Conexiones de TEST-F10/, "Contextual connections rendered");
 assert.match(document.getElementById("decisions").innerText, /DESHABILITADA/, "Canonical promotion remains disabled");
+vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'I-01',title:'Idea de prueba',targetPhase:'F10',origin:'TEST',sourceStatus:'DOCUMENTARY',verification:'UNKNOWN'}]};show()",sandbox);
+const leaf = document.getElementById("tree").children.flatMap(x=>x.children).find(x=>x.tagName==="button"&&x.textContent.includes("I-01"));
+assert.ok(leaf,"Historical leaf rendered on F10");
+leaf.listeners.click();
+assert.equal(vm.runInContext("selectedLeaf",sandbox),"I-01","Leaf selection works");
+assert.match(document.getElementById("memory").innerText,/Idea de prueba/,"Leaf provenance shown");
+assert.match(document.getElementById("decisions").innerText,/NO ACREDITADO/,"Fruit is not falsely verified");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
