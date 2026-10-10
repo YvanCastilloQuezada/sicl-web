@@ -264,6 +264,13 @@ try {
    check(importTwinAgkMesh(malformedGeometry).status==="INVALID_AGK_MESH","Invalid mesh not rejected");
    check(twinAgkMesh.triangles.length===1,"Rejected mesh mutated external state");
    check(twinTimelineReport().canonicalMutation===false,"Timeline mutated canonical state");
+   const operationalAudit=twinOperationalAudit();
+   check(operationalAudit.schema==="ARKI-TWIN-OPERATIONAL-AUDIT-1","Operational audit missing");
+   check(operationalAudit.canonicalPromotion==="BLOCKED"&&operationalAudit.operationalVerification==="NOT_VERIFIED","Audit improperly authorized runtime");
+   check(operationalAudit.gates.some(g=>g.id==="PRODUCER_IDENTITY"&&g.state==="BLOCKED"),"Producer provenance gate not blocked");
+   check(document.getElementById("twin-export-audit"),"Audit export control missing");
+   check(document.getElementById("twin-check-fingerprint"),"Fingerprint comparison control missing");
+
    check(exportTwinWorkspace()===twinBefore,"Twin visualization mutated workspace");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
