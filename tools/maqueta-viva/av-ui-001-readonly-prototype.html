@@ -27,7 +27,7 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 .branch-group.left{grid-column:1;justify-content:flex-end}
 .branch-group:before{content:"";position:absolute;top:50%;left:-14px;width:14px;border-top:3px solid #70b3c2}
 .branch-group.left:before{left:auto;right:-14px}
-.branch-group .branch{border-radius:9px;padding:9px 11px;min-width:80px;box-shadow:0 2px 0 #0b2430}
+.branch-group .branch.leaf{border-color:#80ad79;background:#245445;text-align:left}.branch-group .branch.leaf[aria-pressed=true]{outline:2px solid #e5d38b}.branch-group .branch{border-radius:9px;padding:9px 11px;min-width:80px;box-shadow:0 2px 0 #0b2430}
 .branch-group .branch.blocked{background:#543b39;border-color:#d78e68}
 .branch-group .branch.frozen{background:#38445f;border-color:#b4b6dc}
 .branch-group.empty{opacity:.55;font-size:11px}
@@ -35,7 +35,7 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 .relation{grid-column:1/-1}
 @media(max-width:850px){.tree{grid-template-columns:minmax(70px,1fr) minmax(145px,2fr) minmax(70px,1fr);gap:6px}.branch-group .branch{min-width:0;font-size:10px}}
 </style></head><body>
-<header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label></div></header>
+<header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label><label>Inventario JSON <input type="file" id="registry" accept=".json,application/json"></label></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Selecciona una fase. Los colores indican estados declarados en el archivo importado, no pruebas de funcionamiento.</p><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
 <aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><div id="decisions" aria-live="polite"></div></aside></div>
@@ -43,13 +43,17 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 <script>
 "use strict";
 const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-let state=null,draft=null,selected="F1",selectedBranch=null;
+let state=null,draft=null,selected="F1",selectedBranch=null,selectedLeaf=null;
+const embeddedRegistry=typeof window!=="undefined"?window.__ARKI_EMBEDDED_REGISTRY__:null;
+let registry=embeddedRegistry?.schema==="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"?embeddedRegistry:null;
 const embeddedState=typeof window!=="undefined" ? window.__ARKI_EMBEDDED_STATE__ : null;
 if(embeddedState?.schema==="ARKI-MASTER-MAP-STATE-0.1"&&Array.isArray(embeddedState.roadmap?.phases))state=embeddedState;
 const el=id=>document.getElementById(id);
 function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=content;return e}
 function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
 function phaseData(){return state?.roadmap?.phases||[]}
+function phaseLeaves(id){return (registry?.ideas||[]).filter(x=>x.targetPhase===id)}
+function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
 function localGraph(){
 const placements=draft?.placements||{},reviews=draft?.reviews||{},ids=new Set(Object.keys(placements)),edges=new Map(),missing=new Map(),cycles=[],seen=new Map(),stack=[];
 for(const id of ids){const deps=Array.isArray(reviews[id]?.dependencies)?reviews[id].dependencies.filter(x=>typeof x==="string"):[];edges.set(id,deps.filter(x=>ids.has(x)));missing.set(id,deps.filter(x=>!ids.has(x)))}
@@ -84,15 +88,18 @@ add("Dependientes indirectos",[...impacted].filter(id=>!direct.includes(id)),"")
 wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las relaciones no registradas son UNKNOWN, no inexistentes.","relation-note"));return wrap;
 }
 function show(){
-const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"");
-for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.style.gridRow=String(11-i);btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});const related=localGraph().rows.filter(x=>x.phase===id);
-if(related.length){const group=node("div","","branch-group"+(i%2===0?" left":""));group.style.gridRow=String(11-i);group.setAttribute("aria-label","Ramas locales de "+id);
-for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
+const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"")+(selectedLeaf?" / 🍃 "+selectedLeaf:"");
+for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.style.gridRow=String(11-i);btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;selectedLeaf=null;show()});const related=localGraph().rows.filter(x=>x.phase===id),leaves=phaseLeaves(id);
+if(related.length||leaves.length){const group=node("div","","branch-group"+(i%2===0?" left":""));group.style.gridRow=String(11-i);group.setAttribute("aria-label","Ramas locales de "+id);
+for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;selectedLeaf=null;show()});group.append(branch)}
+for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.title="Inventario histórico; ubicación propuesta, NO implementado";item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));group.append(item)}
 if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));if(i%2===0){el("tree").append(group);el("tree").append(btn)}else{el("tree").append(btn);el("tree").append(group)}}else{const empty=node("div","Ramas UNKNOWN","branch-group empty"+(i%2===0?" left":""));empty.style.gridRow=String(11-i);if(i%2===0){el("tree").append(empty);el("tree").append(btn)}else{el("tree").append(btn);el("tree").append(empty)}}
 }
 const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
 if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
+const leaf=phaseLeaves(selected).find(x=>x.id===selectedLeaf);
+if(leaf){entry(mem,"HOJA · "+leaf.id,leaf.title);entry(mem,"Origen documental",leaf.origin||"UNKNOWN");entry(mem,"Estado histórico",leaf.sourceStatus||"UNKNOWN");entry(mem,"Ubicación",leaf.placement||"UNKNOWN");entry(dec,"Fruto / resultado verificado","NO ACREDITADO · "+(leaf.verification||"UNKNOWN"));entry(dec,"Promoción","DESHABILITADA");return}
 if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry(mem,"Estado","SIN DATOS · importa el estado estructurado local de ARKI.");const gr=localGraph(),focus=gr.rows.find(x=>x.id===selectedBranch&&x.phase===selected);if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Dependencias",focus.deps.join(", ")||"Ninguna declarada");entry(dec,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Sin bloqueos declarados; verificación UNKNOWN")}entry(dec,"Fase activa",selected+" · "+labels[selected]);entry(dec,"Sin evidencia","No se inventan propuestas ni métricas. Promoción DESHABILITADA.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
 entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarada",p?.evidence_status||"UNKNOWN");
@@ -114,6 +121,7 @@ entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción
 
 entry(dec,"Promoción","DESHABILITADA. Sin pruebas, auditoría y autorización específica no existe acción canónica.");
 }
+el("registry").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>5_000_000)throw Error("Inventario demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"||!Array.isArray(x.ideas))throw Error("Inventario incompatible");registry=x;el("foot").textContent="Inventario histórico local: "+x.ideas.length+" hojas propuestas; NO equivale a implementación";show()}catch(e){registry=null;el("foot").textContent="Error de inventario: "+e.message;show()}});
 el("draft").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>5_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MAQUETA-DRAFT-1"||!x.placements||typeof x.placements!=="object"||Array.isArray(x.placements)||!x.reviews||typeof x.reviews!=="object"||Array.isArray(x.reviews))throw Error("Esquema incompatible");draft=x;el("foot").textContent="Borrador importado: "+file.name+" · dependencias locales no verificadas.";show()}catch(e){draft=null;el("foot").textContent="Error: "+e.message;show()}});
 el("source").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>15_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MASTER-MAP-STATE-0.1"||!Array.isArray(x.roadmap?.phases))throw Error("Esquema de estado no compatible");state=x;el("foot").textContent="Fuente local: "+file.name+" · estado fechado "+(x.updated_at||"UNKNOWN")+" · Solo lectura; no se envía a servidores.";show()}catch(e){state=null;el("foot").textContent="No se pudo importar: "+e.message;show()}});
 show();
