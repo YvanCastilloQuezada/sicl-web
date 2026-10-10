@@ -39,4 +39,19 @@ assert(unknown.issues.some(x=>x.code==="UNKNOWN_DEPENDENCY"));
 assert.equal(unknown.order[0].dependenciesResolved,false);
 const explicit=build({ideas:[{id:"V",targetPhase:"F1",sourceStatus:"VERIFIED",verification:"CURRENTLY_VERIFIED",sourceEvidence:"sha:abc"}],components:[]});
 assert.equal(explicit.order[0].missing,false);
+
+const typed=build({ideas:[
+ {id:"P",targetPhase:"F1"},
+ {id:"Q",targetPhase:"F2",dependencyEdges:[{type:"REQUIRES",targetId:"P",status:"VERIFIED",evidenceRef:"contract#gate"}]},
+ {id:"R",targetPhase:"F3",dependencyEdges:[{type:"CROSS_PHASE",targetId:"P",status:"VERIFIED",evidenceRef:"contract#link"}]}
+],components:[]});
+assert.equal(typed.order.find(x=>x.id==="P").downstreamCount,1);
+assert.deepEqual(typed.order.find(x=>x.id==="Q").dependencies,["P"]);
+assert.deepEqual(typed.order.find(x=>x.id==="R").dependencies,[]);
+const unverifiedEdge=build({ideas:[{id:"U",targetPhase:"F1",dependencyEdges:[{type:"REQUIRES",targetId:"P",status:"PROPOSED"}]}],components:[]});
+assert(unverifiedEdge.issues.some(x=>x.code==="UNVERIFIED_PRECEDENCE"));
+assert.equal(unverifiedEdge.order[0].dependenciesResolved,false);
+const self=build({ideas:[{id:"SELF",targetPhase:"F1",dependencies:["SELF"]}],components:[]});
+assert(self.issues.some(x=>x.code==="SELF_DEPENDENCY"));
+assert(self.issues.some(x=>x.code==="DEPENDENCY_CYCLE"));
 console.log("ARKI_ARBOL_VIVO_AUTO_001=PASS; INVENTORY="+result.counts.total+"; PHASE_ASSIGNMENT_NOT_AUTONOMOUS; REAL_EXPERIMENT_NOT_EXECUTED");
