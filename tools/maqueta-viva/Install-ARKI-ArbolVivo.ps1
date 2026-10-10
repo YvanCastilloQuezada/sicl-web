@@ -50,7 +50,7 @@ function Export-CanonicalBlob([string]$Path,[string]$Destination) {
     [IO.File]::WriteAllText($Destination,($content -join [Environment]::NewLine),[Text.UTF8Encoding]::new($false))
 }
 Export-CanonicalBlob "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json" $stateFile
-Export-CanonicalBlob "tools/maqueta-viva/assembly-registry.json" $registryFile
+Export-GitBlob "tools/maqueta-viva/assembly-registry.json" $registryFile
 $state = [IO.File]::ReadAllText($stateFile,$utf8)
 $registry = [IO.File]::ReadAllText($registryFile,$utf8)
 $s = $state | ConvertFrom-Json
