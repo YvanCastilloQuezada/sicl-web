@@ -201,6 +201,34 @@ function recordStructuralSnapshot(change){
 function structuralHistorySummary(){
  return {persistence:"MEMORY_ONLY",versions:structuralHistory.map(x=>({version:x.version,trigger:x.trigger,changed:x.changes.length,affected:x.impact.affected.length})),canonicalMutation:false};
 }
+function exportStructuralHistory(){
+ return JSON.stringify({schema:"ARKI-AV-ALTERNATIVE-HISTORY-1",exportedAs:"PORTABLE_LOCAL_COPY",versions:structuralHistory,canonicalMutation:false},null,2);
+}
+function importStructuralHistory(json){
+ let parsed;
+ try{parsed=typeof json==="string"?JSON.parse(json):json}catch{return {status:"INVALID_JSON"}}
+ if(!parsed||parsed.schema!=="ARKI-AV-ALTERNATIVE-HISTORY-1"||parsed.canonicalMutation!==false||!Array.isArray(parsed.versions)||parsed.versions.length>500)return {status:"INVALID_HISTORY"};
+ const clean=[],ids=new Set();
+ for(const x of parsed.versions){
+  if(!x||typeof x.version!=="string"||!/^ALT-[0-9]{4,}$/.test(x.version)||ids.has(x.version)||typeof x.signature!=="string"||!Array.isArray(x.nodes)||!Array.isArray(x.changes)||!x.trigger||typeof x.trigger.kind!=="string"||typeof x.trigger.id!=="string"||!x.impact||!Array.isArray(x.impact.affected)||x.canonicalMutation!==false||x.evidence!=="DOCUMENTARY_ONLY")return {status:"INVALID_HISTORY"};
+  if(x.nodes.some(n=>!n||typeof n.id!=="string"||!Array.isArray(n.dependencies)||!Array.isArray(n.secondaryPhases)||!Array.isArray(n.unknownDependencies)))return {status:"INVALID_HISTORY"};
+  ids.add(x.version);clean.push(JSON.parse(JSON.stringify(x)));
+ }
+ structuralHistory.splice(0,structuralHistory.length,...clean);
+ return {status:"IMPORTED_LOCAL_HISTORY",count:clean.length,canonicalMutation:false};
+}
+function compareStructuralVersions(left,right){
+ const a=structuralHistory.find(x=>x.version===left),b=structuralHistory.find(x=>x.version===right);
+ if(!a||!b)return {status:"VERSION_NOT_FOUND",changes:[]};
+ const first=new Map(a.nodes.map(x=>[x.id,x])),second=new Map(b.nodes.map(x=>[x.id,x])),changes=[];
+ for(const [id,n] of second){
+  const old=first.get(id);
+  if(!old){changes.push({id,kind:"ADDED"});continue}
+  if(JSON.stringify(old)!==JSON.stringify(n))changes.push({id,kind:"MODIFIED",before:old.proposedPhase,after:n.proposedPhase});
+ }
+ for(const id of first.keys())if(!second.has(id))changes.push({id,kind:"REMOVED"});
+ return {status:"COMPARISON_READY",left,right,changes,canonicalMutation:false};
+}
 function showAdaptive(){
  const root=el("adaptive");if(!root)return;
  root.replaceChildren();
@@ -223,7 +251,7 @@ for(const x of comparisons.slice(0,5))entry(root,x.id+" · "+x.officialPhase+" �
 const focus=selectedBranch||selectedLeaf;
 if(focus){const impact=incrementalImpact({kind:"DEPENDENCY",id:focus});entry(root,"Impacto incremental · "+focus,impact.status+" · piezas: "+impact.affected.join(", ")+" · fases: "+(impact.phases.join(", ")||"UNKNOWN"))}
 const history=structuralHistorySummary();
-entry(root,"Historial alternativo",history.versions.length+" versiones de sesión · "+history.persistence+" · no persistente");
+entry(root,"Historial alternativo",history.versions.length+" versiones de sesión · exportación/importación JSON disponible · sin guardado automático");
 for(const v of history.versions.slice(-3))entry(root,v.version,v.trigger.kind+" "+v.trigger.id+" · diferencias: "+v.changed+" · afectadas: "+v.affected);
 entry(root,"Control","FROZEN histórico no bloquea propuestas en este espacio experimental. Ninguna mutación canónica ni promoción automática.");
 }
