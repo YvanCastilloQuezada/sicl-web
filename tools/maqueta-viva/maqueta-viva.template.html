@@ -768,6 +768,25 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .arki-rail-maturity{padding:10px 12px;border-radius:8px;font-weight:700;color:white;margin:10px 0}
 .arki-rail-maturity.maturity-0{background:#613a8b}.arki-rail-maturity.maturity-1{background:#294e98}
 .arki-rail-maturity.maturity-2{background:#136b79}.arki-rail-maturity.maturity-3{background:#447a53}
+
+/* Universal phase maturity strip across all five architectural levels. */
+.arki-global-heatmap{border:1px solid #47677a;border-radius:12px;padding:12px;margin:10px 0;background:rgba(22,44,58,.62)}
+.arki-global-heatmap-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:9px}
+.arki-global-heatmap-head strong{font-size:13px;color:#edf5fb}
+.arki-global-heatmap-head small{font-size:10px;color:#bad1e0}
+.arki-global-heatmap-levels{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.arki-heat-phase{min-width:0;border:2px solid transparent;border-radius:7px;padding:9px 3px;color:white;cursor:pointer;text-align:center}
+.arki-heat-phase strong{display:block;font-size:12px}.arki-heat-level{display:block;font-size:9px;line-height:1.2;margin-top:4px;overflow-wrap:anywhere}
+.arki-heat-phase.maturity-0{background:#613a8b;border-color:#ab8bdf}.arki-heat-phase.maturity-1{background:#294e98;border-color:#85a5f1}
+.arki-heat-phase.maturity-2{background:#136b79;border-color:#72c7d5}.arki-heat-phase.maturity-3{background:#447a53;border-color:#a1d1a4}
+.arki-heat-phase.maturity-4{background:#20743b;border-color:#8ce2a4}
+.arki-heat-phase:hover{filter:brightness(1.2)}.arki-heat-phase:focus-visible{outline:3px solid #f0d78d;outline-offset:2px}
+.arki-global-heatmap-scale{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.arki-global-heatmap-scale span{font-size:10px;padding:4px 8px;border-radius:4px;color:#fff}
+.arki-global-heatmap-scale .maturity-0{background:#613a8b}.arki-global-heatmap-scale .maturity-1{background:#294e98}
+.arki-global-heatmap-scale .maturity-2{background:#136b79}.arki-global-heatmap-scale .maturity-3{background:#447a53}
+.arki-global-heatmap-scale .maturity-4{background:#20743b}
+@media(max-width:850px){.arki-global-heatmap-levels{grid-template-columns:repeat(5,minmax(0,1fr))}.arki-heat-level{font-size:8px}}
 </style>
 </head>
 <body>
@@ -1447,7 +1466,7 @@ return {level:0,label:"Sin ubicación acreditada",next:"Ubicar la capacidad y re
 }
 
 function informationRail(){
-if(treePhaseId&&evolutionMode==="maqueta"&&viewScope==="ALL"){
+if(treePhaseId){
 const p=phases.find(x=>x.id===treePhaseId);
 if(p){const m=treeMaturity("phase",p),parts=[...ideas,...components].filter(x=>placements[x.id]===p.id);
 return '<h2>Madurez · '+escapeHtml(p.id)+'</h2><div class="field"><label>Fase</label><strong>'+escapeHtml(p.name)+'</strong></div>'+
@@ -2503,9 +2522,16 @@ document.body.appendChild(a);a.click();a.remove();
 }
 
 function evolutionWorkspaceActive(){return EVOLUTION_LEVELS.some(x=>x.id===evolutionMode&&x.target===tab);}
+function sharedMaturityHeatmap(){
+const title={plano:"01 · Plano ARKI",maqueta:"02 · Maqueta Viva",digital:"03 · Gemelo Digital",predictivo:"04 · Gemelo Predictivo",autocorrectivo:"05 · ARKI Autocorrectivo"}[evolutionMode]||"ARKI";
+const scoped=viewScope==="ALL"?[...phases].reverse():phases.filter(p=>p.id===viewScope);
+return '<section class="arki-global-heatmap" aria-label="Mapa de madurez por fases"><div class="arki-global-heatmap-head"><strong>Madurez visual · '+escapeHtml(title)+'</strong><small>F10 arriba · F1 base · datos locales, no certificación</small></div>'+
+'<div class="arki-global-heatmap-levels">'+scoped.map(p=>{const m=treeMaturity("phase",p);return '<button type="button" data-heat-phase="'+escapeHtml(p.id)+'" class="arki-heat-phase maturity-'+m.level+'" title="'+escapeHtml(p.id+' · '+m.label)+'" aria-label="'+escapeHtml(p.id+' · '+m.label)+'"><strong>'+escapeHtml(p.id)+'</strong><span class="arki-heat-level">'+escapeHtml(m.label)+'</span></button>';}).join("")+'</div>'+
+'<div class="arki-global-heatmap-scale"><span class="maturity-0">Idea</span><span class="maturity-1">Organizada</span><span class="maturity-2">Parcial</span><span class="maturity-3">Documentada</span><span class="maturity-4">Verificada</span></div></section>';
+}
 function evolutionWorkspace(){
 const graph=buildUnifiedTraceGraph();
-const shared=unifiedTracePanel(graph);
+const shared=unifiedTracePanel(graph)+sharedMaturityHeatmap();
 if(evolutionMode==="plano")return shared+scopedPlano();
 if(evolutionMode==="maqueta")return shared+(viewScope==="ALL"?completeMaqueta():structure());
 if(evolutionMode==="digital")return shared+scopedDigital();
@@ -2848,6 +2874,7 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
+app.querySelectorAll("[data-heat-phase]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.heatPhase;if(!validPhases.has(id))return;treePhaseId=id;treeProposalId="";selected=id;render();}));
 app.querySelectorAll("[data-tree-phase]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.treePhase;if(!validPhases.has(id))return;treePhaseId=id;treeProposalId="";selected=id;render();}));
 app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;treeProposalId=x.id;treePhaseId="";render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
