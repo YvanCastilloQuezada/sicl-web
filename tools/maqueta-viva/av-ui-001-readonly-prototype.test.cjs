@@ -181,4 +181,16 @@ assert.equal(vm.runInContext("twinPhaseSnapshot().length",sandbox),1,"Invalid im
 assert.equal(typeof document.getElementById("twin-add-phase").listeners.click,"function");
 assert.equal(typeof document.getElementById("twin-import-phases").listeners.change,"function");
 assert.equal(typeof document.getElementById("twin-export-phases").listeners.click,"function");
+const addedPhaseVersion=vm.runInContext("recordStructuralSnapshot({kind:'PLACEMENT',id:'F11'})",sandbox);
+assert.ok(["SNAPSHOT_RECORDED_IN_MEMORY","UNCHANGED"].includes(addedPhaseVersion.status));
+assert.equal(vm.runInContext("removeTwinPhase('F11').status",sandbox),"REMOVED_FROM_ALTERNATIVE_TWIN");
+const removedPhaseVersion=vm.runInContext("recordStructuralSnapshot({kind:'PLACEMENT',id:'F11'})",sandbox);
+assert.equal(removedPhaseVersion.status,"SNAPSHOT_RECORDED_IN_MEMORY");
+assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='PHASE_REMOVED'&&x.id==='F11')",sandbox));
+assert.equal(vm.runInContext("twinPhaseSnapshot().length",sandbox),0);
+assert.equal(vm.runInContext("removeTwinPhase('F11').status",sandbox),"PHASE_NOT_FOUND");
+assert.equal(vm.runInContext("addTwinPhase('F12','Coordinación multiescala integrada').status",sandbox),"ADDED_TO_ALTERNATIVE_TWIN");
+assert.equal(vm.runInContext("twinPhaseSnapshot()[0].id",sandbox),"F12");
+assert.equal(vm.runInContext("recordStructuralSnapshot({kind:'PLACEMENT',id:'F12'}).status",sandbox),"SNAPSHOT_RECORDED_IN_MEMORY");
+assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='PHASE_ADDED'&&x.id==='F12')",sandbox));
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
