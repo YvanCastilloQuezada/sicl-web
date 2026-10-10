@@ -18,6 +18,22 @@ h2{font-size:17px;margin:0 0 12px}.tree{display:grid;grid-template-columns:minma
 .warn{color:#ffca86}button{font:inherit}input[type=file]{max-width:240px}
 footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 @media(max-width:850px){.shell{grid-template-columns:1fr}.tree{padding:6px;grid-template-columns:1fr 2fr 1fr}.phase{width:100%}}
+
+/* AV-UI-001 tree topology: phases are the trunk; branches alternate on both sides. */
+.tree{display:grid;grid-template-columns:minmax(110px,1fr) minmax(220px,1.4fr) minmax(110px,1fr);gap:9px 14px;align-items:center;isolation:isolate}
+.tree:before{z-index:-1;left:50%;background:linear-gradient(#ba8a4f,#d5a46c);width:12px}
+.phase{grid-column:2;grid-row:auto;width:100%;min-height:65px;box-shadow:0 3px 0 #0d2030;z-index:1}
+.branch-group{grid-column:3;width:100%;align-self:center;justify-content:flex-start;margin:0;min-height:40px;z-index:1}
+.branch-group.left{grid-column:1;justify-content:flex-end}
+.branch-group:before{content:"";position:absolute;top:50%;left:-14px;width:14px;border-top:3px solid #70b3c2}
+.branch-group.left:before{left:auto;right:-14px}
+.branch-group .branch{border-radius:9px;padding:9px 11px;min-width:80px;box-shadow:0 2px 0 #0b2430}
+.branch-group .branch.blocked{background:#543b39;border-color:#d78e68}
+.branch-group .branch.frozen{background:#38445f;border-color:#b4b6dc}
+.branch-group.empty{opacity:.55;font-size:11px}
+.branch-group.empty:before{border-color:#617789}
+.relation{grid-column:1/-1}
+@media(max-width:850px){.tree{grid-template-columns:minmax(70px,1fr) minmax(145px,2fr) minmax(70px,1fr);gap:6px}.branch-group .branch{min-width:0;font-size:10px}}
 </style></head><body>
 <header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
@@ -69,11 +85,10 @@ wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las rel
 }
 function show(){
 const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"");
-for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});el("tree").append(btn);
-const related=localGraph().rows.filter(x=>x.phase===id);
-if(related.length){const group=node("div","","branch-group");group.setAttribute("aria-label","Ramas locales de "+id);
+for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});const related=localGraph().rows.filter(x=>x.phase===id);
+if(related.length){const group=node("div","","branch-group"+(i%2===0?" left":""));group.setAttribute("aria-label","Ramas locales de "+id);
 for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
-if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}else{el("tree").append(node("div","Sin ramas declaradas","branch-group muted"))}
+if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));if(i%2===0){el("tree").append(group);el("tree").append(btn)}else{el("tree").append(btn);el("tree").append(group)}}else{const empty=node("div","Ramas UNKNOWN","branch-group empty"+(i%2===0?" left":""));if(i%2===0){el("tree").append(empty);el("tree").append(btn)}else{el("tree").append(btn);el("tree").append(empty)}}
 }
 const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
 if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
