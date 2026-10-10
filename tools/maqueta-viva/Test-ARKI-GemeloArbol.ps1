@@ -272,12 +272,21 @@ try {
  try {
    const add=addTwinPhase("F14","Persistencia tras reinicio experimental");
    if(add.status!=="ADDED_TO_ALTERNATIVE_TWIN")throw Error("Cannot create F14");
+   const candidates=synthesizeNewBranches().candidates;
+   if(!candidates.length)throw Error("No documentary candidates");
+   const branchId=candidates[0].id;
+   if(addE5AlternativeBranch(branchId).status!=="ADDED_TO_ALTERNATIVE_BRANCHES")throw Error("Cannot adopt branch");
+   if(addE6Evidence(branchId,"ARKI restart probe evidence","Synthetic observation retained across independent browser processes","INCONCLUSIVE").status!=="EVIDENCE_OBSERVATION_RECORDED")throw Error("Cannot record evidence");
+   const decision=addE7Decision(branchId,"DEFER","Await independent verification after browser restart");
+   if(decision.status!=="PROVISIONAL_DECISION_RECORDED")throw Error("Cannot record decision");
+   const revision=addE9Revision(decision.decisionId,"INVESTIGATE","Check that the revision chain persists across browser restarts");
+   if(revision.status!=="PROVISIONAL_REVISION_RECORDED")throw Error("Cannot record revision");
    const snapshot=recordStructuralSnapshot({kind:"DEPENDENCY",id:"F14"});
    if(snapshot.status!=="SNAPSHOT_RECORDED_IN_MEMORY")throw Error("Cannot snapshot restart state: "+snapshot.status);
    const saved=saveTwinBrowser();
    if(saved.status!=="SAVED_TO_LOCAL_BROWSER")throw Error("Storage save: "+saved.status);
    const original=JSON.parse(exportTwinWorkspace());
-   if(!original.phases.phases.some(p=>p.id==="F14")||original.history.versions.length<1)throw Error("Incomplete saved workspace");
+   if(!original.phases.phases.some(p=>p.id==="F14")||original.history.versions.length<1||original.alternativeBranches.length!==1||original.evidenceLedger.length!==1||original.decisionLedger.length!==1||original.revisionLedger.length!==1)throw Error("Incomplete saved workspace");
    result.textContent="ARKI_RESTART_STAGE_1_PASS";
    result.setAttribute("data-status","PASS");
  } catch(error){result.textContent="ARKI_RESTART_STAGE_1_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
@@ -295,6 +304,10 @@ try {
    const workspace=JSON.parse(exportTwinWorkspace());
    if(!workspace.phases.phases.some(p=>p.id==="F14"))throw Error("F14 lost across restart");
    if(!workspace.history.versions.some(x=>x.trigger?.id==="F14"))throw Error("History lost across restart");
+   if(workspace.alternativeBranches.length!==1||workspace.evidenceLedger.length!==1||workspace.decisionLedger.length!==1||workspace.revisionLedger.length!==1)throw Error("Documentary chain lost across restart");
+   if(workspace.evidenceLedger[0].branchId!==workspace.alternativeBranches[0].id||workspace.decisionLedger[0].branchId!==workspace.alternativeBranches[0].id||workspace.revisionLedger[0].rootDecisionId!==workspace.decisionLedger[0].decisionId)throw Error("Broken provenance chain across restart");
+   if(workspace.revisionLedger[0].status!=="PROVISIONAL_ONLY"||workspace.evidenceLedger[0].status!=="UNVERIFIED")throw Error("Historical status was promoted across restart");
+   if(e9ReviewStatus(workspace.decisionLedger[0].decisionId).status!=="CURRENT_PROVISIONAL_RECEIPT")throw Error("Revision state not restored");
    if(workspace.canonicalMutation!==false)throw Error("Canonical mutation detected");
    result.textContent="ARKI_RESTART_STAGE_2_PASS";
    result.setAttribute("data-status","PASS");
