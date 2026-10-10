@@ -75,6 +75,28 @@ try {
       Run -Exe "node" -CommandArgs @("tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
     } finally { Pop-Location }
   }
+  Step "03B SIGNED RECEIPT / INDEPENDENT NODE VERIFIER" {
+    $FixtureDir = Join-Path ([IO.Path]::GetTempPath()) ("ARKI-TWIN-SIGNATURE-" + [guid]::NewGuid().ToString("N"))
+    try {
+      Push-Location $Repo
+      try {
+        Run -Exe "node" -CommandArgs @("tools/maqueta-viva/Generate-ARKI-Twin-Signed-Fixture.cjs",$FixtureDir)
+        $key = Join-Path $FixtureDir "ARKI-TWIN-SYNTHETIC-PUBLIC-KEY.json"
+        $envelope = Join-Path $FixtureDir "ARKI-TWIN-SYNTHETIC-SIGNED-RECEIPTS.json"
+        if(-not (Test-Path -LiteralPath $key) -or -not (Test-Path -LiteralPath $envelope)) { throw "Synthetic signature fixture not created" }
+        Run -Exe "node" -CommandArgs @("tools/maqueta-viva/Verify-ARKI-Twin-Receipts.cjs",$key,$envelope)
+        $tampered = Join-Path $FixtureDir "ARKI-TWIN-TAMPERED.json"
+        $signed = Get-Content -LiteralPath $envelope -Raw | ConvertFrom-Json
+        $signed.payload = $signed.payload.Replace('"UNKNOWN"','"SUCCESS"')
+        $signed | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $tampered -Encoding utf8
+        & node "tools/maqueta-viva/Verify-ARKI-Twin-Receipts.cjs" $key $tampered 2>$null | Out-Null
+        if($LASTEXITCODE -eq 0) { throw "Tampered signed receipt unexpectedly accepted" }
+        Log "SIGNED_FIXTURE=PASS; TAMPER_REJECTION=PASS; REAL_EXECUTION=NOT_CLAIMED"
+      } finally { Pop-Location }
+    } finally {
+      if(Test-Path -LiteralPath $FixtureDir) { Remove-Item -LiteralPath $FixtureDir -Recurse -Force }
+    }
+  }
   if($SkipInstall -and -not $SkipBrowser) { throw "Cannot verify current browser build with -SkipInstall; remove flag or also specify -SkipBrowser" }
   if(-not $SkipInstall) {
     Step "04 INSTALL / EMBED SOURCES / REPEAT REGRESSION" {
