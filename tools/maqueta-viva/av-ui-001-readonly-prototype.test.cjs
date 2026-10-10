@@ -266,4 +266,24 @@ assert.equal(typeof document.getElementById("e5-generate").listeners.click,"func
 vm.runInContext("renderNewBranchCandidates()",sandbox);
 assert.ok(document.getElementById("e5-candidates").children.length>0,"E5 candidates rendered");
 assert.equal(vm.runInContext("JSON.stringify(synthesizeNewBranches())",sandbox),vm.runInContext("JSON.stringify(synthesizeNewBranches())",sandbox),"Candidate synthesis must be deterministic");
+// E5 alternative branch lifecycle, history, import and rejection of forged proposals.
+const e5Id=e5.candidates[0].id;
+assert.equal(vm.runInContext("addE5AlternativeBranch("+JSON.stringify(e5Id)+").status",sandbox),"ADDED_TO_ALTERNATIVE_BRANCHES");
+assert.equal(vm.runInContext("addE5AlternativeBranch("+JSON.stringify(e5Id)+").status",sandbox),"DUPLICATE_CANDIDATE");
+assert.equal(vm.runInContext("addE5AlternativeBranch('E5-FAKE').status",sandbox),"UNKNOWN_CANDIDATE");
+const e5Added=vm.runInContext("recordStructuralSnapshot({kind:'IDEA',id:"+JSON.stringify(e5Id)+"})",sandbox);
+assert.equal(e5Added.status,"SNAPSHOT_RECORDED_IN_MEMORY");
+assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='ALTERNATIVE_BRANCH_ADDED')",sandbox));
+const e5Export=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(JSON.parse(e5Export).alternativeBranches.length,1);
+assert.equal(vm.runInContext("removeE5AlternativeBranch("+JSON.stringify(e5Id)+").status",sandbox),"REMOVED_ALTERNATIVE_BRANCH");
+const e5Removed=vm.runInContext("recordStructuralSnapshot({kind:'IDEA',id:"+JSON.stringify(e5Id)+"})",sandbox);
+assert.equal(e5Removed.status,"SNAPSHOT_RECORDED_IN_MEMORY");
+assert.ok(vm.runInContext("compareStructuralVersions("+JSON.stringify(e5Added.version)+","+JSON.stringify(e5Removed.version)+").changes.some(x=>x.kind==='ALTERNATIVE_BRANCH_REMOVED')",sandbox));
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(e5Export)+").status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
+assert.equal(vm.runInContext("e5BranchSnapshot().length",sandbox),1);
+const forged=JSON.parse(e5Export);forged.alternativeBranches[0].evidence="VERIFIED";
+const beforeForged=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(forged))+").status",sandbox),"INVALID_WORKSPACE_BRANCHES");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),beforeForged);
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
