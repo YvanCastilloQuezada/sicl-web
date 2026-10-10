@@ -443,4 +443,11 @@ const storageCorrupt=JSON.parse(storageBaseline);storageCorrupt.revisionLedger[0
 sandbox.__corruptRecovery=JSON.stringify(storageCorrupt);
 assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>__corruptRecovery}).status",sandbox),"INVALID_WORKSPACE_REVISIONS");
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Rejected recovery must preserve existing workspace");
+assert.equal(vm.runInContext("importTwinWorkspace('x'.repeat(2000001)).status",sandbox),"WORKSPACE_IMPORT_TOO_LARGE");
+const wrongHistoryOrder=JSON.parse(storageBaseline);
+assert.ok(wrongHistoryOrder.history.versions.length>=2,"Need two historical versions to test chronology");
+wrongHistoryOrder.history.versions.reverse();
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(wrongHistoryOrder))+").status",sandbox),"INVALID_WORKSPACE_HISTORY");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Rejected unordered history must preserve workspace");
+
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
