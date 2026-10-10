@@ -10,7 +10,7 @@ $remote = (& git remote get-url origin).Trim()
 if ($LASTEXITCODE -ne 0 -or $remote -notmatch 'YvanCastilloQuezada/sicl-web') { throw "Incorrect Git remote: $remote" }
 $original = (& git rev-parse HEAD | Select-Object -First 1).Trim()
 if ($LASTEXITCODE -ne 0 -or !$original) { throw "Cannot determine initial worktree HEAD" }
-& git fetch origin "refs/heads/${Branch}:${Ref}"
+& git fetch origin "+refs/heads/${Branch}:${Ref}"
 if ($LASTEXITCODE -ne 0) { throw "Failed to fetch experimental branch" }
 $sha = (& git rev-parse $Ref).Trim()
 if ($LASTEXITCODE -ne 0) { throw "Cannot resolve branch SHA" }
@@ -39,8 +39,20 @@ foreach($name in @("av-ui-001-readonly-prototype.html","av-ui-001-readonly-proto
 $utf8 = [Text.UTF8Encoding]::new($false,$true)
 $html = [IO.File]::ReadAllText((Join-Path $Install "av-ui-001-readonly-prototype.html"),$utf8)
 if (!$html.Contains('id="selection-status"') -or !$html.Contains("Árbol Vivo")) { throw "HTML integrity check failed" }
-$state = [IO.File]::ReadAllText((Join-Path $Repo "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json"),$utf8)
-$registry = [IO.File]::ReadAllText((Join-Path $Repo "tools/maqueta-viva/assembly-registry.json"),$utf8)
+# Use explicit remote-tracking main as the current documentary source, not the stale detached checkout.
+& git fetch origin "+refs/heads/main:refs/remotes/origin/main"
+if ($LASTEXITCODE -ne 0) { throw "Cannot refresh canonical documentary source main" }
+$stateFile = Join-Path $Install "ARKI_MASTER_MAP_STATE.json"
+$registryFile = Join-Path $Install "assembly-registry.json"
+function Export-CanonicalBlob([string]$Path,[string]$Destination) {
+    $content = & git show "refs/remotes/origin/main:$Path"
+    if ($LASTEXITCODE -ne 0) { throw "Missing canonical source: $Path" }
+    [IO.File]::WriteAllText($Destination,($content -join [Environment]::NewLine),[Text.UTF8Encoding]::new($false))
+}
+Export-CanonicalBlob "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json" $stateFile
+Export-CanonicalBlob "tools/maqueta-viva/assembly-registry.json" $registryFile
+$state = [IO.File]::ReadAllText($stateFile,$utf8)
+$registry = [IO.File]::ReadAllText($registryFile,$utf8)
 $s = $state | ConvertFrom-Json
 $g = $registry | ConvertFrom-Json
 $catalogPath = Join-Path $Install "av-ui-001-capability-catalog.json"
