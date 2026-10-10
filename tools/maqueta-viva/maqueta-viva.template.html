@@ -763,6 +763,11 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .arki-tree .maturity-4,.arki-maturity-legend .maturity-4{background:#20743b;border-color:#8ce2a4;color:#fff}
 .arki-maturity-legend span{font-weight:650;font-size:11px}
 .arki-tree-trunk.maturity-0 small,.arki-tree-trunk.maturity-1 small,.arki-tree-trunk.maturity-2 small,.arki-tree-trunk.maturity-3 small{color:#eef5fc}
+
+.arki-tree-heat-note{font-size:11px;line-height:1.45;color:#c5d8e6;padding:8px 10px;border-left:3px solid #4ca5b3;margin:9px 0}
+.arki-rail-maturity{padding:10px 12px;border-radius:8px;font-weight:700;color:white;margin:10px 0}
+.arki-rail-maturity.maturity-0{background:#613a8b}.arki-rail-maturity.maturity-1{background:#294e98}
+.arki-rail-maturity.maturity-2{background:#136b79}.arki-rail-maturity.maturity-3{background:#447a53}
 </style>
 </head>
 <body>
@@ -1423,14 +1428,44 @@ function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_
 function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es"));}
 function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
 let treeProposalId="";
+let treePhaseId="";
+function treeMaturity(kind,x){
+if(kind==="proposal")return {level:0,label:"Idea · pendiente de autorización",next:"Revisar la propuesta, su alcance y sus riesgos; solicitar autorización expresa antes de ejecutar."};
+if(kind==="phase"){
+const pieces=[...ideas,...components].filter(p=>placements[p.id]===x.id);
+if(!pieces.length)return {level:0,label:"Sin piezas ubicadas",next:"Ubicar y revisar las capacidades de esta fase. No hay evidencia suficiente para valorar su madurez."};
+const gates=pieces.map(p=>reviewGate(p.id));
+if(gates.every(g=>g.complete))return {level:3,label:"Documentada localmente · sin verificación independiente",next:"Contrastar pruebas y evidencias con una revisión independiente antes de marcar verde verificado."};
+if(gates.some(g=>g.complete||g.hasEvidence))return {level:2,label:"Evidencia local parcial",next:"Completar las fichas y resolver dependencias pendientes; verificar resultados de forma independiente."};
+return {level:1,label:"Capacidades organizadas",next:"Registrar evidencias, pruebas y dependencias reales de las capacidades de esta fase."};
+}
+const g=reviewGate(x.id);
+if(g.complete)return {level:3,label:"Ficha local completa · sin verificación independiente",next:"Ejecutar y comprobar pruebas independientes; la ficha local no equivale a validación."};
+if(g.hasEvidence)return {level:2,label:"Evidencia declarada, aún incompleta",next:"Resolver dependencias y comprobar las evidencias declaradas."};
+if(g.placed)return {level:1,label:"Ubicada · falta evidencia",next:"Documentar procedencia, prueba y dependencias de esta capacidad."};
+return {level:0,label:"Sin ubicación acreditada",next:"Ubicar la capacidad y registrar sus antecedentes."};
+}
+
 function informationRail(){
+if(treePhaseId&&evolutionMode==="maqueta"&&viewScope==="ALL"){
+const p=phases.find(x=>x.id===treePhaseId);
+if(p){const m=treeMaturity("phase",p),parts=[...ideas,...components].filter(x=>placements[x.id]===p.id);
+return '<h2>Madurez · '+escapeHtml(p.id)+'</h2><div class="field"><label>Fase</label><strong>'+escapeHtml(p.name)+'</strong></div>'+
+'<div class="arki-rail-maturity maturity-'+m.level+'">'+escapeHtml(m.label)+'</div>'+
+'<div class="field"><label>Capacidades registradas</label><strong>'+parts.length+'</strong></div>'+
+'<div class="field"><label>¿Qué falta para avanzar?</label><p>'+escapeHtml(m.next)+'</p></div>'+
+'<div class="field"><label>Estado oficial (independiente del color)</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
+'<p class="caption">Color calculado a partir de fichas locales; no certifica ejecución ni altera el estado oficial.</p>';
+}
+}
+
 if(treeProposalId&&evolutionMode==="maqueta"&&viewScope==="ALL"){
 const idea=generatedArkiIdeas().find(x=>x.id===treeProposalId);
-if(idea)return '<h2>Hoja · Propuesta</h2><div class="rail-identity"><strong>'+escapeHtml(idea.title)+'</strong></div>'+
+if(idea)return '<h2>Hoja · Propuesta</h2><div class="arki-rail-maturity maturity-0">Violeta · idea pendiente de autorización</div><div class="rail-identity"><strong>'+escapeHtml(idea.title)+'</strong></div>'+
 '<div class="field"><label>¿Dónde crece?</label><strong>'+escapeHtml(idea.phase)+'</strong></div>'+
 '<div class="field"><label>¿Por qué importa?</label><p>'+escapeHtml(idea.why)+'</p></div>'+
 '<div class="field"><label>¿Qué recomienda ARKI?</label><p>'+escapeHtml(idea.action)+'</p></div>'+
-'<div class="field"><label>Situación</label><strong>Propuesta local · sin autorización de ejecución</strong></div>'+
+'<div class="field"><label>¿Qué falta para avanzar?</label><p>Evaluar alcance, riesgos y evidencia; obtener autorización expresa del PO. No existe ejecución automática en esta vista.</p></div>'+
 '<p class="caption">Esta hoja no ejecuta cambios. Las decisiones y evidencias se gestionan en Ideas ARKI.</p>';
 }
 
@@ -2487,22 +2522,8 @@ return [...ideas,...components].filter(p=>placements[p.id]===phase);
 }
 function completeMaqueta(){
 const proposals=generatedArkiIdeas();
-const maturity=(kind,x)=>{
-if(kind==="proposal")return {level:0,label:"Idea · sin autorizar"};
-const g=reviewGate(x.id);
-if(g.complete)return {level:3,label:"Documentada · sin prueba independiente"};
-if(g.hasEvidence)return {level:2,label:"Con evidencias declaradas"};
-if(g.placed)return {level:1,label:"Ubicada · falta evidencia"};
-return {level:0,label:"Sin ubicar"};
-};
-const phaseMaturity=p=>{
-const pieces=scopePieces(p.id);
-if(!pieces.length)return {level:0,label:"Sin datos suficientes"};
-const gates=pieces.map(x=>reviewGate(x.id));
-if(gates.every(g=>g.complete))return {level:3,label:"Documentada · falta verificación independiente"};
-if(gates.some(g=>g.complete||g.hasEvidence))return {level:2,label:"Evidencia parcial"};
-return {level:1,label:"En organización"};
-};
+const maturity=treeMaturity;
+const phaseMaturity=p=>treeMaturity("phase",p);
 const stages=[...phases].reverse().map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
 const left=pieces,right=suggestions;
@@ -2512,12 +2533,12 @@ return items.slice(0,2).map(leaf).join("")+(items.length>2?'<details class="arki
 };
 const readableStatus=x=>x==="FROZEN"?"Protegida":x==="RECONCILIATION_REQUIRED"?"Requiere revisión":x==="VERIFIED"?"Comprobada":x==="IN_PROGRESS"?"En trabajo":x==="DONE"?"Terminada":x||"Sin confirmar";
 return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece") +'</div>'+
-'<button type="button" class="arki-tree-trunk maturity-'+phaseMaturity(p).level+'" title="'+escapeHtml(phaseMaturity(p).label)+'" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(readableStatus(p.status))+'</small></button>'+
+'<button type="button" class="arki-tree-trunk maturity-'+phaseMaturity(p).level+'" title="'+escapeHtml(phaseMaturity(p).label)+'" data-tree-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(readableStatus(p.status))+'</small></button>'+
 '<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal") +'</div></div>';
 }).join("");
 return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","El árbol crece desde F1 en la base hasta F10 en la copa. Selecciona una rama para consultar sus detalles.")+
 '<div class="arki-tree-legend arki-maturity-legend"><span class="maturity-0">Violeta · idea</span><span class="maturity-1">Azul · organizada</span><span class="maturity-2">Turquesa · evidencia parcial</span><span class="maturity-3">Verde claro · documentada</span><span class="maturity-4">Verde · verificada</span></div>'+
-'<div class="arki-tree" role="group" aria-label="Árbol de evolución ARKI, diez fases">'+stages+'</div>'+
+'<div class="arki-tree-heat-note">Mapa de calor · violeta = falta desarrollo; turquesa = falta evidencia; verde = documentación avanzada. El verde final exige verificación independiente.</div><div class="arki-tree" role="group" aria-label="Árbol de evolución ARKI, diez fases">'+stages+'</div>'+
 '<p class="caption">Las ramas son una vista de datos locales, no una validación de funcionamiento. Las propuestas no se ejecutan sin autorización.</p>';
 }
 function scopedPlano(){
@@ -2827,7 +2848,8 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
-app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;treeProposalId=x.id;render();}));
+app.querySelectorAll("[data-tree-phase]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.treePhase;if(!validPhases.has(id))return;treePhaseId=id;treeProposalId="";selected=id;render();}));
+app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;treeProposalId=x.id;treePhaseId="";render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
 const phase=el.dataset.phase;if(!validPhases.has(phase))return;
 viewScope=phase;activePhase=phase;selected=phase;linkMode=false;linkSource="";
@@ -2867,7 +2889,7 @@ app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()
 app.querySelectorAll("[data-export-backup]").forEach(el=>el.addEventListener("click",()=>{exportUnreconciledBackup();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
-app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;treeProposalId="";if(/^F(?:10|[1-9])$/.test(selected)){activePhase=selected;viewScope=selected;}else if(placements[selected]&&viewScope!=="ALL"){activePhase=placements[selected];viewScope=activePhase;}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;treeProposalId="";treePhaseId="";if(/^F(?:10|[1-9])$/.test(selected)){activePhase=selected;viewScope=selected;}else if(placements[selected]&&viewScope!=="ALL"){activePhase=placements[selected];viewScope=activePhase;}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
 layoutCanvas();
 app.querySelectorAll("[data-move-piece]").forEach(el=>{
 let origin=null,card=null,canvas=null;
