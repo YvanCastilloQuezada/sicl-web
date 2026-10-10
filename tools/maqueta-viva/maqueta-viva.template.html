@@ -2471,7 +2471,7 @@ return [...ideas,...components].filter(p=>placements[p.id]===phase);
 }
 function completeMaqueta(){
 const proposals=generatedArkiIdeas();
-const stages=phases.map((p,i)=>{
+const stages=[...phases].reverse().map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
 const left=pieces,right=suggestions;
 const branch=(items,kind)=>items.map(x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Actividad · "+x.id:"Propuesta · pendiente de decisión")+'</small></button>').join("");
@@ -2479,7 +2479,7 @@ return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left">
 '<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>'+
 '<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal") +'</div></div>';
 }).join("");
-return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","Diez niveles: fases en el tronco, capacidades a la izquierda y propuestas a la derecha. Selecciona una rama para consultar sus detalles.")+
+return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","El árbol crece desde F1 en la base hasta F10 en la copa. Selecciona una rama para consultar sus detalles.")+
 '<div class="arki-tree-legend"><span>TRONCO · 10 fases</span><span>IZQUIERDA · capacidades</span><span>DERECHA · propuestas</span><span>Solo lectura de la estructura</span></div>'+
 '<div class="arki-tree" role="group" aria-label="Árbol de evolución ARKI, diez fases">'+stages+'</div>'+
 '<p class="caption">Las ramas son una vista de datos locales, no una validación de funcionamiento. Las propuestas no se ejecutan sin autorización.</p>';
