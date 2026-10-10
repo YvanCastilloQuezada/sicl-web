@@ -294,10 +294,12 @@ function e8ReconciliationReport(){
  for(const decision of e7DecisionLedger){
   const branch=branches.get(decision.branchId);
   if(!branch){issues.push({kind:"ORPHAN_DECISION",id:decision.decisionId,detail:decision.branchId});continue}
+  // Reconcile the latest append-only receipt, not the original E7 decision after E9 review.
+  const receipt=e9RevisionLedger.filter(x=>x.rootDecisionId===decision.decisionId).at(-1)||decision;
   const currentEvidence=e6EvidenceLedger.filter(x=>x.branchId===decision.branchId).map(x=>x.evidenceId);
-  if(JSON.stringify(currentEvidence)!==JSON.stringify(decision.evidenceIds))issues.push({kind:"EVIDENCE_CHANGED_SINCE_DECISION",id:decision.decisionId,detail:"La decisión no incorpora todas las observaciones actuales"});
+  if(JSON.stringify(currentEvidence)!==JSON.stringify(receipt.evidenceIds))issues.push({kind:"EVIDENCE_CHANGED_SINCE_DECISION",id:decision.decisionId,detail:"Recibo "+(receipt.revisionId||receipt.decisionId)+" desactualizado respecto de las observaciones actuales"});
   const impact=e7DecisionImpact(decision.branchId);
-  if(JSON.stringify(impact.sourceIds)!==JSON.stringify(decision.sourceIds)||JSON.stringify(impact.affected)!==JSON.stringify(decision.affected)||JSON.stringify(impact.affectedPhases)!==JSON.stringify(decision.affectedPhases))issues.push({kind:"IMPACT_CHANGED_SINCE_DECISION",id:decision.decisionId,detail:"Recalcular alcance antes de actuar"});
+  if(JSON.stringify(impact.sourceIds)!==JSON.stringify(receipt.sourceIds)||JSON.stringify(impact.affected)!==JSON.stringify(receipt.affected)||JSON.stringify(impact.affectedPhases)!==JSON.stringify(receipt.affectedPhases))issues.push({kind:"IMPACT_CHANGED_SINCE_DECISION",id:decision.decisionId,detail:"Recibo "+(receipt.revisionId||receipt.decisionId)+" requiere recalcular alcance"});
   if(e6EvidenceLedger.some(x=>x.branchId===decision.branchId&&x.outcome==="CONTRADICTS"))issues.push({kind:"CONTRADICTION_REQUIRES_REVIEW",id:decision.decisionId,detail:"Existen observaciones contradictorias sin verificación independiente"});
  }
  const affectedDecisionIds=[...new Set(issues.filter(x=>x.id.startsWith("DEC-")).map(x=>x.id))].sort();
@@ -326,6 +328,9 @@ function validateE9Revisions(items,decisions=e7DecisionLedger,evidence=e6Evidenc
   if(!Array.isArray(x.sourceIds)||JSON.stringify(x.sourceIds)!==JSON.stringify(branchMap.get(x.branchId).sourceIds))return {status:"INVALID_REVISION_LEDGER"};
   if(!Array.isArray(x.evidenceIds)||new Set(x.evidenceIds).size!==x.evidenceIds.length||x.evidenceIds.some(id=>!evidenceMap.has(id)||evidenceMap.get(id).branchId!==x.branchId))return {status:"INVALID_REVISION_LEDGER"};
   if(!Array.isArray(x.affected)||!Array.isArray(x.affectedPhases)||x.affected.length>300||x.affectedPhases.length>100||x.affected.some(id=>typeof id!=="string")||x.affectedPhases.some(id=>typeof id!=="string"))return {status:"INVALID_REVISION_LEDGER"};
+  // A root has exactly one append-only linear review chain, never competing forks.
+  const latest=[...revisionMap.values()].filter(y=>y.rootDecisionId===x.rootDecisionId).at(-1);
+  if(x.parentId!==(latest?.revisionId||x.rootDecisionId))return {status:"INVALID_REVISION_LEDGER"};
   revisionMap.set(x.revisionId,x);
  }
  return {status:"VALID_REVISION_LEDGER"};
@@ -337,6 +342,8 @@ function addE9Revision(parentId,action,rationale){
  if(!["INVESTIGATE","DEFER","REJECT_HYPOTHESIS"].includes(action)||note.length<12||note.length>1000)return {status:"INVALID_REVISION_INPUT",canonicalMutation:false};
  if(e9RevisionLedger.length>=300)return {status:"REVISION_LIMIT_REACHED",canonicalMutation:false};
  const branchId=parent.branchId,rootDecisionId=parent.rootDecisionId||parent.decisionId,impact=e7DecisionImpact(branchId);
+ const latest=e9RevisionLedger.filter(x=>x.rootDecisionId===rootDecisionId).at(-1);
+ if(parentKey!==(latest?.revisionId||rootDecisionId))return {status:"STALE_REVISION_PARENT",canonicalMutation:false};
  if(impact.status!=="IMPACT_ESTIMATE_ONLY")return {status:"BRANCH_NOT_ADOPTED",canonicalMutation:false};
  const next=Math.max(0,...e9RevisionLedger.map(x=>Number(x.revisionId.slice(4))||0))+1;
  const revision={revisionId:"REV-"+String(next).padStart(4,"0"),parentId:parentKey,rootDecisionId,branchId,action,rationale:note,sourceIds:impact.sourceIds,affected:impact.affected,affectedPhases:impact.affectedPhases,evidenceIds:e6EvidenceLedger.filter(x=>x.branchId===branchId).map(x=>x.evidenceId),status:"PROVISIONAL_ONLY",canonicalMutation:false};
