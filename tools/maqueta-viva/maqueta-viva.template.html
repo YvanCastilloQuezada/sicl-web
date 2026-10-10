@@ -747,6 +747,13 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .arki-tree-legend{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:#c4d7e8}
 .arki-tree-legend span{padding:5px 8px;border:1px solid #416078;border-radius:6px}
 @media(max-width:850px){.arki-tree-level{grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr);gap:8px}.arki-tree-trunk{padding:8px 4px}.arki-tree-side:before{display:none}}
+
+.arki-tree-extra{max-width:100%;width:min(100%,270px);border:1px dashed #688599;border-radius:8px;padding:5px 7px}
+.arki-tree-extra summary{cursor:pointer;font-size:11px;font-weight:650;color:#c8e2f2}
+.arki-tree-extra-list{display:flex;flex-direction:column;gap:5px;padding-top:7px}
+.arki-tree-empty{font-size:10px;color:#819eb0;font-style:italic}
+.arki-tree-level{padding-block:5px}
+.arki-tree-trunk:focus-visible,.arki-tree-leaf:focus-visible,.arki-tree-extra summary:focus-visible{outline:2px solid #e6ca79;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -2474,9 +2481,13 @@ const proposals=generatedArkiIdeas();
 const stages=[...phases].reverse().map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
 const left=pieces,right=suggestions;
-const branch=(items,kind)=>items.map(x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Actividad · "+x.id:"Propuesta · pendiente de decisión")+'</small></button>').join("");
+const branch=(items,kind)=>{
+const leaf=x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Capacidad · "+x.id:"Idea de mejora · sin autorizar")+'</small></button>';
+return items.slice(0,2).map(leaf).join("")+(items.length>2?'<details class="arki-tree-extra"><summary>Ver '+(items.length-2)+' más</summary><div class="arki-tree-extra-list">'+items.slice(2).map(leaf).join("")+'</div></details>':"")+(items.length===0?'<span class="arki-tree-empty">Sin registros</span>':"");
+};
+const readableStatus=x=>x==="FROZEN"?"Protegida":x==="RECONCILIATION_REQUIRED"?"Requiere revisión":x==="VERIFIED"?"Comprobada":x==="IN_PROGRESS"?"En trabajo":x==="DONE"?"Terminada":x||"Sin confirmar";
 return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece") +'</div>'+
-'<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>'+
+'<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(readableStatus(p.status))+'</small></button>'+
 '<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal") +'</div></div>';
 }).join("");
 return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","El árbol crece desde F1 en la base hasta F10 en la copa. Selecciona una rama para consultar sus detalles.")+
