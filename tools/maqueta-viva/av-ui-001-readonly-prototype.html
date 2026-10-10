@@ -308,8 +308,8 @@ if(activities.length>12)left.append(node("span","+"+(activities.length-12)+" act
 if(!activities.length)left.append(node("span","Actividades UNKNOWN","empty-note"));
 const right=node("div","","branch-group capabilities");right.style.gridRow=String(rowNumber);right.setAttribute("aria-label","Capacidades propuestas de "+id);
 const leaves=phaseLeaves(id),capabilities=phaseCapabilities(id);
-for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.title=arkiFunctionalHelp(leaf);item.dataset.help=arkiFunctionalHelp(leaf);item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));right.append(item)}
-for(const cap of capabilities){const item=node("button",(cap.category==="FROZEN_ASSET"?"❄ ":"◇ ")+cap.title,"branch catalog-cap");item.type="button";item.title=arkiFunctionalHelp(cap);item.dataset.help=arkiFunctionalHelp(cap);item.setAttribute("aria-pressed",String(selectedLeaf===cap.id));item.addEventListener("click",()=>chooseLeaf(cap.id,id));right.append(item)}
+for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.dataset.help=arkiFunctionalHelp(leaf);item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));right.append(item)}
+for(const cap of capabilities){const item=node("button",(cap.category==="FROZEN_ASSET"?"❄ ":"◇ ")+cap.title,"branch catalog-cap");item.type="button";item.dataset.help=arkiFunctionalHelp(cap);item.setAttribute("aria-pressed",String(selectedLeaf===cap.id));item.addEventListener("click",()=>chooseLeaf(cap.id,id));right.append(item)}
 if(!leaves.length&&!capabilities.length)right.append(node("span","Capacidades UNKNOWN","empty-note"));
 el("tree").append(left,btn,right);
 }
