@@ -1406,7 +1406,18 @@ function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_PROGRESS")return"progress";if(String(p.status).includes("RECONCILED"))return"reconciled";return"unknown";}
 function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es"));}
 function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
+let treeProposalId="";
 function informationRail(){
+if(treeProposalId&&evolutionMode==="maqueta"&&viewScope==="ALL"){
+const idea=generatedArkiIdeas().find(x=>x.id===treeProposalId);
+if(idea)return '<h2>Hoja · Propuesta</h2><div class="rail-identity"><strong>'+escapeHtml(idea.title)+'</strong></div>'+
+'<div class="field"><label>¿Dónde crece?</label><strong>'+escapeHtml(idea.phase)+'</strong></div>'+
+'<div class="field"><label>¿Por qué importa?</label><p>'+escapeHtml(idea.why)+'</p></div>'+
+'<div class="field"><label>¿Qué recomienda ARKI?</label><p>'+escapeHtml(idea.action)+'</p></div>'+
+'<div class="field"><label>Situación</label><strong>Propuesta local · sin autorización de ejecución</strong></div>'+
+'<p class="caption">Esta hoja no ejecuta cambios. Las decisiones y evidencias se gestionan en Ideas ARKI.</p>';
+}
+
 if(viewScope==="ALL"&&(!selected||selected===activePhase||/^F(?:10|[1-9])$/.test(selected))){
 const count=Object.keys(placements).length;
 return '<h2>Información · F1–F10</h2><p class="caption">Vista completa del nivel '+escapeHtml(EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.number||"02")+'. Selecciona una pieza para consultar sus antecedentes y evidencia.</p>'+
@@ -2462,11 +2473,11 @@ function completeMaqueta(){
 const proposals=generatedArkiIdeas();
 const stages=phases.map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
-const left=pieces.slice(0,3),right=suggestions.slice(0,3);
+const left=pieces,right=suggestions;
 const branch=(items,kind)=>items.map(x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Actividad · "+x.id:"Propuesta · pendiente de decisión")+'</small></button>').join("");
-return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece")+(pieces.length>3?'<span class="arki-tree-more">+'+(pieces.length-3)+' en la fase</span>':"")+'</div>'+
+return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece") +'</div>'+
 '<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>'+
-'<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal")+(suggestions.length>3?'<span class="arki-tree-more">+'+(suggestions.length-3)+' propuestas</span>':"")+'</div></div>';
+'<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal") +'</div></div>';
 }).join("");
 return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","Diez niveles: fases en el tronco, capacidades a la izquierda y propuestas a la derecha. Selecciona una rama para consultar sus detalles.")+
 '<div class="arki-tree-legend"><span>TRONCO · 10 fases</span><span>IZQUIERDA · capacidades</span><span>DERECHA · propuestas</span><span>Solo lectura de la estructura</span></div>'+
@@ -2780,7 +2791,7 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
-app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;correctiveSelected="";evolutionMode="autocorrectivo";tab="autocorrective";if(validPhases.has(x.phase)){viewScope=x.phase;activePhase=x.phase;selected=x.phase;}render();}));
+app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;treeProposalId=x.id;render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
 const phase=el.dataset.phase;if(!validPhases.has(phase))return;
 viewScope=phase;activePhase=phase;selected=phase;linkMode=false;linkSource="";
@@ -2820,7 +2831,7 @@ app.querySelectorAll("[data-export]").forEach(el=>el.addEventListener("click",()
 app.querySelectorAll("[data-export-backup]").forEach(el=>el.addEventListener("click",()=>{exportUnreconciledBackup();render();}));
 const importControl=app.querySelector("#draft-import");if(importControl)importControl.addEventListener("change",e=>importDraft(e.target.files&&e.target.files[0]));
 const observationControl=app.querySelector("#observation-import");if(observationControl)observationControl.addEventListener("change",e=>importObservation(e.target.files&&e.target.files[0]));
-app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;if(/^F(?:10|[1-9])$/.test(selected)){activePhase=selected;viewScope=selected;}else if(placements[selected]&&viewScope!=="ALL"){activePhase=placements[selected];viewScope=activePhase;}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
+app.querySelectorAll("[data-select]").forEach(el=>{const fn=()=>{selected=el.dataset.select;treeProposalId="";if(/^F(?:10|[1-9])$/.test(selected)){activePhase=selected;viewScope=selected;}else if(placements[selected]&&viewScope!=="ALL"){activePhase=placements[selected];viewScope=activePhase;}render();};el.addEventListener("click",fn);if(el.tagName.toLowerCase()==="g")el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});});
 layoutCanvas();
 app.querySelectorAll("[data-move-piece]").forEach(el=>{
 let origin=null,card=null,canvas=null;
