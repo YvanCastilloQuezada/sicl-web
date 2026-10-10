@@ -2637,12 +2637,27 @@ return scopeHead("03 · GEMELO DIGITAL","Estado y procedencia","Lectura local de
 '<div class="scope-grid">'+scoped.map(p=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+escapeHtml(p.status)+'</span><small>'+scopePieces(p.id).length+' piezas locales · '+escapeHtml(p.evidence_status||"EVIDENCIA NO REGISTRADA")+'</small></div>').join("")+'</div>'+
 '<p class="caption">Fecha de fuente: '+escapeHtml(state.updated_at||"NO REGISTRADA")+'. No se infieren telemetría, sincronización ni actualización del estado real.</p>';
 }
+function arkiLocalExperimentComparison(){
+const baseline=analyzeWholeScenario("base"),candidate=analyzeWholeScenario("alternative");
+const summarize=x=>({blocks:x.byPhase.reduce((n,p)=>n+p.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length,0),warnings:x.byPhase.reduce((n,p)=>n+p.issues.filter(i=>i.severity==="REVISAR").length,0),linked:x.byPhase.reduce((n,p)=>n+p.linked,0),pieces:x.byPhase.reduce((n,p)=>n+p.pieces,0)});
+const before=summarize(baseline),after=summarize(candidate);
+const metrics=[{name:"Bloqueos potenciales",from:before.blocks,to:after.blocks,lower:true},{name:"Observaciones",from:before.warnings,to:after.warnings,lower:true},{name:"Piezas vinculadas a hitos",from:before.linked,to:after.linked,lower:false}];
+return {before,after,metrics:metrics.map(m=>({...m,delta:m.to-m.from,percent:m.from===0?null:Math.round((m.to-m.from)*10000/m.from)/100,improved:m.lower?m.to<m.from:m.to>m.from})),classification:"ANÁLISIS HEURÍSTICO LOCAL",validForApproval:false,reason:"Sin clon ejecutable sincronizado, pruebas externas ni calibración; resultados limitados a la estructura declarada."};
+}
+function arkiExperimentResultsPanel(){
+const experiment=arkiLocalExperimentComparison();
+return '<section class="arki-experiment-panel"><h3>Laboratorio de evolución · comparación de escenarios</h3>'+
+'<p class="caption">Referencia vs alternativa. Cálculo local sobre dependencias e hitos declarados; no simula desempeño físico ni funcionamiento del código.</p>'+
+'<div class="scope-grid">'+experiment.metrics.map(m=>'<article class="scope-phase-card"><strong>'+escapeHtml(m.name)+'</strong><span>'+m.from+' → '+m.to+'</span><small>'+escapeHtml(m.percent===null?"Variación porcentual no definida (base cero)":(m.delta>0?"+":"")+m.percent+" %")+'</small><small>'+escapeHtml(m.improved?"Mejora estructural estimada":m.delta===0?"Sin cambio":"Resultado desfavorable")+'</small></article>').join("")+'</div>'+
+'<p class="caption"><strong>NO APTO PARA PROMOCIÓN AUTOMÁTICA.</strong> '+escapeHtml(experiment.reason)+'</p></section>';
+}
 function scopedPredictivo(){
 const base=analyzeWholeScenario("base"),alt=analyzeWholeScenario("alternative");
 const indices=viewScope==="ALL"?phases.map((_,i)=>i):phases.map((p,i)=>p.id===viewScope?i:-1).filter(i=>i>=0);
 const rows=indices.map(i=>({p:phases[i],a:base.byPhase[i],b:alt.byPhase[i]}));
 const countIssues=(r,sev)=>r.issues.filter(x=>x.severity===sev).length;
 return scopeHead("04 · GEMELO PREDICTIVO","Escenarios y alertas","Comparación heurística de referencia y alternativa local. No es predicción temporal, simulación calibrada ni optimización certificada.")+
+arkiExperimentResultsPanel()+
 '<div class="scope-grid">'+rows.map(({p,a,b})=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+a.pieces+' piezas · '+a.linked+' con hito en referencia / '+b.linked+' en alternativa</span><small>Posibles bloqueos R/A: '+countIssues(a,"BLOQUEO_POTENCIAL")+' / '+countIssues(b,"BLOQUEO_POTENCIAL")+'</small><small>Observaciones R/A: '+countIssues(a,"REVISAR")+' / '+countIssues(b,"REVISAR")+'</small></div>').join("")+'</div>'+
 '<p class="caption">Las alertas proceden de las dependencias y ubicaciones declaradas. No representan un pronóstico de desempeño real.</p>';
 }
