@@ -821,8 +821,13 @@ function importTwinWorkspace(raw){
 const twinLocalStorageKey="ARKI_TREE_TWIN_EXPERIMENTAL_V1";
 function saveTwinBrowser(storage){
  const content=exportTwinWorkspace();if(content.length>2000000)return {status:"WORKSPACE_TOO_LARGE",canonicalMutation:false};
- try{(storage||localStorage).setItem(twinLocalStorageKey,content);return {status:"SAVED_TO_LOCAL_BROWSER",bytes:content.length,canonicalMutation:false}}
- catch{return {status:"LOCAL_STORAGE_UNAVAILABLE",canonicalMutation:false}}
+ try{
+  const target=storage||localStorage;
+  target.setItem(twinLocalStorageKey,content);
+  // A successful setItem call is not sufficient: detect silent drops/truncation.
+  if(target.getItem(twinLocalStorageKey)!==content)return {status:"LOCAL_STORAGE_WRITE_NOT_CONFIRMED",canonicalMutation:false};
+  return {status:"SAVED_TO_LOCAL_BROWSER",bytes:content.length,canonicalMutation:false};
+ }catch{return {status:"LOCAL_STORAGE_UNAVAILABLE",canonicalMutation:false}}
 }
 function loadTwinBrowser(storage){
  let content;try{content=(storage||localStorage).getItem(twinLocalStorageKey)}catch{return {status:"LOCAL_STORAGE_UNAVAILABLE",canonicalMutation:false}}
