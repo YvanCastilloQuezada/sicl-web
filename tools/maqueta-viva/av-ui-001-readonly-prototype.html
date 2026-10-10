@@ -308,8 +308,8 @@ if(activities.length>12)left.append(node("span","+"+(activities.length-12)+" act
 if(!activities.length)left.append(node("span","Actividades UNKNOWN","empty-note"));
 const right=node("div","","branch-group capabilities");right.style.gridRow=String(rowNumber);right.setAttribute("aria-label","Capacidades propuestas de "+id);
 const leaves=phaseLeaves(id),capabilities=phaseCapabilities(id);
-for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.title="Inventario histórico; ubicación propuesta, NO implementado";item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));right.append(item)}
-for(const cap of capabilities){const item=node("button",(cap.category==="FROZEN_ASSET"?"❄ ":"◇ ")+cap.title,"branch catalog-cap");item.type="button";item.title=cap.recordedStatus+" · "+cap.source+" · Fase orientativa no canónica";item.setAttribute("aria-pressed",String(selectedLeaf===cap.id));item.addEventListener("click",()=>chooseLeaf(cap.id,id));right.append(item)}
+for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.title=arkiFunctionalHelp(leaf);item.dataset.help=arkiFunctionalHelp(leaf);item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));right.append(item)}
+for(const cap of capabilities){const item=node("button",(cap.category==="FROZEN_ASSET"?"❄ ":"◇ ")+cap.title,"branch catalog-cap");item.type="button";item.title=arkiFunctionalHelp(cap);item.dataset.help=arkiFunctionalHelp(cap);item.setAttribute("aria-pressed",String(selectedLeaf===cap.id));item.addEventListener("click",()=>chooseLeaf(cap.id,id));right.append(item)}
 if(!leaves.length&&!capabilities.length)right.append(node("span","Capacidades UNKNOWN","empty-note"));
 el("tree").append(left,btn,right);
 }
@@ -401,8 +401,21 @@ const arkiHelpTerms={
  F9:"Obra: construcción, ejecución y control de campo.",
  F10:"Operación: uso, mantenimiento y posocupación."
 };
+const arkiFunctionalDescriptions={
+ "I-21":{what:"Familia de soluciones comerciales y profesionales basadas en ARKI.",purpose:"Conectar servicios editoriales, profesionales, especialistas, aliados, presupuestos, construcción, edificios y gestión empresarial en productos orientados a usuarios concretos.",limit:"Investigado, no integrado. No se han demostrado productos desplegados, facturación, CRM ni redes de socios."},
+ "I-16":{what:"Continuidad digital entre diseño, obra y operación.",purpose:"Relacionar lo proyectado con lo realmente construido, mantenimiento, activos, inspecciones y aprendizaje durante la vida útil del edificio.",limit:"No hay ciclo operativo conectado ni telemetría verificada."},
+ "I-19":{what:"Correspondencia espacial mediante cámara, GPS y realidad aumentada.",purpose:"Situar información del modelo ARKI sobre imágenes del lugar y apoyar la revisión en campo.",limit:"Existe trabajo experimental; no hay precisión topográfica ni cobertura de dispositivos demostrada."}
+};
+function arkiFunctionalHelp(item){
+ const known=arkiFunctionalDescriptions[item.id];
+ const what=known?.what||item.title;
+ const purpose=known?.purpose||("Esta pieza propone "+item.title.toLocaleLowerCase("es")+". Su función concreta debe confirmarse en el documento fuente; el título por sí solo no acredita prestaciones.");
+ const limit=known?.limit||("Estado registrado: "+(item.sourceStatus||item.recordedStatus||"UNKNOWN")+". La implementación no está verificada.");
+ return "¿Qué es? "+what+"\\n¿Para qué sirve? "+purpose+"\\nEstado y límites: "+limit+"\\nFuente: "+(item.origin||item.source||"no registrada");
+}
 function arkiExplain(target){
  if(!target)return "";
+ if(target.dataset?.help)return target.dataset.help;
  const label=String(target.textContent||"").trim().replace(/\\s+/g," ").slice(0,200);
  const id=label.match(/\\bF(?:10|[1-9])\\b/)?.[0];
  const statuses=[...label.matchAll(/\\b(FROZEN|IN_PROGRESS|RECONCILIATION_REQUIRED|UNKNOWN|DOCUMENTARY_ONLY|NO_VERIFIED_DEPENDENCY_GRAPH|WORKSPACE_REORGANIZATION_ALLOWED|PLACEMENT_HYPOTHESIS_ONLY|CANDIDATE_REVIEW_ONLY|SIMULATION_ONLY)\\b/g)].map(x=>x[0]);
