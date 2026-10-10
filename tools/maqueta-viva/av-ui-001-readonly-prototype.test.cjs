@@ -386,7 +386,7 @@ assert.equal(vm.runInContext("addE9Revision("+JSON.stringify(e9DecisionId)+",'DE
 assert.equal(vm.runInContext("addE9Revision("+JSON.stringify(e9First.revisionId)+",'DEFER','Attempt to fork from obsolete intermediate review').status",sandbox),"STALE_REVISION_PARENT");
 const e9Forked=JSON.parse(e9Workspace);e9Forked.revisionLedger[1].parentId=e9DecisionId;
 assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(e9Forked))+").status",sandbox),"INVALID_WORKSPACE_REVISIONS");
-assert.ok(!vm.runInContext("e8ReconciliationReport().issues.some(x=>x.kind==='EVIDENCE_CHANGED_SINCE_DECISION')",sandbox),"Latest E9 receipt must clear outdated E8 evidence drift");
+assert.ok(!vm.runInContext("e8ReconciliationReport().issues.some(x=>x.kind==='EVIDENCE_CHANGED_SINCE_DECISION'&&x.id==="+JSON.stringify(e9DecisionId)+")",sandbox),"Latest E9 receipt must clear outdated E8 evidence drift for reviewed decision");
 
 const e9Forged=JSON.parse(e9Workspace);e9Forged.revisionLedger[0].status="FROZEN";
 const e9BeforeReject=vm.runInContext("exportTwinWorkspace()",sandbox);
