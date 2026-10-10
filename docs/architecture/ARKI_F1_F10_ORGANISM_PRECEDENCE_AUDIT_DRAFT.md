@@ -167,3 +167,30 @@ Archivo `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` (blob `8867c065fc42162
 6. El ejecutor GitHub controlado V0 (`docs/arki-master-map/ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md`) es puerta de verificación de alcance, NO ejecutor autónomo de correcciones.
 
 **NO EVIDENCE = NO GREEN.** Ningún status de fase fue modificado por esta auditoría.
+
+## 11. Directiva del Product Owner — F1–F10 implementadas; verificar y validar en ChatGPT (2026-10-09)
+
+**Declaración del propietario:** las diez fases F1–F10 están implementadas. El trabajo restante es ejecutar las pruebas, presentar los resultados en esta conversación y obtener la validación explícita del propietario. Esta declaración es **autoridad de dirección de producto**, no sustituto de evidencia de ejecución.
+
+**Discrepancia documental pendiente de reconciliación:** `ARKI_MASTER_MAP_STATE.json` fechado 2026-10-07 todavía registra F1–F4 y F9–F10 como `RECONCILIATION_REQUIRED`, F7/F8 `IN_PROGRESS` y F6 `FROZEN`. **No degradar ni elevar fases automáticamente**: comprobar código, SHA y resultados actuales y luego proponer una actualización de mapa para decisión PO.
+
+### Protocolo de aceptación F1–F10
+| Fase | Declaración PO de implementación | Evidencia de pruebas en esta sesión | Decisión PO |
+|---|---|---|---|
+| F1 | SÍ | PENDIENTE | NO SOLICITADA |
+| F2 | SÍ | PENDIENTE | NO SOLICITADA |
+| F3 | SÍ | PENDIENTE | NO SOLICITADA |
+| F4 | SÍ | PENDIENTE | NO SOLICITADA |
+| F5 | SÍ | PENDIENTE | NO SOLICITADA |
+| F6 | SÍ / FROZEN en mapa histórico | PENDIENTE DE REVALIDACIÓN NO MUTANTE | NO SOLICITADA |
+| F7 | SÍ | PENDIENTE | NO SOLICITADA |
+| F8 | SÍ | PENDIENTE | NO SOLICITADA |
+| F9 | SÍ | PENDIENTE | NO SOLICITADA |
+| F10 | SÍ | PENDIENTE | NO SOLICITADA |
+
+Para cada fase: registrar `repo@commit`, rama, pruebas focales, integración, E2E, resultados reproducibles, fallos, evidencias y riesgos; presentar PASS/FAIL/BLOCKED/NOT_RUN sin inferir verde. Validación explícita del PO: `APROBAR`, `RECHAZAR` o `SOLICITAR CORRECCIÓN` sobre el SHA y alcance exactos. **Sin aprobación automática, sin merge ni mutación FROZEN.**
+
+### Orden inmediato
+1. Inventariar implementaciones F1–F10 en ramas relevantes y conciliar con mapa maestro sin cambiarlo silenciosamente.
+2. Obtener y ejecutar pruebas disponibles en un entorno reproducible (o registrar `NOT_RUN` cuando no se disponga de runner), incluyendo CI/Windows E3 y pruebas transversales.
+3. Presentar los recibos y anomalías al PO **aquí** para su decisión; no confundir aprobación conversacional con autorización de promoción/merge.
