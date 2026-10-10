@@ -289,7 +289,7 @@ if(el("e7-record"))el("e7-record").addEventListener("click",()=>{const result=ad
 // E8 read-only reconciliation: identify stale decisions; do not silently update historical receipts.
 function e8ReconciliationReport(){
  const issues=[],phaseGraph=phaseDependencyGraph(),branches=new Map(e5AlternativeBranches.map(x=>[x.id,x]));
- if(phaseGraph.status!=="VALID_DAG")issues.push({kind:"INVALID_PHASE_DAG",id:"PHASE_GRAPH",detail:phaseGraph.status});
+ if(phaseGraph.status!=="VALID_PHASE_DAG")issues.push({kind:"INVALID_PHASE_DAG",id:"PHASE_GRAPH",detail:phaseGraph.status});
  for(const observation of e6EvidenceLedger)if(!branches.has(observation.branchId))issues.push({kind:"ORPHAN_EVIDENCE",id:observation.evidenceId,detail:observation.branchId});
  for(const decision of e7DecisionLedger){
   const branch=branches.get(decision.branchId);
