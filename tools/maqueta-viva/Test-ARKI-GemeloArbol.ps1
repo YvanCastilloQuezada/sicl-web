@@ -278,7 +278,7 @@ try {
    }
    const twinPick=document.getElementById("twin-visual").querySelector('[data-twin-id="F10"]');
    check(twinPick,"Twin F10 selection missing");
-   twinPick.click();
+   twinPick.dispatchEvent(new MouseEvent("click",{bubbles:true}));
    check(selected==="F10","Twin views did not synchronize selected phase");
    const twinLatest=structuralHistory.at(-1)?.version;
    check(twinLatest,"Twin historical snapshot missing");
