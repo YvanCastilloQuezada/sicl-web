@@ -591,5 +591,11 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  sandbox.__unknownKey=unknownKey;
  assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__unknownKey)",sandbox)).status,"TRUST_KEY_NOT_PINNED");
  assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Signature verification must not mutate experimental workspace");
+
+ assert(html.includes('id="arki-proposal-panel"'),"Árbol Vivo proposals panel exists");
+ assert(html.includes('id="arki-proposal-cards"'),"Proposal cards container exists");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.alternatives.length===3)',sandbox),true,"Every proposal has A/B/C");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.experiment==="NOT_EXECUTED"&&p.promotion==="BLOCKED"&&p.canonicalMutation===false)',sandbox),true,"No fabricated validation or promotion");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.alternatives.map(a=>a.id).join(",")==="A,B,C")',sandbox),true,"Alternatives retain stable identifiers");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
