@@ -13,7 +13,7 @@ h2{font-size:17px;margin:0 0 12px}.tree{display:flex;flex-direction:column;align
 .phase .id{font-weight:800;background:#31675c;border-radius:100%;padding:8px;min-width:42px;text-align:center}
 .phase[data-state=FROZEN] .id{background:#4e718e}.phase[data-state=RECONCILIATION_REQUIRED] .id{background:#9d6243}
 .phase .state{font-size:11px;color:#c4d3de;text-align:right;overflow-wrap:anywhere}
-.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
+.branch-group{position:relative;width:78%;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:1px 0 6px}.branch{position:relative;border:1px solid #668394;background:#294354;color:#eaf1f7;border-radius:15px;padding:5px 9px;cursor:pointer;font-size:12px;max-width:95%;overflow-wrap:anywhere}.branch[aria-pressed=true]{outline:2px solid #e7b45d}.branch.blocked{border-color:#d58765}.branch.frozen{border-color:#90a5cf}.branch:focus-visible{outline:2px solid #8cc5ef}.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
 .tag{font-size:11px;display:inline-block;padding:3px 7px;background:#35516b;border-radius:5px}
 .warn{color:#ffca86}button{font:inherit}input[type=file]{max-width:240px}
 footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
@@ -27,7 +27,7 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 <script>
 "use strict";
 const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-let state=null,draft=null,selected="F1";
+let state=null,draft=null,selected="F1",selectedBranch=null;
 const el=id=>document.getElementById(id);
 function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=content;return e}
 function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
@@ -45,7 +45,12 @@ return {cycles,rows:[...ids].map(id=>({id,phase:placements[id],deps:edges.get(id
 }
 function show(){
 const phases=phaseData();el("tree").replaceChildren();
-for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;show()});el("tree").append(btn)}
+for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});el("tree").append(btn);
+const related=localGraph().rows.filter(x=>x.phase===id);
+if(related.length){const group=node("div","","branch-group");group.setAttribute("aria-label","Ramas locales de "+id);
+for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
+if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}
+}
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
 if(!state){entry(mem,"Sin datos","Importa el estado estructurado local de ARKI.");entry(dec,"Sin evidencia","No se inventan propuestas ni métricas.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
@@ -55,10 +60,13 @@ if(p?.status==="FROZEN")entry(mem,"Protección","FROZEN: consulta permitida; cam
 entry(mem,"Aprobado ≠ verificado","Este prototipo no transforma declaraciones documentales en hechos ejecutados.");
 const g=localGraph(),rows=g.rows.filter(x=>x.phase===selected);
 entry(mem,"Ramas en borrador",String(rows.length));
+const focus=rows.find(x=>x.id===selectedBranch);
+if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Antecedentes declarados",focus.deps.join(" → ")||"NINGUNO DECLARADO (no implica ausencia real)");entry(mem,"Impacto hacia delante",String(focus.affected)+" dependientes transitivos en borrador");}
 for(const row of rows.slice(0,20))entry(mem,row.id,"Antecedentes: "+(row.deps.join(", ")||"no declarados")+" · dependientes transitivos: "+row.affected);
 
 entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
 entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
+if(focus){const blocks=[focus.cycle?"CICLO":"",focus.frozen?"FROZEN":"",focus.missing.length?"REFERENCIAS AUSENTES: "+focus.missing.join(", "):""].filter(Boolean);entry(dec,"Estado de rama",blocks.length?"BLOQUEADA · "+blocks.join(" · "):"SIN BLOQUEOS DECLARADOS · NO VERIFICADA");}
 if(draft){for(const row of rows.filter(x=>x.cycle||x.frozen||x.missing.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.frozen?"FROZEN · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):""));
 entry(dec,"Ciclos en borrador",String(g.cycles.length)+" detectados. No es auditoría global.");
 entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción.");}
