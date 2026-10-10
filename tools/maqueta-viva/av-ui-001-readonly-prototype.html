@@ -69,7 +69,7 @@ function phaseLeaves(id){return (registry?.ideas||[]).filter(x=>x.targetPhase===
 function phaseCapabilities(id){return (catalog?.records||[]).filter(x=>x.targetPhase===id)}
 function adaptiveCandidates(){
  const items=[...(catalog?.records||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,source:x.source,status:x.recordedStatus})),...(registry?.ideas||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,source:x.origin,status:x.sourceStatus}))];
- const tokens=s=>new Set(String(s||"").toLowerCase().normalize("NFD").replace(/[^a-z0-9 ]/g," ").split(/ +/).filter(w=>w.length>=5&&!["capacidad","arquitectura","historica","demonstrated"].includes(w)));
+ const tokens=s=>new Set(String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").split(/ +/).filter(w=>w.length>=5&&!["capacidad","arquitectura","historica","demonstrated"].includes(w)));
  const proposals=[];
  for(let i=0;i<items.length;i++)for(let j=i+1;j<items.length;j++){
   const a=items[i],b=items[j],ta=tokens(a.title),tb=tokens(b.title);
@@ -79,7 +79,7 @@ function adaptiveCandidates(){
   if(score<0.5)continue;
   proposals.push({a,b,score,reason:"Términos compartidos: "+overlap.join(", "),status:"CANDIDATE_REVIEW_ONLY"});
  }
- return proposals.sort((a,b)=>b.score-a.score||a.a.id.localeCompare(b.a.id)).slice(0,30);
+ return proposals.sort((a,b)=>b.score-a.score||a.a.id.localeCompare(b.a.id));
 }
 function adaptivePlacementCandidates(){
  const items=[...(catalog?.records||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,status:x.recordedStatus,source:x.source})),...(registry?.ideas||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,status:x.sourceStatus,source:x.origin}))];
@@ -330,7 +330,7 @@ for(const row of rows.slice(0,20))entry(mem,row.id,"Antecedentes: "+(row.deps.jo
 entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
 entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
 if(focus){const blocks=[focus.cycle?"CICLO":"",focus.frozen?"FROZEN":"",focus.missing.length?"REFERENCIAS AUSENTES: "+focus.missing.join(", "):"",focus.upstreamBlockers.length?"ANTECEDENTES BLOQUEADOS: "+focus.upstreamBlockers.join("; "):""].filter(Boolean);entry(dec,"Estado de rama",blocks.length?"BLOQUEADA · "+blocks.join(" · "):"SIN BLOQUEOS DECLARADOS · NO VERIFICADA");}
-if(draft){for(const row of rows.filter(x=>x.cycle||x.frozen||x.missing.length||x.upstreamBlockers.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.frozen?"FROZEN · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):"")+(row.upstreamBlockers.length?" · HEREDADOS: "+row.upstreamBlockers.join("; "):""));
+if(draft){for(const row of rows.filter(x=>x.cycle||x.missing.length||x.upstreamBlockers.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")++(row.missing.length?"AUSENTES: "+row.missing.join(", "):"")+(row.upstreamBlockers.length?" · HEREDADOS: "+row.upstreamBlockers.join("; "):""));
 entry(dec,"Ciclos en borrador",String(g.cycles.length)+" detectados. No es auditoría global.");
 entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción.");}
 
