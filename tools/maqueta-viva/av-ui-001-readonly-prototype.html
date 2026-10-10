@@ -177,6 +177,30 @@ function incrementalImpact(change){
  if(kind==="DEPENDENCY")reasons.push("Propagar hacia dependientes declarados; relaciones ausentes siguen UNKNOWN");
  return {status:known?"IMPACT_ESTIMATE_ONLY":"UNRESOLVED_ID",affected:[...impacted].sort(),phases:[...phases].filter(Boolean).sort(),reasons,recomputeAll:!known,canonicalMutation:false};
 }
+const structuralHistory=[];
+function recordStructuralSnapshot(change){
+ const impact=incrementalImpact(change),scenario=structuralScenario();
+ if(impact.status==="INVALID_CHANGE")return {status:"REJECTED_INVALID_CHANGE"};
+ const signature=JSON.stringify(scenario.nodes.map(n=>[n.id,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies]));
+ const previous=structuralHistory[structuralHistory.length-1];
+ if(previous?.signature===signature)return {status:"UNCHANGED",version:previous.version,impact};
+ const current=new Map(scenario.nodes.map(n=>[n.id,n]));
+ const prior=new Map((previous?.nodes||[]).map(n=>[n.id,n]));
+ const changes=[];
+ for(const [id,n] of current){
+  const before=prior.get(id);
+  if(!before){changes.push({id,kind:"ADDED_TO_SCENARIO"});continue}
+  if(JSON.stringify([before.proposedPhase,before.secondaryPhases,before.dependencies])!==JSON.stringify([n.proposedPhase,n.secondaryPhases,n.dependencies]))changes.push({id,kind:"STRUCTURE_CHANGED",before:before.proposedPhase,after:n.proposedPhase});
+ }
+ for(const id of prior.keys())if(!current.has(id))changes.push({id,kind:"REMOVED_FROM_SCENARIO"});
+ const version="ALT-"+String(structuralHistory.length+1).padStart(4,"0");
+ const entry={version,signature,nodes:scenario.nodes.map(n=>({id:n.id,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies]})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
+ structuralHistory.push(entry);
+ return {status:"SNAPSHOT_RECORDED_IN_MEMORY",version,changes,impact};
+}
+function structuralHistorySummary(){
+ return {persistence:"MEMORY_ONLY",versions:structuralHistory.map(x=>({version:x.version,trigger:x.trigger,changed:x.changes.length,affected:x.impact.affected.length})),canonicalMutation:false};
+}
 function showAdaptive(){
  const root=el("adaptive");if(!root)return;
  root.replaceChildren();
@@ -198,6 +222,9 @@ for(const x of comparisons.slice(0,5))entry(root,x.id+" · "+x.officialPhase+" �
 
 const focus=selectedBranch||selectedLeaf;
 if(focus){const impact=incrementalImpact({kind:"DEPENDENCY",id:focus});entry(root,"Impacto incremental · "+focus,impact.status+" · piezas: "+impact.affected.join(", ")+" · fases: "+(impact.phases.join(", ")||"UNKNOWN"))}
+const history=structuralHistorySummary();
+entry(root,"Historial alternativo",history.versions.length+" versiones de sesión · "+history.persistence+" · no persistente");
+for(const v of history.versions.slice(-3))entry(root,v.version,v.trigger.kind+" "+v.trigger.id+" · diferencias: "+v.changed+" · afectadas: "+v.affected);
 entry(root,"Control","FROZEN histórico no bloquea propuestas en este espacio experimental. Ninguna mutación canónica ni promoción automática.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
