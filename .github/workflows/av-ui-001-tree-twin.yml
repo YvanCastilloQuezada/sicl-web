@@ -7,6 +7,9 @@ on:
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.html'
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs'
       - 'tools/maqueta-viva/Test-ARKI-GemeloArbol.ps1'
+      - 'tools/maqueta-viva/Generate-ARKI-Twin-Signed-Fixture.cjs'
+      - 'tools/maqueta-viva/Verify-ARKI-Twin-Receipts.cjs'
+      - 'tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs'
       - '.github/workflows/av-ui-001-tree-twin.yml'
   workflow_dispatch:
 jobs:
@@ -20,6 +23,7 @@ jobs:
         with:
           node-version: '22'
       - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+      - run: node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
   windows-synthetic-regression:
     runs-on: windows-latest
     permissions:
@@ -34,3 +38,4 @@ jobs:
         run: |
           node --check tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
           node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+          node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
