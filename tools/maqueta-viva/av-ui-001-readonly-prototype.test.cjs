@@ -157,4 +157,10 @@ assert.match(html,/recordStructuralSnapshot\(\{kind:"DEPENDENCY",id:Object\.keys
 vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'ACCENT-1',title:'Recuperación de conocimiento',targetPhase:'F2',sourceStatus:'PROPOSED'},{id:'ACCENT-2',title:'Recuperacion de conocimiento avanzada',targetPhase:'F2',sourceStatus:'PROPOSED'}]};selected='F2';show()",sandbox);
 assert.ok(vm.runInContext("adaptiveCandidates().some(x=>x.a.id==='ACCENT-1'&&x.b.id==='ACCENT-2')",sandbox),"Accented and unaccented related ideas must match");
 assert.doesNotMatch(document.getElementById("decisions").innerText,/BLOQUEADA · TEST-FROZEN.*FROZEN/,"Historical frozen alone is not a blocking reason");
+const previousCount=vm.runInContext("structuralHistory.length",sandbox);
+vm.runInContext("registry.ideas[0].title='Geometria de kernel revisada';",sandbox);
+const provenanceSnapshot=vm.runInContext("recordStructuralSnapshot({kind:'IDEA',id:'ACCENT-1'})",sandbox);
+assert.equal(provenanceSnapshot.status,'SNAPSHOT_RECORDED_IN_MEMORY',"Documentary title changes create a history version");
+assert.equal(vm.runInContext("structuralHistory.length",sandbox),previousCount+1,"History grows after documentary title change");
+assert.equal(vm.runInContext("structuralHistory.at(-1).nodes.find(x=>x.id==='ACCENT-1').title",sandbox),"Geometria de kernel revisada","Snapshot preserves title provenance");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
