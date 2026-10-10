@@ -7,6 +7,7 @@ on:
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.html'
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs'
       - 'tools/maqueta-viva/Test-ARKI-GemeloArbol.ps1'
+      - 'tools/maqueta-viva/Invoke-ARKI-ValidacionIntegral.ps1'
       - 'tools/maqueta-viva/Generate-ARKI-Twin-Signed-Fixture.cjs'
       - 'tools/maqueta-viva/Verify-ARKI-Twin-Receipts.cjs'
       - 'tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs'
@@ -32,6 +33,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --check tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
       - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
       - run: node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
       - run: node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
