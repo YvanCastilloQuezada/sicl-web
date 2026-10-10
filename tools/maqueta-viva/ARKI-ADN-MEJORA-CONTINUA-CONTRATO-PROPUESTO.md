@@ -82,3 +82,27 @@ Cada observación de entrada debe cumplir `ARKI-ADN-OBSERVATION-1`. El observado
 Se añadió `compareObservations(before, after)`: comparación de métricas verificadas, con veto ante regresiones, bloqueo por métricas desconocidas y comprobación de consistencia de unidades, dirección y objetivos. El resultado siempre requiere revisión independiente antes de considerarse aprendizaje.
 
 **Pruebas nuevas:** `arki-adn-observer.test.cjs` y ampliación de `arki-adn-mejora-continua.test.cjs`; incluidos en CI Linux/Windows y en la suite PowerShell experimental. **Estado:** código publicado, ejecución/CI pendiente de comprobar en SHA exacto. No está integrado en el Core ni puede declararse ADN canónico.
+
+## Cierre de preparación de pruebas — 2026-10-10
+
+**Código de referencia publicado, sin resultado E2E confirmado.** El observador incluye corrección de detección de eventos previos en el ledger, verifica hash de cada reporte y evento, y bloquea reportes ausentes/huérfanos. El evaluador exige que un recibo que diga `SUCCESS` incluya una variación favorable en la métrica objetivo respecto de su baseline; la afirmación sigue pendiente de validación independiente. Máximo 12 ciclos en el estado experimental.
+
+### Pruebas de Diego (Windows)
+
+Ejecutar desde el worktree experimental limpio:
+
+```powershell
+pwsh -NoProfile -File .\tools\maqueta-viva\Test-ARKI-GemeloArbol.ps1
+```
+
+La suite ejecuta pruebas Node del motor ADN, observador y firmas, instalación aislada y pruebas reales de interfaz Edge/Chrome. Un fallo debe detener la suite y conservar la ruta del informe local. El resultado `PASS` prueba solamente el alcance de los casos ejecutados; **no** acredita diseño autónomo de edificios, conexión a AGK/Core ni aprendizaje real.
+
+### Límites y deudas de integración (bloqueantes para el estado canónico)
+
+- Observaciones marcadas `verified:true` son **declaraciones del archivo**, no autenticación del origen. El observador no verifica firma de origen, ni reproduce una ejecución de Core/AGK.
+- La cadena SHA-256 permite detectar modificaciones locales parciales; un adversario que controle toda la carpeta puede reemplazar o truncar la historia. Hace falta anclaje externo firmado y almacenamiento resistente a borrado.
+- El observador solo se ejecuta cuando se inicia un proceso Node; no es un servicio persistente del Core.
+- Las propuestas son objetivos métricos deterministas, no soluciones arquitectónicas calculadas ni modificaciones del diseño.
+- No existe todavía integración con el estado canónico único del Core, autorización de ejecución AGK, rollback real, ni cierre Red Team. La promoción canónica permanece `BLOCKED`.
+
+**Puerta de promoción:** ejecución real de al menos dos ciclos consecutivos con datos auténticos de arquitectura/AGK, experimentación aislada, evaluación multiobjetivo, verificación independiente y autorización explícita. Hasta entonces, el ADN es un contrato propuesto con referencia experimental.
