@@ -430,4 +430,15 @@ assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringif
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Corrupt phase graph must not mutate any section");
 assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(persistenceBaseline)+").status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Successful import must preserve portable workspace exactly");
+// Recovery and storage fault matrix; all rejected loads preserve the complete workspace.
+const storageBaseline=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>{throw Error('read blocked')}}).status",sandbox),"LOCAL_STORAGE_UNAVAILABLE");
+assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>'{broken json'}).status",sandbox),"INVALID_JSON");
+assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=> 'x'.repeat(2000001)}).status",sandbox),"LOCAL_WORKSPACE_TOO_LARGE");
+assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{throw Error('quota exceeded')}}).status",sandbox),"LOCAL_STORAGE_UNAVAILABLE");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Storage faults must not mutate workspace");
+const storageCorrupt=JSON.parse(storageBaseline);storageCorrupt.revisionLedger[0].canonicalMutation=true;
+sandbox.__corruptRecovery=JSON.stringify(storageCorrupt);
+assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>__corruptRecovery}).status",sandbox),"INVALID_WORKSPACE_REVISIONS");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Rejected recovery must preserve existing workspace");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
