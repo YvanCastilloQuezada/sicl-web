@@ -450,4 +450,28 @@ wrongHistoryOrder.history.versions.reverse();
 assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(wrongHistoryOrder))+").status",sandbox),"INVALID_WORKSPACE_HISTORY");
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Rejected unordered history must preserve workspace");
 
+// ÁRBOL Gemelo Digital: three views, shared selection and historical observation, no canonical writes.
+assert.match(html,/ÁRBOL Gemelo Digital/);
+assert.equal(vm.runInContext("twinObservation().canonicalMutation",sandbox),false);
+assert.equal(vm.runInContext("twinObservation().verification",sandbox),"UNKNOWN");
+assert.equal(vm.runInContext("twinObservation().simulation",sandbox),"NOT_EXECUTED");
+assert.ok(vm.runInContext("twinObservation().phases.length",sandbox)>=2);
+const commandBaseline=vm.runInContext("exportTwinWorkspace()",sandbox);
+for(const mode of ["tree","brain","3d"]){
+ vm.runInContext("twinViewMode="+JSON.stringify(mode)+";renderTwinCommandCenter()",sandbox);
+ assert.equal(vm.runInContext("twinViewMode",sandbox),mode);
+ assert.match(document.getElementById("twin-visual").innerHTML,/data-twin-id=/);
+ assert.equal(document.getElementById("twin-view-"+mode).attributes["aria-pressed"],"true");
+}
+const historicalVersion=vm.runInContext("structuralHistory.at(-1)?.version",sandbox);
+assert.ok(historicalVersion);
+vm.runInContext("twinVersion="+JSON.stringify(historicalVersion)+";renderTwinCommandCenter()",sandbox);
+assert.equal(vm.runInContext("twinObservation().version",sandbox),historicalVersion);
+assert.equal(vm.runInContext("twinObservation().canonicalMutation",sandbox),false);
+vm.runInContext("twinVersion='CURRENT';renderTwinCommandCenter()",sandbox);
+assert.equal(vm.runInContext("twinObservation().version",sandbox),"CURRENT");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"Twin views and timeline must be read-only");
+assert.equal(typeof document.getElementById("twin-view-brain").listeners.click,"function");
+assert.equal(typeof document.getElementById("twin-view-3d").listeners.click,"function");
+assert.equal(typeof document.getElementById("twin-version").listeners.change,"function");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
