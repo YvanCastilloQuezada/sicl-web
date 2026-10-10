@@ -424,7 +424,7 @@ add("Dependientes indirectos",[...impacted].filter(id=>!direct.includes(id)),"")
 wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las relaciones no registradas son UNKNOWN, no inexistentes.","relation-note"));return wrap;
 }
 function show(){
-showAdaptive();twinPhaseView();
+showAdaptive();twinPhaseView();renderE6Evidence();
 const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"")+(selectedLeaf?" / 🍃 "+selectedLeaf:"");
 const phaseIds=[...new Set([...phases.map(p=>p.id),...Object.keys(labels)])].filter(id=>/^F[1-9][0-9]*$/.test(id)).sort((a,b)=>Number(b.slice(1))-Number(a.slice(1)));
 for(const [index,id] of phaseIds.entries()){
