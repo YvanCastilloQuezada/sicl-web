@@ -152,6 +152,31 @@ function structuralComparison(){
   action:n.change==="PROPOSED_MOVE"?"REVIEW_PROPOSAL":"KEEP_DOCUMENTARY_PLACEMENT"
  }));
 }
+function incrementalImpact(change){
+ const graph=localGraph(),byId=new Map(graph.rows.map(x=>[x.id,x]));
+ const kind=String(change?.kind||""),id=String(change?.id||"");
+ if(!["IDEA","DEPENDENCY","EVIDENCE","PLACEMENT"].includes(kind)||!id)return {status:"INVALID_CHANGE",affected:[],reasons:[],recomputeAll:false};
+ const impacted=new Set([id]),reasons=["Cambio "+kind+" en "+id],queue=[id];
+ while(queue.length){
+  const current=queue.shift();
+  for(const row of graph.rows){
+   if(!row.deps.includes(current)||impacted.has(row.id))continue;
+   impacted.add(row.id);queue.push(row.id);
+  }
+ }
+ const scenario=structuralScenario(),nodes=new Map(scenario.nodes.map(x=>[x.id,x]));
+ const phases=new Set();
+ for(const item of impacted){
+  const n=nodes.get(item),row=byId.get(item);
+  if(n){phases.add(n.phase);phases.add(n.proposedPhase);for(const x of n.secondaryPhases)phases.add(x)}
+  if(row?.phase)phases.add(row.phase);
+ }
+ const known=nodes.has(id)||byId.has(id);
+ if(!known)reasons.push("Identificador sin pieza local; requiere reconciliación");
+ if(kind==="EVIDENCE")reasons.push("Evidencia nueva no verificada; reevaluar afirmaciones y propuestas");
+ if(kind==="DEPENDENCY")reasons.push("Propagar hacia dependientes declarados; relaciones ausentes siguen UNKNOWN");
+ return {status:known?"IMPACT_ESTIMATE_ONLY":"UNRESOLVED_ID",affected:[...impacted].sort(),phases:[...phases].filter(Boolean).sort(),reasons,recomputeAll:!known,canonicalMutation:false};
+}
 function showAdaptive(){
  const root=el("adaptive");if(!root)return;
  root.replaceChildren();
@@ -171,6 +196,8 @@ entry(root,"Comparación por pieza",String(comparisons.length)+" diferencias pro
 for(const x of comparisons.slice(0,5))entry(root,x.id+" · "+x.officialPhase+" → "+x.alternativePhase,
  "Motivo: "+x.reason+" · Riesgos: "+(x.risks.join(", ")||"sin riesgos declarados")+" · Evidencia: "+x.evidence+" · Beneficio: "+x.benefit);
 
+const focus=selectedBranch||selectedLeaf;
+if(focus){const impact=incrementalImpact({kind:"DEPENDENCY",id:focus});entry(root,"Impacto incremental · "+focus,impact.status+" · piezas: "+impact.affected.join(", ")+" · fases: "+(impact.phases.join(", ")||"UNKNOWN"))}
 entry(root,"Control","FROZEN histórico no bloquea propuestas en este espacio experimental. Ninguna mutación canónica ni promoción automática.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
