@@ -75,7 +75,7 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 </div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Los estados son declaraciones documentales, no certificaciones.</p><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
-<aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><section class="adaptive"><strong>Organización inteligente · propuestas</strong><div id="adaptive"></div></section><section class="adaptive" aria-label="E5 propuestas de ramas nuevas"><strong>E5 · Ramas candidatas nuevas</strong><p class="muted">Hipótesis generadas por reglas explícitas a partir de vacíos documentales. No son capacidades existentes ni evidencia de implementación.</p><button type="button" id="e5-generate">Analizar vacíos y generar propuestas</button><div id="e5-candidates" aria-live="polite"></div></section><section class="adaptive" aria-label="E6 trazabilidad de evidencias"><strong>E6 · Evidencias y decisiones experimentales</strong><p class="muted">Registra observaciones documentales sin validarlas automáticamente. Las referencias no se descargan ni verifican; toda evidencia queda UNVERIFIED.</p><p><label for="e6-branch">Rama candidata E5</label> <input id="e6-branch" type="text" placeholder="Ej. E5-GRAPH-000"></p><p><label for="e6-reference">Referencia documental</label> <input id="e6-reference" type="text" placeholder="Documento, enlace o identificador"></p><p><label for="e6-observation">Observación verificable</label> <input id="e6-observation" type="text" placeholder="Qué afirma la fuente"></p><p><label for="e6-outcome">Interpretación preliminar</label> <select id="e6-outcome"><option value="INCONCLUSIVE">Inconclusa</option><option value="SUPPORTS">Apoya la hipótesis</option><option value="CONTRADICTS">Contradice la hipótesis</option></select></p><button type="button" id="e6-record">Registrar observación</button><div id="e6-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="Gemelo digital experimental de ARKI"><strong>Gemelo Digital del Árbol · simulación estructural</strong><p class="muted">Escenario documental local. No simula todavía física, energía, geometría ni edificios reales.</p><label for="twin-kind">Tipo de cambio</label> <select id="twin-kind"><option value="IDEA">Idea</option><option value="DEPENDENCY">Dependencia</option><option value="EVIDENCE">Evidencia</option><option value="PLACEMENT">Ubicación</option></select><p><label for="twin-id">Identificador</label> <input id="twin-id" type="text" placeholder="Ej. I-21" value="I-21"></p><p><label for="twin-new-phase">Proponer fase adicional</label> <input id="twin-new-phase" type="text" placeholder="Ej. F11" value="F11"></p><p><label for="twin-phase-name">Nombre y finalidad</label> <input id="twin-phase-name" type="text" placeholder="Ej. Gestión territorial multiescala"></p><button type="button" id="twin-propose-phase">Evaluar nueva fase</button> <p><label for="twin-phase-dependencies">Predecesoras de la fase (ej. F4,F10)</label> <input id="twin-phase-dependencies" type="text" placeholder="F4,F10"></p><button type="button" id="twin-set-dependencies">Guardar dependencias</button> <button type="button" id="twin-add-phase">Añadir al escenario</button> <button type="button" id="twin-export-phases">Exportar fases JSON</button> <button type="button" id="twin-export-workspace">Guardar gemelo completo</button> <button type="button" id="twin-save-browser">Guardar en este navegador</button> <button type="button" id="twin-load-browser">Recuperar de este navegador</button><p><label for="twin-import-workspace">Abrir gemelo completo</label> <input id="twin-import-workspace" type="file" accept=".json,application/json"></p><p><label for="twin-import-phases">Importar fases del escenario</label> <input id="twin-import-phases" type="file" accept=".json,application/json"></p> <button type="button" id="twin-run">Simular impacto</button> <button type="button" id="twin-snapshot">Registrar escenario</button><div id="twin-result" aria-live="polite"></div><div id="twin-phase-list" aria-live="polite"></div></section><section class="adaptive" aria-label="Historial alternativo"><strong>Historial alternativo · local</strong><p class="muted">Las versiones permanecen en memoria hasta guardar el JSON o pulsar «Guardar en este navegador». No hay sincronización automática ni envío a servidores.</p><button type="button" id="history-snapshot">Registrar versión</button> <button type="button" id="history-export">Guardar JSON</button><p><label for="history-import">Abrir historial JSON</label> <input id="history-import" type="file" accept=".json,application/json"></p><p><label for="history-from">Desde</label> <select id="history-from"></select> <label for="history-to">Hasta</label> <select id="history-to"></select> <button type="button" id="history-compare">Comparar</button> <button type="button" id="history-restore-phases">Restaurar fases alternativas</button></p><div id="history-result" aria-live="polite"></div></section><div id="decisions" aria-live="polite"></div></aside></div>
+<aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><section class="adaptive"><strong>Organización inteligente · propuestas</strong><div id="adaptive"></div></section><section class="adaptive" aria-label="E5 propuestas de ramas nuevas"><strong>E5 · Ramas candidatas nuevas</strong><p class="muted">Hipótesis generadas por reglas explícitas a partir de vacíos documentales. No son capacidades existentes ni evidencia de implementación.</p><button type="button" id="e5-generate">Analizar vacíos y generar propuestas</button><div id="e5-candidates" aria-live="polite"></div></section><section class="adaptive" aria-label="E6 trazabilidad de evidencias"><strong>E6 · Evidencias y decisiones experimentales</strong><p class="muted">Registra observaciones documentales sin validarlas automáticamente. Las referencias no se descargan ni verifican; toda evidencia queda UNVERIFIED.</p><p><label for="e6-branch">Rama candidata E5</label> <input id="e6-branch" type="text" placeholder="Ej. E5-GRAPH-000"></p><p><label for="e6-reference">Referencia documental</label> <input id="e6-reference" type="text" placeholder="Documento, enlace o identificador"></p><p><label for="e6-observation">Observación verificable</label> <input id="e6-observation" type="text" placeholder="Qué afirma la fuente"></p><p><label for="e6-outcome">Interpretación preliminar</label> <select id="e6-outcome"><option value="INCONCLUSIVE">Inconclusa</option><option value="SUPPORTS">Apoya la hipótesis</option><option value="CONTRADICTS">Contradice la hipótesis</option></select></p><button type="button" id="e6-record">Registrar observación</button><div id="e6-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E7 decisiones y efectos"><strong>E7 · Decisiones provisionales e impacto</strong><p class="muted">Las decisiones solo afectan al escenario alternativo. Nunca aprueban evidencia, alteran FROZEN ni ejecutan cambios canónicos.</p><p><label for="e7-branch">Rama E5 adoptada</label> <input id="e7-branch" type="text" placeholder="E5-GRAPH-000"></p><p><label for="e7-action">Decisión provisional</label> <select id="e7-action"><option value="INVESTIGATE">Investigar</option><option value="DEFER">Posponer</option><option value="REJECT_HYPOTHESIS">Descartar hipótesis</option></select></p><p><label for="e7-rationale">Justificación</label> <input id="e7-rationale" type="text" placeholder="Explica los criterios y limitaciones"></p><button type="button" id="e7-record">Registrar decisión provisional</button><div id="e7-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="Gemelo digital experimental de ARKI"><strong>Gemelo Digital del Árbol · simulación estructural</strong><p class="muted">Escenario documental local. No simula todavía física, energía, geometría ni edificios reales.</p><label for="twin-kind">Tipo de cambio</label> <select id="twin-kind"><option value="IDEA">Idea</option><option value="DEPENDENCY">Dependencia</option><option value="EVIDENCE">Evidencia</option><option value="PLACEMENT">Ubicación</option></select><p><label for="twin-id">Identificador</label> <input id="twin-id" type="text" placeholder="Ej. I-21" value="I-21"></p><p><label for="twin-new-phase">Proponer fase adicional</label> <input id="twin-new-phase" type="text" placeholder="Ej. F11" value="F11"></p><p><label for="twin-phase-name">Nombre y finalidad</label> <input id="twin-phase-name" type="text" placeholder="Ej. Gestión territorial multiescala"></p><button type="button" id="twin-propose-phase">Evaluar nueva fase</button> <p><label for="twin-phase-dependencies">Predecesoras de la fase (ej. F4,F10)</label> <input id="twin-phase-dependencies" type="text" placeholder="F4,F10"></p><button type="button" id="twin-set-dependencies">Guardar dependencias</button> <button type="button" id="twin-add-phase">Añadir al escenario</button> <button type="button" id="twin-export-phases">Exportar fases JSON</button> <button type="button" id="twin-export-workspace">Guardar gemelo completo</button> <button type="button" id="twin-save-browser">Guardar en este navegador</button> <button type="button" id="twin-load-browser">Recuperar de este navegador</button><p><label for="twin-import-workspace">Abrir gemelo completo</label> <input id="twin-import-workspace" type="file" accept=".json,application/json"></p><p><label for="twin-import-phases">Importar fases del escenario</label> <input id="twin-import-phases" type="file" accept=".json,application/json"></p> <button type="button" id="twin-run">Simular impacto</button> <button type="button" id="twin-snapshot">Registrar escenario</button><div id="twin-result" aria-live="polite"></div><div id="twin-phase-list" aria-live="polite"></div></section><section class="adaptive" aria-label="Historial alternativo"><strong>Historial alternativo · local</strong><p class="muted">Las versiones permanecen en memoria hasta guardar el JSON o pulsar «Guardar en este navegador». No hay sincronización automática ni envío a servidores.</p><button type="button" id="history-snapshot">Registrar versión</button> <button type="button" id="history-export">Guardar JSON</button><p><label for="history-import">Abrir historial JSON</label> <input id="history-import" type="file" accept=".json,application/json"></p><p><label for="history-from">Desde</label> <select id="history-from"></select> <label for="history-to">Hasta</label> <select id="history-to"></select> <button type="button" id="history-compare">Comparar</button> <button type="button" id="history-restore-phases">Restaurar fases alternativas</button></p><div id="history-result" aria-live="polite"></div></section><div id="decisions" aria-live="polite"></div></aside></div>
 <footer id="foot">SIN FUENTE: carga el archivo docs/arki-master-map/ARKI_MASTER_MAP_STATE.json de tu copia local. Ninguna información se envía a servidores.</footer>
 <script>
 "use strict";
@@ -193,7 +193,7 @@ function addE5AlternativeBranch(id){
  e5AlternativeBranches.push({...candidate,sourceIds:[...candidate.sourceIds],requiredEvidence:[...candidate.requiredEvidence]});
  return {status:"ADDED_TO_ALTERNATIVE_BRANCHES",id,canonicalMutation:false};
 }
-function removeE5AlternativeBranch(id){const index=e5AlternativeBranches.findIndex(x=>x.id===id);if(index<0)return {status:"BRANCH_NOT_FOUND",canonicalMutation:false};if(e6EvidenceLedger.some(x=>x.branchId===id))return {status:"BRANCH_HAS_EVIDENCE",canonicalMutation:false};e5AlternativeBranches.splice(index,1);return {status:"REMOVED_ALTERNATIVE_BRANCH",canonicalMutation:false}}
+function removeE5AlternativeBranch(id){const index=e5AlternativeBranches.findIndex(x=>x.id===id);if(index<0)return {status:"BRANCH_NOT_FOUND",canonicalMutation:false};if(e6EvidenceLedger.some(x=>x.branchId===id))return {status:"BRANCH_HAS_EVIDENCE",canonicalMutation:false};if(e7DecisionLedger.some(x=>x.branchId===id))return {status:"BRANCH_HAS_DECISIONS",canonicalMutation:false};e5AlternativeBranches.splice(index,1);return {status:"REMOVED_ALTERNATIVE_BRANCH",canonicalMutation:false}}
 function validateE5Branches(raw){
  if(!Array.isArray(raw)||raw.length>50)return {status:"INVALID_BRANCHES"};
  const known=new Map(synthesizeNewBranches().candidates.map(x=>[x.id,x]));const ids=new Set();
@@ -239,6 +239,53 @@ function renderE6Evidence(){
  for(const item of e6EvidenceLedger.slice(-15))entry(root,item.evidenceId+" · "+item.branchId,item.outcome+" · UNVERIFIED · "+item.reference+" · "+item.observation);
 }
 if(el("e6-record"))el("e6-record").addEventListener("click",()=>{const result=addE6Evidence(el("e6-branch")?.value,el("e6-reference")?.value,el("e6-observation")?.value,el("e6-outcome")?.value);if(result.status==="EVIDENCE_OBSERVATION_RECORDED"){recordStructuralSnapshot({kind:"EVIDENCE",id:el("e6-branch")?.value});refreshHistorySelectors()}show();renderE6Evidence();const root=el("twin-result");root.replaceChildren();entry(root,"E6 · Observación",result.status)});
+// E7: reversible, auditable recommendations; never authorization to promote canonical state.
+const e7DecisionLedger=[];
+function e7DecisionSnapshot(){return e7DecisionLedger.map(x=>({...x,sourceIds:[...x.sourceIds],affected:[...x.affected],affectedPhases:[...x.affectedPhases],evidenceIds:[...x.evidenceIds]}))}
+function e7DecisionImpact(branchId){
+ const branch=e5AlternativeBranches.find(x=>x.id===branchId);
+ if(!branch)return {status:"BRANCH_NOT_ADOPTED",canonicalMutation:false};
+ const affected=new Set(),phases=new Set([branch.phase]);
+ for(const id of branch.sourceIds){const impact=incrementalImpact({kind:"DEPENDENCY",id});for(const x of impact.affected||[])affected.add(x);for(const x of impact.phases||[])phases.add(x)}
+ return {status:"IMPACT_ESTIMATE_ONLY",affected:[...affected].sort(),affectedPhases:[...phases].sort(),sourceIds:[...branch.sourceIds],canonicalMutation:false};
+}
+function e7DecisionState(branchId){
+ const branch=e5AlternativeBranches.find(x=>x.id===branchId);if(!branch)return {status:"BRANCH_NOT_ADOPTED",canonicalMutation:false};
+ const decisions=e7DecisionLedger.filter(x=>x.branchId===branchId),latest=decisions.at(-1),assessment=e6BranchAssessment(branchId);
+ return {status:"PROVISIONAL_ONLY",latestAction:latest?.action||"UNDECIDED",decisionId:latest?.decisionId||null,contradictions:assessment.contradictions,verification:"UNKNOWN",canonicalMutation:false};
+}
+function validateE7Decisions(items,branches=e5AlternativeBranches,evidence=e6EvidenceLedger){
+ if(!Array.isArray(items)||items.length>300)return {status:"INVALID_DECISION_LEDGER"};
+ const branchMap=new Map(branches.map(x=>[x.id,x])),evidenceMap=new Map(evidence.map(x=>[x.evidenceId,x])),ids=new Set();
+ for(const x of items){
+  if(!x||typeof x!=="object"||Object.keys(x).sort().join(",")!=="action,affected,affectedPhases,branchId,canonicalMutation,decisionId,evidenceIds,rationale,sourceIds,status")return {status:"INVALID_DECISION_LEDGER"};
+  const branch=branchMap.get(x.branchId);
+  if(!branch||typeof x.decisionId!=="string"||!/^DEC-[0-9]{4,}$/.test(x.decisionId)||ids.has(x.decisionId))return {status:"INVALID_DECISION_LEDGER"};
+  if(!["INVESTIGATE","DEFER","REJECT_HYPOTHESIS"].includes(x.action)||x.status!=="PROVISIONAL_ONLY"||x.canonicalMutation!==false)return {status:"INVALID_DECISION_LEDGER"};
+  if(typeof x.rationale!=="string"||x.rationale.trim()!==x.rationale||x.rationale.length<12||x.rationale.length>1000)return {status:"INVALID_DECISION_LEDGER"};
+  if(!Array.isArray(x.sourceIds)||JSON.stringify(x.sourceIds)!==JSON.stringify(branch.sourceIds)||!Array.isArray(x.evidenceIds)||x.evidenceIds.some(id=>!evidenceMap.has(id)||evidenceMap.get(id).branchId!==x.branchId)||new Set(x.evidenceIds).size!==x.evidenceIds.length)return {status:"INVALID_DECISION_LEDGER"};
+  if(!Array.isArray(x.affected)||!Array.isArray(x.affectedPhases)||x.affected.some(id=>typeof id!=="string")||x.affectedPhases.some(id=>typeof id!=="string")||x.affected.length>300||x.affectedPhases.length>100)return {status:"INVALID_DECISION_LEDGER"};
+  ids.add(x.decisionId);
+ }
+ return {status:"VALID_DECISION_LEDGER"};
+}
+function addE7Decision(branchId,action,rationale){
+ const id=String(branchId||"").trim(),note=String(rationale||"").trim();
+ if(!e5AlternativeBranches.some(x=>x.id===id))return {status:"BRANCH_NOT_ADOPTED",canonicalMutation:false};
+ if(!["INVESTIGATE","DEFER","REJECT_HYPOTHESIS"].includes(action)||note.length<12||note.length>1000)return {status:"INVALID_DECISION_INPUT",canonicalMutation:false};
+ if(e7DecisionLedger.length>=300)return {status:"DECISION_LIMIT_REACHED",canonicalMutation:false};
+ const impact=e7DecisionImpact(id),next=Math.max(0,...e7DecisionLedger.map(x=>Number(x.decisionId.slice(4))||0))+1;
+ const evidenceIds=e6EvidenceLedger.filter(x=>x.branchId===id).map(x=>x.evidenceId);
+ const decision={decisionId:"DEC-"+String(next).padStart(4,"0"),branchId:id,action,rationale:note,sourceIds:impact.sourceIds,affected:impact.affected,affectedPhases:impact.affectedPhases,evidenceIds,status:"PROVISIONAL_ONLY",canonicalMutation:false};
+ e7DecisionLedger.push(decision);
+ return {status:"PROVISIONAL_DECISION_RECORDED",decisionId:decision.decisionId,impact,canonicalMutation:false};
+}
+function renderE7Decisions(){
+ const root=el("e7-ledger");if(!root)return;root.replaceChildren();
+ entry(root,"Decisiones alternativas",e7DecisionLedger.length+" · todas PROVISIONAL_ONLY");
+ for(const x of e7DecisionLedger.slice(-15))entry(root,x.decisionId+" · "+x.branchId+" · "+x.action,"Razón: "+x.rationale+" · piezas afectadas: "+(x.affected.join(", ")||"UNKNOWN")+" · fases: "+x.affectedPhases.join(", ")+" · evidencias: "+(x.evidenceIds.join(", ")||"ninguna")+" · PROVISIONAL_ONLY");
+}
+if(el("e7-record"))el("e7-record").addEventListener("click",()=>{const result=addE7Decision(el("e7-branch")?.value,el("e7-action")?.value,el("e7-rationale")?.value);if(result.status==="PROVISIONAL_DECISION_RECORDED"){recordStructuralSnapshot({kind:"IDEA",id:el("e7-branch")?.value});refreshHistorySelectors()}show();const root=el("twin-result");root.replaceChildren();entry(root,"E7 · Decisión",result.status)});
 function renderNewBranchCandidates(){
  const root=el("e5-candidates");if(!root)return;
  root.replaceChildren();const result=synthesizeNewBranches();
@@ -295,7 +342,7 @@ const structuralHistory=[];
 function recordStructuralSnapshot(change){
  const impact=incrementalImpact(change),scenario=structuralScenario();
  if(impact.status==="INVALID_CHANGE")return {status:"REJECTED_INVALID_CHANGE"};
- const signature=JSON.stringify({nodes:scenario.nodes.map(n=>[n.id,n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]),experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot()});
+ const signature=JSON.stringify({nodes:scenario.nodes.map(n=>[n.id,n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]),experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),decisionLedger:e7DecisionSnapshot()});
  const previous=structuralHistory[structuralHistory.length-1];
  if(previous?.signature===signature)return {status:"UNCHANGED",version:previous.version,impact};
  const current=new Map(scenario.nodes.map(n=>[n.id,n]));
@@ -310,6 +357,8 @@ function recordStructuralSnapshot(change){
  for(const [id,x] of beforeBranches)if(!afterBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_REMOVED"});
  const oldEvidence=new Map((previous?.evidenceLedger||[]).map(x=>[x.evidenceId,x]));
  for(const x of e6EvidenceLedger)if(!oldEvidence.has(x.evidenceId))changes.push({id:x.evidenceId,kind:"EVIDENCE_OBSERVATION_ADDED",branchId:x.branchId});
+ const oldDecisions=new Set((previous?.decisionLedger||[]).map(x=>x.decisionId));
+ for(const x of e7DecisionLedger)if(!oldDecisions.has(x.decisionId))changes.push({id:x.decisionId,kind:"PROVISIONAL_DECISION_ADDED",branchId:x.branchId});
  for(const [id,n] of current){
   const before=prior.get(id);
   if(!before){changes.push({id,kind:"ADDED_TO_SCENARIO"});continue}
@@ -318,7 +367,7 @@ function recordStructuralSnapshot(change){
  for(const id of prior.keys())if(!current.has(id))changes.push({id,kind:"REMOVED_FROM_SCENARIO"});
  const nextVersion=Math.max(0,...structuralHistory.map(x=>Number(x.version.slice(4))||0))+1;
  const version="ALT-"+String(nextVersion).padStart(4,"0");
- const entry={version,signature,experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),nodes:scenario.nodes.map(n=>({id:n.id,title:n.title,source:n.source,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies],reason:n.reason,risks:[...n.risks],evidence:n.evidence})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
+ const entry={version,signature,experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),decisionLedger:e7DecisionSnapshot(),nodes:scenario.nodes.map(n=>({id:n.id,title:n.title,source:n.source,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies],reason:n.reason,risks:[...n.risks],evidence:n.evidence})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
  structuralHistory.push(entry);
  return {status:"SNAPSHOT_RECORDED_IN_MEMORY",version,changes,impact};
 }
@@ -338,6 +387,7 @@ function importStructuralHistory(json){
   if(x.nodes.some(n=>!n||typeof n.id!=="string"||!Array.isArray(n.dependencies)||!Array.isArray(n.secondaryPhases)||!Array.isArray(n.unknownDependencies)))return {status:"INVALID_HISTORY"};if(x.experimentalPhases!==undefined&&(!Array.isArray(x.experimentalPhases)||x.experimentalPhases.some(p=>evaluateAdditionalPhase(p?.id,p?.name).status!=="PHASE_PROPOSAL_ONLY"||p.canonicalMutation!==false)))return {status:"INVALID_HISTORY"};
   if(x.alternativeBranches!==undefined&&validateE5Branches(x.alternativeBranches).status!=="VALID_BRANCHES")return {status:"INVALID_HISTORY"};
   if(x.evidenceLedger!==undefined&&validateE6Evidence(x.evidenceLedger,x.alternativeBranches||[]).status!=="VALID_EVIDENCE_LEDGER")return {status:"INVALID_HISTORY"};
+  if(x.decisionLedger!==undefined&&validateE7Decisions(x.decisionLedger,x.alternativeBranches||[],x.evidenceLedger||[]).status!=="VALID_DECISION_LEDGER")return {status:"INVALID_HISTORY"};
   ids.add(x.version);clean.push(JSON.parse(JSON.stringify(x)));
  }
  structuralHistory.splice(0,structuralHistory.length,...clean);
@@ -361,6 +411,8 @@ function compareStructuralVersions(left,right){
  for(const id of oldBranches.keys())if(!newBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_REMOVED"});
  const oldEvidenceIds=new Set((a.evidenceLedger||[]).map(x=>x.evidenceId));
  for(const x of b.evidenceLedger||[])if(!oldEvidenceIds.has(x.evidenceId))changes.push({id:x.evidenceId,kind:"EVIDENCE_OBSERVATION_ADDED",branchId:x.branchId});
+ const priorDecisions=new Set((a.decisionLedger||[]).map(x=>x.decisionId));
+ for(const x of b.decisionLedger||[])if(!priorDecisions.has(x.decisionId))changes.push({id:x.decisionId,kind:"PROVISIONAL_DECISION_ADDED",branchId:x.branchId});
  return {status:"COMPARISON_READY",left,right,changes,canonicalMutation:false};
 }
 function showAdaptive(){
@@ -424,7 +476,7 @@ add("Dependientes indirectos",[...impacted].filter(id=>!direct.includes(id)),"")
 wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las relaciones no registradas son UNKNOWN, no inexistentes.","relation-note"));return wrap;
 }
 function show(){
-showAdaptive();twinPhaseView();renderE6Evidence();
+showAdaptive();twinPhaseView();renderE6Evidence();renderE7Decisions();
 const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"")+(selectedLeaf?" / 🍃 "+selectedLeaf:"");
 const phaseIds=[...new Set([...phases.map(p=>p.id),...Object.keys(labels)])].filter(id=>/^F[1-9][0-9]*$/.test(id)).sort((a,b)=>Number(b.slice(1))-Number(a.slice(1)));
 for(const [index,id] of phaseIds.entries()){
@@ -451,7 +503,7 @@ const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChil
 const leaf=phaseLeaves(selected).find(x=>x.id===selectedLeaf);
 const catalogItem=phaseCapabilities(selected).find(x=>x.id===selectedLeaf);
 const e5Selected=e5AlternativeBranches.find(x=>x.id===selectedLeaf&&x.phase===selected);
-if(e5Selected){entry(mem,"RAMA NUEVA E5 · "+e5Selected.id,e5Selected.title);entry(mem,"Motivo",e5Selected.reason);entry(mem,"Origen documental",e5Selected.sourceIds.join(", ")||"Auditoría de cobertura");entry(mem,"Entregable propuesto",e5Selected.deliverable);entry(mem,"Evidencia requerida",e5Selected.requiredEvidence.join("; "));const assessment=e6BranchAssessment(e5Selected.id);entry(mem,"E6 · Observaciones",String(assessment.observations)+" · contradicciones: "+assessment.contradictions);entry(dec,"Evaluación E6",assessment.decision+" · verificación UNKNOWN");entry(dec,"Estado","PROPOSED_ONLY · UNKNOWN");entry(dec,"Riesgo",e5Selected.risk);entry(dec,"Promoción","DESHABILITADA · no es capacidad implementada");return}
+if(e5Selected){entry(mem,"RAMA NUEVA E5 · "+e5Selected.id,e5Selected.title);entry(mem,"Motivo",e5Selected.reason);entry(mem,"Origen documental",e5Selected.sourceIds.join(", ")||"Auditoría de cobertura");entry(mem,"Entregable propuesto",e5Selected.deliverable);entry(mem,"Evidencia requerida",e5Selected.requiredEvidence.join("; "));const assessment=e6BranchAssessment(e5Selected.id);entry(mem,"E6 · Observaciones",String(assessment.observations)+" · contradicciones: "+assessment.contradictions);entry(dec,"Evaluación E6",assessment.decision+" · verificación UNKNOWN");const d7=e7DecisionState(e5Selected.id);entry(dec,"E7 · Decisión provisional",d7.latestAction+" · "+(d7.decisionId||"sin registro")+" · sin promoción canónica");entry(dec,"Estado","PROPOSED_ONLY · UNKNOWN");entry(dec,"Riesgo",e5Selected.risk);entry(dec,"Promoción","DESHABILITADA · no es capacidad implementada");return}
 if(catalogItem){entry(mem,"CAPACIDAD / ACTIVO · "+catalogItem.id,catalogItem.title);entry(mem,"Función y utilidad",arkiFunctionalHelp(catalogItem));entry(mem,"Estado registrado",catalogItem.recordedStatus);entry(mem,"Fuente",catalogItem.source);entry(mem,"Evidencia citada",catalogItem.sourceEvidence||"UNKNOWN");entry(dec,"Ubicación F1–F10","ORIENTATIVA · pendiente de reconciliación canónica");entry(dec,"Verificación actual","NO REEJECUTADA · no se promueve el estado histórico");entry(dec,"Promoción","DESHABILITADA");return}
 if(leaf){entry(mem,"HOJA · "+leaf.id,leaf.title);entry(mem,"Función y utilidad",arkiFunctionalHelp(leaf));entry(mem,"Origen documental",leaf.origin||"UNKNOWN");entry(mem,"Estado histórico",leaf.sourceStatus||"UNKNOWN");entry(mem,"Ubicación",leaf.placement||"UNKNOWN");entry(dec,"Fruto / resultado verificado","NO ACREDITADO · "+(leaf.verification||"UNKNOWN"));entry(dec,"Promoción","DESHABILITADA");return}
 if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry(mem,"Estado","SIN DATOS · importa el estado estructurado local de ARKI.");const gr=localGraph(),focus=gr.rows.find(x=>x.id===selectedBranch&&x.phase===selected);if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Dependencias",focus.deps.join(", ")||"Ninguna declarada");entry(dec,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Sin bloqueos declarados; verificación UNKNOWN")}entry(dec,"Fase activa",selected+" · "+labels[selected]);entry(dec,"Sin evidencia","No se inventan propuestas ni métricas. Promoción DESHABILITADA.");return}
@@ -637,12 +689,13 @@ function importTwinPhases(raw){
  for(const p of twinPhases)delete labels[p.id];twinPhases.splice(0,twinPhases.length,...clean);for(const p of clean)labels[p.id]=p.name;
  return {status:"IMPORTED_ALTERNATIVE_PHASES",count:clean.length,canonicalMutation:false};
 }
-function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory()),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot()},null,2)}
+function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory()),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),decisionLedger:e7DecisionSnapshot()},null,2)}
 function importTwinWorkspace(raw){
  let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!data||data.schema!=="ARKI-TREE-TWIN-WORKSPACE-1"||data.canonicalMutation!==false||!data.phases||!data.history)return {status:"INVALID_WORKSPACE"};
  if(validateE5Branches(data.alternativeBranches||[]).status!=="VALID_BRANCHES")return {status:"INVALID_WORKSPACE_BRANCHES"};
  if(validateE6Evidence(data.evidenceLedger||[],data.alternativeBranches||[]).status!=="VALID_EVIDENCE_LEDGER")return {status:"INVALID_WORKSPACE_EVIDENCE"};
+ if(validateE7Decisions(data.decisionLedger||[],data.alternativeBranches||[],data.evidenceLedger||[]).status!=="VALID_DECISION_LEDGER")return {status:"INVALID_WORKSPACE_DECISIONS"};
  // Validate both sections before changing any live state. Keep existing state if either fails.
  const savedPhases=exportTwinPhases(),savedHistory=exportStructuralHistory();
  const phaseResult=importTwinPhases(data.phases);
@@ -654,6 +707,7 @@ function importTwinWorkspace(raw){
  }
  e5AlternativeBranches.splice(0,e5AlternativeBranches.length,...(data.alternativeBranches||[]).map(x=>({...x,sourceIds:[...x.sourceIds],requiredEvidence:[...x.requiredEvidence]})));
  e6EvidenceLedger.splice(0,e6EvidenceLedger.length,...(data.evidenceLedger||[]).map(x=>({...x})));
+ e7DecisionLedger.splice(0,e7DecisionLedger.length,...(data.decisionLedger||[]).map(x=>({...x,sourceIds:[...x.sourceIds],affected:[...x.affected],affectedPhases:[...x.affectedPhases],evidenceIds:[...x.evidenceIds]})));
  return {status:"IMPORTED_ALTERNATIVE_WORKSPACE",phases:phaseResult.count,versions:historyResult.count,branches:e5AlternativeBranches.length,canonicalMutation:false};
 }
 const twinLocalStorageKey="ARKI_TREE_TWIN_EXPERIMENTAL_V1";
