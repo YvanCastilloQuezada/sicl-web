@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARKI · Árbol Vivo AV-UI-001 · Prototipo aislado</title>
+<style>
+:root{color-scheme:dark;font:15px system-ui,Arial;background:#0c1826;color:#eaf1f7}
+*{box-sizing:border-box}body{margin:0}header{padding:15px 22px;border-bottom:1px solid #344c5c;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+h1{font-size:20px;margin:0}small,.muted{color:#aabcc9}.shell{display:grid;grid-template-columns:minmax(210px,1fr) minmax(330px,2.2fr) minmax(230px,1.1fr);gap:12px;padding:12px;min-height:calc(100vh - 82px)}
+aside,main{background:#152b40;border:1px solid #385064;border-radius:12px;padding:16px;min-width:0}
+h2{font-size:17px;margin:0 0 12px}.tree{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;padding:12px}
+.tree:before{content:"";position:absolute;top:32px;bottom:32px;width:10px;background:#98754e;border-radius:8px}
+.phase{position:relative;width:78%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #516579;background:#203b51;color:inherit;border-radius:9px;padding:9px 12px;cursor:pointer;text-align:left}
+.phase:hover,.phase:focus-visible{outline:2px solid #8cc5ef}.phase[aria-pressed=true]{border:2px solid #e7b45d;background:#36536b}
+.phase .id{font-weight:800;background:#31675c;border-radius:100%;padding:8px;min-width:42px;text-align:center}
+.phase[data-state=FROZEN] .id{background:#4e718e}.phase[data-state=RECONCILIATION_REQUIRED] .id{background:#9d6243}
+.phase .state{font-size:11px;color:#c4d3de;text-align:right;overflow-wrap:anywhere}
+.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
+.tag{font-size:11px;display:inline-block;padding:3px 7px;background:#35516b;border-radius:5px}
+.warn{color:#ffca86}button{font:inherit}input[type=file]{max-width:240px}
+footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
+@media(max-width:850px){.shell{grid-template-columns:1fr}.tree{padding:6px}.phase{width:100%}}
+</style></head><body>
+<header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><label>Importar estado local JSON <input type="file" id="source" accept=".json,application/json"></label></header>
+<div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
+<main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Selecciona una fase. Los colores indican estados declarados en el archivo importado, no pruebas de funcionamiento.</p><div class="tree" id="tree"></div></main>
+<aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><div id="decisions" aria-live="polite"></div></aside></div>
+<footer id="foot">SIN FUENTE: carga el archivo docs/arki-master-map/ARKI_MASTER_MAP_STATE.json de tu copia local. Ninguna información se envía a servidores.</footer>
+<script>
+"use strict";
+const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
+let state=null,selected="F1";
+const el=id=>document.getElementById(id);
+function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=content;return e}
+function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
+function phaseData(){return state?.roadmap?.phases||[]}
+function show(){
+const phases=phaseData();el("tree").replaceChildren();
+for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;show()});el("tree").append(btn)}
+const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
+if(!state){entry(mem,"Sin datos","Importa el estado estructurado local de ARKI.");entry(dec,"Sin evidencia","No se inventan propuestas ni métricas.");return}
+const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
+entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarada",p?.evidence_status||"UNKNOWN");
+entry(mem,"Fuente","ARKI_MASTER_MAP_STATE.json · "+(state.updated_at||"fecha desconocida"));
+if(p?.status==="FROZEN")entry(mem,"Protección","FROZEN: consulta permitida; cambios requieren procedimiento autorizado.");
+entry(mem,"Aprobado ≠ verificado","Este prototipo no transforma declaraciones documentales en hechos ejecutados.");
+entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
+entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
+entry(dec,"Promoción","DESHABILITADA. Sin pruebas, auditoría y autorización específica no existe acción canónica.");
+}
+el("source").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>15_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MASTER-MAP-STATE-0.1"||!Array.isArray(x.roadmap?.phases))throw Error("Esquema de estado no compatible");state=x;el("foot").textContent="Fuente local: "+file.name+" · estado fechado "+(x.updated_at||"UNKNOWN")+" · Solo lectura; no se envía a servidores.";show()}catch(e){state=null;el("foot").textContent="No se pudo importar: "+e.message;show()}});
+show();
+</script></body></html>
