@@ -510,11 +510,21 @@ assert.equal(alternatives.verification,"UNKNOWN");
 assert.equal(alternatives.alternatives[0].moved,0);
 assert.ok(alternatives.alternatives.every(x=>x.placements.length===x.total));
 assert.equal(vm.runInContext("twinTimelineReport().canonicalMutation",sandbox),false);
+const auditInitial=vm.runInContext("twinOperationalAudit(twinObservation())",sandbox);
+assert.equal(auditInitial.canonicalPromotion,"BLOCKED");
+assert.equal(auditInitial.operationalVerification,"NOT_VERIFIED");
+assert.equal(auditInitial.canonicalMutation,false);
+assert.ok(Array.from(auditInitial.gates).some(g=>g.id==="PRODUCER_IDENTITY"&&g.state==="BLOCKED"));
+assert.ok(Array.from(auditInitial.gates).some(g=>g.id==="RED_TEAM"&&g.state==="NOT_ASSESSED"));
+
 const receipts={schema:"ARKI-TWIN-EXECUTION-RECEIPTS-1",receipts:[{id:"RUN-1",producer:"AGK",outcome:"SUCCESS",timestamp:"2026-10-10T14:00:00Z",operation:"mesh-export",commit:"a".repeat(40),phaseId:"F6"}]};
 sandbox.__receiptPayload=receipts;
 assert.equal(vm.runInContext("importTwinReceipts(__receiptPayload).status",sandbox),"IMPORTED_UNVERIFIED_RECEIPTS");
 assert.equal(vm.runInContext("twinExternalReceipts[0].authentication",sandbox),"UNVERIFIED_EXTERNAL_CLAIM");
 assert.equal(vm.runInContext("twinExternalReceipts[0].phaseId",sandbox),"F6");
+assert.equal(vm.runInContext("twinOperationalAudit().counts.unsignedReceipts",sandbox),1);
+assert.equal(vm.runInContext("twinOperationalAudit().canonicalPromotion",sandbox),"BLOCKED");
+
 const badReceipt=JSON.parse(JSON.stringify(receipts));badReceipt.receipts[0].commit="bad";
 sandbox.__badReceipt=badReceipt;
 assert.equal(vm.runInContext("importTwinReceipts(__badReceipt).status",sandbox),"INVALID_EXECUTION_RECEIPTS");
@@ -564,6 +574,9 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  sandbox.__signedEnvelope={schema:"ARKI-TWIN-SIGNED-RECEIPTS-1",algorithm:"ECDSA-P256-SHA256",keyId:"local-fixture",payload,signature};
  assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__signedEnvelope)",sandbox)).status,"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED");
  assert.equal(vm.runInContext("twinSignedReceipts[0].authentication",sandbox),"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED");
+ assert.equal(vm.runInContext("twinOperationalAudit().counts.signedReceipts",sandbox),1);
+ assert.equal(vm.runInContext("twinOperationalAudit().gates.find(g=>g.id==='PRODUCER_IDENTITY').state",sandbox),"BLOCKED");
+
  const invalidEnvelope={...sandbox.__signedEnvelope,payload:payload.replace("SUCCESS","FAILURE")};
  sandbox.__invalidEnvelope=invalidEnvelope;
  assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__invalidEnvelope)",sandbox)).status,"INVALID_SIGNATURE");
