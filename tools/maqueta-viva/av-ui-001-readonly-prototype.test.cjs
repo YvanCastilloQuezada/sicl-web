@@ -484,12 +484,12 @@ const impactFixture={
  {id:"D",phase:"F4",proposedPhase:"F4",dependencies:[]}
  ]};
 sandbox.__impactFixture=impactFixture;
-const impact=vm.runInContext("twinDependencyImpact(__impactFixture,'F1')",sandbox);
-assert.deepEqual(Array.from(impact.direct),["F2"]);
-assert.deepEqual(Array.from(impact.transitive),["F2","F3"]);
-assert.equal(impact.unknownReferences.length,1);
-assert.equal(impact.canonicalMutation,false);
-assert.equal(impact.simulation,"NOT_EXECUTED");
+const twinPhaseImpact=vm.runInContext("twinDependencyImpact(__impactFixture,'F1')",sandbox);
+assert.deepEqual(Array.from(twinPhaseImpact.direct),["F2"]);
+assert.deepEqual(Array.from(twinPhaseImpact.transitive),["F2","F3"]);
+assert.equal(twinPhaseImpact.unknownReferences.length,1);
+assert.equal(twinPhaseImpact.canonicalMutation,false);
+assert.equal(twinPhaseImpact.simulation,"NOT_EXECUTED");
 vm.runInContext("selected='F1';twinImpactVisible=true;twinViewMode='brain'",sandbox);
 assert.match(vm.runInContext("twinVisualSVG(__impactFixture)",sandbox),/Cobertura NO CERTIFICADA/);
 assert.match(vm.runInContext("twinVisualSVG(__impactFixture)",sandbox),/#f08470/,"Direct impact should be visually distinct");
