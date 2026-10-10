@@ -674,6 +674,86 @@ function twinVisualSVG(obs){
  for(const p of phases)for(const dep of p.dependencies||[]){const a=locations.get(p.id),z=locations.get(dep);if(a&&z)lines.push('<line x1="'+a.x+'" y1="'+a.y+'" x2="'+z.x+'" y2="'+z.y+'" stroke="#e7b45d" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>')}
  return '<svg viewBox="0 0 440 '+height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+twinEscape(twinViewMode==="3d"?"Vista espacial conceptual, no geometría AGK":twinViewMode==="brain"?"Grafo documental de relaciones":"Fases y dependencias documentales")+'">'+lines.join("")+parts.join("")+'</svg>';
 }
+// External observations are untrusted until independently attested. No execution is triggered here.
+let twinExternalReceipts=[],twinAgkMesh=null;
+function validateTwinReceipts(raw){
+ let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
+ if(!data||data.schema!=="ARKI-TWIN-EXECUTION-RECEIPTS-1"||!Array.isArray(data.receipts)||data.receipts.length>200||data.receipts.length<1)return {status:"INVALID_EXECUTION_RECEIPTS"};
+ const seen=new Set(),clean=[];
+ for(const x of data.receipts){
+  if(!x||typeof x.id!=="string"||!/^[a-zA-Z0-9_-]{1,80}$/.test(x.id)||seen.has(x.id)||!["Core","AGK","Agent","Other"].includes(x.producer)||!["SUCCESS","FAILURE","UNKNOWN"].includes(x.outcome)||typeof x.timestamp!=="string"||!/^\d{4}-\d{2}-\d{2}T/.test(x.timestamp)||!Number.isFinite(Date.parse(x.timestamp))||typeof x.operation!=="string"||x.operation.length<1||x.operation.length>120||typeof x.commit!=="string"||!/^[0-9a-f]{40}$/.test(x.commit))return {status:"INVALID_EXECUTION_RECEIPTS"};
+  seen.add(x.id);clean.push({id:x.id,producer:x.producer,outcome:x.outcome,timestamp:x.timestamp,operation:x.operation,commit:x.commit,authentication:"UNVERIFIED_EXTERNAL_CLAIM"});
+ }
+ return {status:"VALID_UNVERIFIED_RECEIPTS",receipts:clean,canonicalMutation:false};
+}
+function importTwinReceipts(raw){
+ const result=validateTwinReceipts(raw);
+ if(result.status!=="VALID_UNVERIFIED_RECEIPTS")return result;
+ twinExternalReceipts=result.receipts;return {status:"IMPORTED_UNVERIFIED_RECEIPTS",count:result.receipts.length,canonicalMutation:false};
+}
+function validateTwinAgkMesh(raw){
+ let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
+ if(!data||data.schema!=="ARKI-TWIN-AGK-MESH-1"||data.canonicalMutation!==false||!Array.isArray(data.vertices)||!Array.isArray(data.triangles)||data.vertices.length<3||data.vertices.length>1000||data.triangles.length<1||data.triangles.length>2000)return {status:"INVALID_AGK_MESH"};
+ if(!data.vertices.every(v=>Array.isArray(v)&&v.length===3&&v.every(n=>typeof n==="number"&&Number.isFinite(n)&&Math.abs(n)<=1e7)))return {status:"INVALID_AGK_MESH"};
+ if(!data.triangles.every(t=>Array.isArray(t)&&t.length===3&&new Set(t).size===3&&t.every(n=>Number.isInteger(n)&&n>=0&&n<data.vertices.length)))return {status:"INVALID_AGK_MESH"};
+ if(typeof data.sourceCommit!=="string"||!/^[0-9a-f]{40}$/.test(data.sourceCommit))return {status:"INVALID_AGK_MESH"};
+ return {status:"VALID_UNVERIFIED_AGK_MESH",mesh:{vertices:data.vertices.map(v=>[...v]),triangles:data.triangles.map(t=>[...t]),sourceCommit:data.sourceCommit},canonicalMutation:false};
+}
+function importTwinAgkMesh(raw){
+ const result=validateTwinAgkMesh(raw);if(result.status!=="VALID_UNVERIFIED_AGK_MESH")return result;
+ twinAgkMesh=result.mesh;return {status:"IMPORTED_UNVERIFIED_AGK_MESH",triangles:twinAgkMesh.triangles.length,canonicalMutation:false};
+}
+function twinMeshSVG(mesh){
+ const projected=mesh.vertices.map(([x,y,z])=>[x-y,(x+y)*0.48-z]);
+ const bounds=[Math.min(...projected.map(p=>p[0])),Math.max(...projected.map(p=>p[0])),Math.min(...projected.map(p=>p[1])),Math.max(...projected.map(p=>p[1]))];
+ const span=Math.max(bounds[1]-bounds[0],bounds[3]-bounds[2],1e-8),scale=230/span;
+ const pts=projected.map(([x,y])=>[220+(x-(bounds[0]+bounds[1])/2)*scale,165+(y-(bounds[2]+bounds[3])/2)*scale]);
+ const polygons=mesh.triangles.map(t=>'<polygon points="'+t.map(i=>pts[i].map(v=>v.toFixed(2)).join(",")).join(" ")+'" fill="#387a94" fill-opacity=".27" stroke="#92c7dc" stroke-width="1.2"/>').join("");
+ return '<svg viewBox="0 0 440 330" role="img" aria-label="Malla importada sin autenticación; no demuestra AGK en ejecución">'+polygons+'<text x="10" y="315" font-size="11" fill="#f0c38b">MALLA EXTERNA NO AUTENTICADA · NO ES SIMULACIÓN</text></svg>';
+}
+function twinThreeAlternatives(obs){
+ const nodes=obs.nodes||[],modes=[
+ {id:"A",title:"Línea documental",assign:n=>n.phase},
+ {id:"B",title:"Redistribución propuesta",assign:n=>n.proposedPhase||n.phase},
+ {id:"C",title:"Conservadora ante incertidumbre",assign:n=>(n.unknownDependencies||[]).length?n.phase:(n.proposedPhase||n.phase)}
+ ];
+ return {schema:"ARKI-TWIN-ALTERNATIVES-1",status:"DOCUMENTARY_COMPARISON_ONLY",canonicalMutation:false,verification:"UNKNOWN",alternatives:modes.map(m=>{
+  const placements=nodes.map(n=>({id:n.id,phase:m.assign(n)}));
+  const moved=nodes.filter(n=>m.assign(n)!==n.phase).length;
+  const unresolved=nodes.filter(n=>(n.unknownDependencies||[]).length>0).length;
+  return {id:m.id,title:m.title,total:nodes.length,moved,unresolved,placements,verification:"UNKNOWN",canonicalMutation:false};
+ })};
+}
+function twinTimelineReport(){
+ const versions=structuralHistory.map(x=>({version:x.version,trigger:x.trigger,changes:x.changes.map(y=>({id:y.id,kind:y.kind})),canonicalMutation:false}));
+ return {schema:"ARKI-TWIN-TIMELINE-1",status:"DOCUMENTARY_HISTORY_ONLY",versions,canonicalMutation:false};
+}
+// SHA-256 via WebCrypto: no home-made or weak checksum masquerading as a cryptographic hash.
+async function twinSha256(text){
+ if(typeof crypto==="undefined"||!crypto.subtle||typeof TextEncoder==="undefined")throw Error("CRYPTO_UNAVAILABLE");
+ const bytes=new TextEncoder().encode(text),digest=await crypto.subtle.digest("SHA-256",bytes);
+ return Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function exportTwinVerifiedBackup(){
+ const payload=exportTwinWorkspace(),sha256=await twinSha256(payload);
+ return JSON.stringify({schema:"ARKI-TWIN-VERIFIED-BACKUP-1",algorithm:"SHA-256",sha256,payload,canonicalMutation:false},null,2);
+}
+async function importTwinVerifiedBackup(raw){
+ let backup;try{backup=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_BACKUP_JSON"}}
+ if(!backup||backup.schema!=="ARKI-TWIN-VERIFIED-BACKUP-1"||backup.algorithm!=="SHA-256"||backup.canonicalMutation!==false||typeof backup.payload!=="string"||backup.payload.length>2000000||typeof backup.sha256!=="string"||!/^[0-9a-f]{64}$/.test(backup.sha256))return {status:"INVALID_BACKUP"};
+ if(await twinSha256(backup.payload)!==backup.sha256)return {status:"BACKUP_HASH_MISMATCH",canonicalMutation:false};
+ return importTwinWorkspace(backup.payload);
+}
+function twinDownload(name,content){
+ const blob=new Blob([content],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+}
+async function twinReadFile(input,handler,target){
+ const file=input.files?.[0];if(!file)return;
+ try{if(file.size>4000000)throw Error("FILE_TOO_LARGE");const result=await handler(await file.text());target.textContent=JSON.stringify(result);renderTwinCommandCenter()}
+ catch(error){target.textContent="IMPORT_FAILED: "+error.message}
+ input.value="";
+}
 function renderTwinCommandCenter(){
  const root=el("twin-visual"),inspector=el("twin-inspector"),metrics=el("twin-metrics"),picker=el("twin-version");
  if(!root||!inspector||!metrics||!picker)return;
