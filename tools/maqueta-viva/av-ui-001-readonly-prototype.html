@@ -772,9 +772,9 @@ function renderTwinCommandCenter(){
  inspector.textContent="Selección: "+selected+" · "+(p?.name||"sin fase en esta versión")+"\nEstado documental: "+(p?.status||"UNKNOWN")+" · Verificación: UNKNOWN\nPiezas relacionadas: "+related.length+" · Observaciones sin autenticar: "+evidence.length+"\nVersion: "+obs.version+" · Simulación: NOT_EXECUTED · Promoción canónica: BLOQUEADA"+(twinImpactVisible?"\n\nPROPAGACIÓN DOCUMENTAL (no simulada)\nDependientes directos: "+(impact.direct.join(", ")||"ninguno identificado")+"\nAlcance transitivo: "+(impact.transitive.join(", ")||"ninguno identificado")+"\nReferencias desconocidas: "+impact.unknownReferences.length+" · Cobertura: NO CERTIFICADA":"");
  metrics.replaceChildren();for(const s of [obs.phases.length+" fases",obs.nodes.length+" piezas documentales",obs.evidence.length+" evidencias UNVERIFIED",obs.decisions.length+" decisiones provisionales",obs.revisions.length+" revisiones"]){const tag=node("span",s);metrics.append(tag)}
  const telemetry=el("twin-telemetry-status"),geometry=el("twin-geometry-status"),timeline=el("twin-timeline");
- if(telemetry)telemetry.textContent=twinExternalReceipts.length+" recibos externos · autenticidad UNVERIFIED · sin ejecución desde esta pantalla"+(twinExternalReceipts.length?"\\n"+twinExternalReceipts.slice(-5).map(x=>x.producer+" "+x.operation+" "+x.outcome+" @ "+x.commit.slice(0,8)).join("\\n"):"");
+ if(telemetry)telemetry.textContent=twinExternalReceipts.length+" recibos externos · autenticidad UNVERIFIED · sin ejecución desde esta pantalla"+(twinExternalReceipts.length?"\n"+twinExternalReceipts.slice(-5).map(x=>x.producer+" "+x.operation+" "+x.outcome+" @ "+x.commit.slice(0,8)).join("\n"):"");
  if(geometry)geometry.textContent=twinAgkMesh?"Malla externa: "+twinAgkMesh.vertices.length+" vértices, "+twinAgkMesh.triangles.length+" caras · sourceCommit "+twinAgkMesh.sourceCommit.slice(0,8)+" · AUTENTICIDAD UNKNOWN":"Sin geometría AGK importada · vista 3D conceptual";
- if(timeline){const versions=twinTimelineReport().versions;timeline.textContent=versions.length?versions.slice(-8).map(x=>x.version+" · "+x.trigger.kind+" "+x.trigger.id+" · "+x.changes.length+" cambios documentales").join("\\n"):"Sin versiones experimentales";}
+ if(timeline){const versions=twinTimelineReport().versions;timeline.textContent=versions.length?versions.slice(-8).map(x=>x.version+" · "+x.trigger.kind+" "+x.trigger.id+" · "+x.changes.length+" cambios documentales").join("\n"):"Sin versiones experimentales";}
 
 }
 for(const mode of ["tree","brain","3d"]){const btn=el("twin-view-"+mode);if(btn)btn.addEventListener("click",()=>{twinViewMode=mode;renderTwinCommandCenter()})}
@@ -782,14 +782,14 @@ if(el("twin-impact-toggle"))el("twin-impact-toggle").addEventListener("click",()
 if(el("twin-version"))el("twin-version").addEventListener("change",()=>{twinVersion=el("twin-version").value;renderTwinCommandCenter()});
 if(el("twin-compare"))el("twin-compare").addEventListener("click",()=>{
  const comparison=twinThreeAlternatives(twinObservation()),root=el("twin-scenarios");
- root.textContent=comparison.alternatives.map(a=>a.id+" · "+a.title+" | piezas: "+a.total+" | traslados: "+a.moved+" | referencias desconocidas: "+a.unresolved+" | UNKNOWN").join("\\n")+"\\nNo son tres ejecuciones del AGK; son escenarios documentales sin mutación.";
+ root.textContent=comparison.alternatives.map(a=>a.id+" · "+a.title+" | piezas: "+a.total+" | traslados: "+a.moved+" | referencias desconocidas: "+a.unresolved+" | UNKNOWN").join("\n")+"\\nNo son tres ejecuciones del AGK; son escenarios documentales sin mutación.";
 });
 if(el("twin-export-backup"))el("twin-export-backup").addEventListener("click",async()=>{
  const status=el("twin-backup-status");
  try{const backup=await exportTwinVerifiedBackup();twinDownload("ARKI-TWIN-BACKUP-SHA256.json",backup);status.textContent="Respaldo SHA-256 exportado. Comprobar restauración en otro perfil antes de confiar en su durabilidad."}
  catch(error){status.textContent="BACKUP_FAILED: "+error.message}
 });
-if(el("twin-import-backup"))el("twin-import-backup").addEventListener("change",()=>twinReadFile(el("twin-import-backup"),importTwinVerifiedBackup,el("twin-backup-status")));
+if(el("twin-import-backup"))el("twin-import-backup").addEventListener("change",()=>twinReadFile(el("twin-import-backup"),async raw=>{const result=await importTwinVerifiedBackup(raw);if(result.status==="IMPORTED_ALTERNATIVE_WORKSPACE"){refreshHistorySelectors();show()}return result},el("twin-backup-status")));
 if(el("twin-telemetry-file"))el("twin-telemetry-file").addEventListener("change",()=>twinReadFile(el("twin-telemetry-file"),async raw=>importTwinReceipts(raw),el("twin-telemetry-status")));
 if(el("twin-geometry-file"))el("twin-geometry-file").addEventListener("change",()=>twinReadFile(el("twin-geometry-file"),async raw=>importTwinAgkMesh(raw),el("twin-geometry-status")));
 
@@ -924,7 +924,7 @@ function arkiExplain(target){
  const label=String(target.textContent||"").trim().replace(/\\s+/g," ").slice(0,200);
  const id=label.match(/\\bF(?:10|[1-9])\\b/)?.[0];
  const statuses=[...label.matchAll(/\\b(FROZEN|IN_PROGRESS|RECONCILIATION_REQUIRED|UNKNOWN|DOCUMENTARY_ONLY|NO_VERIFIED_DEPENDENCY_GRAPH|WORKSPACE_REORGANIZATION_ALLOWED|PLACEMENT_HYPOTHESIS_ONLY|CANDIDATE_REVIEW_ONLY|SIMULATION_ONLY)\\b/g)].map(x=>x[0]);
- if(target.classList?.contains("phase"))return (id?arkiHelpTerms[id]+"\\n":"")+"Fase de la columna vertebral. Pulsa para ver sus actividades, capacidades y evidencias."+(target.dataset?.state?"\\nEstado: "+(arkiHelpTerms[target.dataset.state]||target.dataset.state):"");
+ if(target.classList?.contains("phase"))return (id?arkiHelpTerms[id]+"\n":"")+"Fase de la columna vertebral. Pulsa para ver sus actividades, capacidades y evidencias."+(target.dataset?.state?"\\nEstado: "+(arkiHelpTerms[target.dataset.state]||target.dataset.state):"");
  if(target.classList?.contains("task"))return "Espina izquierda: actividad o dependencia del borrador. Pulsa para consultar sus relaciones. El signo ! indica riesgos pendientes de revisar.";
  if(target.classList?.contains("leaf")||target.classList?.contains("catalog-cap"))return "Hoja derecha: idea, activo histórico o capacidad documentada. Su presencia no significa implementación ni verificación. Pulsa para examinarla.";
  if(target.classList?.contains("entry"))return "Registro informativo o propuesta, sin aplicación automática. "+statuses.map(s=>arkiHelpTerms[s]).join(" ");
