@@ -19,3 +19,12 @@
 5. Probar actualización incremental, conflictos FROZEN, continuidad y aprobación humana autenticada.
 
 **NO EVIDENCE = NO GREEN.** El conteo de descendientes no sustituye un camino crítico CPM ni una orden de ejecución.
+
+## Extensión: aristas tipadas y evidencia
+- `dependencyEdges` es opcional y no sustituye el inventario canónico.
+- Una arista `{type:"REQUIRES",targetId:"ID",status:"VERIFIED",evidenceRef:"referencia"}` puede entrar al DAG.
+- `REQUIRES` sin evidencia produce `UNVERIFIED_PRECEDENCE` y NO se considera dependencia confirmada.
+- `CROSS_PHASE` y otras relaciones no imponen precedencia temporal.
+- Los `dependencies` históricos de tipo cadena siguen admitidos por compatibilidad, pero deben reconciliarse con evidencia antes de usarlos para decisiones de producción.
+- Se añaden tests para aristas verificadas, aristas propuestas, autorreferencia y relaciones transversales.
+- **CI:** el smoke run #395 PASS correspondió al commit anterior `a66453d...`; los cambios posteriores requieren CI nuevo sobre SHA exacto.
