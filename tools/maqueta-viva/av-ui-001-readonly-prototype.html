@@ -330,7 +330,7 @@ for(const row of rows.slice(0,20))entry(mem,row.id,"Antecedentes: "+(row.deps.jo
 entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
 entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
 if(focus){const blocks=[focus.cycle?"CICLO":"",focus.frozen?"FROZEN":"",focus.missing.length?"REFERENCIAS AUSENTES: "+focus.missing.join(", "):"",focus.upstreamBlockers.length?"ANTECEDENTES BLOQUEADOS: "+focus.upstreamBlockers.join("; "):""].filter(Boolean);entry(dec,"Estado de rama",blocks.length?"BLOQUEADA · "+blocks.join(" · "):"SIN BLOQUEOS DECLARADOS · NO VERIFICADA");}
-if(draft){for(const row of rows.filter(x=>x.cycle||x.missing.length||x.upstreamBlockers.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")++(row.missing.length?"AUSENTES: "+row.missing.join(", "):"")+(row.upstreamBlockers.length?" · HEREDADOS: "+row.upstreamBlockers.join("; "):""));
+if(draft){for(const row of rows.filter(x=>x.cycle||x.missing.length||x.upstreamBlockers.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):"")+(row.upstreamBlockers.length?" · HEREDADOS: "+row.upstreamBlockers.join("; "):""));
 entry(dec,"Ciclos en borrador",String(g.cycles.length)+" detectados. No es auditoría global.");
 entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción.");}
 
