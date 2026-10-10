@@ -92,8 +92,9 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Los estados son declaraciones documentales, no certificaciones.</p><section class="twin-center" id="twin-command-center" aria-label="ÁRBOL Gemelo Digital"><h3>ÁRBOL Gemelo Digital · Centro de observación</h3><p class="muted">Tres representaciones del mismo estado documental. No certifica ejecución, geometría AGK ni simulación física.</p><div class="twin-controls" role="group" aria-label="Representaciones del gemelo"><button type="button" id="twin-view-tree" aria-pressed="true">ÁRBOL Vivo</button><button type="button" id="twin-view-brain" aria-pressed="false">Cerebro relacional</button><button type="button" id="twin-view-3d" aria-pressed="false">Vista 3D</button><label for="twin-version">Versión</label><select id="twin-version"><option value="CURRENT">Actual · experimental</option></select></div><div class="twin-visual" id="twin-visual" role="region" aria-label="Visualización sincronizada"></div><div class="twin-metrics" id="twin-metrics" aria-live="polite"></div><div class="twin-controls"><button type="button" id="twin-impact-toggle" aria-pressed="false">Mostrar propagación documental</button></div><div class="twin-inspector" id="twin-inspector" aria-live="polite"></div>
 <div class="twin-supplement" aria-label="Observabilidad y alternativas">
 <h4>Alternativas A / B / C · análisis aislado</h4>
-<div class="twin-controls"><button type="button" id="twin-compare">Comparar tres alternativas</button><button type="button" id="twin-export-backup">Crear respaldo verificable</button><label for="twin-import-backup">Restaurar respaldo</label><input type="file" id="twin-import-backup" accept=".json,application/json"></div>
+<div class="twin-controls"><button type="button" id="twin-compare">Comparar tres alternativas</button><button type="button" id="twin-export-audit">Exportar diagnóstico auditable</button><button type="button" id="twin-export-backup">Crear respaldo verificable</button><label for="twin-import-backup">Restaurar respaldo</label><input type="file" id="twin-import-backup" accept=".json,application/json"></div>
 <div id="twin-scenarios" class="twin-inspector" aria-live="polite">Comparación pendiente. No se ejecutan motores.</div>
+<div id="twin-audit-status" class="twin-inspector" aria-live="polite">Diagnóstico no generado · promoción canónica BLOQUEADA</div>
 <h4>Eventos externos y geometría AGK · solo lectura</h4>
 <p class="muted">Importar recibos estructurados de ejecución o mallas exportadas por un productor autorizado. Una importación no acredita autenticidad ni verifica el motor.</p>
 <div class="twin-controls"><label for="twin-telemetry-file">Recibos JSON</label><input type="file" id="twin-telemetry-file" accept=".json,application/json"><label for="twin-geometry-file">Geometría JSON</label><input type="file" id="twin-geometry-file" accept=".json,application/json"></div>
@@ -770,6 +771,24 @@ function twinThreeAlternatives(obs){
   return {id:m.id,title:m.title,total:nodes.length,moved,unresolved,placements,verification:"UNKNOWN",canonicalMutation:false};
  })};
 }
+// Conservative operational readiness: evidence gaps are explicit and promotion never enabled.
+function twinOperationalAudit(obs=twinObservation()){
+ const validPhaseIds=new Set(obs.phases.map(p=>p.id));
+ const signed=twinSignedReceipts.map(x=>({id:x.id,producer:x.producer,operation:x.operation,phaseId:x.phaseId,commit:x.commit,outcome:x.outcome,signature:"VALID",keyProvenance:"UNKNOWN"}));
+ const unsigned=twinExternalReceipts.map(x=>({id:x.id,producer:x.producer,operation:x.operation,phaseId:x.phaseId,commit:x.commit,outcome:x.outcome,signature:"NOT_PRESENT"}));
+ const orphans=[...signed,...unsigned].filter(x=>x.phaseId&&!validPhaseIds.has(x.phaseId)).map(x=>x.id).sort();
+ const unresolved=obs.nodes.filter(x=>(x.unknownDependencies||[]).length>0).map(x=>x.id).sort();
+ const meshMatches=twinAgkMesh?signed.filter(x=>x.producer==="AGK"&&x.operation==="mesh-export"&&x.outcome==="SUCCESS"&&x.commit===twinAgkMesh.sourceCommit).length:0;
+ const gates=[
+  {id:"DOCUMENTARY_COVERAGE",state:unresolved.length?"BLOCKED":"NOT_ASSESSED",reason:unresolved.length?unresolved.length+" nodes with unknown dependencies":"Documentary coverage cannot prove completeness"},
+  {id:"PRODUCER_IDENTITY",state:"BLOCKED",reason:"No independently authenticated Core/AGK producer identity"},
+  {id:"EXECUTION_REPRODUCIBILITY",state:"BLOCKED",reason:"No independently executed/reproduced Core/AGK runtime tests"},
+  {id:"GEOMETRY_PROVENANCE",state:"BLOCKED",reason:twinAgkMesh?meshMatches+" signed receipt matches; geometry bytes are not covered by the receipt":"No AGK geometry imported"},
+  {id:"BACKUP_RESTORE",state:"NOT_ASSESSED",reason:"Independent profile restoration is not attested"},
+  {id:"RED_TEAM",state:"NOT_ASSESSED",reason:"No independent review attached to this report"}
+ ];
+ return {schema:"ARKI-TWIN-OPERATIONAL-AUDIT-1",version:obs.version,generatedAt:new Date().toISOString(),counts:{phases:obs.phases.length,nodes:obs.nodes.length,documentaryEvidence:obs.evidence.length,provisionalDecisions:obs.decisions.length,provisionalRevisions:obs.revisions.length,unsignedReceipts:unsigned.length,signedReceipts:signed.length,unknownDependencyNodes:unresolved.length,orphanReceipts:orphans.length,agkMeshTriangles:twinAgkMesh?.triangles.length||0,meshMatchingSignedClaims:meshMatches},orphans,unresolved,gates,signatureVerification:"CRYPTOGRAPHIC_ONLY",operationalVerification:"NOT_VERIFIED",canonicalPromotion:"BLOCKED",canonicalMutation:false};
+}
 function twinTimelineReport(){
  const versions=structuralHistory.map(x=>({version:x.version,trigger:x.trigger,changes:x.changes.map(y=>({id:y.id,kind:y.kind})),canonicalMutation:false}));
  return {schema:"ARKI-TWIN-TIMELINE-1",status:"DOCUMENTARY_HISTORY_ONLY",versions,canonicalMutation:false};
@@ -831,6 +850,13 @@ function renderTwinCommandCenter(){
 for(const mode of ["tree","brain","3d"]){const btn=el("twin-view-"+mode);if(btn)btn.addEventListener("click",()=>{twinViewMode=mode;renderTwinCommandCenter()})}
 if(el("twin-impact-toggle"))el("twin-impact-toggle").addEventListener("click",()=>{twinImpactVisible=!twinImpactVisible;el("twin-impact-toggle").setAttribute("aria-pressed",String(twinImpactVisible));renderTwinCommandCenter()});
 if(el("twin-version"))el("twin-version").addEventListener("change",()=>{twinVersion=el("twin-version").value;renderTwinCommandCenter()});
+if(el("twin-export-audit"))el("twin-export-audit").addEventListener("click",()=>{
+ try{
+  const report=twinOperationalAudit();
+  twinDownload("ARKI-TWIN-OPERATIONAL-AUDIT.json",JSON.stringify(report,null,2));
+  el("twin-audit-status").textContent="Diagnóstico exportado · "+report.gates.filter(g=>g.state==="BLOCKED").length+" puertas bloqueadas · verificación operativa NOT_VERIFIED · promoción BLOCKED";
+ }catch(error){el("twin-audit-status").textContent="AUDIT_EXPORT_FAILED: "+error.message}
+});
 if(el("twin-compare"))el("twin-compare").addEventListener("click",()=>{
  const comparison=twinThreeAlternatives(twinObservation()),root=el("twin-scenarios");
  root.textContent=comparison.alternatives.map(a=>a.id+" · "+a.title+" | piezas: "+a.total+" | traslados: "+a.moved+" | referencias desconocidas: "+a.unresolved+" | UNKNOWN").join("\n")+"\\nNo son tres ejecuciones del AGK; son escenarios documentales sin mutación.";
