@@ -37,12 +37,12 @@ function build(registry,options={}){
  const missingDependencies=new Set(issues.filter(x=>x.code==="UNKNOWN_DEPENDENCY"||x.code==="INVALID_DEPENDENCY").map(x=>x.id));
  while(ready.length){
   ready.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
-  const x=ready.shift();ordered.push({...x,priorityScore:score(x),downstreamCount:impact.get(x.id),readyForExecution:!missingDependencies.has(x.id)&&!x.excluded&&x.dependencies.every(d=>byId.has(d)),priorityBasis:"TRANSITIVE_DEPENDENCY_REACH_ONLY_NOT_CRITICAL_PATH_OR_URGENCY"});
+  const x=ready.shift();ordered.push({...x,priorityScore:score(x),downstreamCount:impact.get(x.id),dependenciesResolved:!missingDependencies.has(x.id)&&!x.excluded&&x.dependencies.every(d=>byId.has(d)),priorityBasis:"TRANSITIVE_DEPENDENCY_REACH_ONLY_NOT_CRITICAL_PATH_OR_URGENCY"});
   for(const id of children.get(x.id)){inDegree.set(id,inDegree.get(id)-1);if(inDegree.get(id)===0)ready.push(byId.get(id))}
  }
  if(ordered.length!==items.length)issues.push({code:"DEPENDENCY_CYCLE",ids:items.filter(x=>inDegree.get(x.id)>0).map(x=>x.id)});
  const branches=PHASES.map(phase=>({phase,activities:ordered.filter(x=>x.phase===phase)}));
- const result={schema:"ARKI-ARBOL-VIVO-AUTO-001",authority:"ADVISORY_ONLY",sourceCut:registry.updated_at||null,counts:{ideas:registry.ideas.length,components:registry.components.length,total:items.length,scheduled:ordered.filter(x=>x.phase).length,excluded:ordered.filter(x=>x.excluded).length},trunk:PHASES,branches,unassigned:ordered.filter(x=>!x.phase&&!x.excluded),excluded:ordered.filter(x=>x.excluded),issues,autonomy:{inventory:"AUTOMATIC",phaseAssignment:"HISTORICAL_REUSED_NOT_AUTONOMOUS",priority:"TRANSITIVE_DEPENDENCY_REACH_NO_DURATION_OR_URGENCY",experiment:"NOT_EXECUTED",measuredImprovement:"NOT_AVAILABLE",canonicalMutation:false},order:ordered.map(x=>({id:x.id,phase:x.phase,priorityScore:x.priorityScore,downstreamCount:x.downstreamCount,readyForExecution:x.readyForExecution,dependsOn:x.dependencies})),};
+ const result={schema:"ARKI-ARBOL-VIVO-AUTO-001",authority:"ADVISORY_ONLY",sourceCut:registry.updated_at||null,counts:{ideas:registry.ideas.length,components:registry.components.length,total:items.length,scheduled:ordered.filter(x=>x.phase).length,excluded:ordered.filter(x=>x.excluded).length},trunk:PHASES,branches,unassigned:ordered.filter(x=>!x.phase&&!x.excluded),excluded:ordered.filter(x=>x.excluded),issues,autonomy:{inventory:"AUTOMATIC",phaseAssignment:"HISTORICAL_REUSED_NOT_AUTONOMOUS",priority:"TRANSITIVE_DEPENDENCY_REACH_NO_DURATION_OR_URGENCY",experiment:"NOT_EXECUTED",measuredImprovement:"NOT_AVAILABLE",canonicalMutation:false},order:ordered.map(x=>({id:x.id,phase:x.phase,priorityScore:x.priorityScore,downstreamCount:x.downstreamCount,dependenciesResolved:x.dependenciesResolved,dependsOn:x.dependencies})),};
  result.receiptSha256=hash(result);return result;
 }
 function main(){
