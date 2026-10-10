@@ -85,10 +85,10 @@ function score(candidate,weights){
  const m=candidate.metrics;
  return round(m.compactness*weights.compactness+m.openSpace*weights.openSpace+m.connectivity*weights.connectivity);
 }
-function design(raw,memory=[]){
+function design(raw,memory=[],verifyLearning){
  const brief=normalize(raw);
  guard(Array.isArray(memory)&&memory.length<=100,"INVALID_MEMORY");
- const relevant=memory.filter(x=>x&&x.schema==="ARKI-MULTISCALE-LEARNING-1"&&x.scale===brief.scale&&STRATEGIES.includes(x.strategy)&&x.evidenceStatus==="INDEPENDENTLY_VERIFIED"&&x.sourceCommit===brief.sourceCommit);
+ const relevant=memory.filter(x=>x&&x.schema==="ARKI-MULTISCALE-LEARNING-1"&&x.scale===brief.scale&&STRATEGIES.includes(x.strategy)&&x.evidenceStatus==="INDEPENDENTLY_VERIFIED"&&x.sourceCommit===brief.sourceCommit&&typeof verifyLearning==="function"&&verifyLearning(x)===true);
  const candidates=STRATEGIES.map(strategy=>{
   const g=geometry(brief,strategy),historical=relevant.filter(x=>x.strategy===strategy);
   const adjustment=historical.length?historical.reduce((s,x)=>s+x.reward,0)/historical.length:0;
@@ -99,13 +99,14 @@ function design(raw,memory=[]){
  const selected=ranked[0]||null;
  return {schema:SCHEMA,briefId:brief.id,scale:brief.scale,parent:brief.parent,sourceCommit:brief.sourceCommit,briefDigest:hash(brief),candidates,selectedStrategy:selected?.strategy||null,selectedGeometry:selected?.shapes||[],selectedMetrics:selected?.metrics||null,requiredChecks:brief.constraints.requiredChecks.map(id=>({id,status:"NOT_VERIFIED",jurisdiction:"NOT_RESOLVED"})),status:selected?"CONCEPTUAL_PROPOSAL":"NO_VALID_CANDIDATE",simulation:"HEURISTIC_ONLY",learning:"VERIFIED_FEEDBACK_ONLY",canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
-function learn(result,feedback){
+function learn(result,feedback,verifyEvidence){
  guard(result&&result.schema===SCHEMA&&result.canonicalMutation===false,"INVALID_DESIGN_RESULT");
  guard(feedback&&feedback.schema==="ARKI-MULTISCALE-FEEDBACK-1"&&feedback.briefDigest===result.briefDigest&&feedback.sourceCommit===result.sourceCommit,"FEEDBACK_MISMATCH");
  guard(STRATEGIES.includes(feedback.strategy)&&result.candidates.some(c=>c.strategy===feedback.strategy&&c.valid),"INVALID_FEEDBACK_STRATEGY");
  guard(Number.isFinite(feedback.reward)&&feedback.reward>=-1&&feedback.reward<=1,"INVALID_REWARD");
  guard(feedback.verifier==="EXTERNAL"&&feedback.evidenceStatus==="INDEPENDENTLY_VERIFIED"&&/^[a-f0-9]{64}$/.test(feedback.evidenceDigest||""),"UNVERIFIED_FEEDBACK");
- // Caller must actually authenticate external verifier; labels and hashes are NOT cryptographic proof.
- return {schema:"ARKI-MULTISCALE-LEARNING-1",scale:result.scale,strategy:feedback.strategy,sourceCommit:result.sourceCommit,briefDigest:result.briefDigest,reward:feedback.reward,evidenceDigest:feedback.evidenceDigest,evidenceStatus:"INDEPENDENTLY_VERIFIED",verificationClaimOnly:true,canonicalPromotion:"BLOCKED",canonicalMutation:false};
+ guard(typeof verifyEvidence==="function"&&verifyEvidence(feedback)===true,"INDEPENDENT_VERIFICATION_REQUIRED");
+ // External callback must authenticate evidence, not merely inspect the label.
+ return {schema:"ARKI-MULTISCALE-LEARNING-1",scale:result.scale,strategy:feedback.strategy,sourceCommit:result.sourceCommit,briefDigest:result.briefDigest,reward:feedback.reward,evidenceDigest:feedback.evidenceDigest,evidenceStatus:"INDEPENDENTLY_VERIFIED",verificationClaimOnly:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
 module.exports={SCHEMA,SCALES,STRATEGIES,normalize,geometry,design,learn};
