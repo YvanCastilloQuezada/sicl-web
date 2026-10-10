@@ -1221,7 +1221,7 @@ function runE3Checks(){
 const checks=[];
 const test=(id,fn)=>{try{const ok=Boolean(fn());checks.push({id,status:ok?"PASS":"FAIL"});}catch(e){checks.push({id,status:"FAIL",detail:String(e.message)});}};
 test("TEN_PHASES",()=>phases.length===10&&phases.every((p,i)=>p.id==="F"+(i+1)));
-test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>{const gate=spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id));return gate&&Array.isArray(gate.items)&&gate.items.every(item=>item&&typeof item==="object");})));
+test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>{const gate=spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id));const expected=[...ideas,...components].filter(x=>placements[x.id]===p.id&&currentSpine()[x.id]===String(i));return gate&&Array.isArray(gate.items)&&gate.items.length===expected.length&&gate.items.every(item=>expected.some(x=>x.id===item.id))&&Array.isArray(gate.missingEvidence)&&Array.isArray(gate.missingTargets)&&Array.isArray(gate.crossPhase)&&Array.isArray(gate.withDeclaredReview);})));
 test("ROADMAP_MATRIX_NAVIGATION",()=>((roadmapMilestoneMatrix().match(/data-roadmap-stage="/g)||[]).length===40));
 test("SPINE_DECLARED_DEPENDENCIES_ONLY",()=>phases.every(p=>{const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id);const output=spineDependencyMap(p.id,staged);const declared=staged.flatMap(x=>reviews[x.id]?.dependencies||[]).length;return output.includes("Mapa visual de dependencias")&&(declared>0||!output.includes('class="spine-map-external"'));}));
 
@@ -1229,7 +1229,7 @@ test("ADVISOR_READONLY_AND_TEN_PHASES",()=>{const before=JSON.stringify({placeme
 test("TWIN_ACS_SEPARATE_GATES",()=>{const panel=twinReadinessPanel();return panel.includes("1. KNOW")&&panel.includes("4. EVOLVE")&&panel.includes("DATOS Y PROCEDENCIA")&&panel.includes("NO VERIFICADO EN ESTA MAQUETA");});
 test("FROZEN_CANONICAL_READONLY",()=>phases.every(p=>p.status===state.roadmap.phases.find(x=>x.id===p.id)?.status));
 test("DRAFT_SCHEMA",()=>Object.keys(validateDraft({schema:DRAFT_SCHEMA,placements})).length===Object.keys(placements).length);
-test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&Object.keys(validateSpineAssignments(spineAssignments,placements)).length>=0&&Object.keys(validateSpineAssignments(alternativeSpineAssignments,placements)).length>=0);
+test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&JSON.stringify(validateSpineAssignments(spineAssignments,placements))===JSON.stringify(spineAssignments)&&JSON.stringify(validateSpineAssignments(alternativeSpineAssignments,placements))===JSON.stringify(alternativeSpineAssignments));
 test("TRACE_SCHEMA",()=>validateTraceEvents(traceEvents).length===traceEvents.length&&Object.keys(validateTraceNotes(traceNotes)).length>=0);
 test("SOURCE_HISTORY",()=>Array.isArray(sourceHistory)&&sourceHistory.every(e=>e&&typeof e.action==="string"&&typeof e.id==="string"));
 test("BROWSER_STORAGE_ROUNDTRIP",()=>{
