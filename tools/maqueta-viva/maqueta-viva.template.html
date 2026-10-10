@@ -722,6 +722,12 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .scope-phase-card small{font-size:11px;line-height:1.4}
 .scope-head p{max-width:75ch}
 @media(min-width:1121px){.layout.executive-layout>.information-rail{min-width:245px}}
+
+/* Compact search at far right: magnifier + PIEZA. */
+.commandbar .piece-search{display:flex;align-items:center;gap:6px;order:2;flex:0 0 145px;width:145px;margin-left:auto;padding:0 8px;border:1px solid #456582;border-radius:7px;background:#102137;color:#9cc7e9;box-sizing:border-box}
+.commandbar .piece-search input#search{border:0;background:transparent;color:#e9f4ff;min-width:0;width:100%;flex:1 1 auto;margin:0;padding:8px 0;outline-offset:2px}
+.commandbar .piece-search input#search::placeholder{color:#b6cde1;opacity:1}
+@media(max-width:760px){.commandbar .piece-search{flex:0 0 145px;margin-left:auto}}
 </style>
 </head>
 <body>
@@ -2612,7 +2618,7 @@ app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Vista completa
 '<div class="commandbar" role="toolbar" aria-label="Búsqueda y navegación de ARKI">'+
 
 '<nav class="command-tabs" aria-label="Menú principal"><div class="command-group">'+[['structure','Estructura'],['connections','Conexiones'],['roadmap','Roadmap'],['scenarios','Escenarios'],['parts','Inventario'],['floating','Flotantes']].map(([k,l])=>'<button class="tab '+(tab===k?"active":"")+'" data-tab="'+k+'" aria-pressed="'+(tab===k)+'">'+l+'</button>').join("")+'</div><div class="command-group">'+[['pending','Pendientes'],['ideas','Ideas'],['components','Dispersas'],['frozen','FROZEN']].map(([k,l])=>'<button class="tab tray-menu '+(tray===k?"active":"")+'" data-tray="'+k+'" aria-pressed="'+(tray===k)+'">'+l+'</button>').join("")+'</div><button class="tab tray-menu '+(tab==="arkiideas"?"active":"")+'" data-tab="arkiideas" aria-pressed="'+(tab==="arkiideas")+'">Ideas ARKI</button><button class="tab '+(tab==="research"?"active":"")+'" data-tab="research" aria-pressed="'+(tab==="research")+'">Research & Trends</button><button type="button" class="tab source-history-tab" data-source-history aria-expanded="'+sourceHistoryOpen+'">Historial fuentes ('+sourceHistory.length+')</button><button type="button" class="tab e3-windows-tab" data-e3-toggle aria-expanded="'+e3Open+'">Pruebas E3 Windows</button></nav>'+
-'<input id="search" type="search" placeholder="Buscar pieza…" aria-label="Buscar piezas" value="'+escapeHtml(search)+'">'+
+'<label class="piece-search" for="search"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="PIEZA" aria-label="Buscar pieza" value="'+escapeHtml(search)+'"></label>'+
 '</div>'+
 (tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
 sourceAuxPanel()+
