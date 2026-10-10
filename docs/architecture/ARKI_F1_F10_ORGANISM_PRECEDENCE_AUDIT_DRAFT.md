@@ -94,3 +94,34 @@ Sin dependencia registrada = **NO DEMOSTRADA**, nunca inferir precedencia por pa
 5. Reconciliar hallazgos con el consolidado de septiembre, respetando freezes posteriores.
 
 **Resultado:** auditoría documental y lectura de archivos; ninguna mutación canónica, promoción ni implementación de producto.
+
+## 9. Corte de auditoría Developer → Core — 2026-10-09
+
+**Repositorios y referencia:** lectura directa de `sicl-web/main` (archivos individuales); no se ejecutó test, no se inspeccionó el árbol completo de Core y no se verificó CI. No atribuir resultados de búsqueda indexada vacía a ausencia de código.
+
+| Contrato / paso | Evidencia directa en sicl-web/main | Estado |
+|---|---|---|
+| DeveloperProposal DTO y validación | `shared/arkiDeveloperProposal.ts`, blob `0b68b8f7846ab9c4927832d5d1fe684c62343cb8`; `validateDeveloperProposal()` y control de propiedad `canonical` | **EXISTE EN CÓDIGO / NO EJECUTADO** |
+| Developer proposal-only | `server/arkiArchitecturalDeveloper.ts`, blob `0d31cffb4850ed3263b7fa5f9638ff5fad73bd24`; `developProposal()`, sin llamada Core en ese archivo; produce propuesta y validación | **EXISTE EN CÓDIGO / NO EJECUTADO** |
+| Candidate/Parti gate | `developProposal()` exige `SELECTED_FOR_DEVELOPMENT`, comprueba `projectId` y fingerprint de Parti | **EXISTE EN CÓDIGO / NO EJECUTADO** |
+| UNKNOWN y semántica G12 | Developer registra UNKNOWN y limitación `G12_NO_TEMPLATE_HARDCODING=FAIL` si procede | **EXISTE EN CÓDIGO / NO EJECUTADO** |
+| Pruebas adversariales del Developer | `server/arkiArchitecturalDeveloper.test.ts`, blob `4e19d4b8116e8a7b360fe305e47e6804e899ce82`; pruebas declaradas de fingerprint, UNKNOWN, ausencia de DOOR inventada y `canonical:true` | **PRUEBAS ESCRITAS / NO EJECUTADAS** |
+| Motor geométrico existente | `server/arkiGeometryKernel.ts`, blob `3ca30eef47ad9a66e814d05f213648751a9c74bc`; importa bridge D63→D2 y fingerprint | **ARCHIVO EXISTE / SEMÁNTICA NO AUDITADA** |
+| Proposal persistida en event log Core | No se verificó ruta, implementación ni test | **UNKNOWN** |
+| HumanReview exacto con fingerprint persistido | No se verificó ruta, implementación ni test | **UNKNOWN** |
+| Core-owned promotion + A002/ArchiTransaction/H-chain | No se verificó ruta, implementación ni test | **UNKNOWN** |
+| D-2 committed → ARE/DRAW + impacto/recomputación | No se verificó circuito E2E | **UNKNOWN** |
+
+### Hallazgo de precedencia
+El **Developer ya existe**, por lo que crear otro Developer o DTO sería duplicación. La siguiente investigación de máximo valor es **recorrer desde la salida de `developProposal()` hacia persistencia, HumanReview y Core promotion**, y ejecutar pruebas sobre HEAD exacto. No afirmar que Core promotion falta: está **UNKNOWN** hasta inspección por rutas reales.
+
+### Prueba mínima para pasar de UNKNOWN a VERIFIED
+- Identificar endpoints, propietarios, DTOs y eventos reales en Core y Web.
+- Demostrar persistencia append-only y fingerprint estable en propuesta recuperada.
+- Rechazar propuesta alterada después de HumanReview (TOCTOU).
+- Verificar rechazo de UNKNOWN no sustentado y de `canonical:true` desde Web.
+- Verificar transacción fail-closed y ausencia de mutación D-2 ante rechazo.
+- Verificar commit D-2 solamente tras aprobación exacta y representación desde ese commit.
+- Registrar comandos, SHA exactos, salida y CI, sin dar verde por la mera existencia de pruebas.
+
+**No implementar hasta cerrar contrato y evidencia.**
