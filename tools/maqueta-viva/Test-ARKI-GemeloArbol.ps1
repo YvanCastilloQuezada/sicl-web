@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8/E9 HEADLESS / DAG + RECONCILIATION + REVISIONS" {
+    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8/E9/E10 HEADLESS / REVISIONS + READINESS GATES" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -195,6 +195,16 @@ try {
    const e9Portable=exportTwinWorkspace();
    check(importTwinWorkspace(e9Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E9 review workspace roundtrip");
    check(e9RevisionSnapshot()[0].status==="PROVISIONAL_ONLY","E9 review unexpectedly promoted");
+   check(document.getElementById("e10-evaluate"),"E10 readiness control missing");
+   const e10Before=JSON.stringify({decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot(),evidence:e6EvidenceSnapshot()});
+   document.getElementById("e10-evaluate").click();
+   const e10=e10ReadinessReport();
+   check(e10.status==="NOT_READY_FOR_CANONICAL_PROMOTION","E10 must block unverified canonical promotion");
+   check(e10.blockers.includes("DOCUMENTARY_VERIFICATION"),"E10 missing verification gate");
+   check(e10.blockers.includes("CANONICAL_PROMOTION"),"E10 missing canonical authorization gate");
+   check(e10.checks.some(x=>x.id==="EXTERNAL_E2E_CERTIFICATION"&&x.status==="NOT_ASSESSED"),"E10 must not claim external E2E certification");
+   check(document.getElementById("e10-report").textContent.includes("NOT_READY_FOR_CANONICAL_PROMOTION"),"E10 readiness panel not rendered");
+   check(JSON.stringify({decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot(),evidence:e6EvidenceSnapshot()})===e10Before,"E10 mutated historical receipts");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
