@@ -55,3 +55,13 @@ Rutas de fallo explícitas: `UNKNOWN`, `INSUFFICIENT_EVIDENCE`, `TEST_FAILED`, `
 Una prueba de mejora continua autónoma debe comenzar con un encargo o déficit inicial, permitir que ARKI identifique al menos una oportunidad **no predefinida por el operador**, genere alternativas, ejecute pruebas autorizadas, compare contra baseline y conserve una decisión justificable. Repetir el ciclo sobre la observación nueva demuestra continuidad; un único script que reordena tareas no la demuestra.
 
 **Estado real a 2026-10-10:** esta definición está documentada en la rama experimental; no se afirma que la autonomía esté ejecutándose ni que la regla esté ya integrada al estado canónico.
+
+## Referencia ejecutable experimental A0/A1
+
+Se añadieron `arki-adn-mejora-continua.cjs`, `arki-adn-mejora-continua.test.cjs` y `Run-ARKI-ADN-MC.cjs` en `tools/maqueta-viva/`. Detectan deficits en métricas verificadas, generan hipótesis de mejora deterministas y producen un reporte de solo lectura. No ejecutan geometría, no modifican FROZEN ni promueven resultados al Core.
+
+`iterate()` se detiene tras la primera observación; para continuar exige observaciones independientes nuevas. `evaluate()` mantiene las mejoras como pendientes de revisión externa. El runner se inicia manualmente; no existe todavía un disparador autónomo persistente.
+
+Prueba: `node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs`.
+
+**Estado:** IMPLEMENTED_EXPERIMENTALLY / NOT_CANONICAL / AUTONOMOUS_RUNTIME_NOT_IMPLEMENTED / NOT_VERIFIED.
