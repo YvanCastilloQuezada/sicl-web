@@ -13,6 +13,8 @@ on:
       - 'tools/maqueta-viva/arki-adn-mejora-continua.cjs'
       - 'tools/maqueta-viva/arki-adn-mejora-continua.test.cjs'
       - 'tools/maqueta-viva/Run-ARKI-ADN-MC.cjs'
+      - 'tools/maqueta-viva/arki-adn-observer.cjs'
+      - 'tools/maqueta-viva/arki-adn-observer.test.cjs'
       - '.github/workflows/av-ui-001-tree-twin.yml'
   workflow_dispatch:
 jobs:
@@ -28,6 +30,7 @@ jobs:
       - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
       - run: node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
       - run: node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
+      - run: node tools/maqueta-viva/arki-adn-observer.test.cjs
   windows-synthetic-regression:
     runs-on: windows-latest
     permissions:
@@ -44,3 +47,4 @@ jobs:
           node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
           node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
           node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
+          node tools/maqueta-viva/arki-adn-observer.test.cjs
