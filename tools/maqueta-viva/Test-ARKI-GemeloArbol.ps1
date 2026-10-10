@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3-E10 HEADLESS / INTEGRATION + ATOMIC RECOVERY" {
+    Step "05 REAL BROWSER E3-E10 HEADLESS / TWIN 3 VIEWS + ATOMIC RECOVERY" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -217,6 +217,29 @@ try {
    check(importTwinPhases(recoveryValid.phases,true).status==="IMPORTED_ALTERNATIVE_PHASES","Persistence: phase preflight failed");
    check(importStructuralHistory(recoveryValid.history,true).status==="IMPORTED_LOCAL_HISTORY","Persistence: history preflight failed");
    check(exportTwinWorkspace()===recoveryBaseline,"Persistence: preflight mutated live state");
+   const twinBefore=exportTwinWorkspace();
+   check(document.getElementById("twin-command-center"),"ÁRBOL Gemelo Digital panel missing");
+   check(twinObservation().canonicalMutation===false&&twinObservation().verification==="UNKNOWN","Twin observer claimed verification");
+   for(const mode of ["tree","brain","3d"]){
+     document.getElementById("twin-view-"+mode).click();
+     check(twinViewMode===mode,"Twin view not switched: "+mode);
+     check(document.getElementById("twin-visual").querySelector("svg"),"Twin SVG missing: "+mode);
+     check(document.getElementById("twin-visual").querySelectorAll("[data-twin-id]").length>=10,"Twin nodes missing: "+mode);
+   }
+   const twinPick=document.getElementById("twin-visual").querySelector('[data-twin-id="F10"]');
+   check(twinPick,"Twin F10 selection missing");
+   twinPick.click();
+   check(selected==="F10","Twin views did not synchronize selected phase");
+   const twinLatest=structuralHistory.at(-1)?.version;
+   check(twinLatest,"Twin historical snapshot missing");
+   const twinSelector=document.getElementById("twin-version");
+   twinSelector.value=twinLatest;
+   twinSelector.dispatchEvent(new Event("change",{bubbles:true}));
+   check(twinObservation().version===twinLatest,"Twin timeline did not select historical snapshot");
+   check(document.getElementById("twin-inspector").textContent.includes(twinLatest),"Twin inspector does not show historical version");
+   twinSelector.value="CURRENT";twinSelector.dispatchEvent(new Event("change",{bubbles:true}));
+   check(twinObservation().version==="CURRENT","Twin timeline failed to return to current state");
+   check(exportTwinWorkspace()===twinBefore,"Twin visualization mutated workspace");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
