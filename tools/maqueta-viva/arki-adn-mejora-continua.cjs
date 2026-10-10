@@ -81,4 +81,22 @@ function nextObservation(previous,newInput){
  const result=propose(obs);
  return {schema:"ARKI-ADN-ITERATION-1",cycles:[...previous.cycles,{iteration:previous.cycles.length+1,observationId:obs.observationId,deficits:result.deficits,proposals:result.proposals,observationDigest:result.observationDigest,execution:"NOT_EXECUTED",learning:"NOT_VERIFIED",canonicalMutation:false}],stopReason:"AWAITING_INDEPENDENT_OBSERVATION_AND_AUTHORIZED_EXPERIMENT",canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
-module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation};
+function compareObservations(beforeInput,afterInput){
+ const before=normalize(beforeInput),after=normalize(afterInput);
+ assert(before.observationId!==after.observationId,"DUPLICATE_OBSERVATION");
+ const old=new Map(before.metrics.map(m=>[m.id,m]));
+ assert(old.size===after.metrics.length,"METRIC_SET_MISMATCH");
+ const comparisons=[];
+ for(const m of after.metrics){
+  const b=old.get(m.id);
+  assert(b&&b.unit===m.unit&&b.direction===m.direction&&b.target===m.target,"METRIC_CONTRACT_CHANGED");
+  const delta=m.direction==="MINIMIZE"?b.value-m.value:m.value-b.value;
+  const state=!b.verified||!m.verified?"UNKNOWN":delta>0?"IMPROVED":delta<0?"REGRESSED":"UNCHANGED";
+  comparisons.push({metricId:m.id,state,delta:Number(delta.toPrecision(12)),unit:m.unit});
+ }
+ const regressions=comparisons.filter(x=>x.state==="REGRESSED");
+ const unknown=comparisons.filter(x=>x.state==="UNKNOWN");
+ const improvements=comparisons.filter(x=>x.state==="IMPROVED");
+ return {schema:"ARKI-ADN-COMPARISON-1",baselineDigest:hash(before),candidateDigest:hash(after),comparisons,summary:{improvements:improvements.length,regressions:regressions.length,unknown:unknown.length},recommendation:regressions.length?"REJECT_REGRESSION":unknown.length?"INSUFFICIENT_EVIDENCE":improvements.length?"INDEPENDENT_REVIEW_REQUIRED":"NO_DEMONSTRATED_IMPROVEMENT",learningVerified:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
+}
+module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation,compareObservations};
