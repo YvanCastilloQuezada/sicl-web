@@ -89,6 +89,13 @@ try {
       Log "ADN_OBSERVER=PASS; LOCAL_ONLY; NO_CORE_AGK_EXECUTION"
     } finally { Pop-Location }
   }
+  Step "03E MULTISCALE ARCHITECTURAL DESIGN / ADAPTIVE LEARNING" {
+    Push-Location $Repo
+    try {
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-multiscale-design.test.cjs")
+      Log "MULTISCALE_DESIGN=PASS; SEVEN_DOMAINS; HEURISTIC_ONLY; CANONICAL_UNCHANGED"
+    } finally { Pop-Location }
+  }
   Step "03B SIGNED RECEIPT / INDEPENDENT NODE VERIFIER" {
     $FixtureDir = Join-Path ([IO.Path]::GetTempPath()) ("ARKI-TWIN-SIGNATURE-" + [guid]::NewGuid().ToString("N"))
     try {
