@@ -697,6 +697,20 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .command-tabs{flex:1 1 auto;min-width:0;justify-content:flex-start;justify-self:auto;overflow-x:auto}
 .commandbar input#search{order:2;flex:0 0 clamp(150px,15vw,225px);width:clamp(150px,15vw,225px);min-width:130px;margin-left:auto;justify-self:auto}
 @media(max-width:760px){.commandbar{flex-wrap:wrap}.command-tabs{flex-basis:100%;order:1}.commandbar input#search{flex:1 1 170px;max-width:100%;order:2;margin-left:auto}}
+
+/* Screenshot correction 2026-10-09: readable left rail, unclipped navigation. */
+.layout,.layout.executive-layout{display:grid;grid-template-columns:minmax(245px,285px) minmax(0,1fr) minmax(210px,250px);gap:12px}
+.layout.executive-layout>.right{display:none}
+.layout.executive-layout{grid-template-columns:minmax(245px,285px) minmax(0,1fr)}
+.layout>.information-rail{grid-column:1;grid-row:1;min-width:0;width:auto;box-sizing:border-box}
+.layout>.center{grid-column:2;grid-row:1;min-width:0}
+.layout>.right{grid-column:3;grid-row:1}
+.commandbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.command-tabs{display:flex;flex:1 1 720px;flex-wrap:wrap;white-space:normal;overflow:visible;max-width:none;min-width:0;justify-content:flex-start}
+.command-tabs .command-group{flex-wrap:wrap}
+.commandbar input#search{flex:0 0 190px;width:190px;max-width:100%;margin-left:auto;order:2}
+@media(max-width:1120px){.layout,.layout.executive-layout{grid-template-columns:minmax(235px,270px) minmax(0,1fr)}.layout>.right{grid-column:1/-1;grid-row:2}.command-tabs{flex-basis:100%}}
+@media(max-width:700px){.layout,.layout.executive-layout{display:flex;flex-direction:column}.layout>.information-rail{position:static;max-height:none;width:100%;order:2}.layout>.center{width:100%;order:1}.layout>.right{width:100%;order:3}.commandbar input#search{flex:1 1 180px}}
 </style>
 </head>
 <body>
@@ -1357,6 +1371,13 @@ function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_
 function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es"));}
 function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
 function informationRail(){
+if(viewScope==="ALL"&&(!selected||selected===activePhase||/^F(?:10|[1-9])$/.test(selected))){
+const count=Object.keys(placements).length;
+return '<h2>Información · F1–F10</h2><p class="caption">Vista completa del nivel '+escapeHtml(EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.number||"02")+'. Selecciona una pieza para consultar sus antecedentes y evidencia.</p>'+
+'<div class="field"><label>Ámbito</label><strong>10 fases · '+count+' piezas colocadas en borrador</strong></div>'+
+'<div class="field"><label>Estados de fase</label><strong>'+phases.map(p=>escapeHtml(p.id+" · "+p.status)).join("<br>")+'</strong></div>'+
+'<details class="rail-details"><summary>Alcance y límites</summary><p class="caption">Esta vista resume el estado local. No acredita integración ni pruebas ejecutadas.</p></details>';
+}
 const id=selected||activePhase,p=node(id),owner=placements[id]||p.targetPhase||(/^(F(?:10|[1-9]))$/.test(id)?id:"SIN UBICAR");
 const declared=Array.isArray(reviews[id]?.dependencies)?reviews[id].dependencies:[];
 const consumers=Object.entries(reviews).filter(([from,r])=>from!==id&&Array.isArray(r.dependencies)&&r.dependencies.includes(id)).map(([from])=>from);
