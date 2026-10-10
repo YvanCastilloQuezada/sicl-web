@@ -255,4 +255,15 @@ assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>null}).status",sandbo
 assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{throw Error('quota')}}).status",sandbox),"LOCAL_STORAGE_UNAVAILABLE");
 assert.equal(typeof document.getElementById("twin-save-browser").listeners.click,"function");
 assert.equal(typeof document.getElementById("twin-load-browser").listeners.click,"function");
+// E5 new candidates are synthesized from actual fixture gaps, not copied historical ideas.
+const e5=vm.runInContext("synthesizeNewBranches()",sandbox);
+assert.equal(e5.status,"RULE_BASED_CANDIDATES_ONLY");
+assert.ok(e5.candidates.length>0,"E5 must return at least an explicit audit hypothesis");
+assert.ok(e5.candidates.every(x=>x.status==="PROPOSED_ONLY"&&x.evidence==="UNKNOWN"&&x.canonicalMutation===false));
+assert.ok(e5.candidates.every(x=>Array.isArray(x.requiredEvidence)&&x.requiredEvidence.length>0));
+assert.ok(e5.candidates.every(x=>!x.sourceIds.some(id=>id===x.id)),"Candidates must not masquerade as documentary sources");
+assert.equal(typeof document.getElementById("e5-generate").listeners.click,"function");
+vm.runInContext("renderNewBranchCandidates()",sandbox);
+assert.ok(document.getElementById("e5-candidates").children.length>0,"E5 candidates rendered");
+assert.equal(vm.runInContext("JSON.stringify(synthesizeNewBranches())",sandbox),vm.runInContext("JSON.stringify(synthesizeNewBranches())",sandbox),"Candidate synthesis must be deterministic");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
