@@ -4,15 +4,18 @@
 
 Ejecutar `ARKI-MAQUETA-VIVA.cmd` desde el repositorio. Abre la maqueta local; no necesita un servidor público. Las fichas y ubicaciones son borradores del navegador. **No constituyen integración de código ni estado canónico**.
 
-## Ensamblaje
+## Uso actual — fases, vertebral, bandeja y propuestas
 
-1. Elegir F1–F10 en la barra derecha.
-2. Seleccionar una idea o componente histórico desde la izquierda o los botones amarillos.
-3. Arrastrar la pieza a la mesa azul o elegir destino y `Ubicar pieza`.
-4. Completar la ficha: repositorio, ruta, SHA exacto, prueba declarada y dependencias.
-5. Exportar el borrador `arki-maqueta-borrador.json` para respaldo.
+1. Abrir el acceso directo local. **F1–F10 están en la barra superior**, con colores de identidad distintos; **la bandeja de piezas está a la derecha** y la mesa azul ocupa el centro.
+2. Seleccionar una fase. Se abre por defecto **Columna vertebral y espinas**, con cuatro hitos estructurales **propuestos**. La vista `Mesa libre` conserva las tarjetas móviles.
+3. Elegir una idea de la bandeja derecha y pulsar `Ubicar` o arrastrarla a la mesa. Una pieza ubicada desaparece de la bandeja; `X` la devuelve. Ubicar una pieza no equivale a integrarla.
+4. Vincular una espina a un hito explícitamente; las sugerencias textuales requieren decisión humana. `Referencia propuesta` y `Alternativa A` son escenarios locales, **no el roadmap oficial**.
+5. Para declarar una dependencia entre dos piezas: `Conectar piezas`, seleccionar origen (pieza que depende) y destino (pieza necesaria); la línea punteada es **propuesta local no verificada**.
+6. Abrir `Ideas ARKI` o `Volver a decisiones` para consultar diagnósticos recalculados desde la instantánea local. `Aprobar evaluación` **no autoriza** ejecutar cambios ni hacer merge.
+7. La **Evolución 05 / ARKI Autocorrectivo** prepara un caso con impacto y autorización local `AUTORIZO`. El ejecutor GitHub V0 exige PR de alcance limitado, SHA exacto, autorización del propietario, revisión independiente Qwen y CI. **No ejecuta reparaciones por sí mismo**.
+8. Exportar `arki-maqueta-borrador.json` para conservar fichas, escenarios y decisiones. La maqueta funciona offline y **no detecta por sí sola ramas remotas**: actualizar la copia local y relanzar para refrescar el corte fuente.
 
-La indicación `LISTA PARA SOLICITAR AUDITORÍA` solo indica que hay referencias declaradas y dependencias ubicadas. **No indica que los tests se ejecutaron ni que el componente está integrado.**
+**Evolución 03 / Gemelo Digital:** panel de preparación y trazabilidad del proyecto, **no gemelo físico-operacional certificado**. Ver `docs/arki-master-map/ARKI_DIGITAL_TWIN_REAL_DATA_GATE_2026-10-08.md`. **S10:** la ingestión estructurada existe, pero el backup SQL Server real requiere caracterización/restore aislado y conciliación antes de declarar un baseline real aceptado.
 
 ## Verificación GitHub de solo lectura (opcional)
 
