@@ -42,7 +42,7 @@ const document = {
   },
   createElement(tag) { return new Element(tag); }
 };
-const sandbox = vm.createContext({ document, console });
+const sandbox = vm.createContext({ document, console, crypto: require("node:crypto").webcrypto, TextEncoder: require("node:util").TextEncoder });
 vm.runInContext(match[1], sandbox, { timeout: 3000, filename: "av-ui-001-inline.js" });
 vm.runInContext("state = {roadmap:{phases:[{id:'F6',status:'FROZEN'},{id:'F1',status:'RECONCILIATION_REQUIRED'}]},updated_at:'TEST_ONLY'};draft = "+JSON.stringify(fixture)+";show();", sandbox, { timeout: 3000 });
 
@@ -523,4 +523,17 @@ assert.equal(vm.runInContext("twinAgkMesh.triangles.length",sandbox),1);
 vm.runInContext("twinViewMode='3d';renderTwinCommandCenter()",sandbox);
 assert.match(document.getElementById("twin-visual").innerHTML,/polygon/);
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"External observation and alternatives must not mutate workspace");
-console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
+(async()=>{
+ const before=vm.runInContext("exportTwinWorkspace()",sandbox);
+ const backup=await vm.runInContext("exportTwinVerifiedBackup()",sandbox);
+ assert.equal(JSON.parse(backup).algorithm,"SHA-256");
+ assert.equal(JSON.parse(backup).sha256,require("node:crypto").createHash("sha256").update(before,"utf8").digest("hex"));
+ sandbox.__backup=backup;
+ assert.equal((await vm.runInContext("importTwinVerifiedBackup(__backup)",sandbox)).status,"IMPORTED_ALTERNATIVE_WORKSPACE");
+ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Valid backup roundtrip changed workspace");
+ const tampered=JSON.parse(backup);tampered.payload=tampered.payload.replace("ARKI-TREE-TWIN-WORKSPACE-1","ARKI-TREE-TWIN-WORKSPACE-2");
+ sandbox.__tamperedBackup=JSON.stringify(tampered);
+ assert.equal((await vm.runInContext("importTwinVerifiedBackup(__tamperedBackup)",sandbox)).status,"BACKUP_HASH_MISMATCH");
+ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Tampered backup changed workspace");
+ console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
+})().catch(error=>{console.error(error);process.exitCode=1});
