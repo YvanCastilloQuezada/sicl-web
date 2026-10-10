@@ -141,6 +141,17 @@ function structuralScenario(){
  const noGraph=nodes.filter(x=>!graph.rows.some(y=>y.id===x.id)).length;
  return {nodes,duplicates,summary:{total:nodes.length,moved:moved.length,unchanged:nodes.length-moved.length,crossPhase:nodes.filter(x=>x.secondaryPhases.length).length,missingDependencies:missing.length,noGraph},status:"SIMULATION_ONLY",canonicalMutation:false};
 }
+function structuralComparison(){
+ const scenario=structuralScenario();
+ return scenario.nodes.map(n=>({
+  id:n.id,title:n.title,officialPhase:n.phase,alternativePhase:n.proposedPhase,
+  secondaryPhases:n.secondaryPhases,dependencies:n.dependencies,
+  unknownDependencies:n.unknownDependencies,reason:n.reason,
+  risks:n.risks,evidence:n.evidence,
+  benefit:n.change==="PROPOSED_MOVE"?"Mayor afinidad terminológica con fase propuesta; beneficio operativo NO VERIFICADO":"Sin beneficio nuevo acreditado",
+  action:n.change==="PROPOSED_MOVE"?"REVIEW_PROPOSAL":"KEEP_DOCUMENTARY_PLACEMENT"
+ }));
+}
 function showAdaptive(){
  const root=el("adaptive");if(!root)return;
  root.replaceChildren();
@@ -155,6 +166,11 @@ entry(root,"Escenario alternativo integral","Piezas: "+scenario.summary.total+" 
 entry(root,"Relaciones y evidencia","Con fases secundarias: "+scenario.summary.crossPhase+" · dependencias ausentes: "+scenario.summary.missingDependencies+" · sin grafo local: "+scenario.summary.noGraph);
 for(const n of scenario.nodes.filter(x=>x.phase===selected&&x.change==="PROPOSED_MOVE").slice(0,4))entry(root,"Escenario "+n.id,n.phase+" → "+n.proposedPhase+" · vínculos transversales: "+(n.secondaryPhases.join(", ")||"ninguno declarado")+" · "+n.reason);
 entry(root,"Comparación","Oficial: ubicaciones documentales. Alternativo: hipótesis de fase principal + relaciones transversales. Beneficio por validar; impacto operativo UNKNOWN.");
+const comparisons=structuralComparison().filter(x=>x.officialPhase===selected&&x.action==="REVIEW_PROPOSAL");
+entry(root,"Comparación por pieza",String(comparisons.length)+" diferencias propuestas para "+selected);
+for(const x of comparisons.slice(0,5))entry(root,x.id+" · "+x.officialPhase+" → "+x.alternativePhase,
+ "Motivo: "+x.reason+" · Riesgos: "+(x.risks.join(", ")||"sin riesgos declarados")+" · Evidencia: "+x.evidence+" · Beneficio: "+x.benefit);
+
 entry(root,"Control","FROZEN histórico no bloquea propuestas en este espacio experimental. Ninguna mutación canónica ni promoción automática.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
