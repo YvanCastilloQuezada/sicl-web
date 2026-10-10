@@ -23,8 +23,13 @@ while ($true) {
     if ($fingerprint -ne $last) {
       $head = (& git rev-parse HEAD).Trim()
       if ($head -ne $experimentalSha) {
-        Write-Warning "El checkout local no está actualizado. Para actualizarlo sin sobrescribir cambios, detén el watcher, verifica git status y cambia al SHA $experimentalSha."
-      } else {
+        $dirty = @(& git status --porcelain)
+        $activeBranch = (& git symbolic-ref --quiet --short HEAD 2>$null)
+        if ($dirty.Count -gt 0 -or $activeBranch) { throw "Checkout no actualizable: cambios locales o rama activa. No se modifica." }
+        & git switch --detach $experimentalSha
+        if ($LASTEXITCODE -ne 0) { throw "No se pudo actualizar el checkout experimental" }
+      }
+      {
         & pwsh -NoProfile -File (Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")
         if ($LASTEXITCODE -ne 0) { throw "Instalación o pruebas fallaron; no se acredita sincronización" }
         $last = $fingerprint
