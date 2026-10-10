@@ -114,4 +114,12 @@ assert.equal(compared.officialPhase,'F2',"Comparison preserves documentary phase
 assert.equal(compared.alternativePhase,'F7',"Comparison displays proposed phase");
 assert.match(compared.benefit,/NO VERIFICADO/,"Benefits cannot be claimed as verified");
 assert.match(document.getElementById('adaptive').innerText,/Comparación por pieza/,"Comparison visible in panel");
+const impact=vm.runInContext("incrementalImpact({kind:'DEPENDENCY',id:'X2'})",sandbox);
+assert.equal(impact.status,'IMPACT_ESTIMATE_ONLY',"Known dependency impact estimated");
+assert.deepEqual(Array.from(impact.affected),['X1','X2'],"Transitive dependent included");
+assert.ok(impact.phases.includes('F2')&&impact.phases.includes('F7'),"Both official and proposed phases affected");
+assert.equal(impact.canonicalMutation,false,"Incremental impact is read only");
+const unresolved=vm.runInContext("incrementalImpact({kind:'IDEA',id:'UNKNOWN-NEW'})",sandbox);
+assert.equal(unresolved.status,'UNRESOLVED_ID',"Unknown idea cannot be silently inserted");
+assert.equal(unresolved.recomputeAll,true,"Unknown idea requests reconciliation");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
