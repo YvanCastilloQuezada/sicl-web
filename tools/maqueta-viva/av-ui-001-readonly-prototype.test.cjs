@@ -67,4 +67,4 @@ assert.equal(vm.runInContext("selectedBranch", sandbox), "TEST-F10", "Branch sel
 assert.match(document.getElementById("memory").innerText, /TEST-F1/, "Left panel shows predecessor");
 assert.match(document.getElementById("tree").innerText, /Conexiones de TEST-F10/, "Contextual connections rendered");
 assert.match(document.getElementById("decisions").innerText, /DESHABILITADA/, "Canonical promotion remains disabled");
-console.log("AV-UI-001: 13 assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
+console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
