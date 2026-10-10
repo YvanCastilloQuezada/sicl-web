@@ -91,4 +91,9 @@ assert.ok(suggestions.some(x=>x.a.id==='A1'&&x.b.id==='A2'),"Candidate overlap m
 assert.match(document.getElementById("adaptive").innerText,/A1 \/ A2/,"Adaptive panel renders pair");
 assert.match(document.getElementById("adaptive").innerText,/Sin fusiones/,"No automatic changes");
 assert.equal(vm.runInContext("draft.placements['TEST-F6']",sandbox),"F6","Frozen placement unchanged");
+vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'MOVE-01',title:'Normativa por jurisdiccion',targetPhase:'F2',sourceStatus:'DOCUMENTARY',origin:'TEST'}]};selected='F2';show()",sandbox);
+const alternatives=vm.runInContext("adaptivePlacementCandidates()",sandbox);
+assert.ok(alternatives.some(x=>x.id==='MOVE-01'&&x.from==='F2'&&x.to==='F7'),"Explainable phase alternative proposed");
+assert.match(document.getElementById("adaptive").innerText,/MOVE-01/,"Alternative displayed in right panel");
+assert.equal(vm.runInContext("registry.ideas[0].targetPhase",sandbox),"F2","No automatic relocation");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
