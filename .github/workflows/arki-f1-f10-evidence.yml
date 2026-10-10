@@ -1,0 +1,59 @@
+name: ARKI F1-F10 Evidence Runner (manual, read-only)
+on:
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: "Fase para verificar; ALL ejecuta F1-F10 y MO11"
+        required: true
+        default: "ALL"
+        type: choice
+        options: [ALL, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, MO11]
+permissions:
+  contents: read
+concurrency:
+  group: arki-f1-f10-evidence-${{ github.ref }}-${{ inputs.phase }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    name: "Evidence ${{ matrix.phase }}"
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        phase: [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, MO11]
+    steps:
+      - name: Checkout exact branch commit (read only)
+        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: pnpm/action-setup@v4
+      - name: Setup Node 22
+        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install frozen dependencies
+        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        run: pnpm install --frozen-lockfile
+      - name: Discover and execute existing phase tests
+        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        id: phase
+        env:
+          ARKI_PHASE: ${{ matrix.phase }}
+          SICL_CORE_SERVICE_TOKEN: ci-test-token
+        run: node scripts/arki-phase-evidence-runner.mjs
+      - name: Upload evidence even on failure
+        if: always() && (inputs.phase == 'ALL' || inputs.phase == matrix.phase)
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-evidence-${{ matrix.phase }}-${{ github.sha }}
+          path: artifacts/arki-phase-evidence/
+          if-no-files-found: error
+          retention-days: 30
