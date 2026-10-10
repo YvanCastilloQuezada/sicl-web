@@ -8,6 +8,8 @@ for(const scale of Object.keys(SCALES)){
  assert.equal(output.schema,"ARKI-MULTISCALE-DESIGN-1");
  assert.equal(output.scale,scale);
  assert.equal(output.candidates.length,4);
+ assert.ok(Array.isArray(output.paretoStrategies));
+ assert.ok(output.paretoStrategies.length>=1);
  assert.equal(output.canonicalMutation,false);
  assert.equal(output.canonicalPromotion,"BLOCKED");
  assert.equal(output.requiredChecks.every(x=>x.status==="NOT_VERIFIED"),true);
@@ -47,4 +49,17 @@ assert.equal(design({...brief("ARCHITECTURE"),sourceCommit:"c".repeat(40)},[entr
 const invalid={...brief("OBJECT"),program:{units:64,targetCoverage:0.85},constraints:{maxCoverage:0.05,requiredChecks:[]}};
 const noMutation=design(invalid);
 assert.equal(noMutation.canonicalMutation,false);
+const fs=require("node:fs"),os=require("node:os"),path=require("node:path"),cp=require("node:child_process");
+const root=fs.mkdtempSync(path.join(os.tmpdir(),"arki-multiscale-"));
+try{
+ const input=path.join(root,"brief.json"),output=path.join(root,"result.json");
+ fs.writeFileSync(input,JSON.stringify(brief("ARCHITECTURE")));
+ const cli=path.join(__dirname,"Run-ARKI-Multiscale-Design.cjs");
+ const run=cp.spawnSync(process.execPath,[cli,input,output],{encoding:"utf8",timeout:10000});
+ assert.equal(run.status,0,run.stderr);
+ const saved=JSON.parse(fs.readFileSync(output,"utf8"));
+ assert.equal(saved.scale,"ARCHITECTURE");
+ assert.equal(saved.canonicalMutation,false);
+ assert.notEqual(cp.spawnSync(process.execPath,[cli,input,output],{encoding:"utf8"}).status,0);
+}finally{fs.rmSync(root,{recursive:true,force:true})}
 console.log("ARKI_MULTISCALE_DESIGN=PASS; 7_DOMAINS; 4_STRATEGIES; TRUST_GATED_LEARNING; NO_CANONICAL_MUTATION");
