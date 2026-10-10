@@ -2686,9 +2686,27 @@ arkiExperimentResultsPanel()+
 '<div class="scope-grid">'+rows.map(({p,a,b})=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+a.pieces+' piezas · '+a.linked+' con hito en referencia / '+b.linked+' en alternativa</span><small>Posibles bloqueos R/A: '+countIssues(a,"BLOQUEO_POTENCIAL")+' / '+countIssues(b,"BLOQUEO_POTENCIAL")+'</small><small>Observaciones R/A: '+countIssues(a,"REVISAR")+' / '+countIssues(b,"REVISAR")+'</small></div>').join("")+'</div>'+
 '<p class="caption">Las alertas proceden de las dependencias y ubicaciones declaradas. No representan un pronóstico de desempeño real.</p>';
 }
+function arkiDecisionDocket(){
+const proposals=generatedArkiIdeas().filter(x=>phases.some(p=>p.id===x.phase));
+const items=[...ideas,...components].filter(x=>placements[x.id]&&phases.some(p=>p.id===placements[x.id]));
+const rows=[
+...proposals.map(x=>{const e=arkiProposalExperiment(x);return {id:x.id,phase:x.phase,title:x.title,type:"PROPUESTA",status:e.status,metric:e.metrics?.length?e.metrics.map(m=>m.name+": "+m.before+" → "+m.after).join("; "):"SIN RESULTADO ATRIBUIBLE",decision:"RETENER · FALTA VERIFICACIÓN",reason:e.summary};}),
+...items.map(x=>{const gate=reviewGate(x.id),risk=arkiDependencyRisk(x.id);return {id:x.id,phase:placements[x.id],title:x.title||x.name||x.id,type:"PIEZA / ADECUACIÓN",status:gate.complete?"FICHA LOCAL COMPLETA":"EVIDENCIA INSUFICIENTE",metric:"Dependencias sin respaldo: "+risk.length,decision:"RETENER · FALTA VERIFICACIÓN",reason:gate.complete?"La ficha no acredita pruebas independientes ni clon ejecutable.":"Completar procedencia, pruebas y dependencias."};})
+];
+return {rows,phaseCoverage:phases.map(p=>({phase:p.id,items:rows.filter(x=>x.phase===p.id).length})),total:rows.length,ready:0,authorization:"SOLO PO",execution:"DESHABILITADA"};
+}
+function arkiDecisionDocketPanel(){
+const docket=arkiDecisionDocket(),scoped=docket.rows.filter(x=>viewScope==="ALL"||x.phase===viewScope);
+return '<section class="arki-experiment-panel"><h3>Expedientes para decisión del propietario · F1–F10</h3>'+
+'<p class="caption">Cobertura de las diez fases, propuestas automáticas y piezas colocadas. La falta de resultados verificados impide recomendar una autorización de ejecución; ninguna decisión se toma automáticamente.</p>'+
+'<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>expedientes locales</span></article><article><strong>'+docket.ready+'</strong><span>aptos para decisión informada con evidencia externa</span></article><article><strong>0</strong><span>ejecuciones autorizadas desde este panel</span></article></div>'+
+'<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.phase+" · "+x.title)+'</strong><span>'+escapeHtml(x.type+" · "+x.status)+'</span><small>'+escapeHtml(x.metric)+'</small><small>'+escapeHtml(x.decision)+'</small><small>'+escapeHtml(x.reason)+'</small></article>').join("")+'</div>'+
+'<p class="caption">Para aprobar o denegar con fundamento: falta incorporar simulación aislada del cambio concreto, resultados contrastados, pruebas de regresión, procedencia verificable y límites de autorización. El estado actual es diagnóstico, no autorización.</p></section>';
+}
 function scopedAutocorrectivo(){
 const scoped=viewScope==="ALL"?correctiveCases:correctiveCases.filter(c=>c.phase===viewScope);
 return scopeHead("05 · ARKI AUTOCORRECTIVO","Casos de corrección","Casos locales del alcance seleccionado. No se ejecutan cambios desde el navegador.")+
+arkiDecisionDocketPanel()+
 '<div class="scope-grid">'+(scoped.length?scoped.map(c=>'<div class="scope-phase-card"><strong>'+escapeHtml(c.id)+' · '+escapeHtml(c.phase)+'</strong><span>'+escapeHtml(c.title||"Caso")+'</span><small>'+escapeHtml(c.status)+'</small></div>').join(""):'<p class="hint">No hay casos de corrección registrados en este alcance.</p>')+'</div>'+
 '<p class="caption">Para proponer y gestionar un caso utiliza la consola de corrección controlada. Requiere autorización y evidencia externa.</p>';
 }
