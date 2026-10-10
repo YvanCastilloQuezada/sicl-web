@@ -754,6 +754,15 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .arki-tree-empty{font-size:10px;color:#819eb0;font-style:italic}
 .arki-tree-level{padding-block:5px}
 .arki-tree-trunk:focus-visible,.arki-tree-leaf:focus-visible,.arki-tree-extra summary:focus-visible{outline:2px solid #e6ca79;outline-offset:2px}
+
+/* Maturity colors represent evidence progress, not authority or freeze state. */
+.arki-tree .maturity-0,.arki-maturity-legend .maturity-0{background:#613a8b;border-color:#ab8bdf;color:#fff}
+.arki-tree .maturity-1,.arki-maturity-legend .maturity-1{background:#294e98;border-color:#85a5f1;color:#fff}
+.arki-tree .maturity-2,.arki-maturity-legend .maturity-2{background:#136b79;border-color:#72c7d5;color:#fff}
+.arki-tree .maturity-3,.arki-maturity-legend .maturity-3{background:#447a53;border-color:#a1d1a4;color:#fff}
+.arki-tree .maturity-4,.arki-maturity-legend .maturity-4{background:#20743b;border-color:#8ce2a4;color:#fff}
+.arki-maturity-legend span{font-weight:650;font-size:11px}
+.arki-tree-trunk.maturity-0 small,.arki-tree-trunk.maturity-1 small,.arki-tree-trunk.maturity-2 small,.arki-tree-trunk.maturity-3 small{color:#eef5fc}
 </style>
 </head>
 <body>
@@ -2478,20 +2487,36 @@ return [...ideas,...components].filter(p=>placements[p.id]===phase);
 }
 function completeMaqueta(){
 const proposals=generatedArkiIdeas();
+const maturity=(kind,x)=>{
+if(kind==="proposal")return {level:0,label:"Idea · sin autorizar"};
+const g=reviewGate(x.id);
+if(g.complete)return {level:3,label:"Documentada · sin prueba independiente"};
+if(g.hasEvidence)return {level:2,label:"Con evidencias declaradas"};
+if(g.placed)return {level:1,label:"Ubicada · falta evidencia"};
+return {level:0,label:"Sin ubicar"};
+};
+const phaseMaturity=p=>{
+const pieces=scopePieces(p.id);
+if(!pieces.length)return {level:0,label:"Sin datos suficientes"};
+const gates=pieces.map(x=>reviewGate(x.id));
+if(gates.every(g=>g.complete))return {level:3,label:"Documentada · falta verificación independiente"};
+if(gates.some(g=>g.complete||g.hasEvidence))return {level:2,label:"Evidencia parcial"};
+return {level:1,label:"En organización"};
+};
 const stages=[...phases].reverse().map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
 const left=pieces,right=suggestions;
 const branch=(items,kind)=>{
-const leaf=x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Capacidad · "+x.id:"Idea de mejora · sin autorizar")+'</small></button>';
+const leaf=x=>'<button type="button" class="arki-tree-leaf maturity-'+maturity(kind,x).level+'" title="'+escapeHtml(maturity(kind,x).label)+'" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Capacidad · "+x.id:"Idea de mejora · sin autorizar")+'</small></button>';
 return items.slice(0,2).map(leaf).join("")+(items.length>2?'<details class="arki-tree-extra"><summary>Ver '+(items.length-2)+' más</summary><div class="arki-tree-extra-list">'+items.slice(2).map(leaf).join("")+'</div></details>':"")+(items.length===0?'<span class="arki-tree-empty">Sin registros</span>':"");
 };
 const readableStatus=x=>x==="FROZEN"?"Protegida":x==="RECONCILIATION_REQUIRED"?"Requiere revisión":x==="VERIFIED"?"Comprobada":x==="IN_PROGRESS"?"En trabajo":x==="DONE"?"Terminada":x||"Sin confirmar";
 return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece") +'</div>'+
-'<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(readableStatus(p.status))+'</small></button>'+
+'<button type="button" class="arki-tree-trunk maturity-'+phaseMaturity(p).level+'" title="'+escapeHtml(phaseMaturity(p).label)+'" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(readableStatus(p.status))+'</small></button>'+
 '<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal") +'</div></div>';
 }).join("");
 return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","El árbol crece desde F1 en la base hasta F10 en la copa. Selecciona una rama para consultar sus detalles.")+
-'<div class="arki-tree-legend"><span>TRONCO · 10 fases</span><span>IZQUIERDA · capacidades</span><span>DERECHA · propuestas</span><span>Solo lectura de la estructura</span></div>'+
+'<div class="arki-tree-legend arki-maturity-legend"><span class="maturity-0">Violeta · idea</span><span class="maturity-1">Azul · organizada</span><span class="maturity-2">Turquesa · evidencia parcial</span><span class="maturity-3">Verde claro · documentada</span><span class="maturity-4">Verde · verificada</span></div>'+
 '<div class="arki-tree" role="group" aria-label="Árbol de evolución ARKI, diez fases">'+stages+'</div>'+
 '<p class="caption">Las ramas son una vista de datos locales, no una validación de funcionamiento. Las propuestas no se ejecutan sin autorización.</p>';
 }
