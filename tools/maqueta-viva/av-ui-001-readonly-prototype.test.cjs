@@ -243,4 +243,16 @@ assert.equal(dagChanged.status,"SNAPSHOT_RECORDED_IN_MEMORY");
 assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='PHASE_DEPENDENCIES_CHANGED'&&x.id==='F13')",sandbox));
 assert.ok(vm.runInContext("compareStructuralVersions("+JSON.stringify(dagSnapshot.version)+","+JSON.stringify(dagChanged.version)+").changes.some(x=>x.kind==='PHASE_DEPENDENCIES_CHANGED'&&x.id==='F13')",sandbox));
 assert.equal(typeof document.getElementById("twin-set-dependencies").listeners.click,"function");
+// E4 opt-in local browser persistence (mocked storage; real browser exercised separately).
+const localStore=new Map();
+const storage={setItem:(key,value)=>localStore.set(key,value),getItem:key=>localStore.get(key)||null};
+sandbox.__testStorage=storage;
+assert.equal(vm.runInContext("saveTwinBrowser(__testStorage).status",sandbox),"SAVED_TO_LOCAL_BROWSER");
+assert.equal(vm.runInContext("setTwinPhaseDependencies('F13','F12').status",sandbox),"ALTERNATIVE_DEPENDENCIES_UPDATED");
+assert.equal(vm.runInContext("loadTwinBrowser(__testStorage).status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
+assert.equal(vm.runInContext("twinPhaseSnapshot().find(p=>p.id==='F13').dependencies.join(',')",sandbox),"F4","Browser restore must restore prior dependencies");
+assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>null}).status",sandbox),"NO_LOCAL_WORKSPACE");
+assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{throw Error('quota')}}).status",sandbox),"LOCAL_STORAGE_UNAVAILABLE");
+assert.equal(typeof document.getElementById("twin-save-browser").listeners.click,"function");
+assert.equal(typeof document.getElementById("twin-load-browser").listeners.click,"function");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
