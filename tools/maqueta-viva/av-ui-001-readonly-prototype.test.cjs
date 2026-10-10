@@ -89,14 +89,14 @@ vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{i
 const suggestions=vm.runInContext("adaptiveCandidates()",sandbox);
 assert.ok(suggestions.some(x=>x.a.id==='A1'&&x.b.id==='A2'),"Candidate overlap must be proposed");
 assert.match(document.getElementById("adaptive").innerText,/A1 \/ A2/,"Adaptive panel renders pair");
-assert.match(document.getElementById("adaptive").innerText,/Sin fusiones/,"No automatic changes");
+assert.match(document.getElementById("adaptive").innerText,/Ninguna mutación canónica/,"No automatic canonical changes");
 assert.equal(vm.runInContext("draft.placements['TEST-F6']",sandbox),"F6","Frozen placement unchanged");
 vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'MOVE-01',title:'Normativa por jurisdiccion',targetPhase:'F2',sourceStatus:'DOCUMENTARY',origin:'TEST'}]};selected='F2';show()",sandbox);
 const alternatives=vm.runInContext("adaptivePlacementCandidates()",sandbox);
 assert.ok(alternatives.some(x=>x.id==='MOVE-01'&&x.from==='F2'&&x.to==='F7'),"Explainable phase alternative proposed");
 assert.match(document.getElementById("adaptive").innerText,/MOVE-01/,"Alternative displayed in right panel");
 assert.equal(vm.runInContext("registry.ideas[0].targetPhase",sandbox),"F2","No automatic relocation");
-vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'FROZEN-MOVE',title:'Kernel geometria',targetPhase:'F6',sourceStatus:'DOCUMENTARY',origin:'TEST'},{id:'MOVE-01',title:'Normativa por jurisdiccion',targetPhase:'F2',sourceStatus:'DOCUMENTARY',origin:'TEST'}]};show()",sandbox);
+vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'FROZEN-MOVE',title:'Normativa por jurisdiccion',targetPhase:'F6',sourceStatus:'DOCUMENTARY',origin:'TEST'},{id:'MOVE-01',title:'Normativa por jurisdiccion',targetPhase:'F2',sourceStatus:'DOCUMENTARY',origin:'TEST'}]};show()",sandbox);
 const guarded=vm.runInContext("adaptivePlacementCandidates()",sandbox);
 assert.ok(guarded.some(x=>x.id==='FROZEN-MOVE'&&x.historicalFrozen===true&&x.decision==='WORKSPACE_REORGANIZATION_ALLOWED'),"Frozen historical item allowed in experimental reorganization");
 assert.ok(guarded.some(x=>x.id==='MOVE-01'&&x.risks.includes('NO_VERIFIED_DEPENDENCY_GRAPH')),"Missing dependency evidence explicitly marked");
