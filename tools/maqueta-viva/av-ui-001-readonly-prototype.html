@@ -197,7 +197,12 @@ function incrementalImpact(change){
   if(n){phases.add(n.phase);phases.add(n.proposedPhase);for(const x of n.secondaryPhases)phases.add(x)}
   if(row?.phase)phases.add(row.phase);
  }
- const known=nodes.has(id)||byId.has(id);
+ const phase= /^F[1-9][0-9]*$/.test(id) && (Number(id.slice(1))<=10||twinPhases.some(p=>p.id===id));
+ if(phase){
+  const phaseQueue=[id],seenPhases=new Set([id]);
+  while(phaseQueue.length){const current=phaseQueue.shift();phases.add(current);for(const p of twinPhases)if(p.dependencies.includes(current)&&!seenPhases.has(p.id)){seenPhases.add(p.id);phaseQueue.push(p.id);impacted.add(p.id)}}
+ }
+ const known=phase||nodes.has(id)||byId.has(id);
  if(!known)reasons.push("Identificador sin pieza local; requiere reconciliación");
  if(kind==="EVIDENCE")reasons.push("Evidencia nueva no verificada; reevaluar afirmaciones y propuestas");
  if(kind==="DEPENDENCY")reasons.push("Propagar hacia dependientes declarados; relaciones ausentes siguen UNKNOWN");
@@ -215,7 +220,7 @@ function recordStructuralSnapshot(change){
  const changes=[];
  const oldPhases=new Map((previous?.experimentalPhases||[]).map(p=>[p.id,p]));
  const newPhases=new Map(twinPhaseSnapshot().map(p=>[p.id,p]));
- for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name})}
+ for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else {if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name});if(JSON.stringify(old.dependencies)!==JSON.stringify(p.dependencies))changes.push({id,kind:"PHASE_DEPENDENCIES_CHANGED",before:old.dependencies,after:p.dependencies})}}
  for(const [id,p] of oldPhases)if(!newPhases.has(id))changes.push({id,kind:"PHASE_REMOVED",before:p.name});
  for(const [id,n] of current){
   const before=prior.get(id);
@@ -259,7 +264,7 @@ function compareStructuralVersions(left,right){
  }
  for(const id of first.keys())if(!second.has(id))changes.push({id,kind:"REMOVED"});
  const oldPhases=new Map((a.experimentalPhases||[]).map(p=>[p.id,p])),newPhases=new Map((b.experimentalPhases||[]).map(p=>[p.id,p]));
- for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name})}
+ for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else {if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name});if(JSON.stringify(old.dependencies)!==JSON.stringify(p.dependencies))changes.push({id,kind:"PHASE_DEPENDENCIES_CHANGED",before:old.dependencies,after:p.dependencies})}}
  for(const [id,p] of oldPhases)if(!newPhases.has(id))changes.push({id,kind:"PHASE_REMOVED",before:p.name});
  return {status:"COMPARISON_READY",left,right,changes,canonicalMutation:false};
 }
@@ -496,7 +501,7 @@ if(el("twin-snapshot"))el("twin-snapshot").addEventListener("click",()=>{const r
 const twinPhases=[];
 function twinPhaseSnapshot(){return twinPhases.map(p=>({...p,dependencies:[...p.dependencies]}))}
 function phaseDependencyGraph(candidate=twinPhases){
- const known=new Set([...Object.keys(labels).filter(id=>/^F(?:[1-9][0-9]*)$/.test(id)),...candidate.map(p=>p.id)]);
+ const known=new Set([...Object.keys(labels).filter(id=>/^F(?:[1-9][0-9]*)$/.test(id)&&Number(id.slice(1))<=10),...candidate.map(p=>p.id)]);
  const map=new Map(candidate.map(p=>[p.id,p.dependencies]));
  const visiting=new Set(),done=new Set();
  function visit(id){if(visiting.has(id))return false;if(done.has(id))return true;visiting.add(id);for(const dep of map.get(id)||[])if(!visit(dep))return false;visiting.delete(id);done.add(id);return true}
