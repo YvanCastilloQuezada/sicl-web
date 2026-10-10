@@ -672,6 +672,16 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .trace-selection{padding:10px;margin:10px 0;border:1px solid #6c9db9;border-radius:8px;background:#163b55}
 .trace-selection small{display:block;color:#c5deed;font-size:10px;margin:4px 0;overflow-wrap:anywhere}
 .trace-issue{padding:4px 7px;border-left:2px solid #f2c45e}
+
+/* Information rail; keep the assembly surface focused on milestones and pieces. */
+.layout{grid-template-columns:minmax(250px,290px) minmax(0,1fr) minmax(235px,280px)}
+.layout>.information-rail{grid-column:1;grid-row:1;position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;min-width:0}
+.layout>.center{grid-column:2;grid-row:1;min-width:0}
+.layout>.right{grid-column:3;grid-row:1;min-width:0}
+.information-rail h2{font-size:16px}.information-rail .field{overflow-wrap:anywhere}
+.spine-drag-guide,.spine-connection-help,.spine-notice,.spine-legend,.spine-priority-note,.spine-stage-sequence,.spine-preview-group{display:none}
+@media(max-width:1120px){.layout{grid-template-columns:minmax(225px,280px) minmax(0,1fr)}.layout>.right{grid-column:1/-1;grid-row:2}}
+@media(max-width:700px){.layout{display:flex;flex-direction:column}.layout>.information-rail{position:static;max-height:none;width:100%;order:2}.layout>.center{width:100%;order:1}.layout>.right{width:100%;order:3}}
 </style>
 </head>
 <body>
@@ -1339,6 +1349,7 @@ function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 function statusClass(p){if(p.status==="FROZEN")return"frozen";if(p.status==="IN_PROGRESS")return"progress";if(String(p.status).includes("RECONCILED"))return"reconciled";return"unknown";}
 function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es"));}
 function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
+function informationRail(){const p=node(selected||activePhase);return '<h2>Información de selección</h2><p class="caption">Selecciona una pieza para consultar su información y sus acciones. Esta barra no altera el roadmap.</p>'+(movable.has(p.id)?placementInspector():detail())+'<details><summary>Cómo leer la mesa</summary><p class="caption">Hitos: columna propuesta. Espinas: actividades. Las dependencias locales no son pruebas de integración.</p></details>';}
 function detail(){
 const p=node(selected),isPhase=selected.startsWith("F")&&/^F\d+$/.test(selected);
 const evidence=isPhase?p.evidence_status:"";
@@ -2548,7 +2559,7 @@ app.innerHTML=evolutionBar()+'<nav class="phase-menu" aria-label="Vista completa
 '</div>'+
 (tab==="structure"&&!technicalMode?'':'<div class="context-help" id="arki-context-help" role="status" aria-live="polite" aria-atomic="true"><strong>GUÍA</strong><span id="arki-context-text">Pasa el cursor o utiliza Tab sobre un botón, hito o pieza para ver su función. Los cambios de la maqueta son borradores locales.</span></div>')+
 (tab==="structure"&&!technicalMode?'<details class="executive-source"><summary>Fuentes y cambios locales · '+escapeHtml(sourceManifest.stateDate)+' · Consultar</summary>'+sourceUpdateBanner()+'</details>':sourceUpdateBanner())+
-'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+(tab===EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target?evolutionWorkspace():({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)())+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
+'<div class="layout '+(focusMode?"focus-mode ":"")+(tab==="structure"&&!technicalMode?"executive-layout":"")+'"><aside class="panel information-rail" id="arki-information" aria-label="Información de la selección">'+informationRail()+'</aside><section class="panel center" id="arki-workspace" aria-label="Mesa de trabajo azul de ARKI">'+(tab===EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target?evolutionWorkspace():({structure:structure,connections:connections,roadmap:roadmap,scenarios:scenarioComparison,digital:digitalTwinWorkspace,autocorrective:autocorrectiveWorkspace,parts:parts,floating:floating,arkiideas:arkiIdeasWorkspace,research:researchWorkspace}[tab]||structure)())+'</section><aside class="panel sidebar right" id="right">'+rightPanel()+'</aside></div>'+
 '<div class="foot">Fuente: docs/arki-master-map/ARKI_MASTER_MAP_STATE.json · Generada desde la copia local al abrir el acceso directo · NO EVIDENCIA = NO VERDE · No modifica repositorios ni autoridades canónicas.</div>';
 app.querySelectorAll("[data-corrective-export]").forEach(el=>el.addEventListener("click",exportCorrectiveCases));
 app.querySelectorAll("[data-corrective-create]").forEach(el=>el.addEventListener("click",()=>createCorrective(app.querySelector("#corrective-title")?.value,app.querySelector("#corrective-phase")?.value,app.querySelector("#corrective-rationale")?.value,"MANUAL")));
