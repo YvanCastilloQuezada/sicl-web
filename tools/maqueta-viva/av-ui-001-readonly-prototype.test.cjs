@@ -206,4 +206,13 @@ assert.equal(vm.runInContext("restoreTwinPhaseVersion("+JSON.stringify(phaseVers
 assert.equal(vm.runInContext("twinPhaseSnapshot()[0].id",sandbox),"F12","Historical restore returns F12 to local twin");
 assert.equal(vm.runInContext("restoreTwinPhaseVersion('ALT-999999').status",sandbox),"VERSION_NOT_FOUND");
 assert.equal(typeof document.getElementById("history-restore-phases").listeners.click,"function");
+const workspace=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(JSON.parse(workspace).schema,"ARKI-TREE-TWIN-WORKSPACE-1");
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(workspace)+").status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
+const badWorkspace=JSON.parse(workspace);badWorkspace.history.canonicalMutation=true;
+const beforeWorkspace=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(badWorkspace))+").status",sandbox),"INVALID_WORKSPACE_HISTORY");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),beforeWorkspace,"Failed combined import must roll back both phase and history state");
+assert.equal(typeof document.getElementById("twin-export-workspace").listeners.click,"function");
+assert.equal(typeof document.getElementById("twin-import-workspace").listeners.change,"function");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
