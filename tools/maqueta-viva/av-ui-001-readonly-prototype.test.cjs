@@ -67,9 +67,9 @@ vm.runInContext("draft.reviews['TEST-F1'].dependencies=[];show();", sandbox);
 
 const tree = document.getElementById("tree");
 assert.equal(tree.children.filter(x => x.tagName === "button").length, 10, "Ten phase buttons");
-const f10 = tree.children.find(x => x.tagName === "button" && x.children.some(y => y.textContent === "F10"));
-assert.ok(f10, "F10 rendered");
-f10.listeners.click();
+const f10Button = tree.children.find(x => x.tagName === "button" && x.children.some(y => y.textContent === "F10"));
+assert.ok(f10Button, "F10 rendered");
+f10Button.listeners.click();
 assert.equal(vm.runInContext("selected", sandbox), "F10", "Phase selection works");
 const branch = document.getElementById("tree").children.flatMap(x => x.children).find(x => x.tagName === "button" && x.textContent.includes("TEST-F10"));
 assert.ok(branch, "F10 branch rendered");
