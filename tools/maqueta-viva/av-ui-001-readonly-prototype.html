@@ -46,6 +46,11 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 .legend{border:1px solid #4b6875;background:#102737;border-radius:9px;padding:10px;margin:0 0 13px;font-size:12px}.legend>strong{display:block;margin-bottom:8px}.legend p{margin:6px 0;line-height:1.35}.legend small{display:block;margin-top:8px;color:#aebfc9}.legend-rule{height:1px;background:#355064;margin:9px 0}.key{display:inline-block;min-width:17px;font-weight:800}.key.trunk{color:#d5a46c}.key.task{color:#8fbad3}.key.capability{color:#78b18a}.key.fruit{color:#e6c268}.key.frozen{color:#94b4d4}.key.progress{color:#4ba78c}.key.reconcile{color:#d78c62}.key.unknown{color:#8c9ba9}
 .branch-group.activities{grid-column:1;justify-content:flex-end}.branch-group.capabilities{grid-column:3;justify-content:flex-start}.branch-group .branch.catalog-cap{background:#293b56;border-color:#8198b5;text-align:left}.branch-group .branch.catalog-cap[aria-pressed=true]{outline:2px solid #e5d38b}.branch-group .branch.task{background:#28435c;border-color:#83a6bf;text-align:right}.branch-group .empty-note{font-size:11px;color:#8fa9b9}.branch-group:has(.empty-note):before{border-color:#607687}
 .adaptive{border:1px solid #496c77;border-radius:9px;padding:10px;margin-bottom:14px;background:#102838;font-size:12px}.adaptive .entry{padding:7px 0}
+/* Use all available screen height for the three overview panels. */
+.shell{height:calc(100dvh - 112px);min-height:420px;grid-template-columns:minmax(260px,1fr) minmax(420px,2.2fr) minmax(280px,1.1fr)}
+.shell>aside,.shell>main{height:100%;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+@media(max-width:850px){.shell{height:auto;min-height:calc(100dvh - 112px);grid-template-columns:1fr;overflow:visible}.shell>aside,.shell>main{height:auto;min-height:300px;max-height:75dvh;overflow-y:auto}}
+
 /* Contextual help for all meaningful interface elements. */
 .arki-tip{position:fixed;z-index:9999;max-width:min(420px,calc(100vw - 24px));padding:11px 13px;border:1px solid #9ac7d8;border-radius:9px;background:#081c2c;color:#f2f7fa;box-shadow:0 8px 24px #0009;font-size:13px;line-height:1.45;pointer-events:none;white-space:pre-line;overflow-wrap:anywhere}
 .arki-tip[hidden]{display:none}
