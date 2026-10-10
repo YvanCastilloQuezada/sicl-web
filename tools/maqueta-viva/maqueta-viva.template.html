@@ -789,7 +789,7 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 @media(max-width:850px){.arki-global-heatmap-levels{grid-template-columns:repeat(5,minmax(0,1fr))}.arki-heat-level{font-size:8px}}
 .arki-dependency-warning{outline:2px dashed #f5b74c;outline-offset:1px}
 .arki-tree-extra summary::marker{color:#f5b74c}
-</style>
+.arki-maturity-change{font-size:11px;padding:5px 8px;border-left:2px solid #80c8d1;margin:4px 0;background:rgba(42,78,94,.3)}</style>
 </head>
 <body>
 <header><div class="top"><div class="brand-line"><h1>ARKI <span style="color:var(--accent)">MAQUETA VIVA</span></h1><span class="brand-separator" aria-hidden="true">-</span><span class="brand-description">La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI</span></div><div class="stamp" id="stamp">Cargando estado…</div></div></header>
@@ -1259,12 +1259,28 @@ function sourceAuxPanel(){
 return (sourceHistoryOpen?'<div class="source-history"><strong>Historial de fuentes (solo lectura, últimos 40)</strong><p class="hint">Se conservan los valores anteriores y posteriores. «SOURCE_NOT_PRESENT» no significa eliminación canónica.</p>'+sourceHistory.slice(-40).reverse().map(e=>'<div><b>'+escapeHtml(e.action+" · "+e.id)+'</b><small>'+escapeHtml(e.at+" · "+JSON.stringify(e.before)+" → "+JSON.stringify(e.after))+'</small></div>').join("")+'</div>':"")+
 (e3Open?e3Panel():"");
 }
+const ARKI_MATURITY_LOG_KEY="arki-maturity-local-history-v1";
+function arkiMaturitySnapshot(){
+const result={};for(const mode of ["plano","maqueta","digital","predictivo","autocorrectivo"])for(const p of phases)result[mode+":"+p.id]=arkiViewMaturity(mode,p).level;return result;
+}
+function arkiRecordMaturityChanges(){
+const now=arkiMaturitySnapshot();
+let previous;try{previous=JSON.parse(localStorage.getItem(ARKI_MATURITY_LOG_KEY)||"null");}catch(e){previous=null;}
+const entries=Array.isArray(previous?.entries)?previous.entries:[];
+if(previous?.levels){for(const [key,level] of Object.entries(now)){if(previous.levels[key]!==undefined&&previous.levels[key]!==level)entries.push({at:new Date().toISOString(),key,from:previous.levels[key],to:level,origin:"BORRADOR_LOCAL"});}}
+localStorage.setItem(ARKI_MATURITY_LOG_KEY,JSON.stringify({levels:now,entries:entries.slice(-200)}));
+}
+function arkiPhaseMaturityChanges(phase,mode){
+try{const h=JSON.parse(localStorage.getItem(ARKI_MATURITY_LOG_KEY)||"null");return (h?.entries||[]).filter(x=>x.key===mode+":"+phase).slice(-5);}catch(e){return [];}
+}
 function saveDraft(){
 try{
 const beforeEvents=traceEvents.length,after=traceState();
 auditStateChanges(lastTraceState,after);
 localStorage.setItem(DRAFT_KEY,JSON.stringify({schema:DRAFT_SCHEMA,placements,positions,reviews,spineAssignments,alternativeSpineAssignments,workflowStages,autoPlacementNotes,traceNotes,traceEvents}));
 lastTraceState=after;storageAvailable=true;
+try{arkiRecordMaturityChanges();}catch(historyError){draftNotice="Borrador guardado; no se pudo actualizar el historial visual de madurez.";}
+
 }
 catch(e){storageAvailable=false;draftNotice="No se pudo guardar en el navegador. Exporta el borrador JSON para conservarlo. No se confirmó la persistencia.";}
 }
@@ -1502,7 +1518,7 @@ return '<h2>Madurez · '+escapeHtml(p.id)+'</h2><div class="field"><label>Fase</
 '<div class="arki-rail-maturity maturity-'+m.level+'">'+escapeHtml(m.label)+'</div>'+
 '<div class="field"><label>Capacidades registradas</label><strong>'+parts.length+'</strong></div>'+
 '<div class="field"><label>¿Qué falta para avanzar?</label><p>'+escapeHtml(m.next)+'</p></div>'+
-'<div class="field"><label>Dependencias pendientes</label><strong>'+m.blocked+'</strong></div>'+ '<div class="field"><label>Impacto potencial</label><strong>'+parts.reduce((n,x)=>n+arkiDependencyImpact(x.id),0)+' relaciones descendentes (conteo local)</strong></div>'+ '<div class="field"><label>Estado oficial (independiente del color)</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
+'<div class="field"><label>Dependencias pendientes</label><strong>'+m.blocked+'</strong></div>'+ '<div class="field"><label>Impacto potencial</label><strong>'+parts.reduce((n,x)=>n+arkiDependencyImpact(x.id),0)+' relaciones descendentes (conteo local)</strong></div>'+ '<div class="field"><label>Cambios de color registrados</label>'+(arkiPhaseMaturityChanges(p.id,evolutionMode).map(h=>'<p class="arki-maturity-change">'+escapeHtml(h.at.slice(0,16).replace("T"," ")+" · "+h.from+" → "+h.to)+'</p>').join("")||'<p class="caption">Sin transiciones locales registradas desde la activación del historial.</p>')+'</div>'+'<div class="field"><label>Estado oficial (independiente del color)</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
 '<p class="caption">Color calculado a partir de fichas locales; no certifica ejecución ni altera el estado oficial.</p>';
 }
 }
