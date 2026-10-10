@@ -178,3 +178,11 @@ Se añadió `Verify-ARKI-Twin-Receipts.cjs`, un verificador Node independiente d
 ### Pendiente no sustituible con un simulacro
 
 Un recibo de ejecución real debe producirse **en el Core o AGK autorizado**, no en el navegador ni mediante el generador sintético. El productor debe firmar una descripción de la ejecución real, vincular el artefacto generado a su digest, aportar parámetros y versión del motor, y permitir repetir el resultado. La autenticidad de la clave debe establecerse por un canal de confianza independiente. Hasta entonces: **IMPLEMENTED / UNVERIFIED**.
+
+## Suplemento de CI — verificación independiente Linux/Windows
+
+Se incorporó `Test-ARKI-Twin-Signatures.cjs`, que ejecuta el generador sintético y el verificador offline como **procesos Node independientes**, comprueba firma correcta, fingerprint coincidente, fingerprint incorrecto y rechazo de payload alterado. Los archivos temporales se eliminan al terminar.
+
+El workflow `.github/workflows/av-ui-001-tree-twin.yml` ejecuta ahora pruebas sintéticas del prototipo y pruebas independientes de firmas tanto en `ubuntu-latest` como en `windows-latest`, activadas por cambios en el HTML, los tests, los scripts criptográficos y el propio workflow.
+
+**Advertencia:** la mera presencia de pasos CI no acredita su ejecución. El cierre requiere obtener resultados `SUCCESS` asociados al SHA exacto. Tampoco reemplazan la prueba real en Edge ni una ejecución auténtica de Core/AGK.
