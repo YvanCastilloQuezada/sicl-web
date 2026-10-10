@@ -430,9 +430,9 @@ const arkiFunctionalDescriptions={
 function arkiFunctionalHelp(item){
  const known=arkiFunctionalDescriptions[item.id];
  const what=known?.what||item.title;
- const purpose=known?.purpose||("Esta pieza propone "+item.title.toLocaleLowerCase("es")+". Su función concreta debe confirmarse en el documento fuente; el título por sí solo no acredita prestaciones.");
+ const purpose=known?.purpose||item.purpose||("Esta pieza propone "+item.title.toLocaleLowerCase("es")+". Su función concreta debe confirmarse en el documento fuente; el título por sí solo no acredita prestaciones.");
  const limit=known?.limit||("Estado registrado: "+(item.sourceStatus||item.recordedStatus||"UNKNOWN")+". La implementación no está verificada.");
- return "¿Qué es? "+what+"\\n¿Para qué sirve? "+purpose+"\\nEstado y límites: "+limit+"\\nFuente: "+(item.origin||item.source||"no registrada");
+ return "¿Qué es? "+what+"\\n¿Para qué sirve? "+purpose+"\\nEstado y límites: "+limit+"\\nFuente: "+(item.origin||item.source||"no registrada")+(item.purposeBasis?"\\nInterpretación: "+item.purposeBasis:"");
 }
 function arkiExplain(target){
  if(!target)return "";
