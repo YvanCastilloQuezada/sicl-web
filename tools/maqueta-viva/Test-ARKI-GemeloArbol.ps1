@@ -22,9 +22,10 @@ function Step([string]$Name, [scriptblock]$Work) {
   try { & $Work; $Results.Add("PASS $Name"); Log "PASS $Name" }
   catch { $Results.Add("FAIL $Name : $_"); Log "FAIL $Name : $_"; throw }
 }
-function Run([string]$Exe, [string[]]$Args) {
-  & $Exe @Args
-  if ($LASTEXITCODE -ne 0) { throw "$Exe failed (exit $LASTEXITCODE): $($Args -join ' ')" }
+function Run([string]$Exe, [string[]]$CommandArgs) {
+  if (-not $CommandArgs -or $CommandArgs.Count -eq 0) { throw "No arguments supplied to $Exe" }
+  & $Exe @CommandArgs
+  if ($LASTEXITCODE -ne 0) { throw "$Exe failed (exit $LASTEXITCODE): $($CommandArgs -join ' ')" }
 }
 function BrowserPath {
   foreach($name in @("msedge.exe","chrome.exe")) {
