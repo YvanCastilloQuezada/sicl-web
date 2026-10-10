@@ -18,6 +18,8 @@ on:
       - 'tools/maqueta-viva/arki-multiscale-design.cjs'
       - 'tools/maqueta-viva/arki-multiscale-design.test.cjs'
       - 'tools/maqueta-viva/Run-ARKI-Multiscale-Design.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-portfolio.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-portfolio.test.cjs'
       - '.github/workflows/av-ui-001-tree-twin.yml'
   workflow_dispatch:
 jobs:
@@ -35,6 +37,7 @@ jobs:
       - run: node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
       - run: node tools/maqueta-viva/arki-adn-observer.test.cjs
       - run: node tools/maqueta-viva/arki-multiscale-design.test.cjs
+      - run: node tools/maqueta-viva/arki-multiscale-portfolio.test.cjs
   windows-synthetic-regression:
     runs-on: windows-latest
     permissions:
@@ -53,3 +56,4 @@ jobs:
           node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
           node tools/maqueta-viva/arki-adn-observer.test.cjs
           node tools/maqueta-viva/arki-multiscale-design.test.cjs
+          node tools/maqueta-viva/arki-multiscale-portfolio.test.cjs
