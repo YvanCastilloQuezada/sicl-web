@@ -639,7 +639,7 @@ function renderTwinCommandCenter(){
  if(!root||!inspector||!metrics||!picker)return;
  const versions=structuralHistory.map(x=>x.version);
  if(twinVersion!=="CURRENT"&&!versions.includes(twinVersion))twinVersion="CURRENT";
- const oldOptions=[...picker.options].map(x=>x.value);
+ const oldOptions=Array.from(picker.options||picker.children||[]).map(x=>x.value);
  if(JSON.stringify(oldOptions)!==JSON.stringify(["CURRENT",...versions])){
   picker.replaceChildren();
   for(const v of ["CURRENT",...versions]){const opt=document.createElement("option");opt.value=v;opt.textContent=v==="CURRENT"?"Actual · experimental":v+" · historial";picker.append(opt)}
