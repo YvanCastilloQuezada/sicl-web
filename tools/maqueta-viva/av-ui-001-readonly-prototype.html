@@ -694,7 +694,7 @@ function importTwinReceipts(raw){
  twinExternalReceipts=result.receipts;return {status:"IMPORTED_UNVERIFIED_RECEIPTS",count:result.receipts.length,canonicalMutation:false};
 }
 // Cryptographic provenance is distinct from operational verification. Trust key is supplied separately.
-let twinPinnedPublicKey=null,twinPinnedKeyId=null,twinSignedReceipts=[];
+let twinPinnedPublicKey=null,twinPinnedKeyId=null,twinPinnedFingerprint=null,twinSignedReceipts=[];
 function twinDecodeBase64url(input){
  if(typeof input!=="string"||!/^[A-Za-z0-9_-]+$/.test(input)||input.length>4096)throw Error("INVALID_SIGNATURE_ENCODING");
  const base64=input.replace(/-/g,"+").replace(/_/g,"/"),decoded=atob(base64+"=".repeat((4-base64.length%4)%4));
@@ -706,8 +706,9 @@ async function pinTwinVerificationKey(raw){
  if(typeof crypto==="undefined"||!crypto.subtle)return {status:"CRYPTO_UNAVAILABLE"};
  try{
   const key=await crypto.subtle.importKey("jwk",data.jwk,{name:"ECDSA",namedCurve:"P-256"},false,["verify"]);
-  twinPinnedPublicKey=key;twinPinnedKeyId=data.keyId;twinSignedReceipts=[];
-  return {status:"PUBLIC_KEY_PINNED_FOR_SESSION",keyId:data.keyId,authentication:"KEY_PROVENANCE_NOT_ESTABLISHED",canonicalMutation:false};
+  const fingerprint=await twinSha256("P-256:"+data.jwk.x+":"+data.jwk.y);
+  twinPinnedPublicKey=key;twinPinnedKeyId=data.keyId;twinPinnedFingerprint=fingerprint;twinSignedReceipts=[];
+  return {status:"PUBLIC_KEY_PINNED_FOR_SESSION",keyId:data.keyId,fingerprintSHA256:fingerprint,authentication:"KEY_PROVENANCE_NOT_ESTABLISHED",canonicalMutation:false};
  }catch{return {status:"INVALID_TRUST_KEY"}}
 }
 async function verifyTwinSignedReceipts(raw){
@@ -721,13 +722,23 @@ async function verifyTwinSignedReceipts(raw){
  catch{return {status:"INVALID_SIGNATURE",canonicalMutation:false}}
  if(!valid)return {status:"INVALID_SIGNATURE",canonicalMutation:false};
  twinSignedReceipts=parsed.receipts.map(x=>({...x,authentication:"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED",signingKeyId:twinPinnedKeyId}));
- return {status:"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED",count:twinSignedReceipts.length,keyId:twinPinnedKeyId,canonicalMutation:false};
+ return {status:"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED",count:twinSignedReceipts.length,keyId:twinPinnedKeyId,fingerprintSHA256:twinPinnedFingerprint,canonicalMutation:false};
 }
 function validateTwinAgkMesh(raw){
  let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!data||data.schema!=="ARKI-TWIN-AGK-MESH-1"||data.canonicalMutation!==false||!Array.isArray(data.vertices)||!Array.isArray(data.triangles)||data.vertices.length<3||data.vertices.length>1000||data.triangles.length<1||data.triangles.length>2000)return {status:"INVALID_AGK_MESH"};
  if(!data.vertices.every(v=>Array.isArray(v)&&v.length===3&&v.every(n=>typeof n==="number"&&Number.isFinite(n)&&Math.abs(n)<=1e7)))return {status:"INVALID_AGK_MESH"};
  if(!data.triangles.every(t=>Array.isArray(t)&&t.length===3&&new Set(t).size===3&&t.every(n=>Number.isInteger(n)&&n>=0&&n<data.vertices.length)))return {status:"INVALID_AGK_MESH"};
+ const faceKeys=new Set();
+ for(const t of data.triangles){
+  const [a,b,d]=t.map(i=>data.vertices[i]),ab=b.map((v,i)=>v-a[i]),ad=d.map((v,i)=>v-a[i]);
+  const cross=[ab[1]*ad[2]-ab[2]*ad[1],ab[2]*ad[0]-ab[0]*ad[2],ab[0]*ad[1]-ab[1]*ad[0]];
+  const norm=Math.hypot(...cross),edge=Math.max(Math.hypot(...ab),Math.hypot(...ad),Math.hypot(...d.map((v,i)=>v-b[i])));
+  if(!Number.isFinite(norm)||norm<=1e-12*edge*edge)return {status:"DEGENERATE_AGK_TRIANGLE"};
+  const key=[...t].sort((x,y)=>x-y).join(",");
+  if(faceKeys.has(key))return {status:"DUPLICATE_AGK_TRIANGLE"};
+  faceKeys.add(key);
+ }
  if(typeof data.sourceCommit!=="string"||!/^[0-9a-f]{40}$/.test(data.sourceCommit))return {status:"INVALID_AGK_MESH"};
  return {status:"VALID_UNVERIFIED_AGK_MESH",mesh:{vertices:data.vertices.map(v=>[...v]),triangles:data.triangles.map(t=>[...t]),sourceCommit:data.sourceCommit},canonicalMutation:false};
 }
@@ -807,7 +818,10 @@ function renderTwinCommandCenter(){
  metrics.replaceChildren();for(const s of [obs.phases.length+" fases",obs.nodes.length+" piezas documentales",obs.evidence.length+" evidencias UNVERIFIED",obs.decisions.length+" decisiones provisionales",obs.revisions.length+" revisiones"]){const tag=node("span",s);metrics.append(tag)}
  const telemetry=el("twin-telemetry-status"),geometry=el("twin-geometry-status"),timeline=el("twin-timeline");
  if(telemetry)telemetry.textContent=twinExternalReceipts.length+" recibos externos sin firma · "+twinSignedReceipts.length+" recibos con firma válida, clave no autenticada · sin ejecución desde esta pantalla"+(twinExternalReceipts.length?"\n"+twinExternalReceipts.slice(-5).map(x=>x.producer+" "+x.operation+" "+x.outcome+" @ "+x.commit.slice(0,8)).join("\n"):"");
- if(geometry)geometry.textContent=twinAgkMesh?"Malla externa: "+twinAgkMesh.vertices.length+" vértices, "+twinAgkMesh.triangles.length+" caras · sourceCommit "+twinAgkMesh.sourceCommit.slice(0,8)+" · AUTENTICIDAD UNKNOWN":"Sin geometría AGK importada · vista 3D conceptual";
+ if(geometry){
+  const linked=twinAgkMesh?twinSignedReceipts.filter(x=>x.producer==="AGK"&&x.operation==="mesh-export"&&x.outcome==="SUCCESS"&&x.commit===twinAgkMesh.sourceCommit):[];
+  geometry.textContent=twinAgkMesh?"Malla externa: "+twinAgkMesh.vertices.length+" vértices, "+twinAgkMesh.triangles.length+" caras · sourceCommit "+twinAgkMesh.sourceCommit.slice(0,8)+(linked.length?" · recibo firmado coincidente, clave NO AUTENTICADA":" · SIN RECIBO FIRMADO COINCIDENTE")+" · AUTENTICIDAD UNKNOWN":"Sin geometría AGK importada · vista 3D conceptual";
+ }
  if(timeline){const versions=twinTimelineReport().versions;const chosen=versions.find(x=>x.version===twinVersion);timeline.textContent=(chosen?"CAMBIOS DE "+chosen.version+" · "+chosen.changes.slice(0,12).map(x=>x.kind+" "+x.id).join("; ")+"\n":"")+(versions.length?versions.slice(-8).map(x=>x.version+" · "+x.trigger.kind+" "+x.trigger.id+" · "+x.changes.length+" cambios documentales").join("\n"):"Sin versiones experimentales");}
 
 }
