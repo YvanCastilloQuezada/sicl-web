@@ -1,0 +1,50 @@
+"use strict";
+/** ARKI ARBOL Vivo: deterministic autonomous inventory reconciliation and phase ordering.
+ * Advisory only. No canonical writes, no FROZEN mutation, no fabricated measurements.
+ */
+const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto");
+const PHASES=Array.from({length:10},(_,i)=>"F"+(i+1));
+const hash=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
+function build(registry,options={}){
+ if(!registry||!Array.isArray(registry.ideas)||!Array.isArray(registry.components))throw Error("INVALID_REGISTRY");
+ const raw=[...registry.ideas.map(x=>({...x,kind:"IDEA"})),...registry.components.map(x=>({...x,kind:"COMPONENT"}))];
+ const ids=new Set(),issues=[];
+ const items=raw.map(x=>{
+  if(typeof x.id!=="string"||!x.id.trim()||ids.has(x.id))throw Error("DUPLICATE_OR_INVALID_ID");
+  ids.add(x.id);
+  const phase=PHASES.includes(x.targetPhase)?x.targetPhase:null;
+  if(!phase)issues.push({id:x.id,code:"UNRESOLVED_PHASE"});
+  const status=String(x.sourceStatus||"UNKNOWN");
+  const verification=String(x.verification||"NOT_VERIFIED");
+  const evidence=String(x.sourceEvidence||"");
+  const verified=Boolean(evidence.trim())&&/DEMONSTRATED|VERIFIED/.test(status)&&!(/REQUIRES|UNKNOWN|NOT_VERIFIED/.test(verification));
+  const missing= !verified;
+  const deps=Array.isArray(x.dependencies)?x.dependencies.filter(d=>typeof d==="string"):[];
+  return {id:x.id,title:String(x.title||x.id),kind:x.kind,phase,phaseBasis:"HISTORICAL_PROPOSAL_NOT_AUTONOMOUSLY_VERIFIED",status,verification,evidence:verified?evidence:null,dependencies:deps,missing};
+ });
+ const byId=new Map(items.map(x=>[x.id,x]));
+ for(const x of items)for(const d of x.dependencies)if(!byId.has(d))issues.push({id:x.id,code:"UNKNOWN_DEPENDENCY",dependency:d});
+ const inDegree=new Map(items.map(x=>[x.id,0])),children=new Map(items.map(x=>[x.id,[]]));
+ for(const x of items)for(const d of x.dependencies)if(byId.has(d)){inDegree.set(x.id,inDegree.get(x.id)+1);children.get(d).push(x.id)}
+ const ready=items.filter(x=>inDegree.get(x.id)===0),ordered=[];
+ const score=x=>{const phase=x.phase?Number(x.phase.slice(1)):11;return (x.missing?100:0)+(11-phase)*10+children.get(x.id).length*3};
+ while(ready.length){
+  ready.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
+  const x=ready.shift();ordered.push({...x,priorityScore:score(x),priorityBasis:"EXPLICIT_HEURISTIC_NOT_MEASURED_BENEFIT"});
+  for(const id of children.get(x.id)){inDegree.set(id,inDegree.get(id)-1);if(inDegree.get(id)===0)ready.push(byId.get(id))}
+ }
+ if(ordered.length!==items.length)issues.push({code:"DEPENDENCY_CYCLE",ids:items.filter(x=>inDegree.get(x.id)>0).map(x=>x.id)});
+ const branches=PHASES.map(phase=>({phase,activities:ordered.filter(x=>x.phase===phase)}));
+ const result={schema:"ARKI-ARBOL-VIVO-AUTO-001",authority:"ADVISORY_ONLY",sourceCut:registry.updated_at||null,counts:{ideas:registry.ideas.length,components:registry.components.length,total:items.length,scheduled:ordered.length},trunk:PHASES,branches,unassigned:ordered.filter(x=>!x.phase),issues,autonomy:{inventory:"AUTOMATIC",phaseAssignment:"HISTORICAL_REUSED_NOT_AUTONOMOUS",priority:"DETERMINISTIC_HEURISTIC",experiment:"NOT_EXECUTED",measuredImprovement:"NOT_AVAILABLE",canonicalMutation:false},order:ordered.map(x=>({id:x.id,phase:x.phase,priorityScore:x.priorityScore,dependsOn:x.dependencies})),};
+ result.receiptSha256=hash(result);return result;
+}
+function main(){
+ const base=__dirname,registry=JSON.parse(fs.readFileSync(path.join(base,"assembly-registry.json"),"utf8"));
+ const result=build(registry);const out=path.resolve(process.argv[2]||path.join(process.cwd(),"ARKI-ARBOL-VIVO-AUTO-001.json"));
+ fs.writeFileSync(out,JSON.stringify(result,null,2)+"\n");
+ console.log("ARBOL_AUTO_REPORT="+out);console.log("ACTIVITIES="+result.counts.total+"; ASSIGNED="+result.branches.reduce((n,b)=>n+b.activities.length,0)+"; ISSUES="+result.issues.length);
+ console.log("PHASE_ASSIGNMENT=HISTORICAL_NOT_AUTONOMOUS; EXPERIMENT=NOT_EXECUTED; NO_CANONICAL_MUTATION");
+ if(result.issues.some(x=>x.code==="DEPENDENCY_CYCLE"||x.code==="UNRESOLVED_PHASE"))process.exitCode=2;
+}
+if(require.main===module)main();
+module.exports={build,PHASES};
