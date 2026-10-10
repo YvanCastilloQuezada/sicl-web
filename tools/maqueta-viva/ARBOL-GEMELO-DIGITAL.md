@@ -50,3 +50,70 @@ Esta función **no** predice efectos físicos, costos, cumplimiento normativo ni
 7. **Accesibilidad:** reforzar teclado, zoom, búsqueda de nodos y manejo de grafos grandes antes de promover la interfaz.
 
 **Estado:** IMPLEMENTED / AWAITING EXECUTION para el suplemento de propagación.
+
+## Implementación complementaria: observabilidad, alternativas, geometría, tiempo y respaldo
+
+**Estado:** código y pruebas añadidos a la rama experimental; **NO VERIFICADO** hasta ejecutar las suites sintética y Edge.
+
+### Alternativas A/B/C
+
+`twinThreeAlternatives(twinObservation())` produce tres proyecciones reproducibles de las piezas documentales:
+
+- **A:** ubicación original declarada (baseline).
+- **B:** ubicación propuesta por la lógica documental existente.
+- **C:** ubicación propuesta solo cuando no existen dependencias desconocidas; de lo contrario conserva la ubicación original.
+
+Las tres calculan conteos de traslados y referencias desconocidas. No son tres resultados de un motor generativo, no se puntúan económicamente y no se promueven automáticamente. Pueden coincidir si los datos no justifican diferencias.
+
+### Recibos de ejecución externos (contrato de importación)
+
+Se acepta un JSON de la forma:
+
+```json
+{
+  "schema": "ARKI-TWIN-EXECUTION-RECEIPTS-1",
+  "receipts": [{
+    "id": "EXAMPLE-1",
+    "producer": "AGK",
+    "outcome": "UNKNOWN",
+    "timestamp": "2026-10-10T14:00:00Z",
+    "operation": "mesh-export",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "phaseId": "F6"
+  }]
+}
+```
+
+**Este ejemplo es sintético y NO constituye evidencia de ejecución real.** El adaptador rechaza duplicados, resultados fuera de catálogo, timestamps inválidos y commits mal formados. La autenticación permanece `UNVERIFIED_EXTERNAL_CLAIM` incluso si el campo `outcome` dice `SUCCESS`. El usuario debe proporcionar recibos reales desde una fuente autorizada; el prototipo no tiene credenciales ni conexión a runtime.
+
+### Malla 3D externa (contrato de lectura)
+
+```json
+{
+  "schema": "ARKI-TWIN-AGK-MESH-1",
+  "canonicalMutation": false,
+  "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "vertices": [[0,0,0],[1,0,0],[0,1,0]],
+  "triangles": [[0,1,2]]
+}
+```
+
+**Ejemplo sintético; no es una exportación real de AGK.** Se verifican límites de cantidad, coordenadas finitas, índices válidos y triángulos no degenerados por índice. El visor usa una proyección isométrica SVG de los triángulos, sin conexión directa al AGK. No se demuestra la topología de sólidos, precisión geométrica, unidades, ni fidelidad entre formatos.
+
+### Historial causal documental
+
+La línea temporal muestra la versión, el disparador registrado y el tipo de cambio. El historial conserva el carácter `DOCUMENTARY_HISTORY_ONLY`; el disparador no es prueba de causalidad física ni de ejecución.
+
+### Respaldo con SHA-256
+
+`exportTwinVerifiedBackup()` genera un sobre JSON con el workspace y su digest SHA-256 calculado por WebCrypto. `importTwinVerifiedBackup()` compara el hash **antes** de importar el workspace, y conserva las validaciones previas de fases e historiales.
+
+**SHA-256 detecta alteraciones accidentales, pero no autentica al autor.** Un atacante puede recalcular el hash. El archivo debe conservarse fuera del perfil Edge y verificarse mediante restauración en un entorno aislado. La copia no incluye recibos externos ni mallas importadas, que siguen siendo datos de sesión no autenticados.
+
+### Puertas pendientes para integración productiva
+
+- Proveedor de recibos **autenticados** Core/AGK con firma o canal confiable, correlación, autorización y esquema estable.
+- Adaptador geométrico real con unidades, transformaciones, versión AGK, tolerancias y procedencia verificable.
+- Evaluador de alternativas con restricciones, objetivos multiobjetivo, trazabilidad y prueba de no-regresión.
+- Pruebas Edge reales, restauración en un segundo perfil, pruebas de rendimiento y revisión de seguridad.
+- Auditoría del Equipo Rojo y congelamiento explícito de contratos. Ninguna de estas puertas está declarada cerrada.
