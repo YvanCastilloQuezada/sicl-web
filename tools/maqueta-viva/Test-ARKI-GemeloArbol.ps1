@@ -58,10 +58,10 @@ try {
   Step "02 FETCH / DETACH EXPERIMENTAL HEAD" {
     Push-Location $Repo
     try {
-      Run "git" @("fetch","origin","+refs/heads/${Branch}:${Ref}")
+      Run -Exe "git" -CommandArgs @("fetch","origin","+refs/heads/${Branch}:${Ref}")
       $sha = (& git rev-parse $Ref).Trim()
       if($LASTEXITCODE -ne 0 -or $sha -notmatch '^[0-9a-f]{40}$') { throw "Unresolved experimental SHA" }
-      Run "git" @("switch","--detach",$sha)
+      Run -Exe "git" -CommandArgs @("switch","--detach",$sha)
       $head = (& git rev-parse "HEAD").Trim()
       if($head -ne $sha) { throw "Checkout mismatch" }
       Log "EXPERIMENTAL_SHA=$sha"
@@ -70,16 +70,16 @@ try {
   Step "03 JAVASCRIPT SYNTAX + SYNTHETIC REGRESSION" {
     Push-Location $Repo
     try {
-      Run "node" @("--version")
-      Run "node" @("--check","tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
-      Run "node" @("tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
+      Run -Exe "node" -CommandArgs @("--version")
+      Run -Exe "node" -CommandArgs @("--check","tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
     } finally { Pop-Location }
   }
   if($SkipInstall -and -not $SkipBrowser) { throw "Cannot verify current browser build with -SkipInstall; remove flag or also specify -SkipBrowser" }
   if(-not $SkipInstall) {
     Step "04 INSTALL / EMBED SOURCES / REPEAT REGRESSION" {
       Push-Location $Repo
-      try { Run "pwsh" @("-NoProfile","-File",(Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")) }
+      try { Run -Exe "pwsh" -CommandArgs @("-NoProfile","-File",(Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")) }
       finally { Pop-Location }
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
