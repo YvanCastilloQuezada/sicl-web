@@ -436,6 +436,8 @@ assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>{throw Error('read bl
 assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=>'{broken json'}).status",sandbox),"INVALID_JSON");
 assert.equal(vm.runInContext("loadTwinBrowser({getItem:()=> 'x'.repeat(2000001)}).status",sandbox),"LOCAL_WORKSPACE_TOO_LARGE");
 assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{throw Error('quota exceeded')}}).status",sandbox),"LOCAL_STORAGE_UNAVAILABLE");
+assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{},getItem:()=>null}).status",sandbox),"LOCAL_STORAGE_WRITE_NOT_CONFIRMED");
+assert.equal(vm.runInContext("saveTwinBrowser({setItem:()=>{},getItem:()=>'{truncated}'}).status",sandbox),"LOCAL_STORAGE_WRITE_NOT_CONFIRMED");
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),storageBaseline,"Storage faults must not mutate workspace");
 const storageCorrupt=JSON.parse(storageBaseline);storageCorrupt.revisionLedger[0].canonicalMutation=true;
 sandbox.__corruptRecovery=JSON.stringify(storageCorrupt);
