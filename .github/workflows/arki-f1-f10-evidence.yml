@@ -57,3 +57,47 @@ jobs:
           path: artifacts/arki-phase-evidence/
           if-no-files-found: error
           retention-days: 30
+
+  core:
+    name: Core regression (separate evidence)
+    if: github.event_name == 'workflow_dispatch' && (inputs.phase == 'ALL' || inputs.phase == 'MO11')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Core main (record exact resolved SHA)
+        uses: actions/checkout@v4
+        with:
+          repository: YvanCastilloQuezada/sicl-core
+          ref: main
+          path: core
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Core test and API dependencies
+        working-directory: core
+        run: python -m pip install -e '.[test,api]'
+      - name: Run Core regression with durable receipt
+        shell: bash
+        run: |
+          mkdir -p artifacts/arki-core-evidence
+          sha=$(git -C core rev-parse HEAD)
+          printf '%s\n' "$sha" > artifacts/arki-core-evidence/core-sha.txt
+          set +e
+          (cd core && python -m pytest -q) > artifacts/arki-core-evidence/pytest.log 2>&1
+          code=$?
+          set -e
+          printf 'core_repo=YvanCastilloQuezada/sicl-core\ncore_sha=%s\nexit_code=%s\n' "$sha" "$code" > artifacts/arki-core-evidence/receipt.txt
+          cat artifacts/arki-core-evidence/receipt.txt
+          exit "$code"
+      - name: Upload Core evidence on all outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-core-evidence-${{ github.sha }}
+          path: artifacts/arki-core-evidence/
+          if-no-files-found: warn
+          retention-days: 30
