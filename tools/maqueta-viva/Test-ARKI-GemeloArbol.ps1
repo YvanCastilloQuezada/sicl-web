@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8/E9/E10 HEADLESS / REVISIONS + READINESS GATES" {
+    Step "05 REAL BROWSER E3-E10 HEADLESS / INTEGRATION + LINEAR REVIEW GUARDS" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -195,6 +195,9 @@ try {
    const e9Portable=exportTwinWorkspace();
    check(importTwinWorkspace(e9Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E9 review workspace roundtrip");
    check(e9RevisionSnapshot()[0].status==="PROVISIONAL_ONLY","E9 review unexpectedly promoted");
+   check(!e8ReconciliationReport().issues.some(x=>x.kind==="EVIDENCE_CHANGED_SINCE_DECISION"&&x.id===originalDecisionId),"Reviewed E9 decision must not remain stale in E8");
+   check(addE9Revision(originalDecisionId,"DEFER","Attempt to fork a superseded decision").status==="STALE_REVISION_PARENT","E9 fork guard failed");
+
    check(document.getElementById("e10-evaluate"),"E10 readiness control missing");
    const e10Before=JSON.stringify({decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot(),evidence:e6EvidenceSnapshot()});
    document.getElementById("e10-evaluate").click();
