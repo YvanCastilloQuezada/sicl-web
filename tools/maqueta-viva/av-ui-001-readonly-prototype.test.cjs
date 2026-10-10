@@ -569,6 +569,12 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  const pinned=await vm.runInContext("pinTwinVerificationKey(__pubKey)",sandbox);
  assert.equal(pinned.status,"PUBLIC_KEY_PINNED_FOR_SESSION");
  assert.match(pinned.fingerprintSHA256,/^[0-9a-f]{64}$/);
+ sandbox.__expectedFingerprint=pinned.fingerprintSHA256;
+ assert.equal(vm.runInContext("checkTwinKeyFingerprint(__expectedFingerprint).status",sandbox),"OUT_OF_BAND_FINGERPRINT_MATCH");
+ assert.equal(vm.runInContext("checkTwinKeyFingerprint('0'.repeat(64)).status",sandbox),pinned.fingerprintSHA256==="0".repeat(64)?"OUT_OF_BAND_FINGERPRINT_MATCH":"OUT_OF_BAND_FINGERPRINT_MISMATCH");
+ assert.equal(vm.runInContext("checkTwinKeyFingerprint('xyz').status",sandbox),"INVALID_EXPECTED_FINGERPRINT");
+ assert.equal(vm.runInContext("checkTwinKeyFingerprint(__expectedFingerprint).producerIdentity",sandbox),"NOT_ESTABLISHED");
+
  const payload=JSON.stringify(receipts);
  const signature=Buffer.from(await webcrypto.subtle.sign({name:"ECDSA",hash:"SHA-256"},pair.privateKey,new TextEncoder().encode(payload))).toString("base64url");
  sandbox.__signedEnvelope={schema:"ARKI-TWIN-SIGNED-RECEIPTS-1",algorithm:"ECDSA-P256-SHA256",keyId:"local-fixture",payload,signature};
