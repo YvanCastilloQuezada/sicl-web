@@ -141,6 +141,12 @@ try {
    check(e5.status==="RULE_BASED_CANDIDATES_ONLY"&&e5.candidates.length>0,"E5 synthesis failed");
    check(e5.candidates.every(c=>c.status==="PROPOSED_ONLY"&&c.evidence==="UNKNOWN"&&c.canonicalMutation===false),"E5 proposal integrity");
    check(document.getElementById("e5-candidates").textContent.includes("hipótesis"),"E5 candidate display failed");
+   const branchId=e5.candidates[0].id;
+   check(addE5AlternativeBranch(branchId).status==="ADDED_TO_ALTERNATIVE_BRANCHES","E5 alternative branch adoption");
+   const branchWorkspace=exportTwinWorkspace();
+   check(removeE5AlternativeBranch(branchId).status==="REMOVED_ALTERNATIVE_BRANCH","E5 alternative branch removal");
+   check(importTwinWorkspace(branchWorkspace).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E5 alternative branch workspace import");
+   check(e5BranchSnapshot().some(x=>x.id===branchId),"E5 adopted branch not persisted");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
