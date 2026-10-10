@@ -12,6 +12,7 @@ on:
       - 'tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs'
       - 'tools/maqueta-viva/arki-adn-mejora-continua.cjs'
       - 'tools/maqueta-viva/arki-adn-mejora-continua.test.cjs'
+      - 'tools/maqueta-viva/Run-ARKI-ADN-MC.cjs'
       - '.github/workflows/av-ui-001-tree-twin.yml'
   workflow_dispatch:
 jobs:
