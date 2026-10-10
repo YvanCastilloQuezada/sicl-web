@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4 HEADLESS / UI + DAG + STORAGE" {
+    Step "05 REAL BROWSER E3/E4/E5 HEADLESS / UI + DAG + STORAGE + CANDIDATES" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -135,6 +135,12 @@ try {
    check(setTwinPhaseDependencies("F12","F4").status==="ALTERNATIVE_DEPENDENCIES_UPDATED","E4 mutation before browser restore");
    check(loadTwinBrowser().status==="IMPORTED_ALTERNATIVE_WORKSPACE","E4 local browser restore");
    check(twinPhaseSnapshot().find(p=>p.id==="F12").dependencies.includes("F11"),"E4 browser storage retained DAG");
+   check(document.getElementById("e5-generate"),"E5 candidate generation button missing");
+   document.getElementById("e5-generate").click();
+   const e5=synthesizeNewBranches();
+   check(e5.status==="RULE_BASED_CANDIDATES_ONLY"&&e5.candidates.length>0,"E5 synthesis failed");
+   check(e5.candidates.every(c=>c.status==="PROPOSED_ONLY"&&c.evidence==="UNKNOWN"&&c.canonicalMutation===false),"E5 proposal integrity");
+   check(document.getElementById("e5-candidates").textContent.includes("hipótesis"),"E5 candidate display failed");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
