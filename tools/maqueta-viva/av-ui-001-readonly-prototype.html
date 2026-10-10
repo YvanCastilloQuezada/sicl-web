@@ -213,6 +213,10 @@ function recordStructuralSnapshot(change){
  const current=new Map(scenario.nodes.map(n=>[n.id,n]));
  const prior=new Map((previous?.nodes||[]).map(n=>[n.id,n]));
  const changes=[];
+ const oldPhases=new Map((previous?.experimentalPhases||[]).map(p=>[p.id,p]));
+ const newPhases=new Map(twinPhaseSnapshot().map(p=>[p.id,p]));
+ for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name})}
+ for(const [id,p] of oldPhases)if(!newPhases.has(id))changes.push({id,kind:"PHASE_REMOVED",before:p.name});
  for(const [id,n] of current){
   const before=prior.get(id);
   if(!before){changes.push({id,kind:"ADDED_TO_SCENARIO"});continue}
@@ -505,7 +509,8 @@ function importTwinPhases(raw){
  for(const p of twinPhases)delete labels[p.id];twinPhases.splice(0,twinPhases.length,...clean);for(const p of clean)labels[p.id]=p.name;
  return {status:"IMPORTED_ALTERNATIVE_PHASES",count:clean.length,canonicalMutation:false};
 }
-function twinPhaseView(){const root=el("twin-phase-list");if(!root)return;root.replaceChildren();entry(root,"Fases experimentales",String(twinPhases.length));for(const p of [...twinPhases].sort((a,b)=>Number(a.id.slice(1))-Number(b.id.slice(1))))entry(root,p.id,p.name+" · PROPOSED_ONLY · evidencia UNKNOWN")}
+function removeTwinPhase(id){const index=twinPhases.findIndex(p=>p.id===id);if(index<0)return {status:"PHASE_NOT_FOUND"};twinPhases.splice(index,1);delete labels[id];if(selected===id){selected="F10";selectedLeaf=null;selectedBranch=null}return {status:"REMOVED_FROM_ALTERNATIVE_TWIN",canonicalMutation:false}}
+function twinPhaseView(){const root=el("twin-phase-list");if(!root)return;root.replaceChildren();entry(root,"Fases experimentales",String(twinPhases.length));for(const p of [...twinPhases].sort((a,b)=>Number(a.id.slice(1))-Number(b.id.slice(1)))){const line=node("div","","entry");line.append(node("strong",p.id+" · "+p.name),node("small","PROPOSED_ONLY · evidencia UNKNOWN"));const remove=node("button","Retirar del escenario");remove.type="button";remove.dataset.help="Elimina esta fase solo del escenario local; no modifica el repositorio ni el estado canónico.";remove.addEventListener("click",()=>{removeTwinPhase(p.id);recordStructuralSnapshot({kind:"PLACEMENT",id:p.id});refreshHistorySelectors();show()});line.append(remove);root.append(line)}}
 function evaluateAdditionalPhase(rawId,rawName){
  const id=String(rawId||"").trim().toUpperCase(),name=String(rawName||"").trim();
  if(!/^F(?:[1-9][0-9]*)$/.test(id)||id.length>12)return {status:"INVALID_PHASE_ID",canonicalMutation:false};
@@ -514,7 +519,7 @@ function evaluateAdditionalPhase(rawId,rawName){
  return {status:"PHASE_PROPOSAL_ONLY",id,name,reason:"Fase candidata; requiere demostrar que no cabe en F1–F10, establecer propósito, dependencias, entregables, evidencia y autoridad de aprobación.",dependencies:"UNKNOWN",canonicalMutation:false};
 }
 if(el("twin-propose-phase"))el("twin-propose-phase").addEventListener("click",()=>{const proposal=evaluateAdditionalPhase(el("twin-new-phase")?.value,el("twin-phase-name")?.value);const root=el("twin-result");if(!root)return;root.replaceChildren();entry(root,"Evaluación",proposal.status);if(proposal.id){entry(root,proposal.id,proposal.name);entry(root,"Condiciones",proposal.reason);entry(root,"Dependencias",proposal.dependencies);}else entry(root,"Requisitos","Identificador F11 o superior y finalidad explícita de 12–180 caracteres.");entry(root,"Efecto","Propuesta temporal; no se crea ni inserta una fase en el árbol oficial.");});
-if(el("twin-add-phase"))el("twin-add-phase").addEventListener("click",()=>{const result=addTwinPhase(el("twin-new-phase")?.value,el("twin-phase-name")?.value);const root=el("twin-result");root.replaceChildren();entry(root,"Fase alternativa",result.status);if(result.phase)entry(root,result.phase.id,result.phase.name+" · solo escenario, sin aprobación");show();});
+if(el("twin-add-phase"))el("twin-add-phase").addEventListener("click",()=>{const result=addTwinPhase(el("twin-new-phase")?.value,el("twin-phase-name")?.value);if(result.phase){recordStructuralSnapshot({kind:"PLACEMENT",id:result.phase.id});refreshHistorySelectors()}show();const root=el("twin-result");root.replaceChildren();entry(root,"Fase alternativa",result.status);if(result.phase)entry(root,result.phase.id,result.phase.name+" · solo escenario, sin aprobación");});
 if(el("twin-export-phases"))el("twin-export-phases").addEventListener("click",()=>{const data=exportTwinPhases();const url=URL.createObjectURL(new Blob([data],{type:"application/json;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download="ARKI-GEMELO-ARBOL-FASES-ALTERNATIVAS.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);});
 if(el("twin-import-phases"))el("twin-import-phases").addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;let result={status:"FILE_TOO_LARGE"};if(file.size<=1000000)try{result=importTwinPhases(await file.text())}catch{result={status:"IMPORT_ERROR"}}show();const root=el("twin-result");root.replaceChildren();entry(root,"Importación",result.status)});
 show();
