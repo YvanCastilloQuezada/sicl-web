@@ -13,7 +13,7 @@ h2{font-size:17px;margin:0 0 12px}.tree{display:flex;flex-direction:column;align
 .phase .id{font-weight:800;background:#31675c;border-radius:100%;padding:8px;min-width:42px;text-align:center}
 .phase[data-state=FROZEN] .id{background:#4e718e}.phase[data-state=RECONCILIATION_REQUIRED] .id{background:#9d6243}
 .phase .state{font-size:11px;color:#c4d3de;text-align:right;overflow-wrap:anywhere}
-.branch-group{position:relative;width:78%;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:1px 0 6px}.branch{position:relative;border:1px solid #668394;background:#294354;color:#eaf1f7;border-radius:15px;padding:5px 9px;cursor:pointer;font-size:12px;max-width:95%;overflow-wrap:anywhere}.branch[aria-pressed=true]{outline:2px solid #e7b45d}.branch.blocked{border-color:#d58765}.branch.frozen{border-color:#90a5cf}.branch:focus-visible{outline:2px solid #8cc5ef}.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
+.branch-group{position:relative;width:78%;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:1px 0 6px}.branch{position:relative;border:1px solid #668394;background:#294354;color:#eaf1f7;border-radius:15px;padding:5px 9px;cursor:pointer;font-size:12px;max-width:95%;overflow-wrap:anywhere}.branch[aria-pressed=true]{outline:2px solid #e7b45d}.branch.blocked{border-color:#d58765}.branch.frozen{border-color:#90a5cf}.branch:focus-visible{outline:2px solid #8cc5ef}.relation{width:78%;margin:5px auto 10px;border:1px solid #456a7a;border-radius:9px;padding:10px;background:#1c364a}.relation h3{margin:0 0 8px;font-size:13px}.relation-item{font-size:12px;margin:5px 0;padding:5px 8px;border-left:3px solid #86b7ce;background:#274458;overflow-wrap:anywhere}.relation-item.unknown{border-color:#d7a06c}.relation-item.frozen{border-color:#a9a7d8}.relation-item button{color:#eaf1f7;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}.relation-note{font-size:11px;color:#b7c9d5}.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
 .tag{font-size:11px;display:inline-block;padding:3px 7px;background:#35516b;border-radius:5px}
 .warn{color:#ffca86}button{font:inherit}input[type=file]{max-width:240px}
 footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
@@ -43,6 +43,18 @@ function affected(id){const found=new Set(),queue=[...(dependents.get(id)||[])];
 const frozen=new Set(phaseData().filter(p=>p.status==="FROZEN").map(p=>p.id));
 return {cycles,rows:[...ids].map(id=>({id,phase:placements[id],deps:edges.get(id),missing:missing.get(id),cycle:cyclic.has(id),frozen:frozen.has(placements[id]),affected:affected(id)}))};
 }
+function relationView(row,g){
+const wrap=node("section","","relation");wrap.append(node("h3","Conexiones de "+row.id));
+const byId=new Map(g.rows.map(x=>[x.id,x]));
+function add(title,ids,kind){const item=node("div","","relation-item"+(kind?" "+kind:""));item.append(node("strong",title+": "));
+if(!ids.length){item.append(node("span","Ninguna declarada"));wrap.append(item);return}
+ids.forEach((id,i)=>{if(i)item.append(node("span",", "));const target=byId.get(id);if(target){const link=node("button",id+" ("+target.phase+")");link.type="button";link.addEventListener("click",()=>{selected=target.phase;selectedBranch=target.id;show()});item.append(link)}else item.append(node("span",id+" · NO ENCONTRADA"))});wrap.append(item)}
+add("Antecedentes directos",row.deps,"");add("Referencias ausentes",row.missing,"unknown");
+const direct=g.rows.filter(x=>x.deps.includes(row.id)).map(x=>x.id);add("Dependientes directos",direct,"");
+const impacted=new Set(),queue=[...direct];while(queue.length){const id=queue.shift();if(id===row.id||impacted.has(id))continue;impacted.add(id);const followers=g.rows.filter(x=>x.deps.includes(id)).map(x=>x.id);queue.push(...followers)}
+add("Dependientes indirectos",[...impacted].filter(id=>!direct.includes(id)),"");
+wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las relaciones no registradas son UNKNOWN, no inexistentes.","relation-note"));return wrap;
+}
 function show(){
 const phases=phaseData();el("tree").replaceChildren();
 for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});el("tree").append(btn);
@@ -51,6 +63,8 @@ if(related.length){const group=node("div","","branch-group");group.setAttribute(
 for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
 if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}
 }
+const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
+if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
 if(!state){entry(mem,"Sin datos","Importa el estado estructurado local de ARKI.");entry(dec,"Sin evidencia","No se inventan propuestas ni métricas.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
