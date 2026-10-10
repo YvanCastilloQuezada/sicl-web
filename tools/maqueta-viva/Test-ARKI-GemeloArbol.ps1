@@ -32,7 +32,7 @@ function BrowserPath {
     if($cmd) { return $cmd.Source }
   }
   foreach($candidate in @(
-    "$env:ProgramFiles (x86)/Microsoft/Edge/Application/msedge.exe",
+    "${env:ProgramFiles(x86)}/Microsoft/Edge/Application/msedge.exe",
     "$env:ProgramFiles/Microsoft/Edge/Application/msedge.exe",
     "$env:ProgramFiles/Google/Chrome/Application/chrome.exe",
     "$env:LOCALAPPDATA/Google/Chrome/Application/chrome.exe"
@@ -74,6 +74,7 @@ try {
       Run "node" @("tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
     } finally { Pop-Location }
   }
+  if($SkipInstall -and -not $SkipBrowser) { throw "Cannot verify current browser build with -SkipInstall; remove flag or also specify -SkipBrowser" }
   if(-not $SkipInstall) {
     Step "04 INSTALL / EMBED SOURCES / REPEAT REGRESSION" {
       Push-Location $Repo
@@ -86,7 +87,9 @@ try {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
-      $htmlFile = Get-ChildItem -LiteralPath $install -Filter "ARKI-ARBOL-VIVO-*.html" -File | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+      $currentSha = (& git -C $Repo rev-parse HEAD).Trim()
+      $expected = "ARKI-ARBOL-VIVO-$($currentSha.Substring(0,8)).html"
+      $htmlFile = Get-Item -LiteralPath (Join-Path $install $expected) -ErrorAction SilentlyContinue
       if(-not $htmlFile) { throw "Installed HTML not found; remove -SkipInstall" }
       $html = [IO.File]::ReadAllText($htmlFile.FullName,[Text.UTF8Encoding]::new($false,$true))
       $probe = @'
