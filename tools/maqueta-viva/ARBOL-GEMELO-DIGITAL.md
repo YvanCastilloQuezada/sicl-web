@@ -27,3 +27,26 @@ El centro de observación muestra indicadores de piezas documentales, evidencias
 5. Validar con pruebas sintéticas y Edge reales antes de marcar esta versión `VERIFIED`.
 
 **Disciplina:** CLAIM ≠ IMPLEMENTED ≠ EXECUTED ≠ VERIFIED ≠ FROZEN.
+
+## Suplemento — propagación documental de dependencias
+
+El inspector del ÁRBOL Gemelo Digital permite activar **Mostrar propagación documental** sobre la fase seleccionada. Calcula:
+
+- Dependientes directos por referencias de fases y dependencias entre piezas documentales.
+- Alcance transitivo mediante recorrido del grafo dirigido; evita bucles en ciclos.
+- Cantidad de referencias a piezas desconocidas (no se inventan enlaces).
+- Advertencias permanentes: `DOCUMENTARY_ESTIMATE_ONLY`, `NOT_EXECUTED`, `UNKNOWN`, sin mutación canónica.
+
+Esta función **no** predice efectos físicos, costos, cumplimiento normativo ni impactos geométricos. No sustituye la futura causalidad verificada por AGK/Core.
+
+### Recomendaciones priorizadas
+
+1. **Evidencia primero:** conectar los identificadores de fases, piezas, dependencias y decisiones a recibos versionados de fuente real; mantener `UNKNOWN` ante falta de respaldo.
+2. **Observabilidad real:** instrumentar eventos de ejecución de Core/AGK con tiempo, correlación, resultado y huella del código, sin mezclar la vista documental con la ejecución real.
+3. **Impacto causal:** distinguir `DEPENDENCY_DECLARED`, `INFERRED` y `EXECUTION_VERIFIED`; prohibir que una inferencia se convierta en hecho.
+4. **Geometría real:** integrar geometría 3D del AGK solamente mediante contrato de lectura autorizado; la vista isométrica actual no debe presentarse como simulación.
+5. **Comparación de alternativas:** preparar tres escenarios `A/B/C` aislados con objetivos, restricciones, cobertura de evidencia, diferencias y trazabilidad; no elegir automáticamente una alternativa sin criterios auditables.
+6. **Persistencia:** incorporar exportación de respaldos con checksum y prueba de restauración entre perfiles; `localStorage` no es un almacén duradero.
+7. **Accesibilidad:** reforzar teclado, zoom, búsqueda de nodos y manejo de grafos grandes antes de promover la interfaz.
+
+**Estado:** IMPLEMENTED / AWAITING EXECUTION para el suplemento de propagación.
