@@ -41,7 +41,16 @@ const cyclic=new Set(cycles.flat()),dependents=new Map([...ids].map(id=>[id,[]])
 for(const [id,deps] of edges)for(const dep of deps)dependents.get(dep).push(id);
 function affected(id){const found=new Set(),queue=[...(dependents.get(id)||[])];while(queue.length){const x=queue.shift();if(x===id||found.has(x))continue;found.add(x);queue.push(...(dependents.get(x)||[]))}return found.size}
 const frozen=new Set(phaseData().filter(p=>p.status==="FROZEN").map(p=>p.id));
-return {cycles,rows:[...ids].map(id=>({id,phase:placements[id],deps:edges.get(id),missing:missing.get(id),cycle:cyclic.has(id),frozen:frozen.has(placements[id]),affected:affected(id)}))};
+function upstreamBlockers(id){
+const blockers=new Set(),visited=new Set(),queue=[...(edges.get(id)||[])];
+while(queue.length){const dep=queue.shift();if(visited.has(dep))continue;visited.add(dep);
+if(cyclic.has(dep))blockers.add(dep+" · CYCLE");
+if(frozen.has(placements[dep]))blockers.add(dep+" · FROZEN");
+for(const ref of missing.get(dep)||[])blockers.add(dep+" → "+ref+" · MISSING");
+queue.push(...(edges.get(dep)||[]));
+}return [...blockers];
+}
+return {cycles,rows:[...ids].map(id=>({id,phase:placements[id],deps:edges.get(id),missing:missing.get(id),cycle:cyclic.has(id),frozen:frozen.has(placements[id]),affected:affected(id),upstreamBlockers:upstreamBlockers(id)}))};
 }
 function relationView(row,g){
 const wrap=node("section","","relation");wrap.append(node("h3","Conexiones de "+row.id));
@@ -60,7 +69,7 @@ const phases=phaseData();el("tree").replaceChildren();
 for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});el("tree").append(btn);
 const related=localGraph().rows.filter(x=>x.phase===id);
 if(related.length){const group=node("div","","branch-group");group.setAttribute("aria-label","Ramas locales de "+id);
-for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
+for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
 if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}
 }
 const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
@@ -75,13 +84,13 @@ entry(mem,"Aprobado ≠ verificado","Este prototipo no transforma declaraciones 
 const g=localGraph(),rows=g.rows.filter(x=>x.phase===selected);
 entry(mem,"Ramas en borrador",String(rows.length));
 const focus=rows.find(x=>x.id===selectedBranch);
-if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Antecedentes declarados",focus.deps.join(" → ")||"NINGUNO DECLARADO (no implica ausencia real)");entry(mem,"Impacto hacia delante",String(focus.affected)+" dependientes transitivos en borrador");}
+if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Antecedentes declarados",focus.deps.join(" → ")||"NINGUNO DECLARADO (no implica ausencia real)");entry(mem,"Impacto hacia delante",String(focus.affected)+" dependientes transitivos en borrador");entry(mem,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Ninguno detectado en las dependencias declaradas");}
 for(const row of rows.slice(0,20))entry(mem,row.id,"Antecedentes: "+(row.deps.join(", ")||"no declarados")+" · dependientes transitivos: "+row.affected);
 
 entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
 entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
-if(focus){const blocks=[focus.cycle?"CICLO":"",focus.frozen?"FROZEN":"",focus.missing.length?"REFERENCIAS AUSENTES: "+focus.missing.join(", "):""].filter(Boolean);entry(dec,"Estado de rama",blocks.length?"BLOQUEADA · "+blocks.join(" · "):"SIN BLOQUEOS DECLARADOS · NO VERIFICADA");}
-if(draft){for(const row of rows.filter(x=>x.cycle||x.frozen||x.missing.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.frozen?"FROZEN · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):""));
+if(focus){const blocks=[focus.cycle?"CICLO":"",focus.frozen?"FROZEN":"",focus.missing.length?"REFERENCIAS AUSENTES: "+focus.missing.join(", "):"",focus.upstreamBlockers.length?"ANTECEDENTES BLOQUEADOS: "+focus.upstreamBlockers.join("; "):""].filter(Boolean);entry(dec,"Estado de rama",blocks.length?"BLOQUEADA · "+blocks.join(" · "):"SIN BLOQUEOS DECLARADOS · NO VERIFICADA");}
+if(draft){for(const row of rows.filter(x=>x.cycle||x.frozen||x.missing.length||x.upstreamBlockers.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.frozen?"FROZEN · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):"")+(row.upstreamBlockers.length?" · HEREDADOS: "+row.upstreamBlockers.join("; "):""));
 entry(dec,"Ciclos en borrador",String(g.cycles.length)+" detectados. No es auditoría global.");
 entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción.");}
 
