@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5/E6 HEADLESS / UI + DAG + STORAGE + EVIDENCE" {
+    Step "05 REAL BROWSER E3/E4/E5/E6/E7 HEADLESS / UI + DAG + EVIDENCE + DECISIONS" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -161,6 +161,18 @@ try {
    const e6Portable=exportTwinWorkspace();
    check(importTwinWorkspace(e6Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E6 evidence workspace roundtrip");
    check(e6EvidenceSnapshot()[0].status==="UNVERIFIED","E6 evidence promoted unexpectedly");
+   check(document.getElementById("e7-record"),"E7 decision record control missing");
+   document.getElementById("e7-branch").value=branchId;
+   document.getElementById("e7-action").value="DEFER";
+   document.getElementById("e7-rationale").value="Await independent review of contradictory source material";
+   document.getElementById("e7-record").click();
+   check(e7DecisionSnapshot().length===1,"E7 provisional decision not recorded");
+   check(e7DecisionState(branchId).latestAction==="DEFER","E7 provisional decision state incorrect");
+   check(e7DecisionImpact(branchId).status==="IMPACT_ESTIMATE_ONLY","E7 impact estimate missing");
+   check(document.getElementById("e7-ledger").textContent.includes("PROVISIONAL_ONLY"),"E7 ledger not displayed");
+   const e7Portable=exportTwinWorkspace();
+   check(importTwinWorkspace(e7Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E7 decision workspace roundtrip");
+   check(e7DecisionSnapshot()[0].status==="PROVISIONAL_ONLY","E7 decision unexpectedly promoted");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
