@@ -252,7 +252,86 @@ try {
       } finally { $process.Dispose() }
     }
   } else { Log "SKIP 05 BROWSER E3 (explicit flag; NOT VERIFIED)" }
-  Step "06 POSTCONDITIONS / NO CANONICAL MUTATION" {
+  if(-not $SkipBrowser) {
+    Step "06 REAL BROWSER RESTART / PERSISTENT PROFILE RECOVERY" {
+      $browser = BrowserPath
+      if(-not $browser) { throw "Browser unavailable for restart recovery" }
+      $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
+      $sha = (& git -C $Repo rev-parse HEAD).Trim()
+      $installed = Join-Path $install "ARKI-ARBOL-VIVO-$($sha.Substring(0,8)).html"
+      $baseHtml = [IO.File]::ReadAllText($installed,[Text.UTF8Encoding]::new($false,$true))
+      if(-not $baseHtml.Contains("</body>")) { throw "Recovery HTML missing body" }
+      $recoveryDir = Join-Path $ReportDir "restart-$Stamp"
+      New-Item -ItemType Directory -Force -Path $recoveryDir | Out-Null
+      $probeFile = Join-Path $recoveryDir "restart-probe.html"
+      $profile = Join-Path $recoveryDir "persistent-edge-profile"
+      $stageOne = @'
+<script>
+(function(){
+ const result=document.createElement("pre");result.id="arki-restart-result";document.body.append(result);
+ try {
+   const add=addTwinPhase("F14","Persistencia tras reinicio experimental");
+   if(add.status!=="ADDED_TO_ALTERNATIVE_TWIN")throw Error("Cannot create F14");
+   const snapshot=recordStructuralSnapshot({kind:"DEPENDENCY",id:"F14"});
+   if(snapshot.status!=="SNAPSHOT_RECORDED_IN_MEMORY")throw Error("Cannot snapshot restart state: "+snapshot.status);
+   const saved=saveTwinBrowser();
+   if(saved.status!=="SAVED_TO_LOCAL_BROWSER")throw Error("Storage save: "+saved.status);
+   const original=JSON.parse(exportTwinWorkspace());
+   if(!original.phases.phases.some(p=>p.id==="F14")||original.history.versions.length<1)throw Error("Incomplete saved workspace");
+   result.textContent="ARKI_RESTART_STAGE_1_PASS";
+   result.setAttribute("data-status","PASS");
+ } catch(error){result.textContent="ARKI_RESTART_STAGE_1_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
+})();
+</script>
+'@
+      $stageTwo = @'
+<script>
+(function(){
+ const result=document.createElement("pre");result.id="arki-restart-result";document.body.append(result);
+ try {
+   if(twinPhaseSnapshot().some(p=>p.id==="F14"))throw Error("State was not reset before reload");
+   const loaded=loadTwinBrowser();
+   if(loaded.status!=="IMPORTED_ALTERNATIVE_WORKSPACE")throw Error("Storage reload: "+loaded.status);
+   const workspace=JSON.parse(exportTwinWorkspace());
+   if(!workspace.phases.phases.some(p=>p.id==="F14"))throw Error("F14 lost across restart");
+   if(!workspace.history.versions.some(x=>x.trigger?.id==="F14"))throw Error("History lost across restart");
+   if(workspace.canonicalMutation!==false)throw Error("Canonical mutation detected");
+   result.textContent="ARKI_RESTART_STAGE_2_PASS";
+   result.setAttribute("data-status","PASS");
+ } catch(error){result.textContent="ARKI_RESTART_STAGE_2_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
+})();
+</script>
+'@
+      foreach($stage in @(1,2)) {
+        $probe = if($stage -eq 1){$stageOne}else{$stageTwo}
+        [IO.File]::WriteAllText($probeFile,$baseHtml.Replace("</body>","$probe`n</body>"),[Text.UTF8Encoding]::new($false))
+        $psi = [Diagnostics.ProcessStartInfo]::new()
+        $psi.FileName = $browser
+        foreach($arg in @("--headless","--disable-gpu","--no-first-run","--no-default-browser-check","--disable-extensions","--user-data-dir=$profile","--virtual-time-budget=8000","--dump-dom",([Uri]$probeFile).AbsoluteUri)) { [void]$psi.ArgumentList.Add($arg) }
+        $psi.UseShellExecute = $false
+        $psi.RedirectStandardOutput = $true
+        $psi.RedirectStandardError = $true
+        $process = [Diagnostics.Process]::Start($psi)
+        try {
+          $stdout = $process.StandardOutput.ReadToEndAsync()
+          $stderr = $process.StandardError.ReadToEndAsync()
+          if(-not $process.WaitForExit(45000)) { $process.Kill($true); throw "Restart stage $stage timeout" }
+          $dom = $stdout.GetAwaiter().GetResult()
+          $errors = $stderr.GetAwaiter().GetResult()
+          $domPath = Join-Path $recoveryDir "restart-stage-$stage-dom.html"
+          [IO.File]::WriteAllText($domPath,$dom)
+          $passText = "ARKI_RESTART_STAGE_${stage}_PASS"
+          if($process.ExitCode -ne 0 -or $dom -notmatch 'id="arki-restart-result"[^>]*data-status="PASS"' -or -not $dom.Contains($passText)) {
+            Log "RESTART_STDERR_STAGE_${stage}=$($errors.Substring(0,[Math]::Min(500,$errors.Length)))"
+            throw "Browser restart stage $stage failed: $domPath"
+          }
+          Log "RESTART_STAGE_${stage}=PASS"
+        } finally { $process.Dispose() }
+      }
+      Log "RESTART_PROFILE=$profile"
+    }
+  } else { Log "SKIP 06 BROWSER RESTART (explicit flag; NOT VERIFIED)" }
+  Step "07 POSTCONDITIONS / NO CANONICAL MUTATION" {
     Push-Location $Repo
     try {
       $dirty = @(& git status --porcelain)
