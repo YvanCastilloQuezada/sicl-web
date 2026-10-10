@@ -513,9 +513,9 @@ function removeTwinPhase(id){const index=twinPhases.findIndex(p=>p.id===id);if(i
 function twinPhaseView(){const root=el("twin-phase-list");if(!root)return;root.replaceChildren();entry(root,"Fases experimentales",String(twinPhases.length));for(const p of [...twinPhases].sort((a,b)=>Number(a.id.slice(1))-Number(b.id.slice(1)))){const line=node("div","","entry");line.append(node("strong",p.id+" · "+p.name),node("small","PROPOSED_ONLY · evidencia UNKNOWN"));const remove=node("button","Retirar del escenario");remove.type="button";remove.dataset.help="Elimina esta fase solo del escenario local; no modifica el repositorio ni el estado canónico.";remove.addEventListener("click",()=>{removeTwinPhase(p.id);recordStructuralSnapshot({kind:"PLACEMENT",id:p.id});refreshHistorySelectors();show()});line.append(remove);root.append(line)}}
 function recommendPhaseStructure(rawName){
  const name=String(rawName||"").trim().toLocaleLowerCase("es");
- const terms=[...new Set(name.normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").match(/[a-z0-9]{4,}/g)||[])];
+ const terms=[...new Set(name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").match(/[a-z0-9]{4,}/g)||[])];
  const existing=[...Object.entries(labels)].filter(([id])=>Number(id.slice(1))<=10);
- const tokens=s=>new Set(String(s).toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").match(/[a-z0-9]{4,}/g)||[]);
+ const tokens=s=>new Set(String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").match(/[a-z0-9]{4,}/g)||[]);
  const candidates=existing.map(([id,title])=>({id,title,overlap:terms.filter(t=>tokens(title).has(t))})).filter(x=>x.overlap.length).sort((a,b)=>b.overlap.length-a.overlap.length);
  return {status:"STRUCTURE_REVIEW_REQUIRED",alternatives:candidates.slice(0,3),recommendation:candidates.length?"REVIEW_EXISTING_PHASE_FIRST":"INSUFFICIENT_EVIDENCE_FOR_NEW_PHASE",evidence:"LEXICAL_ONLY",canonicalMutation:false};
 }
