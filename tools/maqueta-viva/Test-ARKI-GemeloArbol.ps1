@@ -127,7 +127,17 @@ try {
   }
   if($SkipInstall -and -not $SkipBrowser) { throw "Cannot verify current browser build with -SkipInstall; remove flag or also specify -SkipBrowser" }
   if(-not $SkipInstall) {
-    Step "04 INSTALL / EMBED SOURCES / REPEAT REGRESSION" {
+    Step "03G ARBOL VIVO AUTO INVENTORY / DEPENDENCIES" {
+    Push-Location $Repo
+    try {
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-arbol-vivo-auto.test.cjs")
+      $autoReport = Join-Path $ReportDir "ARKI-ARBOL-VIVO-AUTO-$Stamp.json"
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-arbol-vivo-auto.cjs",$autoReport)
+      Log "ARBOL_AUTO_REPORT=$autoReport"
+      Log "AUTONOMOUS_PHASE_ASSIGNMENT=NOT_VERIFIED; REAL_EXPERIMENT=NOT_EXECUTED"
+    } finally { Pop-Location }
+  }
+  Step "04 INSTALL / EMBED SOURCES / REPEAT REGRESSION" {
       Push-Location $Repo
       try { Run -Exe "pwsh" -CommandArgs @("-NoProfile","-File",(Join-Path $PSScriptRoot "Install-ARKI-ArbolVivo.ps1")) }
       finally { Pop-Location }
