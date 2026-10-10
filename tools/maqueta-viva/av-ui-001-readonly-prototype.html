@@ -183,11 +183,32 @@ function synthesizeNewBranches(){
  if(!candidates.length)candidates.push({id:"E5-AUDIT-000",kind:"COVERAGE_AUDIT",title:"Auditar cobertura de dependencias y evidencia",phase:"F1",sourceIds:[],reason:"No se encontraron vacíos de los tipos cubiertos por estas reglas; esto no demuestra cobertura total.",deliverable:"Matriz de cobertura contrastada con fuentes originales.",requiredEvidence:["Inventario completo","Prueba de cobertura","Revisión independiente"],risk:"Cobertura aparente limitada al fixture local.",status:"PROPOSED_ONLY",evidence:"UNKNOWN",canonicalMutation:false});
  return {status:"RULE_BASED_CANDIDATES_ONLY",candidates,inputs:{documentaryNodes:sourceIds.size,missingReferences:missing.size,withoutGraph:noGraph.length},canonicalMutation:false};
 }
+const e5AlternativeBranches=[];
+function e5BranchSnapshot(){return e5AlternativeBranches.map(x=>({...x,sourceIds:[...x.sourceIds],requiredEvidence:[...x.requiredEvidence]}))}
+function addE5AlternativeBranch(id){
+ const candidate=synthesizeNewBranches().candidates.find(x=>x.id===id);
+ if(!candidate)return {status:"UNKNOWN_CANDIDATE",canonicalMutation:false};
+ if(e5AlternativeBranches.some(x=>x.id===id))return {status:"DUPLICATE_CANDIDATE",canonicalMutation:false};
+ if(e5AlternativeBranches.length>=50)return {status:"BRANCH_LIMIT_REACHED",canonicalMutation:false};
+ e5AlternativeBranches.push({...candidate,sourceIds:[...candidate.sourceIds],requiredEvidence:[...candidate.requiredEvidence]});
+ return {status:"ADDED_TO_ALTERNATIVE_BRANCHES",id,canonicalMutation:false};
+}
+function removeE5AlternativeBranch(id){const index=e5AlternativeBranches.findIndex(x=>x.id===id);if(index<0)return {status:"BRANCH_NOT_FOUND",canonicalMutation:false};e5AlternativeBranches.splice(index,1);return {status:"REMOVED_ALTERNATIVE_BRANCH",canonicalMutation:false}}
+function validateE5Branches(raw){
+ if(!Array.isArray(raw)||raw.length>50)return {status:"INVALID_BRANCHES"};
+ const known=new Map(synthesizeNewBranches().candidates.map(x=>[x.id,x]));const ids=new Set();
+ for(const item of raw){const source=known.get(item?.id);if(!source||ids.has(item.id)||JSON.stringify(source)!==JSON.stringify(item))return {status:"INVALID_BRANCHES"};ids.add(item.id)}
+ return {status:"VALID_BRANCHES"};
+}
 function renderNewBranchCandidates(){
  const root=el("e5-candidates");if(!root)return;
  root.replaceChildren();const result=synthesizeNewBranches();
  entry(root,"Generación basada en reglas",result.candidates.length+" hipótesis · "+result.inputs.missingReferences+" referencias ausentes · "+result.inputs.withoutGraph+" piezas sin grafo");
- for(const candidate of result.candidates.slice(0,12))entry(root,candidate.id+" · "+candidate.title,"Fase sugerida: "+candidate.phase+" · origen: "+(candidate.sourceIds.join(", ")||"auditoría global")+" · "+candidate.reason+" · Entregable: "+candidate.deliverable+" · Evidencia requerida: "+candidate.requiredEvidence.join("; ")+" · PROPOSED_ONLY / UNKNOWN");
+ for(const candidate of result.candidates.slice(0,12)){
+  entry(root,candidate.id+" · "+candidate.title,"Fase sugerida: "+candidate.phase+" · origen: "+(candidate.sourceIds.join(", ")||"auditoría global")+" · "+candidate.reason+" · Entregable: "+candidate.deliverable+" · Evidencia requerida: "+candidate.requiredEvidence.join("; ")+" · PROPOSED_ONLY / UNKNOWN");
+  const button=node("button",e5AlternativeBranches.some(x=>x.id===candidate.id)?"Retirar rama alternativa":"Añadir rama alternativa");button.type="button";button.addEventListener("click",()=>{const result=e5AlternativeBranches.some(x=>x.id===candidate.id)?removeE5AlternativeBranch(candidate.id):addE5AlternativeBranch(candidate.id);if(["ADDED_TO_ALTERNATIVE_BRANCHES","REMOVED_ALTERNATIVE_BRANCH"].includes(result.status)){recordStructuralSnapshot({kind:"IDEA",id:candidate.id});refreshHistorySelectors()}renderNewBranchCandidates()});root.append(button);
+ }
+ entry(root,"Ramas alternativas seleccionadas",e5AlternativeBranches.map(x=>x.id+" · "+x.title).join("; ")||"Ninguna");
 }
 if(el("e5-generate"))el("e5-generate").addEventListener("click",renderNewBranchCandidates);
 function structuralComparison(){
@@ -235,7 +256,7 @@ const structuralHistory=[];
 function recordStructuralSnapshot(change){
  const impact=incrementalImpact(change),scenario=structuralScenario();
  if(impact.status==="INVALID_CHANGE")return {status:"REJECTED_INVALID_CHANGE"};
- const signature=JSON.stringify({nodes:scenario.nodes.map(n=>[n.id,n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]),experimentalPhases:twinPhaseSnapshot()});
+ const signature=JSON.stringify({nodes:scenario.nodes.map(n=>[n.id,n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]),experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot()});
  const previous=structuralHistory[structuralHistory.length-1];
  if(previous?.signature===signature)return {status:"UNCHANGED",version:previous.version,impact};
  const current=new Map(scenario.nodes.map(n=>[n.id,n]));
@@ -245,6 +266,9 @@ function recordStructuralSnapshot(change){
  const newPhases=new Map(twinPhaseSnapshot().map(p=>[p.id,p]));
  for(const [id,p] of newPhases){const old=oldPhases.get(id);if(!old)changes.push({id,kind:"PHASE_ADDED",after:p.name});else {if(old.name!==p.name)changes.push({id,kind:"PHASE_RENAMED",before:old.name,after:p.name});if(JSON.stringify(old.dependencies)!==JSON.stringify(p.dependencies))changes.push({id,kind:"PHASE_DEPENDENCIES_CHANGED",before:old.dependencies,after:p.dependencies})}}
  for(const [id,p] of oldPhases)if(!newPhases.has(id))changes.push({id,kind:"PHASE_REMOVED",before:p.name});
+ const beforeBranches=new Map((previous?.alternativeBranches||[]).map(x=>[x.id,x]));const afterBranches=new Map(e5BranchSnapshot().map(x=>[x.id,x]));
+ for(const [id,x] of afterBranches)if(!beforeBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_ADDED"});
+ for(const [id,x] of beforeBranches)if(!afterBranches.has(id))changes.push({id,kind:"ALTERNATIVE_BRANCH_REMOVED"});
  for(const [id,n] of current){
   const before=prior.get(id);
   if(!before){changes.push({id,kind:"ADDED_TO_SCENARIO"});continue}
@@ -253,7 +277,7 @@ function recordStructuralSnapshot(change){
  for(const id of prior.keys())if(!current.has(id))changes.push({id,kind:"REMOVED_FROM_SCENARIO"});
  const nextVersion=Math.max(0,...structuralHistory.map(x=>Number(x.version.slice(4))||0))+1;
  const version="ALT-"+String(nextVersion).padStart(4,"0");
- const entry={version,signature,experimentalPhases:twinPhaseSnapshot(),nodes:scenario.nodes.map(n=>({id:n.id,title:n.title,source:n.source,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies],reason:n.reason,risks:[...n.risks],evidence:n.evidence})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
+ const entry={version,signature,experimentalPhases:twinPhaseSnapshot(),alternativeBranches:e5BranchSnapshot(),nodes:scenario.nodes.map(n=>({id:n.id,title:n.title,source:n.source,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies],reason:n.reason,risks:[...n.risks],evidence:n.evidence})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
  structuralHistory.push(entry);
  return {status:"SNAPSHOT_RECORDED_IN_MEMORY",version,changes,impact};
 }
@@ -561,10 +585,11 @@ function importTwinPhases(raw){
  for(const p of twinPhases)delete labels[p.id];twinPhases.splice(0,twinPhases.length,...clean);for(const p of clean)labels[p.id]=p.name;
  return {status:"IMPORTED_ALTERNATIVE_PHASES",count:clean.length,canonicalMutation:false};
 }
-function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory())},null,2)}
+function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory()),alternativeBranches:e5BranchSnapshot()},null,2)}
 function importTwinWorkspace(raw){
  let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!data||data.schema!=="ARKI-TREE-TWIN-WORKSPACE-1"||data.canonicalMutation!==false||!data.phases||!data.history)return {status:"INVALID_WORKSPACE"};
+ if(validateE5Branches(data.alternativeBranches||[]).status!=="VALID_BRANCHES")return {status:"INVALID_WORKSPACE_BRANCHES"};
  // Validate both sections before changing any live state. Keep existing state if either fails.
  const savedPhases=exportTwinPhases(),savedHistory=exportStructuralHistory();
  const phaseResult=importTwinPhases(data.phases);
@@ -574,7 +599,8 @@ function importTwinWorkspace(raw){
   importTwinPhases(savedPhases);importStructuralHistory(savedHistory);
   return {status:"INVALID_WORKSPACE_HISTORY"};
  }
- return {status:"IMPORTED_ALTERNATIVE_WORKSPACE",phases:phaseResult.count,versions:historyResult.count,canonicalMutation:false};
+ e5AlternativeBranches.splice(0,e5AlternativeBranches.length,...(data.alternativeBranches||[]).map(x=>({...x,sourceIds:[...x.sourceIds],requiredEvidence:[...x.requiredEvidence]})));
+ return {status:"IMPORTED_ALTERNATIVE_WORKSPACE",phases:phaseResult.count,versions:historyResult.count,branches:e5AlternativeBranches.length,canonicalMutation:false};
 }
 const twinLocalStorageKey="ARKI_TREE_TWIN_EXPERIMENTAL_V1";
 function saveTwinBrowser(storage){
