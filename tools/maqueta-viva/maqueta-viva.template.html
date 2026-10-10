@@ -2765,6 +2765,38 @@ return {id,phase,unlocks:affected.size,dependentIds:[...affected].sort(),predece
 }).sort((a,b)=>a.priority.localeCompare(b.priority)||b.unlocks-a.unlocks||a.id.localeCompare(b.id));
 return {rows,cycles:topology.cycles};
 }
+function arkiConstructionWaves(){
+const topology=arkiDependencyTopology(),nodes=[...topology.edges.keys()];
+const pending=new Set(nodes),waves=[],blocked=[];
+for(const id of nodes){
+const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
+const missing=topology.missing.get(id)||[];
+if(topology.cycleMembers.has(id)||missing.length||frozen){
+pending.delete(id);
+blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
+}
+}
+const completed=new Set();
+while(pending.size){
+const ready=[...pending].filter(id=>(topology.edges.get(id)||[]).every(dep=>completed.has(dep))).sort((a,b)=>arkiDependencyImpact(b)-arkiDependencyImpact(a)||a.localeCompare(b));
+if(!ready.length)break;
+waves.push(ready.map(id=>({id,phase:placements[id]||"SIN ASIGNAR",impact:arkiDependencyImpact(id),action:!placements[id]?"CLASIFICAR FASE":"INVESTIGAR Y VALIDAR"})));
+for(const id of ready){pending.delete(id);completed.add(id);}
+}
+for(const id of pending)blocked.push({id,phase:placements[id]||"SIN ASIGNAR",reason:"PREDECESOR BLOQUEADO O NO RESUELTO"});
+return {waves,blocked,scope:"PLANIFICACIÓN HIPOTÉTICA LOCAL",executionAuthorized:false};
+}
+function arkiConstructionWavesPanel(){
+const plan=arkiConstructionWaves();
+const visible=plan.waves.map((wave,i)=>({number:i+1,items:wave.filter(x=>viewScope==="ALL"||x.phase===viewScope)})).filter(x=>x.items.length);
+const blocked=plan.blocked.filter(x=>viewScope==="ALL"||x.phase===viewScope);
+return '<section class="arki-experiment-panel"><h3>Oleadas de construcción · orden por precedencia</h3>'+
+'<p class="caption">Orden topológico de investigación: cada oleada espera la resolución de las anteriores. No representa duración, pruebas aprobadas ni ejecución autorizada. Las dependencias no declaradas pueden cambiar el orden.</p>'+
+'<div class="evolution-metrics"><article><strong>'+visible.length+'</strong><span>oleadas propuestas</span></article><article><strong>'+blocked.length+'</strong><span>piezas retenidas por bloqueo</span></article></div>'+
+'<div class="scope-grid">'+visible.map(w=>'<article class="scope-phase-card"><strong>Oleada '+w.number+'</strong><span>'+escapeHtml(w.items.map(x=>x.id).join(", "))+'</span><small>'+escapeHtml(w.items.map(x=>x.id+": "+x.action+" · "+x.impact+" dependientes").join(" | "))+'</small></article>').join("")+
+blocked.map(x=>'<article class="scope-phase-card"><strong>RETENIDA · '+escapeHtml(x.id)+'</strong><span>'+escapeHtml(x.phase+" · "+x.reason)+'</span><small>Requiere resolver bloqueo antes de planificar su intervención.</small></article>').join("")+'</div>'+
+'<p class="caption">Cada oleada requiere evaluación individual, evidencia reproducible y aprobación del propietario antes de cualquier cambio real.</p></section>';
+}
 function arkiUnblockingPlanPanel(){
 const plan=arkiUnblockingPlan();
 const scoped=plan.rows.filter(x=>viewScope==="ALL"||x.phase===viewScope);
@@ -2788,6 +2820,7 @@ const scoped=viewScope==="ALL"?correctiveCases:correctiveCases.filter(c=>c.phase
 return scopeHead("05 · ARKI AUTOCORRECTIVO","Casos de corrección","Casos locales del alcance seleccionado. No se ejecutan cambios desde el navegador.")+
 arkiDecisionDocketPanel()+
 arkiUnblockingPlanPanel()+
+arkiConstructionWavesPanel()+
 '<div class="scope-grid">'+(scoped.length?scoped.map(c=>'<div class="scope-phase-card"><strong>'+escapeHtml(c.id)+' · '+escapeHtml(c.phase)+'</strong><span>'+escapeHtml(c.title||"Caso")+'</span><small>'+escapeHtml(c.status)+'</small></div>').join(""):'<p class="hint">No hay casos de corrección registrados en este alcance.</p>')+'</div>'+
 '<p class="caption">Para proponer y gestionar un caso utiliza la consola de corrección controlada. Requiere autorización y evidencia externa.</p>';
 }
