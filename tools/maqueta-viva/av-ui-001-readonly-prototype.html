@@ -19,7 +19,7 @@ h2{font-size:17px;margin:0 0 12px}.tree{display:flex;flex-direction:column;align
 footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 @media(max-width:850px){.shell{grid-template-columns:1fr}.tree{padding:6px}.phase{width:100%}}
 </style></head><body>
-<header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><label>Importar estado local JSON <input type="file" id="source" accept=".json,application/json"></label></header>
+<header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Selecciona una fase. Los colores indican estados declarados en el archivo importado, no pruebas de funcionamiento.</p><div class="tree" id="tree"></div></main>
 <aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><div id="decisions" aria-live="polite"></div></aside></div>
@@ -27,11 +27,22 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 <script>
 "use strict";
 const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
-let state=null,selected="F1";
+let state=null,draft=null,selected="F1";
 const el=id=>document.getElementById(id);
 function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=content;return e}
 function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
 function phaseData(){return state?.roadmap?.phases||[]}
+function localGraph(){
+const placements=draft?.placements||{},reviews=draft?.reviews||{},ids=new Set(Object.keys(placements)),edges=new Map(),missing=new Map(),cycles=[],seen=new Map(),stack=[];
+for(const id of ids){const deps=Array.isArray(reviews[id]?.dependencies)?reviews[id].dependencies.filter(x=>typeof x==="string"):[];edges.set(id,deps.filter(x=>ids.has(x)));missing.set(id,deps.filter(x=>!ids.has(x)))}
+function visit(id){seen.set(id,1);stack.push(id);for(const dep of edges.get(id)||[]){if(seen.get(dep)===1)cycles.push(stack.slice(stack.indexOf(dep)).concat(dep));else if(!seen.has(dep))visit(dep)}stack.pop();seen.set(id,2)}
+for(const id of ids)if(!seen.has(id))visit(id);
+const cyclic=new Set(cycles.flat()),dependents=new Map([...ids].map(id=>[id,[]]));
+for(const [id,deps] of edges)for(const dep of deps)dependents.get(dep).push(id);
+function affected(id){const found=new Set(),queue=[...(dependents.get(id)||[])];while(queue.length){const x=queue.shift();if(x===id||found.has(x))continue;found.add(x);queue.push(...(dependents.get(x)||[]))}return found.size}
+const frozen=new Set(phaseData().filter(p=>p.status==="FROZEN").map(p=>p.id));
+return {cycles,rows:[...ids].map(id=>({id,phase:placements[id],deps:edges.get(id),missing:missing.get(id),cycle:cyclic.has(id),frozen:frozen.has(placements[id]),affected:affected(id)}))};
+}
 function show(){
 const phases=phaseData();el("tree").replaceChildren();
 for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;show()});el("tree").append(btn)}
@@ -42,10 +53,19 @@ entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarad
 entry(mem,"Fuente","ARKI_MASTER_MAP_STATE.json · "+(state.updated_at||"fecha desconocida"));
 if(p?.status==="FROZEN")entry(mem,"Protección","FROZEN: consulta permitida; cambios requieren procedimiento autorizado.");
 entry(mem,"Aprobado ≠ verificado","Este prototipo no transforma declaraciones documentales en hechos ejecutados.");
+const g=localGraph(),rows=g.rows.filter(x=>x.phase===selected);
+entry(mem,"Ramas en borrador",String(rows.length));
+for(const row of rows.slice(0,20))entry(mem,row.id,"Antecedentes: "+(row.deps.join(", ")||"no declarados")+" · dependientes transitivos: "+row.affected);
+
 entry(dec,"Propuestas atribuibles","No se cargan propuestas sin identidad, fuente y relación de fase verificables.");
 entry(dec,"Antecedentes","El JSON de estado por sí solo no demuestra un grafo completo de dependencias entre ramas.");
+if(draft){for(const row of rows.filter(x=>x.cycle||x.frozen||x.missing.length))entry(dec,"BLOQUEADA · "+row.id,(row.cycle?"CICLO · ":"")+(row.frozen?"FROZEN · ":"")+(row.missing.length?"AUSENTES: "+row.missing.join(", "):""));
+entry(dec,"Ciclos en borrador",String(g.cycles.length)+" detectados. No es auditoría global.");
+entry(dec,"Preparación","Todas las ramas siguen sin autorización de promoción.");}
+
 entry(dec,"Promoción","DESHABILITADA. Sin pruebas, auditoría y autorización específica no existe acción canónica.");
 }
+el("draft").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>5_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MAQUETA-DRAFT-1"||!x.placements||typeof x.placements!=="object"||Array.isArray(x.placements)||!x.reviews||typeof x.reviews!=="object"||Array.isArray(x.reviews))throw Error("Esquema incompatible");draft=x;el("foot").textContent="Borrador importado: "+file.name+" · dependencias locales no verificadas.";show()}catch(e){draft=null;el("foot").textContent="Error: "+e.message;show()}});
 el("source").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>15_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MASTER-MAP-STATE-0.1"||!Array.isArray(x.roadmap?.phases))throw Error("Esquema de estado no compatible");state=x;el("foot").textContent="Fuente local: "+file.name+" · estado fechado "+(x.updated_at||"UNKNOWN")+" · Solo lectura; no se envía a servidores.";show()}catch(e){state=null;el("foot").textContent="No se pudo importar: "+e.message;show()}});
 show();
 </script></body></html>
