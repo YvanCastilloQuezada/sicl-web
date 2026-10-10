@@ -45,7 +45,12 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 @media(max-width:850px){.tree{grid-template-columns:minmax(70px,1fr) minmax(145px,2fr) minmax(70px,1fr);gap:6px}.branch-group .branch{min-width:0;font-size:10px}}
 .legend{border:1px solid #4b6875;background:#102737;border-radius:9px;padding:10px;margin:0 0 13px;font-size:12px}.legend>strong{display:block;margin-bottom:8px}.legend p{margin:6px 0;line-height:1.35}.legend small{display:block;margin-top:8px;color:#aebfc9}.legend-rule{height:1px;background:#355064;margin:9px 0}.key{display:inline-block;min-width:17px;font-weight:800}.key.trunk{color:#d5a46c}.key.task{color:#8fbad3}.key.capability{color:#78b18a}.key.fruit{color:#e6c268}.key.frozen{color:#94b4d4}.key.progress{color:#4ba78c}.key.reconcile{color:#d78c62}.key.unknown{color:#8c9ba9}
 .branch-group.activities{grid-column:1;justify-content:flex-end}.branch-group.capabilities{grid-column:3;justify-content:flex-start}.branch-group .branch.catalog-cap{background:#293b56;border-color:#8198b5;text-align:left}.branch-group .branch.catalog-cap[aria-pressed=true]{outline:2px solid #e5d38b}.branch-group .branch.task{background:#28435c;border-color:#83a6bf;text-align:right}.branch-group .empty-note{font-size:11px;color:#8fa9b9}.branch-group:has(.empty-note):before{border-color:#607687}
-.adaptive{border:1px solid #496c77;border-radius:9px;padding:10px;margin-bottom:14px;background:#102838;font-size:12px}.adaptive .entry{padding:7px 0}</style></head><body>
+.adaptive{border:1px solid #496c77;border-radius:9px;padding:10px;margin-bottom:14px;background:#102838;font-size:12px}.adaptive .entry{padding:7px 0}
+/* Contextual help for all meaningful interface elements. */
+.arki-tip{position:fixed;z-index:9999;max-width:min(420px,calc(100vw - 24px));padding:11px 13px;border:1px solid #9ac7d8;border-radius:9px;background:#081c2c;color:#f2f7fa;box-shadow:0 8px 24px #0009;font-size:13px;line-height:1.45;pointer-events:none;white-space:pre-line;overflow-wrap:anywhere}
+.arki-tip[hidden]{display:none}
+[data-help],.entry,.legend p,.branch,.phase{cursor:help}
+</style></head><body>
 <header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><section class="legend" aria-label="Leyenda del Árbol Vivo"><strong>Cómo leer el árbol</strong><p><span class="key trunk">▰</span> Tronco: fases F1–F10</p><p><span class="key task">◆</span> Izquierda: espinas / actividades declaradas</p><p><span class="key capability">●</span> Derecha: capacidades, FROZEN e ideas registradas</p><p><span class="key fruit">★</span> Fruto: resultado con evidencia verificada</p><div class="legend-rule"></div><p><span class="key frozen">■</span> FROZEN: antecedente histórico, editable en escenarios experimentales</p><p><span class="key progress">■</span> IN_PROGRESS: en progreso declarado</p><p><span class="key reconcile">■</span> RECONCILIATION_REQUIRED: pendiente de reconciliación</p><p><span class="key unknown">■</span> UNKNOWN: sin datos suficientes</p><small>Propuesto ≠ implementado ≠ verificado. Ningún fruto se acredita sin evidencia.</small></section><div id="memory" aria-live="polite"></div></aside>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Los estados son declaraciones documentales, no certificaciones.</p><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
@@ -372,5 +377,72 @@ if(el("history-compare"))el("history-compare").addEventListener("click",()=>{
 if(el("registry"))el("registry").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>5_000_000)throw Error("Inventario demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"||!Array.isArray(x.ideas))throw Error("Inventario incompatible");registry=x;const snap=recordStructuralSnapshot({kind:"IDEA",id:x.ideas[0]?.id||"REGISTRY"});refreshHistorySelectors();el("foot").textContent="Inventario histórico local: "+x.ideas.length+" hojas propuestas · "+snap.status+" · NO equivale a implementación";show()}catch(e){registry=null;el("foot").textContent="Error de inventario: "+e.message;show()}});
 if(el("draft"))el("draft").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>5_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MAQUETA-DRAFT-1"||!x.placements||typeof x.placements!=="object"||Array.isArray(x.placements)||!x.reviews||typeof x.reviews!=="object"||Array.isArray(x.reviews))throw Error("Esquema incompatible");draft=x;const snap=recordStructuralSnapshot({kind:"DEPENDENCY",id:Object.keys(x.placements)[0]||"DRAFT"});refreshHistorySelectors();el("foot").textContent="Borrador importado: "+file.name+" · "+snap.status+" · dependencias locales no verificadas.";show()}catch(e){draft=null;el("foot").textContent="Error: "+e.message;show()}});
 if(el("source"))el("source").addEventListener("change",async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>15_000_000)throw Error("Archivo demasiado grande");const x=JSON.parse(await file.text());if(x.schema!=="ARKI-MASTER-MAP-STATE-0.1"||!Array.isArray(x.roadmap?.phases))throw Error("Esquema de estado no compatible");state=x;const snap=recordStructuralSnapshot({kind:"PLACEMENT",id:"F1"});refreshHistorySelectors();el("foot").textContent="Fuente local: "+file.name+" · "+snap.status+" · Solo lectura; no se envía a servidores.";show()}catch(e){state=null;el("foot").textContent="No se pudo importar: "+e.message;show()}});
+
+// Tooltip universal: explicación contextual, no certificación de hechos.
+const arkiHelpTerms={
+ FROZEN:"Antecedente congelado históricamente. Se conserva su procedencia; puede reorganizarse solo en el escenario experimental, sin alterar la versión oficial.",
+ IN_PROGRESS:"Trabajo declarado en curso. No equivale a una función implementada ni verificada.",
+ RECONCILIATION_REQUIRED:"La información de esta fase necesita contrastarse con otras fuentes antes de declararla consistente.",
+ UNKNOWN:"No hay información suficiente para afirmar el estado, la dependencia o la evidencia.",
+ DOCUMENTARY_ONLY:"Dato extraído de inventarios documentales; no prueba funcionamiento.",
+ NO_VERIFIED_DEPENDENCY_GRAPH:"No existe un grafo de dependencias verificado para esta pieza.",
+ WORKSPACE_REORGANIZATION_ALLOWED:"La reubicación se permite solo en el espacio experimental; no se modifica la ruta oficial.",
+ PLACEMENT_HYPOTHESIS_ONLY:"Hipótesis automática de fase basada en palabras; necesita revisión arquitectónica.",
+ CANDIDATE_REVIEW_ONLY:"Posible relación detectada por semejanza textual; no se fusiona automáticamente.",
+ SIMULATION_ONLY:"Resultado calculado en memoria; no se ejecuta ni modifica el proyecto.",
+ F1:"Identidad: definiciones, gobierno, versiones y procedencia de ARKI.",
+ F2:"Conocimiento: adquisición, organización y recuperación del conocimiento.",
+ F3:"Inteligencia: razonamiento y agentes especializados.",
+ F4:"Partido: organización y relaciones espaciales del proyecto.",
+ F5:"Evaluación: comparación de alternativas y criterios de decisión.",
+ F6:"Geometría: modelado y transformaciones espaciales.",
+ F7:"Desarrollo: documentación técnica, normativa y coordinación.",
+ F8:"Expediente: planos y entregables del proyecto.",
+ F9:"Obra: construcción, ejecución y control de campo.",
+ F10:"Operación: uso, mantenimiento y posocupación."
+};
+function arkiExplain(target){
+ if(!target)return "";
+ const label=String(target.textContent||"").trim().replace(/\\s+/g," ").slice(0,200);
+ const id=label.match(/\\bF(?:10|[1-9])\\b/)?.[0];
+ const statuses=[...label.matchAll(/\\b(FROZEN|IN_PROGRESS|RECONCILIATION_REQUIRED|UNKNOWN|DOCUMENTARY_ONLY|NO_VERIFIED_DEPENDENCY_GRAPH|WORKSPACE_REORGANIZATION_ALLOWED|PLACEMENT_HYPOTHESIS_ONLY|CANDIDATE_REVIEW_ONLY|SIMULATION_ONLY)\\b/g)].map(x=>x[0]);
+ if(target.classList?.contains("phase"))return (id?arkiHelpTerms[id]+"\\n":"")+"Fase de la columna vertebral. Pulsa para ver sus actividades, capacidades y evidencias."+(target.dataset?.state?"\\nEstado: "+(arkiHelpTerms[target.dataset.state]||target.dataset.state):"");
+ if(target.classList?.contains("task"))return "Espina izquierda: actividad o dependencia del borrador. Pulsa para consultar sus relaciones. El signo ! indica riesgos pendientes de revisar.";
+ if(target.classList?.contains("leaf")||target.classList?.contains("catalog-cap"))return "Hoja derecha: idea, activo histórico o capacidad documentada. Su presencia no significa implementación ni verificación. Pulsa para examinarla.";
+ if(target.classList?.contains("entry"))return "Registro informativo o propuesta, sin aplicación automática. "+statuses.map(s=>arkiHelpTerms[s]).join(" ");
+ if(target.closest?.(".legend"))return "Leyenda de símbolos y estados. "+statuses.map(s=>arkiHelpTerms[s]).join(" ")+(id?arkiHelpTerms[id]:"");
+ const help={
+ "history-snapshot":"Registra una versión alternativa en memoria. Para conservarla después de cerrar la página, exporta el JSON.",
+ "history-export":"Descarga una copia JSON del historial alternativo. No modifica GitHub ni el estado oficial.",
+ "history-import":"Abre un historial JSON local compatible; reemplaza el historial alternativo en memoria.",
+ "history-from":"Selecciona la versión inicial de la comparación.",
+ "history-to":"Selecciona la versión final de la comparación.",
+ "history-compare":"Compara dos versiones del escenario alternativo, sin modificar ninguna.",
+ "adaptive":"Hipótesis de coincidencia, ubicación y relaciones generadas a partir de inventarios; requieren validación.",
+ "memory":"Memoria documental, procedencia y evidencias de la fase seleccionada.",
+ "decisions":"Riesgos, dependencias, propuestas y decisiones del escenario experimental.",
+ "tree":"Árbol arquitectónico: columna vertebral F1–F10; espinas de actividades a la izquierda y capacidades a la derecha.",
+ "selection-status":"Muestra qué fase, actividad o capacidad estás consultando.",
+ "foot":"Estado de la fuente local. Una fuente ausente no debe interpretarse como verificada."
+ };
+ if(target.id&&help[target.id])return help[target.id];
+ if(target.tagName==="BUTTON")return "Acción local de consulta o simulación; no promueve cambios al estado oficial.";
+ if(target.tagName==="INPUT"||target.tagName==="SELECT")return "Control local para cargar o seleccionar datos; no envía información a servidores.";
+ if(statuses.length)return statuses.map(s=>arkiHelpTerms[s]).join(" ");
+ return "";
+}
+function installArkiTooltips(){
+ if(typeof document.addEventListener!=="function"||!document.body?.appendChild)return;
+ const tip=document.createElement("div");tip.className="arki-tip";tip.setAttribute("role","tooltip");tip.hidden=true;document.body.appendChild(tip);
+ const selector=".phase,.branch,.entry,.legend p,.legend small,.legend strong,.adaptive strong,button,input,select,label,#tree,#memory,#decisions,#adaptive,#selection-status,#foot";
+ function locate(event){return event.target?.closest?.(selector)}
+ function move(event){if(tip.hidden)return;const x=Math.min(event.clientX+16,window.innerWidth-tip.offsetWidth-12);const y=Math.min(event.clientY+18,window.innerHeight-tip.offsetHeight-12);tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+ function open(event){const target=locate(event);if(!target){tip.hidden=true;return}const message=arkiExplain(target);if(!message){tip.hidden=true;return}tip.textContent=message;tip.hidden=false;const rect=target.getBoundingClientRect?.();move({clientX:event.clientX??rect?.left??12,clientY:event.clientY??rect?.bottom??12})}
+ document.addEventListener("pointerover",open);document.addEventListener("pointermove",move);
+ document.addEventListener("pointerout",event=>{if(!event.relatedTarget||!event.target?.contains?.(event.relatedTarget))tip.hidden=true});
+ document.addEventListener("focusin",open);document.addEventListener("focusout",()=>{tip.hidden=true});
+ document.addEventListener("keydown",event=>{if(event.key==="Escape")tip.hidden=true});
+}
+installArkiTooltips();
 show();
 </script></body></html>
