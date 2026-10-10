@@ -75,6 +75,13 @@ try {
       Run -Exe "node" -CommandArgs @("tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs")
     } finally { Pop-Location }
   }
+  Step "03C ADN-MC-001 CONTINUOUS IMPROVEMENT REFERENCE" {
+    Push-Location $Repo
+    try {
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-adn-mejora-continua.test.cjs")
+      Log "ADN_MC_001=PASS; EXPERIMENTAL_ONLY; CORE_CANONICAL=UNCHANGED"
+    } finally { Pop-Location }
+  }
   Step "03B SIGNED RECEIPT / INDEPENDENT NODE VERIFIER" {
     $FixtureDir = Join-Path ([IO.Path]::GetTempPath()) ("ARKI-TWIN-SIGNATURE-" + [guid]::NewGuid().ToString("N"))
     try {
