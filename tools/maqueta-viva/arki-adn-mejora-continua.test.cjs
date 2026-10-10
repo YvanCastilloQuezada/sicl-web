@@ -1,6 +1,6 @@
 "use strict";
 const assert=require("node:assert/strict");
-const {propose,evaluate,iterate,nextObservation}=require("./arki-adn-mejora-continua.cjs");
+const {propose,evaluate,iterate,nextObservation,compareObservations}=require("./arki-adn-mejora-continua.cjs");
 const baseline={schema:"ARKI-ADN-OBSERVATION-1",observationId:"O-001",sourceCommit:"a".repeat(40),metrics:[
  {id:"cost",value:120,target:100,direction:"MINIMIZE",unit:"USD-m2",verified:true},
  {id:"comfort",value:65,target:80,direction:"MAXIMIZE",unit:"percent",verified:true},
@@ -21,6 +21,14 @@ assert.equal(sequence.cycles.length,1,"Cannot fake cycles without new observatio
 assert.equal(sequence.stopReason,"AWAITING_INDEPENDENT_OBSERVATION_AND_AUTHORIZED_EXPERIMENT");
 assert.throws(()=>nextObservation(sequence,baseline),/DUPLICATE_OBSERVATION/);
 const newer={...baseline,observationId:"O-002",metrics:baseline.metrics.map(m=>m.id==="cost"?{...m,value:110}:m)};
+const comparison=compareObservations(baseline,newer);
+assert.equal(comparison.summary.improvements,1);
+assert.equal(comparison.summary.unknown,1);
+assert.equal(comparison.recommendation,"INSUFFICIENT_EVIDENCE");
+assert.equal(comparison.learningVerified,false);
+const regressed={...newer,observationId:"O-003",metrics:newer.metrics.map(m=>m.id==="comfort"?{...m,value:60}:m)};
+assert.equal(compareObservations(baseline,regressed).recommendation,"REJECT_REGRESSION");
+assert.throws(()=>compareObservations(baseline,{...newer,metrics:newer.metrics.map(m=>m.id==="cost"?{...m,unit:"EUR-m2"}:m)}),/METRIC_CONTRACT_CHANGED/);
 const second=nextObservation(sequence,newer);
 assert.equal(second.cycles.length,2);
 assert.equal(second.cycles[1].proposals.find(c=>c.id==="cost-R50").proposedValue,105);
