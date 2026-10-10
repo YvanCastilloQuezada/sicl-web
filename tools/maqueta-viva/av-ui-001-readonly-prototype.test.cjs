@@ -141,4 +141,8 @@ const tampered=JSON.parse(portable);tampered.versions[0].canonicalMutation=true;
 assert.equal(vm.runInContext("importStructuralHistory("+JSON.stringify(JSON.stringify(tampered))+")",sandbox).status,'INVALID_HISTORY',"Reject unsafe history");
 assert.equal(vm.runInContext("importStructuralHistory("+JSON.stringify(portable)+")",sandbox).status,'IMPORTED_LOCAL_HISTORY',"Portable history can be reimported");
 assert.equal(vm.runInContext("structuralHistorySummary().versions.length",sandbox),2,"History round trip preserves versions");
+assert.match(html,/id="history-snapshot"/,"Snapshot UI control present");
+assert.match(html,/id="history-export"/,"JSON download UI control present");
+assert.match(html,/id="history-import"/,"JSON upload UI control present");
+assert.match(html,/id="history-compare"/,"Version comparison UI control present");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
