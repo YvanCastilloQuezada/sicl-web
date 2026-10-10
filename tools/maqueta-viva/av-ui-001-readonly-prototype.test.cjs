@@ -490,6 +490,12 @@ assert.deepEqual(Array.from(impact.transitive),["F2","F3"]);
 assert.equal(impact.unknownReferences.length,1);
 assert.equal(impact.canonicalMutation,false);
 assert.equal(impact.simulation,"NOT_EXECUTED");
+vm.runInContext("selected='F1';twinImpactVisible=true;twinViewMode='brain'",sandbox);
+assert.match(vm.runInContext("twinVisualSVG(__impactFixture)",sandbox),/Cobertura NO CERTIFICADA/);
+assert.match(vm.runInContext("twinVisualSVG(__impactFixture)",sandbox),/#f08470/,"Direct impact should be visually distinct");
+assert.match(vm.runInContext("twinVisualSVG(__impactFixture)",sandbox),/#d6a55b/,"Transitive impact should be visually distinct");
+vm.runInContext("selected='F10';twinImpactVisible=false;twinViewMode='tree'",sandbox);
+
 assert.equal(vm.runInContext("twinDependencyImpact(__impactFixture,'F4').transitive.length",sandbox),0);
 const impactBefore=vm.runInContext("exportTwinWorkspace()",sandbox);
 vm.runInContext("twinImpactVisible=true;renderTwinCommandCenter()",sandbox);
