@@ -21,7 +21,7 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 </style></head><body>
 <header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
-<main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Selecciona una fase. Los colores indican estados declarados en el archivo importado, no pruebas de funcionamiento.</p><div class="tree" id="tree"></div></main>
+<main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Selecciona una fase. Los colores indican estados declarados en el archivo importado, no pruebas de funcionamiento.</p><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
 <aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><div id="decisions" aria-live="polite"></div></aside></div>
 <footer id="foot">SIN FUENTE: carga el archivo docs/arki-master-map/ARKI_MASTER_MAP_STATE.json de tu copia local. Ninguna información se envía a servidores.</footer>
 <script>
@@ -68,7 +68,7 @@ add("Dependientes indirectos",[...impacted].filter(id=>!direct.includes(id)),"")
 wrap.append(node("p","Solo dependencias declaradas en el borrador local. Las relaciones no registradas son UNKNOWN, no inexistentes.","relation-note"));return wrap;
 }
 function show(){
-const phases=phaseData();el("tree").replaceChildren();
+const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"");
 for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("button","","phase");btn.type="button";btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;show()});el("tree").append(btn);
 const related=localGraph().rows.filter(x=>x.phase===id);
 if(related.length){const group=node("div","","branch-group");group.setAttribute("aria-label","Ramas locales de "+id);
@@ -78,7 +78,7 @@ if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas lo
 const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
 if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
-if(!state){entry(mem,"Sin datos","Importa el estado estructurado local de ARKI.");entry(dec,"Sin evidencia","No se inventan propuestas ni métricas.");return}
+if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry(mem,"Estado","SIN DATOS · importa el estado estructurado local de ARKI.");const gr=localGraph(),focus=gr.rows.find(x=>x.id===selectedBranch&&x.phase===selected);if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Dependencias",focus.deps.join(", ")||"Ninguna declarada");entry(dec,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Sin bloqueos declarados; verificación UNKNOWN")}entry(dec,"Fase activa",selected+" · "+labels[selected]);entry(dec,"Sin evidencia","No se inventan propuestas ni métricas. Promoción DESHABILITADA.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
 entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarada",p?.evidence_status||"UNKNOWN");
 entry(mem,"Fuente","ARKI_MASTER_MAP_STATE.json · "+(state.updated_at||"fecha desconocida"));
