@@ -163,4 +163,22 @@ const provenanceSnapshot=vm.runInContext("recordStructuralSnapshot({kind:'IDEA',
 assert.equal(provenanceSnapshot.status,'SNAPSHOT_RECORDED_IN_MEMORY',"Documentary title changes create a history version");
 assert.equal(vm.runInContext("structuralHistory.length",sandbox),previousCount+1,"History grows after documentary title change");
 assert.equal(vm.runInContext("structuralHistory.at(-1).nodes.find(x=>x.id==='ACCENT-1').title",sandbox),"Geometria de kernel revisada","Snapshot preserves title provenance");
+// Tree Digital Twin: expandable alternative phases, isolation and portable state.
+assert.equal(vm.runInContext("evaluateAdditionalPhase('F11','Gestión territorial multiescala').status",sandbox),"PHASE_PROPOSAL_ONLY");
+assert.equal(vm.runInContext("evaluateAdditionalPhase('F10','Gestión territorial multiescala').status",sandbox),"EXISTING_PHASE_OR_INVALID");
+assert.equal(vm.runInContext("addTwinPhase('F11','Gestión territorial multiescala').status",sandbox),"ADDED_TO_ALTERNATIVE_TWIN");
+assert.equal(vm.runInContext("addTwinPhase('F11','Gestión territorial multiescala').status",sandbox),"DUPLICATE_PHASE");
+assert.equal(vm.runInContext("twinPhaseSnapshot().length",sandbox),1);
+assert.equal(vm.runInContext("twinPhaseSnapshot()[0].canonicalMutation",sandbox),false);
+vm.runInContext("selected='F11';show()",sandbox);
+assert.match(document.getElementById("tree").innerText,/F11/,"F11 must be visible in alternative tree");
+const phasesJson=vm.runInContext("exportTwinPhases()",sandbox);
+assert.equal(JSON.parse(phasesJson).schema,"ARKI-TREE-TWIN-PHASES-1");
+assert.equal(vm.runInContext("importTwinPhases("+JSON.stringify(phasesJson)+").status",sandbox),"IMPORTED_ALTERNATIVE_PHASES");
+const forged=JSON.parse(phasesJson);forged.phases[0].canonicalMutation=true;
+assert.equal(vm.runInContext("importTwinPhases("+JSON.stringify(JSON.stringify(forged))+").status",sandbox),"INVALID_PHASE_FILE");
+assert.equal(vm.runInContext("twinPhaseSnapshot().length",sandbox),1,"Invalid import cannot change existing phases");
+assert.equal(typeof document.getElementById("twin-add-phase").listeners.click,"function");
+assert.equal(typeof document.getElementById("twin-import-phases").listeners.change,"function");
+assert.equal(typeof document.getElementById("twin-export-phases").listeners.click,"function");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
