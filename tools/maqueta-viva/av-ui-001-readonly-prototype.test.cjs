@@ -286,4 +286,9 @@ const forged=JSON.parse(e5Export);forged.alternativeBranches[0].evidence="VERIFI
 const beforeForged=vm.runInContext("exportTwinWorkspace()",sandbox);
 assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(forged))+").status",sandbox),"INVALID_WORKSPACE_BRANCHES");
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),beforeForged);
+vm.runInContext("show()",sandbox);
+assert.ok(document.getElementById("tree").innerText.includes(e5Id),"Adopted E5 branch must appear in phase tree");
+vm.runInContext("selected=e5AlternativeBranches[0].phase;selectedLeaf=e5AlternativeBranches[0].id;selectedBranch=null;show()",sandbox);
+assert.ok(document.getElementById("memory").innerText.includes("RAMA NUEVA E5"),"E5 inspector must identify proposed branch");
+assert.ok(document.getElementById("decisions").innerText.includes("DESHABILITADA"),"E5 branch cannot be promoted");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
