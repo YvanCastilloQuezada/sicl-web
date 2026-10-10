@@ -711,6 +711,17 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .commandbar input#search{flex:0 0 190px;width:190px;max-width:100%;margin-left:auto;order:2}
 @media(max-width:1120px){.layout,.layout.executive-layout{grid-template-columns:minmax(235px,270px) minmax(0,1fr)}.layout>.right{grid-column:1/-1;grid-row:2}.command-tabs{flex-basis:100%}}
 @media(max-width:700px){.layout,.layout.executive-layout{display:flex;flex-direction:column}.layout>.information-rail{position:static;max-height:none;width:100%;order:2}.layout>.center{width:100%;order:1}.layout>.right{width:100%;order:3}.commandbar input#search{flex:1 1 180px}}
+
+/* Compact visual hierarchy for overview and readable metadata. */
+.layout>.information-rail{padding:15px;overflow-x:hidden}
+.information-rail .status,.information-rail .field strong,.scope-phase-card small{overflow-wrap:anywhere;word-break:break-word}
+.information-rail .rail-title h2{font-size:16px;margin:0}
+.information-rail .rail-description{margin:8px 0 13px}
+.scope-phase-card{min-width:0;text-align:left}
+.scope-phase-card strong{line-height:1.4}
+.scope-phase-card small{font-size:11px;line-height:1.4}
+.scope-head p{max-width:75ch}
+@media(min-width:1121px){.layout.executive-layout>.information-rail{min-width:245px}}
 </style>
 </head>
 <body>
