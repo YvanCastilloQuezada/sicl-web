@@ -485,7 +485,7 @@ function importStructuralHistory(json,validateOnly=false){
  let parsed;
  try{parsed=typeof json==="string"?JSON.parse(json):json}catch{return {status:"INVALID_JSON"}}
  if(!parsed||parsed.schema!=="ARKI-AV-ALTERNATIVE-HISTORY-1"||parsed.canonicalMutation!==false||!Array.isArray(parsed.versions)||parsed.versions.length>500)return {status:"INVALID_HISTORY"};
- const clean=[],ids=new Set();
+ const clean=[],ids=new Set();let previousVersionNumber=0;
  for(const x of parsed.versions){
   if(!x||typeof x.version!=="string"||!/^ALT-[0-9]{4,}$/.test(x.version)||ids.has(x.version)||typeof x.signature!=="string"||!Array.isArray(x.nodes)||!Array.isArray(x.changes)||!x.trigger||typeof x.trigger.kind!=="string"||typeof x.trigger.id!=="string"||!x.impact||!Array.isArray(x.impact.affected)||x.canonicalMutation!==false||x.evidence!=="DOCUMENTARY_ONLY")return {status:"INVALID_HISTORY"};
   if(x.nodes.some(n=>!n||typeof n.id!=="string"||!Array.isArray(n.dependencies)||!Array.isArray(n.secondaryPhases)||!Array.isArray(n.unknownDependencies)))return {status:"INVALID_HISTORY"};if(x.experimentalPhases!==undefined&&(!Array.isArray(x.experimentalPhases)||x.experimentalPhases.some(p=>evaluateAdditionalPhase(p?.id,p?.name).status!=="PHASE_PROPOSAL_ONLY"||p.canonicalMutation!==false)))return {status:"INVALID_HISTORY"};
@@ -493,6 +493,9 @@ function importStructuralHistory(json,validateOnly=false){
   if(x.evidenceLedger!==undefined&&validateE6Evidence(x.evidenceLedger,x.alternativeBranches||[]).status!=="VALID_EVIDENCE_LEDGER")return {status:"INVALID_HISTORY"};
   if(x.decisionLedger!==undefined&&validateE7Decisions(x.decisionLedger,x.alternativeBranches||[],x.evidenceLedger||[]).status!=="VALID_DECISION_LEDGER")return {status:"INVALID_HISTORY"};
   if(x.revisionLedger!==undefined&&validateE9Revisions(x.revisionLedger,x.decisionLedger||[],x.evidenceLedger||[],x.alternativeBranches||[]).status!=="VALID_REVISION_LEDGER")return {status:"INVALID_HISTORY"};
+  const versionNumber=Number(x.version.slice(4));
+  if(!Number.isSafeInteger(versionNumber)||versionNumber<=previousVersionNumber)return {status:"INVALID_HISTORY"};
+  previousVersionNumber=versionNumber;
   ids.add(x.version);clean.push(JSON.parse(JSON.stringify(x)));
  }
  if(!validateOnly)structuralHistory.splice(0,structuralHistory.length,...clean);
@@ -798,6 +801,7 @@ function importTwinPhases(raw,validateOnly=false){
 }
 function exportTwinWorkspace(){return JSON.stringify({schema:"ARKI-TREE-TWIN-WORKSPACE-1",canonicalMutation:false,phases:JSON.parse(exportTwinPhases()),history:JSON.parse(exportStructuralHistory()),alternativeBranches:e5BranchSnapshot(),evidenceLedger:e6EvidenceSnapshot(),decisionLedger:e7DecisionSnapshot(),revisionLedger:e9RevisionSnapshot()},null,2)}
 function importTwinWorkspace(raw){
+ if(typeof raw==="string"&&raw.length>2000000)return {status:"WORKSPACE_IMPORT_TOO_LARGE",canonicalMutation:false};
  let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!data||data.schema!=="ARKI-TREE-TWIN-WORKSPACE-1"||data.canonicalMutation!==false||!data.phases||!data.history)return {status:"INVALID_WORKSPACE"};
  if(validateE5Branches(data.alternativeBranches||[]).status!=="VALID_BRANCHES")return {status:"INVALID_WORKSPACE_BRANCHES"};
