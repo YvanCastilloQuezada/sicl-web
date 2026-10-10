@@ -81,13 +81,42 @@ function adaptiveCandidates(){
  }
  return proposals.sort((a,b)=>b.score-a.score||a.a.id.localeCompare(b.a.id)).slice(0,30);
 }
+function adaptivePlacementCandidates(){
+ const items=[...(catalog?.records||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,status:x.recordedStatus,source:x.source})),...(registry?.ideas||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,status:x.sourceStatus,source:x.origin}))];
+ const rules=[
+ {phase:"F1",terms:["identidad","versiones","procedencia","trazabilidad","gobernanza"]},
+ {phase:"F2",terms:["conocimiento","ingestion","ocr","tutoria","universidad","aprendizaje"]},
+ {phase:"F3",terms:["razonamiento","inteligencia","tipologica","agentes"]},
+ {phase:"F4",terms:["partido","topologia","espacial","recintos"]},
+ {phase:"F5",terms:["evaluacion","alternativas","benchmark","seleccion"]},
+ {phase:"F6",terms:["geometria","massing","kernel","extrusion"]},
+ {phase:"F7",terms:["normativa","bim","mep","costos","presupuesto"]},
+ {phase:"F8",terms:["planos","expediente","documentacion"]},
+ {phase:"F9",terms:["obra","campo","constructibilidad"]},
+ {phase:"F10",terms:["operacion","mantenimiento","posocupacion"]}
+ ];
+ const clean=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+ const result=[];
+ for(const item of items){
+  const title=clean(item.title),matches=rules.map(rule=>({phase:rule.phase,terms:rule.terms.filter(t=>title.includes(t))})).filter(x=>x.terms.length);
+  if(!matches.length)continue;
+  const max=Math.max(...matches.map(x=>x.terms.length));
+  const best=matches.filter(x=>x.terms.length===max);
+  if(best.length!==1||best[0].phase===item.phase)continue;
+  result.push({id:item.id,title:item.title,from:item.phase,to:best[0].phase,reason:"Indicadores funcionales: "+best[0].terms.join(", "),status:"PLACEMENT_HYPOTHESIS_ONLY",source:item.source});
+ }
+ return result.sort((a,b)=>a.id.localeCompare(b.id));
+}
 function showAdaptive(){
  const root=el("adaptive");if(!root)return;
  root.replaceChildren();
  const proposals=adaptiveCandidates().filter(p=>p.a.phase===selected||p.b.phase===selected);
  entry(root,"Coincidencias documentales",String(proposals.length)+" candidatas para "+selected);
  for(const p of proposals.slice(0,5))entry(root,p.a.id+" / "+p.b.id,p.reason+"; revisar antes de relacionar.");
- entry(root,"Control","Sin fusiones, movimientos ni promociones automáticas. FROZEN protegido.");
+ const moves=adaptivePlacementCandidates().filter(x=>x.from===selected);
+entry(root,"Ubicaciones alternativas · "+selected,String(moves.length)+" hipótesis documentales; no cambios aplicados");
+for(const m of moves.slice(0,5))entry(root,m.id+" · "+m.from+" → "+m.to,m.reason+" · Fuente: "+m.source);
+entry(root,"Control","Sin fusiones, movimientos ni promociones automáticas. FROZEN protegido.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
 function localGraph(){
