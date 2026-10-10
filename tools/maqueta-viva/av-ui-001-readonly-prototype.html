@@ -270,7 +270,7 @@ const blockers=new Set(),visited=new Set(),queue=[...(edges.get(id)||[])];
 while(queue.length){const dep=queue.shift();if(visited.has(dep))continue;visited.add(dep);
 if(cyclic.has(dep))blockers.add(dep+" · CYCLE");
 blockers.add(dep+" · VERIFICATION_UNKNOWN");
-if(frozen.has(placements[dep]))blockers.add(dep+" · FROZEN");
+// Historical FROZEN remains visible as metadata, never a workspace dependency blocker.
 for(const ref of missing.get(dep)||[])blockers.add(dep+" → "+ref+" · MISSING");
 queue.push(...(edges.get(dep)||[]));
 }return [...blockers];
