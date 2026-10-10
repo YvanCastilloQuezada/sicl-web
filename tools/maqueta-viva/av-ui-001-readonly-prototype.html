@@ -181,7 +181,7 @@ const structuralHistory=[];
 function recordStructuralSnapshot(change){
  const impact=incrementalImpact(change),scenario=structuralScenario();
  if(impact.status==="INVALID_CHANGE")return {status:"REJECTED_INVALID_CHANGE"};
- const signature=JSON.stringify(scenario.nodes.map(n=>[n.id,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies]));
+ const signature=JSON.stringify(scenario.nodes.map(n=>[n.id,n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]));
  const previous=structuralHistory[structuralHistory.length-1];
  if(previous?.signature===signature)return {status:"UNCHANGED",version:previous.version,impact};
  const current=new Map(scenario.nodes.map(n=>[n.id,n]));
@@ -190,11 +190,12 @@ function recordStructuralSnapshot(change){
  for(const [id,n] of current){
   const before=prior.get(id);
   if(!before){changes.push({id,kind:"ADDED_TO_SCENARIO"});continue}
-  if(JSON.stringify([before.proposedPhase,before.secondaryPhases,before.dependencies])!==JSON.stringify([n.proposedPhase,n.secondaryPhases,n.dependencies]))changes.push({id,kind:"STRUCTURE_CHANGED",before:before.proposedPhase,after:n.proposedPhase});
+  if(JSON.stringify([before.title,before.source,before.phase,before.proposedPhase,before.secondaryPhases,before.dependencies,before.unknownDependencies,before.reason,before.risks,before.evidence])!==JSON.stringify([n.title,n.source,n.phase,n.proposedPhase,n.secondaryPhases,n.dependencies,n.unknownDependencies,n.reason,n.risks,n.evidence]))changes.push({id,kind:"STRUCTURE_CHANGED",before:before.proposedPhase,after:n.proposedPhase});
  }
  for(const id of prior.keys())if(!current.has(id))changes.push({id,kind:"REMOVED_FROM_SCENARIO"});
- const version="ALT-"+String(structuralHistory.length+1).padStart(4,"0");
- const entry={version,signature,nodes:scenario.nodes.map(n=>({id:n.id,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies]})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
+ const nextVersion=Math.max(0,...structuralHistory.map(x=>Number(x.version.slice(4))||0))+1;
+ const version="ALT-"+String(nextVersion).padStart(4,"0");
+ const entry={version,signature,nodes:scenario.nodes.map(n=>({id:n.id,title:n.title,source:n.source,phase:n.phase,proposedPhase:n.proposedPhase,secondaryPhases:[...n.secondaryPhases],dependencies:[...n.dependencies],unknownDependencies:[...n.unknownDependencies],reason:n.reason,risks:[...n.risks],evidence:n.evidence})),changes,trigger:{kind:String(change.kind),id:String(change.id)},impact,evidence:"DOCUMENTARY_ONLY",canonicalMutation:false};
  structuralHistory.push(entry);
  return {status:"SNAPSHOT_RECORDED_IN_MEMORY",version,changes,impact};
 }
