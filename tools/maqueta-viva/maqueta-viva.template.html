@@ -2289,8 +2289,8 @@ render();
 /* All ten phases are compared against the same local placements and declared
    dependencies. Only spine milestones vary between reference and alternative.
    This is deterministic diagnostics, NOT a globally optimal schedule. */
-function analyzeWholeScenario(scenario){
-const assignments=scenario==="alternative"?alternativeSpineAssignments:spineAssignments;
+function analyzeWholeScenario(scenario, isolatedAssignments){
+const assignments=isolatedAssignments|| (scenario==="alternative"?alternativeSpineAssignments:spineAssignments);
 const byPhase=phases.map(p=>{
 const pieces=[...ideas,...components].filter(x=>placements[x.id]===p.id);
 const issues=[],unlinked=pieces.filter(x=>assignments[x.id]===undefined);
@@ -2646,16 +2646,24 @@ return {before,after,metrics:metrics.map(m=>({...m,delta:m.to-m.from,percent:m.f
 }
 /* Single analytical engine: all proposal experiments reuse analyzeWholeScenario. */
 function arkiProposalExperiment(idea){
-const exp=arkiLocalExperimentComparison();
-const base=analyzeWholeScenario("base").byPhase.find(p=>p.phase===idea.phase);
-const alt=analyzeWholeScenario("alternative").byPhase.find(p=>p.phase===idea.phase);
-if(!base||!alt)return {status:"SIN_DATOS",summary:"No hay datos suficientes para comparar esta fase.",metrics:[]};
-const metrics=[
-{name:"Bloqueos potenciales",before:base.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length,after:alt.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length},
-{name:"Observaciones",before:base.issues.filter(i=>i.severity==="REVISAR").length,after:alt.issues.filter(i=>i.severity==="REVISAR").length},
-{name:"Piezas con hito",before:base.linked,after:alt.linked}
-].map(m=>({...m,change:m.after-m.before,percent:m.before===0?null:Math.round((m.after-m.before)*10000/m.before)/100}));
-return {status:"COMPARACIÓN ESTRUCTURAL LOCAL",summary:"La alternativa es un escenario global, NO una simulación aislada de esta propuesta. No se puede atribuir la diferencia a la idea "+idea.id+".",metrics,eligibleForAuthorization:false,engine:"analyzeWholeScenario",globalContext:exp.classification};
+const base=analyzeWholeScenario("base");
+const before=base.byPhase.find(p=>p.phase===idea.phase);
+if(!before)return {status:"SIN_DATOS",summary:"Fase no disponible.",metrics:[]};
+if(!idea.id.startsWith("SPINE-"))return {status:"SIN ENSAYO AISLADO",summary:"Esta propuesta aún no tiene una mutación estructural específica y verificable. No se atribuyen mejoras de escenarios globales a esta idea.",metrics:[],eligibleForAuthorization:false};
+const phase=phases.find(p=>p.id===idea.phase);
+if(!phase||phase.status==="FROZEN")return {status:"PROTEGIDO",summary:"No se ensaya modificación de una fase FROZEN.",metrics:[],eligibleForAuthorization:false};
+const unlinked=[...ideas,...components].filter(x=>placements[x.id]===idea.phase&&spineAssignments[x.id]===undefined);
+if(!unlinked.length)return {status:"SIN CAMBIO NECESARIO",summary:"No hay piezas sin hito en la referencia actual.",metrics:[],eligibleForAuthorization:false};
+const candidates=[0,1,2,3].map(stage=>{
+const isolated={...spineAssignments};
+for(const piece of unlinked)isolated[piece.id]=stage;
+const result=analyzeWholeScenario("base",isolated).byPhase.find(p=>p.phase===idea.phase);
+return {stage,result};
+});
+candidates.sort((a,b)=>a.result.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length-b.result.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length||a.result.issues.length-b.result.issues.length||a.stage-b.stage);
+const winner=candidates[0],after=winner.result;
+const metrics=[{name:"Bloqueos potenciales",before:before.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length,after:after.issues.filter(i=>i.severity==="BLOQUEO_POTENCIAL").length},{name:"Observaciones",before:before.issues.filter(i=>i.severity==="REVISAR").length,after:after.issues.filter(i=>i.severity==="REVISAR").length},{name:"Piezas con hito",before:before.linked,after:after.linked}].map(m=>({...m,change:m.after-m.before,percent:m.before===0?null:Math.round((m.after-m.before)*10000/m.before)/100}));
+return {status:"ENSAYO ESTRUCTURAL AISLADO",summary:"Hipótesis: asignar provisionalmente "+unlinked.length+" piezas al hito "+(winner.stage+1)+". Se evaluaron cuatro hitos sobre copias de asignaciones sin modificar el borrador. No valida viabilidad arquitectónica, secuencia real ni desempeño del código.",metrics,eligibleForAuthorization:false,engine:"analyzeWholeScenario"};
 }
 function arkiExperimentResultsPanel(){
 const experiment=arkiLocalExperimentComparison();
