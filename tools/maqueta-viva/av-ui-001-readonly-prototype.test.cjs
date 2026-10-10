@@ -98,7 +98,7 @@ assert.match(document.getElementById("adaptive").innerText,/MOVE-01/,"Alternativ
 assert.equal(vm.runInContext("registry.ideas[0].targetPhase",sandbox),"F2","No automatic relocation");
 vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'FROZEN-MOVE',title:'Kernel geometria',targetPhase:'F6',sourceStatus:'DOCUMENTARY',origin:'TEST'},{id:'MOVE-01',title:'Normativa por jurisdiccion',targetPhase:'F2',sourceStatus:'DOCUMENTARY',origin:'TEST'}]};show()",sandbox);
 const guarded=vm.runInContext("adaptivePlacementCandidates()",sandbox);
-assert.ok(guarded.some(x=>x.id==='FROZEN-MOVE'&&x.risks.includes('FROZEN_BOUNDARY')&&x.decision==='PROTECTED_REVIEW_ONLY'),"Frozen phase relocation must be protected");
+assert.ok(guarded.some(x=>x.id==='FROZEN-MOVE'&&x.historicalFrozen===true&&x.decision==='WORKSPACE_REORGANIZATION_ALLOWED'),"Frozen historical item allowed in experimental reorganization");
 assert.ok(guarded.some(x=>x.id==='MOVE-01'&&x.risks.includes('NO_VERIFIED_DEPENDENCY_GRAPH')),"Missing dependency evidence explicitly marked");
 assert.equal(vm.runInContext("registry.ideas.find(x=>x.id==='FROZEN-MOVE').targetPhase",sandbox),"F6","Frozen phase unchanged");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
