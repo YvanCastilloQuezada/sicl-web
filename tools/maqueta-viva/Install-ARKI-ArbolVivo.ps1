@@ -43,13 +43,18 @@ $state = [IO.File]::ReadAllText((Join-Path $Repo "docs/arki-master-map/ARKI_MAST
 $registry = [IO.File]::ReadAllText((Join-Path $Repo "tools/maqueta-viva/assembly-registry.json"),$utf8)
 $s = $state | ConvertFrom-Json
 $g = $registry | ConvertFrom-Json
+$catalogPath = Join-Path $Install "av-ui-001-capability-catalog.json"
+Export-GitBlob "tools/maqueta-viva/av-ui-001-capability-catalog.json" $catalogPath
+$catalogText = [IO.File]::ReadAllText($catalogPath,$utf8)
+$catalogData = $catalogText | ConvertFrom-Json
+if ($catalogData.schema -ne "ARKI-AV-CAPABILITY-CATALOG-0.1") { throw "Invalid capability catalog" }
 if ($s.schema -ne "ARKI-MASTER-MAP-STATE-0.1" -or @($s.roadmap.phases).Count -ne 10) { throw "Invalid state" }
 if ($g.schema -ne "ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1" -or @($g.ideas).Count -lt 1) { throw "Invalid registry" }
 function JsonBootstrap([string]$Name,[string]$Json) {
     $base64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Json))
     return "window.$Name=JSON.parse(new TextDecoder('utf-8').decode(Uint8Array.from(atob('$base64'),c=>c.charCodeAt(0))));"
 }
-$bootstrap = "<script>" + (JsonBootstrap "__ARKI_EMBEDDED_STATE__" $state) + (JsonBootstrap "__ARKI_EMBEDDED_REGISTRY__" $registry) + "</script>"
+$bootstrap = "<script>" + (JsonBootstrap "__ARKI_EMBEDDED_STATE__" $state) + (JsonBootstrap "__ARKI_EMBEDDED_REGISTRY__" $registry) + (JsonBootstrap "__ARKI_EMBEDDED_CAPABILITY_CATALOG__" $catalogText) + "</script>"
 $pos = $html.IndexOf("<script>")
 if ($pos -lt 0) { throw "No inline script found" }
 $html = $html.Insert($pos,$bootstrap + [Environment]::NewLine)
@@ -73,6 +78,7 @@ if ($LASTEXITCODE -ne 0 -or $finalHead -ne $original) { throw "Worktree HEAD cha
 Write-Host "AV_UI_SHA=$sha"
 Write-Host "PHASES=$(@($s.roadmap.phases).Count)"
 Write-Host "LEAVES=$(@($g.ideas).Count)"
+Write-Host "HISTORICAL_CAPABILITY_RECORDS=$(@($catalogData.records).Count)"
 Write-Host "UTF8=PASS"
 Write-Host "HTML=$output"
 Write-Host "SHORTCUT=$link"
