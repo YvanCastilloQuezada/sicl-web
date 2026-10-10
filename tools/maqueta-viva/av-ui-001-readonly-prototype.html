@@ -44,10 +44,10 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 .relation{grid-column:1/-1}
 @media(max-width:850px){.tree{grid-template-columns:minmax(70px,1fr) minmax(145px,2fr) minmax(70px,1fr);gap:6px}.branch-group .branch{min-width:0;font-size:10px}}
 .legend{border:1px solid #4b6875;background:#102737;border-radius:9px;padding:10px;margin:0 0 13px;font-size:12px}.legend>strong{display:block;margin-bottom:8px}.legend p{margin:6px 0;line-height:1.35}.legend small{display:block;margin-top:8px;color:#aebfc9}.legend-rule{height:1px;background:#355064;margin:9px 0}.key{display:inline-block;min-width:17px;font-weight:800}.key.trunk{color:#d5a46c}.key.task{color:#8fbad3}.key.capability{color:#78b18a}.key.fruit{color:#e6c268}.key.frozen{color:#94b4d4}.key.progress{color:#4ba78c}.key.reconcile{color:#d78c62}.key.unknown{color:#8c9ba9}
-.branch-group.activities{grid-column:1;justify-content:flex-end}.branch-group.capabilities{grid-column:3;justify-content:flex-start}.branch-group .branch.task{background:#28435c;border-color:#83a6bf;text-align:right}.branch-group .empty-note{font-size:11px;color:#8fa9b9}.branch-group:has(.empty-note):before{border-color:#607687}
+.branch-group.activities{grid-column:1;justify-content:flex-end}.branch-group.capabilities{grid-column:3;justify-content:flex-start}.branch-group .branch.catalog-cap{background:#293b56;border-color:#8198b5;text-align:left}.branch-group .branch.catalog-cap[aria-pressed=true]{outline:2px solid #e5d38b}.branch-group .branch.task{background:#28435c;border-color:#83a6bf;text-align:right}.branch-group .empty-note{font-size:11px;color:#8fa9b9}.branch-group:has(.empty-note):before{border-color:#607687}
 </style></head><body>
 <header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div></header>
-<div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><section class="legend" aria-label="Leyenda del Árbol Vivo"><strong>Cómo leer el árbol</strong><p><span class="key trunk">▰</span> Tronco: fases F1–F10</p><p><span class="key task">◆</span> Izquierda: espinas / actividades declaradas</p><p><span class="key capability">●</span> Derecha: capacidades e ideas propuestas</p><p><span class="key fruit">★</span> Fruto: resultado con evidencia verificada</p><div class="legend-rule"></div><p><span class="key frozen">■</span> FROZEN: protegido</p><p><span class="key progress">■</span> IN_PROGRESS: en progreso declarado</p><p><span class="key reconcile">■</span> RECONCILIATION_REQUIRED: pendiente de reconciliación</p><p><span class="key unknown">■</span> UNKNOWN: sin datos suficientes</p><small>Propuesto ≠ implementado ≠ verificado. Ningún fruto se acredita sin evidencia.</small></section><div id="memory" aria-live="polite"></div></aside>
+<div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><section class="legend" aria-label="Leyenda del Árbol Vivo"><strong>Cómo leer el árbol</strong><p><span class="key trunk">▰</span> Tronco: fases F1–F10</p><p><span class="key task">◆</span> Izquierda: espinas / actividades declaradas</p><p><span class="key capability">●</span> Derecha: capacidades, FROZEN e ideas registradas</p><p><span class="key fruit">★</span> Fruto: resultado con evidencia verificada</p><div class="legend-rule"></div><p><span class="key frozen">■</span> FROZEN: protegido</p><p><span class="key progress">■</span> IN_PROGRESS: en progreso declarado</p><p><span class="key reconcile">■</span> RECONCILIATION_REQUIRED: pendiente de reconciliación</p><p><span class="key unknown">■</span> UNKNOWN: sin datos suficientes</p><small>Propuesto ≠ implementado ≠ verificado. Ningún fruto se acredita sin evidencia.</small></section><div id="memory" aria-live="polite"></div></aside>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Los estados son declaraciones documentales, no certificaciones.</p><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
 <aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><div id="decisions" aria-live="polite"></div></aside></div>
 <footer id="foot">SIN FUENTE: carga el archivo docs/arki-master-map/ARKI_MASTER_MAP_STATE.json de tu copia local. Ninguna información se envía a servidores.</footer>
@@ -57,6 +57,8 @@ const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5
 let state=null,draft=null,selected="F1",selectedBranch=null,selectedLeaf=null;
 const embeddedRegistry=typeof window!=="undefined"?window.__ARKI_EMBEDDED_REGISTRY__:null;
 let registry=embeddedRegistry?.schema==="ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1"?embeddedRegistry:null;
+const embeddedCatalog=typeof window!=="undefined"?window.__ARKI_EMBEDDED_CAPABILITY_CATALOG__:null;
+const catalog=embeddedCatalog?.schema==="ARKI-AV-CAPABILITY-CATALOG-0.1"?embeddedCatalog:null;
 const embeddedState=typeof window!=="undefined" ? window.__ARKI_EMBEDDED_STATE__ : null;
 if(embeddedState?.schema==="ARKI-MASTER-MAP-STATE-0.1"&&Array.isArray(embeddedState.roadmap?.phases))state=embeddedState;
 const el=id=>document.getElementById(id);
@@ -64,6 +66,7 @@ function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.clas
 function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
 function phaseData(){return state?.roadmap?.phases||[]}
 function phaseLeaves(id){return (registry?.ideas||[]).filter(x=>x.targetPhase===id)}
+function phaseCapabilities(id){return (catalog?.records||[]).filter(x=>x.targetPhase===id)}
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
 function localGraph(){
 const placements=draft?.placements||{},reviews=draft?.reviews||{},ids=new Set(Object.keys(placements)),edges=new Map(),missing=new Map(),cycles=[],seen=new Map(),stack=[];
@@ -109,9 +112,10 @@ for(const row of activities.slice(0,12)){const blocked=row.cycle||row.frozen||ro
 if(activities.length>12)left.append(node("span","+"+(activities.length-12)+" actividades","muted"));
 if(!activities.length)left.append(node("span","Actividades UNKNOWN","empty-note"));
 const right=node("div","","branch-group capabilities");right.style.gridRow=String(rowNumber);right.setAttribute("aria-label","Capacidades propuestas de "+id);
-const leaves=phaseLeaves(id);
+const leaves=phaseLeaves(id),capabilities=phaseCapabilities(id);
 for(const leaf of leaves){const item=node("button","🍃 "+leaf.id+" · "+leaf.title,"branch leaf");item.type="button";item.title="Inventario histórico; ubicación propuesta, NO implementado";item.setAttribute("aria-pressed",String(selectedLeaf===leaf.id));item.addEventListener("click",()=>chooseLeaf(leaf.id,id));right.append(item)}
-if(!leaves.length)right.append(node("span","Capacidades UNKNOWN","empty-note"));
+for(const cap of capabilities){const item=node("button",(cap.category==="FROZEN_ASSET"?"❄ ":"◇ ")+cap.title,"branch catalog-cap");item.type="button";item.title=cap.recordedStatus+" · "+cap.source+" · Fase orientativa no canónica";item.setAttribute("aria-pressed",String(selectedLeaf===cap.id));item.addEventListener("click",()=>chooseLeaf(cap.id,id));right.append(item)}
+if(!leaves.length&&!capabilities.length)right.append(node("span","Capacidades UNKNOWN","empty-note"));
 el("tree").append(left,btn,right);
 }
 
@@ -119,6 +123,8 @@ const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===select
 if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
 const leaf=phaseLeaves(selected).find(x=>x.id===selectedLeaf);
+const catalogItem=phaseCapabilities(selected).find(x=>x.id===selectedLeaf);
+if(catalogItem){entry(mem,"CAPACIDAD / ACTIVO · "+catalogItem.id,catalogItem.title);entry(mem,"Estado registrado",catalogItem.recordedStatus);entry(mem,"Fuente",catalogItem.source);entry(mem,"Evidencia citada",catalogItem.sourceEvidence||"UNKNOWN");entry(dec,"Ubicación F1–F10","ORIENTATIVA · pendiente de reconciliación canónica");entry(dec,"Verificación actual","NO REEJECUTADA · no se promueve el estado histórico");entry(dec,"Promoción","DESHABILITADA");return}
 if(leaf){entry(mem,"HOJA · "+leaf.id,leaf.title);entry(mem,"Origen documental",leaf.origin||"UNKNOWN");entry(mem,"Estado histórico",leaf.sourceStatus||"UNKNOWN");entry(mem,"Ubicación",leaf.placement||"UNKNOWN");entry(dec,"Fruto / resultado verificado","NO ACREDITADO · "+(leaf.verification||"UNKNOWN"));entry(dec,"Promoción","DESHABILITADA");return}
 if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry(mem,"Estado","SIN DATOS · importa el estado estructurado local de ARKI.");const gr=localGraph(),focus=gr.rows.find(x=>x.id===selectedBranch&&x.phase===selected);if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Dependencias",focus.deps.join(", ")||"Ninguna declarada");entry(dec,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Sin bloqueos declarados; verificación UNKNOWN")}entry(dec,"Fase activa",selected+" · "+labels[selected]);entry(dec,"Sin evidencia","No se inventan propuestas ni métricas. Promoción DESHABILITADA.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
