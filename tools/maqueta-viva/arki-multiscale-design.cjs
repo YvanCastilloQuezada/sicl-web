@@ -85,6 +85,11 @@ function score(candidate,weights){
  const m=candidate.metrics;
  return round(m.compactness*weights.compactness+m.openSpace*weights.openSpace+m.connectivity*weights.connectivity);
 }
+function pareto(candidates){
+ const valid=candidates.filter(c=>c.valid);
+ const objectives=["compactness","openSpace","connectivity"];
+ return valid.filter(a=>!valid.some(b=>b!==a&&objectives.every(k=>b.metrics[k]>=a.metrics[k]-1e-9)&&objectives.some(k=>b.metrics[k]>a.metrics[k]+1e-9))).map(c=>c.strategy);
+}
 function design(raw,memory=[],verifyLearning){
  const brief=normalize(raw);
  guard(Array.isArray(memory)&&memory.length<=100,"INVALID_MEMORY");
@@ -97,7 +102,7 @@ function design(raw,memory=[],verifyLearning){
  });
  const ranked=candidates.filter(x=>x.valid).sort((a,b)=>b.rankingScore-a.rankingScore||STRATEGIES.indexOf(a.strategy)-STRATEGIES.indexOf(b.strategy));
  const selected=ranked[0]||null;
- return {schema:SCHEMA,briefId:brief.id,scale:brief.scale,parent:brief.parent,sourceCommit:brief.sourceCommit,briefDigest:hash(brief),candidates,selectedStrategy:selected?.strategy||null,selectedGeometry:selected?.shapes||[],selectedMetrics:selected?.metrics||null,requiredChecks:brief.constraints.requiredChecks.map(id=>({id,status:"NOT_VERIFIED",jurisdiction:"NOT_RESOLVED"})),status:selected?"CONCEPTUAL_PROPOSAL":"NO_VALID_CANDIDATE",simulation:"HEURISTIC_ONLY",learning:"VERIFIED_FEEDBACK_ONLY",canonicalPromotion:"BLOCKED",canonicalMutation:false};
+ return {schema:SCHEMA,briefId:brief.id,scale:brief.scale,parent:brief.parent,sourceCommit:brief.sourceCommit,briefDigest:hash(brief),candidates,paretoStrategies:pareto(candidates),selectedStrategy:selected?.strategy||null,selectedGeometry:selected?.shapes||[],selectedMetrics:selected?.metrics||null,requiredChecks:brief.constraints.requiredChecks.map(id=>({id,status:"NOT_VERIFIED",jurisdiction:"NOT_RESOLVED"})),status:selected?"CONCEPTUAL_PROPOSAL":"NO_VALID_CANDIDATE",simulation:"HEURISTIC_ONLY",learning:"VERIFIED_FEEDBACK_ONLY",canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
 function learn(result,feedback,verifyEvidence){
  guard(result&&result.schema===SCHEMA&&result.canonicalMutation===false,"INVALID_DESIGN_RESULT");
@@ -109,4 +114,4 @@ function learn(result,feedback,verifyEvidence){
  // External callback must authenticate evidence, not merely inspect the label.
  return {schema:"ARKI-MULTISCALE-LEARNING-1",scale:result.scale,strategy:feedback.strategy,sourceCommit:result.sourceCommit,briefDigest:result.briefDigest,reward:feedback.reward,evidenceDigest:feedback.evidenceDigest,evidenceStatus:"INDEPENDENTLY_VERIFIED",verificationClaimOnly:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
-module.exports={SCHEMA,SCALES,STRATEGIES,normalize,geometry,design,learn};
+module.exports={SCHEMA,SCALES,STRATEGIES,normalize,geometry,pareto,design,learn};
