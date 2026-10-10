@@ -239,6 +239,15 @@ try {
    check(document.getElementById("twin-inspector").textContent.includes(twinLatest),"Twin inspector does not show historical version");
    twinSelector.value="CURRENT";twinSelector.dispatchEvent(new Event("change",{bubbles:true}));
    check(twinObservation().version==="CURRENT","Twin timeline failed to return to current state");
+   const impactToggle=document.getElementById("twin-impact-toggle");
+   check(impactToggle,"Twin impact control missing");
+   impactToggle.click();
+   check(twinImpactVisible===true,"Impact control failed to activate");
+   check(document.getElementById("twin-inspector").textContent.includes("PROPAGACIÓN DOCUMENTAL"),"Impact inspector not visible");
+   const twinImpact=twinDependencyImpact(twinObservation(),selected);
+   check(twinImpact.canonicalMutation===false&&twinImpact.simulation==="NOT_EXECUTED","Impact report claimed simulation");
+   impactToggle.click();
+   check(twinImpactVisible===false,"Impact control failed to deactivate");
    check(exportTwinWorkspace()===twinBefore,"Twin visualization mutated workspace");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
