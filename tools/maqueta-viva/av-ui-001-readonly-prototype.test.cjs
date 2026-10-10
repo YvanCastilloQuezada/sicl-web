@@ -476,7 +476,7 @@ assert.equal(typeof document.getElementById("twin-view-3d").listeners.click,"fun
 assert.equal(typeof document.getElementById("twin-version").listeners.change,"function");
 // Impact inspector: explicit dependency direction, transitive closure, cycles and unknowns.
 const impactFixture={
- phases:[{id:"F1",dependencies:[]},{id:"F2",dependencies:[]},{id:"F3",dependencies:[]},{id:"F4",dependencies:[]}],
+ phases:[{id:"F1",name:"Fase 1",dependencies:[]},{id:"F2",name:"Fase 2",dependencies:[]},{id:"F3",name:"Fase 3",dependencies:[]},{id:"F4",name:"Fase 4",dependencies:[]}],
  nodes:[
  {id:"A",phase:"F1",proposedPhase:"F1",dependencies:[]},
  {id:"B",phase:"F2",proposedPhase:"F2",dependencies:["A"]},
