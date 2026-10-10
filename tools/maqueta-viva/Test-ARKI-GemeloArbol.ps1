@@ -147,6 +147,8 @@ try {
    check(removeE5AlternativeBranch(branchId).status==="REMOVED_ALTERNATIVE_BRANCH","E5 alternative branch removal");
    check(importTwinWorkspace(branchWorkspace).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E5 alternative branch workspace import");
    check(e5BranchSnapshot().some(x=>x.id===branchId),"E5 adopted branch not persisted");
+   show();
+   check(document.getElementById("tree").textContent.includes(branchId),"E5 adopted branch not rendered in tree");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
