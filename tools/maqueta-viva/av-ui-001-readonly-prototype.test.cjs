@@ -42,7 +42,7 @@ const document = {
   },
   createElement(tag) { return new Element(tag); }
 };
-const sandbox = vm.createContext({ document, console, crypto: require("node:crypto").webcrypto, TextEncoder: require("node:util").TextEncoder });
+const sandbox = vm.createContext({ document, console, crypto: require("node:crypto").webcrypto, TextEncoder: require("node:util").TextEncoder, atob: globalThis.atob });
 vm.runInContext(match[1], sandbox, { timeout: 3000, filename: "av-ui-001-inline.js" });
 vm.runInContext("state = {roadmap:{phases:[{id:'F6',status:'FROZEN'},{id:'F1',status:'RECONCILIATION_REQUIRED'}]},updated_at:'TEST_ONLY'};draft = "+JSON.stringify(fixture)+";show();", sandbox, { timeout: 3000 });
 
@@ -536,5 +536,25 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  sandbox.__tamperedBackup=JSON.stringify(tampered);
  assert.equal((await vm.runInContext("importTwinVerifiedBackup(__tamperedBackup)",sandbox)).status,"BACKUP_HASH_MISMATCH");
  assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Tampered backup changed workspace");
+ // Independent ECDSA-P256 signer: validate signatures without assuming signer identity.
+ const webcrypto=require("node:crypto").webcrypto;
+ const pair=await webcrypto.subtle.generateKey({name:"ECDSA",namedCurve:"P-256"},true,["sign","verify"]);
+ const jwk=await webcrypto.subtle.exportKey("jwk",pair.publicKey);
+ jwk.alg="ES256";jwk.key_ops=["verify"];jwk.ext=true;
+ sandbox.__pubKey={schema:"ARKI-TWIN-PUBLIC-KEY-1",keyId:"local-fixture",jwk};
+ assert.equal((await vm.runInContext("pinTwinVerificationKey(__pubKey)",sandbox)).status,"PUBLIC_KEY_PINNED_FOR_SESSION");
+ const payload=JSON.stringify(receipts);
+ const signature=Buffer.from(await webcrypto.subtle.sign({name:"ECDSA",hash:"SHA-256"},pair.privateKey,new TextEncoder().encode(payload))).toString("base64url");
+ sandbox.__signedEnvelope={schema:"ARKI-TWIN-SIGNED-RECEIPTS-1",algorithm:"ECDSA-P256-SHA256",keyId:"local-fixture",payload,signature};
+ assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__signedEnvelope)",sandbox)).status,"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED");
+ assert.equal(vm.runInContext("twinSignedReceipts[0].authentication",sandbox),"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED");
+ const invalidEnvelope={...sandbox.__signedEnvelope,payload:payload.replace("SUCCESS","FAILURE")};
+ sandbox.__invalidEnvelope=invalidEnvelope;
+ assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__invalidEnvelope)",sandbox)).status,"INVALID_SIGNATURE");
+ assert.equal(vm.runInContext("twinSignedReceipts[0].outcome",sandbox),"SUCCESS","Rejected signed payload cannot change claims");
+ const unknownKey={...sandbox.__signedEnvelope,keyId:"not-pinned"};
+ sandbox.__unknownKey=unknownKey;
+ assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__unknownKey)",sandbox)).status,"TRUST_KEY_NOT_PINNED");
+ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Signature verification must not mutate experimental workspace");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
