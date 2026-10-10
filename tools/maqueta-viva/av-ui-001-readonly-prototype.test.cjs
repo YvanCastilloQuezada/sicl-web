@@ -28,6 +28,7 @@ class Element {
     this.textContent = "";
   }
   append(...items) { this.children.push(...items); }
+  appendChild(item) { this.children.push(item); return item; }
   replaceChildren(...items) { this.children = [...items]; }
   setAttribute(name, value) { this.attributes[name] = value; }
   addEventListener(name, callback) { this.listeners[name] = callback; }
