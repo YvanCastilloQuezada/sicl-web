@@ -1893,7 +1893,7 @@ const ARKI_IDEAS_KEY="arki-maqueta-arki-idea-decisions-v1";
 function validateArkiIdeaDecisions(raw){
 if(!raw||typeof raw!=="object"||Array.isArray(raw)||Object.keys(raw).length>100)return {};
 const out={};
-for(const [id,status] of Object.entries(raw))if((/^(RECONCILE|SPINE|DEPS|LOW|SOURCE|QUALITY|FREEZE)-F?(?:[1-9]|10|ALL)$/.test(id)||/^CI-(?:0[1-9]|1[0-4])$/.test(id))&&["APPROVED","REJECTED"].includes(status))out[id]=status;
+for(const [id,status] of Object.entries(raw))if((/^(RECONCILE|SPINE|DEPS|LOW|SOURCE|QUALITY|FREEZE)-F?(?:[1-9]|10|ALL)$/.test(id)||/^CI-(?:0[1-9]|1[0-4])$/.test(id)||/^GATE-(?:S10-F7|TWIN-F9|MULTISCALE-F7|BRANCH-F1)$/.test(id))&&["APPROVED","REJECTED"].includes(status))out[id]=status;
 return out;
 }
 let arkiIdeaDecisions={};
@@ -1935,6 +1935,27 @@ if(weak.length)add("LOW-"+id,id,"Revisar "+weak.length+" clasificaciones de baja
 }
 const changed=sourceChanges.newIdeas.length+sourceChanges.newComponents.length+sourceChanges.newFrozen.length+sourceChanges.changedFrozen.length+sourceChanges.changedPhases.length;
 if(changed)add("SOURCE-ALL","F1–F10","Revisar "+changed+" novedades de fuente","La fuente local cambió respecto de la lectura anterior, incluidas ideas, fases o FROZEN.","Contrastar novedades antes de modificar el roadmap o las decisiones.");
+/* Gate proposals are derived from the local canonical snapshot, not from a live autonomous agent.
+   They never modify source, run repairs or promote a phase. Owner approval is evaluation-only. */
+const blockers=Array.isArray(state.current_focus?.blockers)?state.current_focus.blockers:[];
+const s10Pending=blockers.some(x=>/^S10_(?:RESTORE|BACKUP|NATIVE|ROUND_TRIP)/.test(x));
+if(s10Pending)add("GATE-S10-F7","F7","S10: caracterizar respaldo y reconstruir presupuestos con evidencia",
+"El estado fuente declara "+blockers.filter(x=>/^S10_/.test(x)).join(", ")+". Existe adaptador estructurado; lectura nativa real y round-trip no están demostrados.",
+"Primero F1: custodia, checksum, versión SQL y copia aislada. Después F7: RESTORE HEADERONLY/FILELISTONLY en motor compatible, inventario de partidas/APU y conciliación con reporte S10. F8/F9 solo reciben línea base aceptada. No escribir en S10.",
+"Interoperabilidad","ALTA","ESTADO CANÓNICO LOCAL / S10");
+const twinGate=state.digital_twin_evidence_gates_2026_10_08;
+if(twinGate&&twinGate.status!=="OPERATIONAL_TWIN_VERIFIED")add("GATE-TWIN-F9","F9","Gemelo digital: cerrar identidad y observaciones físicas verificables",
+"GDT-01: "+String(twinGate.gdt01?.verdict||"UNKNOWN")+"; GDT-02: "+String(twinGate.gdt02?.verdict||"UNKNOWN")+". Un replay Git no demuestra operación de un activo físico.",
+"Antecedentes F1: identidad/procedencia; F6: correspondencia semántica AGK; F7/F8: estado aceptado. En F9: registrar un activo real y dos observaciones fechadas con hash de fuente, ejecutar GDT-02 y revisar replay. F10: operación solo tras evidencia física.",
+"Gemelo digital","ALTA","GDT-01/GDT-02 / ESTADO LOCAL");
+if(state.roadmap?.phases?.some(x=>x.id==="F7"))add("GATE-MULTISCALE-F7","F7","Planos y expedientes técnicos multiescala con una sola autoridad",
+"El objetivo profesional incluye componentes, recintos, edificios y territorio; la presencia de contratos F7/F8 no demuestra generación verificada de planos técnicos a todas las escalas.",
+"Revisar F1 identidad, F2 normativa por escala/jurisdicción, F3 intención, F4 topología, F5 evaluación, F6 AGK único; especificar en F7 vistas/cortes/plantas/cotas/especialidades por nivel de detalle y probar un caso real; F8 dossier y F9/F10 trazabilidad. Propuesta sin implementación automática.",
+"Documentación multiescala","ALTA","OBJETIVO DE PRODUCTO / PROPUESTA");
+if(state.roadmap?.phases?.some(x=>x.status==="RECONCILIATION_REQUIRED"))add("GATE-BRANCH-F1","F1","Conciliar ramas, contratos y estados antes de reutilizar capacidades",
+"Hay fases oficiales por reconciliar; la Maqueta Viva es una instantánea local y no demuestra por sí misma qué ramas contienen trabajo exclusivo o qué pruebas se ejecutaron.",
+"Auditar SHA y diferencias por rama; comparar capacidades con contratos, pruebas y CI exactos; registrar conflictos sin mezclar automáticamente AGK, D-2 ni FROZEN. Solicitar autorización para cada integración.",
+"Gobernanza","ALTA","ESTADO LOCAL / RECONCILIACIÓN");
 for(const [id,phase,category,priority,title,why,action,source] of ARKI_CONTINUOUS_IMPROVEMENTS)add(id,phase,title,why,action,category,priority,source);
 return results;
 }
