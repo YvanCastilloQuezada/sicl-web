@@ -62,6 +62,50 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  f8-integration:
+    name: F8 Integration Branch Real Tests (read-only)
+    if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'F8' || inputs.phase == 'MO11'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout actual F8 implementation and tests
+        uses: actions/checkout@v4
+        with:
+          repository: YvanCastilloQuezada/sicl-web
+          ref: feat/f7-f8-integral-closure
+          persist-credentials: false
+      - name: Record immutable implementation SHA
+        run: git rev-parse HEAD
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install dependencies locked
+        run: pnpm install --frozen-lockfile
+      - name: Execute actual F8 dossier tests
+        shell: bash
+        run: |
+          mkdir -p artifacts/arki-f8-integration
+          git rev-parse HEAD > artifacts/arki-f8-integration/source-sha.txt
+          set +e
+          pnpm exec vitest run server/arkiF7F8Closure.test.ts > artifacts/arki-f8-integration/vitest.log 2>&1
+          rc=$?
+          set -e
+          cat artifacts/arki-f8-integration/vitest.log
+          printf 'phase=F8\nsource=feat/f7-f8-integral-closure\nexit_code=%s\n' "$rc" > artifacts/arki-f8-integration/receipt.txt
+          exit "$rc"
+      - name: Upload F8 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-f8-real-tests-${{ github.sha }}
+          path: artifacts/arki-f8-integration/
+          if-no-files-found: warn
+          retention-days: 30
+
   core:
     name: Core regression (separate evidence)
     if: (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'MO11')
