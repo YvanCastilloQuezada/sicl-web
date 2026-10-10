@@ -31,7 +31,7 @@ Puerta propuesta: un espécimen real, requisitos y fuentes normativas por escala
 
 ## Hallazgos de coherencia
 1. **Roadmap documental desfasado:** `ARKI_TEN_PHASE_PRODUCT_INTEGRATION_ROADMAP_V1.md` aún declara F6 `IN_PROGRESS` y F7–F10 futuros, mientras `ARKI_MASTER_MAP_STATE.json` declara F6 `FROZEN`, F7/F8 `IN_PROGRESS`. No corregir silenciosamente la historia: registrar el documento como corte anterior y reconciliar referencias actuales.
-2. **README de Maqueta Viva desfasado:** describe bandejas izquierda/derecha de una interfaz anterior; la interfaz actual tiene bandeja derecha y fases arriba. Ajuste editorial pendiente de revisión, no defecto de geometría.
+2. **README de Maqueta Viva (corregido en esta campaña):** la guía anterior describía bandejas invertidas. Se actualizó para fases arriba, bandeja derecha, vertebral, aprobación humana y límites de S10/gemelo digital. La corrección documental no prueba E3 en Windows.
 3. **Autonomía acotada:** `ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md` implementa un gate de PR de solo lectura; no ejecutor que repare código. Aprobación local `AUTORIZO` prepara una orden; **no autoriza** merge ni promoción.
 4. **Pruebas:** hay dos workflow runs SUCCESS asociados al HEAD auditado `d27f1b0` (Maqueta Viva smoke y SICL Web CI). Son evidencia de ejecución CI en ese SHA, **no** prueba de Windows E3, restauración S10 ni GDT-02 real. Cualquier commit posterior exige nuevo SHA y comprobación.
 5. **Consolidación:** 19 ramas divergentes no son 19 funcionalidades nuevas; se requiere análisis de diffs y pruebas por contrato antes de cualquier cherry-pick o merge.
