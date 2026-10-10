@@ -38,4 +38,21 @@ assert.equal(review.canonicalPromotion,"BLOCKED");
 assert.equal(review.canonicalMutation,false);
 assert.throws(()=>propose({...baseline,metrics:[baseline.metrics[0],baseline.metrics[0]]}),/INVALID_METRIC_ID/);
 assert.throws(()=>propose({...baseline,metrics:[{...baseline.metrics[0],value:NaN}]}),/INVALID_METRIC_VALUE/);
+const {mkdtempSync,writeFileSync,readFileSync,rmSync}=require("node:fs");
+const {tmpdir}=require("node:os");
+const {join}=require("node:path");
+const {spawnSync}=require("node:child_process");
+const dir=mkdtempSync(join(tmpdir(),"arki-adn-mc-"));
+try{
+ const input=join(dir,"observation.json"),output=join(dir,"report.json");
+ writeFileSync(input,JSON.stringify(baseline));
+ const cmd=join(__dirname,"Run-ARKI-ADN-MC.cjs");
+ const result=spawnSync(process.execPath,[cmd,input,output],{encoding:"utf8",timeout:10000});
+ assert.equal(result.status,0,result.stderr);
+ const report=JSON.parse(readFileSync(output,"utf8"));
+ assert.equal(report.proposals.proposals.length,4);
+ assert.equal(report.autonomousInitiation,false);
+ assert.equal(report.canonicalPromotion,"BLOCKED");
+ assert.notEqual(spawnSync(process.execPath,[cmd,input,output],{encoding:"utf8"}).status,0,"Must not overwrite existing reports");
+}finally{rmSync(dir,{recursive:true,force:true})}
 console.log("ARKI_ADN_MC_001=PASS; PROPOSALS_ONLY; NO_CANONICAL_MUTATION; NO_FAKE_AUTONOMOUS_RUNTIME");
