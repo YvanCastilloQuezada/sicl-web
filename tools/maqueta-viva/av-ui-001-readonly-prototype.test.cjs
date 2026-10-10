@@ -53,6 +53,15 @@ assert.equal(rows.get("TEST-F6").cycle, true, "F6 cycle");
 assert.deepEqual(Array.from(rows.get("TEST-MISSING").missing), ["TEST-UNKNOWN"], "Unknown reference");
 assert.equal(rows.get("TEST-FROZEN").frozen, true, "Frozen branch");
 assert.equal(rows.get("TEST-F10").frozen, false, "Other phases unaffected");
+assert.ok(rows.get("TEST-F2").upstreamBlockers.some(x=>x.includes("CYCLE")), "Cyclic dependency inherited");
+assert.ok(rows.get("TEST-F10").upstreamBlockers.length===0, "F10 has no declared inherited block in this fixture");
+assert.ok(rows.get("TEST-F6").upstreamBlockers.some(x=>x.includes("CYCLE")), "F6 inherited cycle");
+vm.runInContext("draft.reviews['TEST-F1'].dependencies=['TEST-MISSING'];show();", sandbox);
+const inherited=vm.runInContext("localGraph()", sandbox);
+const f10=inherited.rows.find(x=>x.id==="TEST-F10");
+assert.ok(f10.upstreamBlockers.some(x=>x.includes("TEST-UNKNOWN")&&x.includes("MISSING")), "F10 inherits missing predecessor via F1");
+vm.runInContext("draft.reviews['TEST-F1'].dependencies=[];show();", sandbox);
+
 
 const tree = document.getElementById("tree");
 assert.equal(tree.children.filter(x => x.tagName === "button").length, 10, "Ten phase buttons");
