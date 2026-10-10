@@ -474,4 +474,26 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"T
 assert.equal(typeof document.getElementById("twin-view-brain").listeners.click,"function");
 assert.equal(typeof document.getElementById("twin-view-3d").listeners.click,"function");
 assert.equal(typeof document.getElementById("twin-version").listeners.change,"function");
+// Impact inspector: explicit dependency direction, transitive closure, cycles and unknowns.
+const impactFixture={
+ phases:[{id:"F1",dependencies:[]},{id:"F2",dependencies:[]},{id:"F3",dependencies:[]},{id:"F4",dependencies:[]}],
+ nodes:[
+ {id:"A",phase:"F1",proposedPhase:"F1",dependencies:[]},
+ {id:"B",phase:"F2",proposedPhase:"F2",dependencies:["A"]},
+ {id:"C",phase:"F3",proposedPhase:"F3",dependencies:["B","MISSING"],unknownDependencies:["MISSING"]},
+ {id:"D",phase:"F4",proposedPhase:"F4",dependencies:[]}
+ ]};
+sandbox.__impactFixture=impactFixture;
+const impact=vm.runInContext("twinDependencyImpact(__impactFixture,'F1')",sandbox);
+assert.deepEqual(Array.from(impact.direct),["F2"]);
+assert.deepEqual(Array.from(impact.transitive),["F2","F3"]);
+assert.equal(impact.unknownReferences.length,1);
+assert.equal(impact.canonicalMutation,false);
+assert.equal(impact.simulation,"NOT_EXECUTED");
+assert.equal(vm.runInContext("twinDependencyImpact(__impactFixture,'F4').transitive.length",sandbox),0);
+const impactBefore=vm.runInContext("exportTwinWorkspace()",sandbox);
+vm.runInContext("twinImpactVisible=true;renderTwinCommandCenter()",sandbox);
+assert.match(document.getElementById("twin-inspector").textContent,/PROPAGACIÓN DOCUMENTAL/);
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),impactBefore,"Impact inspection must not mutate workspace");
+vm.runInContext("twinImpactVisible=false;renderTwinCommandCenter()",sandbox);
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
