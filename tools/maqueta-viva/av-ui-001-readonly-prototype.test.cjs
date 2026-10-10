@@ -392,4 +392,22 @@ assert.equal(vm.runInContext("addE6Evidence("+JSON.stringify(e5Id)+",'Further ev
 assert.equal(vm.runInContext("e9ReviewStatus("+JSON.stringify(e9DecisionId)+").status",sandbox),"REVISION_REQUIRED");
 vm.runInContext("renderE9Revisions()",sandbox);
 assert.ok(document.getElementById("e9-ledger").innerText.includes("REVISION_REQUIRED"),"E9 ledger must expose stale review");
+// E10 conservative readiness: no silent certification or canonical promotion.
+assert.equal(typeof document.getElementById("e10-evaluate").listeners.click,"function");
+assert.equal(typeof document.getElementById("e10-export").listeners.click,"function");
+const e10Before=vm.runInContext("JSON.stringify({branches:e5BranchSnapshot(),evidence:e6EvidenceSnapshot(),decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot()})",sandbox);
+const e10Report=vm.runInContext("e10ReadinessReport()",sandbox);
+assert.equal(e10Report.schema,"ARKI-TREE-TWIN-E10-READINESS-1");
+assert.equal(e10Report.status,"NOT_READY_FOR_CANONICAL_PROMOTION");
+assert.equal(e10Report.canonicalMutation,false);
+assert.equal(e10Report.verification,"UNKNOWN");
+assert.ok(e10Report.blockers.includes("DOCUMENTARY_VERIFICATION"));
+assert.ok(e10Report.blockers.includes("CANONICAL_PROMOTION"));
+assert.ok(e10Report.checks.some(x=>x.id==="EXTERNAL_E2E_CERTIFICATION"&&x.status==="NOT_ASSESSED"));
+assert.equal(e10Report.counts.revisions,2);
+const e10Export=vm.runInContext("exportE10Readiness()",sandbox);
+assert.deepEqual(JSON.parse(e10Export),JSON.parse(JSON.stringify(e10Report)));
+vm.runInContext("renderE10Readiness()",sandbox);
+assert.ok(document.getElementById("e10-report").innerText.includes("NOT_READY_FOR_CANONICAL_PROMOTION"));
+assert.equal(vm.runInContext("JSON.stringify({branches:e5BranchSnapshot(),evidence:e6EvidenceSnapshot(),decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot()})",sandbox),e10Before,"E10 diagnosis must not mutate receipts");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
