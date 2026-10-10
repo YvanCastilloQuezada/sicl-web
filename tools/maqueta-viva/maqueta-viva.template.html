@@ -728,6 +728,25 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .commandbar .piece-search input#search{border:0;background:transparent;color:#e9f4ff;min-width:0;width:100%;flex:1 1 auto;margin:0;padding:8px 0;outline-offset:2px}
 .commandbar .piece-search input#search::placeholder{color:#b6cde1;opacity:1}
 @media(max-width:760px){.commandbar .piece-search{flex:0 0 145px;margin-left:auto}}
+
+/* ARKI evolution tree: architectural metaphor, 10 canonical levels. */
+.arki-tree{position:relative;display:flex;flex-direction:column;gap:10px;padding:15px 4px}
+.arki-tree:before{content:"";position:absolute;left:50%;top:18px;bottom:18px;width:7px;transform:translateX(-50%);border-radius:9px;background:linear-gradient(#477e92,#62865c);opacity:.8}
+.arki-tree-level{display:grid;grid-template-columns:minmax(0,1fr) minmax(155px,205px) minmax(0,1fr);gap:16px;align-items:center;position:relative}
+.arki-tree-trunk{position:relative;z-index:1;display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;background:#20465c;color:#eff8ff;border:2px solid #9ac7cf;border-radius:12px;padding:12px 8px;min-height:85px;cursor:pointer}
+.arki-tree-index{font-size:18px;font-weight:800}.arki-tree-trunk strong{font-size:12px}.arki-tree-trunk small{font-size:10px;color:#c5dfd8}
+.arki-tree-side{display:flex;flex-direction:column;gap:5px;min-width:0;position:relative}
+.arki-tree-side:before{content:"";position:absolute;top:35px;width:16px;border-top:2px solid #648da1}
+.arki-tree-left:before{right:-16px}.arki-tree-right:before{left:-16px}
+.arki-tree-side-label{font-size:10px;letter-spacing:.07em;font-weight:750;color:#a7c4d8}
+.arki-tree-left{text-align:right;align-items:flex-end}.arki-tree-right{text-align:left;align-items:flex-start}
+.arki-tree-leaf{max-width:100%;width:min(100%,270px);display:flex;flex-direction:column;gap:3px;padding:7px 10px;background:#1b354b;color:#e6f4ff;border:1px solid #60859e;border-radius:8px;text-align:inherit;cursor:pointer}
+.arki-tree-right .arki-tree-leaf{background:#33402d;border-color:#779a6c}
+.arki-tree-leaf strong{font-size:11px;overflow-wrap:anywhere}.arki-tree-leaf small,.arki-tree-more{font-size:10px;color:#b6cbd7}
+.arki-tree-leaf:hover,.arki-tree-trunk:hover{filter:brightness(1.22)}
+.arki-tree-legend{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:#c4d7e8}
+.arki-tree-legend span{padding:5px 8px;border:1px solid #416078;border-radius:6px}
+@media(max-width:850px){.arki-tree-level{grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr);gap:8px}.arki-tree-trunk{padding:8px 4px}.arki-tree-side:before{display:none}}
 </style>
 </head>
 <body>
@@ -2440,9 +2459,19 @@ function scopePieces(phase){
 return [...ideas,...components].filter(p=>placements[p.id]===phase);
 }
 function completeMaqueta(){
-return scopeHead("02 · MAQUETA VIVA","Mesa de ensamblaje","Vista general de las diez fases. Elige una tarjeta para trabajar sobre su mesa; las ubicaciones son borradores locales.")+
-'<div class="scope-grid">'+phases.map(p=>'<button type="button" class="scope-phase-card" data-phase="'+escapeHtml(p.id)+'" style="--scope-color:var(--phase-'+escapeHtml(p.id)+')"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+scopePieces(p.id).length+' piezas ubicadas en borrador</span><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>'+
-draftControls()+'<p class="caption">Las fases se muestran sin promover integraciones ni alterar la fuente canónica.</p>';
+const proposals=generatedArkiIdeas();
+const stages=phases.map((p,i)=>{
+const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
+const left=pieces.slice(0,3),right=suggestions.slice(0,3);
+const branch=(items,kind)=>items.map(x=>'<button type="button" class="arki-tree-leaf" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Actividad · "+x.id:"Propuesta · pendiente de decisión")+'</small></button>').join("");
+return '<div class="arki-tree-level"><div class="arki-tree-side arki-tree-left"><span class="arki-tree-side-label">CAPACIDADES · '+pieces.length+'</span>'+branch(left,"piece")+(pieces.length>3?'<span class="arki-tree-more">+'+(pieces.length-3)+' en la fase</span>':"")+'</div>'+
+'<button type="button" class="arki-tree-trunk" data-phase="'+escapeHtml(p.id)+'"><span class="arki-tree-index">'+escapeHtml(p.id)+'</span><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>'+
+'<div class="arki-tree-side arki-tree-right"><span class="arki-tree-side-label">PROPUESTAS · '+suggestions.length+'</span>'+branch(right,"proposal")+(suggestions.length>3?'<span class="arki-tree-more">+'+(suggestions.length-3)+' propuestas</span>':"")+'</div></div>';
+}).join("");
+return scopeHead("02 · MAQUETA VIVA","Árbol de evolución ARKI","Diez niveles: fases en el tronco, capacidades a la izquierda y propuestas a la derecha. Selecciona una rama para consultar sus detalles.")+
+'<div class="arki-tree-legend"><span>TRONCO · 10 fases</span><span>IZQUIERDA · capacidades</span><span>DERECHA · propuestas</span><span>Solo lectura de la estructura</span></div>'+
+'<div class="arki-tree" role="group" aria-label="Árbol de evolución ARKI, diez fases">'+stages+'</div>'+
+'<p class="caption">Las ramas son una vista de datos locales, no una validación de funcionamiento. Las propuestas no se ejecutan sin autorización.</p>';
 }
 function scopedPlano(){
 const all=viewScope==="ALL";
@@ -2751,6 +2780,7 @@ render();
 app.querySelectorAll("[data-relation-jump]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.relationJump;if(!movable.has(id))return;const destination=placements[id];if(destination&&validPhases.has(destination)){activePhase=destination;spineView=true;tab="structure";selected=id;draftNotice="Relación local: "+id+" en "+destination+". Revisa su ficha y evidencia.";render();}else{draftNotice="La pieza "+id+" está declarada como relación, pero no está ubicada en ninguna fase. Busca su ID en la bandeja.";selected=activePhase;render();}}));
 app.querySelectorAll("[data-phase-scope]").forEach(el=>el.addEventListener("click",()=>{viewScope="ALL";selected=activePhase;tab=EVOLUTION_LEVELS.find(x=>x.id===evolutionMode)?.target||"structure";render();}));
 app.querySelectorAll("[data-scope-piece]").forEach(el=>el.addEventListener("click",()=>{const id=el.dataset.scopePiece;if(!placements[id])return;activePhase=placements[id];viewScope=activePhase;evolutionMode="maqueta";tab="structure";technicalMode=true;spineView=false;selected=id;render();}));
+app.querySelectorAll("[data-tree-proposal]").forEach(el=>el.addEventListener("click",()=>{const x=generatedArkiIdeas().find(v=>v.id===el.dataset.treeProposal);if(!x)return;correctiveSelected="";evolutionMode="autocorrectivo";tab="autocorrective";if(validPhases.has(x.phase)){viewScope=x.phase;activePhase=x.phase;selected=x.phase;}render();}));
 app.querySelectorAll("[data-phase]").forEach(el=>el.addEventListener("click",()=>{
 const phase=el.dataset.phase;if(!validPhases.has(phase))return;
 viewScope=phase;activePhase=phase;selected=phase;linkMode=false;linkSource="";
