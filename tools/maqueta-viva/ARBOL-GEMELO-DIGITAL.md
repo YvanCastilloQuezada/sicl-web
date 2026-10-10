@@ -153,3 +153,28 @@ La prueba de aceptación debe comprobar también que un payload alterado se rech
 - Obtener revisión del Equipo Rojo y evidencia de CI/Windows en SHA exacto.
 
 **Estado:** IMPLEMENTED / NOT YET EXECUTED / NOT VERIFIED para esta suplementación.
+
+## Suplemento — diagnóstico operativo y verificador independiente
+
+Se añadió un botón **Exportar diagnóstico auditable**, que produce `ARKI-TWIN-OPERATIONAL-AUDIT.json` a partir del estado observado sin modificarlo. El reporte enumera: fases, piezas, evidencias, decisiones y revisiones provisionales; recibos firmados y sin firma; referencias desconocidas; recibos sin fase reconocida; mallas y coincidencias de commit; puertas explícitas de cobertura, identidad del productor, reproducibilidad, geometría, restauración y Red Team.
+
+**Regla de seguridad:** la presencia de firmas válidas **no** desbloquea `PRODUCER_IDENTITY`, `EXECUTION_REPRODUCIBILITY` ni `canonicalPromotion`. El diagnóstico siempre declara `NOT_VERIFIED` y `BLOCKED` mientras no exista una integración real autorizada.
+
+Se añadió la comparación manual de huella pública `SHA-256` frente a un valor obtenido **por otro canal**. El resultado `OUT_OF_BAND_FINGERPRINT_MATCH` solo confirma coincidencia de la huella, no identidad del productor. El visor conserva explícitamente `producerIdentity=NOT_ESTABLISHED`.
+
+Se añadió `Verify-ARKI-Twin-Receipts.cjs`, un verificador Node independiente del navegador para el contrato de recibos ECDSA P-256; admite una huella esperada opcional y nunca marca la ejecución como verificada. La batería PowerShell incorpora la etapa **03B**, que genera claves efímeras sintéticas, verifica la firma y prueba rechazo de un payload modificado.
+
+### Sesión de pruebas con Diego — secuencia de aceptación
+
+1. En `C:\ARKI\repos\sicl-web-arbol-vivo`, asegurar worktree limpio y SHA esperado; no tocar el repositorio canónico.
+2. Ejecutar `Test-ARKI-GemeloArbol.ps1`; registrar la ruta del log y el resultado exacto de cada etapa. No interpretar `SKIP` como `PASS`.
+3. En Edge, verificar ÁRBOL Vivo, Cerebro Relacional, Vista 3D y la propagación de dependencias; comparar A/B/C.
+4. Generar el par sintético de clave y sobre firmado con `Generate-ARKI-Twin-Signed-Fixture.cjs`. Importar ambos archivos y comparar la huella por un canal independiente.
+5. Importar una malla **sintética**, revisar que se etiqueta como externa y no autenticada; rechazar una malla con índices incorrectos o triángulos degenerados.
+6. Exportar el diagnóstico operativo y confirmar que `canonicalPromotion=BLOCKED` y `operationalVerification=NOT_VERIFIED`.
+7. Exportar un respaldo SHA-256 y restaurarlo en un perfil Edge aislado; probar también un archivo alterado. La prueba de restauración **no** está automatizada entre perfiles.
+8. Reunir evidencias (log, SHA, capturas y archivos JSON sin secretos) para revisión del Equipo Rojo.
+
+### Pendiente no sustituible con un simulacro
+
+Un recibo de ejecución real debe producirse **en el Core o AGK autorizado**, no en el navegador ni mediante el generador sintético. El productor debe firmar una descripción de la ejecución real, vincular el artefacto generado a su digest, aportar parámetros y versión del motor, y permitir repetir el resultado. La autenticidad de la clave debe establecerse por un canal de confianza independiente. Hasta entonces: **IMPLEMENTED / UNVERIFIED**.
