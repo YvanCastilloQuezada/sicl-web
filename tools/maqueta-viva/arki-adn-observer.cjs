@@ -12,13 +12,20 @@ function safeRead(dir,name){
  return fs.readFileSync(file,"utf8");
 }
 function ledger(dir){
- const names=fs.readdirSync(dir).filter(n=>/^event-[0-9]{6}\.json$/.test(n)).sort();
+ const names=fs.readdirSync(dir).filter(n=>/^event-[0-9]{6}\\.json$/.test(n)).sort();
+ const reports=fs.readdirSync(dir).filter(n=>/^proposal-[0-9]{6}\\.json$/.test(n));
+ if(reports.length!==names.length)throw Error("ORPHAN_OR_MISSING_REPORT");
  let prev="GENESIS",ids=new Set(),digests=new Set();
  if(names.length>10000)throw Error("LEDGER_LIMIT");
  for(let i=0;i<names.length;i++){
   const event=JSON.parse(safeRead(dir,names[i]));
   const {eventHash,...body}=event;
   if(body.schema!=="ARKI-ADN-LEDGER-1"||body.seq!==i+1||body.previous!==prev||body.canonicalMutation!==false||digest(JSON.stringify(body))!==eventHash)throw Error("LEDGER_INVALID");
+  const reportName="proposal-"+String(i+1).padStart(6,"0")+".json";
+  const reportText=safeRead(dir,reportName);
+  if(digest(reportText)!==body.reportHash)throw Error("REPORT_TAMPER_DETECTED");
+  const report=JSON.parse(reportText);
+  if(report.schema!=="ARKI-ADN-AUTO-PROPOSAL-1"||report.canonicalMutation!==false||report.canonicalPromotion!=="BLOCKED"||report.result.observationDigest!==body.observationDigest||report.result.observationId!==body.observationId)throw Error("REPORT_INVALID");
   if(ids.has(body.observationId)||digests.has(body.observationDigest))throw Error("LEDGER_DUPLICATE");
   ids.add(body.observationId);digests.add(body.observationDigest);prev=eventHash;
  }
