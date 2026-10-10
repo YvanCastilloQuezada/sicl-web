@@ -68,3 +68,29 @@ Sin dependencia registrada = **NO DEMOSTRADA**, nunca inferir precedencia por pa
 - Sólo entonces aprobar un delta mínimo; no añadir un motor de planificación duplicado.
 
 **Veredicto:** correspondencia conceptual registrada. IMPLEMENTACIÓN=NO AUTORIZADA; E2E=NO VERIFICADO; ZERO_DEBT_FREEZE=NO DEMOSTRADO.
+
+## 8. Primer contraste directo con GitHub — 2026-10-09
+
+**Alcance de esta comprobación:** lectura de archivos específicos en rama `main` de ambos repositorios. No constituye barrido repo-wide, ejecución de tests ni confirmación de CI. Los SHA indicados son **blob SHA**, no HEAD commit SHA.
+
+| Repositorio / archivo | Blob SHA observado | Hecho comprobado | Límite |
+|---|---|---|---|
+| sicl-web / shared/arkiDeveloperProposal.ts | `0b68b8f7846ab9c4927832d5d1fe684c62343cb8` | Existe contrato DeveloperProposal pre-D-2; declara propuesta no canónica y no promotora | No verifica interoperabilidad real con Core |
+| sicl-web / shared/arkiDeveloperProposal.test.ts | `72b0bc661fe240485b313ff23091b07fd95f025a` | Existen pruebas Vitest de validación del contrato, incluyendo fingerprint/UNKNOWN | No se ejecutaron |
+| sicl-web / package.json | `f83eb6683287a168cf733e1b34783d68df0ce943` | Declara `test: vitest run` y scripts E2E canónicos | No hay resultado de ejecución |
+| sicl-core / pyproject.toml | `b288cb03149880ac2a012532dedc49b18b427ae4` | Declara `reportlab>=4,<5` en extras de pruebas, además de pytest | No confirma CI verde ni que todas las instalaciones usen el extra |
+| sicl-core / requirements.txt | `5c94cbe4467da119b7390ae9fa518340b042942` | Lista FastAPI, uvicorn, ifcopenshell, python-multipart; **no lista reportlab** | Diferencia de manifiestos requiere examinar workflow de instalación antes de diagnosticar fallo |
+| sicl-core / README.md | `6266af04c5934f23906312131b005bda8c77e87c` | Describe Core como fuente de verdad y una verificación local histórica | README no sustituye evidencia actual de CI |
+
+**Corrección de estado:** DeveloperProposal contract = **EXISTE EN ARCHIVO** (no «NO VERIFICADO» para su existencia); test de contrato = **EXISTE EN ARCHIVO / NO EJECUTADO**; reportlab = **DECLARADO EN EXTRA TEST / NO DEMOSTRADO EN ENTORNO**. Las otras filas de la matriz mantienen estado **NO VERIFICADO** hasta inspección y pruebas concretas.
+
+**No inferir ausencia de implementación** por resultados vacíos de búsqueda indexada ni por un 404 en una ruta supuesta. Verificar rutas y ramas efectivas.
+
+### Próximo corte de auditoría
+1. Resolver HEAD commit exacto y CI de ambos repositorios, incluyendo branch de integración frente a main.
+2. Examinar semántica de `validateDeveloperProposal`, fingerprints y pruebas adversariales.
+3. Localizar API Core de reasoning-executions, promoción y HumanReview por árbol real, no por nombres presumidos.
+4. Ejecutar tests pertinentes en entorno reproducible; registrar PASS/FAIL/UNKNOWN con comando, SHA, artefacto y hora.
+5. Reconciliar hallazgos con el consolidado de septiembre, respetando freezes posteriores.
+
+**Resultado:** auditoría documental y lectura de archivos; ninguna mutación canónica, promoción ni implementación de producto.
