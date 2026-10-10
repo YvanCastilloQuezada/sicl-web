@@ -6,6 +6,15 @@
 *{box-sizing:border-box}body{margin:0}header{padding:15px 22px;border-bottom:1px solid #344c5c;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}
 h1{font-size:20px;margin:0}small,.muted{color:#aabcc9}.shell{display:grid;grid-template-columns:minmax(210px,1fr) minmax(330px,2.2fr) minmax(230px,1.1fr);gap:12px;padding:12px;min-height:calc(100vh - 82px)}
 aside,main{background:#152b40;border:1px solid #385064;border-radius:12px;padding:16px;min-width:0}
+/* Independent central tree scrolling; side panels remain visible. */
+.shell{height:calc(100vh - 158px);min-height:420px;overflow:hidden;align-items:stretch}
+.shell>main{overflow-y:auto;overflow-x:hidden;min-height:0;scrollbar-width:thin;scrollbar-color:#79a9ba #152b40;overscroll-behavior:contain}
+.shell>main::-webkit-scrollbar{width:12px}
+.shell>main::-webkit-scrollbar-track{background:#152b40;border-radius:10px}
+.shell>main::-webkit-scrollbar-thumb{background:#648fa2;border:2px solid #152b40;border-radius:10px}
+.shell>aside{overflow-y:auto;min-height:0;scrollbar-width:thin}
+@media(max-height:600px){.shell{height:calc(100vh - 145px);min-height:250px}}
+
 h2{font-size:17px;margin:0 0 12px}.tree{display:grid;grid-template-columns:minmax(110px,1fr) minmax(240px,2fr) minmax(110px,1fr);align-items:center;gap:7px 12px;position:relative;padding:12px}
 .tree:before{content:"";position:absolute;top:30px;bottom:30px;left:50%;width:8px;background:#98754e;border-radius:8px;transform:translateX(-50%)}
 .phase{position:relative;grid-column:2;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #516579;background:#203b51;color:inherit;border-radius:9px;padding:9px 12px;cursor:pointer;text-align:left}
