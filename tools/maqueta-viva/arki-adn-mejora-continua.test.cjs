@@ -37,6 +37,10 @@ const evidence={schema:"ARKI-ADN-EXPERIMENT-RECEIPT-1",observationDigest:first.o
 assert.throws(()=>evaluate(first,{...evidence,authorization:"NONE"}),/AUTHORIZATION_REQUIRED/);
 assert.throws(()=>evaluate(first,{...evidence,producerIdentity:"SELF_CLAIM"}),/PRODUCER_IDENTITY_UNVERIFIED/);
 assert.throws(()=>evaluate(first,{...evidence,regressionCount:1}),/REGRESSION_OR_SAFETY_GATE_FAILED/);
+assert.throws(()=>evaluate(first,{...evidence,before:999}),/RECEIPT_BASELINE_VALUE_MISMATCH/);
+assert.throws(()=>evaluate(first,{...evidence,after:130}),/NO_MEASURED_IMPROVEMENT/);
+assert.throws(()=>evaluate(first,{...evidence,after:120}),/NO_MEASURED_IMPROVEMENT/);
+
 assert.throws(()=>evaluate(first,{...evidence,sourceCommit:"b".repeat(40)}),/SOURCE_COMMIT_MISMATCH/);
 assert.throws(()=>evaluate(first,{...evidence,observationDigest:"f".repeat(64)}),/BASELINE_MISMATCH/);
 const review=evaluate(first,evidence);
