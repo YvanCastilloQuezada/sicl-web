@@ -2686,14 +2686,42 @@ arkiExperimentResultsPanel()+
 '<div class="scope-grid">'+rows.map(({p,a,b})=>'<div class="scope-phase-card"><strong>'+escapeHtml(p.id)+' · '+escapeHtml(p.name)+'</strong><span>'+a.pieces+' piezas · '+a.linked+' con hito en referencia / '+b.linked+' en alternativa</span><small>Posibles bloqueos R/A: '+countIssues(a,"BLOQUEO_POTENCIAL")+' / '+countIssues(b,"BLOQUEO_POTENCIAL")+'</small><small>Observaciones R/A: '+countIssues(a,"REVISAR")+' / '+countIssues(b,"REVISAR")+'</small></div>').join("")+'</div>'+
 '<p class="caption">Las alertas proceden de las dependencias y ubicaciones declaradas. No representan un pronóstico de desempeño real.</p>';
 }
+function arkiDependencyTopology(){
+const nodes=new Set([...ideas,...components].map(x=>x.id));
+const edges=new Map([...nodes].map(id=>[id,(reviews[id]?.dependencies||[]).filter(dep=>nodes.has(dep))]));
+const missing=new Map([...nodes].map(id=>[id,(reviews[id]?.dependencies||[]).filter(dep=>!nodes.has(dep))]));
+const state=new Map(),stack=[],cycles=[],cycleKeys=new Set();
+function visit(id){
+state.set(id,1);stack.push(id);
+for(const dep of edges.get(id)||[]){
+if(state.get(dep)===1){const cycle=stack.slice(stack.indexOf(dep)).concat(dep);const key=[...new Set(cycle)].sort().join("|");if(!cycleKeys.has(key)){cycleKeys.add(key);cycles.push(cycle);}}
+else if(!state.get(dep))visit(dep);
+}
+stack.pop();state.set(id,2);
+}
+for(const id of nodes)if(!state.get(id))visit(id);
+const cycleMembers=new Set(cycles.flat());
+return {edges,missing,cycles,cycleMembers};
+}
+function arkiPriorityLane(row,topology){
+const deps=topology.edges.get(row.id)||[];
+const absent=topology.missing.get(row.id)||[];
+const cyclic=topology.cycleMembers.has(row.id);
+const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
+return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
+}
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
+const topology=arkiDependencyTopology();
 return rows.map(x=>{
 const impacts=x.type==="PIEZA / ADECUACIÓN"?downstream(x.id):0;
 const frozen=phases.some(p=>p.id===x.phase&&p.status==="FROZEN")||x.type==="FROZEN";
 const critical=x.id.startsWith("RECONCILE-")||x.id.startsWith("DEPS-")||x.id.startsWith("FREEZE-");
-const level=critical?"P0":impacts>=3?"P1":impacts>0||x.id.startsWith("SPINE-")?"P2":x.type==="FUENTE / PRUEBA"?"P2":"P3";
-return {...x,precedence:level,unlocks:impacts,protected:frozen,priorityReason:critical?"Contención o desbloqueo de precedentes":impacts?"Precede a "+impacts+" piezas dependientes":"Sin precedencia verificada",executionAuthorized:false};
+const cycle=topology.cycleMembers.has(x.id);
+const missing=(topology.missing.get(x.id)||[]).length;
+const level=cycle||missing||critical?"P0":impacts>=3?"P1":impacts>0||x.id.startsWith("SPINE-")?"P2":x.type==="FUENTE / PRUEBA"?"P2":"P3";
+const lanes=arkiPriorityLane({...x,protected:frozen},topology);
+return {...x,precedence:level,unlocks:impacts,protected:frozen,lanes,priorityReason:cycle?"Ciclo de precedencia detectado":missing?"Referencia de dependencia ausente":critical?"Contención o desbloqueo de precedentes":impacts?"Precede a "+impacts+" piezas dependientes":"Sin precedencia verificada",executionAuthorized:false};
 }).sort((a,b)=>a.precedence.localeCompare(b.precedence)||b.unlocks-a.unlocks||a.id.localeCompare(b.id));
 }
 function arkiDecisionDocket(){
@@ -2718,7 +2746,8 @@ const docket=arkiDecisionDocket(),scoped=docket.rows.filter(x=>viewScope==="ALL"
 return '<section class="arki-experiment-panel"><h3>Expedientes para decisión del propietario · F1–F10</h3>'+
 '<p class="caption">Cobertura de las diez fases, propuestas automáticas y piezas colocadas. La falta de resultados verificados impide recomendar una autorización de ejecución; ninguna decisión se toma automáticamente.</p>'+
 '<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>expedientes locales</span></article><article><strong>'+docket.ready+'</strong><span>aptos para decisión informada con evidencia externa</span></article><article><strong>0</strong><span>ejecuciones autorizadas desde este panel</span></article></div>'+
-'<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.precedence+" · "+x.phase+" · "+x.title)+'</strong><span>'+escapeHtml(x.type+" · "+x.status+" · Desbloquea: "+x.unlocks)+'</span><small>'+escapeHtml(x.metric)+'</small><small>'+escapeHtml(x.decision)+'</small><small>'+escapeHtml(x.reason)+'</small></article>').join("")+'</div>'+
+'<p class="caption">P0 exige atención de precedencias; no autoriza ejecución. Colas separadas de investigación, pruebas e implementación.</p>'+ 
+'<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.precedence+" · "+x.phase+" · "+x.title)+'</strong><span>'+escapeHtml(x.type+" · "+x.status+" · Desbloquea: "+x.unlocks)+ '</span><small>'+escapeHtml("Investigar: "+x.lanes.research+" · Probar: "+x.lanes.test+" · Implementar: "+x.lanes.implementation+" · Precedentes: "+(x.lanes.predecessors.join(", ")||"ninguno registrado")+(x.lanes.cycle?" · CICLO DETECTADO":""))+'</span><small>'+escapeHtml(x.metric)+'</small><small>'+escapeHtml(x.decision)+'</small><small>'+escapeHtml(x.reason)+'</small></article>').join("")+'</div>'+
 '<p class="caption">Para aprobar o denegar con fundamento: falta incorporar simulación aislada del cambio concreto, resultados contrastados, pruebas de regresión, procedencia verificable y límites de autorización. El estado actual es diagnóstico, no autorización.</p></section>';
 }
 function scopedAutocorrectivo(){
