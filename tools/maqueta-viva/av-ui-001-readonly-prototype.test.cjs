@@ -153,4 +153,7 @@ document.getElementById('history-snapshot').listeners.click();
 assert.match(document.getElementById('history-result').textContent,/UNCHANGED|SNAPSHOT_RECORDED_IN_MEMORY/,"Snapshot UI reports outcome");
 assert.match(html,/recordStructuralSnapshot\(\{kind:"IDEA",id:x\.ideas\[0\]/,"Registry import automatically snapshots");
 assert.match(html,/recordStructuralSnapshot\(\{kind:"DEPENDENCY",id:Object\.keys\(x\.placements\)/,"Draft import automatically snapshots");
+vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'ACCENT-1',title:'Recuperación de conocimiento',targetPhase:'F2',sourceStatus:'PROPOSED'},{id:'ACCENT-2',title:'Recuperacion de conocimiento avanzada',targetPhase:'F2',sourceStatus:'PROPOSED'}]};selected='F2';show()",sandbox);
+assert.ok(vm.runInContext("adaptiveCandidates().some(x=>x.a.id==='ACCENT-1'&&x.b.id==='ACCENT-2')",sandbox),"Accented and unaccented related ideas must match");
+assert.doesNotMatch(document.getElementById("decisions").innerText,/BLOQUEADA · TEST-FROZEN.*FROZEN/,"Historical frozen alone is not a blocking reason");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
