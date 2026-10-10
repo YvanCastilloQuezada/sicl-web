@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3-E10 HEADLESS / INTEGRATION + LINEAR REVIEW GUARDS" {
+    Step "05 REAL BROWSER E3-E10 HEADLESS / INTEGRATION + ATOMIC RECOVERY" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -208,6 +208,15 @@ try {
    check(e10.checks.some(x=>x.id==="EXTERNAL_E2E_CERTIFICATION"&&x.status==="NOT_ASSESSED"),"E10 must not claim external E2E certification");
    check(document.getElementById("e10-report").textContent.includes("NOT_READY_FOR_CANONICAL_PROMOTION"),"E10 readiness panel not rendered");
    check(JSON.stringify({decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot(),evidence:e6EvidenceSnapshot()})===e10Before,"E10 mutated historical receipts");
+   const recoveryBaseline=exportTwinWorkspace();
+   const recoveryInvalid=JSON.parse(recoveryBaseline);
+   recoveryInvalid.history.versions[0].canonicalMutation=true;
+   check(importTwinWorkspace(JSON.stringify(recoveryInvalid)).status==="INVALID_WORKSPACE_HISTORY","Persistence: invalid history not rejected");
+   check(exportTwinWorkspace()===recoveryBaseline,"Persistence: invalid history mutated live state");
+   const recoveryValid=JSON.parse(recoveryBaseline);
+   check(importTwinPhases(recoveryValid.phases,true).status==="IMPORTED_ALTERNATIVE_PHASES","Persistence: phase preflight failed");
+   check(importStructuralHistory(recoveryValid.history,true).status==="IMPORTED_LOCAL_HISTORY","Persistence: history preflight failed");
+   check(exportTwinWorkspace()===recoveryBaseline,"Persistence: preflight mutated live state");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
