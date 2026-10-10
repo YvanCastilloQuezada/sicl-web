@@ -82,6 +82,13 @@ try {
       Log "ADN_MC_001=PASS; EXPERIMENTAL_ONLY; CORE_CANONICAL=UNCHANGED"
     } finally { Pop-Location }
   }
+  Step "03D ADN-MC-001 OBSERVER / LEDGER TAMPER TEST" {
+    Push-Location $Repo
+    try {
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-adn-observer.test.cjs")
+      Log "ADN_OBSERVER=PASS; LOCAL_ONLY; NO_CORE_AGK_EXECUTION"
+    } finally { Pop-Location }
+  }
   Step "03B SIGNED RECEIPT / INDEPENDENT NODE VERIFIER" {
     $FixtureDir = Join-Path ([IO.Path]::GetTempPath()) ("ARKI-TWIN-SIGNATURE-" + [guid]::NewGuid().ToString("N"))
     try {
