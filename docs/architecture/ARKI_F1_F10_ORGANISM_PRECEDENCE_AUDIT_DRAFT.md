@@ -125,3 +125,45 @@ El **Developer ya existe**, por lo que crear otro Developer o DTO sería duplica
 - Registrar comandos, SHA exactos, salida y CI, sin dar verde por la mera existencia de pruebas.
 
 **No implementar hasta cerrar contrato y evidencia.**
+
+## 10. CORRECCIÓN MAYOR — integración hasta F8 existente (2026-10-09)
+
+**Este corte reemplaza los juicios históricos de las secciones 1–9 cuando discrepen.** Las secciones anteriores documentan el progreso de la investigación y NO son el veredicto vigente.
+
+### Evidencia transversal recuperada
+- **Core PR #27** (merged): persistencia D-2 durable, append-only, rollback y API.
+- **Core PR #28** (merged): HumanReview vinculada a DeveloperProposal persistida con fingerprint exacto.
+- **Core PR #29** (merged): frontera reutilizable de publicación ArchiTransaction.
+- **Core PR #37** (merged): servicio Core-owned de promoción Developer.
+- **Core PR #38** (merged, 2026-09-29): endpoint POST /v1/projects/{project_id}/developer-promotions y pruebas HTTP.
+- **Core PR #39** (merged, 2026-09-29): MICROCASE-DEV-001, HTTP E2E, idempotencia, restart, persistencia y controles fail-closed (pruebas añadidas; ejecución actual NO revalidada).
+- **Web PR #30** (merged, 2026-09-29): orquestación DeveloperProposal → HumanReview → Core promotion → D-2.
+- **Web PR #49** (open): F7→F8 integral closure; referencias canónicas Core/D-2/AGK, BASELINE_0, estado F7, gemelo económico y dossier F8, tests adversariales; el PR declara EXECUTION_VERIFICATION_PENDING.
+- **Web PR #50** (open): entrega profesional F7/F8 V1, cambios adicionales en interfaz, mapa y contratos.
+
+### Estado declarado por el estado estructurado de la rama de integración
+Archivo `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` (blob `8867c065fc4216257c777c3cfcb6ef61cab47ba4`, fecha interna 2026-10-07):
+| Fase | Estado declarado | Evidencia declarada |
+|---|---|---|
+| F1 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+| F2 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+| F3 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+| F4 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+| F5 | RECONCILED_WITH_POST_AUDIT_CORRECTIONS | SEMANTIC_CATEGORY_HARDENING_IMPLEMENTED_LOCAL_EVIDENCE_RECORDED |
+| F6 | FROZEN | GO_BOUNDED_DEMONSTRATED_BOUNDARY |
+| F7 | IN_PROGRESS | IMPLEMENTATION_PRESENT_EXECUTION_VERIFICATION_PENDING |
+| F8 | IN_PROGRESS | DERIVED_DOSSIER_CONTRACT_IMPLEMENTED_EXECUTION_VERIFICATION_PENDING |
+| F9 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+| F10 | RECONCILIATION_REQUIRED | NOT_YET_RECONCILED |
+
+`docs/arki-master-map/ARKI_F7_F8_F9_EXECUTION_HANDOFF_2026-10-08.md` (blob `184bb7174016a62ae0663db8fc7716d74772b39f`) confirma F7/F8 código implementado y pruebas escritas, pendiente ejecutar pruebas exactas, y F9 contrato acotado sin demostración integral.
+
+### Veredicto rectificado
+1. **El usuario tiene razón:** el trabajo llegó hasta **F8 a nivel de implementación en rama**. No se debe describir F7/F8 como etapas aún por construir.
+2. **No equivale a F1–F8 todos verificados ni F8 FROZEN.** El propio mapa declara F7/F8 IN_PROGRESS y EXECUTION_VERIFICATION_PENDING, F1–F4 pendientes de reconciliación histórica.
+3. **La promoción Developer/Core ya está implementada y fusionada.** Retirar su tratamiento genérico como UNKNOWN; lo pendiente es verificar CI/ejecución en SHA actual, no inventar otro motor.
+4. **F6 permanece FROZEN** en su alcance probado; no reabrirla.
+5. **Prioridad real:** cerrar pruebas de F7/F8 (TypeScript, tests focales/regresión, build, evidencia profesional real, reconciliación Core), antes de fusionar PR #49/#50. Luego F9 con evidencia de campo, no con nuevos contratos paralelos.
+6. El ejecutor GitHub controlado V0 (`docs/arki-master-map/ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md`) es puerta de verificación de alcance, NO ejecutor autónomo de correcciones.
+
+**NO EVIDENCE = NO GREEN.** Ningún status de fase fue modificado por esta auditoría.
