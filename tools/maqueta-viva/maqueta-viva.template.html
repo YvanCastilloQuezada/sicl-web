@@ -787,6 +787,8 @@ button.scope-phase-card:hover{background:#2b5c7d;border-color:#c1e9ff}
 .arki-global-heatmap-scale .maturity-2{background:#136b79}.arki-global-heatmap-scale .maturity-3{background:#447a53}
 .arki-global-heatmap-scale .maturity-4{background:#20743b}
 @media(max-width:850px){.arki-global-heatmap-levels{grid-template-columns:repeat(5,minmax(0,1fr))}.arki-heat-level{font-size:8px}}
+.arki-dependency-warning{outline:2px dashed #f5b74c;outline-offset:1px}
+.arki-tree-extra summary::marker{color:#f5b74c}
 </style>
 </head>
 <body>
@@ -1448,6 +1450,33 @@ function matches(s){return !search||String(s).toLocaleLowerCase("es").includes(s
 function node(id){return all.find(p=>p.id===id)||{id,name:id,status:"UNKNOWN",description:"Sin ficha verificada."};}
 let treeProposalId="";
 let treePhaseId="";
+/* Diagnostic-only intelligence: no automatic approval, code execution or canonical promotion. */
+function arkiDependencyImpact(id){
+const seen=new Set(),queue=[id];while(queue.length){const cur=queue.shift();for(const [other,r] of Object.entries(reviews)){if(other!==id&&!seen.has(other)&&(r.dependencies||[]).includes(cur)){seen.add(other);queue.push(other);}}}return seen.size;
+}
+function arkiDependencyRisk(id){
+const deps=reviews[id]?.dependencies||[];
+return deps.filter(d=>!placements[d]||!reviewGate(d).complete);
+}
+function arkiViewMaturity(mode,p){
+const parts=[...ideas,...components].filter(x=>placements[x.id]===p.id);
+const gates=parts.map(x=>reviewGate(x.id));
+const has=parts.length>0,all=has&&gates.every(g=>g.complete);
+const any=has&&gates.some(g=>g.hasEvidence);
+const linked=parts.filter(x=>(reviews[x.id]?.dependencies||[]).length>0).length;
+const blocked=parts.reduce((n,x)=>n+arkiDependencyRisk(x.id).length,0);
+let level=0,next="Registrar información y evidencia pertinente a esta perspectiva.";
+if(mode==="plano"){level=!has?0:blocked?1:linked?2:1;next=blocked?"Resolver dependencias estructurales sin respaldo.":"Verificar relaciones y topología con pruebas ejecutadas.";}
+else if(mode==="maqueta"){level=!has?0:all?3:any?2:1;next="Completar ubicación, hitos, dependencias y pruebas independientes.";}
+else if(mode==="digital"){level=!has?0:any?1:0;next="Aportar observaciones reales, sincronización comprobada y procedencia; las fichas locales no demuestran un gemelo conectado.";}
+else if(mode==="predictivo"){level=!has?0:1;next="Ejecutar simulaciones contrastadas con datos reales y validar predicciones; los escenarios heurísticos no bastan.";}
+else if(mode==="autocorrectivo"){const cases=correctiveCases.filter(c=>c.phase===p.id);level=cases.length?1:0;next="Acreditar diagnóstico, autorización expresa, ejecución controlada, pruebas y reversión real.";}
+return {level,label:["Sin acreditar","Preparación local","Evidencia parcial","Documentación local","Verificada"][level],next,blocked,parts:parts.length};
+}
+function arkiMaturityHistory(id){
+const events=traceEvents.filter(e=>e&&e.id===id).slice(-5);
+return events.map(e=>String(e.type||e.kind||e.eventType||"Cambio local")+" · "+String(e.before||e.from||"")+" → "+String(e.after||e.to||""));
+}
 function treeMaturity(kind,x){
 if(kind==="proposal")return {level:0,label:"Idea · pendiente de autorización",next:"Revisar la propuesta, su alcance y sus riesgos; solicitar autorización expresa antes de ejecutar."};
 if(kind==="phase"){
@@ -1468,12 +1497,12 @@ return {level:0,label:"Sin ubicación acreditada",next:"Ubicar la capacidad y re
 function informationRail(){
 if(treePhaseId){
 const p=phases.find(x=>x.id===treePhaseId);
-if(p){const m=treeMaturity("phase",p),parts=[...ideas,...components].filter(x=>placements[x.id]===p.id);
+if(p){const m=arkiViewMaturity(evolutionMode,p),parts=[...ideas,...components].filter(x=>placements[x.id]===p.id);
 return '<h2>Madurez · '+escapeHtml(p.id)+'</h2><div class="field"><label>Fase</label><strong>'+escapeHtml(p.name)+'</strong></div>'+
 '<div class="arki-rail-maturity maturity-'+m.level+'">'+escapeHtml(m.label)+'</div>'+
 '<div class="field"><label>Capacidades registradas</label><strong>'+parts.length+'</strong></div>'+
 '<div class="field"><label>¿Qué falta para avanzar?</label><p>'+escapeHtml(m.next)+'</p></div>'+
-'<div class="field"><label>Estado oficial (independiente del color)</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
+'<div class="field"><label>Dependencias pendientes</label><strong>'+m.blocked+'</strong></div>'+ '<div class="field"><label>Impacto potencial</label><strong>'+parts.reduce((n,x)=>n+arkiDependencyImpact(x.id),0)+' relaciones descendentes (conteo local)</strong></div>'+ '<div class="field"><label>Estado oficial (independiente del color)</label><strong>'+escapeHtml(p.status)+'</strong></div>'+
 '<p class="caption">Color calculado a partir de fichas locales; no certifica ejecución ni altera el estado oficial.</p>';
 }
 }
@@ -2526,7 +2555,7 @@ function sharedMaturityHeatmap(){
 const title={plano:"01 · Plano ARKI",maqueta:"02 · Maqueta Viva",digital:"03 · Gemelo Digital",predictivo:"04 · Gemelo Predictivo",autocorrectivo:"05 · ARKI Autocorrectivo"}[evolutionMode]||"ARKI";
 const scoped=viewScope==="ALL"?[...phases].reverse():phases.filter(p=>p.id===viewScope);
 return '<section class="arki-global-heatmap" aria-label="Mapa de madurez por fases"><div class="arki-global-heatmap-head"><strong>Madurez visual · '+escapeHtml(title)+'</strong><small>F10 arriba · F1 base · datos locales, no certificación</small></div>'+
-'<div class="arki-global-heatmap-levels">'+scoped.map(p=>{const m=treeMaturity("phase",p);return '<button type="button" data-heat-phase="'+escapeHtml(p.id)+'" class="arki-heat-phase maturity-'+m.level+'" title="'+escapeHtml(p.id+' · '+m.label)+'" aria-label="'+escapeHtml(p.id+' · '+m.label)+'"><strong>'+escapeHtml(p.id)+'</strong><span class="arki-heat-level">'+escapeHtml(m.label)+'</span></button>';}).join("")+'</div>'+
+'<div class="arki-global-heatmap-levels">'+scoped.map(p=>{const m=arkiViewMaturity(evolutionMode,p);return '<button type="button" data-heat-phase="'+escapeHtml(p.id)+'" class="arki-heat-phase maturity-'+m.level+'" title="'+escapeHtml(p.id+' · '+m.label)+'" aria-label="'+escapeHtml(p.id+' · '+m.label)+'"><strong>'+escapeHtml(p.id)+'</strong><span class="arki-heat-level">'+escapeHtml(m.label)+'</span></button>';}).join("")+'</div>'+
 '<div class="arki-global-heatmap-scale"><span class="maturity-0">Idea</span><span class="maturity-1">Organizada</span><span class="maturity-2">Parcial</span><span class="maturity-3">Documentada</span><span class="maturity-4">Verificada</span></div></section>';
 }
 function evolutionWorkspace(){
@@ -2549,12 +2578,12 @@ return [...ideas,...components].filter(p=>placements[p.id]===phase);
 function completeMaqueta(){
 const proposals=generatedArkiIdeas();
 const maturity=treeMaturity;
-const phaseMaturity=p=>treeMaturity("phase",p);
+const phaseMaturity=p=>arkiViewMaturity("maqueta",p);
 const stages=[...phases].reverse().map((p,i)=>{
 const pieces=scopePieces(p.id),suggestions=proposals.filter(x=>x.phase===p.id);
-const left=pieces,right=suggestions;
+const left=[...pieces].sort((a,b)=>arkiDependencyImpact(b.id)-arkiDependencyImpact(a.id)),right=[...suggestions].sort((a,b)=>(b.priority==="ALTA")-(a.priority==="ALTA"));
 const branch=(items,kind)=>{
-const leaf=x=>'<button type="button" class="arki-tree-leaf maturity-'+maturity(kind,x).level+'" title="'+escapeHtml(maturity(kind,x).label)+'" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Capacidad · "+x.id:"Idea de mejora · sin autorizar")+'</small></button>';
+const leaf=x=>'<button type="button" class="arki-tree-leaf maturity-'+maturity(kind,x).level+(kind==="piece"&&arkiDependencyRisk(x.id).length?" arki-dependency-warning":"")+'" title="'+escapeHtml(maturity(kind,x).label)+'" '+(kind==="piece"?'data-select="'+escapeHtml(x.id)+'"':'data-tree-proposal="'+escapeHtml(x.id)+'"')+'><strong>'+escapeHtml(kind==="piece"?x.name:x.title)+'</strong><small>'+escapeHtml(kind==="piece"?"Capacidad · "+x.id:"Idea de mejora · sin autorizar")+'</small></button>';
 return items.slice(0,2).map(leaf).join("")+(items.length>2?'<details class="arki-tree-extra"><summary>Ver '+(items.length-2)+' más</summary><div class="arki-tree-extra-list">'+items.slice(2).map(leaf).join("")+'</div></details>':"")+(items.length===0?'<span class="arki-tree-empty">Sin registros</span>':"");
 };
 const readableStatus=x=>x==="FROZEN"?"Protegida":x==="RECONCILIATION_REQUIRED"?"Requiere revisión":x==="VERIFIED"?"Comprobada":x==="IN_PROGRESS"?"En trabajo":x==="DONE"?"Terminada":x||"Sin confirmar";
