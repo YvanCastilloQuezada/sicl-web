@@ -1,0 +1,21 @@
+name: AV-UI-001 Tree Twin Regression
+on:
+  push:
+    branches:
+      - docs/av-ui-001-preparation-20261010
+    paths:
+      - 'tools/maqueta-viva/av-ui-001-readonly-prototype.html'
+      - 'tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs'
+      - '.github/workflows/av-ui-001-tree-twin.yml'
+  workflow_dispatch:
+jobs:
+  synthetic-regression:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
