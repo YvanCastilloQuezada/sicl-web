@@ -627,8 +627,8 @@ function twinObservation(){
  const revisions=historical?historical.revisionLedger||[]:e9RevisionSnapshot();
  return {schema:"ARKI-TWIN-OBSERVATION-1",version:historical?.version||"CURRENT",phases,nodes,evidence,decisions,revisions,canonicalMutation:false,verification:"UNKNOWN",simulation:"NOT_EXECUTED"};
 }
-function twinNodeSVG(x,y,id,label,status,shape="rect"){
- const chosen=selected===id,stroke=chosen?"#f2c879":"#83b6cc",fill=status==="PROPOSED_ONLY"?"#403e52":"#204258";
+function twinNodeSVG(x,y,id,label,status,shape="rect",impactKind="NONE"){
+ const chosen=selected===id,stroke=chosen?"#f2c879":impactKind==="DIRECT"?"#f08470":impactKind==="TRANSITIVE"?"#d6a55b":"#83b6cc",fill=status==="PROPOSED_ONLY"?"#403e52":"#204258";
  const body=shape==="circle"?'<circle cx="'+x+'" cy="'+y+'" r="23" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+(chosen?3:1.5)+'"/>':'<rect x="'+(x-52)+'" y="'+(y-18)+'" width="104" height="36" rx="8" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+(chosen?3:1.5)+'"/>';
  return '<g tabindex="0" role="button" aria-label="'+twinEscape(id+" "+label)+'" data-twin-id="'+twinEscape(id)+'">'+body+'<text x="'+x+'" y="'+(y+4)+'" font-size="12" text-anchor="middle" fill="#f1f6fa" pointer-events="none">'+twinEscape(id)+'</text></g>';
 }
@@ -662,18 +662,21 @@ function twinDependencyImpact(obs,phaseId){
 function twinVisualSVG(obs){
  const phases=obs.phases.slice().sort((a,b)=>Number(a.id.slice(1))-Number(b.id.slice(1))),count=phases.length;
  const height=Math.max(320,count*52+55),lines=[],parts=[],locations=new Map();
+ const impact=twinImpactVisible?twinDependencyImpact(obs,selected):null;
+ const impactKind=id=>impact?.direct.includes(id)?"DIRECT":impact?.transitive.includes(id)?"TRANSITIVE":"NONE";
  if(twinViewMode==="tree"){
-  phases.forEach((p,i)=>{const x=220,y=35+i*52;locations.set(p.id,{x,y});parts.push(twinNodeSVG(x,y,p.id,p.name,p.status));});
+  phases.forEach((p,i)=>{const x=220,y=35+i*52;locations.set(p.id,{x,y});parts.push(twinNodeSVG(x,y,p.id,p.name,p.status,"rect",impactKind(p.id)));});
   for(let i=1;i<count;i++)lines.push('<line x1="220" y1="'+(35+(i-1)*52+18)+'" x2="220" y2="'+(35+i*52-18)+'" stroke="#c6a16c" stroke-width="5"/>');
   phases.forEach((p,i)=>{const y=35+i*52;lines.push('<text x="290" y="'+(y+4)+'" fill="#a9c4d3" font-size="10">'+twinEscape(p.name.slice(0,22))+'</text>')});
  }else if(twinViewMode==="brain"){
-  phases.forEach((p,i)=>{const angle=i*Math.PI*2/Math.max(1,count)-Math.PI/2;const x=220+Math.cos(angle)*150,y=height/2+Math.sin(angle)*Math.min(165,height/2-40);locations.set(p.id,{x,y});parts.push(twinNodeSVG(x,y,p.id,p.name,p.status,"circle"))});
+  phases.forEach((p,i)=>{const angle=i*Math.PI*2/Math.max(1,count)-Math.PI/2;const x=220+Math.cos(angle)*150,y=height/2+Math.sin(angle)*Math.min(165,height/2-40);locations.set(p.id,{x,y});parts.push(twinNodeSVG(x,y,p.id,p.name,p.status,"circle",impactKind(p.id)))});
   lines.push('<circle cx="220" cy="'+height/2+'" r="31" fill="#294b55" stroke="#e1b56b"/><text x="220" y="'+(height/2+4)+'" text-anchor="middle" fill="white" font-size="12">ARKI</text>');
   for(const p of phases){const loc=locations.get(p.id);lines.push('<line x1="220" y1="'+height/2+'" x2="'+loc.x+'" y2="'+loc.y+'" stroke="#467c91" stroke-opacity=".65"/>')}
  }else{
-  phases.forEach((p,i)=>{const col=i%3,row=Math.floor(i/3),x=110+col*105+row*10,y=65+row*105-col*18;locations.set(p.id,{x,y});parts.push('<path d="M '+(x-52)+' '+(y+18)+' l 52 22 l 52 -22 v 11 l -52 22 l -52 -22 Z" fill="#1b3448" stroke="#4c7b8e"/>');parts.push(twinNodeSVG(x,y,p.id,p.name,p.status));});
+  phases.forEach((p,i)=>{const col=i%3,row=Math.floor(i/3),x=110+col*105+row*10,y=65+row*105-col*18;locations.set(p.id,{x,y});parts.push('<path d="M '+(x-52)+' '+(y+18)+' l 52 22 l 52 -22 v 11 l -52 22 l -52 -22 Z" fill="#1b3448" stroke="#4c7b8e"/>');parts.push(twinNodeSVG(x,y,p.id,p.name,p.status,"rect",impactKind(p.id)));});
  }
  for(const p of phases)for(const dep of p.dependencies||[]){const a=locations.get(p.id),z=locations.get(dep);if(a&&z)lines.push('<line x1="'+a.x+'" y1="'+a.y+'" x2="'+z.x+'" y2="'+z.y+'" stroke="#e7b45d" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>')}
+ if(impact)lines.push('<text x="12" y="'+(height-10)+'" fill="#f2c879" font-size="10">Seleccionada: dorado · Directa: coral · Transitiva: ámbar · Cobertura NO CERTIFICADA</text>');
  return '<svg viewBox="0 0 440 '+height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+twinEscape(twinViewMode==="3d"?"Vista espacial conceptual, no geometría AGK":twinViewMode==="brain"?"Grafo documental de relaciones":"Fases y dependencias documentales")+'">'+lines.join("")+parts.join("")+'</svg>';
 }
 // External observations are untrusted until independently attested. No execution is triggered here.
