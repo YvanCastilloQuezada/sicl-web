@@ -1,0 +1,77 @@
+# ARKI AV-UI-001 local read-only installer.
+# Run from any location: pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1
+$ErrorActionPreference = "Stop"
+$Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$Branch = "docs/av-ui-001-preparation-20261010"
+$Install = Join-Path $env:LOCALAPPDATA "ARKI\ArbolVivo"
+$Ref = "refs/remotes/origin/$Branch"
+Set-Location $Repo
+$remote = (& git remote get-url origin).Trim()
+if ($LASTEXITCODE -ne 0 -or $remote -notmatch 'YvanCastilloQuezada/sicl-web') { throw "Incorrect Git remote: $remote" }
+$original = (& git branch --show-current).Trim()
+& git fetch origin "refs/heads/${Branch}:${Ref}"
+if ($LASTEXITCODE -ne 0) { throw "Failed to fetch experimental branch" }
+$sha = (& git rev-parse $Ref).Trim()
+if ($LASTEXITCODE -ne 0) { throw "Cannot resolve branch SHA" }
+New-Item -ItemType Directory -Path $Install -Force | Out-Null
+function Export-GitBlob([string]$Path,[string]$Destination) {
+    $psi = [Diagnostics.ProcessStartInfo]::new()
+    $psi.FileName = "git"
+    $psi.WorkingDirectory = $Repo
+    $psi.ArgumentList.Add("show")
+    $psi.ArgumentList.Add("${Ref}:${Path}")
+    $psi.UseShellExecute = $false
+    $psi.RedirectStandardOutput = $true
+    $psi.RedirectStandardError = $true
+    $process = [Diagnostics.Process]::Start($psi)
+    try {
+        $stream = [IO.File]::Create($Destination)
+        try { $process.StandardOutput.BaseStream.CopyTo($stream) } finally { $stream.Dispose() }
+        $err = $process.StandardError.ReadToEnd()
+        $process.WaitForExit()
+        if ($process.ExitCode -ne 0) { throw "Git export failed for ${Path}: $err" }
+    } finally { $process.Dispose() }
+}
+foreach($name in @("av-ui-001-readonly-prototype.html","av-ui-001-readonly-prototype.test.cjs","av-ui-001-dependency-fixture.json")) {
+    Export-GitBlob "tools/maqueta-viva/$name" (Join-Path $Install $name)
+}
+$utf8 = [Text.UTF8Encoding]::new($false,$true)
+$html = [IO.File]::ReadAllText((Join-Path $Install "av-ui-001-readonly-prototype.html"),$utf8)
+if (!$html.Contains('id="selection-status"') -or !$html.Contains("Árbol Vivo")) { throw "HTML integrity check failed" }
+$state = [IO.File]::ReadAllText((Join-Path $Repo "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json"),$utf8)
+$registry = [IO.File]::ReadAllText((Join-Path $Repo "tools/maqueta-viva/assembly-registry.json"),$utf8)
+$s = $state | ConvertFrom-Json
+$g = $registry | ConvertFrom-Json
+if ($s.schema -ne "ARKI-MASTER-MAP-STATE-0.1" -or @($s.roadmap.phases).Count -ne 10) { throw "Invalid state" }
+if ($g.schema -ne "ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1" -or @($g.ideas).Count -lt 1) { throw "Invalid registry" }
+function JsonBootstrap([string]$Name,[string]$Json) {
+    $base64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Json))
+    return "window.$Name=JSON.parse(new TextDecoder('utf-8').decode(Uint8Array.from(atob('$base64'),c=>c.charCodeAt(0))));"
+}
+$bootstrap = "<script>" + (JsonBootstrap "__ARKI_EMBEDDED_STATE__" $state) + (JsonBootstrap "__ARKI_EMBEDDED_REGISTRY__" $registry) + "</script>"
+$pos = $html.IndexOf("<script>")
+if ($pos -lt 0) { throw "No inline script found" }
+$html = $html.Insert($pos,$bootstrap + [Environment]::NewLine)
+$output = Join-Path $Install ("ARKI-ARBOL-VIVO-" + $sha.Substring(0,8) + ".html")
+[IO.File]::WriteAllText($output,$html,[Text.UTF8Encoding]::new($false))
+Push-Location $Install
+try {
+    & node ".\av-ui-001-readonly-prototype.test.cjs"
+    if ($LASTEXITCODE -ne 0) { throw "AV-UI-001 regression FAILED; refusing to update shortcut" }
+} finally { Pop-Location }
+$desktop = [Environment]::GetFolderPath("Desktop")
+$link = Join-Path $desktop "ARKI - Arbol Vivo Experimental.lnk"
+$shell = New-Object -ComObject WScript.Shell
+$shortcut = $shell.CreateShortcut($link)
+$shortcut.TargetPath = $output
+$shortcut.WorkingDirectory = $Install
+$shortcut.Description = "ARKI Arbol Vivo experimental; read-only"
+$shortcut.Save()
+if ((& git branch --show-current).Trim() -ne $original) { throw "Local branch changed unexpectedly" }
+Write-Host "AV_UI_SHA=$sha"
+Write-Host "PHASES=$(@($s.roadmap.phases).Count)"
+Write-Host "LEAVES=$(@($g.ideas).Count)"
+Write-Host "UTF8=PASS"
+Write-Host "HTML=$output"
+Write-Host "SHORTCUT=$link"
+Start-Process -FilePath $output
