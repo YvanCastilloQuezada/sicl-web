@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8 HEADLESS / DAG + EVIDENCE + RECONCILIATION" {
+    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8/E9 HEADLESS / DAG + RECONCILIATION + REVISIONS" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -181,6 +181,20 @@ try {
    check(e8.issues.some(x=>x.kind==="EVIDENCE_CHANGED_SINCE_DECISION"),"E8 stale decision not detected");
    check(JSON.stringify(e7DecisionSnapshot())===decisionReceipt,"E8 must not rewrite historical decision");
    check(document.getElementById("e8-report").textContent.includes("EVIDENCE_CHANGED_SINCE_DECISION"),"E8 report not rendered");
+   check(document.getElementById("e9-create"),"E9 revision control missing");
+   const originalDecisionId=e7DecisionSnapshot()[0].decisionId;
+   check(e9ReviewStatus(originalDecisionId).status==="REVISION_REQUIRED","E9 should detect stale decision after E8 evidence");
+   const originalDecisionReceipt=JSON.stringify(e7DecisionSnapshot());
+   document.getElementById("e9-parent").value=originalDecisionId;
+   document.getElementById("e9-action").value="INVESTIGATE";
+   document.getElementById("e9-rationale").value="Reconsider late evidence before taking any architectural action";
+   document.getElementById("e9-create").click();
+   check(e9RevisionSnapshot().length===1,"E9 review not recorded");
+   check(e9ReviewStatus(originalDecisionId).status==="CURRENT_PROVISIONAL_RECEIPT","E9 review did not refresh provisional receipt");
+   check(JSON.stringify(e7DecisionSnapshot())===originalDecisionReceipt,"E9 altered historical decision");
+   const e9Portable=exportTwinWorkspace();
+   check(importTwinWorkspace(e9Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E9 review workspace roundtrip");
+   check(e9RevisionSnapshot()[0].status==="PROVISIONAL_ONLY","E9 review unexpectedly promoted");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
