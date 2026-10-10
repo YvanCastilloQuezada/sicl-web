@@ -21,4 +21,22 @@ const dependency=build({ideas:[{id:"A",targetPhase:"F1"},{id:"B",targetPhase:"F2
 assert.deepEqual(dependency.order.map(x=>x.id),["A","B"]);
 const cycle=build({ideas:[{id:"A",targetPhase:"F1",dependencies:["B"]},{id:"B",targetPhase:"F2",dependencies:["A"]}],components:[]});
 assert(cycle.issues.some(x=>x.code==="DEPENDENCY_CYCLE"));
+
+const chain=build({ideas:[
+ {id:"ROOT",targetPhase:"F2",sourceStatus:"DEMONSTRATED",verification:"NOT_CURRENTLY_REVALIDATED",sourceEvidence:"old test"},
+ {id:"MID",targetPhase:"F3",dependencies:["ROOT"]},
+ {id:"LEAF",targetPhase:"F8",dependencies:["MID"]},
+ {id:"FREE",targetPhase:"F1"}
+],components:[]});
+assert.equal(chain.order.find(x=>x.id==="ROOT").downstreamCount,2);
+assert.equal(chain.order.find(x=>x.id==="MID").downstreamCount,1);
+assert.equal(chain.order.find(x=>x.id==="LEAF").downstreamCount,0);
+assert.equal(chain.order.find(x=>x.id==="ROOT").missing,true);
+assert.equal(chain.order[0].id,"ROOT");
+assert.equal(chain.autonomy.priority,"TRANSITIVE_DEPENDENCY_REACH_NO_DURATION_OR_URGENCY");
+const unknown=build({ideas:[{id:"ORPHAN",targetPhase:"F1",dependencies:["NONEXISTENT"]}],components:[]});
+assert(unknown.issues.some(x=>x.code==="UNKNOWN_DEPENDENCY"));
+assert.equal(unknown.order[0].dependenciesResolved,false);
+const explicit=build({ideas:[{id:"V",targetPhase:"F1",sourceStatus:"VERIFIED",verification:"CURRENTLY_VERIFIED",sourceEvidence:"sha:abc"}],components:[]});
+assert.equal(explicit.order[0].missing,false);
 console.log("ARKI_ARBOL_VIVO_AUTO_001=PASS; INVENTORY="+result.counts.total+"; PHASE_ASSIGNMENT_NOT_AUTONOMOUS; REAL_EXPERIMENT_NOT_EXECUTED");
