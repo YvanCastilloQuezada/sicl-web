@@ -95,7 +95,7 @@ function adaptivePlacementCandidates(){
  {phase:"F9",terms:["obra","campo","constructibilidad"]},
  {phase:"F10",terms:["operacion","mantenimiento","posocupacion"]}
  ];
- const clean=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+ const clean=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
  const result=[];
  for(const item of items){
   const title=clean(item.title),matches=rules.map(rule=>({phase:rule.phase,terms:rule.terms.filter(t=>title.includes(t))})).filter(x=>x.terms.length);
@@ -104,6 +104,21 @@ function adaptivePlacementCandidates(){
   const best=matches.filter(x=>x.terms.length===max);
   if(best.length!==1||best[0].phase===item.phase)continue;
   result.push({id:item.id,title:item.title,from:item.phase,to:best[0].phase,reason:"Indicadores funcionales: "+best[0].terms.join(", "),status:"PLACEMENT_HYPOTHESIS_ONLY",source:item.source});
+ }
+ const frozen=new Set(phaseData().filter(x=>x.status==="FROZEN").map(x=>x.id));
+ const graph=localGraph();
+ for(const proposal of result){
+  const rows=graph.rows.filter(x=>x.id===proposal.id);
+  const references=rows.flatMap(x=>[...x.deps,...x.missing,...x.upstreamBlockers]);
+  const risks=[];
+  if(frozen.has(proposal.from)||frozen.has(proposal.to))risks.push("FROZEN_BOUNDARY");
+  if(rows.some(x=>x.cycle))risks.push("DEPENDENCY_CYCLE");
+  if(rows.some(x=>x.missing.length))risks.push("MISSING_DEPENDENCY");
+  if(rows.some(x=>x.upstreamBlockers.length))risks.push("UPSTREAM_UNVERIFIED");
+  if(!rows.length)risks.push("NO_VERIFIED_DEPENDENCY_GRAPH");
+  proposal.risks=risks;
+  proposal.references=references;
+  proposal.decision=risks.includes("FROZEN_BOUNDARY")?"PROTECTED_REVIEW_ONLY":"HUMAN_REVIEW_REQUIRED";
  }
  return result.sort((a,b)=>a.id.localeCompare(b.id));
 }
@@ -115,7 +130,7 @@ function showAdaptive(){
  for(const p of proposals.slice(0,5))entry(root,p.a.id+" / "+p.b.id,p.reason+"; revisar antes de relacionar.");
  const moves=adaptivePlacementCandidates().filter(x=>x.from===selected);
 entry(root,"Ubicaciones alternativas · "+selected,String(moves.length)+" hipótesis documentales; no cambios aplicados");
-for(const m of moves.slice(0,5))entry(root,m.id+" · "+m.from+" → "+m.to,m.reason+" · Fuente: "+m.source);
+for(const m of moves.slice(0,5))entry(root,m.id+" · "+m.from+" → "+m.to,m.reason+" · "+m.decision+" · Riesgos: "+m.risks.join(", ")+" · Fuente: "+m.source);
 entry(root,"Control","Sin fusiones, movimientos ni promociones automáticas. FROZEN protegido.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
