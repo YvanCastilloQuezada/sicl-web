@@ -193,4 +193,7 @@ assert.equal(vm.runInContext("addTwinPhase('F12','Coordinación multiescala inte
 assert.equal(vm.runInContext("twinPhaseSnapshot()[0].id",sandbox),"F12");
 assert.equal(vm.runInContext("recordStructuralSnapshot({kind:'PLACEMENT',id:'F12'}).status",sandbox),"SNAPSHOT_RECORDED_IN_MEMORY");
 assert.ok(vm.runInContext("structuralHistory.at(-1).changes.some(x=>x.kind==='PHASE_ADDED'&&x.id==='F12')",sandbox));
+assert.equal(vm.runInContext("recommendPhaseStructure('Inteligencia y evaluación').evidence",sandbox),"LEXICAL_ONLY");
+assert.ok(vm.runInContext("recommendPhaseStructure('Inteligencia y evaluación').alternatives.some(x=>x.id==='F3')",sandbox),"Existing F3 must be considered before inventing F11");
+assert.equal(vm.runInContext("recommendPhaseStructure('Capacidad inédita sin referencia').recommendation",sandbox),"INSUFFICIENT_EVIDENCE_FOR_NEW_PHASE");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
