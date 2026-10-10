@@ -27,6 +27,13 @@ try{
  const cli=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--once",inbox,outbox],{encoding:"utf8",timeout:10000});
  assert.equal(cli.status,0,cli.stderr);
  assert.equal(JSON.parse(cli.stdout).added,0);
+ const watched=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--watch",inbox,outbox,"--interval-ms","1000","--max-polls","1"],{encoding:"utf8",timeout:10000});
+ assert.equal(watched.status,0,watched.stderr);
+ assert.equal(JSON.parse(watched.stdout).poll,1);
+ assert.equal(JSON.parse(watched.stdout).added,0);
+ const unsafe=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--watch",inbox,outbox,"--interval-ms","1","--max-polls","10000"],{encoding:"utf8",timeout:10000});
+ assert.notEqual(unsafe.status,0);
+
  const reportFile=path.join(outbox,"proposal-000002.json"),original=fs.readFileSync(reportFile,"utf8");
  fs.writeFileSync(reportFile,original.replace("NOT_EXECUTED","EXECUTED"));
  assert.throws(()=>processOnce(inbox,outbox),/REPORT_TAMPER_DETECTED/);
