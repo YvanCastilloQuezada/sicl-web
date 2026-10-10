@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.html'
       - 'tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs'
+      - 'tools/maqueta-viva/Test-ARKI-GemeloArbol.ps1'
       - '.github/workflows/av-ui-001-tree-twin.yml'
   workflow_dispatch:
 jobs:
@@ -19,3 +20,17 @@ jobs:
         with:
           node-version: '22'
       - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+  windows-synthetic-regression:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax and synthetic contracts on Windows
+        shell: pwsh
+        run: |
+          node --check tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+          node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
