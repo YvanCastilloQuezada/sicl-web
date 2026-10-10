@@ -97,6 +97,8 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 <h4>Eventos externos y geometría AGK · solo lectura</h4>
 <p class="muted">Importar recibos estructurados de ejecución o mallas exportadas por un productor autorizado. Una importación no acredita autenticidad ni verifica el motor.</p>
 <div class="twin-controls"><label for="twin-telemetry-file">Recibos JSON</label><input type="file" id="twin-telemetry-file" accept=".json,application/json"><label for="twin-geometry-file">Geometría JSON</label><input type="file" id="twin-geometry-file" accept=".json,application/json"></div>
+<div class="twin-controls"><label for="twin-trust-key-file">Clave pública confiable (JWK)</label><input type="file" id="twin-trust-key-file" accept=".json,application/json"><label for="twin-signed-receipts-file">Sobre firmado de recibos</label><input type="file" id="twin-signed-receipts-file" accept=".json,application/json"></div>
+<div id="twin-trust-status" class="twin-inspector" aria-live="polite">Sin clave pública fijada · firma NO VERIFICADA</div>
 <div id="twin-telemetry-status" class="twin-inspector" aria-live="polite">Sin telemetría externa · ejecución UNKNOWN</div>
 <div id="twin-geometry-status" class="twin-inspector" aria-live="polite">Sin geometría AGK importada · vista 3D conceptual</div>
 <h4>Línea temporal causal documental</h4><div id="twin-timeline" class="twin-inspector" aria-live="polite">Sin selección histórica</div>
@@ -691,6 +693,36 @@ function importTwinReceipts(raw){
  if(result.status!=="VALID_UNVERIFIED_RECEIPTS")return result;
  twinExternalReceipts=result.receipts;return {status:"IMPORTED_UNVERIFIED_RECEIPTS",count:result.receipts.length,canonicalMutation:false};
 }
+// Cryptographic provenance is distinct from operational verification. Trust key is supplied separately.
+let twinPinnedPublicKey=null,twinPinnedKeyId=null,twinSignedReceipts=[];
+function twinDecodeBase64url(input){
+ if(typeof input!=="string"||!/^[A-Za-z0-9_-]+$/.test(input)||input.length>4096)throw Error("INVALID_SIGNATURE_ENCODING");
+ const base64=input.replace(/-/g,"+").replace(/_/g,"/"),decoded=atob(base64+"=".repeat((4-base64.length%4)%4));
+ return Uint8Array.from(decoded,ch=>ch.charCodeAt(0));
+}
+async function pinTwinVerificationKey(raw){
+ let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_TRUST_KEY_JSON"}}
+ if(!data||data.schema!=="ARKI-TWIN-PUBLIC-KEY-1"||typeof data.keyId!=="string"||!/^[a-zA-Z0-9_.-]{1,80}$/.test(data.keyId)||!data.jwk||data.jwk.kty!=="EC"||data.jwk.crv!=="P-256"||data.jwk.alg!=="ES256"||data.jwk.ext!==true||!Array.isArray(data.jwk.key_ops)||data.jwk.key_ops.length!==1||data.jwk.key_ops[0]!=="verify"||typeof data.jwk.x!=="string"||typeof data.jwk.y!=="string"||data.jwk.d!==undefined)return {status:"INVALID_TRUST_KEY"};
+ if(typeof crypto==="undefined"||!crypto.subtle)return {status:"CRYPTO_UNAVAILABLE"};
+ try{
+  const key=await crypto.subtle.importKey("jwk",data.jwk,{name:"ECDSA",namedCurve:"P-256"},false,["verify"]);
+  twinPinnedPublicKey=key;twinPinnedKeyId=data.keyId;twinSignedReceipts=[];
+  return {status:"PUBLIC_KEY_PINNED_FOR_SESSION",keyId:data.keyId,authentication:"KEY_PROVENANCE_NOT_ESTABLISHED",canonicalMutation:false};
+ }catch{return {status:"INVALID_TRUST_KEY"}}
+}
+async function verifyTwinSignedReceipts(raw){
+ let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_SIGNED_JSON"}}
+ if(!data||data.schema!=="ARKI-TWIN-SIGNED-RECEIPTS-1"||data.algorithm!=="ECDSA-P256-SHA256"||typeof data.keyId!=="string"||typeof data.payload!=="string"||data.payload.length>150000||typeof data.signature!=="string")return {status:"INVALID_SIGNED_ENVELOPE"};
+ if(!twinPinnedPublicKey||data.keyId!==twinPinnedKeyId)return {status:"TRUST_KEY_NOT_PINNED",canonicalMutation:false};
+ const parsed=validateTwinReceipts(data.payload);
+ if(parsed.status!=="VALID_UNVERIFIED_RECEIPTS")return {status:"INVALID_SIGNED_PAYLOAD",canonicalMutation:false};
+ let valid=false;
+ try{valid=await crypto.subtle.verify({name:"ECDSA",hash:"SHA-256"},twinPinnedPublicKey,twinDecodeBase64url(data.signature),new TextEncoder().encode(data.payload))}
+ catch{return {status:"INVALID_SIGNATURE",canonicalMutation:false}}
+ if(!valid)return {status:"INVALID_SIGNATURE",canonicalMutation:false};
+ twinSignedReceipts=parsed.receipts.map(x=>({...x,authentication:"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED",signingKeyId:twinPinnedKeyId}));
+ return {status:"SIGNATURE_VALID_KEY_PROVENANCE_UNVERIFIED",count:twinSignedReceipts.length,keyId:twinPinnedKeyId,canonicalMutation:false};
+}
 function validateTwinAgkMesh(raw){
  let data;try{data=typeof raw==="string"?JSON.parse(raw):raw}catch{return {status:"INVALID_JSON"}}
  if(!data||data.schema!=="ARKI-TWIN-AGK-MESH-1"||data.canonicalMutation!==false||!Array.isArray(data.vertices)||!Array.isArray(data.triangles)||data.vertices.length<3||data.vertices.length>1000||data.triangles.length<1||data.triangles.length>2000)return {status:"INVALID_AGK_MESH"};
@@ -770,10 +802,11 @@ function renderTwinCommandCenter(){
  const p=obs.phases.find(x=>x.id===selected),related=obs.nodes.filter(x=>x.proposedPhase===selected||x.phase===selected);
  const evidence=obs.evidence.filter(x=>obs.decisions.some(d=>d.branchId===x.branchId));
  const executionClaims=twinExternalReceipts.filter(x=>x.phaseId===selected);
- inspector.textContent="Selección: "+selected+" · "+(p?.name||"sin fase en esta versión")+"\nEstado documental: "+(p?.status||"UNKNOWN")+" · Verificación: UNKNOWN\nPiezas relacionadas: "+related.length+" · Observaciones sin autenticar: "+evidence.length+"\nRecibos externos de ejecución: "+executionClaims.length+" · autenticación UNVERIFIED"+(executionClaims.length?" · último: "+executionClaims.at(-1).outcome:"")+"\nVersion: "+obs.version+" · Simulación: NOT_EXECUTED · Promoción canónica: BLOQUEADA"+(twinImpactVisible?"\n\nPROPAGACIÓN DOCUMENTAL (no simulada)\nDependientes directos: "+(impact.direct.join(", ")||"ninguno identificado")+"\nAlcance transitivo: "+(impact.transitive.join(", ")||"ninguno identificado")+"\nReferencias desconocidas: "+impact.unknownReferences.length+" · Cobertura: NO CERTIFICADA":"");
+ const signedClaims=twinSignedReceipts.filter(x=>x.phaseId===selected);
+ inspector.textContent="Selección: "+selected+" · "+(p?.name||"sin fase en esta versión")+"\nEstado documental: "+(p?.status||"UNKNOWN")+" · Verificación: UNKNOWN\nPiezas relacionadas: "+related.length+" · Observaciones sin autenticar: "+evidence.length+"\nRecibos externos de ejecución: "+executionClaims.length+" · autenticación UNVERIFIED"+(executionClaims.length?" · último: "+executionClaims.at(-1).outcome:"")+"\nRecibos con firma válida: "+signedClaims.length+" · procedencia de clave NO ESTABLECIDA · ejecución NO CERTIFICADA"++"\nVersion: "+obs.version+" · Simulación: NOT_EXECUTED · Promoción canónica: BLOQUEADA"+(twinImpactVisible?"\n\nPROPAGACIÓN DOCUMENTAL (no simulada)\nDependientes directos: "+(impact.direct.join(", ")||"ninguno identificado")+"\nAlcance transitivo: "+(impact.transitive.join(", ")||"ninguno identificado")+"\nReferencias desconocidas: "+impact.unknownReferences.length+" · Cobertura: NO CERTIFICADA":"");
  metrics.replaceChildren();for(const s of [obs.phases.length+" fases",obs.nodes.length+" piezas documentales",obs.evidence.length+" evidencias UNVERIFIED",obs.decisions.length+" decisiones provisionales",obs.revisions.length+" revisiones"]){const tag=node("span",s);metrics.append(tag)}
  const telemetry=el("twin-telemetry-status"),geometry=el("twin-geometry-status"),timeline=el("twin-timeline");
- if(telemetry)telemetry.textContent=twinExternalReceipts.length+" recibos externos · autenticidad UNVERIFIED · sin ejecución desde esta pantalla"+(twinExternalReceipts.length?"\n"+twinExternalReceipts.slice(-5).map(x=>x.producer+" "+x.operation+" "+x.outcome+" @ "+x.commit.slice(0,8)).join("\n"):"");
+ if(telemetry)telemetry.textContent=twinExternalReceipts.length+" recibos externos sin firma · "+twinSignedReceipts.length+" recibos con firma válida, clave no autenticada · sin ejecución desde esta pantalla"+(twinExternalReceipts.length?"\n"+twinExternalReceipts.slice(-5).map(x=>x.producer+" "+x.operation+" "+x.outcome+" @ "+x.commit.slice(0,8)).join("\n"):"");
  if(geometry)geometry.textContent=twinAgkMesh?"Malla externa: "+twinAgkMesh.vertices.length+" vértices, "+twinAgkMesh.triangles.length+" caras · sourceCommit "+twinAgkMesh.sourceCommit.slice(0,8)+" · AUTENTICIDAD UNKNOWN":"Sin geometría AGK importada · vista 3D conceptual";
  if(timeline){const versions=twinTimelineReport().versions;const chosen=versions.find(x=>x.version===twinVersion);timeline.textContent=(chosen?"CAMBIOS DE "+chosen.version+" · "+chosen.changes.slice(0,12).map(x=>x.kind+" "+x.id).join("; ")+"\n":"")+(versions.length?versions.slice(-8).map(x=>x.version+" · "+x.trigger.kind+" "+x.trigger.id+" · "+x.changes.length+" cambios documentales").join("\n"):"Sin versiones experimentales");}
 
@@ -792,6 +825,9 @@ if(el("twin-export-backup"))el("twin-export-backup").addEventListener("click",as
 });
 if(el("twin-import-backup"))el("twin-import-backup").addEventListener("change",()=>twinReadFile(el("twin-import-backup"),async raw=>{const result=await importTwinVerifiedBackup(raw);if(result.status==="IMPORTED_ALTERNATIVE_WORKSPACE"){refreshHistorySelectors();show()}return result},el("twin-backup-status")));
 if(el("twin-telemetry-file"))el("twin-telemetry-file").addEventListener("change",()=>twinReadFile(el("twin-telemetry-file"),async raw=>importTwinReceipts(raw),el("twin-telemetry-status")));
+if(el("twin-trust-key-file"))el("twin-trust-key-file").addEventListener("change",()=>twinReadFile(el("twin-trust-key-file"),pinTwinVerificationKey,el("twin-trust-status")));
+if(el("twin-signed-receipts-file"))el("twin-signed-receipts-file").addEventListener("change",()=>twinReadFile(el("twin-signed-receipts-file"),verifyTwinSignedReceipts,el("twin-trust-status")));
+
 if(el("twin-geometry-file"))el("twin-geometry-file").addEventListener("change",()=>twinReadFile(el("twin-geometry-file"),async raw=>importTwinAgkMesh(raw),el("twin-geometry-status")));
 
 if(el("twin-visual")){el("twin-visual").addEventListener("click",event=>{const target=event.target.closest?.("[data-twin-id]");if(target){selected=target.getAttribute("data-twin-id");selectedBranch=null;selectedLeaf=null;show()}});el("twin-visual").addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){const target=event.target.closest?.("[data-twin-id]");if(target){event.preventDefault();selected=target.getAttribute("data-twin-id");selectedBranch=null;selectedLeaf=null;show()}}})}
