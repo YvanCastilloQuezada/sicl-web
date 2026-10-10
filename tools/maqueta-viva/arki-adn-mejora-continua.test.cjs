@@ -33,6 +33,13 @@ const second=nextObservation(sequence,newer);
 assert.equal(second.cycles.length,2);
 assert.equal(second.cycles[1].proposals.find(c=>c.id==="cost-R50").proposedValue,105);
 assert.equal(second.canonicalMutation,false);
+let bounded=sequence;
+for(let i=2;i<=12;i++){
+ bounded=nextObservation(bounded,{...baseline,observationId:"O-BUDGET-"+i,metrics:baseline.metrics.map(m=>m.id==="cost"?{...m,value:120-i}:m)});
+}
+assert.equal(bounded.cycles.length,12);
+assert.throws(()=>nextObservation(bounded,{...baseline,observationId:"O-OVER-LIMIT"}),/MAX_CYCLES_REACHED/);
+
 const evidence={schema:"ARKI-ADN-EXPERIMENT-RECEIPT-1",observationDigest:first.observationDigest,candidateId:first.proposals[0].id,outcome:"SUCCESS",authorization:"EXTERNAL_APPROVED",producerIdentity:"AUTHENTICATED_BY_EXTERNAL_VERIFIER",evidenceDigest:"f".repeat(64),sourceCommit:baseline.sourceCommit,regressionCount:0,safetyGate:"PASS",before:120,after:110};
 assert.throws(()=>evaluate(first,{...evidence,authorization:"NONE"}),/AUTHORIZATION_REQUIRED/);
 assert.throws(()=>evaluate(first,{...evidence,producerIdentity:"SELF_CLAIM"}),/PRODUCER_IDENTITY_UNVERIFIED/);
