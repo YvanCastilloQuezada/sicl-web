@@ -118,6 +118,18 @@ try {
    document.getElementById("twin-id").value="I-21";
    document.getElementById("twin-run").click();
    check(document.getElementById("twin-result").textContent.includes("SIMULACIÓN LOCAL"),"Simulation not shown");
+   check(document.getElementById("twin-set-dependencies"),"E4 dependency control missing");
+   check(addTwinPhase("F12","Dependencias territoriales experimentales").status==="ADDED_TO_ALTERNATIVE_TWIN","F12 creation");
+   document.getElementById("twin-new-phase").value="F12";
+   document.getElementById("twin-phase-dependencies").value="F11,F4";
+   document.getElementById("twin-set-dependencies").click();
+   check(twinPhaseSnapshot().find(p=>p.id==="F12").dependencies.join(",")==="F11,F4","E4 UI dependency edit");
+   check(incrementalImpact({kind:"DEPENDENCY",id:"F11"}).affected.includes("F12"),"E4 phase propagation");
+   check(setTwinPhaseDependencies("F11","F12").status==="PHASE_DEPENDENCY_CYCLE","E4 cycle rejection");
+   check(removeTwinPhase("F11").status==="PHASE_HAS_DEPENDENTS","E4 orphan guard");
+   const e4Workspace=exportTwinWorkspace();
+   check(importTwinWorkspace(e4Workspace).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E4 workspace DAG roundtrip");
+   check(twinPhaseSnapshot().find(p=>p.id==="F12").dependencies.includes("F11"),"E4 DAG persisted");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
