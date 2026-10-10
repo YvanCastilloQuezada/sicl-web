@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3 HEADLESS / UI + WORKSPACE" {
+    Step "05 REAL BROWSER E3/E4 HEADLESS / UI + DAG + STORAGE" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -130,6 +130,11 @@ try {
    const e4Workspace=exportTwinWorkspace();
    check(importTwinWorkspace(e4Workspace).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E4 workspace DAG roundtrip");
    check(twinPhaseSnapshot().find(p=>p.id==="F12").dependencies.includes("F11"),"E4 DAG persisted");
+   const savedBrowser=saveTwinBrowser();
+   check(savedBrowser.status==="SAVED_TO_LOCAL_BROWSER","E4 local browser storage: "+savedBrowser.status);
+   check(setTwinPhaseDependencies("F12","F4").status==="ALTERNATIVE_DEPENDENCIES_UPDATED","E4 mutation before browser restore");
+   check(loadTwinBrowser().status==="IMPORTED_ALTERNATIVE_WORKSPACE","E4 local browser restore");
+   check(twinPhaseSnapshot().find(p=>p.id==="F12").dependencies.includes("F11"),"E4 browser storage retained DAG");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
