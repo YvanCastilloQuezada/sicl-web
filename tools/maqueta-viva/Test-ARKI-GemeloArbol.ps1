@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3/E4/E5/E6/E7 HEADLESS / UI + DAG + EVIDENCE + DECISIONS" {
+    Step "05 REAL BROWSER E3/E4/E5/E6/E7/E8 HEADLESS / DAG + EVIDENCE + RECONCILIATION" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -173,6 +173,14 @@ try {
    const e7Portable=exportTwinWorkspace();
    check(importTwinWorkspace(e7Portable).status==="IMPORTED_ALTERNATIVE_WORKSPACE","E7 decision workspace roundtrip");
    check(e7DecisionSnapshot()[0].status==="PROVISIONAL_ONLY","E7 decision unexpectedly promoted");
+   check(document.getElementById("e8-reconcile"),"E8 reconciliation control missing");
+   const decisionReceipt=JSON.stringify(e7DecisionSnapshot());
+   check(addE6Evidence(branchId,"Later source ARKI-E8-001","Later observation requires rechecking the provisional decision","INCONCLUSIVE").status==="EVIDENCE_OBSERVATION_RECORDED","E8 late observation");
+   document.getElementById("e8-reconcile").click();
+   const e8=e8ReconciliationReport();
+   check(e8.issues.some(x=>x.kind==="EVIDENCE_CHANGED_SINCE_DECISION"),"E8 stale decision not detected");
+   check(JSON.stringify(e7DecisionSnapshot())===decisionReceipt,"E8 must not rewrite historical decision");
+   check(document.getElementById("e8-report").textContent.includes("EVIDENCE_CHANGED_SINCE_DECISION"),"E8 report not rendered");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
  }catch(error){result.textContent="ARKI_E3_FAIL: "+error.message;result.setAttribute("data-status","FAIL")}
