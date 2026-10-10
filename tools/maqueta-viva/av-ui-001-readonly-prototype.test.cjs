@@ -521,6 +521,14 @@ const forgedMesh=JSON.parse(JSON.stringify(mesh));forgedMesh.triangles=[[0,1,999
 sandbox.__forgedMesh=forgedMesh;
 assert.equal(vm.runInContext("importTwinAgkMesh(__forgedMesh).status",sandbox),"INVALID_AGK_MESH");
 assert.equal(vm.runInContext("twinAgkMesh.triangles.length",sandbox),1);
+const degenerateMesh=JSON.parse(JSON.stringify(mesh));degenerateMesh.vertices[2]=[2,0,0];
+sandbox.__degenerateMesh=degenerateMesh;
+assert.equal(vm.runInContext("importTwinAgkMesh(__degenerateMesh).status",sandbox),"DEGENERATE_AGK_TRIANGLE");
+const duplicateMesh=JSON.parse(JSON.stringify(mesh));duplicateMesh.triangles.push([2,1,0]);
+sandbox.__duplicateMesh=duplicateMesh;
+assert.equal(vm.runInContext("importTwinAgkMesh(__duplicateMesh).status",sandbox),"DUPLICATE_AGK_TRIANGLE");
+assert.equal(vm.runInContext("twinAgkMesh.triangles.length",sandbox),1);
+
 vm.runInContext("twinViewMode='3d';renderTwinCommandCenter()",sandbox);
 assert.match(document.getElementById("twin-visual").innerHTML,/polygon/);
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"External observation and alternatives must not mutate workspace");
@@ -542,7 +550,9 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  const jwk=await webcrypto.subtle.exportKey("jwk",pair.publicKey);
  jwk.alg="ES256";jwk.key_ops=["verify"];jwk.ext=true;
  sandbox.__pubKey={schema:"ARKI-TWIN-PUBLIC-KEY-1",keyId:"local-fixture",jwk};
- assert.equal((await vm.runInContext("pinTwinVerificationKey(__pubKey)",sandbox)).status,"PUBLIC_KEY_PINNED_FOR_SESSION");
+ const pinned=await vm.runInContext("pinTwinVerificationKey(__pubKey)",sandbox);
+ assert.equal(pinned.status,"PUBLIC_KEY_PINNED_FOR_SESSION");
+ assert.match(pinned.fingerprintSHA256,/^[0-9a-f]{64}$/);
  const payload=JSON.stringify(receipts);
  const signature=Buffer.from(await webcrypto.subtle.sign({name:"ECDSA",hash:"SHA-256"},pair.privateKey,new TextEncoder().encode(payload))).toString("base64url");
  sandbox.__signedEnvelope={schema:"ARKI-TWIN-SIGNED-RECEIPTS-1",algorithm:"ECDSA-P256-SHA256",keyId:"local-fixture",payload,signature};
