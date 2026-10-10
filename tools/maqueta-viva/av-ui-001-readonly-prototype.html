@@ -6,18 +6,18 @@
 *{box-sizing:border-box}body{margin:0}header{padding:15px 22px;border-bottom:1px solid #344c5c;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}
 h1{font-size:20px;margin:0}small,.muted{color:#aabcc9}.shell{display:grid;grid-template-columns:minmax(210px,1fr) minmax(330px,2.2fr) minmax(230px,1.1fr);gap:12px;padding:12px;min-height:calc(100vh - 82px)}
 aside,main{background:#152b40;border:1px solid #385064;border-radius:12px;padding:16px;min-width:0}
-h2{font-size:17px;margin:0 0 12px}.tree{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;padding:12px}
-.tree:before{content:"";position:absolute;top:32px;bottom:32px;width:10px;background:#98754e;border-radius:8px}
-.phase{position:relative;width:78%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #516579;background:#203b51;color:inherit;border-radius:9px;padding:9px 12px;cursor:pointer;text-align:left}
+h2{font-size:17px;margin:0 0 12px}.tree{display:grid;grid-template-columns:minmax(110px,1fr) minmax(240px,2fr) minmax(110px,1fr);align-items:center;gap:7px 12px;position:relative;padding:12px}
+.tree:before{content:"";position:absolute;top:30px;bottom:30px;left:50%;width:8px;background:#98754e;border-radius:8px;transform:translateX(-50%)}
+.phase{position:relative;grid-column:2;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #516579;background:#203b51;color:inherit;border-radius:9px;padding:9px 12px;cursor:pointer;text-align:left}
 .phase:hover,.phase:focus-visible{outline:2px solid #8cc5ef}.phase[aria-pressed=true]{border:2px solid #e7b45d;background:#36536b}
 .phase .id{font-weight:800;background:#31675c;border-radius:100%;padding:8px;min-width:42px;text-align:center}
 .phase[data-state=FROZEN] .id{background:#4e718e}.phase[data-state=RECONCILIATION_REQUIRED] .id{background:#9d6243}
 .phase .state{font-size:11px;color:#c4d3de;text-align:right;overflow-wrap:anywhere}
-.branch-group{position:relative;width:78%;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:1px 0 6px}.branch{position:relative;border:1px solid #668394;background:#294354;color:#eaf1f7;border-radius:15px;padding:5px 9px;cursor:pointer;font-size:12px;max-width:95%;overflow-wrap:anywhere}.branch[aria-pressed=true]{outline:2px solid #e7b45d}.branch.blocked{border-color:#d58765}.branch.frozen{border-color:#90a5cf}.branch:focus-visible{outline:2px solid #8cc5ef}.relation{width:78%;margin:5px auto 10px;border:1px solid #456a7a;border-radius:9px;padding:10px;background:#1c364a}.relation h3{margin:0 0 8px;font-size:13px}.relation-item{font-size:12px;margin:5px 0;padding:5px 8px;border-left:3px solid #86b7ce;background:#274458;overflow-wrap:anywhere}.relation-item.unknown{border-color:#d7a06c}.relation-item.frozen{border-color:#a9a7d8}.relation-item button{color:#eaf1f7;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}.relation-note{font-size:11px;color:#b7c9d5}.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
+.branch-group{position:relative;grid-column:3;width:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:1px 0 6px}.branch{position:relative;border:1px solid #668394;background:#294354;color:#eaf1f7;border-radius:15px;padding:5px 9px;cursor:pointer;font-size:12px;max-width:95%;overflow-wrap:anywhere}.branch[aria-pressed=true]{outline:2px solid #e7b45d}.branch.blocked{border-color:#d58765}.branch.frozen{border-color:#90a5cf}.branch:focus-visible{outline:2px solid #8cc5ef}.relation{grid-column:1 / -1;width:100%;margin:5px auto 10px;border:1px solid #456a7a;border-radius:9px;padding:10px;background:#1c364a}.relation h3{margin:0 0 8px;font-size:13px}.relation-item{font-size:12px;margin:5px 0;padding:5px 8px;border-left:3px solid #86b7ce;background:#274458;overflow-wrap:anywhere}.relation-item.unknown{border-color:#d7a06c}.relation-item.frozen{border-color:#a9a7d8}.relation-item button{color:#eaf1f7;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}.relation-note{font-size:11px;color:#b7c9d5}.entry{padding:11px 0;border-bottom:1px solid #365064;overflow-wrap:anywhere}.entry strong{display:block;margin-bottom:5px}
 .tag{font-size:11px;display:inline-block;padding:3px 7px;background:#35516b;border-radius:5px}
 .warn{color:#ffca86}button{font:inherit}input[type=file]{max-width:240px}
 footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
-@media(max-width:850px){.shell{grid-template-columns:1fr}.tree{padding:6px}.phase{width:100%}}
+@media(max-width:850px){.shell{grid-template-columns:1fr}.tree{padding:6px;grid-template-columns:1fr 2fr 1fr}.phase{width:100%}}
 </style></head><body>
 <header><div><h1>ARKI · Árbol Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div><label>Estado JSON <input type="file" id="source" accept=".json,application/json"></label><label>Borrador JSON <input type="file" id="draft" accept=".json,application/json"></label></div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
@@ -28,6 +28,8 @@ footer{font-size:12px;color:#aec0ce;padding:0 18px 16px}
 "use strict";
 const labels={F1:"Identidad",F2:"Conocimiento",F3:"Inteligencia",F4:"Partido",F5:"Evaluación",F6:"Geometría",F7:"Desarrollo",F8:"Expediente",F9:"Obra",F10:"Operación"};
 let state=null,draft=null,selected="F1",selectedBranch=null;
+const embeddedState=typeof window!=="undefined" ? window.__ARKI_EMBEDDED_STATE__ : null;
+if(embeddedState?.schema==="ARKI-MASTER-MAP-STATE-0.1"&&Array.isArray(embeddedState.roadmap?.phases))state=embeddedState;
 const el=id=>document.getElementById(id);
 function node(tag,content,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=content;return e}
 function entry(root,title,body){const d=node("div","","entry");d.append(node("strong",title),node("div",body));root.append(d)}
@@ -71,7 +73,7 @@ for(let i=10;i>=1;i--){const id="F"+i,p=phases.find(x=>x.id===id),btn=node("butt
 const related=localGraph().rows.filter(x=>x.phase===id);
 if(related.length){const group=node("div","","branch-group");group.setAttribute("aria-label","Ramas locales de "+id);
 for(const row of related.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button",row.id+(blocked?" · !":""),"branch"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Borrador local; no equivale a verificación";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;show()});group.append(branch)}
-if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}
+if(related.length>12)group.append(node("span","+"+(related.length-12)+" ramas locales","muted"));el("tree").append(group)}else{el("tree").append(node("div","Sin ramas declaradas","branch-group muted"))}
 }
 const focusRow=localGraph().rows.find(x=>x.id===selectedBranch&&x.phase===selected);
 if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
