@@ -111,14 +111,14 @@ function adaptivePlacementCandidates(){
   const rows=graph.rows.filter(x=>x.id===proposal.id);
   const references=rows.flatMap(x=>[...x.deps,...x.missing,...x.upstreamBlockers]);
   const risks=[];
-  if(frozen.has(proposal.from)||frozen.has(proposal.to))risks.push("FROZEN_BOUNDARY");
+  if(frozen.has(proposal.from)||frozen.has(proposal.to))proposal.historicalFrozen=true;
   if(rows.some(x=>x.cycle))risks.push("DEPENDENCY_CYCLE");
   if(rows.some(x=>x.missing.length))risks.push("MISSING_DEPENDENCY");
   if(rows.some(x=>x.upstreamBlockers.length))risks.push("UPSTREAM_UNVERIFIED");
   if(!rows.length)risks.push("NO_VERIFIED_DEPENDENCY_GRAPH");
   proposal.risks=risks;
   proposal.references=references;
-  proposal.decision=risks.includes("FROZEN_BOUNDARY")?"PROTECTED_REVIEW_ONLY":"HUMAN_REVIEW_REQUIRED";
+  proposal.decision="WORKSPACE_REORGANIZATION_ALLOWED";
  }
  return result.sort((a,b)=>a.id.localeCompare(b.id));
 }
@@ -130,8 +130,8 @@ function showAdaptive(){
  for(const p of proposals.slice(0,5))entry(root,p.a.id+" / "+p.b.id,p.reason+"; revisar antes de relacionar.");
  const moves=adaptivePlacementCandidates().filter(x=>x.from===selected);
 entry(root,"Ubicaciones alternativas · "+selected,String(moves.length)+" hipótesis documentales; no cambios aplicados");
-for(const m of moves.slice(0,5))entry(root,m.id+" · "+m.from+" → "+m.to,m.reason+" · "+m.decision+" · Riesgos: "+m.risks.join(", ")+" · Fuente: "+m.source);
-entry(root,"Control","Sin fusiones, movimientos ni promociones automáticas. FROZEN protegido.");
+for(const m of moves.slice(0,5))entry(root,m.id+" · "+m.from+" → "+m.to,m.reason+" · "+m.decision+(m.historicalFrozen?" · FROZEN histórico conservado":"")+" · Riesgos: "+m.risks.join(", ")+" · Fuente: "+m.source);
+entry(root,"Control","FROZEN histórico no bloquea propuestas en este espacio experimental. Ninguna mutación canónica ni promoción automática.");
 }
 function chooseLeaf(id,phase){selected=phase;selectedBranch=null;selectedLeaf=id;show()}
 function localGraph(){
@@ -175,7 +175,7 @@ const id="F"+i,p=phases.find(x=>x.id===id),rowNumber=11-i;
 const btn=node("button","","phase");btn.type="button";btn.style.gridRow=String(rowNumber);btn.dataset.state=p?.status||"UNKNOWN";btn.setAttribute("aria-pressed",String(selected===id));btn.append(node("span",id,"id"),node("span",labels[id]),node("span",p?.status||"SIN DATOS","state"));btn.addEventListener("click",()=>{selected=id;selectedBranch=null;selectedLeaf=null;show()});
 const activities=localGraph().rows.filter(x=>x.phase===id);
 const left=node("div","","branch-group left activities");left.style.gridRow=String(rowNumber);left.setAttribute("aria-label","Actividades declaradas de "+id);
-for(const row of activities.slice(0,12)){const blocked=row.cycle||row.frozen||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button","◆ "+row.id+(blocked?" · !":""),"branch task"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Actividad del borrador local; verificación independiente pendiente";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;selectedLeaf=null;show()});left.append(branch)}
+for(const row of activities.slice(0,12)){const blocked=row.cycle||row.missing.length>0||row.upstreamBlockers.length>0,branch=node("button","◆ "+row.id+(blocked?" · !":""),"branch task"+(blocked?" blocked":"")+(row.frozen?" frozen":""));branch.type="button";branch.setAttribute("aria-pressed",String(selectedBranch===row.id));branch.title="Actividad del borrador local; verificación independiente pendiente";branch.addEventListener("click",()=>{selected=id;selectedBranch=row.id;selectedLeaf=null;show()});left.append(branch)}
 if(activities.length>12)left.append(node("span","+"+(activities.length-12)+" actividades","muted"));
 if(!activities.length)left.append(node("span","Actividades UNKNOWN","empty-note"));
 const right=node("div","","branch-group capabilities");right.style.gridRow=String(rowNumber);right.setAttribute("aria-label","Capacidades propuestas de "+id);
@@ -197,7 +197,7 @@ if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
 entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarada",p?.evidence_status||"UNKNOWN");
 entry(mem,"Fuente","ARKI_MASTER_MAP_STATE.json · "+(state.updated_at||"fecha desconocida"));
-if(p?.status==="FROZEN")entry(mem,"Protección","FROZEN: consulta permitida; cambios requieren procedimiento autorizado.");
+if(p?.status==="FROZEN")entry(mem,"Estado histórico","FROZEN de origen; libre para reorganización experimental, sin modificar el registro canónico.");
 entry(mem,"Aprobado ≠ verificado","Este prototipo no transforma declaraciones documentales en hechos ejecutados.");
 const g=localGraph(),rows=g.rows.filter(x=>x.phase===selected);
 entry(mem,"Ramas en borrador",String(rows.length));
