@@ -344,4 +344,21 @@ assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringif
 vm.runInContext("selected=e5AlternativeBranches[0].phase;selectedLeaf=e5AlternativeBranches[0].id;show()",sandbox);
 assert.ok(document.getElementById("decisions").innerText.includes("E7 · Decisión provisional"),"E7 inspector missing");
 assert.ok(document.getElementById("e7-ledger").innerText.includes("PROVISIONAL_ONLY"),"E7 decision ledger not rendered");
+// E8: reconcile decision snapshots against later evidence without rewriting the receipts.
+assert.equal(typeof document.getElementById("e8-reconcile").listeners.click,"function");
+const e8Before=vm.runInContext("e8ReconciliationReport()",sandbox);
+assert.equal(e8Before.status,"REVIEW_REQUIRED");
+assert.ok(e8Before.issues.some(x=>x.kind==="CONTRADICTION_REQUIRES_REVIEW"));
+assert.ok(!e8Before.issues.some(x=>x.kind==="INVALID_PHASE_DAG"),"Valid experimental phase DAG must not be flagged");
+const e7ReceiptsBefore=vm.runInContext("JSON.stringify(e7DecisionSnapshot())",sandbox);
+assert.equal(vm.runInContext("addE6Evidence("+JSON.stringify(e5Id)+",'Late review document ARKI-003','Additional documentary observation arrived after provisional decision','INCONCLUSIVE').status",sandbox),"EVIDENCE_OBSERVATION_RECORDED");
+const e8After=vm.runInContext("e8ReconciliationReport()",sandbox);
+assert.ok(e8After.issues.some(x=>x.kind==="EVIDENCE_CHANGED_SINCE_DECISION"),"Late evidence must invalidate decision freshness");
+assert.equal(vm.runInContext("JSON.stringify(e7DecisionSnapshot())",sandbox),e7ReceiptsBefore,"Reconciliation must never rewrite decisions");
+assert.equal(e8After.canonicalMutation,false);
+vm.runInContext("renderE8Reconciliation()",sandbox);
+assert.ok(document.getElementById("e8-report").innerText.includes("EVIDENCE_CHANGED_SINCE_DECISION"),"E8 UI must expose stale decisions");
+const e8Workspace=vm.runInContext("exportTwinWorkspace()",sandbox);
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(e8Workspace)+").status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
+assert.ok(vm.runInContext("e8ReconciliationReport().issues.some(x=>x.kind==='EVIDENCE_CHANGED_SINCE_DECISION')",sandbox),"Reconciliation must survive workspace import");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
