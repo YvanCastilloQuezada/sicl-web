@@ -84,7 +84,7 @@ try {
     }
   } else { Log "SKIP 04 INSTALL (explicit flag)" }
   if(-not $SkipBrowser) {
-    Step "05 REAL BROWSER E3-E10 HEADLESS / TWIN 3 VIEWS + ATOMIC RECOVERY" {
+    Step "05 REAL BROWSER E3-E10 / A-B-C + RECEIPTS + MESH + RECOVERY" {
       $browser = BrowserPath
       if(-not $browser) { throw "Edge/Chrome not found; browser E3 cannot be marked PASS" }
       $install = Join-Path $env:LOCALAPPDATA "ARKI/ArbolVivo"
@@ -248,6 +248,22 @@ try {
    check(twinImpact.canonicalMutation===false&&twinImpact.simulation==="NOT_EXECUTED","Impact report claimed simulation");
    impactToggle.click();
    check(twinImpactVisible===false,"Impact control failed to deactivate");
+   const compare=document.getElementById("twin-compare");
+   check(compare,"Three-alternative control missing");
+   compare.click();
+   check(document.getElementById("twin-scenarios").textContent.includes("A ·")&&document.getElementById("twin-scenarios").textContent.includes("B ·")&&document.getElementById("twin-scenarios").textContent.includes("C ·"),"Three alternatives not displayed");
+   const receiptData={schema:"ARKI-TWIN-EXECUTION-RECEIPTS-1",receipts:[{id:"E3-1",producer:"Core",outcome:"UNKNOWN",timestamp:"2026-10-10T14:00:00Z",operation:"observation",commit:"a".repeat(40)}]};
+   check(importTwinReceipts(receiptData).status==="IMPORTED_UNVERIFIED_RECEIPTS","External receipts not accepted");
+   check(twinExternalReceipts[0].authentication==="UNVERIFIED_EXTERNAL_CLAIM","External receipts falsely authenticated");
+   const geometryData={schema:"ARKI-TWIN-AGK-MESH-1",canonicalMutation:false,sourceCommit:"b".repeat(40),vertices:[[0,0,0],[1,0,0],[0,1,0]],triangles:[[0,1,2]]};
+   check(importTwinAgkMesh(geometryData).status==="IMPORTED_UNVERIFIED_AGK_MESH","External mesh not accepted");
+   document.getElementById("twin-view-3d").click();
+   check(document.getElementById("twin-visual").querySelector("polygon"),"Imported 3D mesh not rendered");
+   check(document.getElementById("twin-geometry-status").textContent.includes("AUTENTICIDAD UNKNOWN"),"External mesh misrepresented as verified");
+   const malformedGeometry={...geometryData,triangles:[[0,1,500]]};
+   check(importTwinAgkMesh(malformedGeometry).status==="INVALID_AGK_MESH","Invalid mesh not rejected");
+   check(twinAgkMesh.triangles.length===1,"Rejected mesh mutated external state");
+   check(twinTimelineReport().canonicalMutation===false,"Timeline mutated canonical state");
    check(exportTwinWorkspace()===twinBefore,"Twin visualization mutated workspace");
    result.textContent="ARKI_E3_PASS";
    result.setAttribute("data-status","PASS");
