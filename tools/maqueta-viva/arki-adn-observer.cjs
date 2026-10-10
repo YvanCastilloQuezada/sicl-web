@@ -12,8 +12,8 @@ function safeRead(dir,name){
  return fs.readFileSync(file,"utf8");
 }
 function ledger(dir){
- const names=fs.readdirSync(dir).filter(n=>/^event-[0-9]{6}\\.json$/.test(n)).sort();
- const reports=fs.readdirSync(dir).filter(n=>/^proposal-[0-9]{6}\\.json$/.test(n));
+ const names=fs.readdirSync(dir).filter(n=>/^event-[0-9]{6}\.json$/.test(n)).sort();
+ const reports=fs.readdirSync(dir).filter(n=>/^proposal-[0-9]{6}\.json$/.test(n));
  if(reports.length!==names.length)throw Error("ORPHAN_OR_MISSING_REPORT");
  let prev="GENESIS",ids=new Set(),digests=new Set();
  if(names.length>10000)throw Error("LEDGER_LIMIT");
