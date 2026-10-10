@@ -416,4 +416,18 @@ assert.deepEqual(JSON.parse(e10Export),JSON.parse(JSON.stringify(e10Report)));
 vm.runInContext("renderE10Readiness()",sandbox);
 assert.ok(document.getElementById("e10-report").innerText.includes("NOT_READY_FOR_CANONICAL_PROMOTION"));
 assert.equal(vm.runInContext("JSON.stringify({branches:e5BranchSnapshot(),evidence:e6EvidenceSnapshot(),decisions:e7DecisionSnapshot(),revisions:e9RevisionSnapshot()})",sandbox),e10Before,"E10 diagnosis must not mutate receipts");
+// Persistence hardening: preflight must be side-effect-free, even on invalid history.
+const persistenceBaseline=vm.runInContext("exportTwinWorkspace()",sandbox);
+const persistenceParsed=JSON.parse(persistenceBaseline);
+assert.equal(vm.runInContext("importTwinPhases("+JSON.stringify(JSON.stringify(persistenceParsed.phases))+",true).status",sandbox),"IMPORTED_ALTERNATIVE_PHASES");
+assert.equal(vm.runInContext("importStructuralHistory("+JSON.stringify(JSON.stringify(persistenceParsed.history))+",true).status",sandbox),"IMPORTED_LOCAL_HISTORY");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Read-only preflight must not modify workspace");
+const corruptHistory=JSON.parse(persistenceBaseline);corruptHistory.history.versions[0].canonicalMutation=true;
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(corruptHistory))+").status",sandbox),"INVALID_WORKSPACE_HISTORY");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Corrupt history must not mutate any section");
+const corruptPhase=JSON.parse(persistenceBaseline);corruptPhase.phases.phases[0].dependencies=["F999999"];
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(JSON.stringify(corruptPhase))+").status",sandbox),"INVALID_WORKSPACE_PHASES");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Corrupt phase graph must not mutate any section");
+assert.equal(vm.runInContext("importTwinWorkspace("+JSON.stringify(persistenceBaseline)+").status",sandbox),"IMPORTED_ALTERNATIVE_WORKSPACE");
+assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),persistenceBaseline,"Successful import must preserve portable workspace exactly");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
