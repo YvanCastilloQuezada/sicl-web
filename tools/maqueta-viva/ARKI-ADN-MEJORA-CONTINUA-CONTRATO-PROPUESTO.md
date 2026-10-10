@@ -65,3 +65,20 @@ Se añadieron `arki-adn-mejora-continua.cjs`, `arki-adn-mejora-continua.test.cjs
 Prueba: `node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs`.
 
 **Estado:** IMPLEMENTED_EXPERIMENTALLY / NOT_CANONICAL / AUTONOMOUS_RUNTIME_NOT_IMPLEMENTED / NOT_VERIFIED.
+
+## Suplemento: observador local y comparación multiobjetivo
+
+El coordinador experimental `arki-adn-observer.cjs` puede **iniciar propuestas por sí mismo** al detectar nuevas observaciones JSON en una carpeta local. Se ejecuta manualmente como proceso Node con dos modos: `--once` (una exploración) y `--watch` (exploraciones periódicas con intervalo y número máximo de consultas). Cada observación válida genera un reporte `proposal-000001.json` y un evento `event-000001.json` con hashes SHA-256 encadenados; duplicados no generan nuevas propuestas. Los cambios o pérdidas de archivos de evidencia hacen fallar la lectura. El hash encadenado detecta modificaciones accidentales y parciales; **no autentica** a quien controle toda la carpeta.
+
+Ejemplo para un entorno experimental aislado:
+
+```powershell
+New-Item -ItemType Directory -Force .\adn-inbox, .\adn-outbox | Out-Null
+node tools/maqueta-viva/arki-adn-observer.cjs --watch .\adn-inbox .\adn-outbox --interval-ms 5000 --max-polls 20
+```
+
+Cada observación de entrada debe cumplir `ARKI-ADN-OBSERVATION-1`. El observador no inventa métricas ni ejecuta experimentos Core/AGK. Los reportes se generan sin modificar el estado canónico. No hay servicio permanente ni tareas programadas del sistema operativo.
+
+Se añadió `compareObservations(before, after)`: comparación de métricas verificadas, con veto ante regresiones, bloqueo por métricas desconocidas y comprobación de consistencia de unidades, dirección y objetivos. El resultado siempre requiere revisión independiente antes de considerarse aprendizaje.
+
+**Pruebas nuevas:** `arki-adn-observer.test.cjs` y ampliación de `arki-adn-mejora-continua.test.cjs`; incluidos en CI Linux/Windows y en la suite PowerShell experimental. **Estado:** código publicado, ejecución/CI pendiente de comprobar en SHA exacto. No está integrado en el Core ni puede declararse ADN canónico.
