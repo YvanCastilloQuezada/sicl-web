@@ -108,4 +108,10 @@ assert.ok(scenario.nodes.some(x=>x.id==='X1'&&x.phase==='F2'&&x.proposedPhase===
 assert.ok(scenario.nodes.some(x=>x.id==='X1'&&x.dependencies.includes('X2')),"Declared dependencies retained");
 assert.equal(vm.runInContext("registry.ideas[0].targetPhase",sandbox),"F2","Source registry unchanged");
 assert.match(document.getElementById("adaptive").innerText,/Escenario alternativo integral/,"Scenario summary rendered");
+const comparison=vm.runInContext("structuralComparison()",sandbox);
+const compared=comparison.find(x=>x.id==='X1');
+assert.equal(compared.officialPhase,'F2',"Comparison preserves documentary phase");
+assert.equal(compared.alternativePhase,'F7',"Comparison displays proposed phase");
+assert.match(compared.benefit,/NO VERIFICADO/,"Benefits cannot be claimed as verified");
+assert.match(document.getElementById('adaptive').innerText,/Comparación por pieza/,"Comparison visible in panel");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
