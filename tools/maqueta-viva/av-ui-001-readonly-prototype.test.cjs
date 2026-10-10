@@ -132,4 +132,13 @@ assert.equal(snapshot2.version,'ALT-0002',"Changed proposal creates second versi
 assert.ok(snapshot2.changes.some(x=>x.id==='X1'&&x.kind==='STRUCTURE_CHANGED'),"Structural diff explains changed item");
 assert.equal(vm.runInContext("structuralHistorySummary().persistence",sandbox),'MEMORY_ONLY',"No unsupported persistence claim");
 assert.equal(vm.runInContext("structuralHistorySummary().canonicalMutation",sandbox),false,"No canonical mutation");
+const portable=vm.runInContext("exportStructuralHistory()",sandbox);
+assert.equal(JSON.parse(portable).schema,"ARKI-AV-ALTERNATIVE-HISTORY-1","Portable history schema");
+const diff=vm.runInContext("compareStructuralVersions('ALT-0001','ALT-0002')",sandbox);
+assert.equal(diff.status,'COMPARISON_READY',"Two-version comparison available");
+assert.ok(diff.changes.some(x=>x.id==='X1'&&x.kind==='MODIFIED'),"Comparison identifies changed piece");
+const tampered=JSON.parse(portable);tampered.versions[0].canonicalMutation=true;
+assert.equal(vm.runInContext("importStructuralHistory("+JSON.stringify(JSON.stringify(tampered))+")",sandbox).status,'INVALID_HISTORY',"Reject unsafe history");
+assert.equal(vm.runInContext("importStructuralHistory("+JSON.stringify(portable)+")",sandbox).status,'IMPORTED_LOCAL_HISTORY',"Portable history can be reimported");
+assert.equal(vm.runInContext("structuralHistorySummary().versions.length",sandbox),2,"History round trip preserves versions");
 console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
