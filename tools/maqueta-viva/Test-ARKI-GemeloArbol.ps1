@@ -96,6 +96,13 @@ try {
       Log "MULTISCALE_DESIGN=PASS; SEVEN_DOMAINS; HEURISTIC_ONLY; CANONICAL_UNCHANGED"
     } finally { Pop-Location }
   }
+  Step "03F MULTISCALE DEPENDENCY PROPAGATION" {
+    Push-Location $Repo
+    try {
+      Run -Exe "node" -CommandArgs @("tools/maqueta-viva/arki-multiscale-portfolio.test.cjs")
+      Log "MULTISCALE_DEPENDENCIES=PASS; CROSS_SCALE_IMPACT; CANONICAL_UNCHANGED"
+    } finally { Pop-Location }
+  }
   Step "03B SIGNED RECEIPT / INDEPENDENT NODE VERIFIER" {
     $FixtureDir = Join-Path ([IO.Path]::GetTempPath()) ("ARKI-TWIN-SIGNATURE-" + [guid]::NewGuid().ToString("N"))
     try {
