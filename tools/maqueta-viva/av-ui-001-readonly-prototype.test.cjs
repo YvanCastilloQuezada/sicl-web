@@ -503,12 +503,12 @@ assert.match(document.getElementById("twin-inspector").textContent,/PROPAGACIÓN
 assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),impactBefore,"Impact inspection must not mutate workspace");
 vm.runInContext("twinImpactVisible=false;renderTwinCommandCenter()",sandbox);
 // Three isolated documentary alternatives, external claims and geometric input contracts.
-const alternatives=vm.runInContext("twinThreeAlternatives(twinObservation())",sandbox);
-assert.deepEqual(Array.from(alternatives.alternatives,x=>x.id),["A","B","C"]);
-assert.equal(alternatives.canonicalMutation,false);
-assert.equal(alternatives.verification,"UNKNOWN");
-assert.equal(alternatives.alternatives[0].moved,0);
-assert.ok(alternatives.alternatives.every(x=>x.placements.length===x.total));
+const twinAlternatives=vm.runInContext("twinThreeAlternatives(twinObservation())",sandbox);
+assert.deepEqual(Array.from(twinAlternatives.alternatives,x=>x.id),["A","B","C"]);
+assert.equal(twinAlternatives.canonicalMutation,false);
+assert.equal(twinAlternatives.verification,"UNKNOWN");
+assert.equal(twinAlternatives.alternatives[0].moved,0);
+assert.ok(twinAlternatives.alternatives.every(x=>x.placements.length===x.total));
 assert.equal(vm.runInContext("twinTimelineReport().canonicalMutation",sandbox),false);
 const auditInitial=vm.runInContext("twinOperationalAudit(twinObservation())",sandbox);
 assert.equal(auditInitial.canonicalPromotion,"BLOCKED");
