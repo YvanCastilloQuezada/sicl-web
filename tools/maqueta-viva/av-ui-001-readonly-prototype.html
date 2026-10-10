@@ -340,8 +340,8 @@ if(focusRow)el("tree").append(relationView(focusRow,localGraph()));
 const mem=el("memory"),dec=el("decisions");mem.replaceChildren();dec.replaceChildren();
 const leaf=phaseLeaves(selected).find(x=>x.id===selectedLeaf);
 const catalogItem=phaseCapabilities(selected).find(x=>x.id===selectedLeaf);
-if(catalogItem){entry(mem,"CAPACIDAD / ACTIVO · "+catalogItem.id,catalogItem.title);entry(mem,"Estado registrado",catalogItem.recordedStatus);entry(mem,"Fuente",catalogItem.source);entry(mem,"Evidencia citada",catalogItem.sourceEvidence||"UNKNOWN");entry(dec,"Ubicación F1–F10","ORIENTATIVA · pendiente de reconciliación canónica");entry(dec,"Verificación actual","NO REEJECUTADA · no se promueve el estado histórico");entry(dec,"Promoción","DESHABILITADA");return}
-if(leaf){entry(mem,"HOJA · "+leaf.id,leaf.title);entry(mem,"Origen documental",leaf.origin||"UNKNOWN");entry(mem,"Estado histórico",leaf.sourceStatus||"UNKNOWN");entry(mem,"Ubicación",leaf.placement||"UNKNOWN");entry(dec,"Fruto / resultado verificado","NO ACREDITADO · "+(leaf.verification||"UNKNOWN"));entry(dec,"Promoción","DESHABILITADA");return}
+if(catalogItem){entry(mem,"CAPACIDAD / ACTIVO · "+catalogItem.id,catalogItem.title);entry(mem,"Función y utilidad",arkiFunctionalHelp(catalogItem));entry(mem,"Estado registrado",catalogItem.recordedStatus);entry(mem,"Fuente",catalogItem.source);entry(mem,"Evidencia citada",catalogItem.sourceEvidence||"UNKNOWN");entry(dec,"Ubicación F1–F10","ORIENTATIVA · pendiente de reconciliación canónica");entry(dec,"Verificación actual","NO REEJECUTADA · no se promueve el estado histórico");entry(dec,"Promoción","DESHABILITADA");return}
+if(leaf){entry(mem,"HOJA · "+leaf.id,leaf.title);entry(mem,"Función y utilidad",arkiFunctionalHelp(leaf));entry(mem,"Origen documental",leaf.origin||"UNKNOWN");entry(mem,"Estado histórico",leaf.sourceStatus||"UNKNOWN");entry(mem,"Ubicación",leaf.placement||"UNKNOWN");entry(dec,"Fruto / resultado verificado","NO ACREDITADO · "+(leaf.verification||"UNKNOWN"));entry(dec,"Promoción","DESHABILITADA");return}
 if(!state){entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);entry(mem,"Estado","SIN DATOS · importa el estado estructurado local de ARKI.");const gr=localGraph(),focus=gr.rows.find(x=>x.id===selectedBranch&&x.phase===selected);if(focus){entry(mem,"Rama seleccionada",focus.id);entry(mem,"Dependencias",focus.deps.join(", ")||"Ninguna declarada");entry(dec,"Bloqueos heredados",focus.upstreamBlockers.join(" · ")||"Sin bloqueos declarados; verificación UNKNOWN")}entry(dec,"Fase activa",selected+" · "+labels[selected]);entry(dec,"Sin evidencia","No se inventan propuestas ni métricas. Promoción DESHABILITADA.");return}
 const p=phases.find(x=>x.id===selected);entry(mem,"Fase seleccionada",selected+" · "+labels[selected]);
 entry(mem,"Estado declarado",p?.status||"UNKNOWN");entry(mem,"Evidencia declarada",p?.evidence_status||"UNKNOWN");
@@ -479,4 +479,5 @@ function installArkiTooltips(){
 }
 installArkiTooltips();
 show();
+if(state&&el("foot"))el("foot").textContent="FUENTE DOCUMENTAL CARGADA · "+(state.updated_at||"fecha desconocida")+" · Fases: "+phaseData().length+" · Inventario de ideas: "+(registry?.ideas?.length||0)+" · Capacidades históricas: "+(catalog?.records?.length||0)+" · SOLO LECTURA; ninguna información se envía a servidores.";
 </script></body></html>
