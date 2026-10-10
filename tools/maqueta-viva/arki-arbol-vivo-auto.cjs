@@ -21,9 +21,17 @@ function build(registry,options={}){
   const evidence=String(x.sourceEvidence||"");
   const verified=Boolean(evidence.trim()) && /^(VERIFIED|CURRENTLY_VERIFIED)$/.test(verification) && /DEMONSTRATED|VERIFIED/.test(status);
   const missing= !verified;
-  const deps=Array.isArray(x.dependencies)?x.dependencies.filter(d=>typeof d==="string"):[];
+  const legacyDeps=Array.isArray(x.dependencies)?x.dependencies.filter(d=>typeof d==="string"):[];
+  const edges=Array.isArray(x.dependencyEdges)?x.dependencyEdges:[];
+  const verifiedEdges=edges.filter(e=>e&&e.type==="REQUIRES"&&e.status==="VERIFIED"&&typeof e.targetId==="string"&&e.targetId.trim()&&typeof e.evidenceRef==="string"&&e.evidenceRef.trim());
+  for(const e of edges){
+   if(!e||typeof e!=="object"||typeof e.targetId!=="string"||!e.targetId.trim()||typeof e.type!=="string")issues.push({id:x.id,code:"INVALID_DEPENDENCY_EDGE"});
+   else if(e.type==="REQUIRES"&&(!e.evidenceRef||e.status!=="VERIFIED"))issues.push({id:x.id,code:"UNVERIFIED_PRECEDENCE",dependency:e.targetId});
+  }
+  const deps=[...new Set([...legacyDeps,...verifiedEdges.map(e=>e.targetId)])];
   if(Array.isArray(x.dependencies)&&deps.length!==x.dependencies.length)issues.push({id:x.id,code:"INVALID_DEPENDENCY"});
-  if(new Set(deps).size!==deps.length)issues.push({id:x.id,code:"DUPLICATE_DEPENDENCY"});
+  if(new Set(legacyDeps).size!==legacyDeps.length)issues.push({id:x.id,code:"DUPLICATE_DEPENDENCY"});
+  if(deps.includes(x.id))issues.push({id:x.id,code:"SELF_DEPENDENCY"});
   return {id:x.id,title:String(x.title||x.id),kind:x.kind,phase,phaseBasis:"HISTORICAL_PROPOSAL_NOT_AUTONOMOUSLY_VERIFIED",status,verification,evidence:verified?evidence:null,dependencies:deps,missing,excluded};
  });
  const byId=new Map(items.map(x=>[x.id,x]));
@@ -34,7 +42,7 @@ function build(registry,options={}){
  const impact=new Map(items.map(x=>[x.id,downstream(x.id)]));
  const ready=items.filter(x=>inDegree.get(x.id)===0),ordered=[];
  const score=x=>impact.get(x.id);
- const missingDependencies=new Set(issues.filter(x=>x.code==="UNKNOWN_DEPENDENCY"||x.code==="INVALID_DEPENDENCY").map(x=>x.id));
+ const missingDependencies=new Set(issues.filter(x=>["UNKNOWN_DEPENDENCY","INVALID_DEPENDENCY","INVALID_DEPENDENCY_EDGE","UNVERIFIED_PRECEDENCE","SELF_DEPENDENCY"].includes(x.code)).map(x=>x.id));
  while(ready.length){
   ready.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
   const x=ready.shift();ordered.push({...x,priorityScore:score(x),downstreamCount:impact.get(x.id),dependenciesResolved:!missingDependencies.has(x.id)&&!x.excluded&&x.dependencies.every(d=>byId.has(d)),priorityBasis:"TRANSITIVE_DEPENDENCY_REACH_ONLY_NOT_CRITICAL_PATH_OR_URGENCY"});
@@ -52,7 +60,7 @@ function main(){
  console.log("ARBOL_AUTO_REPORT="+out);console.log("ACTIVITIES="+result.counts.total+"; ASSIGNED="+result.branches.reduce((n,b)=>n+b.activities.length,0)+"; ISSUES="+result.issues.length);
  console.log("EXCLUDED_OUT_OF_SCOPE="+result.counts.excluded+"; UNRESOLVED="+result.unassigned.length);
  console.log("PHASE_ASSIGNMENT=HISTORICAL_NOT_AUTONOMOUS; EXPERIMENT=NOT_EXECUTED; NO_CANONICAL_MUTATION");
- if(result.issues.some(x=>x.code==="DEPENDENCY_CYCLE"||x.code==="UNRESOLVED_PHASE"))process.exitCode=2;
+ if(result.issues.some(x=>["DEPENDENCY_CYCLE","UNRESOLVED_PHASE","UNKNOWN_DEPENDENCY","INVALID_DEPENDENCY","INVALID_DEPENDENCY_EDGE","UNVERIFIED_PRECEDENCE","SELF_DEPENDENCY"].includes(x.code)))process.exitCode=2;
 }
 if(require.main===module)main();
 module.exports={build,PHASES};
