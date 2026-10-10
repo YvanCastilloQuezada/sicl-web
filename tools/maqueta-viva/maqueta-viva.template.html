@@ -2741,6 +2741,39 @@ const extra=[
 const ranked=arkiGlobalPrecedence(rows.concat(extra));
 return {rows:ranked,phaseCoverage:phases.map(p=>({phase:p.id,items:ranked.filter(x=>x.phase===p.id).length})),total:ranked.length,ready:0,authorization:"SOLO PO",execution:"DESHABILITADA"};
 }
+function arkiUnblockingPlan(){
+const topology=arkiDependencyTopology();
+const dependents=new Map([...topology.edges.keys()].map(id=>[id,[]]));
+for(const [id,deps] of topology.edges)for(const dep of deps)dependents.get(dep).push(id);
+const rows=[...topology.edges.keys()].map(id=>{
+const affected=new Set(),queue=[...(dependents.get(id)||[])];
+while(queue.length){const next=queue.shift();if(affected.has(next)||next===id)continue;affected.add(next);queue.push(...(dependents.get(next)||[]));}
+const missing=topology.missing.get(id)||[];
+const deps=topology.edges.get(id)||[];
+const phase=placements[id]||"SIN ASIGNAR";
+const frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
+const cycle=topology.cycleMembers.has(id);
+const readiness=reviewGate(id);
+const actions=[];
+if(cycle)actions.push("Resolver ciclo de precedencias");
+if(missing.length)actions.push("Identificar referencias ausentes: "+missing.join(", "));
+if(!placements[id])actions.push("Asignar fase");
+if(!readiness.complete)actions.push("Completar ficha y evidencia verificable");
+if(frozen)actions.push("Revisar alcance FROZEN con autorización expresa");
+if(!actions.length)actions.push("Ejecutar pruebas externas y revisión independiente");
+return {id,phase,unlocks:affected.size,dependentIds:[...affected].sort(),predecessors:deps,missing,cycle,frozen,actions,priority:cycle||missing.length?"P0":affected.size>=3?"P1":affected.size?"P2":"P3"};
+}).sort((a,b)=>a.priority.localeCompare(b.priority)||b.unlocks-a.unlocks||a.id.localeCompare(b.id));
+return {rows,cycles:topology.cycles};
+}
+function arkiUnblockingPlanPanel(){
+const plan=arkiUnblockingPlan();
+const scoped=plan.rows.filter(x=>viewScope==="ALL"||x.phase===viewScope);
+return '<section class="arki-experiment-panel"><h3>Plan de desbloqueo · precedencias reales declaradas</h3>'+
+'<p class="caption">Orden de investigación, no de ejecución. Cuenta dependientes transitivos declarados; no demuestra que una corrección los desbloquee realmente. Se excluyen dependencias no registradas.</p>'+
+'<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>piezas analizadas</span></article><article><strong>'+plan.cycles.length+'</strong><span>ciclos detectados</span></article><article><strong>'+scoped.filter(x=>x.missing.length).length+'</strong><span>piezas con referencias ausentes</span></article></div>'+
+'<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.priority+" · "+x.id+" · "+x.phase)+'</strong><span>'+escapeHtml("Dependientes transitivos: "+x.unlocks+" · Precedentes: "+(x.predecessors.join(", ")||"ninguno declarado"))+'</span><small>'+escapeHtml("Próxima acción: "+x.actions[0])+'</small><small>'+escapeHtml("Afectadas: "+(x.dependentIds.join(", ")||"ninguna registrada"))+'</small><small>PROPUESTA PARA INVESTIGACIÓN · SIN APROBACIÓN DE EJECUCIÓN</small></article>').join("")+'</div>'+
+'<p class="caption">Las relaciones pendientes deben validarse antes de usar este orden como ruta crítica oficial.</p></section>';
+}
 function arkiDecisionDocketPanel(){
 const docket=arkiDecisionDocket(),scoped=docket.rows.filter(x=>viewScope==="ALL"||x.phase===viewScope);
 return '<section class="arki-experiment-panel"><h3>Expedientes para decisión del propietario · F1–F10</h3>'+
@@ -2754,6 +2787,7 @@ function scopedAutocorrectivo(){
 const scoped=viewScope==="ALL"?correctiveCases:correctiveCases.filter(c=>c.phase===viewScope);
 return scopeHead("05 · ARKI AUTOCORRECTIVO","Casos de corrección","Casos locales del alcance seleccionado. No se ejecutan cambios desde el navegador.")+
 arkiDecisionDocketPanel()+
+arkiUnblockingPlanPanel()+
 '<div class="scope-grid">'+(scoped.length?scoped.map(c=>'<div class="scope-phase-card"><strong>'+escapeHtml(c.id)+' · '+escapeHtml(c.phase)+'</strong><span>'+escapeHtml(c.title||"Caso")+'</span><small>'+escapeHtml(c.status)+'</small></div>').join(""):'<p class="hint">No hay casos de corrección registrados en este alcance.</p>')+'</div>'+
 '<p class="caption">Para proponer y gestionar un caso utiliza la consola de corrección controlada. Requiere autorización y evidencia externa.</p>';
 }
