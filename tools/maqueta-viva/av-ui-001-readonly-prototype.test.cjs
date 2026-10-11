@@ -592,6 +592,11 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal((await vm.runInContext("verifyTwinSignedReceipts(__unknownKey)",sandbox)).status,"TRUST_KEY_NOT_PINNED");
  assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),before,"Signature verification must not mutate experimental workspace");
 
+ // Isolate proposal tests from earlier registry mutations in this shared VM.
+ vm.runInContext("registry={schema:'ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1',ideas:[{id:'I-01',title:'Registro canonico de ideas',targetPhase:'F1',origin:'TEST',sourceStatus:'DOCUMENTARY',verification:'UNKNOWN'},{id:'I-05',title:'Recuperacion de conocimiento',targetPhase:'F2',origin:'TEST',sourceStatus:'DOCUMENTARY',verification:'UNKNOWN'},{id:'I-07',title:'Candidatos de topologia y geometria',targetPhase:'F4',origin:'TEST',sourceStatus:'DOCUMENTARY',verification:'UNKNOWN'}]};selected='F1';show();",sandbox);
+ assert.equal(vm.runInContext('arkiProposalCandidates("F1").length',sandbox),1,"F1 proposal fixture must be nonempty");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F2").length',sandbox),1,"F2 proposal fixture must be nonempty");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F4").length',sandbox),1,"F4 proposal fixture must be nonempty");
  assert(html.includes('id="arki-proposal-panel"'),"Árbol Vivo proposals panel exists");
  assert(html.includes('id="arki-proposal-cards"'),"Proposal cards container exists");
  assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.alternatives.length===3)',sandbox),true,"Every proposal has A/B/C");
