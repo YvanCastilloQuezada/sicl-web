@@ -89,6 +89,20 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 .arki-central-tabs button{background:#203e54;border:1px solid #58798d;color:#edf5fa;padding:8px 11px;border-radius:8px;cursor:pointer}
 .arki-central-tabs button[aria-selected=true]{background:#335a70;border-color:#e7b45d;box-shadow:inset 0 -2px #e7b45d}
 .arki-central-tabs button:focus-visible{outline:2px solid #f2c879}
+/* AV-UI-001: distinct gradient tabs; separators mark Plan / Tree / Digital tools. */
+.arki-central-tabs{align-items:stretch;gap:8px;row-gap:10px}
+.arki-central-tabs button{min-width:0;min-height:43px;font-weight:700;line-height:1.2;white-space:normal;text-shadow:0 1px 1px #071825;background-image:linear-gradient(135deg,var(--tab-start),var(--tab-end));background-color:var(--tab-start);border:1px solid var(--tab-border);box-shadow:0 2px 7px #06162255;transition:filter .15s ease,box-shadow .15s ease}
+#arki-tab-plan{--tab-start:#176d8c;--tab-end:#2c9f9a;--tab-border:#67cfce}
+#arki-tab-tree{--tab-start:#286b43;--tab-end:#63a958;--tab-border:#9cdb83}
+#arki-tab-twin{--tab-start:#394f9e;--tab-end:#7162b8;--tab-border:#a69ee8}
+#arki-tab-brain{--tab-start:#74419c;--tab-end:#ad659f;--tab-border:#d69aca}
+#arki-tab-3d{--tab-start:#a45625;--tab-end:#c88937;--tab-border:#f1bf7e}
+.arki-central-tabs button[aria-selected=true]{background-image:linear-gradient(135deg,var(--tab-start),var(--tab-end));background-color:var(--tab-start);border:2px solid #fff4d7;box-shadow:inset 0 -3px #fff1bd,0 0 0 2px #e9d69c55,0 3px 12px #071b2b}
+.arki-central-tabs button:hover{filter:brightness(1.16)}
+.arki-central-tabs #arki-tab-tree,.arki-central-tabs #arki-tab-twin{margin-left:13px;position:relative}
+.arki-central-tabs #arki-tab-tree::before,.arki-central-tabs #arki-tab-twin::before{content:"";position:absolute;left:-12px;top:5px;bottom:5px;width:3px;border-radius:3px;background:linear-gradient(180deg,#f4bf72,#64c7da,#a58be0);pointer-events:none}
+@media(max-width:720px){.arki-central-tabs{gap:7px}.arki-central-tabs button{flex:1 1 43%;font-size:12px}.arki-central-tabs #arki-tab-tree,.arki-central-tabs #arki-tab-twin{margin-left:0}.arki-central-tabs #arki-tab-tree::before,.arki-central-tabs #arki-tab-twin::before{display:none}}
+
 .arki-central-panel[hidden]{display:none!important}
 .arki-central-panel{min-height:180px}
 #arki-plan-panel .entry{margin-bottom:8px}
