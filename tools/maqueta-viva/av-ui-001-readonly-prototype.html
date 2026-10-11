@@ -908,6 +908,29 @@ function arkiProposalCandidates(phase=selected){
     gate:["SHA y regresión","Autorización, baseline y recibos","Revisión humana y UNKNOWN resueltos"][i]}))};
  });
 }
+// Experimental local learning: proposals remain advisory; receipts are never self-certified.
+const arkiProposalObservations=[];
+function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
+ const proposal=phaseData().flatMap(p=>arkiProposalCandidates(p.id)).find(p=>p.id===proposalId);
+ if(!proposal)return {status:"UNKNOWN_PROPOSAL",canonicalMutation:false};
+ const eligible=observations.filter(o=>o&&o.proposalId===proposalId&&["A","B","C"].includes(o.alternativeId));
+ const results=proposal.alternatives.map(a=>{
+  const obs=eligible.filter(o=>o.alternativeId===a.id);
+  const valid=obs.filter(o=>o.outcome==="PASS"&&o.sourceRef&&o.sourceCommit&&o.metric&&Number.isFinite(o.value)&&o.value>=0);
+  const rejected=obs.filter(o=>o.outcome==="FAIL");
+  return {id:a.id,observations:obs.length,localClaims:valid.length,rejected:rejected.length,status:"UNVERIFIED_LOCAL_OBSERVATION",verified:false};
+ });
+ return {schema:"ARKI-PROPOSAL-EVALUATION-001",proposalId,status:"EXPERIMENTAL_ONLY",results,
+  recommendation:"INSUFFICIENT_VERIFIED_EVIDENCE",learning:"LOCAL_HYPOTHESIS_ONLY",canonicalMutation:false,promotion:"BLOCKED"};
+}
+function arkiRecordProposalObservation(record){
+ if(!record||typeof record!=="object"||!/^I-[0-9]+$/.test(String(record.proposalId||""))||!["A","B","C"].includes(record.alternativeId))return {status:"INVALID_OBSERVATION"};
+ if(!phaseData().some(p=>arkiProposalCandidates(p.id).some(x=>x.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL"};
+ if(!["PASS","FAIL","UNKNOWN"].includes(record.outcome)||typeof record.sourceRef!=="string"||record.sourceRef.length<3||record.sourceRef.length>400||typeof record.sourceCommit!=="string"||record.sourceCommit.length>100||typeof record.metric!=="string"||record.metric.length>100||!Number.isFinite(record.value)||record.value<0)return {status:"INVALID_OBSERVATION"};
+ const safe={proposalId:record.proposalId,alternativeId:record.alternativeId,outcome:record.outcome,sourceRef:record.sourceRef,sourceCommit:record.sourceCommit,metric:record.metric,value:record.value,verification:"UNVERIFIED_LOCAL",canonicalMutation:false};
+ arkiProposalObservations.push(safe);
+ return {status:"LOCAL_OBSERVATION_RECORDED",count:arkiProposalObservations.length,canonicalMutation:false};
+}
 function renderArkiProposals(){
  const root=el("arki-proposal-cards"),summary=el("arki-proposal-summary");
  if(!root||!summary)return;
@@ -923,7 +946,7 @@ function renderArkiProposals(){
    part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk+" · Puerta: "+alt.gate));
    card.append(part);
   }
-  card.append(node("small","ALTERNATIVAS PROPUESTAS · SIN SIMULACIÓN · SIN APRENDIZAJE VERIFICADO · SIN PROMOCIÓN"));
+  const assessment=arkiEvaluateProposal(proposal.id);card.append(node("small","Evaluación: "+assessment.recommendation+" · "+assessment.learning+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCIÓN"));
   root.append(card);
  }
 }
