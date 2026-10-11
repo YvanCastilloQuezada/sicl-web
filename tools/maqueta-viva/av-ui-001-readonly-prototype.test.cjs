@@ -634,5 +634,9 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(elements.get("arki-plan-panel").hidden,false);
  assert.equal(elements.get("arki-twin-panel").hidden,true);
  assert.equal(vm.runInContext('arkiShowCentral("invalid");arkiCentralMode',sandbox),"plan");
+
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").status',sandbox),"EXPERIMENTAL_ONLY","Registry proposal resolves even when roadmap phase objects differ");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").results.length',sandbox),3,"All three alternatives have assessment results");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-DOES-NOT-EXIST").status',sandbox),"UNKNOWN_PROPOSAL","Unknown proposal remains fail-closed");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
