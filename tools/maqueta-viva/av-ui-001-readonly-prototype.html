@@ -925,6 +925,19 @@ function arkiShowCentral(mode){
  }
  if(mode==="plan")arkiRenderPlan();
 }
+function arkiTaskDiagnostic(){
+ const tasks=(registry?.ideas||[]).filter(x=>x&&/^I-[0-9]+$/.test(x.id)&&x.sourceStatus!=="RESEARCH_ONLY_OUT_OF_SCOPE");
+ return {schema:"ARKI-TASK-DIAGNOSTIC-001",tasks:tasks.map(x=>({id:x.id,title:x.title,targetPhase:x.targetPhase,status:x.sourceStatus==="FROZEN"||x.placement==="FROZEN"?"FROZEN_NO_MUTATION":"DEPENDENCIES_UNKNOWN"})),criticalPath:"UNKNOWN",execution:"BLOCKED",canonicalMutation:false};
+}
+function arkiRenderTaskDiagnostic(root){
+ const report=arkiTaskDiagnostic();
+ const section=node("details","","entry");section.open=true;
+ section.append(node("summary","Diagnostico de tareas · "+report.tasks.length+" ideas"));
+ section.append(node("p","Sin grafo de dependencias verificado: ARKI no asigna prioridades ni ruta critica."));
+ for(const task of report.tasks.filter(x=>x.targetPhase===selected))section.append(node("p",task.id+" · "+task.title+" · "+task.status));
+ section.append(node("small","Solo consulta · ejecucion BLOQUEADA · sin cambios canonicos."));
+ root.append(section);
+}
 function arkiRenderPlan(){
  const root=el("arki-plan-content");if(!root)return;
  root.replaceChildren();
@@ -933,6 +946,7 @@ function arkiRenderPlan(){
  root.append(node("p","Selección actual: "+selected+" · "+(labels[selected]||selected)+" · decisiones y alternativas en el panel derecho."));
  const status=node("div","","entry");status.append(node("strong","Estado y límites"),node("p","Dependencias no verificadas: UNKNOWN · Experimentos: NOT_EXECUTED · Promoción canónica: BLOCKED"));root.append(status);
  const proposals=arkiProposalCandidates(selected);root.append(node("p","Propuestas en "+selected+": "+proposals.length+" · tres alternativas A/B/C por idea; hipótesis, no resultados."));
+ arkiRenderTaskDiagnostic(root);
  const button=document.createElement("button");button.type="button";button.textContent="Abrir ÁRBOL Vivo para decidir";button.addEventListener("click",()=>arkiShowCentral("tree"));root.append(button);
 }
 for(const key of ["plan","tree","twin","brain","3d"]){const tab=el("arki-tab-"+key);if(tab)tab.addEventListener("click",()=>arkiShowCentral(key))}
