@@ -948,6 +948,34 @@ function arkiRecordProposalObservation(record){
  arkiProposalObservations.push(safe);
  return {status:"LOCAL_OBSERVATION_RECORDED",count:arkiProposalObservations.length,canonicalMutation:false};
 }
+function arkiProposalObservationForm(proposal,alternative){
+ const form=document.createElement("form");form.className="entry";
+ const title=node("strong","Registrar observación · "+proposal.id+" / "+alternative.id+" · SIN VERIFICAR");form.append(title);
+ const fields={};
+ for(const [key,label,kind] of [["outcome","Resultado declarado","select"],["sourceRef","Referencia documental","text"],["sourceCommit","SHA o identificador de fuente","text"],["metric","Métrica observada","text"],["value","Valor numérico","number"]]){
+  const wrapper=document.createElement("label");wrapper.textContent=label+" ";
+  const input=document.createElement(kind==="select"?"select":"input");
+  if(kind==="select"){for(const choice of ["UNKNOWN","PASS","FAIL"]){const option=document.createElement("option");option.value=choice;option.textContent=choice;input.append(option)}}
+  else {input.type=kind;input.required=true;input.maxLength=key==="sourceRef"?400:100;if(kind==="number"){input.min="0";input.step="any"}}
+  wrapper.append(input);form.append(wrapper);fields[key]=input;
+ }
+ const submit=document.createElement("button");submit.type="submit";submit.textContent="Registrar observación local";form.append(submit);
+ const feedback=node("small","Ningún resultado local verifica una alternativa.");form.append(feedback);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const value=fields.value.value.trim()?Number(fields.value.value):NaN;
+  const result=arkiRecordProposalObservation({proposalId:proposal.id,alternativeId:alternative.id,
+   outcome:fields.outcome.value,sourceRef:fields.sourceRef.value.trim(),sourceCommit:fields.sourceCommit.value.trim(),
+   metric:fields.metric.value.trim(),value});
+  feedback.textContent=result.status+" · NO VERIFICADO · SIN PROMOCIÓN";
+  const status=el("arki-proposal-memory-status");if(status)status.textContent=result.status+" · exporta JSON para conservar esta sesión";
+  const counter=el("arki-proposal-count-"+proposal.id);if(counter&&result.status==="LOCAL_OBSERVATION_RECORDED"){
+   const assessment=arkiEvaluateProposal(proposal.id);
+   counter.textContent=assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · "+assessment.recommendation;
+  }
+ });
+ return form;
+}
 function renderArkiProposals(){
  const root=el("arki-proposal-cards"),summary=el("arki-proposal-summary");
  if(!root||!summary)return;
@@ -961,9 +989,10 @@ function renderArkiProposals(){
   for(const alt of proposal.alternatives){
    const part=node("div","","entry");
    part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk+" · Puerta: "+alt.gate));
+   part.append(arkiProposalObservationForm(proposal,alt));
    card.append(part);
   }
-  const assessment=arkiEvaluateProposal(proposal.id);card.append(node("small","Evaluación: "+assessment.recommendation+" · "+assessment.learning+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCIÓN"));
+  const assessment=arkiEvaluateProposal(proposal.id);const counter=node("small","Evaluación: "+assessment.recommendation+" · "+assessment.learning+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCIÓN");counter.id="arki-proposal-count-"+proposal.id;card.append(counter);
   root.append(card);
  }
 }
