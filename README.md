@@ -1,5 +1,6 @@
 # ARKI Command Center
 
+> **NUEVO CHAT / AGENTE ARKI:** leer primero [ARKI_HANDOFF.md](ARKI_HANDOFF.md). Es el punto de entrada de continuidad. Comprobar fecha, SHA y ejecucion del workflow; no asumir que el handoff esta actualizado si la sincronizacion fallo.\n\n
 ARKI Command Center es la interfaz web de SICL 0.6 para trabajar con proyectos espaciales: contexto, evidencia, objetivos, restricciones, alternativas, evaluaciones, recomendaciones, revisión humana y decisión.
 
 ## Estado actual
