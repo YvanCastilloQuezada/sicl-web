@@ -610,5 +610,13 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").results[0].verified',sandbox),false);
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").promotion',sandbox),"BLOCKED");
  assert.equal(vm.runInContext('arkiRecordProposalObservation({proposalId:"I-01",alternativeId:"Z",outcome:"PASS"}).status',sandbox),"INVALID_OBSERVATION");
+
+ assert(html.includes('id="arki-proposal-export"'),"Proposal memory export button exists");
+ assert(html.includes('id="arki-proposal-import"'),"Proposal memory import input exists");
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().schema',sandbox),"ARKI-PROPOSAL-OBSERVATIONS-001");
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().canonicalMutation',sandbox),false);
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).status',sandbox),"LOCAL_MEMORY_IMPORTED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiImportProposalMemory({schema:"ARKI-PROPOSAL-OBSERVATIONS-001",observations:[{proposalId:"INVALID",alternativeId:"A",outcome:"PASS",sourceRef:"local",sourceCommit:"x",metric:"m",value:1}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").promotion',sandbox),"BLOCKED");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
