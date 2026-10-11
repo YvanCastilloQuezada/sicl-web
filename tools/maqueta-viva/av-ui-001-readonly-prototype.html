@@ -888,15 +888,24 @@ if(el("twin-visual")){el("twin-visual").addEventListener("click",event=>{const t
 
 function arkiProposalCandidates(phase=selected){
  const ideas=(registry?.ideas||[]).filter(x=>x.targetPhase===phase&&x.sourceStatus!=="RESEARCH_ONLY_OUT_OF_SCOPE");
+ const rules=[
+  {domain:"KNOWLEDGE",re:/conocimiento|recuperaci[oó]n|ingesti[oó]n|ocr|book|tutor|transferencia|delta/i,baseline:"Proveniencia, derechos, curaduría y cobertura",actions:["Rastrear Universidad y Delta 6.2 existentes; reconciliar corpus y exámenes con SHA.","Ensayar corpus alternativos en sandbox y medir recuperación, contradicciones y transferencia.","Conservar currículo; resolver fuentes y solicitar revisión del Curador y Examinador."]},
+  {domain:"GEOMETRY",re:/geometr[ií]a|topolog[ií]a|parti|bim|cad|mep|estructura|glb|gltf/i,baseline:"D-2/AGK, geometría y restricciones",actions:["Reutilizar productores y consumidores D-2/AGK existentes; verificar sink canónico único.","Comparar escenarios geométricos aislados con AGK real y métricas de robustez, si se autoriza.","Conservar geometría verificada; bloquear mutaciones con topología o procedencia desconocida."]},
+  {domain:"TERRITORY",re:/territorial|gis|terreno|dtm|dsm|clima|cfd|normativa|jurisdicci[oó]n|sitio|obra|campo|operaci[oó]n|gps|webxr/i,baseline:"Escala, jurisdicción, vigencia y fuente",actions:["Reutilizar adaptadores espaciales existentes con evidencia por escala.","Comparar escenarios multiescala aislados con restricciones locales y datos verificables.","Mantener clasificación por jurisdicción hasta resolver fuentes, permisos y vigencia."]},
+  {domain:"GOVERNANCE",re:/registro|bit[aá]cora|hoja de ruta|rfc|gobernanza|identidad|versiones|core|e2e|replay|sem[aá]ntica/i,baseline:"Identidad, SHA, autoridad y dependencias",actions:["Reconciliar contratos, código y pruebas con identidad única; evitar duplicados.","Ensayar grafo alternativo de precedencias con ciclos y propagación adversarial.","Conservar baseline hasta demostrar equivalencia y no regresión."]},
+  {domain:"GENERAL",re:/.*/,baseline:"Objetivo, entradas, salidas y evidencia",actions:["Localizar implementación equivalente y reutilizarla.","Diseñar experimento falsable y escenarios propios del objetivo.","Conservar pieza en revisión y resolver desconocidos."]}
+ ];
  return ideas.map(x=>{
+  const rule=rules.find(r=>r.re.test(x.title));
   const status=String(x.sourceStatus||"UNKNOWN"),evidence=String(x.verification||"UNKNOWN");
-  const gap=/UNKNOWN|PARTIAL|BLOCKED|NOT_FOUND|UNRESOLVED|HYPOTHESIS|LATENT/.test(status)||/REQUIRES|UNKNOWN|NOT_CURRENTLY/.test(evidence);
-  return {id:x.id,title:x.title,phase,status,evidence,priorityBasis:gap?"DOCUMENTARY_GAP_NOT_DEPENDENCY_RANK":"HISTORICAL_ITEM_NOT_CURRENTLY_REVALIDATED",
-   alternatives:[
-    {id:"A",name:"Consolidar capacidad existente",action:"Rastrear implementación, pruebas y sucesor; conectar la pieza ya absorbida y eliminar duplicación solo tras verificar referencias.",risk:"Posible sustituto no identificado",gate:"Identidad, SHA y pruebas de no regresión"},
-    {id:"B",name:"Investigar y experimentar",action:"Identificar el déficit preciso; preparar experimento aislado con baseline y métricas para contrastar hipótesis.",risk:"Sin resultados medidos todavía",gate:"Autorización de experimento y recibos reproducibles"},
-    {id:"C",name:"Conservar y bloquear cambios",action:"Mantener la pieza en revisión; recopilar evidencias y resolver UNKNOWN antes de modificar su ubicación o estado.",risk:"Avance funcional diferido",gate:"Reconciliación documental y revisión humana"}
-   ],experiment:"NOT_EXECUTED",learning:"NOT_VERIFIED",promotion:"BLOCKED",canonicalMutation:false};
+  const objective=String(x.purpose||x.title).slice(0,300);
+  const prefix="Para "+x.id+" ("+objective+"): ";
+  return {id:x.id,title:x.title,phase,status,evidence,domain:rule.domain,baseline:rule.baseline,
+   sourceRef:String(x.origin||"UNKNOWN"),sourceCut:String(x.sourceCut||"UNKNOWN"),
+   priorityBasis:"NO_VERIFIED_DEPENDENCY_RANK",experiment:"NOT_EXECUTED",learning:"NOT_VERIFIED",promotion:"BLOCKED",canonicalMutation:false,
+   alternatives:rule.actions.map((action,i)=>({id:["A","B","C"][i],name:["Reutilizar","Experimentar","Conservar"][i],action:prefix+action,
+    risk:["Equivalencia sin demostrar","Sin resultados medidos","Demora en resolver incertidumbre"][i],
+    gate:["SHA y regresión","Autorización, baseline y recibos","Revisión humana y UNKNOWN resueltos"][i]}))};
  });
 }
 function renderArkiProposals(){
@@ -908,7 +917,7 @@ function renderArkiProposals(){
  if(!proposals.length){root.append(node("p","No hay ideas del inventario para esta fase; no se inventan propuestas.","muted"));return}
  for(const proposal of proposals){
   const card=node("details","","entry");const heading=node("summary",proposal.id+" · "+proposal.title+" · "+proposal.status);card.append(heading);
-  card.append(node("p","Evidencia: "+proposal.evidence+" · "+proposal.priorityBasis,"muted"));
+  card.append(node("p","Dominio: "+proposal.domain+" · Baseline: "+proposal.baseline+" · Evidencia: "+proposal.evidence+" · "+proposal.priorityBasis,"muted"));
   for(const alt of proposal.alternatives){
    const part=node("div","","entry");
    part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk+" · Puerta: "+alt.gate));
