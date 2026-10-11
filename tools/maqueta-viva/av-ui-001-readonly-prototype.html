@@ -1002,11 +1002,44 @@ function arkiRegisterExperiment(record){
  arkiScientificExperiments.push({id,hypothesisId:hypothesis.id,proposalId:hypothesis.proposalId,alternativeId:hypothesis.alternativeId,protocol,metric,acceptance,limitations,createdAt:new Date().toISOString(),status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
  return {status:"EXPERIMENT_PROTOCOL_REGISTERED_UNEXECUTED",id,canonicalMutation:false};
 }
+const arkiExperimentalResults=[];
+function arkiRecordExperimentalResult(record){
+ if(!record||typeof record!=="object")return {status:"INVALID_RESULT",canonicalMutation:false};
+ const experiment=arkiScientificExperiments.find(x=>x.id===record.experimentId);
+ if(!experiment)return {status:"UNKNOWN_EXPERIMENT",canonicalMutation:false};
+ const runId=String(record.runId||"").trim(),operator=String(record.operator||"").trim(),artifact=String(record.artifact||"").trim(),notes=String(record.notes||"").trim();
+ if(!["PASS","FAIL","INCONCLUSIVE"].includes(record.outcome)||runId.length<3||runId.length>120||operator.length<2||operator.length>120||artifact.length<3||artifact.length>600||notes.length<8||notes.length>1200||!Number.isFinite(record.value)||arkiExperimentalResults.length>=300||arkiExperimentalResults.some(x=>x.experimentId===experiment.id&&x.runId===runId))return {status:"INVALID_RESULT",canonicalMutation:false};
+ const item={id:"RES-LOCAL-"+String(arkiExperimentalResults.length+1).padStart(3,"0"),experimentId:experiment.id,hypothesisId:experiment.hypothesisId,proposalId:experiment.proposalId,alternativeId:experiment.alternativeId,runId,operator,artifact,notes,value:record.value,outcome:record.outcome,recordedAt:new Date().toISOString(),verification:"SELF_REPORTED_UNVERIFIED",status:"RESULT_DECLARED_NOT_VERIFIED",canonicalMutation:false};
+ arkiExperimentalResults.push(item);
+ return {status:"EXPERIMENT_RESULT_RECORDED_UNVERIFIED",id:item.id,canonicalMutation:false};
+}
+function arkiExperimentalResultForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");details.append(node("summary","Registrar resultado de experimento"));
+ const form=document.createElement("form");form.className="entry",fields={};
+ for(const [key,label] of [["experimentId","ID del protocolo (EXP-LOCAL-...)"],["runId","ID de ejecucion"],["operator","Operador"],["artifact","Ruta o identificador del artefacto"],["notes","Observaciones y condiciones"],["value","Valor medido"]]){
+  const wrap=document.createElement("label");wrap.textContent=label+" ";
+  const input=document.createElement("input");input.required=true;input.maxLength=key==="notes"?1200:600;input.type=key==="value"?"number":"text";
+  wrap.append(input);form.append(wrap);fields[key]=input;
+ }
+ const outcome=document.createElement("select");
+ for(const choice of ["INCONCLUSIVE","PASS","FAIL"]){const option=document.createElement("option");option.value=choice;option.textContent=choice;outcome.append(option)}
+ form.append(node("label","Resultado declarado"),outcome);
+ const button=document.createElement("button");button.type="submit";button.textContent="Guardar resultado sin verificar";form.append(button);
+ const status=node("small","Declaracion local; no certifica ejecucion ni evidencia.");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const experiment=arkiScientificExperiments.find(x=>x.id===fields.experimentId.value.trim());
+  if(!experiment||experiment.proposalId!==proposal.id||experiment.alternativeId!==alternative.id){status.textContent="EXPERIMENT_MISMATCH";return}
+  const result=arkiRecordExperimentalResult({experimentId:experiment.id,runId:fields.runId.value,operator:fields.operator.value,artifact:fields.artifact.value,notes:fields.notes.value,value:Number(fields.value.value),outcome:outcome.value});
+  status.textContent=result.status+(result.id?" · "+result.id:"")+" · SIN PROMOCION";
+ });
+ details.append(form);return details;
+}
 function arkiScientificReadiness(hypothesisId){
  const hypothesis=arkiOriginalHypotheses.find(x=>x.id===hypothesisId);
  if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
  const protocols=arkiScientificExperiments.filter(x=>x.hypothesisId===hypothesisId);
- return {status:protocols.length?"EXPERIMENT_DEFINED_NOT_EXECUTED":"HYPOTHESIS_UNTESTED",hypothesisId,protocols:protocols.length,verifiedEvidence:0,replications:0,knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false};
+ return {status:protocols.length?"EXPERIMENT_DEFINED_NOT_EXECUTED":"HYPOTHESIS_UNTESTED",hypothesisId,protocols:protocols.length,declaredResults:arkiExperimentalResults.filter(x=>protocols.some(p=>p.id===x.experimentId)).length,verifiedEvidence:0,replications:0,knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false};
 }
 function arkiExperimentForm(proposal,alternative){
  const details=node("details","","arki-evidence-details");details.append(node("summary","Definir experimento reproducible"));
@@ -1030,7 +1063,7 @@ function arkiExperimentForm(proposal,alternative){
 }
 function arkiProposalMemorySnapshot(){
  return {schema:"ARKI-PROPOSAL-OBSERVATIONS-001",verification:"UNVERIFIED_LOCAL",canonicalMutation:false,
-  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x}))};
+  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x})),results:arkiExperimentalResults.map(x=>({...x}))};
 }
 function arkiImportProposalMemory(input){
  if(!input||input.schema!=="ARKI-PROPOSAL-OBSERVATIONS-001"||!Array.isArray(input.observations)||input.observations.length>500)return {status:"INVALID_MEMORY",canonicalMutation:false};
@@ -1047,6 +1080,13 @@ function arkiImportProposalMemory(input){
   if(!h||item.status!=="PROTOCOL_DRAFT_UNEXECUTED"||item.canonicalMutation!==false||item.proposalId!==h.proposalId||item.alternativeId!==h.alternativeId||typeof item.protocol!=="string"||item.protocol.trim().length<12||item.protocol.length>2000||typeof item.metric!=="string"||item.metric.trim().length<3||item.metric.length>160||typeof item.acceptance!=="string"||item.acceptance.trim().length<8||item.acceptance.length>800||typeof item.limitations!=="string"||item.limitations.trim().length<3||item.limitations.length>800)return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
   proposedExperiments.push({...item,status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
  }
+ if(input.results!==undefined&&(!Array.isArray(input.results)||input.results.length>300))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedResults=[];
+ for(const item of input.results||[]){
+  const experiment=proposedExperiments.find(x=>x.id===item?.experimentId);
+  if(!experiment||item.status!=="RESULT_DECLARED_NOT_VERIFIED"||item.verification!=="SELF_REPORTED_UNVERIFIED"||item.canonicalMutation!==false||item.hypothesisId!==experiment.hypothesisId||item.proposalId!==experiment.proposalId||item.alternativeId!==experiment.alternativeId||!["PASS","FAIL","INCONCLUSIVE"].includes(item.outcome)||typeof item.runId!=="string"||item.runId.trim().length<3||item.runId.length>120||typeof item.operator!=="string"||item.operator.trim().length<2||item.operator.length>120||typeof item.artifact!=="string"||item.artifact.trim().length<3||item.artifact.length>600||typeof item.notes!=="string"||item.notes.trim().length<8||item.notes.length>1200||!Number.isFinite(item.value)||proposedResults.some(x=>x.experimentId===item.experimentId&&x.runId===item.runId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedResults.push({...item,verification:"SELF_REPORTED_UNVERIFIED",status:"RESULT_DECLARED_NOT_VERIFIED",canonicalMutation:false});
+ }
  const previous=arkiProposalObservations.map(x=>({...x}));
  arkiProposalObservations.length=0;
  for(const item of input.observations){
@@ -1058,6 +1098,7 @@ function arkiImportProposalMemory(input){
  }
  arkiOriginalHypotheses.splice(0,arkiOriginalHypotheses.length,...proposedHypotheses);
  arkiScientificExperiments.splice(0,arkiScientificExperiments.length,...proposedExperiments);
+ arkiExperimentalResults.splice(0,arkiExperimentalResults.length,...proposedResults);
  return {status:"LOCAL_MEMORY_IMPORTED_UNVERIFIED",count:arkiProposalObservations.length,hypotheses:arkiOriginalHypotheses.length,canonicalMutation:false};
 }
 function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
@@ -1131,7 +1172,7 @@ function renderArkiProposals(){
    details.append(node("summary","Registrar prueba u observacion (opcional)"));
    details.append(node("p","Idea original: no requiere bibliografia previa. Para validar, documenta el experimento, su autor, fecha, procedimiento y resultado. La evidencia puede generarse aqui; sin ella no hay promocion canonica.","muted"));
    details.append(arkiProposalObservationForm(proposal,alt));
-   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));comparison.append(part);
+   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));part.append(arkiExperimentalResultForm(proposal,alt));comparison.append(part);
   }
   card.append(comparison);
   const assessment=arkiEvaluateProposal(proposal.id);
