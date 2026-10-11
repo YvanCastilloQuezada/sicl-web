@@ -50,3 +50,11 @@
 - El sobre no autentica la fuente; `PASS` es una afirmación local, NO un resultado verificado.
 - No hay persistencia de Core, agente de investigación ni simulación AGK. El usuario debe exportar el archivo para conservar las observaciones entre sesiones.
 - El instalador local sigue en la rama anterior. La actualización del acceso directo requiere pruebas en HEAD exacto y aprobación.
+
+## Observaciones por alternativa y vista previa local
+- Cada alternativa A/B/C tiene formulario propio (resultado declarado, referencia, identificador de fuente, métrica y valor); el recuento se actualiza en la interfaz.
+- Observaciones limitadas a 500 por sesión; campos de procedencia y métrica obligatorios; sin verificación autónoma.
+- El instalador conserva como predeterminada la rama experimental previa y permite opt-in `-CandidateBranch feat/arbol-vivo-precedencias-seguras-20261010`.
+- Comando de prueba local, desde la raíz del repositorio en Windows PowerShell: `pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1 -CandidateBranch feat/arbol-vivo-precedencias-seguras-20261010`.
+- Este comando instala una vista previa aislada y ejecuta las pruebas del prototipo antes de actualizar el acceso directo experimental. No integra ni promueve a Core.
+- Smoke CI #412 SUCCESS corresponde a `eda839119f7e97de966336b1a6b5124b146f4cb0`, anterior al cambio de instalador. Validación del último HEAD y E3 todavía pendientes.
