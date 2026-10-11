@@ -697,5 +697,12 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(taskDiagnostic.canonicalMutation,false);
  assert.equal(taskDiagnostic.criticalPath,"UNKNOWN");
  assert.ok(taskDiagnostic.tasks.every(x=>["DEPENDENCIES_UNKNOWN","FROZEN_NO_MUTATION"].includes(x.status)));
+ const continuity=vm.runInContext('arkiStrategicContinuity()',sandbox);
+ assert.equal(continuity.schema,"ARKI-CONTINUITY-SNAPSHOT-001");
+ assert.equal(continuity.execution,"BLOCKED");
+ assert.equal(continuity.promotion,"BLOCKED");
+ assert.equal(continuity.canonicalMutation,false);
+ assert.equal(continuity.auditVerification,"HISTORICAL_NOT_REVALIDATED");
+ assert.ok(continuity.ideas.length>0);
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
