@@ -49,7 +49,8 @@ def assess(plan_path, root):
                 raise ValueError("INVALID_MEASUREMENT")
             identity=(manifest.get("experimentId"),manifest.get("runId"))
             if identity in identities:
-                raise ValueError("DUPLICATE_RUN")
+                report["status"]="DUPLICATE_RUN"
+                return report
             identities.add(identity);values.append(value);operators.add(operator.strip())
             protocol_hashes.add(manifest["protocolSha256"]);experiment_ids.add(manifest["experimentId"])
         report["runCount"]=len(values)
