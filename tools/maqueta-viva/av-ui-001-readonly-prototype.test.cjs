@@ -691,5 +691,11 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiScientificDossiers.length',sandbox),1);
  assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),dossiers:[{...arkiProposalMemorySnapshot().dossiers[0],report:{...arkiProposalMemorySnapshot().dossiers[0].report,promotion:"AUTHORIZED"}}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
  assert.equal(vm.runInContext('arkiScientificDossiers.length',sandbox),1);
+ const taskDiagnostic=vm.runInContext('arkiTaskDiagnostic()',sandbox);
+ assert.equal(taskDiagnostic.schema,"ARKI-TASK-DIAGNOSTIC-001");
+ assert.equal(taskDiagnostic.execution,"BLOCKED");
+ assert.equal(taskDiagnostic.canonicalMutation,false);
+ assert.equal(taskDiagnostic.criticalPath,"UNKNOWN");
+ assert.ok(taskDiagnostic.tasks.every(x=>["DEPENDENCIES_UNKNOWN","FROZEN_NO_MUTATION"].includes(x.status)));
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
