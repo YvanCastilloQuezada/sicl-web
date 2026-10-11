@@ -36,3 +36,10 @@
 - El clasificador actual es determinista por términos del título; una clasificación incorrecta requiere revisión, nunca promoción automática.
 - El instalador local `Install-ARKI-ArbolVivo.ps1` sigue apuntando a la rama experimental anterior. PR #55 NO está desplegado al acceso directo del usuario.
 - Validación pendiente: ejecutar prueba sandbox `node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs`, smoke CI en SHA exacto, E3 Edge visual y auditoría Red Team.
+
+## Circuito experimental de observaciones (no autónomo)
+- `arkiRecordProposalObservation`: valida y agrega observaciones a memoria de sesión; no persiste al Core, no consulta AGK, no ejecuta pruebas.
+- `arkiEvaluateProposal`: agrupa observaciones por A/B/C, distingue afirmaciones locales y fallos, conserva `verified=false`, `learning=LOCAL_HYPOTHESIS_ONLY`, `promotion=BLOCKED`.
+- Ningún `PASS` local acredita medición, autenticidad, mejora o conocimiento canonizado.
+- Pruebas de regresión agregadas; ejecución sobre SHA exacto pendiente.
+- Futura integración: recibos de ejecutor autorizado, identidad autenticada, métricas comparables con baseline, persistencia transaccional en Core, aprendizaje bajo Curador/Examinador, replay y rollback.
