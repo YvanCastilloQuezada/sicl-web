@@ -952,6 +952,27 @@ function arkiRenderTaskDiagnostic(root){
  section.append(node("small","Solo consulta · ejecucion BLOQUEADA · sin cambios canonicos."));
  root.append(section);
 }
+function arkiStrategicContinuity(){
+ return {schema:"ARKI-CONTINUITY-SNAPSHOT-001",project:"ARKI/ARQUI",vision:"Arquitecto inteligente multiescala, 3D-First, AGK unificado y aprendizaje con evidencia",auditIndex:"tools/maqueta-viva/ARKI_AUDIT_INDEX.json",strategicMemory:"tools/maqueta-viva/ARKI-STRATEGIC-AUDIT-MEMORY.md",phase:selected,phaseTitle:labels[selected]||selected,ideas:(registry?.ideas||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,sourceStatus:x.sourceStatus})),auditVerification:"HISTORICAL_NOT_REVALIDATED",dependencies:"UNKNOWN",nextTask:"Reconciliar auditorias y dependencias documentales; integrar planificador consultivo",execution:"BLOCKED",promotion:"BLOCKED",canonicalMutation:false};
+}
+function arkiRenderContinuity(root){
+ const section=node("details","","entry");
+ section.append(node("summary","Contexto y auditorias para nuevo chat"));
+ section.append(node("p","Vision: ARKI/ARQUI es un arquitecto inteligente multiescala, 3D-First, con AGK unificado y aprendizaje respaldado por evidencia."));
+ section.append(node("p","Auditorias historicas: E2E-001, AGK G-200, Core/semantica y Spatial Layout. Sus conclusiones deben revalidarse con SHA y fuentes."));
+ section.append(node("p","Siguiente paso propuesto: reconciliar auditorias y dependencias antes de atribuir ruta critica o autonomia."));
+ const button=document.createElement("button");button.type="button";button.textContent="Descargar contexto para nuevo chat (JSON)";
+ button.addEventListener("click",()=>{
+  const payload=JSON.stringify(arkiStrategicContinuity(),null,2);
+  const blob=new Blob([payload],{type:"application/json;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");link.href=url;link.download="ARKI-CONTINUIDAD-EXPERIMENTAL.json";link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+ section.append(button);
+ section.append(node("small","Resumen orientativo local; no contiene textos completos de auditorias ni verifica el repositorio."));
+ root.append(section);
+}
 function arkiRenderPlan(){
  const root=el("arki-plan-content");if(!root)return;
  root.replaceChildren();
@@ -961,6 +982,7 @@ function arkiRenderPlan(){
  const status=node("div","","entry");status.append(node("strong","Estado y límites"),node("p","Dependencias no verificadas: UNKNOWN · Experimentos: NOT_EXECUTED · Promoción canónica: BLOCKED"));root.append(status);
  const proposals=arkiProposalCandidates(selected);root.append(node("p","Propuestas en "+selected+": "+proposals.length+" · tres alternativas A/B/C por idea; hipótesis, no resultados."));
  arkiRenderTaskDiagnostic(root);
+ arkiRenderContinuity(root);
  const button=document.createElement("button");button.type="button";button.textContent="Abrir ÁRBOL Vivo para decidir";button.addEventListener("click",()=>arkiShowCentral("tree"));root.append(button);
 }
 for(const key of ["plan","tree","twin","brain","3d"]){const tab=el("arki-tab-"+key);if(tab)tab.addEventListener("click",()=>arkiShowCentral(key))}
