@@ -682,5 +682,14 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiEvidenceReviews.length',sandbox),1);
  assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),reviews:[{...arkiProposalMemorySnapshot().reviews[0],verification:"VERIFIED"}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
  assert.equal(vm.runInContext('arkiEvidenceReviews.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiAttachScientificReport({resultId:"RES-LOCAL-001",report:{schema:"ARKI-REPRODUCIBILITY-001",status:"CONTRADICTORY_MEASUREMENTS",runs:[{runId:"RUN-001"}],canonicalMutation:false,knowledgeValidated:false,promotion:"BLOCKED"}}).status',sandbox),"REPORT_ATTACHED_UNAUTHENTICATED");
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().dossiers.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).status',sandbox),"LOCAL_MEMORY_IMPORTED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiScientificDossiers.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiScientificDossiers[0].verification',sandbox),"IMPORTED_REPORT_UNAUTHENTICATED");
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),dossiers:[{...arkiProposalMemorySnapshot().dossiers[0],knowledgeValidated:true}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiScientificDossiers.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),dossiers:[{...arkiProposalMemorySnapshot().dossiers[0],report:{...arkiProposalMemorySnapshot().dossiers[0].report,promotion:"AUTHORIZED"}}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiScientificDossiers.length',sandbox),1);
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
