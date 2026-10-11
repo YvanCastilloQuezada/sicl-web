@@ -643,5 +643,15 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").status',sandbox),"EXPERIMENTAL_ONLY","Registry proposal resolves even when roadmap phase objects differ");
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").results.length',sandbox),3,"All three alternatives have assessment results");
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-DOES-NOT-EXIST").status',sandbox),"UNKNOWN_PROPOSAL","Unknown proposal remains fail-closed");
+ assert.equal(vm.runInContext('arkiRegisterOriginalHypothesis({proposalId:"I-01",alternativeId:"B",statement:"La hipotesis original puede refutarse por un resultado adverso.",author:"Arquitecto",method:"Comparar dos escenarios con criterios definidos."}).status',sandbox),"HYPOTHESIS_REGISTERED_UNTESTED");
+ assert.equal(vm.runInContext('arkiOriginalHypotheses[0].status',sandbox),"HYPOTHESIS_UNTESTED");
+ assert.equal(vm.runInContext('arkiOriginalHypotheses[0].externalReferenceRequired',sandbox),false);
+ assert.equal(vm.runInContext('arkiOriginalHypotheses[0].canonicalMutation',sandbox),false);
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().hypotheses.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).hypotheses',sandbox),1);
+ assert.equal(vm.runInContext('arkiRegisterOriginalHypothesis({proposalId:"I-01",alternativeId:"B",statement:"Short",author:"A",method:"No"}).status',sandbox),"INVALID_HYPOTHESIS");
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),hypotheses:[{origin:"ORIGINAL_LOCAL",status:"VERIFIED",canonicalMutation:true}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiOriginalHypotheses.length',sandbox),1,"Invalid import cannot overwrite original hypotheses");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").promotion',sandbox),"BLOCKED","Hypothesis alone cannot promote knowledge");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
