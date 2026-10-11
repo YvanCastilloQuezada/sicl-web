@@ -1067,6 +1067,54 @@ function arkiEvidenceReviewForm(proposal,alternative){
  });
  details.append(form);return details;
 }
+const arkiScientificDossiers=[];
+function arkiAttachScientificReport(input){
+ if(!input||typeof input!=="object"||!["ARKI-ARTIFACT-VERIFICATION-001","ARKI-REPRODUCIBILITY-001"].includes(input.report?.schema))return {status:"INVALID_REPORT",canonicalMutation:false};
+ const result=arkiExperimentalResults.find(x=>x.id===input.resultId);
+ if(!result)return {status:"UNKNOWN_RESULT",canonicalMutation:false};
+ const report=input.report;
+ if(report.canonicalMutation!==false||report.knowledgeValidated!==false||report.promotion!=="BLOCKED")return {status:"UNSAFE_REPORT_CLAIM",canonicalMutation:false};
+ if(arkiScientificDossiers.length>=300||arkiScientificDossiers.some(x=>x.resultId===result.id&&x.schema===report.schema))return {status:"DUPLICATE_OR_LIMIT",canonicalMutation:false};
+ if(report.schema==="ARKI-ARTIFACT-VERIFICATION-001"){
+  if(!["FILE_INTEGRITY_CONFIRMED_NOT_EXECUTION_VERIFIED","INTEGRITY_OR_BINDING_FAILED","REJECTED"].includes(report.status))return {status:"INVALID_REPORT_STATUS",canonicalMutation:false};
+ }else{
+  if(!["REJECTED","INTEGRITY_FAILED","DUPLICATE_RUN","PROTOCOL_MISMATCH","INDEPENDENCE_NOT_ESTABLISHED","CONTRADICTORY_MEASUREMENTS","REPEATABILITY_CANDIDATE_UNVERIFIED"].includes(report.status)||!Array.isArray(report.runs)||report.runs.length>20)return {status:"INVALID_REPORT_STATUS",canonicalMutation:false};
+  if(!report.runs.some(r=>r&&r.runId===result.runId))return {status:"RUN_NOT_IN_REPORT",canonicalMutation:false};
+ }
+ const entry={id:"DOSSIER-LOCAL-"+String(arkiScientificDossiers.length+1).padStart(3,"0"),schema:report.schema,resultId:result.id,experimentId:result.experimentId,hypothesisId:result.hypothesisId,proposalId:result.proposalId,alternativeId:result.alternativeId,reportedStatus:report.status,report:JSON.parse(JSON.stringify(report)),verification:"IMPORTED_REPORT_UNAUTHENTICATED",canonicalMutation:false,knowledgeValidated:false,promotion:"BLOCKED"};
+ arkiScientificDossiers.push(entry);
+ return {status:"REPORT_ATTACHED_UNAUTHENTICATED",id:entry.id,canonicalMutation:false};
+}
+function arkiScientificDossierView(proposal,alternative){
+ const details=node("details","","arki-evidence-details");
+ details.append(node("summary","Expediente cientifico compacto"));
+ const box=node("div","","arki-dossier-compact");
+ const hypotheses=arkiOriginalHypotheses.filter(x=>x.proposalId===proposal.id&&x.alternativeId===alternative.id);
+ const experiments=arkiScientificExperiments.filter(x=>hypotheses.some(h=>h.id===x.hypothesisId));
+ const results=arkiExperimentalResults.filter(x=>experiments.some(e=>e.id===x.experimentId));
+ const reviews=arkiEvidenceReviews.filter(x=>results.some(r=>r.id===x.resultId));
+ const reports=arkiScientificDossiers.filter(x=>results.some(r=>r.id===x.resultId));
+ box.append(node("p","Hipotesis: "+hypotheses.length+" | Protocolos: "+experiments.length+" | Resultados: "+results.length+" | Revisiones: "+reviews.length+" | Informes: "+reports.length));
+ for(const item of reports)box.append(node("small",item.id+" | "+item.reportedStatus+" | "+item.verification));
+ box.append(node("small","Integridad documental no acredita ejecucion ni validacion cientifica. PROMOCION BLOQUEADA."));
+ const form=node("form","");
+ const resultSelect=document.createElement("select");
+ for(const r of results){const option=document.createElement("option");option.value=r.id;option.textContent=r.id+" / "+r.runId;resultSelect.append(option)}
+ const input=document.createElement("textarea");input.placeholder="Pegar informe JSON generado por verificador Python";input.rows=3;
+ const submit=node("button","Adjuntar informe local");submit.type="submit";
+ const status=node("small","");
+ form.append(resultSelect,input,submit,status);
+ form.addEventListener("submit",event=>{
+  event.preventDefault();
+  let outcome;
+  try{if(input.value.length>50000)throw Error("TOO_LARGE");outcome=arkiAttachScientificReport({resultId:resultSelect.value,report:JSON.parse(input.value)})}
+  catch{outcome={status:"INVALID_JSON_OR_SIZE"}}
+  status.textContent=outcome.status+" | NO VERIFICADO | SIN PROMOCION";
+  if(outcome.id)renderArkiProposals();
+ });
+ if(results.length)box.append(form);else box.append(node("small","Registra primero un resultado experimental para vincular un informe."));
+ details.append(box);return details;
+}
 function arkiScientificReadiness(hypothesisId){
  const hypothesis=arkiOriginalHypotheses.find(x=>x.id===hypothesisId);
  if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
@@ -1212,7 +1260,7 @@ function renderArkiProposals(){
    details.append(node("summary","Registrar prueba u observacion (opcional)"));
    details.append(node("p","Idea original: no requiere bibliografia previa. Para validar, documenta el experimento, su autor, fecha, procedimiento y resultado. La evidencia puede generarse aqui; sin ella no hay promocion canonica.","muted"));
    details.append(arkiProposalObservationForm(proposal,alt));
-   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));part.append(arkiExperimentalResultForm(proposal,alt));part.append(arkiEvidenceReviewForm(proposal,alt));comparison.append(part);
+   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));part.append(arkiExperimentalResultForm(proposal,alt));part.append(arkiEvidenceReviewForm(proposal,alt));part.append(arkiScientificDossierView(proposal,alt));comparison.append(part);
   }
   card.append(comparison);
   const assessment=arkiEvaluateProposal(proposal.id);
