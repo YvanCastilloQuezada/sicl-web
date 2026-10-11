@@ -65,7 +65,7 @@ class RepeatabilityTests(unittest.TestCase):
         second=self.root/self.manifests[1]
         m=json.loads(second.read_text());m["runId"]="RUN-1"
         second.write_text(json.dumps(m))
-        self.assertEqual(module.assess(self.plan,self.root)["status"],"INTEGRITY_FAILED")
+        self.assertEqual(module.assess(self.plan,self.root)["status"],"DUPLICATE_RUN")
     def test_unsafe_path(self):
         self.manifests[1]="../escape.json"
         self.save_plan(0.5)
