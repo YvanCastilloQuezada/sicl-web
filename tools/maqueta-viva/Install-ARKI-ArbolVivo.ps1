@@ -1,8 +1,11 @@
 # ARKI AV-UI-001 local read-only installer.
 # Run from any location: pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1
+# To preview a candidate: pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1 -CandidateBranch feat/arbol-vivo-precedencias-seguras-20261010
+param([string]$CandidateBranch = "docs/av-ui-001-preparation-20261010")
 $ErrorActionPreference = "Stop"
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
-$Branch = "docs/av-ui-001-preparation-20261010"
+if ($CandidateBranch -notmatch "^[A-Za-z0-9][A-Za-z0-9._/-]{0,150}$" -or $CandidateBranch.Contains("..") -or $CandidateBranch.Contains("//") -or $CandidateBranch.EndsWith("/")) { throw "Invalid branch" }
+$Branch = $CandidateBranch
 $Install = Join-Path $env:LOCALAPPDATA "ARKI\ArbolVivo"
 $Ref = "refs/remotes/origin/$Branch"
 Set-Location $Repo
