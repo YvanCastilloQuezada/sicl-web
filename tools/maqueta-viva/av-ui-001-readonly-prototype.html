@@ -943,7 +943,8 @@ function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
 function arkiRecordProposalObservation(record){
  if(!record||typeof record!=="object"||!/^I-[0-9]+$/.test(String(record.proposalId||""))||!["A","B","C"].includes(record.alternativeId))return {status:"INVALID_OBSERVATION"};
  if(!phaseData().some(p=>arkiProposalCandidates(p.id).some(x=>x.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL"};
- if(!["PASS","FAIL","UNKNOWN"].includes(record.outcome)||typeof record.sourceRef!=="string"||record.sourceRef.length<3||record.sourceRef.length>400||typeof record.sourceCommit!=="string"||record.sourceCommit.length>100||typeof record.metric!=="string"||record.metric.length>100||!Number.isFinite(record.value)||record.value<0)return {status:"INVALID_OBSERVATION"};
+ if(arkiProposalObservations.length>=500)return {status:"MEMORY_LIMIT_REACHED",canonicalMutation:false};
+ if(!["PASS","FAIL","UNKNOWN"].includes(record.outcome)||typeof record.sourceRef!=="string"||record.sourceRef.trim().length<3||record.sourceRef.length>400||typeof record.sourceCommit!=="string"||record.sourceCommit.trim().length<1||record.sourceCommit.length>100||typeof record.metric!=="string"||record.metric.trim().length<1||record.metric.length>100||!Number.isFinite(record.value)||record.value<0)return {status:"INVALID_OBSERVATION",canonicalMutation:false};
  const safe={proposalId:record.proposalId,alternativeId:record.alternativeId,outcome:record.outcome,sourceRef:record.sourceRef,sourceCommit:record.sourceCommit,metric:record.metric,value:record.value,verification:"UNVERIFIED_LOCAL",canonicalMutation:false};
  arkiProposalObservations.push(safe);
  return {status:"LOCAL_OBSERVATION_RECORDED",count:arkiProposalObservations.length,canonicalMutation:false};
