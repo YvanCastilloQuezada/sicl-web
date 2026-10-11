@@ -1014,7 +1014,8 @@ function arkiProposalObservationForm(proposal,alternative){
  });
  return form;
 }
-function renderArkiProposals(){\n arkiRenderPlan();
+function renderArkiProposals(){
+ arkiRenderPlan();
  const root=el("arki-proposal-cards"),summary=el("arki-proposal-summary");
  if(!root||!summary)return;
  const proposals=arkiProposalCandidates();
