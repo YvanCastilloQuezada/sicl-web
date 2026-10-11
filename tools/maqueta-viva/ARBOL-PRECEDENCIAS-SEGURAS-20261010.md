@@ -43,3 +43,10 @@
 - Ningún `PASS` local acredita medición, autenticidad, mejora o conocimiento canonizado.
 - Pruebas de regresión agregadas; ejecución sobre SHA exacto pendiente.
 - Futura integración: recibos de ejecutor autorizado, identidad autenticada, métricas comparables con baseline, persistencia transaccional en Core, aprendizaje bajo Curador/Examinador, replay y rollback.
+
+## Memoria experimental portable
+- La interfaz exporta un sobre JSON `ARKI-PROPOSAL-OBSERVATIONS-001` y permite importarlo.
+- Importación limitada a 500 observaciones y 500 KB, con validación de cada entrada y rollback completo en caso de rechazo.
+- El sobre no autentica la fuente; `PASS` es una afirmación local, NO un resultado verificado.
+- No hay persistencia de Core, agente de investigación ni simulación AGK. El usuario debe exportar el archivo para conservar las observaciones entre sesiones.
+- El instalador local sigue en la rama anterior. La actualización del acceso directo requiere pruebas en HEAD exacto y aprobación.
