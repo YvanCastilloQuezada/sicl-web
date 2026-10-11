@@ -1015,7 +1015,7 @@ function arkiRecordExperimentalResult(record){
 }
 function arkiExperimentalResultForm(proposal,alternative){
  const details=node("details","","arki-evidence-details");details.append(node("summary","Registrar resultado de experimento"));
- const form=document.createElement("form");form.className="entry",fields={};
+ const form=document.createElement("form");form.className="entry";const fields={};
  for(const [key,label] of [["experimentId","ID del protocolo (EXP-LOCAL-...)"],["runId","ID de ejecucion"],["operator","Operador"],["artifact","Ruta o identificador del artefacto"],["notes","Observaciones y condiciones"],["value","Valor medido"]]){
   const wrap=document.createElement("label");wrap.textContent=label+" ";
   const input=document.createElement("input");input.required=true;input.maxLength=key==="notes"?1200:600;input.type=key==="value"?"number":"text";
@@ -1048,7 +1048,7 @@ function arkiReviewEvidence(record){
 }
 function arkiEvidenceReviewForm(proposal,alternative){
  const details=node("details","","arki-evidence-details");details.append(node("summary","Registrar revision independiente (declarada)"));
- const form=document.createElement("form");form.className="entry",fields={};
+ const form=document.createElement("form");form.className="entry";const fields={};
  for(const [key,label] of [["resultId","ID del resultado (RES-LOCAL-...)"],["reviewer","Revisor"],["method","Metodo de revision"],["artifactDigest","SHA-256 del artefacto"],["reason","Hallazgos y limites"]]){
   const wrap=document.createElement("label");wrap.textContent=label+" ";
   const input=document.createElement("input");input.required=true;input.type="text";input.maxLength=key==="artifactDigest"?64:1000;wrap.append(input);form.append(wrap);fields[key]=input;
