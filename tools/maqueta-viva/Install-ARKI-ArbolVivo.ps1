@@ -42,6 +42,10 @@ foreach($name in @("av-ui-001-readonly-prototype.html","av-ui-001-readonly-proto
 $utf8 = [Text.UTF8Encoding]::new($false,$true)
 $html = [IO.File]::ReadAllText((Join-Path $Install "av-ui-001-readonly-prototype.html"),$utf8)
 if (!$html.Contains('id="selection-status"') -or !$html.Contains("Árbol Vivo")) { throw "HTML integrity check failed" }
+if ($Branch -eq "feat/arbol-vivo-precedencias-seguras-20261010" -and (!$html.Contains('id="arki-tab-plan"') -or !$html.Contains('id="arki-tab-tree"') -or !$html.Contains('id="arki-tab-twin"') -or !$html.Contains('id="arki-tab-brain"') -or !$html.Contains('id="arki-tab-3d"') -or !$html.Contains('id="arki-proposal-panel"'))) { throw "Candidate branch missing required five tabs or proposal panel; refusing stale installation" }
+Write-Host "SOURCE_BRANCH=$Branch"
+Write-Host "SOURCE_SHA=$sha"
+Write-Host "FIVE_TABS_SOURCE=$($html.Contains('id="arki-tab-plan"'))"
 # Use explicit remote-tracking main as the current documentary source, not the stale detached checkout.
 & git fetch origin "+refs/heads/main:refs/remotes/origin/main"
 if ($LASTEXITCODE -ne 0) { throw "Cannot refresh canonical documentary source main" }
