@@ -991,9 +991,46 @@ function arkiOriginalHypothesisForm(proposal,alternative){
  });
  details.append(form);return details;
 }
+const arkiScientificExperiments=[];
+function arkiRegisterExperiment(record){
+ if(!record||typeof record!=="object")return {status:"INVALID_EXPERIMENT",canonicalMutation:false};
+ const hypothesis=arkiOriginalHypotheses.find(x=>x.id===record.hypothesisId);
+ if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
+ const protocol=String(record.protocol||"").trim(),metric=String(record.metric||"").trim(),acceptance=String(record.acceptance||"").trim(),limitations=String(record.limitations||"").trim();
+ if(protocol.length<12||protocol.length>2000||metric.length<3||metric.length>160||acceptance.length<8||acceptance.length>800||limitations.length<3||limitations.length>800||arkiScientificExperiments.length>=200)return {status:"INVALID_EXPERIMENT",canonicalMutation:false};
+ const id="EXP-LOCAL-"+String(arkiScientificExperiments.length+1).padStart(3,"0");
+ arkiScientificExperiments.push({id,hypothesisId:hypothesis.id,proposalId:hypothesis.proposalId,alternativeId:hypothesis.alternativeId,protocol,metric,acceptance,limitations,createdAt:new Date().toISOString(),status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
+ return {status:"EXPERIMENT_PROTOCOL_REGISTERED_UNEXECUTED",id,canonicalMutation:false};
+}
+function arkiScientificReadiness(hypothesisId){
+ const hypothesis=arkiOriginalHypotheses.find(x=>x.id===hypothesisId);
+ if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
+ const protocols=arkiScientificExperiments.filter(x=>x.hypothesisId===hypothesisId);
+ return {status:protocols.length?"EXPERIMENT_DEFINED_NOT_EXECUTED":"HYPOTHESIS_UNTESTED",hypothesisId,protocols:protocols.length,verifiedEvidence:0,replications:0,knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false};
+}
+function arkiExperimentForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");details.append(node("summary","Definir experimento reproducible"));
+ const form=document.createElement("form");form.className="entry";
+ const fields={};
+ for(const [key,label] of [["hypothesisId","ID de hipotesis (H-LOCAL-...)"],["protocol","Procedimiento y controles"],["metric","Metrica medible"],["acceptance","Criterio de aceptacion o refutacion"],["limitations","Limites y condiciones"]]){
+  const wrapper=document.createElement("label");wrapper.textContent=label+" ";
+  const input=document.createElement("textarea");input.required=true;input.maxLength=key==="protocol"?2000:800;
+  wrapper.append(input);form.append(wrapper);fields[key]=input;
+ }
+ const submit=document.createElement("button");submit.type="submit";submit.textContent="Guardar protocolo local";form.append(submit);
+ const status=node("small","No ejecutado · evidencia no verificada · sin promocion");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const h=arkiOriginalHypotheses.find(x=>x.id===fields.hypothesisId.value.trim());
+  if(!h||h.proposalId!==proposal.id||h.alternativeId!==alternative.id){status.textContent="HYPOTHESIS_MISMATCH";return}
+  const result=arkiRegisterExperiment({hypothesisId:h.id,protocol:fields.protocol.value,metric:fields.metric.value,acceptance:fields.acceptance.value,limitations:fields.limitations.value});
+  status.textContent=result.status+(result.id?" · "+result.id:"")+" · SIN PROMOCION";
+ });
+ details.append(form);return details;
+}
 function arkiProposalMemorySnapshot(){
  return {schema:"ARKI-PROPOSAL-OBSERVATIONS-001",verification:"UNVERIFIED_LOCAL",canonicalMutation:false,
-  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x}))};
+  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x}))};
 }
 function arkiImportProposalMemory(input){
  if(!input||input.schema!=="ARKI-PROPOSAL-OBSERVATIONS-001"||!Array.isArray(input.observations)||input.observations.length>500)return {status:"INVALID_MEMORY",canonicalMutation:false};
@@ -1002,6 +1039,13 @@ function arkiImportProposalMemory(input){
  for(const item of input.hypotheses||[]){
   if(!item||item.origin!=="ORIGINAL_LOCAL"||item.status!=="HYPOTHESIS_UNTESTED"||item.canonicalMutation!==false||typeof item.statement!=="string"||item.statement.trim().length<12||item.statement.length>1200||typeof item.author!=="string"||item.author.trim().length<2||item.author.length>120||typeof item.method!=="string"||item.method.trim().length<8||item.method.length>1200||!["A","B","C"].includes(item.alternativeId)||!(registry?.ideas||[]).some(x=>x.id===item.proposalId&&arkiProposalCandidates(x.targetPhase).some(p=>p.id===item.proposalId)))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
   proposedHypotheses.push({...item,externalReferenceRequired:false,canonicalMutation:false,status:"HYPOTHESIS_UNTESTED"});
+ }
+ if(input.experiments!==undefined&&(!Array.isArray(input.experiments)||input.experiments.length>200))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedExperiments=[];
+ for(const item of input.experiments||[]){
+  const h=proposedHypotheses.find(x=>x.id===item?.hypothesisId);
+  if(!h||item.status!=="PROTOCOL_DRAFT_UNEXECUTED"||item.canonicalMutation!==false||item.proposalId!==h.proposalId||item.alternativeId!==h.alternativeId||typeof item.protocol!=="string"||item.protocol.trim().length<12||item.protocol.length>2000||typeof item.metric!=="string"||item.metric.trim().length<3||item.metric.length>160||typeof item.acceptance!=="string"||item.acceptance.trim().length<8||item.acceptance.length>800||typeof item.limitations!=="string"||item.limitations.trim().length<3||item.limitations.length>800)return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedExperiments.push({...item,status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
  }
  const previous=arkiProposalObservations.map(x=>({...x}));
  arkiProposalObservations.length=0;
@@ -1013,6 +1057,7 @@ function arkiImportProposalMemory(input){
   }
  }
  arkiOriginalHypotheses.splice(0,arkiOriginalHypotheses.length,...proposedHypotheses);
+ arkiScientificExperiments.splice(0,arkiScientificExperiments.length,...proposedExperiments);
  return {status:"LOCAL_MEMORY_IMPORTED_UNVERIFIED",count:arkiProposalObservations.length,hypotheses:arkiOriginalHypotheses.length,canonicalMutation:false};
 }
 function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
@@ -1086,7 +1131,7 @@ function renderArkiProposals(){
    details.append(node("summary","Registrar prueba u observacion (opcional)"));
    details.append(node("p","Idea original: no requiere bibliografia previa. Para validar, documenta el experimento, su autor, fecha, procedimiento y resultado. La evidencia puede generarse aqui; sin ella no hay promocion canonica.","muted"));
    details.append(arkiProposalObservationForm(proposal,alt));
-   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));comparison.append(part);
+   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));comparison.append(part);
   }
   card.append(comparison);
   const assessment=arkiEvaluateProposal(proposal.id);
