@@ -597,5 +597,10 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.alternatives.length===3)',sandbox),true,"Every proposal has A/B/C");
  assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.experiment==="NOT_EXECUTED"&&p.promotion==="BLOCKED"&&p.canonicalMutation===false)',sandbox),true,"No fabricated validation or promotion");
  assert.equal(vm.runInContext('arkiProposalCandidates("F1").every(p=>p.alternatives.map(a=>a.id).join(",")==="A,B,C")',sandbox),true,"Alternatives retain stable identifiers");
+
+ assert.equal(vm.runInContext('arkiProposalCandidates("F2").some(p=>p.domain==="KNOWLEDGE")',sandbox),true,"Knowledge domain is represented");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F4").some(p=>p.domain==="GEOMETRY")',sandbox),true,"Geometry domain is represented");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F2").every(p=>p.alternatives[0].action.includes(p.id))',sandbox),true,"Each alternative is tied to its piece");
+ assert.equal(vm.runInContext('arkiProposalCandidates("F2").every(p=>p.baseline.length>0&&p.sourceRef.length>0)',sandbox),true,"Baseline and provenance fields present");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
