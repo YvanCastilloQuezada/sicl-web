@@ -602,5 +602,13 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiProposalCandidates("F4").some(p=>p.domain==="GEOMETRY")',sandbox),true,"Geometry domain is represented");
  assert.equal(vm.runInContext('arkiProposalCandidates("F2").every(p=>p.alternatives[0].action.includes(p.id))',sandbox),true,"Each alternative is tied to its piece");
  assert.equal(vm.runInContext('arkiProposalCandidates("F2").every(p=>p.baseline.length>0&&p.sourceRef.length>0)',sandbox),true,"Baseline and provenance fields present");
+
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").recommendation',sandbox),"INSUFFICIENT_VERIFIED_EVIDENCE");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").canonicalMutation',sandbox),false);
+ assert.equal(vm.runInContext('arkiRecordProposalObservation({proposalId:"I-01",alternativeId:"A",outcome:"PASS",sourceRef:"local:synthetic",sourceCommit:"test-sha",metric:"coverage",value:1}).status',sandbox),"LOCAL_OBSERVATION_RECORDED");
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").results[0].localClaims',sandbox),1);
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").results[0].verified',sandbox),false);
+ assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").promotion',sandbox),"BLOCKED");
+ assert.equal(vm.runInContext('arkiRecordProposalObservation({proposalId:"I-01",alternativeId:"Z",outcome:"PASS"}).status',sandbox),"INVALID_OBSERVATION");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
