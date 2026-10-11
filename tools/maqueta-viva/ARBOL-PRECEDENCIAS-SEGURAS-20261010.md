@@ -58,3 +58,10 @@
 - Comando de prueba local, desde la raíz del repositorio en Windows PowerShell: `pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1 -CandidateBranch feat/arbol-vivo-precedencias-seguras-20261010`.
 - Este comando instala una vista previa aislada y ejecuta las pruebas del prototipo antes de actualizar el acceso directo experimental. No integra ni promueve a Core.
 - Smoke CI #412 SUCCESS corresponde a `eda839119f7e97de966336b1a6b5124b146f4cb0`, anterior al cambio de instalador. Validación del último HEAD y E3 todavía pendientes.
+
+## E3 — Cinco lengüetas centrales
+- Centro: Plano Vivo (estado documental de entrada), ÁRBOL Vivo (decisiones), Gemelo Digital (observabilidad), Cerebro relacional y Vista 3D.
+- Las tres vistas del gemelo comparten un observador y controles experimentales; Cerebro y Vista 3D son accesos independientes, no motores adicionales.
+- Panel izquierdo: memoria/evidencia. Panel derecho: propuestas A/B/C, observaciones y decisiones.
+- La pantalla Plano Vivo resume únicamente datos locales cargados; NO es una API de sincronización entre chats.
+- Validación E3 en navegador pendiente; smoke CI del último SHA pendiente. No declarar integración real de Core/AGK.
