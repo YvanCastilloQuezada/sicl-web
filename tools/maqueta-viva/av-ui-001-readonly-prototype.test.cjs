@@ -623,5 +623,16 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiProposalObservationForm(arkiProposalCandidates("F1")[0],arkiProposalCandidates("F1")[0].alternatives[0]).tagName',sandbox),"form");
  assert.equal(vm.runInContext('arkiRecordProposalObservation({proposalId:"I-01",alternativeId:"A",outcome:"PASS",sourceRef:"local:synthetic",sourceCommit:"",metric:"coverage",value:1}).status',sandbox),"INVALID_OBSERVATION");
  assert.equal(vm.runInContext('arkiRecordProposalObservation({proposalId:"I-01",alternativeId:"A",outcome:"PASS",sourceRef:"local:synthetic",sourceCommit:"test-sha",metric:"",value:1}).status',sandbox),"INVALID_OBSERVATION");
+
+ for(const tab of ["plan","tree","twin","brain","3d"])assert(html.includes('id="arki-tab-'+tab+'"'),"Central tab exists: "+tab);
+ assert.equal(vm.runInContext('arkiCentralMode',sandbox),"plan");
+ vm.runInContext('arkiShowCentral("tree")',sandbox);
+ assert.equal(vm.runInContext('arkiCentralMode',sandbox),"tree");
+ assert.equal(elements.get("arki-tree-panel").hidden,false);
+ assert.equal(elements.get("arki-plan-panel").hidden,true);
+ vm.runInContext('arkiShowCentral("plan")',sandbox);
+ assert.equal(elements.get("arki-plan-panel").hidden,false);
+ assert.equal(elements.get("arki-twin-panel").hidden,true);
+ assert.equal(vm.runInContext('arkiShowCentral("invalid");arkiCentralMode',sandbox),"plan");
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
