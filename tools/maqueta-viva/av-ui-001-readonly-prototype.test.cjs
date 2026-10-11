@@ -663,5 +663,15 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiRegisterExperiment({hypothesisId:"H-UNKNOWN",protocol:"Valid procedure to test",metric:"Measure",acceptance:"Measurable acceptance",limitations:"Test limits"}).status',sandbox),"UNKNOWN_HYPOTHESIS");
  assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),experiments:[{hypothesisId:"H-LOCAL-001",status:"VERIFIED",canonicalMutation:true}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
  assert.equal(vm.runInContext('arkiScientificExperiments.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiRecordExperimentalResult({experimentId:"EXP-LOCAL-001",runId:"RUN-001",operator:"Laboratorio",artifact:"lab/experiment-001.json",notes:"Escenario de prueba aislado",value:0,outcome:"FAIL"}).status',sandbox),"EXPERIMENT_RESULT_RECORDED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").declaredResults',sandbox),1);
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").verifiedEvidence',sandbox),0);
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").knowledgeValidated',sandbox),false);
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().results[0].outcome',sandbox),"FAIL");
+ assert.equal(vm.runInContext('arkiRecordExperimentalResult({experimentId:"EXP-LOCAL-001",runId:"RUN-001",operator:"Laboratorio",artifact:"lab/experiment-001.json",notes:"Duplicated run not allowed",value:0,outcome:"PASS"}).status',sandbox),"INVALID_RESULT");
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).status',sandbox),"LOCAL_MEMORY_IMPORTED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiExperimentalResults.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),results:[{...arkiProposalMemorySnapshot().results[0],verification:"VERIFIED"}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiExperimentalResults.length',sandbox),1);
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
