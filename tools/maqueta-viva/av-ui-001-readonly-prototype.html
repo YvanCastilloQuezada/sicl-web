@@ -97,6 +97,19 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 #arki-proposal-cards summary{cursor:pointer;font-weight:650}
 #arki-proposal-cards form label{display:block;margin:7px 0}
 #arki-proposal-cards form input,#arki-proposal-cards form select{max-width:100%;background:#0f2638;color:#fff;border:1px solid #61849b;padding:5px;border-radius:5px}
+</style><style>
+.arki-abc-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.arki-abc-option{min-width:0;border:1px solid #577b92;border-radius:9px;padding:9px;background:#10283b}
+.arki-abc-option p{font-size:12px;line-height:1.4;overflow-wrap:anywhere;margin:8px 0}
+.arki-abc-option small{display:block;font-size:11px;overflow-wrap:anywhere}
+.arki-compact-proposal{max-width:100%;overflow-wrap:anywhere}
+.arki-evidence-details{margin-top:10px}
+.arki-evidence-details summary{cursor:pointer;font-size:12px}
+.arki-evidence-details form{max-width:100%}
+.arki-evidence-details input,.arki-evidence-details select{max-width:100%;box-sizing:border-box}
+#memory{white-space:pre-line;overflow-wrap:anywhere}
+#twin-command-center .twin-controls:has(#twin-view-tree){display:none}
+@media(max-width:1450px){.arki-abc-comparison{grid-template-columns:1fr}}
 </style></head><body>
 <header><div><h1>ARKI · ÁRBOL Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div class="header-legends" aria-label="Guía del Árbol Vivo">
 <details class="header-guide"><summary>◆ Cómo leer el árbol</summary><div class="guide-content"><p><span class="key trunk">▰</span> Tronco: fases F1–F10</p><p><span class="key task">◆</span> Izquierda: espinas y actividades</p><p><span class="key capability">●</span> Derecha: capacidades e ideas</p><p><span class="key fruit">★</span> Fruto: resultado con evidencia verificada</p><small>Propuesto ≠ implementado ≠ verificado.</small></div></details>
@@ -1018,21 +1031,29 @@ function renderArkiProposals(){
  arkiRenderPlan();
  const root=el("arki-proposal-cards"),summary=el("arki-proposal-summary");
  if(!root||!summary)return;
- const proposals=arkiProposalCandidates();
- summary.textContent=selected+" · "+proposals.length+" propuestas documentales · 3 alternativas por propuesta · pruebas NO EJECUTADAS";
+ const all=arkiProposalCandidates();
+ const proposals=selectedLeaf?all.filter(p=>p.id===selectedLeaf):all;
+ summary.textContent=selectedLeaf?(selectedLeaf+" · 3 caminos en una ficha · SIN VERIFICAR"):(selected+" · "+all.length+" ideas · selecciona una hoja para comparar A/B/C");
  root.replaceChildren();
- if(!proposals.length){root.append(node("p","No hay ideas del inventario para esta fase; no se inventan propuestas.","muted"));return}
+ if(!proposals.length){root.append(node("p",selectedLeaf?"La hoja seleccionada no tiene propuesta registrada.":"Selecciona una idea del ARBOL para ver sus tres caminos.","muted"));return}
  for(const proposal of proposals){
-  const card=node("details","","entry");const heading=node("summary",proposal.id+" · "+proposal.title+" · "+proposal.status);card.append(heading);
-  card.append(node("p","Dominio: "+proposal.domain+" · Baseline: "+proposal.baseline+" · Evidencia: "+proposal.evidence+" · "+proposal.priorityBasis,"muted"));
+  const card=node("section","","entry arki-compact-proposal");
+  card.append(node("strong",proposal.id+" · "+proposal.title));
+  card.append(node("small","Dominio: "+proposal.domain+" · Estado: "+proposal.status+" · Evidencia: "+proposal.evidence));
+  const comparison=node("div","","arki-abc-comparison");
   for(const alt of proposal.alternatives){
-   const part=node("div","","entry");
-   part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk+" · Puerta: "+alt.gate));
-   part.append(arkiProposalObservationForm(proposal,alt));
-   card.append(part);
+   const part=node("div","","arki-abc-option");
+   part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk));
+   const details=node("details","","arki-evidence-details");
+   details.append(node("summary","Registrar prueba u observacion (opcional)"));
+   details.append(node("p","Idea original: no requiere bibliografia previa. Para validar, documenta el experimento, su autor, fecha, procedimiento y resultado. La evidencia puede generarse aqui; sin ella no hay promocion canonica.","muted"));
+   details.append(arkiProposalObservationForm(proposal,alt));
+   part.append(details);comparison.append(part);
   }
-  const assessment=arkiEvaluateProposal(proposal.id);const counter=node("small","Evaluación: "+assessment.recommendation+" · "+assessment.learning+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCIÓN");counter.id="arki-proposal-count-"+proposal.id;card.append(counter);
-  root.append(card);
+  card.append(comparison);
+  const assessment=arkiEvaluateProposal(proposal.id);
+  const counter=node("small","Estado: "+assessment.recommendation+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCION");
+  counter.id="arki-proposal-count-"+proposal.id;card.append(counter);root.append(card);
  }
 }
 
@@ -1170,7 +1191,7 @@ function arkiFunctionalHelp(item){
  const what=known?.what||item.title;
  const purpose=known?.purpose||item.purpose||("Esta pieza propone "+item.title.toLocaleLowerCase("es")+". Su función concreta debe confirmarse en el documento fuente; el título por sí solo no acredita prestaciones.");
  const limit=known?.limit||("Estado registrado: "+(item.sourceStatus||item.recordedStatus||"UNKNOWN")+". La implementación no está verificada.");
- return "¿Qué es? "+what+"\\n¿Para qué sirve? "+purpose+"\\nEstado y límites: "+limit+"\\nFuente: "+(item.origin||item.source||"no registrada")+(item.purposeBasis?"\\nInterpretación: "+item.purposeBasis:"");
+ return "¿Qué es? "+what+"\n¿Para qué sirve? "+purpose+"\nEstado y límites: "+limit+"\nFuente: "+(item.origin||item.source||"no registrada")+(item.purposeBasis?"\nInterpretación: "+item.purposeBasis:"");
 }
 function arkiExplain(target){
  if(!target)return "";
