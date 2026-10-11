@@ -28,3 +28,11 @@
 - Los `dependencies` históricos de tipo cadena siguen admitidos por compatibilidad, pero deben reconciliarse con evidencia antes de usarlos para decisiones de producción.
 - Se añaden tests para aristas verificadas, aristas propuestas, autorreferencia y relaciones transversales.
 - **CI:** el smoke run #395 PASS correspondió al commit anterior `a66453d...`; los cambios posteriores requieren CI nuevo sobre SHA exacto.
+
+## Propuestas A/B/C contextualizadas
+- El prototipo read-only muestra propuestas por fase desde `assembly-registry.json`.
+- A/B/C tienen acciones distintas por dominio: KNOWLEDGE, GEOMETRY, TERRITORY, GOVERNANCE, GENERAL.
+- Cada propuesta identifica pieza, objetivo, fuente histórica, baseline y puertas. No hay experimentos ejecutados ni aprendizaje certificado.
+- El clasificador actual es determinista por términos del título; una clasificación incorrecta requiere revisión, nunca promoción automática.
+- El instalador local `Install-ARKI-ArbolVivo.ps1` sigue apuntando a la rama experimental anterior. PR #55 NO está desplegado al acceso directo del usuario.
+- Validación pendiente: ejecutar prueba sandbox `node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs`, smoke CI en SHA exacto, E3 Edge visual y auditoría Red Team.
