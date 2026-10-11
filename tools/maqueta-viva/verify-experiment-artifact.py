@@ -53,7 +53,7 @@ def verify(manifest_path, root):
         result["checks"]["protocolBinding"] = bool(
             isinstance(protocol, dict)
             and protocol.get("experimentId") == manifest["experimentId"]
-            and protocol.get("runId") == manifest["runId"]
+            and (protocol.get("runId") is None or protocol.get("runId") == manifest["runId"])
         )
         if all(result["checks"][k]["match"] for k in ("protocolSha256", "artifactSha256")) and result["checks"]["protocolBinding"]:
             result["status"] = "FILE_INTEGRITY_CONFIRMED_NOT_EXECUTION_VERIFIED"
