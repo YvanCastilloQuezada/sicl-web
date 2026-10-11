@@ -653,5 +653,15 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),hypotheses:[{origin:"ORIGINAL_LOCAL",status:"VERIFIED",canonicalMutation:true}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
  assert.equal(vm.runInContext('arkiOriginalHypotheses.length',sandbox),1,"Invalid import cannot overwrite original hypotheses");
  assert.equal(vm.runInContext('arkiEvaluateProposal("I-01").promotion',sandbox),"BLOCKED","Hypothesis alone cannot promote knowledge");
+ assert.equal(vm.runInContext('arkiRegisterExperiment({hypothesisId:"H-LOCAL-001",protocol:"Comparar escenarios A y B con controles equivalentes.",metric:"Cobertura",acceptance:"Mejora reproducible frente al control",limitations:"Solo datos de laboratorio"}).status',sandbox),"EXPERIMENT_PROTOCOL_REGISTERED_UNEXECUTED");
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").status',sandbox),"EXPERIMENT_DEFINED_NOT_EXECUTED");
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").knowledgeValidated',sandbox),false);
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").promotion',sandbox),"BLOCKED");
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().experiments.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).experiments',sandbox),undefined,"Import does not claim experiment execution");
+ assert.equal(vm.runInContext('arkiScientificExperiments.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiRegisterExperiment({hypothesisId:"H-UNKNOWN",protocol:"Valid procedure to test",metric:"Measure",acceptance:"Measurable acceptance",limitations:"Test limits"}).status',sandbox),"UNKNOWN_HYPOTHESIS");
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),experiments:[{hypothesisId:"H-LOCAL-001",status:"VERIFIED",canonicalMutation:true}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiScientificExperiments.length',sandbox),1);
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
