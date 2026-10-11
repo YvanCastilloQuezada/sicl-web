@@ -20,7 +20,7 @@ class RepeatabilityTests(unittest.TestCase):
         self.protocols=[]
         self.manifests=[]
         for i,(value,operator) in enumerate(((10.0,"Operator-A"),(10.2,"Operator-B")),1):
-            protocol=json.dumps({"experimentId":"EXP-1","runId":f"RUN-{i}"}).encode()
+            protocol=json.dumps({"experimentId":"EXP-1","procedure":"identical controlled experiment"}).encode()
             artifact=f"raw sample {i}".encode()
             p=f"protocol-{i}.json";a=f"artifact-{i}.dat";m=f"manifest-{i}.json"
             (self.root/p).write_bytes(protocol);(self.root/a).write_bytes(artifact)
@@ -37,17 +37,26 @@ class RepeatabilityTests(unittest.TestCase):
     def save_plan(self,tolerance):
         self.plan.write_text(json.dumps({"schema":"ARKI-REPRODUCIBILITY-PLAN-001",
             "manifests":self.manifests,"absoluteTolerance":tolerance}))
-    def test_protocol_mismatch_is_not_repeatable(self):
+    def test_matching_protocol_is_candidate_only(self):
         report=module.assess(self.plan,self.root)
-        self.assertEqual(report["status"],"PROTOCOL_MISMATCH")
+        self.assertEqual(report["status"],"REPEATABILITY_CANDIDATE_UNVERIFIED")
         self.assertFalse(report["knowledgeValidated"])
         self.assertEqual(report["promotion"],"BLOCKED")
-    def test_same_protocol_digest_candidate_and_contradiction(self):
-        # Same protocol document cannot contain distinct runId bindings.
-        # This is a deliberately fail-closed outcome until a protocol template
-        # and separate run metadata are introduced.
-        self.assertEqual(module.assess(self.plan,self.root)["status"],"PROTOCOL_MISMATCH")
+    def test_contradiction_detected(self):
         self.save_plan(0.1)
+        self.assertEqual(module.assess(self.plan,self.root)["status"],"CONTRADICTORY_MEASUREMENTS")
+    def test_independence_required(self):
+        second=self.root/self.manifests[1]
+        m=json.loads(second.read_text());m["operator"]="Operator-A"
+        second.write_text(json.dumps(m))
+        self.assertEqual(module.assess(self.plan,self.root)["status"],"INDEPENDENCE_NOT_ESTABLISHED")
+    def test_protocol_mismatch(self):
+        second=self.root/self.manifests[1]
+        m=json.loads(second.read_text())
+        protocol=b'{"experimentId":"EXP-1","procedure":"different protocol"}'
+        (self.root/m["protocol"]).write_bytes(protocol)
+        m["protocolSha256"]=digest(protocol)
+        second.write_text(json.dumps(m))
         self.assertEqual(module.assess(self.plan,self.root)["status"],"PROTOCOL_MISMATCH")
     def test_tamper_fails(self):
         (self.root/"artifact-1.dat").write_bytes(b"tampered")
