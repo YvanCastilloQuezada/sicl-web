@@ -673,5 +673,14 @@ assert.equal(vm.runInContext("exportTwinWorkspace()",sandbox),commandBaseline,"E
  assert.equal(vm.runInContext('arkiExperimentalResults.length',sandbox),1);
  assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),results:[{...arkiProposalMemorySnapshot().results[0],verification:"VERIFIED"}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
  assert.equal(vm.runInContext('arkiExperimentalResults.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiReviewEvidence({resultId:"RES-LOCAL-001",reviewer:"Auditor",method:"Comparar el artefacto y el protocolo",reason:"La evidencia es declarada y no comprobada",artifactDigest:"a".repeat(64),finding:"CONTRADICTED"}).status',sandbox),"EVIDENCE_REVIEW_DECLARED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").declaredReviews',sandbox),1);
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").verifiedEvidence',sandbox),0);
+ assert.equal(vm.runInContext('arkiScientificReadiness("H-LOCAL-001").promotion',sandbox),"BLOCKED");
+ assert.equal(vm.runInContext('arkiProposalMemorySnapshot().reviews[0].verification',sandbox),"REVIEW_SELF_REPORTED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiImportProposalMemory(arkiProposalMemorySnapshot()).status',sandbox),"LOCAL_MEMORY_IMPORTED_UNVERIFIED");
+ assert.equal(vm.runInContext('arkiEvidenceReviews.length',sandbox),1);
+ assert.equal(vm.runInContext('arkiImportProposalMemory({...arkiProposalMemorySnapshot(),reviews:[{...arkiProposalMemorySnapshot().reviews[0],verification:"VERIFIED"}]}).status',sandbox),"IMPORT_REJECTED_ROLLED_BACK");
+ assert.equal(vm.runInContext('arkiEvidenceReviews.length',sandbox),1);
  console.log("AV-UI-001: assertions PASS (synthetic fixture, sandbox DOM; not browser E3).");
 })().catch(error=>{console.error(error);process.exitCode=1});
