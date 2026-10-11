@@ -965,7 +965,7 @@ function arkiImportProposalMemory(input){
  return {status:"LOCAL_MEMORY_IMPORTED_UNVERIFIED",count:arkiProposalObservations.length,canonicalMutation:false};
 }
 function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
- const proposal=phaseData().flatMap(p=>arkiProposalCandidates(p.id)).find(p=>p.id===proposalId);
+ const proposal=(registry?.ideas||[]).filter(x=>x.id===proposalId&&x.targetPhase).map(x=>arkiProposalCandidates(x.targetPhase).find(p=>p.id===proposalId)).find(Boolean);
  if(!proposal)return {status:"UNKNOWN_PROPOSAL",canonicalMutation:false};
  const eligible=observations.filter(o=>o&&o.proposalId===proposalId&&["A","B","C"].includes(o.alternativeId));
  const results=proposal.alternatives.map(a=>{
@@ -979,7 +979,7 @@ function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
 }
 function arkiRecordProposalObservation(record){
  if(!record||typeof record!=="object"||!/^I-[0-9]+$/.test(String(record.proposalId||""))||!["A","B","C"].includes(record.alternativeId))return {status:"INVALID_OBSERVATION"};
- if(!phaseData().some(p=>arkiProposalCandidates(p.id).some(x=>x.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL"};
+ if(!(registry?.ideas||[]).some(x=>x.id===record.proposalId&&arkiProposalCandidates(x.targetPhase).some(p=>p.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL"};
  if(arkiProposalObservations.length>=500)return {status:"MEMORY_LIMIT_REACHED",canonicalMutation:false};
  if(!["PASS","FAIL","UNKNOWN"].includes(record.outcome)||typeof record.sourceRef!=="string"||record.sourceRef.trim().length<3||record.sourceRef.length>400||typeof record.sourceCommit!=="string"||record.sourceCommit.trim().length<1||record.sourceCommit.length>100||typeof record.metric!=="string"||record.metric.trim().length<1||record.metric.length>100||!Number.isFinite(record.value)||record.value<0)return {status:"INVALID_OBSERVATION",canonicalMutation:false};
  const safe={proposalId:record.proposalId,alternativeId:record.alternativeId,outcome:record.outcome,sourceRef:record.sourceRef,sourceCommit:record.sourceCommit,metric:record.metric,value:record.value,verification:"UNVERIFIED_LOCAL",canonicalMutation:false};
