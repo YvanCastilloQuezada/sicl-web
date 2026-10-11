@@ -1143,7 +1143,7 @@ function arkiExperimentForm(proposal,alternative){
 }
 function arkiProposalMemorySnapshot(){
  return {schema:"ARKI-PROPOSAL-OBSERVATIONS-001",verification:"UNVERIFIED_LOCAL",canonicalMutation:false,
-  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x})),results:arkiExperimentalResults.map(x=>({...x})),reviews:arkiEvidenceReviews.map(x=>({...x}))};
+  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x})),results:arkiExperimentalResults.map(x=>({...x})),reviews:arkiEvidenceReviews.map(x=>({...x})),dossiers:arkiScientificDossiers.map(x=>JSON.parse(JSON.stringify(x)))};
 }
 function arkiImportProposalMemory(input){
  if(!input||input.schema!=="ARKI-PROPOSAL-OBSERVATIONS-001"||!Array.isArray(input.observations)||input.observations.length>500)return {status:"INVALID_MEMORY",canonicalMutation:false};
@@ -1174,6 +1174,17 @@ function arkiImportProposalMemory(input){
   if(!result||item.experimentId!==result.experimentId||item.artifact!==result.artifact||item.verification!=="REVIEW_SELF_REPORTED_UNVERIFIED"||item.canonicalMutation!==false||typeof item.reviewer!=="string"||item.reviewer.trim().length<2||item.reviewer.length>120||typeof item.method!=="string"||item.method.trim().length<12||item.method.length>1000||typeof item.reason!=="string"||item.reason.trim().length<8||item.reason.length>1000||typeof item.artifactDigest!=="string"||!/^[a-f0-9]{64}$/.test(item.artifactDigest)||!["CONSISTENT","CONTRADICTED","INDETERMINATE"].includes(item.finding)||proposedReviews.some(x=>x.resultId===item.resultId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
   proposedReviews.push({...item,verification:"REVIEW_SELF_REPORTED_UNVERIFIED",canonicalMutation:false});
  }
+ if(input.dossiers!==undefined&&(!Array.isArray(input.dossiers)||input.dossiers.length>300))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedDossiers=[];
+ for(const item of input.dossiers||[]){
+  const result=proposedResults.find(x=>x.id===item?.resultId);
+  const report=item?.report;
+  if(!result||!report||typeof report!=="object"||item.experimentId!==result.experimentId||item.hypothesisId!==result.hypothesisId||item.proposalId!==result.proposalId||item.alternativeId!==result.alternativeId||item.schema!==report.schema||item.reportedStatus!==report.status||item.verification!=="IMPORTED_REPORT_UNAUTHENTICATED"||item.canonicalMutation!==false||item.knowledgeValidated!==false||item.promotion!=="BLOCKED"||report.canonicalMutation!==false||report.knowledgeValidated!==false||report.promotion!=="BLOCKED"||!["ARKI-ARTIFACT-VERIFICATION-001","ARKI-REPRODUCIBILITY-001"].includes(report.schema)||proposedDossiers.some(x=>x.resultId===item.resultId&&x.schema===item.schema))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  if(report.schema==="ARKI-ARTIFACT-VERIFICATION-001"){
+   if(!["FILE_INTEGRITY_CONFIRMED_NOT_EXECUTION_VERIFIED","INTEGRITY_OR_BINDING_FAILED","REJECTED"].includes(report.status))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  }else if(!["REJECTED","INTEGRITY_FAILED","DUPLICATE_RUN","PROTOCOL_MISMATCH","INDEPENDENCE_NOT_ESTABLISHED","CONTRADICTORY_MEASUREMENTS","REPEATABILITY_CANDIDATE_UNVERIFIED"].includes(report.status)||!Array.isArray(report.runs)||report.runs.length>20||!report.runs.some(r=>r&&r.runId===result.runId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedDossiers.push({...item,report:JSON.parse(JSON.stringify(report)),verification:"IMPORTED_REPORT_UNAUTHENTICATED",knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false});
+ }
  const previous=arkiProposalObservations.map(x=>({...x}));
  arkiProposalObservations.length=0;
  for(const item of input.observations){
@@ -1187,6 +1198,7 @@ function arkiImportProposalMemory(input){
  arkiScientificExperiments.splice(0,arkiScientificExperiments.length,...proposedExperiments);
  arkiExperimentalResults.splice(0,arkiExperimentalResults.length,...proposedResults);
  arkiEvidenceReviews.splice(0,arkiEvidenceReviews.length,...proposedReviews);
+ arkiScientificDossiers.splice(0,arkiScientificDossiers.length,...proposedDossiers);
  return {status:"LOCAL_MEMORY_IMPORTED_UNVERIFIED",count:arkiProposalObservations.length,hypotheses:arkiOriginalHypotheses.length,canonicalMutation:false};
 }
 function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
