@@ -3,6 +3,16 @@ Fecha: 2026-10-12
 Estado: BORRADOR DE RECUPERACIÓN EN RAMA EXPERIMENTAL; NO CANÓNICO; NO FROZEN
 Propósito: punto de entrada verificable para el siguiente chat. No sustituye otros 00_START existentes fuera de esta rama.
 
+
+## PRINCIPIO FUNDACIONAL PRIORITARIO — ARKI DETERMINISTA / SICL (declaración del Product Owner, 2026-10-12)
+**Instrucción expresa del Product Owner:** «ARKI es determinista. Eso es lo que lo hace distinto». Identifica a «SILC, S-I-L-C» como motor de búsqueda determinístico. **No borrar ni reinterpretar esa denominación sin investigación**.
+**Contraste con fuente fundacional:** `docs/ARKI_AND_SICL_FOUNDATIONS.md` define **SICL** (S-I-C-L, Spatial Intelligence Command Language) como lenguaje formal de operación verificable del Core, con validación y persistencia canónica en `sicl-core`; no lo define literalmente como motor de búsqueda. Por tanto, **SILC (motor de búsqueda, según Product Owner) vs SICL (lenguaje formal, según documento) = NOMENCLATURA / IDENTIDAD TÉCNICA POR RECONCILIAR**. No asumir que son lo mismo ni inventar un motor nuevo.
+**Invariante objetivo de determinismo, pendiente de prueba:** ante idéntica versión de código, estado inicial, entradas, reglas, parámetros, semillas y fuentes fijadas, el camino canónico de ARKI debe producir resultados reproducibles y rastreables; toda aleatoriedad o IA externa debe registrarse/aislarse y no promocionarse como verdad canónica sin verificación. Este criterio es una propuesta operacional de prueba, **no una certificación de determinismo E2E ya alcanzado**.
+**Autoridad única:** un sistema ARKI, una autoridad arquitectónica semántica D-2, una autoridad geométrica AGK, Core para estado/validación, y revisión humana para decisiones. Los maestros externos y ACS son laboratorios/adaptadores subordinados, nunca motores canónicos paralelos. NO_NEW_ENGINE; NO_AUTOMATIC_CANONIZATION.
+**Fuentes recuperadas:** `docs/ARKI_AND_SICL_FOUNDATIONS.md`, `docs/arki-knowledge/fundamental-research/FKCG-02/FKCG-02_FUNDAMENTAL_KNOWLEDGE_PRESERVATION.md`, `sicl-core/docs/ARKI_CORE_FROZEN_v1.0.md`, `docs/arki-master-map/AGK_OCCT_EXECUTION_EVIDENCE_V1.md`, `sicl-core/docs/rfc/RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md`.
+**Inventario detallado:** `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_2026-10-12.md` incluye cinco SP oficiales, AGK/OCCT y deltas, Dynamo/Grasshopper/Revit/IFC, leyes de autoridad y límites de ejecución.
+**Próxima tarea:** localizar implementación, pruebas y genealogía de la búsqueda determinística SILC/SICL; comparar replay, orden de resultados, hashes, idempotencia y efectos de proveedores externos; registrar SHA exacto y CI. No declarar probado sin ejecutar.
+
 ## Orden de trabajo
 1. Auditar y conectar Maqueta Viva, Plano Vivo, Árbol Vivo y Árbol Gemelo Digital, con estado único y evidencia.
 2. Auditar ADN de Mejora Continua: observación → déficit → hipótesis → alternativas → pruebas autorizadas → comparación → aprendizaje trazable. Sin autopromoción ni mutación FROZEN.
