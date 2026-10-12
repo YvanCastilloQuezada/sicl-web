@@ -20,3 +20,6 @@ jobs:
       - run: node tools/maqueta-viva/test-arki-assembly-planner.cjs
       - run: node --check tools/maqueta-viva/arki-capability-inventory.cjs
       - run: node tools/maqueta-viva/test-arki-capability-inventory.cjs
+      - run: node --check tools/maqueta-viva/arki-discovery.cjs
+      - run: node tools/maqueta-viva/test-arki-discovery.cjs
+      - run: node tools/maqueta-viva/arki-discovery.cjs > /tmp/arki-discovery-report.json
