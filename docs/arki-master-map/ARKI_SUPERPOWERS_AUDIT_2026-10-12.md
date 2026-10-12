@@ -53,3 +53,11 @@ Regla: CLAIM != IMPLEMENTED != EXECUTED != VERIFIED != FROZEN. No evidencia = no
 **Historia:** búsqueda de commits en los tres repositorios halló menciones Dynamo/Revit/Grasshopper en `sicl-web` y doctrina DAM en `sicl-core`; genealogía completa de cada commit aún no recorrida.
 **Decisión de recuperación:** no crear otro motor paralelo. Conectar ACS→evidencia→Delta 6.2→motor propio AGK y host autorizado. Separar tres objetivos: `.dyn/.ghx` definiciones, `.ifc` modelo interoperable, `.rvt` modelo nativo editable; requieren pruebas independientes.
 **Estado:** SOURCE_FOUND / IMPLEMENTATION_PARTIAL / HOST_E2E_UNKNOWN / NO_NATIVE_RVT_CLAIM.
+
+## Recuperación AGK / OCCT y delta 95/5 — 2026-10-12
+**Fuente primaria:** `sicl-web/docs/arki-master-map/AGK_OCCT_EXECUTION_EVIDENCE_V1.md` (main). Arquitectura aprobada: `AGK = OCCT body + minimal evidence-derived ARKI_KERNEL_DELTA`; un kernel, sin cadena de backends. El 95%/5% es hipótesis de selección, NO medición de cobertura.
+**Pruebas históricas registradas en HP Z840, OCCT 8.0.1:** instalación PASS; G0/G1/G2 BRep PASS (8 vértices, 12 aristas, 6 caras, 1 sólido, volumen 6000, área 2200); avanzado 16/16; T1 22/22; T2 coordenadas/tolerancias con frontera de booleanos 5e-7 vs 2.5e-7, marco local gana 9/13; T3 12 tests, 11 invariantes PASS, T303 frontera esperada, 0 fallos inexplicados. Evidencia histórica documentada, no reejecutada aquí.
+**Delta demostrado como necesidad/política candidata:** AGK-DELTA-001 Local Engineering Frame (CRS/global placement→transformación reversible→BRep local); AGK-DELTA-002 Geometric Acceptance Contract (operación, validez BRep, invariantes geométricos/topológicos, semántica, tolerancia→ACCEPT/REJECT/UNKNOWN). `ARKI_KERNEL_DELTA` sigue NOT_FINALIZED.
+**Pendiente T4:** NURBS/B-Spline, doble curvatura, loft/sweep/torsión, offset, booleans curvas, intersecciones, continuidad, regeneración determinista y roundtrip BRep/STEP.
+**Maestros candidatos, NO dependencias productivas aprobadas:** CGAL, Manifold, OpenVDB, libfive, PicoGK, SolveSpace/libslvs, Topologic. Solo incorporar por límite OCCT reproducido, con licencia y pruebas. 
+**Gates:** reconciliar código/commits con informe T0-T3; ejecutar T4; validar interfaz D-2→AGK→plano/maqueta/IFC; no declarar cobertura porcentual ni AGK FROZEN de producción sin evidencia.
