@@ -1,0 +1,44 @@
+# ARKI — Inventario histórico de superpoderes (2026-10-12)
+Estado: AUDITORÍA ESTÁTICA EN TRES PASADAS, NO E2E, NO CANÓNICA.
+Repositorios inspeccionados: sicl-web main ec6ede75; sicl-core main 45fd21a6; arki-acs main 6a061218. Rama de Árbol Vivo: feat/arbol-vivo-autoensamblaje-20261011.
+Metodología: (1) árboles y código presente, (2) genealogía desde documentos canónicos previos, (3) límites y evidencia CI. No se recorrió exhaustivamente cada commit histórico: auditoría histórica exhaustiva pendiente.
+
+## Cinco superpoderes oficiales
+Fuente: docs/arki-superpowers/ARKI_SUPERPOWERS_PACK.md, server/arkiSuperpowersPack.ts, server/arkiSuperpowersPack.test.ts.
+- SP-01 Consequence Radar: consecuencias directas/secundarias/terciarias/posibles/desconocidas. Heurístico, no simulación.
+- SP-02 Value of Information: priorización de UNKNOWN. No es probabilidad calibrada.
+- SP-03 Design Divergence: diferencia entre partidos, topologías, relaciones, circulación, sección, masa, estructura. No elige mejor diseño.
+- SP-04 Architectural Debt: riesgo, horizonte y mitigación de decisiones. Requiere evidencia profesional.
+- SP-05 Counterfactual Explorer: ocho escenarios AI_PROPOSED. No simula sus resultados.
+Estado documental: IMPLEMENTED / FOCUSED_TESTS_PASS / PASS_WITH_BOUNDS; regresión actual NO EJECUTADA.
+
+## Capacidades adicionales — NO son SP-06 en adelante
+WEB: D-2 y motor unificado, programa/Parti, generación y tipologías, funnel N→16→4→1, familias dinámicas, geometría AGK, BIM/IFC, dibujo y visores 2D/3D, Site Intelligence, clima/solar/GIS, costos, agentes, PWA/WebXR, Maqueta Viva, Árbol Vivo, Gemelo Digital, ADN de mejora continua.
+CORE: Project State, evidencias, derivaciones, transacción arquitectónica, IFC, gramática de conocimiento de diseño multiescala, agentes, evaluación, optimización/Pareto, laboratorio, generación paramétrica, por patrones y evolutiva. src/sicl/generation.py declara llm_assisted_v1 como DEFINED_NOT_CONFIGURED: no es generación LLM operativa.
+ACS: laboratorio tecnológico, NO runtime productivo ni sandbox de seguridad. Modos KNOW/RUN/UNDERSTAND/EVOLVE; inspectores, worker, benchmarks, comparador de librerías, VersionMonitor, DeltaAnalyzer, EvidenceInvalidation. No puede promover código ni mutar geometría canónica.
+
+## Hallazgos y límites
+- El mapa docs/arki-master-map/ARKI_MASTER_MAP_LIVE.md se declara punto de entrada canónico. 00_START.md experimental es auxiliar y requiere reconciliación.
+- La rama experimental contiene tools/maqueta-viva y ADN ausentes de main auditado.
+- Árbol Gemelo Digital tiene tres vistas documentales; vista 3D conceptual, no AGK.
+- Plano Vivo como integración real: UNKNOWN.
+- ADN experimental observa JSON y propone mejoras; no hay servicio persistente ni aprendizaje autónomo canónico demostrado.
+- El estado ARKI_MASTER_MAP_STATE.json registra updated_at 2026-10-07, anterior a avances de octubre 10–12.
+- En rama experimental, SHA 0343851: CI Assembly Planner 38192989124 FAILURE; Maqueta Viva smoke 38192989034 FAILURE. Logs no recuperables: causa UNKNOWN.
+- HOUSE-A21 histórico tiene placements rectangulares fijos: no prueba creatividad general.
+- El Core implementa evolución de alternativas, pero no está demostrada su integración al Funnel Web.
+
+## Prioridades de reensamblaje
+1. Reconciliar 00_START, MASTER_MAP_LIVE, MASTER_MAP_STATE, ramas y evidencia SHA.
+2. Unificar estado observado de Maqueta/Plano/Árbol/Gemelo; probar cambio→dependencias→persistencia→handoff y no mutación FROZEN.
+3. Integrar observador/ACS EVOLVE/Delta 6.2 con pruebas aisladas, métricas, rollback, Qwen y autorización humana. Nunca autopromoción.
+4. Probar encargo→Parti→geometría variable AGK→planos/3D→evaluación; luego 16 alternativas reales.
+5. Revalidar BIM, GIS, clima, dibujo, costos y dispositivos contra fuentes y ejecución actuales.
+
+## Evidencia base
+WEB: docs/arki-master-map/ARKI_BODY_MAP_TRIPLE_AUDIT_V1.md; ARKI_CANONICAL_HANDOFF_2026-10-05.md; ARKI_MASTER_MAP_LIVE.md; ARKI_MASTER_MAP_STATE.json; docs/arki-superpowers/ARKI_SUPERPOWERS_PACK.md.
+CORE: docs/D2_ARCHITECTURAL_CAPABILITIES.md; docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md; src/sicl/generation.py; tests/test_design_generation.py.
+ACS: README.md; docs/ARCHITECTURE.md; src/Acs.Evolution/; tests/Acs.Tests.Integration/.
+Árbol: tools/maqueta-viva/ARBOL-GEMELO-DIGITAL.md; ARKI-ADN-MEJORA-CONTINUA-CONTRATO-PROPUESTO.md; README.md.
+
+Regla: CLAIM != IMPLEMENTED != EXECUTED != VERIFIED != FROZEN. No evidencia = no verde. No tocar MiLukita ni main.
