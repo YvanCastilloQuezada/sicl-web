@@ -47,3 +47,6 @@ F. Actualizar este documento tras pruebas; solicitar auditoría Qwen y autorizac
 ## Disciplina
 CLAIM ≠ IMPLEMENTED ≠ EXECUTED ≠ VERIFIED ≠ FROZEN.
 Sin evidencia no hay verde. Este documento es memoria de trabajo, no certificación ni reemplazo automático de la fuente canónica.
+
+## Auditoría histórica de tres repositorios — 2026-10-12
+Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_2026-10-12.md` (commit `eb7ae3afbb25331e06f078bdcb413b0e0465b86e`). Tres pasadas documentales/estáticas: anatomía, genealogía mediante auditorías históricas y contraste epistemológico/CI. No implica recorrido exhaustivo de commits ni pruebas E2E. Cinco superpoderes formales SP-01..SP-05; otras capacidades WEB/CORE/ACS inventariadas. Leer junto con MASTER_MAP_LIVE y MASTER_MAP_STATE. CI de rama experimental continúa con fallos históricos sin causa diagnosticada.
