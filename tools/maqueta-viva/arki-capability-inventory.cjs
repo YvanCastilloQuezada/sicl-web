@@ -1,6 +1,7 @@
 "use strict";
 /* Repository tree to capability inventory: no guessed implementation status, no writes. */
 const {planAssembly}=require("./arki-assembly-planner.cjs");
+const crypto=require("node:crypto");
 const RULES=[
  [/\b(test|tests|spec|__tests__)\b|\.(test|spec)\./i,"TEST","F8"],
  [/^(docs|documentation)\//i,"DOCUMENTATION","F1"],
@@ -31,7 +32,8 @@ function inventoryTrees(sources){
  return {schema:"ARKI-CAPABILITY-INVENTORY-1",coverage,summary:{files:records.length,classified:records.filter(r=>r.category!=="UNCLASSIFIED").length,unclassified:records.filter(r=>r.category==="UNCLASSIFIED").length},records,canonicalMutation:false,execution:"NOT_EXECUTED"};
 }
 function proposePlacements(inventory){
- return planAssembly(inventory.records.map(r=>({id:r.id.replace(/[^A-Za-z0-9_.:-]/g,"_").slice(0,128),path:r.path,phase:r.proposedPhase,dependencies:[]})));
+ if(!inventory||!Array.isArray(inventory.records))throw Error("INVALID_CAPABILITY_INVENTORY");
+ return planAssembly(inventory.records.map(r=>({id:"part_"+crypto.createHash("sha256").update(r.id).digest("hex"),path:r.path,phase:r.proposedPhase,dependencies:[]})));
 }
 module.exports={inventoryTrees,proposePlacements};
 if(require.main===module){
