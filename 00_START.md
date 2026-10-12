@@ -60,3 +60,9 @@ Sin evidencia no hay verde. Este documento es memoria de trabajo, no certificaci
 
 ## Auditoría histórica de tres repositorios — 2026-10-12
 Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_2026-10-12.md` (commit `eb7ae3afbb25331e06f078bdcb413b0e0465b86e`). Tres pasadas documentales/estáticas: anatomía, genealogía mediante auditorías históricas y contraste epistemológico/CI. No implica recorrido exhaustivo de commits ni pruebas E2E. Cinco superpoderes formales SP-01..SP-05; otras capacidades WEB/CORE/ACS inventariadas. Leer junto con MASTER_MAP_LIVE y MASTER_MAP_STATE. CI de rama experimental continúa con fallos históricos sin causa diagnosticada.
+
+## FUENTE HISTÓRICA PRIORITARIA — origen, evolución y visión futura de ARKI (2026-10-12)
+**Archivo localizado en WEB main:** `docs/arki-knowledge/preserved/03_ARKI_Historia_y_Evolucion_v1.0.xlsx` (Git blob SHA `4ff13995f1ffad49a2c3d022488a12ea61067ffe`, 6349 bytes). Enlace: https://github.com/YvanCastilloQuezada/sicl-web/blob/main/docs/arki-knowledge/preserved/03_ARKI_Historia_y_Evolucion_v1.0.xlsx
+**Declaración del Product Owner:** este documento recoge cómo nació ARKI y lo que debe llegar a ser. **IMPORTANTE: contenido de las hojas AÚN NO LEÍDO**; la herramienta GitHub disponible rechazó la extracción del XLSX binario. No inferir contenido ni declararlo auditado.
+**Próxima acción obligatoria:** materializar/descargar XLSX con un mecanismo binario válido; leer todas las hojas, contrastar origen, decisiones, cambios de nombre SICL→Vitruvio→ARKI, visión futura, autoridad y determinismo; incorporar los hallazgos documentados aquí y al mapa maestro con referencia exacta de hoja/celda. Distinguir historia, intención, implementación y evidencia.
+**Otra fuente de preservación:** `docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx`, también pendiente de lectura integral.
