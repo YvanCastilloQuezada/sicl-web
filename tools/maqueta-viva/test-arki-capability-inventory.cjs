@@ -1,6 +1,6 @@
 "use strict";
 const assert=require("node:assert/strict");
-const {inventoryTrees}=require("./arki-capability-inventory.cjs");
+const {inventoryTrees,proposePlacements}=require("./arki-capability-inventory.cjs");
 const src=(name,path)=>({repository:"YvanCastilloQuezada/"+name,sha:"a".repeat(40),truncated:false,tree:[{type:"blob",path,sha:"b".repeat(40)}]});
 const x=inventoryTrees([src("sicl-web","tools/maqueta-viva/test-arbol.test.cjs"),src("sicl-core","src/core/state.py"),src("arki-acs","src/Capability.cs")]);
 assert.equal(x.summary.files,3);
@@ -11,4 +11,9 @@ assert.equal(x.records[2].verification,"NOT_EXECUTED");
 assert.throws(()=>inventoryTrees([src("sicl-web","a")]),/THREE_REPOSITORIES/);
 const bad=src("sicl-web","a");bad.truncated=true;
 assert.throws(()=>inventoryTrees([bad,src("sicl-core","b"),src("arki-acs","c")]),/INVALID_OR_TRUNCATED/);
+const collisionInventory={records:[{id:"a/b",path:"src/a.js",proposedPhase:"F1"},{id:"a_b",path:"src/b.js",proposedPhase:"F2"}]};
+const placements=proposePlacements(collisionInventory);
+assert.equal(placements.summary.total,2);
+assert.notEqual(placements.parts[0].id,placements.parts[1].id);
+assert.equal(proposePlacements(collisionInventory).parts[0].id,placements.parts[0].id);
 console.log("ARKI_CAPABILITY_INVENTORY_TESTS=PASS");
