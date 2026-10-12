@@ -17,3 +17,12 @@ Consultar además `00_INICIO_ARKI.md` en rama `audit/arbol-vivo-continuidad-2026
 
 ## Decisiones de autoridad
 El propietario autoriza desarrollo, pruebas e integración de correcciones verificadas, pero la selección de una de tres alternativas de mejora corresponde al propietario. No cambiar FROZEN ni promover geometría canónica automáticamente.
+
+## Avance siguiente (2026-10-11)
+- Inventario exacto de rutas en `tools/maqueta-viva/arki-repository-snapshot.json`: 1933 archivos de Web/Core/ACS, anclados a commits concretos (1326/379/228).
+- `arki-discovery.cjs` reproduce clasificación conservadora; `arki-discovery-report.json` informa 460 rutas no clasificadas por heurística.
+- `arki-capability-inventory.cjs` usa SHA-256 para IDs estables y sin colisión por normalización.
+- `arki-assembly-strategies.cjs` propone A/B/C; no ejecuta ni selecciona alternativas.
+- PR #56 abierto como DRAFT contra rama experimental, no main.
+- CI sigue sin asignación de runner; no existe prueba verde verificable. Revisar estado antes de promover.
+- No se ha integrado todavía la salida al HTML ni se han inspeccionado las dependencias reales a nivel código.
