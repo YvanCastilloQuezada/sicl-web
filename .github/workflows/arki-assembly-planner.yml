@@ -1,0 +1,20 @@
+name: ARKI Assembly Planner
+on:
+  push:
+    branches:
+      - 'feat/arbol-vivo-autoensamblaje-*'
+  pull_request:
+    paths:
+      - 'tools/maqueta-viva/arki-assembly-planner.cjs'
+      - 'tools/maqueta-viva/test-arki-assembly-planner.cjs'
+jobs:
+  assembly-planner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check tools/maqueta-viva/arki-assembly-planner.cjs
+      - run: node --check tools/maqueta-viva/test-arki-assembly-planner.cjs
+      - run: node tools/maqueta-viva/test-arki-assembly-planner.cjs
