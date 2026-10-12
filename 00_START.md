@@ -13,6 +13,14 @@ Propósito: punto de entrada verificable para el siguiente chat. No sustituye ot
 **Inventario detallado:** `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_2026-10-12.md` incluye cinco SP oficiales, AGK/OCCT y deltas, Dynamo/Grasshopper/Revit/IFC, leyes de autoridad y límites de ejecución.
 **Próxima tarea:** localizar implementación, pruebas y genealogía de la búsqueda determinística SILC/SICL; comparar replay, orden de resultados, hashes, idempotencia y efectos de proveedores externos; registrar SHA exacto y CI. No declarar probado sin ejecutar.
 
+
+## DECISIÓN DE DISEÑO PROPUESTA POR PRODUCT OWNER — FASE 1: ENCARGO ÚNICO (2026-10-12)
+**Orden conceptual:** la jerarquía de diez fases debe comenzar en Fase 1 con recepción del encargo/intención del cliente. Ejemplo: «Diseñar un rascacielos de 120 pisos». El concepto de proyecto nace y se registra allí, no en una capa externa por encima de las diez fases. Fases 2–10 continúan el proceso interno conforme a sus definiciones oficiales (nombres y correspondencia por verificar; no inventar fases).
+**Contrato propuesto de Fase 1:** solicitud original literal, intención/idea del cliente, escala y tipología, programa preliminar, sitio y jurisdicción conocidos o UNKNOWN, objetivos y preferencias, restricciones conocidas con fuentes, supuestos explícitos, conflictos/preguntas, identificación del proyecto, procedencia y versión, revisión humana requerida cuando aplique. Separar la idea recibida del concepto arquitectónico desarrollado y evaluado posteriormente.
+**Flujo:** FASE 1 / ENCARGO → D-2 autoridad semántica → Project State / Core / trazabilidad → ejecución gobernada de FASES 2–10 → AGK único para geometría canónica → representaciones 2D/3D/BIM/IFC. SICL/SILC nomenclatura por reconciliar; determinismo de entradas, reglas, estado y resultados por demostrar E2E.
+**No confundir:** «todo en Fase 1» significa **un punto de captura de toda la información disponible**, no ejecutar allí todas las actividades, ni declarar datos desconocidos como hechos, ni introducir motor adicional. Mantener fases como jerarquía, vertebra/espinas y dependencias actualizables; una nueva idea posterior se versiona y propaga mediante autoridad, no reinicia ni modifica FROZEN silenciosamente.
+**Estatus:** DECISIÓN DE INTENCIÓN / PROPUESTA DE CONTRATO, NO IMPLEMENTADA NI VALIDADA. Auditar mapa de diez fases existente y su interfaz antes de cambiar código o numeración.
+
 ## Orden de trabajo
 1. Auditar y conectar Maqueta Viva, Plano Vivo, Árbol Vivo y Árbol Gemelo Digital, con estado único y evidencia.
 2. Auditar ADN de Mejora Continua: observación → déficit → hipótesis → alternativas → pruebas autorizadas → comparación → aprendizaje trazable. Sin autopromoción ni mutación FROZEN.
