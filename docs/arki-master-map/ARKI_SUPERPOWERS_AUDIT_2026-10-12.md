@@ -61,3 +61,13 @@ Regla: CLAIM != IMPLEMENTED != EXECUTED != VERIFIED != FROZEN. No evidencia = no
 **Pendiente T4:** NURBS/B-Spline, doble curvatura, loft/sweep/torsión, offset, booleans curvas, intersecciones, continuidad, regeneración determinista y roundtrip BRep/STEP.
 **Maestros candidatos, NO dependencias productivas aprobadas:** CGAL, Manifold, OpenVDB, libfive, PicoGK, SolveSpace/libslvs, Topologic. Solo incorporar por límite OCCT reproducido, con licencia y pruebas. 
 **Gates:** reconciliar código/commits con informe T0-T3; ejecutar T4; validar interfaz D-2→AGK→plano/maqueta/IFC; no declarar cobertura porcentual ni AGK FROZEN de producción sin evidencia.
+
+## Recuperación fundacional: ley de autoridad única y un solo motor (2026-10-12)
+Fuentes primarias verificadas: `docs/ARKI_AND_SICL_FOUNDATIONS.md` (WEB), `docs/arki-knowledge/fundamental-research/FKCG-02/FKCG-02_FUNDAMENTAL_KNOWLEDGE_PRESERVATION.md` (WEB), `docs/arki-inventory/ARKI_FROZEN_AND_HISTORICAL_ASSETS.md` (WEB), `sicl-core/docs/ARKI_CORE_FROZEN_v1.0.md`, y `docs/arki-master-map/ARKI_CANONICAL_HANDOFF_2026-10-05.md` (WEB).
+- **Una sola autoridad arquitectónica semántica D-2**; **una sola autoridad de geometría canónica AGK**; Core valida/persiste, Delta 6.2 gobierna conocimiento; humano autorizado decide finalmente. No segundo motor canónico, no segunda verdad semántica ni geométrica, no autopromoción.
+- SICL es lenguaje formal, no segundo sistema decisor; Web es interfaz, no autoridad de estado. `Recommendation != Decision`; `Decision` requiere `HumanReview`, actor y autoridad. Auditoría append-only.
+- FKCG-02: A WORLD, B KNOWLEDGE, C REASONING, D GENERATION, E EVALUATION, F LEARNING son responsabilidades conceptuales, no autorización para seis motores. `NO_NEW_SYSTEM`, `NO_NEW_ENGINE`, `NO_NEW_PRIMITIVE`, `NO_RUNTIME_ACTIVATION`, `NO_AUTOMATIC_CANONIZATION`.
+- Core H-001 Derivation Integrity, H-002 Impact Analysis, H-003 Validity/Invalidation, H-004 Reaction Planning están FROZEN; fail-closed y sin mutación autónoma del ledger/event store. Modificaciones estructurales requieren autorización humana.
+- Registro Frozen: preservar evidencia histórica no equivale a capacidad productiva; no descongelar motores paralelos, normativa no verificada, exportadores BIM/CAD sin gates.
+- Interpretación operativa: ACS, laboratorios, Revit/Dynamo/Grasshopper y maestros OCCT/CGAL/etc. son fuentes de observación, pruebas o adaptadores subordinados; jamás autoridades paralelas. El 95/5 es hipótesis, no permiso de agregar motores.
+- **Pendiente**: reconciliar el corpus constitucional en `docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx` y los registros FROZEN; esta pasada revisó referencias y Markdown, no leyó todas las hojas del workbook.
