@@ -1,0 +1,37 @@
+name: ARKI Continuity Map
+on:
+  push:
+    branches:
+      - feat/arki-integration-genealogy-20261013
+    paths-ignore:
+      - 'docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: arki-continuity-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  continuity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regenerate continuity snapshot
+        run: node tools/maqueta-viva/arki-continuity-snapshot.cjs
+      - name: Publish snapshot only if changed
+        run: |
+          if git diff --quiet -- docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md && git ls-files --error-unmatch docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md >/dev/null 2>&1; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md
+          git commit -m "docs(arki): refresh living continuity map [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
