@@ -16,6 +16,8 @@ test("snapshot identifies source and cannot claim Core validation",()=>{
 });
 test("snapshot includes Git SHA and commit chronology",()=>{
  const text=build();
- assert.match(text,/SHA observado: `[0-9a-f]{40}`/);
+ assert.match(text,/Último SHA de cambios sustantivos \(excluye snapshot\): `[0-9a-f]{40}`/);
  assert.match(text,/Últimos 80 commits observados/);
 });
+
+test("snapshot is deterministic when Git and ledger are unchanged",()=>{assert.equal(build(),build());});
