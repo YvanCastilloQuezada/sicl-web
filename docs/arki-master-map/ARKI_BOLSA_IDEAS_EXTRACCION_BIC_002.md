@@ -19,10 +19,10 @@ Corte 2026-10-13. Estado: PARTIAL, sin merge ni modificaciones canónicas.
 | web | feat/agk-003-parametric-family-unification | 11 | 29 | 7 | familia paramétrica/regeneración AGK |
 | web | feat/e2e002-spatial-reasoning-phase1 | 149 | 29 | 60 | razonamiento espacial, AGK, Capability Fabric |
 | web | feat/arki-frontend-assembly-v1 | 51 | 1 | 19 | vistas de interfaz y mapa |
-| web | feat/arki-master-map-live-v1 | 0 | 8 | 0 | no delta exclusivo vs main |
-| core | feat/commit-8a-d2-persistence | 0 | 74 | 0 | contenido histórico ya alcanzado por main, no rescatar a ciegas |
-| core | feat/commit-8b4b1-d2-event-contract | 0 | 31 | 0 | contrato histórico ya alcanzado por main |
-| core | feat/h005-selective-recomputation | 0 | 119 | 0 | implementación histórica sin delta exclusivo |
+| web | feat/arki-master-map-live-v1 | 0 | 8 | 0 | sin commits exclusivos vs main; IDEA DEBE CONSERVARSE Y EVALUARSE |
+| core | feat/commit-8a-d2-persistence | 0 | 74 | 0 | historial contenido en main; conservar la IDEA y auditar su madurez |
+| core | feat/commit-8b4b1-d2-event-contract | 0 | 31 | 0 | historial contenido en main; conservar IDEA de contrato D-2 y evaluar |
+| core | feat/h005-selective-recomputation | 0 | 119 | 0 | historial contenido en main; conservar IDEA de recomputación y evaluar |
 | core | feat/dam-dna-advisor-examiner-foundation | 32 | 0 | 17 | asesor/examinador y pruebas; candidato |
 | core | feat/rfc-034-1-layout-engine | 4 | 157 | 39 | dibujo/layout; rama divergente antigua |
 | core | reconcile/arki-live-map-2026-10-07 | 2 | 0 | 2 | contrato de autoridad y limitaciones históricas |
@@ -52,3 +52,18 @@ Corte 2026-10-13. Estado: PARTIAL, sin merge ni modificaciones canónicas.
 
 ## Pendientes y criterio de cierre
 Falta comparar 174 ramas no-main adicionales, inspeccionar diffs de archivos por clúster y calcular conteo deduplicado. Por tanto **TOTAL DE IDEAS = UNKNOWN** hasta completar el análisis. No borrar ni mover ramas todavía.
+
+## CORRECCIÓN DE CRITERIO — 2026-10-13 (orden del arquitecto)
+**REGLA OBLIGATORIA:** cero commits exclusivos, cero cambios contra main o código compartido **NO significa idea completa, inválida, ni descartada**. El DAG de Git describe historia del código, no el valor, propósito o madurez de una idea. Una idea puede ser parcialmente implementada dentro de main y seguir requiriendo desarrollo.
+
+Separar `idea_maturity` (CONCEPT / PARTIAL / PROTOTYPE / IMPLEMENTED / VERIFIED / REJECTED_WITH_EVIDENCE / UNKNOWN) de `git_relation` (UNIQUE / SHARED / ANCESTOR_OF_MAIN / DIVERGED / UNKNOWN). No descartar sin inspección de contenido, propósito y pruebas. Una rama con varios componentes genera varias fichas; varias ramas pueden apuntar a la misma ficha.
+
+### Ideas históricas rescatadas explícitamente (no eliminarlas)
+| ID | Idea | Evidencia concreta leída | Relación Git | Madurez | Conector propuesto |
+|---|---|---|---|---|---|
+| BIC-011 | Persistencia durable de snapshots D-2 | `sicl-core@feat/commit-8a-d2-persistence:src/sicl/archi/persistence.py`: D2Snapshot, serialización ordenada, hash de contenido e ID determinista | ANCESTOR_OF_MAIN (0 ahead, 74 behind) | UNKNOWN; implementación presente en rama, falta prueba actual | D-2/Core, memoria arquitectónica; fase exacta UNKNOWN |
+| BIC-012 | Contrato de eventos y ciclo de mutación arquitectónica | `sicl-core@feat/commit-8b4b1-d2-event-contract:src/sicl/archi/transaction.py`: estados PROPOSED/EVALUATED/AUTHORIZED/APPLIED/PUBLISHED, resultados y frontera de transacción | ANCESTOR_OF_MAIN (0 ahead, 31 behind) | UNKNOWN; código inspeccionado, no CI | Core/D-2, Event Store; fase exacta UNKNOWN |
+| BIC-013 | Recomputation selectiva H-005 | `sicl-core@feat/h005-selective-recomputation`; referencias a `SelectiveRecomputationEngine` en código transaccional histórico | ANCESTOR_OF_MAIN (0 ahead, 119 behind) | UNKNOWN; inspección de módulo pendiente | Propagación de dependencias Core; fase exacta UNKNOWN |
+| BIC-014 | Mapa Vivo como memoria de continuidad | `sicl-web@feat/arki-master-map-live-v1` (0 ahead, 8 behind); buscar contenido real en main, contratos y snapshots | ANCESTOR_OF_MAIN | UNKNOWN; no confundir merge con culminación | Mapa Vivo → Árbol Vivo, transversal F1–F10 |
+
+**Ninguna de estas ideas queda cerrada por el mero hecho de que sus commits estén en main.** La clasificación definitiva exige comparar intención, pruebas, funcionamiento, cobertura y pendientes.
