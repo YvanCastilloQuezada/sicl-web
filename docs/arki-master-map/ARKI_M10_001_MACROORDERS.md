@@ -35,3 +35,18 @@ Base: main; trazabilidad en PR #59.
 
 ## Entrega final
 Diez escenarios E2E en PC del propietario; no se inventarán resultados de su servidor. La aprobación se solicita una sola vez al final del lote, salvo riesgo crítico que exija detener la operación.
+
+## Ejecución M01 — corte 2026-10-13 (inventario multi-repo parcial)
+- WEB: primera página 84 ramas + segunda página 1 rama (`verify/commit-6`), cursor final `ODU`; enumeración no certificada exhaustiva. El conjunto incluye ramas históricas, de auditoría, de documentación y de pruebas; ninguna se integra por nombre.
+- CORE: primera página 100 ramas; cursor `MTAw`, inventario **incompleto**. Requiere continuar paginación antes de cerrar M01.
+- ACS: ramas `main` y `feat/oece-arki-integration-v1`. Esta última: 85 commits ahead / 0 behind de main, con cambios en corpus OECE, persistencia, portal, workers y pruebas; NO integrarla en Web.
+- WEB `feat/arki-master-map-live-v1`: 0 ahead / 8 behind de main; no contiene delta exclusivo por comparación actual. Clasificación candidata `ALREADY_IN_MAIN_OR_SUPERSEDED`, sujeto a inspección de commits y contenido, no recrear.
+- CORE `reconcile/arki-live-map-2026-10-07`: 2 commits ahead / 0 behind; solo `docs/ARKI_CROSS_REPO_AUTHORITY_CONTRACT_V1.md` y `docs/ARKI_KNOWN_LIMITATIONS_v1.0.md`. Son documentos de autoridad/limitaciones a auditar antes de tocar persistencia.
+- WEB ramas de precedencias y autoensamblaje divergentes: 74 commits exclusivos en precedencias, 37 en autoensamblaje, y cambios netos distintos; preservar ambas fuentes.
+- Veredicto M01: `IN_PROGRESS` por falta de paginación Core y clasificación de los SHAs exclusivos; ningún merge autorizado por esta inspección.
+
+## Orden de recuperación refinado (sin duplicación)
+1. Leer contrato de autoridad en CORE antes de crear adaptadores de memoria.
+2. Identificar Event Store persistente existente y su interfaz de lectura, sin tocar FROZEN.
+3. Mapear eventos derivados al Mapa Vivo, luego Árbol Vivo y finalmente gemelo experimental.
+4. Conservar ACS como repositorio separado; inventariar interfaces públicas, no trasladar corpus a WEB.
