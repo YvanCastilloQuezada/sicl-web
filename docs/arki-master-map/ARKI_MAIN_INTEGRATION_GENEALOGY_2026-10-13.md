@@ -41,3 +41,14 @@ Estado: INVENTARIO PARCIAL VERIFICADO EN GITHUB; NO AUTORIZA MERGE SIN GATES.
 - `feat/f7-f8-integral-closure` → `feat/arbol-vivo-precedencias-seguras-20261010`: 307 ahead / 4 behind, 52 archivos distintos.
 - Evidencia local independiente: el código del PR #58 recuperado de GitHub pasa 5/5 tests `node --test` y `node --check`; **NO** equivale a CI GitHub ni a revisión de seguridad completa. GitHub Actions de PR #58 sigue FAILURE, sin logs recuperables. Reintento remoto no realizado: llamada rechazada por controles de herramienta. No eludir controles.
 - Regla: antes de integrar Árbol Vivo, construir matriz de 17 archivos divergentes y sus contratos; comparar comportamiento y seleccionar resoluciones sin perder trabajo de precedencias. Mantener PR #58 BLOCKED hasta CI exacto verde.
+
+## Auditoría de los 17 archivos y de la continuidad — tercera pasada
+La comparación `precedencias → autoensamblaje` muestra **17 archivos añadidos** en autoensamblaje: workflow assembly, `00_CONTINUIDAD_AUTOENSAMBLAJE.md`, `00_START.md`, auditoría superpoderes, `shared/arkiLivingAssembly.ts`, planner, estrategias, inventario, snapshot, discovery, bridge ADN y sus tests. No son 17 archivos en conflicto; son diferencias netas de esa dirección.
+La comparación inversa `autoensamblaje → precedencias` muestra **25 archivos diferentes** (añadidos o modificados), incluyendo `ARKI_HANDOFF.md`, workflow de continuidad, generador, memoria viva, pruebas de experimento, prototipo UI y precedencias. Reconciliación bidireccional obligatoria.
+
+### Continuidad REAL encontrada
+- `tools/maqueta-viva/generate-arki-handoff.cjs` escribe **`ARKI_HANDOFF.md`**, NO `00_START.md`; observa HEAD local y 12 commits; marca CI, Core y ruta crítica como no verificados. El timestamp hace variar el archivo cada ejecución.
+- `.github/workflows/arki-continuity.yml` en rama `feat/arbol-vivo-precedencias-seguras-20261010`: `schedule: '17 */6 * * *'`, `workflow_dispatch`, `push` filtrado a esa rama, y permisos `contents: write`. **Este workflow no existe en main en la lectura previa**; GitHub Actions schedule normalmente ejecuta workflows desde default branch, por lo que la programación definida solo en rama experimental NO demuestra ejecución periódica. Riesgo de `git push` automático sin gates y de ruido por timestamp.
+- `arki-living-memory.cjs`: log experimental append-only en memoria, sin webhook ni persistencia; `previousHash` no se valida en `deriveMemory`; no usarlo como garantía de integridad ni fuente canónica.
+- `ARKI-LIVING-MEMORY-UPDATE-PROTOCOL.md`: reconoce explícitamente que falta ingesta, persistencia, autenticación, E2E y actualización de interfaz.
+- **Recomendación:** conservar `00_START` como índice editorial de decisiones y `ARKI_HANDOFF` como snapshot derivado; crear vínculo explícito, no dos memorias rivales. No trasladar el workflow con escritura automática a main sin seguridad, tokens mínimos, rama destino y tests.
