@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --check tools/maqueta-viva/arki-autonomy-orchestrator.cjs
+      - run: node --test tools/maqueta-viva/test-arki-autonomy-orchestrator.cjs
       - run: node --check tools/maqueta-viva/arki-assembly-planner.cjs
       - run: node --check tools/maqueta-viva/test-arki-assembly-planner.cjs
       - run: node tools/maqueta-viva/test-arki-assembly-planner.cjs
