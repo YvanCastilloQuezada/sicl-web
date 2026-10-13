@@ -50,3 +50,10 @@ Diez escenarios E2E en PC del propietario; no se inventarán resultados de su se
 2. Identificar Event Store persistente existente y su interfaz de lectura, sin tocar FROZEN.
 3. Mapear eventos derivados al Mapa Vivo, luego Árbol Vivo y finalmente gemelo experimental.
 4. Conservar ACS como repositorio separado; inventariar interfaces públicas, no trasladar corpus a WEB.
+
+## Ejecución M02–M03 — contratos y clasificación inicial
+- CORE enumeración observada: 100 + 5 ramas en dos páginas; siguiente cursor `MTA1` aún devuelto, por lo que **no afirmar cierre de paginación**.
+- Contrato de autoridad en `sicl-core@reconcile/arki-live-map-2026-10-07:docs/ARKI_CROSS_REPO_AUTHORITY_CONTRACT_V1.md`: Core = Project State, evidencia, decisiones; D-2 = semántica; AGK = geometría operacional; Web/F7/F8 = proyecciones; ACS = adquisición y laboratorio. F7 debe referenciar projectId, revisión Core, referencias D-2/AGK, fingerprint BASELINE_0, procedencia, UNKNOWN y aceptación humana antes de F8. **Es contrato documental, no prueba runtime**.
+- `docs/ARKI_KNOWN_LIMITATIONS_v1.0.md` lleva aviso explícito de `HISTORICAL / RECONCILIATION_REQUIRED`. No convertir RT-89..RT-96 automáticamente en deuda actual sin revalidación.
+- Clasificación preliminar: Web `feat/arki-master-map-live-v1` = `ALREADY_IN_MAIN_OR_SUPERSEDED` (0 ahead / 8 behind); Core contrato autoridad = `REVIEW_REQUIRED` (dos commits docs no fusionados); ACS OECE = `SEPARATE_LAB_CANDIDATE` (85 ahead); módulos living-memory y autonomy-memory = `EXPERIMENTAL_NONCANONICAL`; ADN-MC = `HYPOTHESIS_ONLY` sin ensayos comparativos verificados.
+- Veredicto M02: `IN_PROGRESS`; M03: `PARTIAL`. Falta mapa exhaustivo de módulos/imports y prueba de interfaces reales.
