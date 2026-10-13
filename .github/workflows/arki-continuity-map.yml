@@ -2,6 +2,7 @@ name: ARKI Continuity Map
 on:
   push:
     branches:
+      - main
       - feat/arki-integration-genealogy-20261013
     paths-ignore:
       - 'docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md'
@@ -32,8 +33,10 @@ jobs:
         run: node --test tools/maqueta-viva/arki-continuity-snapshot.test.cjs
       - name: Regenerate continuity snapshot
         run: node tools/maqueta-viva/arki-continuity-snapshot.cjs
+      - name: Verify deterministic snapshot
+        run: node tools/maqueta-viva/arki-continuity-snapshot.cjs --check
       - name: Publish snapshot only if changed
-        if: github.event_name == 'push' && github.ref == 'refs/heads/feat/arki-integration-genealogy-20261013'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/arki-integration-genealogy-20261013')
         run: |
           if git diff --quiet -- docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md && git ls-files --error-unmatch docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md >/dev/null 2>&1; then
             echo "No changes"
