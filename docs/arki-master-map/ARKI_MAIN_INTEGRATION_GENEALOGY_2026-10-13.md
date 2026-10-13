@@ -34,3 +34,10 @@ Estado: INVENTARIO PARCIAL VERIFICADO EN GITHUB; NO AUTORIZA MERGE SIN GATES.
 - Recuperar evidencia del runner CI fallido y comprobar si hay infraestructura ARKI-02 disponible.
 - Auditar el contenido exacto de las ramas de alto valor y reducirlas a PRs acotados contra main.
 - Reconciliar 00_START y 00_INICIO_ARKI sin sobrescribir sus decisiones.
+
+## Auditoría de divergencias entre ramas — segunda pasada
+- `feat/f7-f8-integral-closure` → `feat/arbol-vivo-autoensamblaje-20261011`: 270 ahead / 4 behind, 49 archivos distintos. NO es descendencia lineal pura.
+- `feat/arbol-vivo-precedencias-seguras-20261010` → `feat/arbol-vivo-autoensamblaje-20261011`: 37 ahead / 74 behind, 17 archivos distintos. **Riesgo de perder 74 commits exclusivos** si se toma autoensamblaje como único origen.
+- `feat/f7-f8-integral-closure` → `feat/arbol-vivo-precedencias-seguras-20261010`: 307 ahead / 4 behind, 52 archivos distintos.
+- Evidencia local independiente: el código del PR #58 recuperado de GitHub pasa 5/5 tests `node --test` y `node --check`; **NO** equivale a CI GitHub ni a revisión de seguridad completa. GitHub Actions de PR #58 sigue FAILURE, sin logs recuperables. Reintento remoto no realizado: llamada rechazada por controles de herramienta. No eludir controles.
+- Regla: antes de integrar Árbol Vivo, construir matriz de 17 archivos divergentes y sus contratos; comparar comportamiento y seleccionar resoluciones sin perder trabajo de precedencias. Mantener PR #58 BLOCKED hasta CI exacto verde.
