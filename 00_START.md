@@ -119,3 +119,14 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 **Declaración del Product Owner:** este documento recoge cómo nació ARKI y lo que debe llegar a ser. **IMPORTANTE: contenido de las hojas AÚN NO LEÍDO**; la herramienta GitHub disponible rechazó la extracción del XLSX binario. No inferir contenido ni declararlo auditado.
 **Próxima acción obligatoria:** materializar/descargar XLSX con un mecanismo binario válido; leer todas las hojas, contrastar origen, decisiones, cambios de nombre SICL→Vitruvio→ARKI, visión futura, autoridad y determinismo; incorporar los hallazgos documentados aquí y al mapa maestro con referencia exacta de hoja/celda. Distinguir historia, intención, implementación y evidencia.
 **Otra fuente de preservación:** `docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx`, también pendiente de lectura integral.
+
+
+## VERIFICACIÓN DE CONTINUIDAD E INTEGRACIÓN — 2026-10-13
+- Fuente: inspección directa GitHub; este bloque es auditoría, no prueba de ejecución en ARKI-02.
+- Archivo `00_START.md`: presente en esta rama experimental; AUSENTE de `main` al consultar GitHub.
+- `00_INICIO_ARKI.md`: presente en rama `audit/arbol-vivo-continuidad-20261011`; reconciliación pendiente.
+- Automatización local históricamente documentada: `~/ARKI/bin/arki02-local-ci.sh` con `arki02-ci.service`/`.timer` (06:00 local); sincronizador `~/ARKI/bin/arki02-git-sync.py`. Estado actual del servidor, temporizadores, logs y actualización diaria de `00_START`: NO VERIFICADO REMOTAMENTE.
+- PR #58 hacia `main`: https://github.com/YvanCastilloQuezada/sicl-web/pull/58; paquete independiente de memoria, HEAD `bdfefedb38a0a8cc1dfdbdea097b77594141777f`; CI run 38443066124 FAILURE, job verify FAILURE, logs no recuperables (BlobNotFound). MERGE BLOQUEADO hasta CI verde y controles de seguridad. Autorización del propietario CONDICIONADA, no permiso de omitir gates.
+- PR #57: https://github.com/YvanCastilloQuezada/sicl-web/pull/57; 7 archivos/9 commits sobre esta rama, DRAFT; no promover a main en bloque.
+- Macroorden de continuidad: localizar mecanismo que efectivamente escriba `00_START`, verificar timer + ejecuciones diarias con timestamps + commit de salida, conciliar handoffs, y solo entonces conectar el ciclo de autonomía sin duplicar servicios.
+- Próxima evidencia imprescindible: `systemctl --user list-timers --all`, `systemctl --user status arki02-ci.timer arki02-ci.service`, `journalctl --user -u arki02-ci.service --since '7 days ago'`, `ls -l --full-time ~/ARKI/bin/arki02-local-ci.sh ~/ARKI/bin/arki02-git-sync.py`, `git log -5 --format='%H %aI %s' -- 00_START.md` en repositorio Web local. No asumir que timer CI actualiza este archivo.
