@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,"../..");
 function git(args){return cp.execFileSync("git",args,{cwd:root,encoding:"utf8",timeout:30000,maxBuffer:16*1024*1024}).trim();}
 function lines(s){return s?s.split("\n").filter(Boolean):[];}
 function safe(s){return String(s).replace(/[\r\n|]/g," ").slice(0,200);}
-function loadLedger(){const p=path.join(root,"docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl");return fs.existsSync(p)?lines(fs.readFileSync(p,"utf8")).map((s,i)=>{let v;try{v=JSON.parse(s)}catch{throw Error("Invalid event line "+(i+1))}if(!v.id||!v.at||!v.kind||!v.summary||!v.evidence)throw Error("Incomplete event line "+(i+1));return v}):[];}
+function loadLedger(){const p=path.join(root,"docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl");return fs.existsSync(p)?lines(fs.readFileSync(p,"utf8")).map((s,i)=>{let v;try{v=JSON.parse(s)}catch{throw Error("Invalid event line "+(i+1))}if(!v||typeof v!=="object"||Array.isArray(v)||["id","at","kind","summary","evidence"].some(k=>typeof v[k]!=="string"||!v[k].trim()))throw Error("Incomplete event line "+(i+1));if(!/^\\d{4}-\\d{2}-\\d{2}(?:T.*)?$/.test(v.at)||Number.isNaN(Date.parse(v.at)))throw Error("Invalid event date line "+(i+1));return v}):[];}
 function build(){const sha=git(["rev-parse","HEAD"]),branch=git(["rev-parse","--abbrev-ref","HEAD"]);
  const history=lines(git(["log","-80","--format=%H%x09%cI%x09%s"])).map(s=>{const [sha,at,...rest]=s.split("\t");return {sha,at,summary:rest.join(" ")}});const events=loadLedger();
  const seen=new Set();for(const e of events){if(seen.has(e.id))throw Error("Duplicate event "+e.id);seen.add(e.id);}
