@@ -1,9 +1,9 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict");
 const {prepareAce88Request,CONTRACT,ACTION}=require("./arki-ace88-preflight-adapter.cjs");
-const proposal={projectId:"P",proposalId:"D",fingerprint:"fp",reviewId:"R"};
+const proposal={projectId:"P",proposalId:"D",fingerprint:"a".repeat(64),reviewId:"R"};
 const gate={tests:"PASS",dependencies:"PASS",frozen:"PASS",evidence:"PASS"};
-function proof(){return {signature_b64:"QUJDRA==",payload:{contract:CONTRACT,action:ACTION,projectId:"P",proposalId:"D",fingerprint:"fp",actorId:"owner",reviewId:"R",keyId:"k1",decision:"APPROVED",issuedAt:new Date(Date.now()-10000).toISOString(),expiresAt:new Date(Date.now()+60000).toISOString(),nonce:"n1"}}}
+function proof(){return {signature_b64:"QUJDRA==",payload:{contract:CONTRACT,action:ACTION,projectId:"P",proposalId:"D",fingerprint:"a".repeat(64),actorId:"owner",reviewId:"R",keyId:"k1",decision:"APPROVED",issuedAt:new Date(Date.now()-10000).toISOString(),expiresAt:new Date(Date.now()+60000).toISOString(),nonce:"n1"}}}
 function check(p=proposal,pr=proof(),g=gate){return prepareAce88Request({proposal:p,proof:pr,gate:g})}
 test("prepare request but never authorize",()=>{const r=check();assert.equal(r.status,"READY_FOR_CORE_VERIFICATION");assert.equal(r.authorized,false);assert.equal(r.coreVerification,"REQUIRED");assert.equal(r.request.approval_payload.contract,CONTRACT)});
 test("reject unsigned approval",()=>assert.equal(check(proposal,{payload:proof().payload}).status,"BLOCKED"));
