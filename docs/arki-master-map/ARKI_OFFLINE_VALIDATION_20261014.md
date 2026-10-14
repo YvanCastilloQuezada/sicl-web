@@ -38,3 +38,20 @@ echo "EXIT_CODE=$?"
 5. Reconciliación del PR #57 y del handoff `00_START.md`.
 
 El fallo instantáneo de Actions sin runner asignado **es compatible** con bloqueo de facturación/cuota, pero no prueba una deuda específica.
+
+## Extensión del 14-10: reconciliación y memoria
+
+El runner offline incluye ahora **15 archivos de pruebas**: 13 originales, `test-Verify-ARKI-Journal.cjs` y `test-Reconcile-ARKI-Branches.cjs`. Los resultados siguen siendo `NOT_EXECUTED` hasta que ARKI-02 emita recibo local.
+
+Para producir un informe de divergencias sin mutar Git:
+
+```bash
+git fetch origin
+node tools/maqueta-viva/Reconcile-ARKI-Branches.cjs origin/feat/arbol-vivo-autoensamblaje-20261011 origin/feat/arki-autonomy-orchestrator-20261013 > /tmp/arki-branch-reconciliation.json
+```
+
+`potentialConflicts` es solo la intersección de rutas modificadas desde el ancestro común, **no** la detección definitiva de conflictos de merge. La reconciliación debe seguir siendo manual y revisada.
+
+Para ejecutar todas las pruebas, usar el SHA HEAD real de la rama local y worktree limpio. La documentación anterior muestra un SHA histórico: **no usarlo como expected SHA después de estos commits**. Ejecutar `git rev-parse HEAD` y pasarlo como argumento.
+
+La integridad de memoria no es firma ACE88 ni autenticidad externa. Ninguna prueba local sustituye E3 Windows, pruebas geométricas AGK ni autorización del PO.
