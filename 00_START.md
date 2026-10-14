@@ -119,3 +119,10 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 **Declaración del Product Owner:** este documento recoge cómo nació ARKI y lo que debe llegar a ser. **IMPORTANTE: contenido de las hojas AÚN NO LEÍDO**; la herramienta GitHub disponible rechazó la extracción del XLSX binario. No inferir contenido ni declararlo auditado.
 **Próxima acción obligatoria:** materializar/descargar XLSX con un mecanismo binario válido; leer todas las hojas, contrastar origen, decisiones, cambios de nombre SICL→Vitruvio→ARKI, visión futura, autoridad y determinismo; incorporar los hallazgos documentados aquí y al mapa maestro con referencia exacta de hoja/celda. Distinguir historia, intención, implementación y evidencia.
 **Otra fuente de preservación:** `docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx`, también pendiente de lectura integral.
+
+## Continuidad de validación offline — 2026-10-14
+- GitHub Actions para PR #57 no asignó runner y terminó en segundos; causa de facturación/cuota plausible pero NO CONFIRMADA con acceso a billing.
+- Rama `test/arki-autonomy-offline-ci-20261014`, PR #61 DRAFT, implementa `tools/maqueta-viva/Run-ARKI-Offline-CI.cjs` para 13 suites existentes sin dependencia de GitHub Actions. Node 22, SHA exacto, worktree limpio, reporte JSON y fallos explícitos. Último commit del runner: `c7744aba22ba801758d5bf612de0d9047641d880`.
+- Procedimiento: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`. No se ha ejecutado en ARKI-02; NO reclamar PASS.
+- PR #60 mantiene auditoría doble sin modificación de runtime. PR #57 es la autonomía ya existente; NO DUPLICAR.
+- Próximo: ejecutar validación offline en clon experimental, reconciliar PR #57 con Árbol Vivo, verificar persistencia y ACE88. No merge ni FREEZE hasta evidencias.
