@@ -15,7 +15,8 @@ function reconcile(base,head){
  const mergeBase=git(["merge-base",baseSha,headSha]);
  const counts=git(["rev-list","--left-right","--count",baseSha+"..."+headSha]).split(/\s+/).map(Number);
  const paths=git(["diff","--name-status","--no-renames",baseSha,headSha]).split("\n").filter(Boolean).map(line=>({status:line[0],path:line.slice(2)}));
- const conflictCandidates=git(["diff","--name-only",mergeBase,baseSha]).split("\n").filter(Boolean).filter(p=>git(["diff","--name-only",mergeBase,headSha]).split("\n").includes(p));
+ const headChanged=new Set(git(["diff","--name-only",mergeBase,headSha]).split("\n").filter(Boolean));
+ const conflictCandidates=git(["diff","--name-only",mergeBase,baseSha]).split("\n").filter(Boolean).filter(p=>headChanged.has(p));
  return {schema:"ARKI-BRANCH-RECONCILIATION-1",base:{ref:base,sha:baseSha},head:{ref:head,sha:headSha},mergeBase,ahead:counts[1],behind:counts[0],changedPaths:paths,potentialConflicts:conflictCandidates,actualMergeConflicts:"NOT_EVALUATED",mutation:false,mergePerformed:false};
 }
 if(require.main===module){
