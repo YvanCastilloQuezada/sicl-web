@@ -1,0 +1,12 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {test}=require("node:test");
+const {evaluate}=require("./arki-live-dependency-gate.cjs");
+const n=(id,dependencies=[],evidenceVerified=true)=>({id,dependencies,evidenceVerified});
+test("ready only when all evidence and ancestors verified",()=>{const r=evaluate([n("I-01"),n("I-02",["I-01"])]);assert.deepEqual(r.items.map(x=>x.status),["READY","READY"]);});
+test("missing dependency blocks propagation",()=>assert.equal(evaluate([n("I-02",["I-01"])]).items[0].status,"BLOCKED_MISSING_DEPENDENCY"));
+test("unverified ancestor blocks dependent",()=>assert.equal(evaluate([n("I-01",[],false),n("I-02",["I-01"])]).items[1].status,"BLOCKED_UNVERIFIED"));
+test("cycles block both nodes",()=>assert.deepEqual(evaluate([n("I-01",["I-02"]),n("I-02",["I-01"])]).items.map(x=>x.status),["BLOCKED_CYCLE","BLOCKED_CYCLE"]));
+test("duplicate ids fail closed",()=>assert.throws(()=>evaluate([n("I-01"),n("I-01")]),/INVALID_NODE/));
+test("missing evidence fails closed",()=>assert.throws(()=>evaluate([{id:"I-01",dependencies:[]}]),/INVALID_NODE/));
+test("does not mutate input",()=>{const a=[n("I-01")],s=JSON.stringify(a);evaluate(a);assert.equal(JSON.stringify(a),s)});
