@@ -34,6 +34,7 @@ const tests=[
  "arki-mo04-mo03-adapter.test.cjs",
  "arki-integrated-diagnosis.test.cjs",
  "arki-live-pulse.test.cjs",
+ "arki-mo025-cycle.test.cjs",
  "arki-f1-research-agenda.test.cjs",
  "arki-f1-source-audit.test.cjs",
  "arki-f1-evidence-extract.test.cjs",
