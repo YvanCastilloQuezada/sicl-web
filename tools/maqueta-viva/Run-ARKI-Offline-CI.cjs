@@ -31,12 +31,15 @@ function main(){
  const dirty=cmd("git",["status","--porcelain"]);
  if(dirty.status!==0||dirty.stdout.trim())throw Error("WORKTREE_NOT_CLEAN");
  const node=cmd(process.execPath,["--version"]);
+ if(node.status!==0)throw Error("NODE_VERSION_UNAVAILABLE");
+ const major=Number(node.stdout.trim().replace(/^v/,"").split(".")[0]);
+ if(major!==22)throw Error("NODE_22_REQUIRED");
  const report={schema:"ARKI-OFFLINE-CI-1",head,node:node.stdout.trim(),githubActions:"NOT_USED",e3Windows:"NOT_EXECUTED",canonicalMutation:false,results:[]};
  for(const name of tests){
   const file=path.join(dir,name);
   if(!fs.existsSync(file)){report.results.push({name,status:"MISSING"});continue;}
   const result=cmd(process.execPath,[file]);
-  report.results.push({name,status:result.error?"ERROR":result.status===0?"PASS":"FAIL",exitCode:result.status,stdout:(result.stdout||"").slice(-3000),stderr:(result.stderr||"").slice(-3000)});
+  report.results.push({name,status:result.error?"ERROR":result.signal?"SIGNAL":result.status===0?"PASS":"FAIL",exitCode:result.status,signal:result.signal||null,error:result.error?.message||null,stdout:(result.stdout||"").slice(-3000),stderr:(result.stderr||"").slice(-3000)});
  }
  const after=cmd("git",["rev-parse","HEAD"]);
  const finalStatus=cmd("git",["status","--porcelain"]);
