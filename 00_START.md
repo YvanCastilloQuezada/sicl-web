@@ -132,3 +132,9 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Nuevos módulos read-only: `tools/maqueta-viva/Verify-ARKI-Journal.cjs`, `Reconcile-ARKI-Branches.cjs`, con pruebas adversariales independientes.
 - Procedimiento actualizado: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`.
 - PR #61 DRAFT. Evitar merge a main y no afirmar ACE88 integrado, persistencia durable ni AGK E2E.
+
+## Integración ACE88 — continuidad 2026-10-14
+- Contrato propuesto en `docs/arki-master-map/ARKI_ACE88_WEB_CORE_BOUNDARY_20261014.md` (commit `ccd4cc8b19019b9b8d0ebd67f435a5106ddc5484`).
+- Fuente Core `docs/ace88/ACE88_ROOT_INTEGRATION.md`: declara regresión local PASS al 14/10; auditoría independiente y SECURITY_FREEZE siguen pendientes. No inferir aprobación desde clic UI.
+- Se optimizó `Reconcile-ARKI-Branches.cjs` para evitar ejecutar un proceso Git por cada ruta (commit `d1568d766627ef959a22c365f289f1e87c028b74`).
+- Próximo: inspeccionar API ACE88 real y escribir adaptador fail-closed con pruebas, sin promover cambios canónicos antes de validación E2E.
