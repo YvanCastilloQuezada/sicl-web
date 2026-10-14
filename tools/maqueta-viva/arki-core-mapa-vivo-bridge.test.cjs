@@ -19,3 +19,5 @@ test("flags cycles without granting promotion",()=>{const {core,web}=fixtures();
 test("rejects missing edge",()=>{const {core,web}=fixtures();core.edges.pop();assert.throws(()=>reconcileCoreMapaVivo(core,web),/EDGE_SET_MISMATCH/)});
 test("rejects web canonical mutation",()=>{const {core,web}=fixtures();web.canonicalMutation=true;assert.throws(()=>reconcileCoreMapaVivo(core,web),/INVALID_WEB_SNAPSHOT/)});
 test("reports FROZEN claim as unverified",()=>{const {core,web}=fixtures();web.map.findings[0].classification="FROZEN_PROTECTED";const r=reconcileCoreMapaVivo(core,web);assert(r.issues.some(x=>x.code==="WEB_FROZEN_CLAIM_NOT_VERIFIED_BY_CORE"))});
+
+test("F6 PO revocation eliminates frozen claim without granting competence",()=>{const {core,web}=fixtures();web.map.findings[5].classification="RECONCILIATION_REQUIRED";const r=reconcileCoreMapaVivo(core,web);assert(!r.issues.some(x=>x.code==="WEB_FROZEN_CLAIM_NOT_VERIFIED_BY_CORE"&&x.phase==="F6"));assert.equal(r.competence,"NOT_VERIFIED");assert.equal(r.promotion,"BLOCKED")});
