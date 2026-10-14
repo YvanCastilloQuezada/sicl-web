@@ -126,3 +126,9 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Procedimiento: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`. No se ha ejecutado en ARKI-02; NO reclamar PASS.
 - PR #60 mantiene auditoría doble sin modificación de runtime. PR #57 es la autonomía ya existente; NO DUPLICAR.
 - Próximo: ejecutar validación offline en clon experimental, reconciliar PR #57 con Árbol Vivo, verificar persistencia y ACE88. No merge ni FREEZE hasta evidencias.
+
+## Continuidad adicional offline — 2026-10-14
+- El runner local ahora enumera 15 archivos de pruebas, incluyendo verificador de journal y analizador de divergencia de ramas. No se han ejecutado en ARKI-02.
+- Nuevos módulos read-only: `tools/maqueta-viva/Verify-ARKI-Journal.cjs`, `Reconcile-ARKI-Branches.cjs`, con pruebas adversariales independientes.
+- Procedimiento actualizado: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`.
+- PR #61 DRAFT. Evitar merge a main y no afirmar ACE88 integrado, persistencia durable ni AGK E2E.
