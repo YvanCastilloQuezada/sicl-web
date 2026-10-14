@@ -28,6 +28,7 @@ const tests=[
  "arki-live-systems-coordinator.test.cjs",
  "arki-core-mapa-vivo-bridge.test.cjs",
  "arki-mo03-autoplan.test.cjs",
+ "arki-mo04-journal.test.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
