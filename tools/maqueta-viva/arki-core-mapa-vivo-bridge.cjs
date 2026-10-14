@@ -7,12 +7,13 @@ const SHA40=/^[a-f0-9]{40}$/;
 const SHA64=/^[a-f0-9]{64}$/;
 const PHASE=/^F(?:10|[1-9])$/;
 const hash=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
-function reconcileCoreMapaVivo(core,webSnapshot,{expectedCoreHead}={}){
+function reconcileCoreMapaVivo(core,webSnapshot,{expectedCoreHead,expectedWebHead}={}){
  if(!core||core.schema!=="arki.mapa_vivo.v1"||!SHA40.test(core.head||""))throw Error("INVALID_CORE_MAP");
  if(expectedCoreHead&&core.head!==expectedCoreHead)throw Error("CORE_HEAD_MISMATCH");
  if(core.canonical_mutations!==0||core.validation_scope!=="source-presence-only")throw Error("CORE_SCOPE_MISMATCH");
  if(!Array.isArray(core.nodes)||!Array.isArray(core.edges)||!Array.isArray(core.findings)||!Array.isArray(core.limitations))throw Error("INVALID_CORE_STRUCTURE");
  if(!webSnapshot||webSnapshot.schema!=="ARKI-LIVE-SYSTEMS-SNAPSHOT-1"||!SHA40.test(webSnapshot.sourceCommit||"")||webSnapshot.canonicalMutation!==false||webSnapshot.execution!=="READ_ONLY")throw Error("INVALID_WEB_SNAPSHOT");
+ if(expectedWebHead&&webSnapshot.sourceCommit!==expectedWebHead)throw Error("WEB_HEAD_MISMATCH");
  const ids=new Set(),phases=new Set(),issues=[];
  for(const node of core.nodes){
   if(!node||typeof node.id!=="string"||!node.id||ids.has(node.id)||!Array.isArray(node.dependencies)||!Array.isArray(node.evidence)||typeof node.status!=="string"||node.approval!=="NOT_ASSESSED")throw Error("INVALID_CORE_NODE");
