@@ -21,3 +21,16 @@ test("snapshot includes Git SHA and commit chronology",()=>{
 });
 
 test("snapshot is deterministic when Git and ledger are unchanged",()=>{assert.equal(build(),build());});
+
+test("rejects missing, malformed, duplicate, and incomplete evidence",()=>{
+ const fs=require("node:fs"),os=require("node:os"),path=require("node:path");
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),"arki-continuity-")),file=path.join(dir,"events.jsonl");
+ const event={id:"TEST-001",at:"2026-10-13",kind:"TEST",summary:"fixture",evidence:"local test",status:"TEST_ONLY"};
+ try{
+  assert.throws(()=>loadLedger(file),/Missing continuity ledger/);
+  for(const content of ["{broken",JSON.stringify({...event,status:""}),JSON.stringify({...event,at:"invalid"}),JSON.stringify(event)+"\n"+JSON.stringify(event)]){
+   fs.writeFileSync(file,content+"\n");
+   assert.throws(()=>loadLedger(file));
+  }
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
