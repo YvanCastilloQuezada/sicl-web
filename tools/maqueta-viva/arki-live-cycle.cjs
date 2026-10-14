@@ -5,6 +5,7 @@ const {review}=require("./arki-mo031-review.cjs");
 const {bind,repairExperiment}=require("./arki-mo031-evidence.cjs");
 const {rehearseFile}=require("./arki-mo031-file-rehearsal.cjs");
 const {diagnose}=require("./arki-av002-precedence.cjs");
+const {reconcile}=require("./arki-av003-reconcile.cjs");
 const sha=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
 function command(bin,args,cwd){const r=cp.spawnSync(bin,args,{cwd,encoding:"utf8",timeout:120000,maxBuffer:8e6});if(r.error||r.status!==0)throw Error("COMMAND_FAILED "+bin+" "+args[0]+": "+(r.stderr||r.error?.message||r.status));return r.stdout.trim()}
 function safeJson(p){const s=fs.lstatSync(p);if(!s.isFile()||s.isSymbolicLink()||s.size>3e6)throw Error("UNSAFE_JSON");return JSON.parse(fs.readFileSync(p,"utf8"))}
@@ -31,10 +32,11 @@ function run({coreDir,webDir,stateDir}){
   const registry=safeJson(registryFile),evidence=bind(proposalReview,registry);
   const repair=repairExperiment(registry);
   const precedence=diagnose(registry);
+  const sourceReconciliation=reconcile(registry,webDir);
   const sandbox=rehearseFile(evidence,registryFile);
   if(!sandbox.rollbackVerified||!sandbox.sourceUnchanged)throw Error("SANDBOX_ROLLBACK_FAIL");
   // Journal is external operational state; no canonical write and no automatic approval.
-  const result={schema:"ARKI-LIVE-CYCLE-1",coreHead,webHead,heartbeat:pulse.heartbeat,proposals:evidence.items.map(x=>({id:x.id,status:x.status,dependencyAssessment:x.dependencyAssessment})),repairExperiment:repair,precedenceDiagnosis:precedence,sandbox:{temporaryCorrectionCount:sandbox.temporaryCorrectionCount,rollbackVerified:sandbox.rollbackVerified},capabilities:{architecturalDesign:"NOT_DEMONSTRATED",agk:"NOT_EXECUTED",delta62:"NOT_EXECUTED"},policy:{canonicalMutation:false,poApproval:"PENDING",sourceWrites:0}};
+  const result={schema:"ARKI-LIVE-CYCLE-1",coreHead,webHead,heartbeat:pulse.heartbeat,proposals:evidence.items.map(x=>({id:x.id,status:x.status,dependencyAssessment:x.dependencyAssessment})),repairExperiment:repair,precedenceDiagnosis:precedence,sourceReconciliation,sandbox:{temporaryCorrectionCount:sandbox.temporaryCorrectionCount,rollbackVerified:sandbox.rollbackVerified},capabilities:{architecturalDesign:"NOT_DEMONSTRATED",agk:"NOT_EXECUTED",delta62:"NOT_EXECUTED"},policy:{canonicalMutation:false,poApproval:"PENDING",sourceWrites:0}};
   result.receiptSha256=sha(result);
   const journalDir=path.join(stateDir,"events");fs.mkdirSync(journalDir,{recursive:true});
   const target=path.join(journalDir,result.receiptSha256+".json");
