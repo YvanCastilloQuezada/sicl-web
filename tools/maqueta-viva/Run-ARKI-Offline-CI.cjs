@@ -35,6 +35,7 @@ const tests=[
  "arki-integrated-diagnosis.test.cjs",
  "arki-live-pulse.test.cjs",
  "arki-f1-research-agenda.test.cjs",
+ "arki-f1-source-audit.test.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
