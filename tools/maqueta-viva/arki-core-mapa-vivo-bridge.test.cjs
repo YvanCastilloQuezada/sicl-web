@@ -21,3 +21,6 @@ test("rejects web canonical mutation",()=>{const {core,web}=fixtures();web.canon
 test("reports FROZEN claim as unverified",()=>{const {core,web}=fixtures();web.map.findings[0].classification="FROZEN_PROTECTED";const r=reconcileCoreMapaVivo(core,web);assert(r.issues.some(x=>x.code==="WEB_FROZEN_CLAIM_NOT_VERIFIED_BY_CORE"))});
 
 test("F6 PO revocation eliminates frozen claim without granting competence",()=>{const {core,web}=fixtures();web.map.findings[5].classification="RECONCILIATION_REQUIRED";const r=reconcileCoreMapaVivo(core,web);assert(!r.issues.some(x=>x.code==="WEB_FROZEN_CLAIM_NOT_VERIFIED_BY_CORE"&&x.phase==="F6"));assert.equal(r.competence,"NOT_VERIFIED");assert.equal(r.promotion,"BLOCKED")});
+
+test("independent Core and Web identities accepted when pinned",()=>{const {core,web}=fixtures();const r=reconcileCoreMapaVivo(core,web,{expectedCoreHead:sha,expectedWebHead:websha});assert.equal(r.coreHead,sha);assert.equal(r.webHead,websha);assert.notEqual(r.coreHead,r.webHead);assert.equal(r.promotion,"BLOCKED")});
+test("stale Web snapshot rejected without changing Core identity",()=>{const {core,web}=fixtures();assert.throws(()=>reconcileCoreMapaVivo(core,web,{expectedCoreHead:sha,expectedWebHead:"c".repeat(40)}),/WEB_HEAD_MISMATCH/)});
