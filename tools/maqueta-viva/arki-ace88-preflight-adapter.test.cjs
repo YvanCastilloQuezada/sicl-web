@@ -7,7 +7,8 @@ function proof(){return {signature_b64:"QUJDRA==",payload:{contract:CONTRACT,act
 function check(p=proposal,pr=proof(),g=gate){return prepareAce88Request({proposal:p,proof:pr,gate:g})}
 test("prepare request but never authorize",()=>{const r=check();assert.equal(r.status,"READY_FOR_CORE_VERIFICATION");assert.equal(r.authorized,false);assert.equal(r.coreVerification,"REQUIRED");assert.equal(r.request.approval_payload.contract,CONTRACT)});
 test("reject unsigned approval",()=>assert.equal(check(proposal,{payload:proof().payload}).status,"BLOCKED"));
-test("reject changed fingerprint",()=>assert.equal(check({...proposal,fingerprint:"changed"}).reason,"AUTHORITY_BINDING_MISMATCH"));
+test("reject changed fingerprint",()=>assert.equal(check({...proposal,fingerprint:"b".repeat(64)}).reason,"AUTHORITY_BINDING_MISMATCH"));
+test("reject malformed fingerprint",()=>assert.equal(check({...proposal,fingerprint:"changed"}).reason,"INVALID_PROPOSAL_FINGERPRINT"));
 test("reject changed review",()=>assert.equal(check({...proposal,reviewId:"changed"}).reason,"AUTHORITY_BINDING_MISMATCH"));
 test("reject unknown evidence",()=>assert.equal(check(proposal,proof(),{...gate,evidence:"UNKNOWN"}).reason,"PRECONDITIONS_NOT_VERIFIED"));
 test("reject frozen failure",()=>assert.equal(check(proposal,proof(),{...gate,frozen:"FAIL"}).reason,"PRECONDITIONS_NOT_VERIFIED"));
