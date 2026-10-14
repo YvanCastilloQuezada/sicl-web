@@ -22,6 +22,8 @@ const tests=[
  "arki-ace88-core-transport.test.cjs",
  "arki-dependency-coverage.test.cjs",
  "arki-relational-learning.test.cjs",
+ "arki-relational-evidence.test.cjs",
+ "arki-relational-discovery.test.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
