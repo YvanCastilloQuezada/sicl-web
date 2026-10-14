@@ -145,3 +145,9 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Suites ACE88 incluidas en runner offline: 17 archivos de pruebas totales; ejecución real NO DEMOSTRADA.
 - Contrato y advertencias E2E: `docs/arki-master-map/ARKI_ACE88_ADAPTER_IMPLEMENTATION_20261014.md`.
 - No usar proyecto canónico para pruebas de promoción; falta cliente HTTP servidor real, verificación independiente y SECURITY_FREEZE.
+
+## Árbol Vivo — propagación segura de antecedentes (2026-10-14)
+- `arki-arbol-vivo-auto.cjs` ahora consume el gate `arki-dependency-coverage.cjs`, marca `prerequisiteStatus` y propaga bloqueos a descendientes sin cambiar el registro canónico.
+- Registro histórico de 51 elementos: ninguno declara `dependencies`; su ruta de precedencias permanece `BLOCKED_UNVERIFIED`, aunque el orden topológico histórico se conserve para inspección.
+- `arki-arbol-vivo-auto.test.cjs` añade pruebas de bloqueo propagado y antecedentes declarados. Ejecutar offline; no se afirma PASS hasta recibir evidencia.
+- El estado `DECLARED_NOT_COMPETENCE_VERIFIED` tampoco habilita ejecución: falta validación de competencias, evidencia y ACE88.
