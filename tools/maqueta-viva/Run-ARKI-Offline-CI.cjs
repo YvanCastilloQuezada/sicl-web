@@ -30,6 +30,7 @@ const tests=[
  "arki-mo03-autoplan.test.cjs",
  "arki-mo04-journal.test.cjs",
  "arki-mo04-persistence.test.cjs",
+ "arki-mo04-guarded.test.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
