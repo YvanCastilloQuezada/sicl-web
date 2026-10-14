@@ -9,18 +9,25 @@ function planMo03({registry,coreMap,webSnapshot,expectedCoreHead}){
  const bridge=reconcileCoreMapaVivo(coreMap,webSnapshot,{expectedCoreHead});
  const phaseStatus=new Map(webSnapshot.map.findings.map(x=>[x.phase,x]));
  const problems=new Set(bridge.issues.filter(x=>x.phase).map(x=>x.phase));
+ const registryItems=[...registry.ideas,...registry.components];
+ const registryById=new Map(registryItems.map(x=>[x.id,x]));
  const queue=tree.order.map((item,index)=>{
   const source=phaseStatus.get(item.phase);
   const reasons=[];
-  if(!item.phase)reasons.push("PHASE_UNASSIGNED");
-  if(item.prerequisiteStatus!=="DECLARED_NOT_COMPETENCE_VERIFIED")reasons.push("DEPENDENCY_STRUCTURE_BLOCKED");
+  const declared=registryById.get(item.id);
+  const dependencyIssues=tree.dependencyCoverage.issues.filter(x=>x.id===item.id);
+  const structuralBlocked=item.prerequisiteStatus!=="DECLARED_NOT_COMPETENCE_VERIFIED";
+  const dependencyState=dependencyIssues.some(x=>x.code==="DEPENDENCIES_UNDECLARED")?"UNDECLARED":dependencyIssues.length||structuralBlocked?"STRUCTURALLY_BLOCKED":"DECLARED_NOT_VERIFIED";
+  if(item.excluded)reasons.push("EXPLICITLY_OUT_OF_SCOPE");
+  else if(!item.phase)reasons.push("PHASE_UNASSIGNED");
+  if(structuralBlocked&&!item.excluded)reasons.push("DEPENDENCY_STRUCTURE_BLOCKED");
   if(source?.classification==="FROZEN_PROTECTED")reasons.push("FROZEN_PROTECTED");
   if(problems.has(item.phase))reasons.push("CORE_WEB_DISCREPANCY");
-  reasons.push("COMPETENCE_NOT_VERIFIED");
-  return {id:item.id,phase:item.phase,priorityRank:index+1,priorityScore:item.priorityScore,dependsOn:item.dependsOn,gate:"BLOCKED_UNVERIFIED",reasons,proposedAction:reasons.includes("DEPENDENCY_STRUCTURE_BLOCKED")?"RECONCILE_DEPENDENCIES":reasons.includes("PHASE_UNASSIGNED")?"RECONCILE_PHASE":reasons.includes("CORE_WEB_DISCREPANCY")?"RECONCILE_CORE_WEB_EVIDENCE":"COLLECT_INDEPENDENT_COMPETENCE_EVIDENCE",automaticExecution:false};
+  if(!item.excluded)reasons.push("COMPETENCE_NOT_VERIFIED");
+  return {id:item.id,phase:item.phase,priorityRank:index+1,priorityScore:item.priorityScore,dependsOn:item.dependsOn,dependencyState,dependencyIssues,gate:item.excluded?"EXCLUDED_OUT_OF_SCOPE":"BLOCKED_UNVERIFIED",reasons,proposedAction:item.excluded?"NO_ACTION_OUT_OF_SCOPE":dependencyState==="UNDECLARED"?"DECLARE_DEPENDENCIES_WITH_EVIDENCE":reasons.includes("DEPENDENCY_STRUCTURE_BLOCKED")?"RECONCILE_DEPENDENCIES":reasons.includes("PHASE_UNASSIGNED")?"RECONCILE_PHASE":reasons.includes("CORE_WEB_DISCREPANCY")?"RECONCILE_CORE_WEB_EVIDENCE":"COLLECT_INDEPENDENT_COMPETENCE_EVIDENCE",automaticExecution:false};
  });
  const findings=[...bridge.issues.map(x=>({...x,origin:"CORE_WEB"})),...tree.issues.map(x=>({...x,origin:"TREE"}))];
- const result={schema:"ARKI-MO03-AUTOMATED-ADVISORY-1",coreHead:bridge.coreHead,webHead:bridge.webHead,sourceRegistry:registry.updated_at||null,phaseStatuses:webSnapshot.map.findings.map(x=>({phase:x.phase,classification:x.classification,authority:"WEB_MAP_CLAIM_ONLY"})),counts:{activities:queue.length,blocked:queue.length,findings:findings.length},findings,queue,policy:{f6FrozenRevocation:"HONOR_CURRENT_MAP_STATUS",automaticAnalysis:true,automaticCanonicalMutation:false,automaticCompetencePromotion:false,approval:"SPECIFIC_PO_AUTHORIZATION_REQUIRED",agk:"NOT_EXECUTED"},execution:"READ_ONLY"};
+ const result={schema:"ARKI-MO03-AUTOMATED-ADVISORY-1",coreHead:bridge.coreHead,webHead:bridge.webHead,sourceRegistry:registry.updated_at||null,phaseStatuses:webSnapshot.map.findings.map(x=>({phase:x.phase,classification:x.classification,authority:"WEB_MAP_CLAIM_ONLY"})),counts:{activities:queue.length,inScope:queue.filter(x=>x.gate!=="EXCLUDED_OUT_OF_SCOPE").length,excluded:queue.filter(x=>x.gate==="EXCLUDED_OUT_OF_SCOPE").length,blocked:queue.filter(x=>x.gate==="BLOCKED_UNVERIFIED").length,dependenciesUndeclared:queue.filter(x=>x.dependencyState==="UNDECLARED"&&x.gate!=="EXCLUDED_OUT_OF_SCOPE").length,dependenciesStructurallyBlocked:queue.filter(x=>x.dependencyState==="STRUCTURALLY_BLOCKED"&&x.gate!=="EXCLUDED_OUT_OF_SCOPE").length,dependenciesDeclaredUnverified:queue.filter(x=>x.dependencyState==="DECLARED_NOT_VERIFIED"&&x.gate!=="EXCLUDED_OUT_OF_SCOPE").length,findings:findings.length},findings,queue,policy:{f6FrozenRevocation:"HONOR_CURRENT_MAP_STATUS",automaticAnalysis:true,automaticCanonicalMutation:false,automaticCompetencePromotion:false,approval:"SPECIFIC_PO_AUTHORIZATION_REQUIRED",agk:"NOT_EXECUTED"},execution:"READ_ONLY"};
  result.receiptSha256=sha(result);return result;
 }
 module.exports={planMo03};
