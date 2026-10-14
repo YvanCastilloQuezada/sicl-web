@@ -1,6 +1,6 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path");
-const {bind}=require("./arki-mo031-evidence.cjs");
+const {bind,repairExperiment}=require("./arki-mo031-evidence.cjs");
 const {rehearseFile}=require("./arki-mo031-file-rehearsal.cjs");
 function fixture(){return [{schema:"ARKI-MO031-CORRECTION-REVIEW-1",coreHead:"a".repeat(40),webHead:"b".repeat(40),policy:{execution:"READ_ONLY",autoApproval:false,canonicalMutation:false},candidates:[{id:"I-01",phase:"F1",decision:"PENDING_PO",canonicalMutation:false}]},{ideas:[{id:"I-01",title:"Idea",origin:"docs/ideas.md",sourceStatus:"UNVERIFIED"}],components:[]}]}
 test("binds provenance without inventing dependencies",()=>{const [r,g]=fixture(),x=bind(r,g);assert.equal(x.items[0].origin,"docs/ideas.md");assert.equal(x.items[0].dependencyAssessment,"UNVERIFIED_OR_UNDECLARED");assert.deepEqual(x.items[0].sourceEvidence,[])});
@@ -13,3 +13,19 @@ test("rejects stale registry digest",()=>{const [r,g]=fixture(),dir=fs.mkdtempSy
 test("blocks duplicate declared dependencies instead of accepting them",()=>{const [r,g]=fixture();g.ideas[0].dependsOn=["I-02","I-02"];g.ideas.push({id:"I-02",dependsOn:[]});assert.equal(bind(r,g).items[0].dependencyAssessment,"UNVERIFIED_OR_UNDECLARED")});
 test("blocks direct and transitive dependency cycles",()=>{const [r,g]=fixture();g.ideas[0].dependsOn=["I-02"];g.ideas.push({id:"I-02",dependsOn:["I-03"]},{id:"I-03",dependsOn:["I-01"]});assert.equal(bind(r,g).items[0].dependencyAssessment,"CYCLIC_DEPENDENCY_BLOCKED")});
 test("allows declared acyclic dependencies without claiming competence",()=>{const [r,g]=fixture();g.ideas[0].dependsOn=["I-02"];g.ideas.push({id:"I-02",dependsOn:[]});assert.equal(bind(r,g).items[0].dependencyAssessment,"DECLARED_IDS_PRESENT_NOT_COMPETENCE_VERIFIED")});
+
+test("AV-001 autonomously discovers duplicates and evaluates three strategies without writes",()=>{
+ const registry={ideas:[{id:"I-01",dependsOn:["I-02","I-02","I-03"]},{id:"I-02",dependsOn:[]},{id:"I-03",dependsOn:[]}],components:[]};
+ const before=JSON.stringify(registry),x=repairExperiment(registry);
+ assert.equal(x.defect.kind,"DUPLICATE_DEPENDENCY");assert.equal(x.candidates.length,3);
+ assert.equal(x.candidates[0].eligible,true);assert.equal(x.candidates[1].eligible,true);
+ assert.equal(x.candidates[2].eligible,false);assert.equal(x.rollbackVerified,true);
+ assert.equal(x.canonicalMutation,false);assert.equal(JSON.stringify(registry),before);
+});
+test("AV-001 does not invent defects when none is observed",()=>{
+ const x=repairExperiment({ideas:[{id:"I-01",dependsOn:[]}],components:[]});
+ assert.equal(x.status,"NO_SUPPORTED_DEFECT_FOUND");assert.deepEqual(x.candidates,[]);
+});
+test("AV-001 fails closed on duplicate node identities",()=>{
+ assert.throws(()=>repairExperiment({ideas:[{id:"I-01"},{id:"I-01"}],components:[]}),/INVALID_REGISTRY_IDS/);
+});
