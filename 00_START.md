@@ -157,3 +157,10 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Suite `arki-relational-learning.test.cjs` incorporada al runner offline (19 archivos en total), pruebas no ejecutadas.
 - Documentación `docs/arki-master-map/ARKI_RELATIONAL_LEARNING_20261014.md`.
 - Próximo paso: extracción y verificación automática de evidencia desde los tres repositorios y conexión a UI Árbol Vivo, sin inventar precedencias.
+
+## Descubrimiento automático de relaciones — 2026-10-14
+- `arki-relational-discovery.cjs` recorre documentación versionada y reconoce declaraciones explícitas `ARKI_RELATION: A REQUIRES B` (o INFORMS/FEEDBACK).
+- `arki-relational-evidence.cjs` comprueba citas contra Git SHA exacto; no verifica semántica ni permite promoción.
+- Nuevas suites `arki-relational-discovery.test.cjs` y `arki-relational-evidence.test.cjs` integradas en runner offline (21 archivos), ejecución aún pendiente.
+- Instrucciones y límites: `docs/arki-master-map/ARKI_AUTONOMOUS_RELATION_DISCOVERY_20261014.md`.
+- Pendiente: ampliar extracción de relaciones no estructuradas, revisar evidencias y conectar grafo aprobado a UI y aprendizaje Delta 6.2; respetar ACE88.
