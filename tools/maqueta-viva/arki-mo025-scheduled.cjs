@@ -10,14 +10,15 @@ function safeFile(p,maxAgeMs,now){
 }
 function scheduled(config,{now=Date.now()}={}){
  if(!config||config.schema!=="ARKI-MO025-SCHEDULE-1")throw Error("INVALID_SCHEDULE_SCHEMA");
- const {coreFile,webFile,expectedCoreHead,stateDir,maxSourceAgeMinutes}=config;
+ const {coreFile,webFile,expectedCoreHead,expectedWebHead,stateDir,maxSourceAgeMinutes}=config;
  if(!Number.isInteger(maxSourceAgeMinutes)||maxSourceAgeMinutes<1||maxSourceAgeMinutes>1440)throw Error("INVALID_SOURCE_TTL");
  const ttl=maxSourceAgeMinutes*60_000;
  safeFile(coreFile,ttl,now);safeFile(webFile,ttl,now);
  const core=JSON.parse(fs.readFileSync(coreFile,"utf8"));
  const web=JSON.parse(fs.readFileSync(webFile,"utf8"));
  if(core.head!==expectedCoreHead)throw Error("CORE_HEAD_MISMATCH");
- if(web.sourceCommit!==expectedCoreHead)throw Error("WEB_SOURCE_COMMIT_MISMATCH");
+ if(!/^[0-9a-f]{40}$/.test(expectedWebHead))throw Error("INVALID_EXPECTED_WEB_HEAD");
+ if(web.sourceCommit!==expectedWebHead)throw Error("WEB_HEAD_MISMATCH");
  return run({coreFile,webFile,expectedCoreHead,stateDir});
 }
 module.exports={scheduled};
