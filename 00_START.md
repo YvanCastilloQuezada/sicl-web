@@ -151,3 +151,9 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Registro histórico de 51 elementos: ninguno declara `dependencies`; su ruta de precedencias permanece `BLOCKED_UNVERIFIED`, aunque el orden topológico histórico se conserve para inspección.
 - `arki-arbol-vivo-auto.test.cjs` añade pruebas de bloqueo propagado y antecedentes declarados. Ejecutar offline; no se afirma PASS hasta recibir evidencia.
 - El estado `DECLARED_NOT_COMPETENCE_VERIFIED` tampoco habilita ejecución: falta validación de competencias, evidencia y ACE88.
+
+## Aprendizaje relacional Árbol Vivo — 2026-10-14
+- Nuevo generador de relaciones candidatas `tools/maqueta-viva/arki-relational-learning.cjs`: REQUIRES, INFORMS, FEEDBACK, trazabilidad declarada y detección de ciclos. No promociona ni muta el registro.
+- Suite `arki-relational-learning.test.cjs` incorporada al runner offline (19 archivos en total), pruebas no ejecutadas.
+- Documentación `docs/arki-master-map/ARKI_RELATIONAL_LEARNING_20261014.md`.
+- Próximo paso: extracción y verificación automática de evidencia desde los tres repositorios y conexión a UI Árbol Vivo, sin inventar precedencias.
