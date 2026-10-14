@@ -28,7 +28,7 @@ test("symlink input fails closed",()=>{
 });
 test("invalid ACE schema fails closed",()=>{
  const dir=fixture();
- try{fs.writeFileSync(path.join(dir,names[0]),JSON.stringify({schema:"OTHER",machine:"ARKI-02"}));assert.throws(()=>assess(dir),/INVALID_ACE_SCHEMA/)}finally{fs.rmSync(dir,{recursive:true,force:true})}
+ try{const bytes=Buffer.from(JSON.stringify({schema:"OTHER",machine:"ARKI-02"}));fs.writeFileSync(path.join(dir,names[0]),bytes);const manifestPath=path.join(dir,"MANIFEST.json");const manifest=JSON.parse(fs.readFileSync(manifestPath,"utf8"));manifest.files[names[0]]=crypto.createHash("sha256").update(bytes).digest("hex");fs.writeFileSync(manifestPath,JSON.stringify(manifest));assert.throws(()=>assess(dir),/INVALID_ACE_SCHEMA/)}finally{fs.rmSync(dir,{recursive:true,force:true})}
 });
 
 test("tampered content rejected by manifest",()=>{const dir=fixture();try{fs.writeFileSync(path.join(dir,names[1]),"{} ");assert.throws(()=>assess(dir),/MANIFEST_HASH_MISMATCH/)}finally{fs.rmSync(dir,{recursive:true,force:true})}});
