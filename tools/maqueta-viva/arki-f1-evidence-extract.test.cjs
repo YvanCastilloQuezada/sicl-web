@@ -1,0 +1,10 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict"),crypto=require("node:crypto");
+const {extract}=require("./arki-f1-evidence-extract.cjs");
+const sha=x=>crypto.createHash("sha256").update(x).digest("hex");
+const a={schema:"ARKI-F1-RESEARCH-AGENDA-1",canonicalMutation:false,tasks:[{id:"I-01"},{id:"I-02"}],relationCandidates:[]};
+const agenda={...a,receiptSha256:sha(JSON.stringify(a))};
+const sourceText="# Inventory\n| ID | Idea | Class | Locus | Status | Decision | Trace | Unknown |\n|---|---|---|---|---|---|---|---|\n| I-01 | Canonical backlog | Research | docs | **NOT_FOUND** | No approval | Historical only | UNKNOWN |\n";
+test("extract exact line and claim without promoting",()=>{const r=extract({agenda,sourceText,sourcePath:"docs/inventory.md",sourceSha256:sha(sourceText)});assert.equal(r.extracted,1);assert.equal(r.findings[0].source.line,4);assert.equal(r.findings[0].recordedStatus,"NOT_FOUND");assert.equal(r.findings[1].status,"NO_EXACT_INVENTORY_ROW");assert.deepEqual(r.dependencyRelations,[]);assert.equal(r.canonicalMutation,false)});
+test("reject mismatched source digest",()=>assert.throws(()=>extract({agenda,sourceText,sourcePath:"docs/inventory.md",sourceSha256:"0".repeat(64)}),/INVALID_EVIDENCE_INPUT/));
+test("reject tampered agenda",()=>assert.throws(()=>extract({agenda:{...agenda,tasks:[{id:"I-99"}]},sourceText,sourcePath:"docs/inventory.md",sourceSha256:sha(sourceText)}),/AGENDA_RECEIPT_MISMATCH/));
