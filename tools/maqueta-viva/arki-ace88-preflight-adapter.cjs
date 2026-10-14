@@ -9,6 +9,7 @@ function nonempty(x){return typeof x==="string"&&x.trim().length>0}
 function reject(reason){return {status:"BLOCKED",reason,authorized:false,canonicalMutation:false}}
 function prepareAce88Request({proposal,proof,gate}={}){
  if(!proposal||!["projectId","proposalId","fingerprint","reviewId"].every(k=>nonempty(proposal[k])))return reject("PROPOSAL_BINDING_REQUIRED");
+ if(!/^[0-9a-f]{64}$/.test(proposal.fingerprint))return reject("INVALID_PROPOSAL_FINGERPRINT");
  if(!gate||gate.tests!=="PASS"||gate.dependencies!=="PASS"||gate.frozen!=="PASS"||gate.evidence!=="PASS")return reject("PRECONDITIONS_NOT_VERIFIED");
  if(!proof||!proof.payload||!nonempty(proof.signature_b64))return reject("SIGNED_AUTHORITY_PROOF_REQUIRED");
  const p=proof.payload;
