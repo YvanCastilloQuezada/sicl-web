@@ -138,3 +138,10 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Fuente Core `docs/ace88/ACE88_ROOT_INTEGRATION.md`: declara regresión local PASS al 14/10; auditoría independiente y SECURITY_FREEZE siguen pendientes. No inferir aprobación desde clic UI.
 - Se optimizó `Reconcile-ARKI-Branches.cjs` para evitar ejecutar un proceso Git por cada ruta (commit `d1568d766627ef959a22c365f289f1e87c028b74`).
 - Próximo: inspeccionar API ACE88 real y escribir adaptador fail-closed con pruebas, sin promover cambios canónicos antes de validación E2E.
+
+## ACE88 Web-Core adapter — 2026-10-14
+- Preflight y transporte inyectable implementados: `tools/maqueta-viva/arki-ace88-preflight-adapter.cjs`, `arki-ace88-core-transport.cjs`.
+- Ruta Core verificada en código: POST `/v1/projects/{project_id}/developer-promotions`; servicio requiere Bearer; no almacenar tokens.
+- Suites ACE88 incluidas en runner offline: 17 archivos de pruebas totales; ejecución real NO DEMOSTRADA.
+- Contrato y advertencias E2E: `docs/arki-master-map/ARKI_ACE88_ADAPTER_IMPLEMENTATION_20261014.md`.
+- No usar proyecto canónico para pruebas de promoción; falta cliente HTTP servidor real, verificación independiente y SECURITY_FREEZE.
