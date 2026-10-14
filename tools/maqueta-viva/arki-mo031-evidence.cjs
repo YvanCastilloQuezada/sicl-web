@@ -27,6 +27,36 @@ function bind(review,registry){
  const result={schema:"ARKI-MO031-EVIDENCE-BINDING-1",coreHead:review.coreHead,webHead:review.webHead,registryDigest:sha(registry),items,policy:{sourcePresenceNotCompetence:true,canonicalMutation:false,autoApproval:false,execution:"READ_ONLY"}};
  result.receiptSha256=sha(result);return result;
 }
+
+/** AV-001: independently detect a structural defect, compare three reversible in-memory
+ * repair strategies, and keep all outcomes as unapproved candidates.
+ * Never invent missing dependencies or treat structural validity as competence.
+ */
+function repairExperiment(registry){
+ if(!registry||!Array.isArray(registry.ideas)||!Array.isArray(registry.components))throw Error("INVALID_REGISTRY");
+ const entries=[...registry.ideas,...registry.components];
+ const ids=new Set();
+ for(const x of entries){if(!x||typeof x.id!=="string"||!x.id||ids.has(x.id))throw Error("INVALID_REGISTRY_IDS");ids.add(x.id)}
+ const defect=entries.find(x=>Array.isArray(x.dependsOn)&&x.dependsOn.length!==new Set(x.dependsOn).size);
+ if(!defect)return {schema:"ARKI-AV001-REPAIR-EXPERIMENT-1",status:"NO_SUPPORTED_DEFECT_FOUND",candidates:[],canonicalMutation:false,poApproval:"PENDING"};
+ const original=JSON.stringify(registry),beforeDigest=sha(registry);
+ const strategies=[
+  {id:"A",method:"KEEP_FIRST_OCCURRENCE",transform:a=>[...new Set(a)]},
+  {id:"B",method:"KEEP_LAST_OCCURRENCE",transform:a=>a.filter((v,i)=>a.lastIndexOf(v)===i)},
+  {id:"C",method:"REMOVE_ALL_REPEATED_REFERENCES",transform:a=>a.filter(v=>a.indexOf(v)===a.lastIndexOf(v))}
+ ];
+ const candidates=strategies.map(s=>{
+  const clone=JSON.parse(original);
+  const node=[...clone.ideas,...clone.components].find(x=>x.id===defect.id);
+  node.dependsOn=s.transform(node.dependsOn);
+  const structurallyValid=node.dependsOn.length===new Set(node.dependsOn).size&&node.dependsOn.every(d=>typeof d==="string"&&ids.has(d)&&d!==node.id);
+  const preservesDistinctDependencies=[...new Set(defect.dependsOn)].every(d=>node.dependsOn.includes(d));
+  return {id:s.id,method:s.method,structurallyValid,preservesDistinctDependencies,removedOccurrences:defect.dependsOn.length-node.dependsOn.length,afterDigest:sha(clone),eligible:structurallyValid&&preservesDistinctDependencies};
+ });
+ if(JSON.stringify(registry)!==original||sha(registry)!==beforeDigest)throw Error("SANDBOX_MUTATION_DETECTED");
+ const result={schema:"ARKI-AV001-REPAIR-EXPERIMENT-1",status:"CANDIDATES_EVALUATED_NOT_APPLIED",defect:{kind:"DUPLICATE_DEPENDENCY",id:defect.id,occurrences:defect.dependsOn.length,unique:new Set(defect.dependsOn).size},beforeDigest,candidates,rollbackVerified:true,canonicalMutation:false,poApproval:"PENDING",learning:"CANDIDATE_NOT_PROMOTED_DELTA62_NOT_EXECUTED"};
+ result.receiptSha256=sha(result);return result;
+}
 function read(p){const s=fs.lstatSync(p);if(!s.isFile()||s.isSymbolicLink()||s.size>2e6)throw Error("UNSAFE_INPUT");return JSON.parse(fs.readFileSync(p,"utf8"))}
-module.exports={bind};
+module.exports={bind,repairExperiment};
 if(require.main===module){try{if(process.argv.length!==4)throw Error("USAGE: node arki-mo031-evidence.cjs REVIEW_JSON REGISTRY_JSON");process.stdout.write(JSON.stringify(bind(read(process.argv[2]),read(process.argv[3])),null,2)+"\n")}catch(e){process.stderr.write("ARKI_MO031_EVIDENCE_FAIL: "+e.message+"\n");process.exitCode=1}}
