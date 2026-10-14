@@ -26,6 +26,7 @@ const tests=[
  "arki-relational-discovery.test.cjs",
  "arki-twin-three-alternatives.test.cjs",
  "arki-live-systems-coordinator.test.cjs",
+ "arki-core-mapa-vivo-bridge.test.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
