@@ -11,7 +11,7 @@ function planMo03({registry,coreMap,webSnapshot,expectedCoreHead}){
  const problems=new Set(bridge.issues.filter(x=>x.phase).map(x=>x.phase));
  const registryItems=[...registry.ideas,...registry.components];
  const registryById=new Map(registryItems.map(x=>[x.id,x]));
- const queue=[...tree.order,...tree.excluded].map((item,index)=>{
+ const queue=tree.order.map((item,index)=>{
   const source=phaseStatus.get(item.phase);
   const reasons=[];
   const declared=registryById.get(item.id);
