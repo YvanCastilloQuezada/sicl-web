@@ -17,6 +17,7 @@ const tests=[
  "test-arki-autonomy-orchestrator.cjs",
  "test-arki-autonomy-memory.cjs",
  "test-Verify-ARKI-Journal.cjs",
+ "test-Reconcile-ARKI-Branches.cjs",
  "test-arki-autonomy-macro-orders.cjs",
  "test-maqueta-viva.cjs",
  "test-github-evidence.cjs"
