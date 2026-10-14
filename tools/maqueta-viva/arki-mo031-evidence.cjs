@@ -12,8 +12,17 @@ function bind(review,registry){
   seen.add(c.id);const r=index.get(c.id);
   if(!r)return {id:c.id,status:"BLOCKED_TARGET_NOT_FOUND",verifiedDependencies:[],sourceEvidence:[]};
   const declared=Array.isArray(r.dependsOn)?r.dependsOn:null;
-  const valid=declared!==null&&declared.every(x=>typeof x==="string"&&index.has(x)&&x!==c.id);
-  return {id:c.id,phase:c.phase,title:r.title||null,origin:r.origin||null,sourceStatus:r.sourceStatus||null,verification:r.verification||null,declaredDependencies:declared,dependencyAssessment:valid?"DECLARED_IDS_PRESENT_NOT_COMPETENCE_VERIFIED":"UNVERIFIED_OR_UNDECLARED",sourceEvidence:[],status:"EVIDENCE_REQUIRED",authorization:"PENDING_PO"};
+  const valid=declared!==null&&declared.length===new Set(declared).size&&declared.every(x=>typeof x==="string"&&index.has(x)&&x!==c.id);
+  function reaches(start,target,visited=new Set()){
+   if(start===target)return true;
+   if(visited.has(start))return false;
+   visited.add(start);
+   const node=index.get(start),deps=node?.dependsOn;
+   return Array.isArray(deps)&&deps.some(d=>typeof d==="string"&&reaches(d,target,visited));
+  }
+  const cyclic=valid&&declared.some(d=>reaches(d,c.id));
+  const assessment=!valid?"UNVERIFIED_OR_UNDECLARED":cyclic?"CYCLIC_DEPENDENCY_BLOCKED":"DECLARED_IDS_PRESENT_NOT_COMPETENCE_VERIFIED";
+  return {id:c.id,phase:c.phase,title:r.title||null,origin:r.origin||null,sourceStatus:r.sourceStatus||null,verification:r.verification||null,declaredDependencies:declared,dependencyAssessment:assessment,sourceEvidence:[],status:"EVIDENCE_REQUIRED",authorization:"PENDING_PO"};
  });
  const result={schema:"ARKI-MO031-EVIDENCE-BINDING-1",coreHead:review.coreHead,webHead:review.webHead,registryDigest:sha(registry),items,policy:{sourcePresenceNotCompetence:true,canonicalMutation:false,autoApproval:false,execution:"READ_ONLY"}};
  result.receiptSha256=sha(result);return result;
