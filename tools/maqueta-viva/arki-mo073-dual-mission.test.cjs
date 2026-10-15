@@ -6,7 +6,10 @@ test("MO073 retains all pieces and PO gate",()=>{
  const r=assess(registry,{web:root});assert.equal(r.counts.total,51);
  assert.equal(r.authority.po,"SOLE_APPROVER_OF_CANONICAL_CHANGES");
  assert.equal(r.authority.canonicalWrites,false);
- assert(r.pieces.every(p=>p.missionAssessment.status==="CANDIDATE_SEMANTIC_CLASSIFICATION"));
+ assert(r.pieces.filter(p=>p.id!=="I-24").every(p=>p.missionAssessment.status==="CANDIDATE_SEMANTIC_CLASSIFICATION"));
+ const lab=r.pieces.find(p=>p.id==="I-24");
+ assert.deepEqual(lab.missionAssessment.missions,["SELF_SUFFICIENCY","NEW_DOMAIN"]);
+ assert.equal(lab.missionAssessment.status,"PO_CLARIFIED_LAB_CONCEPT_REQUIRES_CANONICAL_REVIEW");
 });
 test("MO073 permits both missions without forcing one",()=>{
  const c=classify({name:"Geometría y aprendizaje",purpose:{text:"Aprender a diseñar arquitectura"}});
