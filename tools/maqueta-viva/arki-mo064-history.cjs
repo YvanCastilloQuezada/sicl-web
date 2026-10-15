@@ -4,21 +4,22 @@ const crypto=require("node:crypto");
 const {prioritize}=require("./arki-mo063-priority.cjs");
 const {inspect,appendGuarded}=require("./arki-mo04-guarded.cjs");
 const hash=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
+function sourceFingerprint(registry,queue){return hash({schema:"ARKI-MO064-SOURCE-FINGERPRINT-2",registry,queueReceipt:queue.receiptSha256})}
 function inspectQueue(journal,anchor,registry){
- const queue=prioritize(registry),state=inspect(journal,anchor);
+ const queue=prioritize(registry),fingerprint=sourceFingerprint(registry,queue),state=inspect(journal,anchor);
  const events=state.replay.events.filter(e=>e.kind==="PROPOSAL");
  const latest=events.at(-1)||null;
- return {schema:"ARKI-MO064-INVESTIGATION-HISTORY-1",sourceReceipt:queue.receiptSha256,
+ return {schema:"ARKI-MO064-INVESTIGATION-HISTORY-1",sourceReceipt:fingerprint,queueReceipt:queue.receiptSha256,
   history:{length:state.replay.length,head:state.replay.head,proposalEvents:events.length},
-  status:!latest?"NO_QUEUE_RECORDED":latest.sourceReceipt===queue.receiptSha256?"RECOVERED_MATCH":"QUEUE_CHANGED_REVIEW_REQUIRED",
+  status:!latest?"NO_QUEUE_RECORDED":latest.sourceReceipt===fingerprint?"RECOVERED_MATCH":"QUEUE_CHANGED_REVIEW_REQUIRED",
   policy:{canonicalMutation:false,poApproval:"NOT_INFERRED",automaticExecution:false}};
 }
 function recordQueue(journal,anchor,registry){
  const before=inspectQueue(journal,anchor,registry);
  if(before.status==="RECOVERED_MATCH")return {recordStatus:"ALREADY_RECORDED",...before};
  const queue=prioritize(registry);
- appendGuarded(journal,anchor,{kind:"PROPOSAL",sourceReceipt:queue.receiptSha256,
-  payload:{schema:queue.schema,queue:queue.queue.map(x=>({id:x.id,issueCode:x.issueCode,evidenceStatus:x.evidenceStatus,affectedCount:x.affectedActivities.length})),
+ appendGuarded(journal,anchor,{kind:"PROPOSAL",sourceReceipt:sourceFingerprint(registry,queue),
+  payload:{schema:queue.schema,queueReceipt:queue.receiptSha256,queue:queue.queue.map(x=>({id:x.id,issueCode:x.issueCode,evidenceStatus:x.evidenceStatus,affectedCount:x.affectedActivities.length})),
    authority:"ADVISORY_ONLY",execution:"BLOCKED",approval:"NOT_GRANTED"}});
  const after=inspectQueue(journal,anchor,registry);
  if(after.status!=="RECOVERED_MATCH")throw Error("MO064_REPLAY_MISMATCH");
