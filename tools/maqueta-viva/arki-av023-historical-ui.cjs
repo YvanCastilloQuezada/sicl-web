@@ -2,6 +2,7 @@
 /** AV-023: Serve the PO-selected historical AV-UI-001 frontend without rebuilding it. */
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),cp=require("node:child_process");
 const {snapshot}=require("./arki-av020-tree.cjs");
+const {project}=require("./arki-mo05-operational.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
 const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
@@ -13,7 +14,22 @@ function page(root){
  const original=gitShow(root,FILE);
  if(!original.includes("__ARKI_EMBEDDED_STATE__")||!original.includes("__ARKI_EMBEDDED_REGISTRY__")||!original.includes("__ARKI_EMBEDDED_CAPABILITY_CATALOG__"))throw Error("HISTORICAL_FRONTEND_MISMATCH");
  const boot='<script>window.__ARKI_EMBEDDED_STATE__='+safeData(gitShow(root,STATE))+';window.__ARKI_EMBEDDED_REGISTRY__='+safeData(gitShow(root,REGISTRY))+';window.__ARKI_EMBEDDED_CAPABILITY_CATALOG__='+safeData(gitShow(root,CATALOG))+';</script>';
- const bridge=`<script>
+ const operationalBridge=`<script>
+(function(){
+ const panel=document.createElement("section");panel.id="arki-mo05-operational";panel.setAttribute("aria-label","ARKI estado operativo");
+ panel.style.cssText="margin:12px 0;padding:12px;border:1px solid #527b8e;border-radius:9px;background:#10283b;color:#eaf1f7;font:13px system-ui";
+ const mount=document.getElementById("arki-proposal-panel");if(!mount)return;mount.prepend(panel);
+ async function refresh(){try{const response=await fetch("/api/operational",{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);
+ const data=await response.json();if(data.schema!=="ARKI-MO05-OPERATIONAL-PROJECTION-1"||data.policy?.canonicalMutation!==false||data.policy?.poApproval!=="REQUIRED_PER_EXECUTION")throw Error("INVALID_PROJECTION");
+ panel.replaceChildren();const h=document.createElement("strong");h.textContent="ARKI · Estado operativo MO-05";panel.append(h);
+ const p=document.createElement("p");p.textContent="Plano Vivo: "+data.summary.ordered+"/"+data.summary.total+" ordenadas · "+data.summary.issues+" problemas · ciclos: "+(data.summary.cycle?"sí":"no");panel.append(p);
+ const list=document.createElement("ol");for(const a of data.views.arbol.activities.slice(0,10)){const li=document.createElement("li");li.textContent=a.id+" · "+a.title+" · antecesoras: "+(a.dependsOn.join(", ")||"ninguna declarada")+" · "+a.dependencyState;list.append(li)}panel.append(list);
+ const foot=document.createElement("small");foot.textContent="Solo lectura · ideas liberadas para planificación · ejecución requiere autorización PO · Gemelo no simulado";panel.append(foot);
+ }catch(e){panel.textContent="MO-05 no disponible: "+e.message}}
+ refresh();const timer=setInterval(()=>{if(!document.hidden)refresh()},15000);window.addEventListener("pagehide",()=>clearInterval(timer),{once:true});
+})();
+</script>`;
+const bridge=`<script>
 (function(){
  const panel=document.createElement("section");
  panel.id="arki-av023-evidence";
@@ -41,15 +57,15 @@ function page(root){
 })();
 </script>`;
  if(!original.includes("<script>")||!original.includes("</body>"))throw Error("HISTORICAL_HTML_INVALID");
- return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+"</body>");
+ return original.replace("<script>",boot+"\n<script>").replace("</body>",operationalBridge+bridge+"</body>");
 }
 function start(root,proposal,ledger,port=8768){
  const html=page(root);snapshot(proposal,ledger);
  const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,"http://localhost").pathname;
- if(req.method!=="GET"||!["/","/api/tree"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(req.method!=="GET"||!["/","/api/tree","/api/operational"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
- try{res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(snapshot(proposal,ledger)))}
+ try{const data=pathname==="/api/operational"?project(JSON.parse(gitShow(root,REGISTRY))):snapshot(proposal,ledger);res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(data))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}
  });server.listen(port,"127.0.0.1");return server;
 }
