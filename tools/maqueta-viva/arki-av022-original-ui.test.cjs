@@ -27,3 +27,16 @@ test("AV-022 hydrates both original state placeholders with real repository JSON
  assert.ok(Array.isArray(JSON.parse(state[1]).roadmap.phases));
  assert.equal(JSON.parse(assembly[1]).schema,"ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1");
 });
+
+test("AV-022 emitted browser script parses and original structured state is valid",()=>{
+ const vm=require("node:vm");
+ const page=hydrate(integrate(fs.readFileSync(original,"utf8")),path.resolve(__dirname,"../.."));
+ const open='<script>';const begin=page.indexOf(open);assert.ok(begin>=0);
+ const end=page.indexOf("</script>",begin+open.length);assert.ok(end>begin);
+ assert.doesNotThrow(()=>new vm.Script(page.slice(begin+open.length,end)));
+ const marker='<script type="application/json" id="arki-state">';
+ const start=page.indexOf(marker);assert.ok(start>=0);
+ const stop=page.indexOf("</script>",start+marker.length);
+ const state=JSON.parse(page.slice(start+marker.length,stop));
+ assert.equal(state.roadmap.phases.length,10);
+});
