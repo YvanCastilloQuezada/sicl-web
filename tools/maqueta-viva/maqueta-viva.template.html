@@ -2670,7 +2670,7 @@ const before=base.byPhase.find(p=>p.phase===idea.phase);
 if(!before)return {status:"SIN_DATOS",summary:"Fase no disponible.",metrics:[]};
 if(!idea.id.startsWith("SPINE-"))return {status:"SIN ENSAYO AISLADO",summary:"Esta propuesta aún no tiene una mutación estructural específica y verificable. No se atribuyen mejoras de escenarios globales a esta idea.",metrics:[],eligibleForAuthorization:false};
 const phase=phases.find(p=>p.id===idea.phase);
-if(!phase||phase.status==="FROZEN")return {status:"PROTEGIDO",summary:"No se ensaya modificación de una fase FROZEN.",metrics:[],eligibleForAuthorization:false};
+if(!phase)return {status:"SIN_DATOS",summary:"La fase de la propuesta no existe.",metrics:[],eligibleForAuthorization:false};
 const unlinked=[...ideas,...components].filter(x=>placements[x.id]===idea.phase&&spineAssignments[x.id]===undefined);
 if(!unlinked.length)return {status:"SIN CAMBIO NECESARIO",summary:"No hay piezas sin hito en la referencia actual.",metrics:[],eligibleForAuthorization:false};
 const candidates=[0,1,2,3].map(stage=>{
@@ -2727,7 +2727,7 @@ const deps=topology.edges.get(row.id)||[];
 const absent=topology.missing.get(row.id)||[];
 const cyclic=topology.cycleMembers.has(row.id);
 const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
-return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
+return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
 }
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
@@ -2778,7 +2778,7 @@ if(cycle)actions.push("Resolver ciclo de precedencias");
 if(missing.length)actions.push("Identificar referencias ausentes: "+missing.join(", "));
 if(!placements[id])actions.push("Asignar fase");
 if(!readiness.complete)actions.push("Completar ficha y evidencia verificable");
-if(frozen)actions.push("Revisar alcance FROZEN con autorización expresa");
+if(frozen)actions.push("Registrar impacto sobre alcance histórico; mantener autorización de promoción");
 if(!actions.length)actions.push("Ejecutar pruebas externas y revisión independiente");
 return {id,phase,unlocks:affected.size,dependentIds:[...affected].sort(),predecessors:deps,missing,cycle,frozen,actions,priority:cycle||missing.length?"P0":affected.size>=3?"P1":affected.size?"P2":"P3"};
 }).sort((a,b)=>a.priority.localeCompare(b.priority)||b.unlocks-a.unlocks||a.id.localeCompare(b.id));
@@ -2790,9 +2790,9 @@ const pending=new Set(nodes),waves=[],blocked=[];
 for(const id of nodes){
 const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
 const missing=topology.missing.get(id)||[];
-if(topology.cycleMembers.has(id)||missing.length||frozen){
+if(topology.cycleMembers.has(id)||missing.length){
 pending.delete(id);
-blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
+blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":"DEPENDENCIA NO REGISTRADA"});
 }
 }
 const completed=new Set();
