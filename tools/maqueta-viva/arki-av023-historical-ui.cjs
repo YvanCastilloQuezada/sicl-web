@@ -18,8 +18,10 @@ function page(root){
  const panel=document.createElement("section");
  panel.id="arki-av023-evidence";
  panel.setAttribute("aria-label","Evidencias verificadas AV");
- panel.style.cssText="position:fixed;bottom:12px;right:12px;z-index:9999;max-width:340px;max-height:35vh;overflow:auto;padding:12px;border:1px solid #55758a;border-radius:9px;background:#10283b;color:#eaf1f7;box-shadow:0 4px 18px #0009;font:13px system-ui";
- document.body.append(panel);
+ panel.style.cssText="margin:12px 0;padding:12px;border:1px solid #55758a;border-radius:9px;background:#10283b;color:#eaf1f7;font:13px system-ui";
+ const mount=document.getElementById("arki-proposal-panel");
+ if(!mount)throw Error("ARKI_PROPOSAL_PANEL_MISSING");
+ mount.prepend(panel);
  const heading=document.createElement("strong");heading.textContent="ARKI · Evidencia experimental AV";panel.append(heading);
  const status=document.createElement("div");status.setAttribute("role","status");panel.append(status);
  const details=document.createElement("div");panel.append(details);
@@ -30,6 +32,9 @@ function page(root){
  details.replaceChildren();
  for(const a of data.proposal.alternatives||[]){const line=document.createElement("p");line.textContent=a.id+" · "+a.status+" · rollback "+(a.rollbackVerified?"sí":"no");details.append(line)}
  const scope=document.createElement("small");scope.textContent="CONTROLLED_FIXTURE_ONLY · Sin autorización de escritura";details.append(scope);
+ const head=document.createElement("p");head.textContent="Procedencia: "+data.proposal.head+" · SHA "+data.proposal.receipt;head.style.overflowWrap="anywhere";details.append(head);
+ const ledger=document.createElement("p");ledger.textContent="Cadena AV-019: "+(data.history.head||"vacía")+" · "+(data.history.verified?"verificada":"sin verificar");ledger.style.overflowWrap="anywhere";details.append(ledger);
+ const gates=document.createElement("small");gates.textContent="Core: BLOQUEADO · AGK: BLOQUEADO · Integración: BLOQUEADA · Identidad PO: NO AUTENTICADA";details.append(gates);
  }catch(err){status.textContent="Evidencia no disponible: "+err.message;details.replaceChildren();}
  }
  refresh();const timer=setInterval(()=>{if(!document.hidden)refresh()},15000);window.addEventListener("pagehide",()=>clearInterval(timer),{once:true});
