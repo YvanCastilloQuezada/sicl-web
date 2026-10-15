@@ -20,8 +20,8 @@ test("AV-022 hydrates both original state placeholders with real repository JSON
  const page=hydrate(integrate(template),path.resolve(__dirname,"../.."));
  assert.ok(!page.includes("__ARKI_STATE_JSON__"));
  assert.ok(!page.includes("__ARKI_ASSEMBLY_JSON__"));
- const state=page.match(/<script type="application\\/json" id="arki-state">([\\s\\S]*?)<\\/script>/);
- const assembly=page.match(/<script type="application\\/json" id="arki-assembly">([\\s\\S]*?)<\\/script>/);
+ const state=page.match(/<script type="application\/json" id="arki-state">([\s\S]*?)<\/script>/);
+ const assembly=page.match(/<script type="application\/json" id="arki-assembly">([\s\S]*?)<\/script>/);
  assert.ok(state);assert.ok(assembly);
  assert.ok(Array.isArray(JSON.parse(state[1]).roadmap.phases));
  assert.equal(JSON.parse(assembly[1]).schema,"ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1");
