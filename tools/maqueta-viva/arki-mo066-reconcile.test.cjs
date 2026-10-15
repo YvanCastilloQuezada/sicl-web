@@ -14,7 +14,9 @@ test("MO066 reconciles complete provenance chain without pretending execution",(
 test("MO066 verifies protected replay and flags source drift",()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),"arki-mo066-"));
  try{
- const j=path.join(dir,"events.jsonl"),a=path.join(dir,"anchor.json");
+ const journalDir=path.join(dir,"journal"),anchorDir=path.join(dir,"anchor");
+ fs.mkdirSync(journalDir);fs.mkdirSync(anchorDir);
+ const j=path.join(journalDir,"events.jsonl"),a=path.join(anchorDir,"anchor.json");
  recordQueue(j,a,registry);
  assert.equal(reconcile({registry,journal:j,anchor:a}).checks.history,"RECOVERED_MATCH");
  const changed=structuredClone(registry);changed.ideas[0].note="evidence changed";
@@ -30,7 +32,9 @@ test("MO066 deterministic and preserves input",()=>{
 });
 test("MO066 refuses history without trusted anchor",()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),"arki-mo066-"));
- try{const j=path.join(dir,"events.jsonl"),a=path.join(dir,"anchor.json");
+ try{const journalDir=path.join(dir,"journal"),anchorDir=path.join(dir,"anchor");
+ fs.mkdirSync(journalDir);fs.mkdirSync(anchorDir);
+ const j=path.join(journalDir,"events.jsonl"),a=path.join(anchorDir,"anchor.json");
  recordQueue(j,a,registry);fs.unlinkSync(a);
  assert.throws(()=>reconcile({registry,journal:j,anchor:a}),/MISSING_TRUSTED_ANCHOR/);
  }finally{fs.rmSync(dir,{recursive:true,force:true})}
