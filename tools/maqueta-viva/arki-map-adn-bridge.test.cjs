@@ -25,4 +25,29 @@ const next=inspectMap(changed,commit);
 assert.notEqual(next.mapDigest,first.mapDigest);
 assert.equal(next.findings.find(x=>x.phase==="F7").action,"NO_AUTOMATIC_CHANGE");
 assert.equal(next.findings.find(x=>x.phase==="F6").action,"RECONCILE_EVIDENCE","F7 status change must not re-freeze F6");
+
+for(const [name,mutate] of [
+ ["frozen",m=>{m.roadmap.phases.find(p=>p.id==="F6").status="FROZEN";}],
+ ["in_progress",m=>{m.roadmap.phases.find(p=>p.id==="F6").status="IN_PROGRESS";}],
+ ["missing_revocation",m=>{delete m.f6_freeze_revocation;}],
+ ["wrong_authority",m=>{m.f6_freeze_revocation.authority="UNKNOWN";}],
+ ["wrong_decision",m=>{m.f6_freeze_revocation.decision="FROZEN";}],
+ ["wrong_phase",m=>{m.f6_freeze_revocation.phase="F7";}],
+ ["wrong_date",m=>{m.f6_freeze_revocation.date="2026-10-13";}],
+ ["wrong_rule",m=>{m.f6_freeze_revocation.rule="AUTO_FREEZE_ALLOWED";}],
+ ["missing_evidence",m=>{m.roadmap.phases.find(p=>p.id==="F6").evidence_status="UNKNOWN";}]
+]){
+ const candidate=structuredClone(map);
+ mutate(candidate);
+ assert.throws(
+   ()=>inspectMap(candidate,commit),
+   /INVALID_F6_REVOCATION|F6_REVOCATION_STATUS_CONFLICT/,
+   name
+ );
+}
+assert.equal(
+ inspectMap(map,commit).findings.find(x=>x.phase==="F6").action,
+ "RECONCILE_EVIDENCE"
+);
+console.log("AV036_F6_ADVERSARIAL_10_OF_10_PASS");
 console.log("ARKI_MAP_ADN_BRIDGE=PASS; READ_ONLY; F6_UNFROZEN; F7_FROZEN_PROTECTED; NO_FAKE_VERIFICATION");
