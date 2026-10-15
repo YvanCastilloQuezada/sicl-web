@@ -4,10 +4,23 @@ const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),
 const {snapshot}=require("./arki-av020-tree.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
+const FROZEN="tools/maqueta-viva/historical/av-ui-001-frozen.html";
 const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
 const REGISTRY="tools/maqueta-viva/assembly-registry.json";
 const CATALOG="tools/maqueta-viva/av-ui-001-capability-catalog.json";
-function gitShow(root,file){return cp.execFileSync("git",["show",COMMIT+":"+file],{cwd:root,encoding:"utf8",maxBuffer:8*1024*1024,timeout:15000})}
+function gitShow(root,file){
+ if(file===FILE){
+  const frozen=path.join(root,FROZEN);
+  if(!fs.existsSync(frozen))throw Error("HISTORICAL_FRONTEND_ASSET_MISSING");
+  const html=fs.readFileSync(frozen,"utf8");
+  if(!html.includes("ARKI")||!html.includes("__ARKI_EMBEDDED_STATE__"))
+   throw Error("HISTORICAL_FRONTEND_ASSET_INVALID");
+  return html;
+ }
+ return cp.execFileSync("git",["show","HEAD:"+file],{
+  cwd:root,encoding:"utf8",maxBuffer:8*1024*1024,timeout:15000
+ });
+}
 function safeData(raw){const data=JSON.parse(raw);return JSON.stringify(data).replace(/</g,"\\u003c").replace(/>/g,"\\u003e").replace(/&/g,"\\u0026").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029")}
 function page(root){
  const original=gitShow(root,FILE);
