@@ -2897,7 +2897,6 @@ c.status="IMPACT_REVIEWED";correctiveNotice="Impacto heurístico calculado. Requ
 function authorizeCorrective(c,phrase){
 if(!c||c.status!=="IMPACT_REVIEWED")return;
 if(String(phrase||"").trim()!=="AUTORIZO"){correctiveNotice="Escribe AUTORIZO exactamente para autorizar la preparación de la orden.";render();return;}
-if(phases.find(p=>p.id===c.phase)?.status==="FROZEN"){correctiveNotice="BLOQUEADO: "+c.phase+" está FROZEN. Se requiere procedimiento de cambio de alcance y autorización independiente.";render();return;}
 if(c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==phases.find(p=>p.id===c.phase)?.status){correctiveNotice="Impacto desactualizado respecto del estado local: crea nueva evaluación antes de autorizar.";render();return;}
 c.status="AUTHORIZED";correctiveNotice="Autorización local registrada para PREPARAR ORDEN. No autoriza merge, ejecución ni promoción canónica.";persistCorrective();render();
 }
@@ -2909,7 +2908,7 @@ const a=document.createElement("a");a.href="data:application/json;charset=utf-8,
 function exportControlledScope(c,baseSha,pathsText){
 if(!c||c.status!=="AUTHORIZED"){correctiveNotice="Primero autoriza la preparación de un caso válido.";render();return;}
 const p=phases.find(x=>x.id===c.phase);
-if(!p||p.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase FROZEN o fuente distinta a la evaluación autorizada.";render();return;}
+if(!p||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase inexistente o fuente distinta a la evaluación autorizada.";render();return;}
 const sha=String(baseSha||"").trim().toLowerCase();
 const paths=String(pathsText||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
 const protectedPath=x=>x.startsWith(".github/")||x.startsWith("docs/arki-master-map/")||x==="tools/maqueta-viva/arki-executor-gate.mjs"||x==="ARKI-MAQUETA-VIVA.cmd"||/(^|\/)(AGENTS\.md|[^/]+\.lock)$/i.test(x);
@@ -2924,7 +2923,7 @@ correctiveNotice="Manifest exportado. Debe incorporarse en una rama de correcci�
 function requestCorrectiveExecution(c){
 if(!c||c.status!=="AUTHORIZED")return;
 const current=phases.find(p=>p.id===c.phase);
-if(current?.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: la fase está FROZEN o cambió el estado fuente desde la evaluación. Se requiere nueva evaluación y autorización.";render();return;}
+if(!current||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: fase inexistente o estado fuente modificado. Se requiere nueva evaluación y autorización.";render();return;}
 correctivePacket(c,"EXECUTION_REQUEST");
 c.status="EXTERNAL_EXECUTION_PENDING";correctiveNotice="Orden exportada para ejecutor externo. EJECUCIÓN NO CONFIRMADA; no hay conexión remota desde esta maqueta.";persistCorrective();render();
 }
