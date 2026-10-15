@@ -3,11 +3,13 @@
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),cp=require("node:child_process");
 const {snapshot}=require("./arki-av020-tree.cjs");
 const {project}=require("./arki-mo05-operational.cjs");
+const {readContinuity}=require("./arki-mo053-continuity.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
 const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
 const REGISTRY="tools/maqueta-viva/assembly-registry.json";
 const CATALOG="tools/maqueta-viva/av-ui-001-capability-catalog.json";
+function continuityPaths(){const j=process.env.ARKI_MO05_JOURNAL,a=process.env.ARKI_MO05_ANCHOR;return j&&a&&path.isAbsolute(j)&&path.isAbsolute(a)?{journal:j,anchor:a}:null}
 function gitShow(root,file){return cp.execFileSync("git",["show",COMMIT+":"+file],{cwd:root,encoding:"utf8",maxBuffer:8*1024*1024,timeout:15000})}
 function safeData(raw){const data=JSON.parse(raw);return JSON.stringify(data).replace(/</g,"\\u003c").replace(/>/g,"\\u003e").replace(/&/g,"\\u0026").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029")}
 function page(root){
@@ -23,6 +25,7 @@ function page(root){
  const data=await response.json();if(data.schema!=="ARKI-MO05-OPERATIONAL-PROJECTION-1"||data.policy?.canonicalMutation!==false||data.policy?.poApproval!=="REQUIRED_PER_EXECUTION")throw Error("INVALID_PROJECTION");
  panel.replaceChildren();const h=document.createElement("strong");h.textContent="ARKI · Estado operativo MO-05";panel.append(h);
  const p=document.createElement("p");p.textContent="Plano Vivo: "+data.summary.ordered+"/"+data.summary.total+" ordenadas · "+data.summary.issues+" problemas · ciclos: "+(data.summary.cycle?"sí":"no");panel.append(p);
+ const continuity=document.createElement("p");continuity.textContent="Continuidad: "+(data.continuity?.restartStatus||"NO_CONFIGURADA")+" · historial: "+(data.continuity?.history?.length??"sin configurar");panel.append(continuity);
  const list=document.createElement("ol");for(const a of data.views.arbol.activities.slice(0,10)){const li=document.createElement("li");li.textContent=a.id+" · "+a.title+" · antecesoras: "+(a.dependsOn.join(", ")||"ninguna declarada")+" · "+a.dependencyState;list.append(li)}panel.append(list);
  const foot=document.createElement("small");foot.textContent="Solo lectura · ideas liberadas para planificación · ejecución requiere autorización PO · Gemelo no simulado";panel.append(foot);
  }catch(e){panel.textContent="MO-05 no disponible: "+e.message}}
@@ -65,7 +68,7 @@ function start(root,proposal,ledger,port=8768){
  const pathname=new URL(req.url,"http://localhost").pathname;
  if(req.method!=="GET"||!["/","/api/tree","/api/operational"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
- try{const data=pathname==="/api/operational"?project(JSON.parse(gitShow(root,REGISTRY))):snapshot(proposal,ledger);res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(data))}
+ try{let data;if(pathname==="/api/operational"){const registry=JSON.parse(gitShow(root,REGISTRY));data=project(registry);const paths=continuityPaths();if(paths){const c=readContinuity(paths.journal,paths.anchor,registry);const {projection,...continuity}=c;data={...data,continuity}}else data={...data,continuity:{restartStatus:"NOT_CONFIGURED",history:{length:0}}}}else data=snapshot(proposal,ledger);res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(data))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}
  });server.listen(port,"127.0.0.1");return server;
 }
