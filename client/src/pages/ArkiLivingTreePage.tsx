@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-/** AV-021 embeds the separately verified AV-020 read-only local service. */
+/** AV-021 embeds the separately verified AV-022 read-only local service. */
 export default function ArkiLivingTreePage() {
   const [reload, setReload] = useState(0);
   return (
@@ -16,13 +16,13 @@ export default function ArkiLivingTreePage() {
         </div>
       </header>
       <section className="mx-auto max-w-7xl px-6 py-3 text-sm text-muted-foreground">
-        Esta vista utiliza el servicio local AV-020 en 127.0.0.1:8765. Si no está iniciado, la vista no mostrará datos.
+        Esta vista presenta el frontend original Maqueta Viva mediante el servicio local AV-022 en 127.0.0.1:8766. Si no está iniciado, la vista no mostrará datos.
         No concede aprobaciones ni permisos de escritura. El servicio se ejecuta en el mismo equipo que el navegador.
       </section>
       <iframe
         key={reload}
-        title="Árbol Vivo · Evidencias AV-020"
-        src="http://127.0.0.1:8765/"
+        title="Árbol Vivo · Evidencias AV-022"
+        src="http://127.0.0.1:8766/"
         sandbox="allow-scripts allow-same-origin"
         referrerPolicy="no-referrer"
         className="block h-[75vh] w-full border-0 bg-slate-950"
