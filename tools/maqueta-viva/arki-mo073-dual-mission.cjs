@@ -13,7 +13,7 @@ function classify(piece){
 }
 function assess(registry,roots){
  const previous=enrich(registry,roots);
- const pieces=previous.pieces.map(p=>({...p,missionAssessment:p.id==="I-24"?{missions:["OUT_OF_SCOPE"],status:"EXPLICIT_HISTORICAL_SCOPE_EXCLUSION",basis:"RESEARCH_ONLY_OUT_OF_SCOPE",authority:"PO_APPROVAL_REQUIRED"}:classify(p)}));
+ const pieces=previous.pieces.map(p=>({...p,missionAssessment:p.id==="I-24"?{missions:["SELF_SUFFICIENCY","NEW_DOMAIN"],status:"PO_CLARIFIED_LAB_CONCEPT_REQUIRES_CANONICAL_REVIEW",basis:"PO_DIRECTION_AI_CREATION_LAB_NOT_BIOLOGICAL_LONGEVITY",authority:"PO_APPROVAL_REQUIRED"}:classify(p)}));
  const result={schema:"ARKI-MO073-DUAL-MISSION-CLASSIFICATION-1",sourceReceipt:previous.receiptSha256,
   missions:{SUPER_ARCHITECT:"Multiobjective and multiscale architectural intelligence",SELF_SUFFICIENCY:"Self-inspection, research, learning, testing, correction and operational autonomy"},
   authority:{po:"SOLE_APPROVER_OF_CANONICAL_CHANGES",advisoryResearchAllowed:true,canonicalWrites:false,autonomousPromotion:false},
