@@ -3,7 +3,10 @@
 const fs=require("node:fs"),os=require("node:os"),path=require("node:path"),cp=require("node:child_process"),crypto=require("node:crypto");
 const sha=s=>crypto.createHash("sha256").update(s).digest("hex");
 function testAt(dir){
- const r=cp.spawnSync(process.execPath,["--test","repair.test.cjs"],{cwd:dir,encoding:"utf8",timeout:15000,maxBuffer:1048576});
+ const env={...process.env};
+ delete env.NODE_TEST_CONTEXT;
+ delete env.NODE_OPTIONS;
+ const r=cp.spawnSync(process.execPath,["--test","repair.test.cjs"],{cwd:dir,env,encoding:"utf8",timeout:15000,maxBuffer:1048576});
  return {status:r.error?.code==="ETIMEDOUT"?"TIMEOUT":r.error?"EXECUTION_ERROR":r.status===0?"PASS":"FAIL",stdoutSha256:sha(r.stdout||""),stderrSha256:sha(r.stderr||"")};
 }
 function experiment(){
