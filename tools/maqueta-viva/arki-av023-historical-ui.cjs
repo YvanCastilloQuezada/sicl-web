@@ -3,6 +3,7 @@
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),cp=require("node:child_process");
 const {snapshot}=require("./arki-av020-tree.cjs");
 const {publicDiagnosis,script:diagnosisScript}=require("./arki-av029-diagnosis-bridge.cjs");
+const {publicNeeds,script:needsScript}=require("./arki-av032-needs-bridge.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
 const FROZEN="tools/maqueta-viva/historical/av-ui-001-frozen.html";
@@ -55,13 +56,33 @@ function page(root){
 })();
 </script>`;
  if(!original.includes("<script>")||!original.includes("</body>"))throw Error("HISTORICAL_HTML_INVALID");
- return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+diagnosisScript+"</body>");
+ return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+diagnosisScript+needsScript+"</body>");
 }
 function start(root,proposal,ledger,port=8768){
  const html=page(root);snapshot(proposal,ledger);
  const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,"http://localhost").pathname;
- if(req.method!=="GET"||!["/","/api/tree","/api/diagnosis"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(req.method!=="GET"||!["/","/api/tree","/api/diagnosis","/api/needs"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(pathname==="/api/needs"){
+  try{
+    const result=publicNeeds(root);
+    res.writeHead(200,{
+      "Content-Type":"application/json; charset=utf-8",
+      "Cache-Control":"no-store",
+      "X-Content-Type-Options":"nosniff"
+    });
+    res.end(JSON.stringify(result));
+  }catch(error){
+    res.writeHead(503,{
+      "Content-Type":"application/json",
+      "Cache-Control":"no-store"
+    });
+    res.end(JSON.stringify({
+      error:"NEEDS_UNAVAILABLE"
+    }));
+  }
+  return;
+ }
  if(pathname==="/api/diagnosis"){
   try{
     const result=publicDiagnosis(root);
