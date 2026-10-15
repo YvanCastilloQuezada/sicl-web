@@ -2,6 +2,7 @@
 /** AV-023: Serve the PO-selected historical AV-UI-001 frontend without rebuilding it. */
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),cp=require("node:child_process");
 const {snapshot}=require("./arki-av020-tree.cjs");
+const {publicDiagnosis,script:diagnosisScript}=require("./arki-av029-diagnosis-bridge.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
 const FROZEN="tools/maqueta-viva/historical/av-ui-001-frozen.html";
@@ -54,13 +55,28 @@ function page(root){
 })();
 </script>`;
  if(!original.includes("<script>")||!original.includes("</body>"))throw Error("HISTORICAL_HTML_INVALID");
- return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+"</body>");
+ return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+diagnosisScript+"</body>");
 }
 function start(root,proposal,ledger,port=8768){
  const html=page(root);snapshot(proposal,ledger);
  const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,"http://localhost").pathname;
- if(req.method!=="GET"||!["/","/api/tree"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(req.method!=="GET"||!["/","/api/tree","/api/diagnosis"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(pathname==="/api/diagnosis"){
+  try{
+    const result=publicDiagnosis(root);
+    res.writeHead(200,{
+      "Content-Type":"application/json; charset=utf-8",
+      "Cache-Control":"no-store",
+      "X-Content-Type-Options":"nosniff"
+    });
+    res.end(JSON.stringify(result));
+  }catch(e){
+    res.writeHead(503,{"Content-Type":"application/json"});
+    res.end(JSON.stringify({error:"DIAGNOSIS_UNAVAILABLE"}));
+  }
+  return;
+ }
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
  try{res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(snapshot(proposal,ledger)))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}
