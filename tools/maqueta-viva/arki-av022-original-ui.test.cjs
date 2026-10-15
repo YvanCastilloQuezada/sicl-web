@@ -1,6 +1,6 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path"),crypto=require("node:crypto");
-const {integrate,start}=require("./arki-av022-original-ui.cjs");
+const {integrate,hydrate,start}=require("./arki-av022-original-ui.cjs");
 const {append}=require("./arki-av019-ledger.cjs");
 const hash=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
 const original=path.join(__dirname,"maqueta-viva.template.html");
@@ -14,3 +14,15 @@ test("AV-022 serves original UI and same-origin evidence with no write routes",a
  append(ledger,proposal,"REQUEST_INVESTIGATION",null,"PO:owner");response=await fetch(base+"/api/tree");assert.equal((await response.json()).decision.status,"MORE_INVESTIGATION_REQUIRED");
  response=await fetch(base+"/api/tree",{method:"POST"});assert.equal(response.status,404);
  }finally{if(server)await new Promise(resolve=>server.close(resolve));fs.rmSync(dir,{recursive:true,force:true})}});
+
+test("AV-022 hydrates both original state placeholders with real repository JSON",()=>{
+ const template=fs.readFileSync(original,"utf8");
+ const page=hydrate(integrate(template),path.resolve(__dirname,"../.."));
+ assert.ok(!page.includes("__ARKI_STATE_JSON__"));
+ assert.ok(!page.includes("__ARKI_ASSEMBLY_JSON__"));
+ const state=page.match(/<script type="application\\/json" id="arki-state">([\\s\\S]*?)<\\/script>/);
+ const assembly=page.match(/<script type="application\\/json" id="arki-assembly">([\\s\\S]*?)<\\/script>/);
+ assert.ok(state);assert.ok(assembly);
+ assert.ok(Array.isArray(JSON.parse(state[1]).roadmap.phases));
+ assert.equal(JSON.parse(assembly[1]).schema,"ARKI-MAQUETA-ASSEMBLY-REGISTRY-0.1");
+});
