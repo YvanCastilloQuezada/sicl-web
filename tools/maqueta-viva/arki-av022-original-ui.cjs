@@ -2,7 +2,7 @@
 /** AV-022 serves the EXISTING Maqueta Viva frontend with same-origin verified AV-020 snapshots. */
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const {snapshot}=require("./arki-av020-tree.cjs");
-const SENTINEL="render();\n})();";\n})();";
+const SENTINEL="render();\n})();";
 const STATE_FILE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
 const REGISTRY_FILE="tools/maqueta-viva/assembly-registry.json";
 function escapeJson(value){return value.replace(/&/g,"\\u0026").replace(/</g,"\\u003c").replace(/>/g,"\\u003e")}
