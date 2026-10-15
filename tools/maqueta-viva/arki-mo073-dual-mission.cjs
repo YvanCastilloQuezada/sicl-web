@@ -6,14 +6,14 @@ const sha=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex")
 const ARCH=/arquitect|espaci|geometr|topolog|diseñ|parti|bim|cad|mep|estructura|territor|gis|clima|terreno|cost|normativ|rvt|ifc|glb|gltf|visual|3d|xr|cámara|gps|planos|tipolog|room|wall|simulaci/i;
 const SELF=/conocim|aprendiz|tutor|book|libro|delta|razon|estrateg|evidenc|fuente|ocr|ingesti|idea|backlog|bitácora|ruta|rfc|gobern|version|identidad|core|replay|observaci|voz|llm|human|autoridad|evaluaci|transferencia|capacidad|runtime|conexión|registro/i;
 function classify(piece){
- const s=[piece.name,piece.purpose.text].join(" ");
+ const s=String(piece.name||"")+" "+(piece.purpose?.epistemicStatus==="HISTORICAL_DOCUMENTARY_INTERPRETATION"?String(piece.purpose.text||""):"");
  const a=ARCH.test(s),b=SELF.test(s);
  const missions=[...(a?["SUPER_ARCHITECT"]:[]),...(b?["SELF_SUFFICIENCY"]:[])];
- return {missions:missions.length?missions:["UNRESOLVED"],status:"CANDIDATE_SEMANTIC_CLASSIFICATION",basis:"TITLE_AND_PURPOSE_HEURISTIC_NOT_CODE_PROOF",authority:"PO_APPROVAL_REQUIRED"};
+ return {missions:missions.length?missions:["UNRESOLVED"],status:"CANDIDATE_SEMANTIC_CLASSIFICATION",basis:"TITLE_PLUS_DOCUMENTED_PURPOSE_ONLY_NO_GENERATED_HYPOTHESIS",authority:"PO_APPROVAL_REQUIRED"};
 }
 function assess(registry,roots){
  const previous=enrich(registry,roots);
- const pieces=previous.pieces.map(p=>({...p,missionAssessment:classify(p)}));
+ const pieces=previous.pieces.map(p=>({...p,missionAssessment:p.id==="I-24"?{missions:["OUT_OF_SCOPE"],status:"EXPLICIT_HISTORICAL_SCOPE_EXCLUSION",basis:"RESEARCH_ONLY_OUT_OF_SCOPE",authority:"PO_APPROVAL_REQUIRED"}:classify(p)}));
  const result={schema:"ARKI-MO073-DUAL-MISSION-CLASSIFICATION-1",sourceReceipt:previous.receiptSha256,
   missions:{SUPER_ARCHITECT:"Multiobjective and multiscale architectural intelligence",SELF_SUFFICIENCY:"Self-inspection, research, learning, testing, correction and operational autonomy"},
   authority:{po:"SOLE_APPROVER_OF_CANONICAL_CHANGES",advisoryResearchAllowed:true,canonicalWrites:false,autonomousPromotion:false},
