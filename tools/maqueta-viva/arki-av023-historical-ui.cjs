@@ -4,6 +4,7 @@ const http=require("node:http"),fs=require("node:fs"),path=require("node:path"),
 const {snapshot}=require("./arki-av020-tree.cjs");
 const {project}=require("./arki-mo05-operational.cjs");
 const {readContinuity}=require("./arki-mo053-continuity.cjs");
+const {propose}=require("./arki-mo055-proposals.cjs");
 const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
 const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
 const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
@@ -26,7 +27,10 @@ function page(root){
  panel.replaceChildren();const h=document.createElement("strong");h.textContent="ARKI · Estado operativo MO-05";panel.append(h);
  const p=document.createElement("p");p.textContent="Plano Vivo: "+data.summary.ordered+"/"+data.summary.total+" ordenadas · "+data.summary.issues+" problemas · ciclos: "+(data.summary.cycle?"sí":"no");panel.append(p);
  const continuity=document.createElement("p");continuity.textContent="Continuidad: "+(data.continuity?.restartStatus||"NO_CONFIGURADA")+" · historial: "+(data.continuity?.history?.length??"sin configurar");panel.append(continuity);
+ const pending=document.createElement("p");pending.textContent="Propuestas pendientes: "+(data.proposals?.summary?.proposals??"no disponibles")+" · alternativas por propuesta: 3 · sin simulación";panel.append(pending);
  const list=document.createElement("ol");for(const a of data.views.arbol.activities.slice(0,10)){const li=document.createElement("li");li.textContent=a.id+" · "+a.title+" · antecesoras: "+(a.dependsOn.join(", ")||"ninguna declarada")+" · "+a.dependencyState;list.append(li)}panel.append(list);
+ const candidates=document.createElement("details");const label=document.createElement("summary");label.textContent="Árbol Vivo · propuestas y alternativas";candidates.append(label);
+ for(const proposal of (data.proposals?.proposals||[]).slice(0,10)){const entry=document.createElement("p");entry.textContent=proposal.activityId+" · bloqueos: "+proposal.blockers.join(", ")+" · A: reconciliar · B: experimentar (no ejecutado) · C: esperar evidencia · PO pendiente";candidates.append(entry)}panel.append(candidates);
  const foot=document.createElement("small");foot.textContent="Solo lectura · ideas liberadas para planificación · ejecución requiere autorización PO · Gemelo no simulado";panel.append(foot);
  }catch(e){panel.textContent="MO-05 no disponible: "+e.message}}
  refresh();const timer=setInterval(()=>{if(!document.hidden)refresh()},15000);window.addEventListener("pagehide",()=>clearInterval(timer),{once:true});
@@ -68,7 +72,7 @@ function start(root,proposal,ledger,port=8768){
  const pathname=new URL(req.url,"http://localhost").pathname;
  if(req.method!=="GET"||!["/","/api/tree","/api/operational"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
- try{let data;if(pathname==="/api/operational"){const registry=JSON.parse(gitShow(root,REGISTRY));data=project(registry);const paths=continuityPaths();if(paths){const c=readContinuity(paths.journal,paths.anchor,registry);const {projection,...continuity}=c;data={...data,continuity}}else data={...data,continuity:{restartStatus:"NOT_CONFIGURED",history:{length:0}}}}else data=snapshot(proposal,ledger);res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(data))}
+ try{let data;if(pathname==="/api/operational"){const registry=JSON.parse(gitShow(root,REGISTRY));data={...project(registry),proposals:propose(registry)};const paths=continuityPaths();if(paths){const c=readContinuity(paths.journal,paths.anchor,registry);const {projection,...continuity}=c;data={...data,continuity}}else data={...data,continuity:{restartStatus:"NOT_CONFIGURED",history:{length:0}}}}else data=snapshot(proposal,ledger);res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(data))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}
  });server.listen(port,"127.0.0.1");return server;
 }
