@@ -35,7 +35,8 @@ if(require.main===module){
  const fs=require("node:fs"),path=require("node:path"),{execFileSync}=require("node:child_process");
  try{
   const root=path.resolve(__dirname,"../..");
-  const sha=execFileSync("git",["rev-parse","HEAD"],{cwd:root,encoding:"utf8",timeout:10000}).trim();
+  const sha=process.argv[2] || process.env.ARKI_SOURCE_COMMIT || execFileSync("git",["rev-parse","HEAD"],{cwd:root,encoding:"utf8",timeout:10000}).trim();
+  if(!SHA.test(sha))throw Error("INVALID_SOURCE_COMMIT");
   const registry=JSON.parse(fs.readFileSync(path.join(__dirname,"assembly-registry.json"),"utf8"));
   const map=JSON.parse(fs.readFileSync(path.join(root,"docs/arki-master-map/ARKI_MASTER_MAP_STATE.json"),"utf8"));
   process.stdout.write(JSON.stringify(composeLiveSystems({registry,map,sourceCommit:sha}),null,2)+"\n");
