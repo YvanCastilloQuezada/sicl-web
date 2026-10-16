@@ -20,7 +20,7 @@ function sanitizeUrl(value) {
   const host = url.hostname.toLowerCase().replace(/\.$/, "");
   if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") ||
       host.endsWith(".internal") || host.endsWith(".test") ||
-      host === "metadata.google.internal" || net.isIP(host.replace(/^\\[|\\]$/g,""))!==0 ||
+      host === "metadata.google.internal" || net.isIP(host.replace(/^\[|\]$/g,""))!==0 ||
       /^\[(?:fc|fd|fe8|fe9|fea|feb)[0-9a-f:]*\]$/i.test(host) ||
       /^\d+\.\d+\.\d+\.\d+$/.test(host) ||
       host.includes("%")) throw new Error("Local or IP-literal endpoint denied");
