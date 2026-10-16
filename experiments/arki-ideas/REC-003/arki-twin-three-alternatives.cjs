@@ -18,10 +18,10 @@ function evaluateThree({ideaId,baseline,alternatives,dependencyGate,sourceCommit
   if(a.evidenceLevel==="MEASURED"&&(!a.evidence||!/^[0-9a-f]{64}$/.test(a.evidence.digest||"")||a.evidence.sourceCommit!==sourceCommit||a.evidence.verifiedBy!=="INDEPENDENT_VERIFIER"))throw Error("MEASURED_EVIDENCE_REQUIRED");
   const speedImprovementPct=baseline.timeMs>0?Number(((baseline.timeMs-a.timeMs)/baseline.timeMs*100).toFixed(1)):null;
   const costChangePct=baseline.cost>0?Number(((a.cost-baseline.cost)/baseline.cost*100).toFixed(1)):null;
-  return {id:a.id,title:String(a.title||a.id),evidenceLevel:a.evidenceLevel,metrics:{timeMs:a.timeMs,cost:a.cost,quality:a.quality,risk:a.risk,testsPassed:a.testsPassed,testsTotal:a.testsTotal,speedImprovementPct,costChangePct},comparison:"NOT_RANKED_ACROSS_UNVERIFIED_EVIDENCE",eligibleForOwnerDecision:a.evidenceLevel==="MEASURED"&&a.testsPassed===a.testsTotal&&dependencyGate==="PASS"&&a.risk<=50,implementation:"NOT_EXECUTED"};
+  return {id:a.id,title:String(a.title||a.id),evidenceLevel:a.evidenceLevel,metrics:{timeMs:a.timeMs,cost:a.cost,quality:a.quality,risk:a.risk,testsPassed:a.testsPassed,testsTotal:a.testsTotal,speedImprovementPct,costChangePct},comparison:"NOT_RANKED_ACROSS_UNVERIFIED_EVIDENCE",eligibleForOwnerDecision:false,evidenceVerification:"CLAIM_ONLY_NOT_INDEPENDENTLY_VERIFIED",implementation:"NOT_EXECUTED"};
  });
  const comparable=results.every(r=>r.evidenceLevel==="MEASURED");
- const status=dependencyGate!=="PASS"?"DEPENDENCIES_BLOCKED":comparable?"THREE_MEASURED_OPTIONS_FOR_OWNER_REVIEW":"SIMULATION_EVIDENCE_INCOMPLETE";
+ const status=dependencyGate!=="PASS"?"DEPENDENCIES_BLOCKED":comparable?"MEASUREMENTS_CLAIMED_INDEPENDENT_VERIFICATION_REQUIRED":"SIMULATION_EVIDENCE_INCOMPLETE";
  const output={schema:"ARKI-TWIN-THREE-ALTERNATIVES-1",ideaId,sourceCommit,baseline,dependencyGate:dependencyGate||"UNKNOWN",status,alternatives:results,selectedAlternative:null,ownerDecision:"PENDING",canonicalMutation:false,implementation:"NOT_EXECUTED"};
  return {...output,receiptSha256:hash(output)};
 }
