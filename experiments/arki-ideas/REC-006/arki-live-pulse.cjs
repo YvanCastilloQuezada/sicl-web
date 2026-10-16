@@ -15,6 +15,14 @@ function sanitizeUrl(value) {
   const url = new URL(value);
   if (!["http:", "https:"].includes(url.protocol)) throw new Error("Only HTTP(S) allowed");
   if (url.username || url.password || url.search || url.hash) throw new Error("No credentials, query or fragment in URL");
+  // Fail closed for obvious local/metadata targets; DNS resolution policy remains deployment responsibility.
+  const host = url.hostname.toLowerCase().replace(/\\.$/, "");
+  if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") ||
+      host.endsWith(".internal") || host.endsWith(".test") ||
+      host === "metadata.google.internal" || host === "[::1]" ||
+      /^\\[(?:fc|fd|fe8|fe9|fea|feb)[0-9a-f:]*\\]$/i.test(host) ||
+      /^\\d+\\.\\d+\\.\\d+\\.\\d+$/.test(host) ||
+      host.includes("%")) throw new Error("Local or IP-literal endpoint denied");
   return url;
 }
 async function observe(name, rawUrl, options = {}) {
