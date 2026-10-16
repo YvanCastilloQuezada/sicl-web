@@ -12,3 +12,18 @@ test("unknown target rejected",()=>assert.equal(proposeRelations(registry,[state
 test("self relationship rejected",()=>assert.equal(proposeRelations(registry,[statement("A","A")]).issues[0].code,"SELF_RELATION"));
 test("duplicates rejected",()=>assert.equal(proposeRelations(registry,[statement("A","B"),statement("A","B")]).issues[0].code,"DUPLICATE_RELATION"));
 test("stable receipt",()=>assert.equal(proposeRelations(registry,[statement("A","B")]).receiptSha256,proposeRelations(registry,[statement("A","B")]).receiptSha256));
+
+test("CLI accepts explicit registry and statements without hidden fixture",()=>{
+ const fs=require("node:fs"),os=require("node:os"),path=require("node:path"),cp=require("node:child_process");
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),"arki-rec002-"));
+ try {
+  const registryPath=path.join(dir,"registry.json"),statementsPath=path.join(dir,"statements.json");
+  fs.writeFileSync(registryPath,JSON.stringify(registry));
+  fs.writeFileSync(statementsPath,JSON.stringify([statement("A","B")]));
+  const result=cp.spawnSync(process.execPath,[path.join(__dirname,"arki-relational-learning.cjs"),registryPath,statementsPath],{encoding:"utf8",timeout:10000});
+  assert.equal(result.status,0,result.stderr);
+  const output=JSON.parse(result.stdout);
+  assert.equal(output.candidates.length,1);
+  assert.equal(output.canonicalMutation,false);
+ } finally {fs.rmSync(dir,{recursive:true,force:true})}
+});
