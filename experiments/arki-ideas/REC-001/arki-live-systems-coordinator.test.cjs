@@ -28,3 +28,14 @@ test("three hypothetical options never reach owner decision",()=>{
  assert(r.twin.decisions[0].alternatives.every(x=>!x.eligibleForOwnerDecision));
  assert.equal(r.owner.decision,"PENDING");
 });
+
+test("standalone ZIP CLI accepts explicit source SHA and stays read-only",()=>{
+ const {spawnSync}=require("node:child_process");
+ const result=spawnSync(process.execPath,[path.join(__dirname,"arki-live-systems-coordinator.cjs"),sourceCommit],{encoding:"utf8",timeout:15000});
+ assert.equal(result.status,0,result.stderr);
+ const snapshot=JSON.parse(result.stdout);
+ assert.equal(snapshot.sourceCommit,sourceCommit);
+ assert.equal(snapshot.execution,"READ_ONLY");
+ assert.equal(snapshot.canonicalMutation,false);
+ assert.equal(snapshot.owner.decision,"PENDING");
+});
