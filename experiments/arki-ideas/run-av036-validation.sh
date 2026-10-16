@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-cd "$(git rev-parse --show-toplevel)"
-if ! command -v node >/dev/null; then echo 'NODE_NOT_AVAILABLE'; exit 10; fi
-echo "HEAD=$(git rev-parse HEAD)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$ROOT"
+command -v node >/dev/null || { echo 'NODE_NOT_AVAILABLE'; exit 10; }
 echo "NODE=$(node --version)"
 echo "STARTED_UTC=$(date -u +%FT%TZ)"
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "SOURCE_GIT_HEAD=$(git rev-parse HEAD)"
+  echo "SOURCE_PROVENANCE=GIT_WORKTREE"
+else
+  echo "SOURCE_GIT_HEAD=UNKNOWN_ZIP"
+  echo "SOURCE_PROVENANCE=NOT_ATTESTED"
+fi
 paths=(
   experiments/arki-ideas/av036-smoke.test.cjs
   experiments/arki-ideas/REC-001/arki-live-systems-coordinator.test.cjs
@@ -16,4 +23,4 @@ for p in "${paths[@]}"; do
   test -f "$p" || { echo "MISSING_TEST=$p"; exit 11; }
 done
 node --test --test-reporter=tap "${paths[@]}"
-echo "AV036_TESTS_PASS_FOR_HEAD=$(git rev-parse HEAD)"
+echo "AV036_LOCAL_TESTS_PASS"
