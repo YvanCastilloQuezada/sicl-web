@@ -18,6 +18,7 @@ jobs:
       - name: Isolated recovered capability tests
         run: |
           node --test experiments/arki-ideas/av036-smoke.test.cjs
+          node --test experiments/arki-ideas/REC-001/arki-live-systems-coordinator.test.cjs
           node --test experiments/arki-ideas/REC-002/arki-relational-learning.test.cjs
           node --test experiments/arki-ideas/REC-003/arki-twin-three-alternatives.test.cjs
           node --test experiments/arki-ideas/REC-006/arki-live-pulse.test.cjs
