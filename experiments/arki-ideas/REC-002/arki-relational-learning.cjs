@@ -38,8 +38,8 @@ function proposeRelations(registry,statements=[]){
 module.exports={proposeRelations};
 if(require.main===module){
  const fs=require("node:fs"),path=require("node:path");
- if(process.argv.length!==3)throw Error("USAGE: node arki-relational-learning.cjs statements.json");
- const statements=JSON.parse(fs.readFileSync(process.argv[2],"utf8"));
- const registry=JSON.parse(fs.readFileSync(path.join(__dirname,"assembly-registry.json"),"utf8"));
+ if(process.argv.length!==4)throw Error("USAGE: node arki-relational-learning.cjs registry.json statements.json");
+ const registry=JSON.parse(fs.readFileSync(path.resolve(process.argv[2]),"utf8"));
+ const statements=JSON.parse(fs.readFileSync(path.resolve(process.argv[3]),"utf8"));
  process.stdout.write(JSON.stringify(proposeRelations(registry,statements),null,2)+"\n");
 }
