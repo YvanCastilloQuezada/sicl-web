@@ -1,0 +1,23 @@
+name: AV036 recovered capabilities validation
+on:
+  push:
+    branches:
+      - experiment/arki-ideas-mapa-vivo-20261015
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recovered-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Isolated recovered capability tests
+        run: |
+          node --test experiments/arki-ideas/av036-smoke.test.cjs
+          node --test experiments/arki-ideas/REC-002/arki-relational-learning.test.cjs
+          node --test experiments/arki-ideas/REC-003/arki-twin-three-alternatives.test.cjs
+          node --test experiments/arki-ideas/REC-006/arki-live-pulse.test.cjs
