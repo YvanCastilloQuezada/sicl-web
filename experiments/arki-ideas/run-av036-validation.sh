@@ -14,6 +14,7 @@ else
 fi
 paths=(
   experiments/arki-ideas/av036-smoke.test.cjs
+  experiments/arki-ideas/av036-mo05-integration.test.cjs
   experiments/arki-ideas/REC-001/arki-live-systems-coordinator.test.cjs
   experiments/arki-ideas/REC-002/arki-relational-learning.test.cjs
   experiments/arki-ideas/REC-003/arki-twin-three-alternatives.test.cjs
