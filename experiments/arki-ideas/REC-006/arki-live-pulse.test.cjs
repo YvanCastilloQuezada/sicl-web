@@ -32,3 +32,16 @@ test("no endpoint yields explicit unknown architecture",async()=>{
  assert.equal(r.state,"UNCONFIGURED");assert.equal(r.d2CanonicalState,"NOT_INSPECTED");
  assert.equal(r.eventLog,"NOT_MODIFIED");
 });
+
+test("local and IP literal destinations rejected",()=>{
+ for(const target of ["http://localhost:3000/health","http://127.0.0.1/health","http://169.254.169.254/latest/meta-data","http://10.0.0.1/health","http://[::1]/health","http://metadata.google.internal/computeMetadata/v1"]) {
+   assert.throws(()=>sanitizeUrl(target),undefined,target);
+ }
+});
+test("rejected local URL is never fetched",async()=>{
+ let called=false;
+ const r=await observe("core","http://127.0.0.1/health",{fetchFn:async()=>{called=true;return {ok:true,status:200}}});
+ assert.equal(called,false);
+ assert.equal(r.state,"UNKNOWN");
+ assert.equal(r.reason,"INVALID_URL");
+});
