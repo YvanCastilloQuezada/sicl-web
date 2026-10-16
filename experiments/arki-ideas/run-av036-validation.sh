@@ -5,7 +5,8 @@ cd "$ROOT"
 command -v node >/dev/null || { echo 'NODE_NOT_AVAILABLE'; exit 10; }
 echo "NODE=$(node --version)"
 echo "STARTED_UTC=$(date -u +%FT%TZ)"
-if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+GIT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -n "$GIT_ROOT" && "$(realpath "$GIT_ROOT")" == "$(realpath "$ROOT")" ]]; then
   echo "SOURCE_GIT_HEAD=$(git rev-parse HEAD)"
   echo "SOURCE_PROVENANCE=GIT_WORKTREE"
 else
@@ -15,6 +16,7 @@ fi
 paths=(
   experiments/arki-ideas/av036-smoke.test.cjs
   experiments/arki-ideas/av036-mo05-integration.test.cjs
+  experiments/arki-ideas/av036-mo06-adversarial.test.cjs
   experiments/arki-ideas/REC-001/arki-live-systems-coordinator.test.cjs
   experiments/arki-ideas/REC-002/arki-relational-learning.test.cjs
   experiments/arki-ideas/REC-003/arki-twin-three-alternatives.test.cjs
