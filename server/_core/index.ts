@@ -6,6 +6,7 @@ import net from "net";
 import { randomUUID } from "crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
+import { registerArkiLocalRoutes } from "./arkiMo08LocalAuth";
 import { registerStorageProxy } from "./storageProxy";
 import { registerArkiMo22 } from "./arkiMo22Bridge";
 import { appRouter } from "../routers";
@@ -106,6 +107,7 @@ async function startServer() {
   registerArkiMo22(app);
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  registerArkiLocalRoutes(app);
   app.get("/api/core/health", async (_req, res) => {
     const correlationId = randomUUID();
     res.setHeader("x-correlation-id", correlationId);
