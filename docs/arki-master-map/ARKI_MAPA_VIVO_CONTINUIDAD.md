@@ -27,3 +27,19 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 - Incorporar eventos de cada decisión futura a JSONL con fuente y fecha; no asumir que ChatGPT escribe automáticamente sin ejecutar herramienta.
 - Verificar que un chat nuevo puede recuperar y leer este archivo.
 - Extender captura de eventos a otros repos y al Core respetando ownership.
+
+## Reconciliación documental — 2026-10-17
+
+> Actualización documental manual en rama de auditoría, basada en la bitácora existente y GitHub. **No es una ejecución del generador, una promoción canónica ni una certificación de CI.** El generador oficial podrá reemplazar este bloque cuando se ejecute y verifique.
+
+- **Rama fuente inspeccionada:** `feat/arki-integration-genealogy-20261013`; HEAD `b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4` (commit del 2026-10-14 01:18:01 UTC). Sin commits posteriores al corte de revisión del 2026-10-15.
+- **Bitácora documental:** `ARKI_CONTINUITY_EVENTS.jsonl` en esta rama de auditoría incluye `CONT-20261014-011` (dos commits previamente identificados) y `CONT-20261014-012` (bloqueo de CI anterior a ejecutar pasos). No se agregan eventos duplicados en esta revisión.
+- **IMPLEMENTED:** lanzador Ubuntu de validación local, generador del mapa y workflow presentes en la rama fuente. Su presencia no acredita operación.
+- **EXECUTED:** los runs de GitHub Actions `38494969069` (ARKI Continuity Map) y `38494969097` (SICL Web CI) terminaron en `failure`; sus jobs muestran `runner_id=0` y cero pasos. No hay evidencia de ejecución de las suites.
+- **VERIFIED:** identidad del SHA remoto, existencia de los archivos de continuidad, estados y metadatos de esos runs y situación del PR #59 (abierto, borrador, sin fusionar), consultados en GitHub el 2026-10-17.
+- **UNKNOWN:** causa exacta de la falta de runner, validación local por SHA en ARKI-02 y aptitud para promoción canónica.
+- **BLOQUEOS:** recuperar CI o evidencia local atribuible al SHA exacto; validar el generador y regenerar determinísticamente el mapa antes de fusionar el PR #59.
+
+**Límites:** ninguna modificación de Core, D-2, AGK, FROZEN o Event Store canónico. No se atribuye aprobación del propietario ni resultado de prueba inexistente.
+
+**Evidencia:** [commit fuente](https://github.com/YvanCastilloQuezada/sicl-web/commit/b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4) · [run de continuidad](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/38494969069) · [run CI](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/38494969097) · [PR #59](https://github.com/YvanCastilloQuezada/sicl-web/pull/59).
