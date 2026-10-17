@@ -6,7 +6,9 @@ import net from "net";
 import { randomUUID } from "crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
+import { registerArkiLocalRoutes } from "./arkiMo08LocalAuth";
 import { registerStorageProxy } from "./storageProxy";
+import { registerArkiMo22 } from "./arkiMo22Bridge";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -39,6 +41,49 @@ async function startServer() {
   app.set("trust proxy", 1);
   const server = createServer(app);
   app.use(securityHeaders());
+
+  // ARKI_DEV_OPEN_API_GUARD_V4
+  app.use("/api", (req, res, next) => {
+    if (process.env.ARKI_DEV_OPEN !== "1") {
+      next();
+      return;
+    }
+
+    if (
+      req.method === "GET" &&
+      req.path === "/core/health"
+    ) {
+      res.status(200).json({
+        status: "DEV_OPEN_LOCKED",
+        coreAccess: false,
+        databaseAccess: false,
+        writes: false
+      });
+      return;
+    }
+
+    res.status(403).json({
+      error: "ARKI_DEV_OPEN_LOCKED_V4"
+    });
+  });
+
+  // ARKI_DEV_OPEN_WRITE_GATE_V1
+  // Development instance: fail closed for API writes.
+  // Production behavior is unchanged.
+  app.use("/api", (req, res, next) => {
+    if (
+      process.env.ARKI_DEV_OPEN === "1" &&
+      !["GET", "HEAD", "OPTIONS"].includes(req.method)
+    ) {
+      res.status(403).json({
+        error: "ARKI_DEV_OPEN_READ_ONLY",
+        message: "Development access cannot perform API writes or approvals.",
+      });
+      return;
+    }
+    next();
+  });
+
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -59,8 +104,10 @@ async function startServer() {
   app.use("/api/oauth", rateLimit({ name: "oauth", max: 30 }));
   app.use("/api/core", rateLimit({ name: "core", max: 90 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
+  registerArkiMo22(app);
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  registerArkiLocalRoutes(app);
   app.get("/api/core/health", async (_req, res) => {
     const correlationId = randomUUID();
     res.setHeader("x-correlation-id", correlationId);
@@ -106,16 +153,32 @@ async function startServer() {
   }
 
   const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = await findAvailablePort(preferredPort);
+  const port = process.env.ARKI_DEV_SOCKET ? preferredPort : await findAvailablePort(preferredPort);
 
   if (port !== preferredPort) {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
   }
 
-  server.listen(port, () => {
-    attachParametricWebSocket(server);
-    console.log(`Server running on http://localhost:${port}/`);
-  });
+  const devSocket = process.env.ARKI_DEV_SOCKET;
+  if (devSocket) {
+    if (process.env.ARKI_DEV_OPEN !== "1" || process.env.NODE_ENV !== "production") {
+      throw new Error("ARKI_DEV_SOCKET requires ARKI_DEV_OPEN=1 and NODE_ENV=production");
+    }
+    if (!devSocket.startsWith("/run/user/") || !devSocket.endsWith("/arki-dev-open.sock")) {
+      throw new Error("ARKI_DEV_SOCKET must be under /run/user/<uid>/arki-dev-open.sock");
+    }
+    const fs = await import("node:fs");
+    if (fs.existsSync(devSocket)) throw new Error("Socket path already exists; refusing to overwrite");
+    server.listen(devSocket, () => {
+      fs.chmodSync(devSocket, 0o600);
+      console.log("ARKI isolated development socket ready");
+    });
+  } else {
+    server.listen(port, "127.0.0.1", () => {
+      if (process.env.ARKI_DEV_OPEN !== "1") attachParametricWebSocket(server);
+      console.log(`Server running on http://localhost:${port}/`);
+    });
+  }
 }
 
 startServer().catch(console.error);
