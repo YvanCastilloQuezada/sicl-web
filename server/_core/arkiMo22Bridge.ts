@@ -5,6 +5,7 @@ import { COOKIE_NAME } from '@shared/const';
 import { sdk } from './sdk';
 import { ENV } from './env';
 import { getUserByOpenId } from '../db';
+import { authenticateLocalIdentity } from './arkiIdentityBridge';
 import mysql from 'mysql2/promise';
 import { ArkiMysqlLedgerRepository } from './arkiMysqlLedgerRepository.mjs';
 import { createAuthorizedStorage } from './arkiAuthorizedStorage.mjs';
@@ -15,7 +16,10 @@ function enabled(): boolean {
   return process.env.ARKI_STORAGE_MODE === 'local' &&
     process.env.ARKI_MO22_ENABLE === '1' &&
     process.env.ARKI_DEV_OPEN !== '1' &&
-    process.env.ARKI_IDENTITY_MODE === 'manus';
+    (process.env.ARKI_IDENTITY_MODE === 'manus' ||
+      (process.env.ARKI_IDENTITY_MODE === 'local' &&
+       process.env.ARKI_MO08_LOCAL_AUTH === '1' &&
+       process.env.NODE_ENV !== 'production'));
 }
 let service: ReturnType<typeof createAuthorizedStorage> | undefined;
 function storage() {
@@ -30,6 +34,9 @@ function storage() {
   return service;
 }
 async function authenticated(req: Request) {
+  if (process.env.ARKI_IDENTITY_MODE === 'local') {
+    return authenticateLocalIdentity(req);
+  }
   // Do not upsert users, use a verified cookie and an existing DB identity only.
   const cookieToken = parseCookies(req.headers.cookie ?? '')[COOKIE_NAME];
   const authorization = req.headers.authorization;
